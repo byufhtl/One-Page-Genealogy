@@ -4,5 +4,5 @@
  */
 
 interface IBoxTreeListener {
-    update(boxTree: IBoxTree)
+    update(boxTree: IBoxTree): void;
 }
