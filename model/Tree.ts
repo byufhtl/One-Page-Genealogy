@@ -25,6 +25,7 @@ class Tree implements ITree {
                     throw new Error("Repeat Key, should always receive unique keys.")
                 }
                 self.treeMap[node.getId()] = node;
+                self.treeListener.handleUpdate(self);
             },
             done(): void {
 
