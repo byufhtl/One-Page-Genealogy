@@ -4,8 +4,8 @@
 /// <reference path="ISourceListener.ts"/>
 
 interface ISource {
-    start(id:string):void;
-    addListener(listener:ISourceListener):void;
-    pause():void;
-    play():void;
+    start(id: string): void;
+    addListener(listener: ISourceListener): void;
+    pause(): void;
+    play(): void;
 }
