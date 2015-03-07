@@ -3,5 +3,5 @@
  */
 
 interface IControllerListener {
-    handle()
+    handle(param: any): void;
 }
