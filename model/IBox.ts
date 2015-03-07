@@ -4,11 +4,11 @@
  */
 
 interface IBox {
-    getHeight(): number
-    getWidth(): number
-    getX(): number
-    getY(): number
-    getNode(): INode
-    getType(): string
+    getHeight(): number;
+    getWidth(): number;
+    getX(): number;
+    getY(): number;
+    getNode(): INode;
+    getType(): string;
 }
 

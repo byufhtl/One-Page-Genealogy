@@ -6,7 +6,7 @@
  */
 
 interface IBoxTree {
-    getTreeListener(): ITreeListener
-    getBoxes(): IBox[]
-    setBoxTreeListener(handler: IBoxTreeListener)
+    getTreeListener(): ITreeListener;
+    getBoxes(): IBox[];
+    setBoxTreeListener(handler: IBoxTreeListener): void;
 }
