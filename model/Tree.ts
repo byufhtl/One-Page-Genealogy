@@ -1,4 +1,6 @@
 ///<reference path="ITree.ts"/>
+///<reference path="../controller/BoxMap.ts"/>
+///<reference path="Box.ts"/>
 /**
  * Created by curtis on 3/7/15.
  */
@@ -44,5 +46,16 @@ class Tree implements ITree {
     }
     setListener(listener: ITreeListener): void {
         this.treeListener = listener;
+    }
+    asBoxMap(): BoxMap {
+        var boxMap:BoxMap = new BoxMap(this.root.getId());
+        for (var key in this.treeMap) {
+            if (this.treeMap.hasOwnProperty(key)) {
+                var node: INode = this.treeMap[key];
+                var box:IBox = new Box(node);
+                boxMap.setId(node.getId(), box);
+            }
+        }
+        return boxMap;
     }
 }
