@@ -5,7 +5,7 @@
 
 interface ISource {
     start(id: string): void;
-    addListener(listener: ISourceListener): void;
+    setListener(listener: ISourceListener): void;
     pause(): void;
     play(): void;
 }
