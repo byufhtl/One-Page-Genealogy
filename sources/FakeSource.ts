@@ -37,6 +37,10 @@ class FakeSource implements ISource {
         function enqueueNextChild() {
             if (nextIndex <= MAX_NUM_IDS) {
                 childQueue.push(nextIndex++);
+                return true;
+            }
+            else {
+                return false;
             }
         }
 
@@ -47,7 +51,9 @@ class FakeSource implements ISource {
             var n = new FakeNode(root.toString());
             for (var i = 0; i < 3; ++i) {
                 n.addBranchId(nextIndex.toString());
-                enqueueNextChild(); // Only pushes child on queue if there is space.
+                if (! enqueueNextChild()) {
+                    break;
+                } // Only pushes child on queue if there is space.
             }
 
             this.fireNodeCreated(n);
