@@ -8,7 +8,7 @@ class Box implements IBox {
     private y: number;
     private w: number;
     private h: number;
-    private type: string;
+    private type: string = null;
 
     constructor(node: INode) {
         this.node = node;

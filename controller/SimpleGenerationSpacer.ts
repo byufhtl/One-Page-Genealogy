@@ -10,6 +10,7 @@ class SimpleGenerationSpacer implements  IStyler {
         root.setX(0);
         root.setWidth(100);
         root.setHeight(30);
+        root.setType('first');
 
         var queue: string[] = [];
         queue.push(rootId);
@@ -18,6 +19,8 @@ class SimpleGenerationSpacer implements  IStyler {
             var box:IBox = boxes.getId(queue.shift());
             var node:INode = box.getNode();
             var branchIds = node.getBranchIds();
+
+
 
             var bx = box.getX() + box.getWidth() + 10;
             var bw = box.getWidth();
@@ -28,6 +31,10 @@ class SimpleGenerationSpacer implements  IStyler {
                 if(!branchBox) {
                     continue;
                 }
+                if(box.getType() === 'first') {
+                    branchBox.setType('second');
+                }
+
                 branchBox.setX(bx);
                 branchBox.setWidth(bw);
                 branchBox.setHeight(bh);

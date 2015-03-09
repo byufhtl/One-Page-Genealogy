@@ -28,11 +28,20 @@ class SimpleCanvasViewManager implements IViewManager {
 
             //console.log(branchIds);
             if(branchIds.length === 0) {
-
                 this.ctx.fillStyle = "#993399";
             }
             else {
-                this.ctx.fillStyle = "#666666";
+
+                if(box.getType() === "first") {
+                    this.ctx.fillStyle = "#006600";
+                }
+                else if(box.getType() === "second") {
+                    this.ctx.fillStyle = "#660000";
+                }
+                else {
+                    this.ctx.fillStyle = "#666666";
+                }
+
                 for (var i:number = 0; i < branchIds.length; i++) {
                     var branchBox:IBox = boxes.getId(branchIds[i]);
                     if (!branchBox) {
