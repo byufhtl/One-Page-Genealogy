@@ -67,6 +67,3 @@ class FakeSource implements ISource {
     }
 
 }
-
-var S = new FakeSource();
-S.start();

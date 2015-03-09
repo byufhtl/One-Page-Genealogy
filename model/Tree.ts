@@ -15,6 +15,7 @@ class Tree implements ITree {
         var self = this;
         this.started = false;
         this.root = null;
+        this.treeMap = {};
         this.sourceListener = {
             gotNode(node: INode): void {
                 if(!self.started) {
@@ -29,6 +30,11 @@ class Tree implements ITree {
             },
             done(): void {
 
+            }
+        }
+        this.treeListener = {
+            handleUpdate(tree: ITree): void {
+                console.log("Tree updated");
             }
         }
     }

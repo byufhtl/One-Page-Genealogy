@@ -5,8 +5,29 @@
     <title></title>
 </head>
 <body>
-
+    <script src="sources/FakeNode.js" type="text/javascript"></script>
     <script src="sources/FakeSource.js" type="text/javascript"></script>
 
+    <script src="controller/BoxMap.js" type="text/javascript"></script>
+    <script src="controller/P.js" type="text/javascript"></script>
+    <script src="controller/SimpleGenerationSpacer.js" type="text/javascript"></script>
+    <script src="controller/YSpacer.js" type="text/javascript"></script>
+
+    <script src="model/Box.js" type="text/javascript"></script>
+    <script src="model/Tree.js" type="text/javascript"></script>
+
+    <script src="js/SpacerNode.js" type="text/javascript"></script>
+    <script src="js/SpacerTree.js" type="text/javascript"></script>
+
+    <script>
+        var S = new FakeSource();
+        var t = new Tree();
+        var p = new P();
+        t.setListener(p);
+        S.setListener(t.getSourceListener());
+
+        S.start();
+
+    </script>
 </body>
 </html>

@@ -5,10 +5,10 @@
 
 class FakeNode implements INode {
 
-    branchIds: {[id: string]: boolean; } = {};
+    branchIds: string[];
 
     constructor(public id: string) {
-
+        this.branchIds = [];
     }
 
     getId(): string {
@@ -24,10 +24,10 @@ class FakeNode implements INode {
     }
 
     getBranchIds(): string[] {
-        return [];
+        return this.branchIds;
     }
 
     addBranchId(id: string): void {
-        this.branchIds[id] = true;
+        this.branchIds.push(id);
     }
 }
