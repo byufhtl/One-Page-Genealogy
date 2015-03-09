@@ -4,6 +4,7 @@
 ///<reference path="SimpleGenerationSpacer.ts"/>
 ///<reference path="YSpacer.ts"/>
 ///<reference path="../view/IViewManager.ts"/>
+///<reference path="CustomSpacer.ts"/>
 /**
  * Created by krr428 on 3/7/15.
  */
@@ -12,9 +13,13 @@ class P implements IControllerListener, ITreeListener {
 
     private stylingPipeline: IStyler[]; // This changes based on
     private viewManager;
+    private customSpacer: CustomSpacer;
+
     constructor() {
         this.stylingPipeline = [];
         this.stylingPipeline.push(new SimpleGenerationSpacer());
+        this.customSpacer = new CustomSpacer();
+        this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
         this.viewManager = {
             refresh(boxes: BoxMap): void {

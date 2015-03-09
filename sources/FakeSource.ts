@@ -36,7 +36,6 @@ class FakeSource implements ISource {
 
         function enqueueNextChild() {
             if (nextIndex <= MAX_NUM_IDS) {
-                console.log(nextIndex);
                 childQueue.push(nextIndex++);
                 return true;
             }
