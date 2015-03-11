@@ -20,6 +20,9 @@ class YSpacer implements  IStyler {
         for (var key in nodeMap) {
             if (nodeMap.hasOwnProperty(key)) {
                 var box: IBox = boxes.getId(key);
+                if(isNaN(nodeMap[key].y)) {
+                    nodeMap[key].y = 0;
+                }
                 box.setY(nodeMap[key].y);
             }
         }
@@ -27,7 +30,6 @@ class YSpacer implements  IStyler {
     }
     private createMap(boxes: BoxMap): any {
         var rootId: string = boxes.getRoot();
-        var root = boxes.getId(rootId);
         var map = [];
         map[rootId] = {};
 

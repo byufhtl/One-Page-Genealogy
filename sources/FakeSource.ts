@@ -30,6 +30,7 @@ class FakeSource implements ISource {
     }
 
     start(): void {
+        var self = this;
         var MAX_NUM_IDS = 300;
         var childQueue = [];
         var nextIndex = 0;
@@ -59,7 +60,7 @@ class FakeSource implements ISource {
                 }// Only pushes child on queue if there is space.
             }
 
-            this.fireNodeCreated(n);
+            self.fireNodeCreated(n);
         }
     }
 

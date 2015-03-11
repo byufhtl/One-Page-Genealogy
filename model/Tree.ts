@@ -25,11 +25,17 @@ class Tree implements ITree {
                 if(self.treeMap.hasOwnProperty(node.getId())){
                     throw new Error("Repeat Key, should always receive unique keys.")
                 }
+
+
                 self.treeMap[node.getId()] = node;
-                self.treeListener.handleUpdate(self);
+
+                if(Object.keys(self.treeMap).length % 20 === 0) {
+                    self.treeListener.handleUpdate(self);
+                }
+
             },
             done(): void {
-
+                self.treeListener.handleUpdate(self);
             }
         }
         this.treeListener = {

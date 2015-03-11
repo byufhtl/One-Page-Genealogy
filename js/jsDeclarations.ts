@@ -3,3 +3,5 @@
  */
 declare var FamilySearch: any;
 declare var SpacerTree: any;
+declare var Hammer: any;
+declare var $: any;
