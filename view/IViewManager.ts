@@ -3,5 +3,9 @@
  * Created by curtis on 3/7/15.
  */
 interface IViewManager {
-    refresh(boxMap: BoxMap): void;
+    refresh(boxMap: BoxMap): IGraphicObject;
+
+    setTranslation(x:number, y:number): void;
+    setScale(s: number): void;
+    setSize(width: number, height: number): void;
 }

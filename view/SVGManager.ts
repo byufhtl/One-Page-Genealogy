@@ -1,7 +1,10 @@
 ///<reference path="IViewManager.ts"/>
-///<reference path="ISVGBoxRender.ts"/>
+///<reference path="IBoxRender.ts"/>
 ///<reference path="BasicSVGBox.ts"/>
 ///<reference path="../js/jsDeclarations.ts"/>
+///<reference path="IGraphicObject.ts"/>
+///<reference path="SVGGraphicObject.ts"/>
+///<reference path="../util/Point.ts"/>
 /**
  * Created by curtis on 3/10/15.
  */
@@ -9,10 +12,13 @@ class SVGManager implements IViewManager {
 
     private svgRoot;
     private linePath;
-    private renders:{[s:string]:ISVGBoxRender;};
+    private renders:{[s:string]:IBoxRender;};
     private boundingRect;
+    private graphicObject: SVGGraphicObject;
 
     constructor(svgElementId:string) {
+        this.graphicObject = new SVGGraphicObject();
+
         var svg =  document.getElementById(svgElementId);
         this.svgRoot = document.createElementNS("http://www.w3.org/2000/svg", "g");
         svg.appendChild(this.svgRoot);
@@ -21,7 +27,7 @@ class SVGManager implements IViewManager {
 
         this.renders = {
             'basic': new BasicSVGBox()
-        }
+        };
 
         var self = this;
         this.boundingRect = null;
@@ -35,7 +41,7 @@ class SVGManager implements IViewManager {
                 x: pt.x - self.boundingRect.left,
                 y: pt.y - self.boundingRect.top
             };
-        }
+        };
 
 
         var hammer = new Hammer(svg);
@@ -60,25 +66,28 @@ class SVGManager implements IViewManager {
 
         function startDrag(pt) {
             pt1 = pt;
+
+
         }
         function drag(pt) {
             pt2 = pt1;
             pt1 = pt;
 
-            dx -= (pt2.x - pt1.x);
-            dy -= (pt2.y - pt1.y);
+            var p1:Point = new Point(pt1.x, pt1.y);
+            var p2:Point = new Point(pt2.x, pt2.y);
 
-            self.svgRoot.setAttribute("transform", "translate("+0+", "+dy+")");
+            self.graphicObject.fireTranslate(p1, p2);
         }
         function endDrag(pt, vx, vy) {
             pt2 = null;
             pt1 = null;
         }
     }
-    refresh(boxes: BoxMap): void {
+    refresh(boxes: BoxMap): IGraphicObject {
         this.clear();
         this.drawLine(boxes);
         this.drawBoxes(boxes);
+        return this.graphicObject;
     }
 
     private clear():void {
@@ -87,6 +96,7 @@ class SVGManager implements IViewManager {
         }
     }
     private drawBoxes(boxes: BoxMap): void {
+        var self = this;
         var rootId: string = boxes.getRoot();
         var queue: string[] = [];
         queue.push(rootId);
@@ -95,8 +105,17 @@ class SVGManager implements IViewManager {
             var node:INode = box.getNode();
             var branchIds = node.getBranchIds();
 
-            var g = this.renders['basic'].render(box);
+            var g = BoxStyleFactory.getNewBoxStyle(box.getType()).render(box);
             this.svgRoot.appendChild(g);
+
+
+            (function(node) {
+                var hammer = new Hammer(g);
+                var pan = hammer.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
+                hammer.on('tap', function (ev) {
+                    self.graphicObject.fireClick(node.getId());
+                });
+            })(node);
 
             for (var i:number = 0; i < branchIds.length; i++) {
                 var branchBox:IBox = boxes.getId(branchIds[i]);
@@ -182,5 +201,14 @@ class SVGManager implements IViewManager {
         }
         this.linePath.setAttribute('stroke','black');
         this.linePath.setAttribute('d', d);
+    }
+    setTranslation(x:number, y:number): void {
+        this.svgRoot.setAttribute("transform", "translate("+0+", "+y+")");
+    }
+    setScale(s: number): void {
+
+    }
+    setSize(width: number, height: number): void {
+
     }
 }

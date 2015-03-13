@@ -16,14 +16,14 @@ class CustomSpacer implements  IStyler {
 
                 if(box) {
 
-                    var map = this.customMap[key]
+                    var map = this.customMap[key];
 
-                    if(map.hasOwnProperty('height')) {
-                        box.setHeight(map['height']);
-                    }
-                    if(map.hasOwnProperty('width')) {
-                        box.setWidth(map['width']);
-                    }
+                    //if(map.hasOwnProperty('height')) {
+                    //    box.setHeight(map['height']);
+                    //}
+                    //if(map.hasOwnProperty('width')) {
+                    //    box.setWidth(map['width']);
+                    //}
                     if(map.hasOwnProperty('x')) {
                         box.setX(map['x']);
                     }

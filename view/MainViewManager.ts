@@ -10,7 +10,16 @@ class MainViewManager implements IViewManager {
     constructor() {
         this.svgManager = new SVGManager("opg-chart");
     }
-    refresh(boxMap: BoxMap): void {
-        this.svgManager.refresh(boxMap);
+    refresh(boxMap: BoxMap): IGraphicObject {
+        return this.svgManager.refresh(boxMap);
+    }
+    setTranslation(x:number, y:number): void {
+        this.svgManager.setTranslation(x, y);
+    }
+    setScale(s: number): void {
+
+    }
+    setSize(width: number, height: number): void {
+
     }
 }

@@ -1,4 +1,5 @@
 ///<reference path="IStyler.ts"/>
+///<reference path="../view/BoxStyleFactory.ts"/>
 /**
  * Created by curtis on 3/9/15.
  */
@@ -8,9 +9,9 @@ class SimpleGenerationSpacer implements  IStyler {
         var root = boxes.getId(rootId);
 
         root.setX(0);
-        root.setWidth(100);
-        root.setHeight(30);
-        root.setType('first');
+        root.setHeight(BoxStyleFactory.getHeight('basic'));
+        root.setWidth(BoxStyleFactory.getWidth('basic'));
+        root.setType('basic');
 
         var queue: string[] = [];
         queue.push(rootId);
@@ -23,21 +24,18 @@ class SimpleGenerationSpacer implements  IStyler {
 
 
             var bx = box.getX() + box.getWidth() + 10;
-            var bw = box.getWidth();
-            var bh = box.getHeight();
 
             for(var i:number=0; i<branchIds.length; i++) {
                 var branchBox:IBox = boxes.getId(branchIds[i]);
                 if(!branchBox) {
                     continue;
                 }
-                if(box.getType() === 'first') {
-                    branchBox.setType('second');
-                }
+
+                branchBox.setType('basic');
 
                 branchBox.setX(bx);
-                branchBox.setWidth(bw);
-                branchBox.setHeight(bh);
+                branchBox.setHeight(BoxStyleFactory.getHeight('basic'));
+                branchBox.setWidth(BoxStyleFactory.getWidth('basic'));
                 queue.push(branchIds[i]);
             }
         }
