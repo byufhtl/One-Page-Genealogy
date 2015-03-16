@@ -7,6 +7,7 @@
 ///<reference path="../sources/FakeSource.ts"/>
 ///<reference path="../view/MainViewManager.ts"/>
 ///<reference path="../model/Tree.ts"/>
+///<reference path="../sources/FamilySearchSource.ts"/>
 /**
  * Created by curtis on 3/11/15.
  */
@@ -23,7 +24,7 @@ class C implements IGraphicObjectListener {
 
 
     constructor() {
-        this.source = new FakeSource();
+        this.source = new FamilySearchSource('LDJQ-2GC', 5);
         this.tree = new Tree();
         this.p = new P(this);
         this.viewManager = new MainViewManager();
@@ -34,7 +35,10 @@ class C implements IGraphicObjectListener {
         this.tree.setListener(this.p);
         this.source.setListener(this.tree.getSourceListener());
 
-        this.source.start();
+        var self = this;
+        FamilySearch.getAccessToken().then(function (response) {
+            self.source.start();
+        });
     }
     setOptionListener(listener: IOptionListener): void {
         this.optionListener = listener;
@@ -57,6 +61,6 @@ class C implements IGraphicObjectListener {
 
     }
     click(id: string): void {
-        this.p.handle({type: 'click', id:id});
+        this.p.handle({type: 'compactSimpleNameBox', id:id});
     }
 }

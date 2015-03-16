@@ -9,9 +9,9 @@ class SimpleGenerationSpacer implements  IStyler {
         var root = boxes.getId(rootId);
 
         root.setX(0);
-        root.setHeight(BoxStyleFactory.getHeight('basic'));
-        root.setWidth(BoxStyleFactory.getWidth('basic'));
-        root.setType('basic');
+        root.setHeight(BoxStyleFactory.getHeight('simpleNameBox'));
+        root.setWidth(BoxStyleFactory.getWidth('simpleNameBox'));
+        root.setType('simpleNameBox');
 
         var queue: string[] = [];
         queue.push(rootId);
@@ -31,11 +31,11 @@ class SimpleGenerationSpacer implements  IStyler {
                     continue;
                 }
 
-                branchBox.setType('basic');
+                branchBox.setType('simpleNameBox');
 
                 branchBox.setX(bx);
-                branchBox.setHeight(BoxStyleFactory.getHeight('basic'));
-                branchBox.setWidth(BoxStyleFactory.getWidth('basic'));
+                branchBox.setHeight(BoxStyleFactory.getHeight('simpleNameBox'));
+                branchBox.setWidth(BoxStyleFactory.getWidth('simpleNameBox'));
                 queue.push(branchIds[i]);
             }
         }

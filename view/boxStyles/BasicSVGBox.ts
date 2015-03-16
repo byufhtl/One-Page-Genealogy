@@ -1,4 +1,4 @@
-///<reference path="IBoxRender.ts"/>
+///<reference path="../IBoxRender.ts"/>
 /**
  * Created by curtis on 3/10/15.
  */

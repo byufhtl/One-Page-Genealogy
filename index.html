@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/familysearch-javascript-sdk.min.js" type="text/javascript"></script>
+
 
     <script src="sources/FakeNode.js" type="text/javascript"></script>
     <script src="sources/FakeSource.js" type="text/javascript"></script>
+    <script src="sources/FamilySearchSource.js" type="text/javascript"></script>
+    <script src="sources/FSDownloader.js" type="text/javascript"></script>
+    <script src="sources/FSPerson.js" type="text/javascript"></script>
+    <script src="sources/FSDescNode.js" type="text/javascript"></script>
 
     <script src="controller/BoxMap.js" type="text/javascript"></script>
     <script src="controller/P.js" type="text/javascript"></script>
@@ -24,16 +30,19 @@
 
     <script src="js/hammer.min.js" type="text/javascript"></script>
 
+
     <script src="util/Point.js" type="text/javascript"></script>
 
     <script src="view/SimpleCanvasViewManager.js" type="text/javascript"></script>
     <script src="view/MainViewManager.js" type="text/javascript"></script>
     <script src="view/SVGManager.js" type="text/javascript"></script>
-    <script src="view/BasicSVGBox.js" type="text/javascript"></script>
     <script src="view/SVGGraphicObject.js" type="text/javascript"></script>
     <script src="view/BoxStyleFactory.js" type="text/javascript"></script>
-    <script src="view/ClickRenderBox.js" type="text/javascript"></script>
 
+    <script src="view/boxStyles/ClickRenderBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/BasicSVGBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SimpleNameBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/CompactSimpleNameBox.js" type="text/javascript"></script>
 
 
 
@@ -57,9 +66,6 @@
     </style>
 </head>
 <body>
-    <!--<canvas id="canvas" width="2000" height="5000"-->
-            <!--style="border:1px solid #000000;"></canvas>-->
-
     <svg id="opg-chart">
     </svg>
 </body>

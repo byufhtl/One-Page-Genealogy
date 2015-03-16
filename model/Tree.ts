@@ -29,7 +29,7 @@ class Tree implements ITree {
 
                 self.treeMap[node.getId()] = node;
 
-                if(Object.keys(self.treeMap).length % 20 === 0) {
+                if(Object.keys(self.treeMap).length % 1 === 0) {
                     self.treeListener.handleUpdate(self);
                 }
 

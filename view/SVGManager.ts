@@ -1,6 +1,6 @@
 ///<reference path="IViewManager.ts"/>
 ///<reference path="IBoxRender.ts"/>
-///<reference path="BasicSVGBox.ts"/>
+///<reference path="boxStyles/BasicSVGBox.ts"/>
 ///<reference path="../js/jsDeclarations.ts"/>
 ///<reference path="IGraphicObject.ts"/>
 ///<reference path="SVGGraphicObject.ts"/>

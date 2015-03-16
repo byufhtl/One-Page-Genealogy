@@ -25,9 +25,9 @@ class P implements IControllerListener, ITreeListener {
     }
     handle(param: any): void {
         var refresh = false;
-        if(param.type == "click") {
+        if(param.type) {
             this.customSpacer.addCustomStyle(param.id, {
-                type: 'clicked'
+                type: param.type
             });
             refresh = true;
         }
