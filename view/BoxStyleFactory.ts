@@ -3,6 +3,7 @@
 ///<reference path="boxStyles/ClickRenderBox.ts"/>
 ///<reference path="boxStyles/SimpleNameBox.ts"/>
 ///<reference path="boxStyles/CompactSimpleNameBox.ts"/>
+///<reference path="boxStyles/HorizontalNameLifeBox.ts"/>
 /**
  * Created by curtis on 3/13/15.
  */
@@ -18,7 +19,8 @@ class BoxStyleFactory {
         boxTypes.push(new BasicSVGBox());
         boxTypes.push(new ClickRenderBox());
         boxTypes.push(new SimpleNameBox());
-        boxTypes.push(new CompactSimpleNameBox())
+        boxTypes.push(new CompactSimpleNameBox());
+        boxTypes.push(new HorizontalNameLifeBox());
 
         BoxStyleFactory.boxes = {};
 

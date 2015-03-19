@@ -61,6 +61,6 @@ class C implements IGraphicObjectListener {
 
     }
     click(id: string): void {
-        this.p.handle({type: 'compactSimpleNameBox', id:id});
+        this.p.handle({type: 'horizontalNameLifeBox', id:id});
     }
 }

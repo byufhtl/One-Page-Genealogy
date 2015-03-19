@@ -6,6 +6,7 @@
 ///<reference path="../view/IViewManager.ts"/>
 ///<reference path="CustomSpacer.ts"/>
 ///<reference path="C.ts"/>
+///<reference path="LeafNodeSpacer.ts"/>
 /**
  * Created by krr428 on 3/7/15.
  */
@@ -19,6 +20,7 @@ class P implements IControllerListener, ITreeListener {
     constructor(private c: C) {
         this.stylingPipeline = [];
         this.stylingPipeline.push(new SimpleGenerationSpacer());
+        this.stylingPipeline.push(new LeafNodeSpacer());
         this.customSpacer = new CustomSpacer();
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
