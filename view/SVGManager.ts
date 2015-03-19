@@ -16,10 +16,21 @@ class SVGManager implements IViewManager {
     private boundingRect;
     private graphicObject: SVGGraphicObject;
 
+    private height: number;
+    private width: number;
+    private translationX: number;
+    private translationY: number;
+    private lastBoxes: BoxMap;
+
     constructor(svgElementId:string) {
         this.graphicObject = new SVGGraphicObject();
 
         var svg =  document.getElementById(svgElementId);
+
+        //this is dangerous to just kill all listeners.
+        $(svg).off();
+        $(window).off();
+
         this.svgRoot = document.createElementNS("http://www.w3.org/2000/svg", "g");
         svg.appendChild(this.svgRoot);
 
@@ -31,6 +42,14 @@ class SVGManager implements IViewManager {
 
         var self = this;
         this.boundingRect = null;
+
+        this.translationX = 0;
+        this.translationY = 0;
+
+        this.boundingRect = svg.getBoundingClientRect();
+        $(window).resize(function() {
+            self.boundingRect = svg.getBoundingClientRect();
+        });
 
         var getHammerPosition = function(container, pt) {
             if(!self.boundingRect) {
@@ -87,15 +106,16 @@ class SVGManager implements IViewManager {
         this.clear();
         this.drawLine(boxes);
         this.drawBoxes(boxes);
+        this.lastBoxes = boxes;
         return this.graphicObject;
     }
-
     private clear():void {
         while(this.svgRoot.firstChild){
             this.svgRoot.removeChild(this.svgRoot.firstChild);
         }
     }
     private drawBoxes(boxes: BoxMap): void {
+
         var self = this;
         var rootId: string = boxes.getRoot();
         var queue: string[] = [];
@@ -105,17 +125,35 @@ class SVGManager implements IViewManager {
             var node:INode = box.getNode();
             var branchIds = node.getBranchIds();
 
-            var g = BoxStyleFactory.getNewBoxStyle(box.getType()).render(box);
-            this.svgRoot.appendChild(g);
+            var width: number = this.boundingRect.right - this.boundingRect.left;
+            var height: number = this.boundingRect.bottom - this.boundingRect.top;
 
+            var inBound: boolean = true;
+            //if(box.getX() > width + this.translationX) {
+            //    inBound = false;
+            //}
+            //if(box.getX() + box.getWidth() < this.translationX){
+            //    inBound = false;
+            //}
+            if(box.getY() > height - this.translationY) {
+                inBound = false;
+            }
+            if(box.getY() + box.getHeight() < -this.translationY) {
+                inBound = false;
+            }
 
-            (function(node) {
-                var hammer = new Hammer(g);
-                var pan = hammer.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
-                hammer.on('tap', function (ev) {
-                    self.graphicObject.fireClick(node.getId());
-                });
-            })(node);
+            if(inBound) {
+                var g = BoxStyleFactory.getNewBoxStyle(box.getType()).render(box);
+                this.svgRoot.appendChild(g);
+
+                (function (node) {
+                    var hammer = new Hammer(g);
+                    var pan = hammer.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
+                    hammer.on('tap', function (ev) {
+                        self.graphicObject.fireClick(node.getId());
+                    });
+                })(node);
+            }
 
             for (var i:number = 0; i < branchIds.length; i++) {
                 var branchBox:IBox = boxes.getId(branchIds[i]);
@@ -203,7 +241,11 @@ class SVGManager implements IViewManager {
         this.linePath.setAttribute('d', d);
     }
     setTranslation(x:number, y:number): void {
+
+        this.translationX = x;
+        this.translationY = y;
         this.svgRoot.setAttribute("transform", "translate("+0+", "+y+")");
+        this.refresh(this.lastBoxes);
     }
     setScale(s: number): void {
 

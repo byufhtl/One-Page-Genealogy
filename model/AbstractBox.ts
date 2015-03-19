@@ -54,4 +54,13 @@ class AbstractBox implements IBox {
         this.setHeight(render.getHeight());
         this.setWidth(render.getWidth());
     }
+    copy(): IBox {
+        var b:Box = new AbstractBox(this.getNode());
+        b.setHeight(this.getHeight());
+        b.setWidth(this.getWidth());
+        b.setType(this.getType());
+        b.setX(this.getX());
+        b.setY(this.getY());
+        return b;
+    }
 }

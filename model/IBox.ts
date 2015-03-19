@@ -15,5 +15,6 @@ interface IBox {
     getNode(): INode;
     getType(): string;
     setType(type: string);
+    copy():IBox;
 }
 

@@ -8,19 +8,22 @@
 ///<reference path="../view/MainViewManager.ts"/>
 ///<reference path="../model/Tree.ts"/>
 ///<reference path="../sources/FamilySearchSource.ts"/>
+///<reference path="OptionManager.ts"/>
 /**
  * Created by curtis on 3/11/15.
  */
-class C implements IGraphicObjectListener {
+class C implements IGraphicObjectListener, IOptionListener {
 
     private source: ISource;
     private tree: ITree;
     private p: P;
     private viewManager: IViewManager;
-    private optionListener: IOptionListener;
+    //private optionListener: IOptionListener;
     private graphicObject: IGraphicObject;
     private dx: number;
     private dy: number;
+    private optionManager: OptionManager;
+    private boxes: BoxMap;
 
 
     constructor() {
@@ -34,19 +37,25 @@ class C implements IGraphicObjectListener {
 
         this.tree.setListener(this.p);
         this.source.setListener(this.tree.getSourceListener());
+        this.optionManager = new OptionManager();
+        this.optionManager.setListener(this);
+
+        this.boxes = null;
 
         var self = this;
         FamilySearch.getAccessToken().then(function (response) {
             self.source.start();
         });
     }
-    setOptionListener(listener: IOptionListener): void {
-        this.optionListener = listener;
-    }
+    //setOptionListener(listener: IOptionListener): void {
+    //    this.optionManager.setListener(listener);
+    //    //this.optionListener = listener;
+    //}
     setViewManager(viewManager: IViewManager): void {
         this.viewManager = viewManager;
     }
     refresh(boxes: BoxMap): void {
+        this.boxes = boxes;
         this.graphicObject = this.viewManager.refresh(boxes);
         this.graphicObject.setListener(this);
     }
@@ -61,6 +70,16 @@ class C implements IGraphicObjectListener {
 
     }
     click(id: string): void {
-        this.p.handle({type: 'horizontalNameLifeBox', id:id});
+        //this.p.handle({type: 'horizontalNameLifeBox', id:id});
+        if(this.boxes && this.boxes.getId(id)) {
+            var box:IBox = this.boxes.getId(id);
+            this.optionManager.handleOptionSetting('selectIndividual', {box:box});
+        }
+
+    }
+    handleOption(key:string, value:any):void {
+        if(key === "changeIndividual") {
+            this.p.handle({type: value['type'], id:value['id']});
+        }
     }
 }

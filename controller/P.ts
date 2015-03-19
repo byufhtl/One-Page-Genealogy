@@ -20,7 +20,7 @@ class P implements IControllerListener, ITreeListener {
     constructor(private c: C) {
         this.stylingPipeline = [];
         this.stylingPipeline.push(new SimpleGenerationSpacer());
-        this.stylingPipeline.push(new LeafNodeSpacer());
+        //this.stylingPipeline.push(new LeafNodeSpacer());
         this.customSpacer = new CustomSpacer();
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
