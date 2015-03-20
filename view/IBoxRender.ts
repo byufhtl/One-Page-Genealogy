@@ -4,6 +4,7 @@
  */
 interface IBoxRender {
     render(box:IBox): any;
+    move(box:IBox, graphic: any): any;
     getType(): string;
 
     getHeight(): number;

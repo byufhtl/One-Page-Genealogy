@@ -36,6 +36,10 @@ class BasicSVGBox implements IBoxRender {
 
         return g;
     }
+    move(box:IBox, graphic: any): any {
+        graphic.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
+    }
+
     getType(): string {
         return "basic";
     }

@@ -21,6 +21,7 @@ class SVGManager implements IViewManager {
     private translationX: number;
     private translationY: number;
     private lastBoxes: BoxMap;
+    private elements: {};
 
     constructor(svgElementId:string) {
         this.graphicObject = new SVGGraphicObject();
@@ -35,13 +36,14 @@ class SVGManager implements IViewManager {
         svg.appendChild(this.svgRoot);
 
         this.linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-
+        this.svgRoot.appendChild(this.linePath);
         this.renders = {
             'basic': new BasicSVGBox()
         };
 
         var self = this;
         this.boundingRect = null;
+        this.elements = {};
 
         this.translationX = 0;
         this.translationY = 0;
@@ -110,12 +112,11 @@ class SVGManager implements IViewManager {
         return this.graphicObject;
     }
     private clear():void {
-        while(this.svgRoot.firstChild){
-            this.svgRoot.removeChild(this.svgRoot.firstChild);
-        }
+        //while(this.svgRoot.firstChild){
+        //    this.svgRoot.removeChild(this.svgRoot.firstChild);
+        //}
     }
     private drawBoxes(boxes: BoxMap): void {
-
         var self = this;
         var rootId: string = boxes.getRoot();
         var queue: string[] = [];
@@ -129,12 +130,12 @@ class SVGManager implements IViewManager {
             var height: number = this.boundingRect.bottom - this.boundingRect.top;
 
             var inBound: boolean = true;
-            //if(box.getX() > width + this.translationX) {
-            //    inBound = false;
-            //}
-            //if(box.getX() + box.getWidth() < this.translationX){
-            //    inBound = false;
-            //}
+            if(box.getX() > width - this.translationX) {
+                inBound = false;
+            }
+            if(box.getX() + box.getWidth() < -this.translationX){
+                inBound = false;
+            }
             if(box.getY() > height - this.translationY) {
                 inBound = false;
             }
@@ -143,16 +144,42 @@ class SVGManager implements IViewManager {
             }
 
             if(inBound) {
-                var g = BoxStyleFactory.getNewBoxStyle(box.getType()).render(box);
-                this.svgRoot.appendChild(g);
+                var redraw: boolean = true;
+                if(this.elements.hasOwnProperty(node.getId())) {
+                    var element = this.elements[node.getId()];
+                    if(element.type === box.getType()) {
+                        redraw = false;
+                        if(box.getX() !== element.box.getX() ||
+                            box.getY() !== element.box.getY()) {
 
-                (function (node) {
-                    var hammer = new Hammer(g);
-                    var pan = hammer.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
-                    hammer.on('tap', function (ev) {
-                        self.graphicObject.fireClick(node.getId());
-                    });
-                })(node);
+                            BoxStyleFactory.getNewBoxStyle(box.getType()).move(box, element.g);
+                        }
+                    }
+                    else {
+                        delete this.elements[node.getId()];
+                        this.svgRoot.removeChild(element.g)
+                    }
+                }
+                if(redraw) {
+                    var g = BoxStyleFactory.getNewBoxStyle(box.getType()).render(box);
+                    this.svgRoot.appendChild(g);
+
+                    (function (node) {
+                        var hammer = new Hammer(g);
+                        var pan = hammer.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
+                        hammer.on('tap', function (ev) {
+                            self.graphicObject.fireClick(node.getId());
+                        });
+                    })(node);
+                    this.elements[node.getId()] = {g: g, type: box.getType(), box: box};
+                }
+            }
+            else {
+                if(this.elements.hasOwnProperty(node.getId())) {
+                    var element = this.elements[node.getId()];
+                    delete this.elements[node.getId()];
+                    this.svgRoot.removeChild(element.g);
+                }
             }
 
             for (var i:number = 0; i < branchIds.length; i++) {
@@ -175,7 +202,7 @@ class SVGManager implements IViewManager {
         }
     }
     private drawLine(boxes: BoxMap): void {
-        this.svgRoot.appendChild(this.linePath);
+        //this.svgRoot.appendChild(this.linePath);
 
         var d = "";
 
@@ -242,7 +269,7 @@ class SVGManager implements IViewManager {
     }
     setTranslation(x:number, y:number): void {
 
-        this.translationX = x;
+        this.translationX = 0;
         this.translationY = y;
         this.svgRoot.setAttribute("transform", "translate("+0+", "+y+")");
         this.refresh(this.lastBoxes);
