@@ -28,14 +28,52 @@ class P implements IControllerListener, ITreeListener {
     handle(param: any): void {
         var refresh = false;
         if(param.type) {
-            this.customSpacer.addCustomStyle(param.id, {
-                type: param.type
-            });
+            if(param.type === 'changeIndividual') {
+                this.customSpacer.addCustomStyle(param.id, {
+                    type: param.value
+                });
+            }
+            else if(param.type === 'changeGeneration') {
+                var root:INode = this.tree.getRoot();
+                var gen = this.getGeneration(root, param.id);
+                this.applyToGeneration(gen, root, param);
+            }
+
             refresh = true;
         }
 
         if(refresh) {
             this.runPipeline();
+        }
+    }
+    private getGeneration(node: INode, target: string): number {
+        if(node.getId() == target) {
+            return 0;
+        }
+        var branchIds: string[] = node.getBranchIds();
+        for(var i=0; i<branchIds.length; i++) {
+            var child = this.tree.getId(branchIds[i]);
+            if(child) {
+                var childNum: number = this.getGeneration(child, target);
+                if(childNum > -1) {
+                    return childNum + 1;
+                }
+            }
+        }
+        return -1;
+    }
+    private applyToGeneration(gen: number, node: INode, param: any) {
+        if(gen === 0) {
+            this.customSpacer.addCustomStyle(node.getId(), {
+                type: param.value
+            });
+        }
+        var branchIds: string[] = node.getBranchIds();
+        for(var i=0; i<branchIds.length; i++) {
+            var child = this.tree.getId(branchIds[i]);
+            if(child) {
+                this.applyToGeneration(gen - 1, child, param);
+            }
         }
     }
 

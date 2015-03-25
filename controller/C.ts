@@ -27,7 +27,8 @@ class C implements IGraphicObjectListener, IOptionListener {
 
 
     constructor() {
-        this.source = new FamilySearchSource('LDJQ-2GC', 5);
+        //this.source = new FamilySearchSource('LDJQ-2GC', 5);
+        this.source = new FamilySearchSource('K2N7-S9R', 5);
         this.tree = new Tree();
         this.p = new P(this);
         this.viewManager = new MainViewManager();
@@ -78,8 +79,8 @@ class C implements IGraphicObjectListener, IOptionListener {
 
     }
     handleOption(key:string, value:any):void {
-        if(key === "changeIndividual") {
-            this.p.handle({type: value['type'], id:value['id']});
+        if(key) {
+            this.p.handle({type: key, value: value['type'], id:value['id']});
         }
     }
 }
