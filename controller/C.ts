@@ -79,7 +79,10 @@ class C implements IGraphicObjectListener, IOptionListener {
 
     }
     handleOption(key:string, value:any):void {
-        if(key) {
+        if(key === "collapse-sub-tree") {
+            this.p.handle({type: key, id:value['id']});
+        }
+        else if(key) {
             this.p.handle({type: key, value: value['type'], id:value['id']});
         }
     }

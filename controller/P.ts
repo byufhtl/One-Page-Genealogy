@@ -7,6 +7,7 @@
 ///<reference path="CustomSpacer.ts"/>
 ///<reference path="C.ts"/>
 ///<reference path="LeafNodeSpacer.ts"/>
+///<reference path="CollapseSpacer.ts"/>
 /**
  * Created by krr428 on 3/7/15.
  */
@@ -14,14 +15,18 @@
 class P implements IControllerListener, ITreeListener {
 
     private stylingPipeline: IStyler[]; // This changes based on
+    private collapseSpacer: CollapseSpacer;
     private customSpacer: CustomSpacer;
     private tree:ITree;
 
     constructor(private c: C) {
-        this.stylingPipeline = [];
-        this.stylingPipeline.push(new SimpleGenerationSpacer());
-        //this.stylingPipeline.push(new LeafNodeSpacer());
         this.customSpacer = new CustomSpacer();
+        this.collapseSpacer
+            = new CollapseSpacer();
+
+        this.stylingPipeline = [];
+        this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new SimpleGenerationSpacer());
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
@@ -37,6 +42,9 @@ class P implements IControllerListener, ITreeListener {
                 var root:INode = this.tree.getRoot();
                 var gen = this.getGeneration(root, param.id);
                 this.applyToGeneration(gen, root, param);
+            }
+            else if(param.type === 'collapse-sub-tree') {
+                this.collapseSpacer.collapseId(param.id, true);
             }
 
             refresh = true;

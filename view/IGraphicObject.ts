@@ -4,4 +4,7 @@
  */
 interface IGraphicObject {
     setListener(listener: IGraphicObjectListener):void;
+    fireTranslate(pt1: Point, pt2: Point);
+    fireClick(id: string);
+    fireScale(ds: number);
 }

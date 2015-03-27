@@ -31,11 +31,12 @@ class FamilySearchSource implements ISource {
         return id+":"+String(count);
     }
     private initDownload(downloadId: string, uniqueId: string, depth: number) {
+        if(depth > this.generations) {
+            return;
+        }
         var self = this;
         this.downloader.getId(downloadId).then(function(person: FSPerson) {
-            if(depth > self.generations) {
-                return;
-            }
+
             var dscBranchIds: string[] = person.getDscBranchIds();
             var newBranchIds: string[] = [];
             for(var i: number = 0; i<dscBranchIds.length; i++) {

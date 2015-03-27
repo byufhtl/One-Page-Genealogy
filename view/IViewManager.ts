@@ -1,4 +1,5 @@
 ///<reference path="../controller/BoxMap.ts"/>
+///<reference path="IGraphicObject.ts"/>
 /**
  * Created by curtis on 3/7/15.
  */

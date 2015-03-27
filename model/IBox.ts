@@ -16,5 +16,7 @@ interface IBox {
     getType(): string;
     setType(type: string);
     copy():IBox;
+    isCollapsed(): boolean;
+    setCollapsed(collapsed: boolean);
 }
 

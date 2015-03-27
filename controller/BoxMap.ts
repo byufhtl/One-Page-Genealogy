@@ -16,4 +16,7 @@ class BoxMap {
     setId(id: string, box: IBox) {
         this.map[id] = box;
     }
+    removeId(id: string) {
+        delete this.map[id];
+    }
 }

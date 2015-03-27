@@ -14,9 +14,11 @@ class AbstractBox implements IBox {
     private w: number;
     private h: number;
     private type: string = null;
+    private collapsed: boolean;
 
     constructor(node: INode) {
         this.node = node;
+        this.collapsed = false;
     }
     getHeight(): number {
         return this.h;
@@ -62,5 +64,11 @@ class AbstractBox implements IBox {
         b.setX(this.getX());
         b.setY(this.getY());
         return b;
+    }
+    isCollapsed(): boolean {
+        return this.collapsed;
+    }
+    setCollapsed(collapsed: boolean) {
+        this.collapsed = collapsed;
     }
 }

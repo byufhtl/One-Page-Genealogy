@@ -18,6 +18,10 @@ class OptionManager implements IOptionManager {
             $('#opg-modal').modal('show');
 
             $('#opg-modal-select').off();
+            $('#opg-modal-save').off();
+            $('#opg-modal-collapse').off();
+
+
             $('#opg-modal-select option[value='+box.getType()+']').prop('selected', true);
             $('#opg-modal-select').change(function() {
                 var optionSelected = $("option:selected", this);
@@ -29,6 +33,10 @@ class OptionManager implements IOptionManager {
                 var changeWho = $('input[name=opg-change-who]:checked').val();
                 self.listener.handleOption(changeWho, {type: box.getType(), id: box.getNode().getId()})
 
+            });
+            $('#opg-modal-collapse').click(function() {
+                $('#opg-modal').modal('hide');
+                self.listener.handleOption("collapse-sub-tree", {id: box.getNode().getId()})
             });
 
         }
