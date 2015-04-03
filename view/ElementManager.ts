@@ -102,16 +102,23 @@ class ElementManager implements IElementManager {
     private inBounds(box: IBox): boolean {
         var inBound: boolean = true;
         var b = this.bounds;
-        if(box.getX() > b.x + b.w) {
+
+        var minx: number = Math.min(b.x, b.w);
+        var maxx: number = Math.max(b.x, b.w);
+
+        var miny: number = Math.min(b.y, b.h);
+        var maxy: number = Math.max(b.y, b.h);
+
+        if(box.getX() > maxx) {
             inBound = false;
         }
-        if(box.getX() + box.getWidth() < b.x){
+        if(box.getX() + box.getWidth() < minx){
             inBound = false;
         }
-        if(box.getY() > b.y + b.h) {
+        if(box.getY() > maxy) {
             inBound = false;
         }
-        if(box.getY() + box.getHeight() < b.y) {
+        if(box.getY() + box.getHeight() < miny) {
             inBound = false;
         }
         return inBound;

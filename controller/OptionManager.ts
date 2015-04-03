@@ -7,7 +7,14 @@ class OptionManager implements IOptionManager {
 
     private listener: IOptionListener;
     constructor() {
+        var self = this;
 
+        $('#opg-rotate-cc').click(function(){
+            self.listener.handleOption('rotate', {value: -Math.PI/2});
+        });
+        $('#opg-rotate-c').click(function(){
+            self.listener.handleOption('rotate', {value: Math.PI/2});
+        });
     }
     handleOptionSetting(type:String, data:any): void {
         var self = this;

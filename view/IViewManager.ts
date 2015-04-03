@@ -9,4 +9,5 @@ interface IViewManager {
     setTranslation(x:number, y:number): void;
     setScale(s: number): void;
     setSize(width: number, height: number): void;
+    rotate(r: number): void;
 }

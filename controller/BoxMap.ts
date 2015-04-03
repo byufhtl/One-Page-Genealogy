@@ -19,4 +19,20 @@ class BoxMap {
     removeId(id: string) {
         delete this.map[id];
     }
+    copy(): BoxMap {
+        var newMap: BoxMap = new BoxMap(this.rootId);
+        for(var key in this.map) {
+            if(this.map.hasOwnProperty(key)) {
+                newMap.setId(key, this.map[key].copy());
+            }
+        }
+        return newMap;
+    }
+    copyContents(boxes: BoxMap): void {
+        for(var key in this.map) {
+            if(this.map.hasOwnProperty(key)) {
+                this.map[key].copyContents(boxes.getId(key));
+            }
+        }
+    }
 }

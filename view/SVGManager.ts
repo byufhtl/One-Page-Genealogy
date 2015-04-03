@@ -24,14 +24,14 @@ class SVGManager implements IViewManager {
     private lastBoxes: BoxMap;
     private elements: {};
 
+    private rotation: number;
+
     private elementManager: ElementManager;
 
     constructor(svgElementId:string) {
         this.graphicObject = new SVGGraphicObject();
 
-
         var svg =  document.getElementById(svgElementId);
-
 
         //this is dangerous to just kill all listeners.
         $(svg).off();
@@ -45,20 +45,22 @@ class SVGManager implements IViewManager {
 
         this.elementManager = new ElementManager(this.svgRoot, this.graphicObject);
 
-        this.renders = {
-            'basic': new BasicSVGBox()
-        };
-
         var self = this;
         this.boundingRect = null;
         this.elements = {};
 
         this.translationX = 0;
         this.translationY = 0;
-
+        this.rotation = 0;
         this.boundingRect = svg.getBoundingClientRect();
+        this.width = this.boundingRect.right - this.boundingRect.left;
+        this.height = this.boundingRect.bottom - this.boundingRect.top;
         $(window).resize(function() {
             self.boundingRect = svg.getBoundingClientRect();
+            self.refresh(self.lastBoxes);
+
+            self.width = self.boundingRect.right - self.boundingRect.left;
+            self.height = self.boundingRect.bottom - self.boundingRect.top;
         });
 
         var getHammerPosition = function(container, pt) {
@@ -76,6 +78,8 @@ class SVGManager implements IViewManager {
         var hammer = new Hammer(svg);
         var pan = hammer.add( new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 0 }) );
         var pinch = new Hammer.Pinch();
+
+        console.log("creating listener");
         hammer.add([pan, pinch]);
 
         hammer.on('panmove', function(ev) {
@@ -90,9 +94,13 @@ class SVGManager implements IViewManager {
         });
         var pt1 = null;
         var pt2 = null;
+        var dx = 0;
+        var dy = 0;
 
         function startDrag(pt) {
             pt1 = pt;
+
+
         }
         function drag(pt) {
             pt2 = pt1;
@@ -101,7 +109,7 @@ class SVGManager implements IViewManager {
             var p1:Point = new Point(pt1.x, pt1.y);
             var p2:Point = new Point(pt2.x, pt2.y);
 
-            self.graphicObject.fireTranslate(p1, p2);
+            self.graphicObject.fireTranslate(self.viewToWorld(p1), self.viewToWorld(p2));
         }
         function endDrag(pt, vx, vy) {
             pt2 = null;
@@ -109,46 +117,27 @@ class SVGManager implements IViewManager {
         }
     }
     refresh(boxes: BoxMap): IGraphicObject {
-        this.clear();
         this.drawLine(boxes);
         this.drawBoxes(boxes);
         this.lastBoxes = boxes;
         return this.graphicObject;
     }
-    private clear():void {
-        //while(this.svgRoot.firstChild){
-        //    this.svgRoot.removeChild(this.svgRoot.firstChild);
-        //}
-    }
+
     private drawBoxes(boxes: BoxMap): void {
         var self = this;
         var rootId: string = boxes.getRoot();
         var queue: string[] = [];
 
-        for (var key in this.elements) {
-            if (this.elements.hasOwnProperty(key)) {
-                var element = this.elements[key];
-                if(!boxes.getId(key)) {
-                    delete this.elements[key];
-                    this.svgRoot.removeChild(element.g);
-                }
-            }
-        }
+        var topLeft = this.viewToWorld(new Point(0,0));
+        var bottomRight = this.viewToWorld(new Point(this.width, this.height));
 
-        var width: number = this.boundingRect.right - this.boundingRect.left;
-        var height: number = this.boundingRect.bottom - this.boundingRect.top;
-
-        this.elementManager.setBounds(- this.translationX, - this.translationY, width, height);
+        this.elementManager.setBounds(topLeft.getX(), topLeft.getY(), bottomRight.getX(), bottomRight.getY());
 
         queue.push(rootId);
         while(queue.length > 0) {
             var box:IBox = boxes.getId(queue.shift());
             var node:INode = box.getNode();
             var branchIds = node.getBranchIds();
-
-            var width: number = this.boundingRect.right - this.boundingRect.left;
-            var height: number = this.boundingRect.bottom - this.boundingRect.top;
-
 
             this.elementManager.requestElement(box);
 
@@ -161,6 +150,10 @@ class SVGManager implements IViewManager {
             }
         }
         this.elementManager.clearUnusedElement();
+
+        var tx: number = this.translationX;
+        var ty: number = this.translationY;
+        this.svgRoot.setAttribute("transform", "translate("+(tx)+", "+(ty)+"), rotate("+this.rotation * 180 / Math.PI+"), translate("+(-tx)+", "+(-ty)+")");
     }
     private toCenterPoint(box:IBox):any {
         return {
@@ -173,6 +166,7 @@ class SVGManager implements IViewManager {
         }
     }
     private drawLine(boxes: BoxMap): void {
+
         var d = "";
 
         var rootId: string = boxes.getRoot();
@@ -186,7 +180,7 @@ class SVGManager implements IViewManager {
             var cx = box.getX() + box.getWidth()/2;
             var cy = box.getY() + box.getHeight()/2;
 
-            var branchIdsTmp = []
+            var branchIdsTmp = [];
             for(var i=0; i<branchIds.length; i++) {
                 var branchBox:IBox = boxes.getId(branchIds[i]);
                 if (!branchBox) {
@@ -237,16 +231,35 @@ class SVGManager implements IViewManager {
         this.linePath.setAttribute('d', d);
     }
     setTranslation(x:number, y:number): void {
-
-        this.translationX = 0;
-        this.translationY = y;
-        this.svgRoot.setAttribute("transform", "translate("+0+", "+y+")");
         this.refresh(this.lastBoxes);
     }
     setScale(s: number): void {
 
     }
     setSize(width: number, height: number): void {
-
+        this.width = width;
+        this.height = height;
+        this.boundingRect = this.svgRoot.getBoundingClientRect();
+        this.refresh(this.lastBoxes);
+    }
+    viewToWorld(pt: Point): Point {
+        pt = this.rotatePt(pt, -this.rotation);
+        return pt;
+    }
+    worldToView(pt: Point): Point {
+        pt = this.rotatePt(pt, this.rotation);
+        return pt;
+    }
+    translate(pt: Point, dx: number, dy: number): Point {
+        return new Point(pt.getX()+dx, pt.getY()+dy);
+    }
+    rotatePt(pt: Point, r:number): Point {
+        var s = Math.sin(r);
+        var c = Math.cos(r);
+        return new Point(c*pt.getX()-s*pt.getY(), s*pt.getX()+c*pt.getY());
+    }
+    rotate(r: number): void {
+        this.rotation += r % (Math.PI*2);
+        this.refresh(this.lastBoxes);
     }
 }

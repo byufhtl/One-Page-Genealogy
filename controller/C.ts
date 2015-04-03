@@ -9,6 +9,7 @@
 ///<reference path="../model/Tree.ts"/>
 ///<reference path="../sources/FamilySearchSource.ts"/>
 ///<reference path="OptionManager.ts"/>
+///<reference path="../sources/FSAncestryDownloader.ts"/>
 /**
  * Created by curtis on 3/11/15.
  */
@@ -28,7 +29,8 @@ class C implements IGraphicObjectListener, IOptionListener {
 
     constructor() {
         //this.source = new FamilySearchSource('LDJQ-2GC', 5);
-        this.source = new FamilySearchSource('K2N7-S9R', 5);
+        //this.source = new FamilySearchSource('K2N7-S9R', 3);
+        this.source = new FSAncestryDownloader('KWFX-MD1', 14);
         this.tree = new Tree();
         this.p = new P(this);
         this.viewManager = new MainViewManager();
@@ -48,10 +50,6 @@ class C implements IGraphicObjectListener, IOptionListener {
             self.source.start();
         });
     }
-    //setOptionListener(listener: IOptionListener): void {
-    //    this.optionManager.setListener(listener);
-    //    //this.optionListener = listener;
-    //}
     setViewManager(viewManager: IViewManager): void {
         this.viewManager = viewManager;
     }
@@ -65,6 +63,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.dx += pt1.getX() - pt2.getX();
         this.dy += pt1.getY() - pt2.getY();
 
+        this.p.handle({type: 'update-translate', dx: this.dx, dy: this.dy});
         this.viewManager.setTranslation(this.dx, this.dy);
     }
     scale(ds: number): void {
@@ -81,6 +80,9 @@ class C implements IGraphicObjectListener, IOptionListener {
     handleOption(key:string, value:any):void {
         if(key === "collapse-sub-tree") {
             this.p.handle({type: key, id:value['id']});
+        }
+        else if(key === 'rotate') {
+            this.viewManager.rotate(value.value);
         }
         else if(key) {
             this.p.handle({type: key, value: value['type'], id:value['id']});

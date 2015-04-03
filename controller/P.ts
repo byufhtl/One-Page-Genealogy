@@ -8,6 +8,8 @@
 ///<reference path="C.ts"/>
 ///<reference path="LeafNodeSpacer.ts"/>
 ///<reference path="CollapseSpacer.ts"/>
+///<reference path="TranslateSpacer.ts"/>
+///<reference path="RotateSpacer.ts"/>
 /**
  * Created by krr428 on 3/7/15.
  */
@@ -15,20 +17,35 @@
 class P implements IControllerListener, ITreeListener {
 
     private stylingPipeline: IStyler[]; // This changes based on
+    private transformationPipline: IStyler[];
+
     private collapseSpacer: CollapseSpacer;
     private customSpacer: CustomSpacer;
+    private translateSpacer: TranslateSpacer;
     private tree:ITree;
 
+    private beforeTransformBoxes: BoxMap;
+    private firstBoxMap: BoxMap;
+    private secondBoxMap: BoxMap;
+
     constructor(private c: C) {
+
+
+
         this.customSpacer = new CustomSpacer();
-        this.collapseSpacer
-            = new CollapseSpacer();
+        this.collapseSpacer = new CollapseSpacer();
+        this.translateSpacer = new TranslateSpacer();
 
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
         this.stylingPipeline.push(new SimpleGenerationSpacer());
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
+
+        //this.stylingPipeline.push(this.translateSpacer);
+
+        this.transformationPipline = [];
+        this.transformationPipline.push(this.translateSpacer);
     }
     handle(param: any): void {
         var refresh = false;
@@ -37,17 +54,25 @@ class P implements IControllerListener, ITreeListener {
                 this.customSpacer.addCustomStyle(param.id, {
                     type: param.value
                 });
+                refresh = true;
             }
             else if(param.type === 'changeGeneration') {
                 var root:INode = this.tree.getRoot();
                 var gen = this.getGeneration(root, param.id);
                 this.applyToGeneration(gen, root, param);
+                refresh = true;
             }
             else if(param.type === 'collapse-sub-tree') {
                 this.collapseSpacer.collapseId(param.id, true);
+                refresh = true;
             }
-
-            refresh = true;
+            else if(param.type === 'update-translate') {
+                this.translateSpacer.setTranslation(param.dx, param.dy);
+                refresh = true;
+                //refresh = false;
+                //var boxMap:BoxMap = this.runTranslationPipeline(this.firstBoxMap);
+                //this.c.refresh(boxMap);
+            }
         }
 
         if(refresh) {
@@ -85,16 +110,37 @@ class P implements IControllerListener, ITreeListener {
         }
     }
 
-    handleUpdate(tree: ITree): void {
+    handleUpdate(tree: ITree, updates: ICommand[]): void {
         this.tree = tree;
+        for(var i=0; i<updates.length; i++) {
+            var command: ICommand = updates[i];
+            if(command.getType() === "add-node") {
+                var node:INode = command.getValue();
+
+                if(!this.firstBoxMap) {
+                    this.firstBoxMap = new BoxMap(node.getId());
+                    this.secondBoxMap = new BoxMap(node.getId());
+                }
+
+                this.firstBoxMap.setId(node.getId(), new AbstractBox(node));
+                this.secondBoxMap.setId(node.getId(), new AbstractBox(node));
+            }
+        }
         this.runPipeline();
     }
     private runPipeline():void {
-        var boxMap: BoxMap = this.tree.asBoxMap();
         for(var i=0; i<this.stylingPipeline.length; i++) {
-            this.stylingPipeline[i].applyStyle(boxMap);
+            this.stylingPipeline[i].applyStyle(this.firstBoxMap);
         }
-        this.c.refresh(boxMap);
+        this.runTranslationPipeline(this.firstBoxMap);
+        this.c.refresh(this.secondBoxMap);
+    }
+    private runTranslationPipeline(boxMap: BoxMap): BoxMap {
+        boxMap.copyContents(this.secondBoxMap);
+        for(var i=0; i<this.transformationPipline.length; i++) {
+            this.transformationPipline[i].applyStyle(this.secondBoxMap);
+        }
+        return this.secondBoxMap;
     }
 
 }

@@ -22,4 +22,7 @@ class MainViewManager implements IViewManager {
     setSize(width: number, height: number): void {
 
     }
+    rotate(r: number): void {
+        this.svgManager.rotate(r);
+    }
 }

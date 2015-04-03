@@ -53,8 +53,10 @@ class AbstractBox implements IBox {
     setType(type: string) {
         this.type = type;
         var render:IBoxRender = BoxStyleFactory.getNewBoxStyle(type);
+
         this.setHeight(render.getHeight());
         this.setWidth(render.getWidth());
+
     }
     copy(): IBox {
         var b:Box = new AbstractBox(this.getNode());
@@ -65,10 +67,25 @@ class AbstractBox implements IBox {
         b.setY(this.getY());
         return b;
     }
+    copyContents(b: IBox): void {
+        b.setHeight(this.getHeight());
+        b.setWidth(this.getWidth());
+        b.setType(this.getType());
+        b.setX(this.getX());
+        b.setY(this.getY());
+    }
     isCollapsed(): boolean {
         return this.collapsed;
     }
     setCollapsed(collapsed: boolean) {
         this.collapsed = collapsed;
+    }
+    clear(): void {
+        this.x = 0;
+        this.y = 0;
+        this.h = 0;
+        this.w = 0;
+        this.type = null;
+        this.collapsed = false;
     }
 }

@@ -8,6 +8,9 @@ class FSPerson {
     getDscBranchIds(): string[] {
         return this.dscBranchIds;
     }
+    getAscBranchIds(): string[] {
+        return this.ascBranchIds;
+    }
     getPerson(): any {
         return this.person;
     }
