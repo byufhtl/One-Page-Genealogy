@@ -14,5 +14,8 @@ class FSPerson {
     getPerson(): any {
         return this.person;
     }
+    getId(): string {
+        return this.id;
+    }
 
 }

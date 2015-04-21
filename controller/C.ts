@@ -10,6 +10,7 @@
 ///<reference path="../sources/FamilySearchSource.ts"/>
 ///<reference path="OptionManager.ts"/>
 ///<reference path="../sources/FSAncestryDownloader.ts"/>
+///<reference path="../sources/FSFullTreeDownloader.ts"/>
 /**
  * Created by curtis on 3/11/15.
  */
@@ -30,7 +31,8 @@ class C implements IGraphicObjectListener, IOptionListener {
     constructor() {
         //this.source = new FamilySearchSource('LDJQ-2GC', 5);
         //this.source = new FamilySearchSource('K2N7-S9R', 3);
-        this.source = new FSAncestryDownloader('KWFX-MD1', 14);
+        //this.source = new FSAncestryDownloader('KWFX-MD1', 14);
+        this.source = new FSFullTreeDownloader('KWFX-MD1', 12);
         this.tree = new Tree();
         this.p = new P(this);
         this.viewManager = new MainViewManager();
