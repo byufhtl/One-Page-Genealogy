@@ -69,9 +69,6 @@ class P implements IControllerListener, ITreeListener {
             else if(param.type === 'update-translate') {
                 this.translateSpacer.setTranslation(param.dx, param.dy);
                 refresh = true;
-                //refresh = false;
-                //var boxMap:BoxMap = this.runTranslationPipeline(this.firstBoxMap);
-                //this.c.refresh(boxMap);
             }
         }
 

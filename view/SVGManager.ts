@@ -25,6 +25,7 @@ class SVGManager implements IViewManager {
     private elements: {};
 
     private rotation: number;
+    private scale: number;
 
     private elementManager: ElementManager;
 
@@ -52,6 +53,7 @@ class SVGManager implements IViewManager {
         this.translationX = 0;
         this.translationY = 0;
         this.rotation = 0;
+        this.scale = 1;
         this.boundingRect = svg.getBoundingClientRect();
         this.width = this.boundingRect.right - this.boundingRect.left;
         this.height = this.boundingRect.bottom - this.boundingRect.top;
@@ -62,7 +64,17 @@ class SVGManager implements IViewManager {
             self.width = self.boundingRect.right - self.boundingRect.left;
             self.height = self.boundingRect.bottom - self.boundingRect.top;
         });
-
+        $(window).mousewheel(function(event){
+            var pt = getMousePos(svg, event);
+            self.graphicObject.fireScale(event.deltaY, self.viewToWorld(new Point(pt.x, pt.y)));
+        });
+        var getMousePos = function(container, evt) {
+            var rect = self.boundingRect;
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        };
         var getHammerPosition = function(container, pt) {
             if(!self.boundingRect) {
                 self.boundingRect = container.getBoundingClientRect();
@@ -123,6 +135,8 @@ class SVGManager implements IViewManager {
         return this.graphicObject;
     }
 
+
+
     private drawBoxes(boxes: BoxMap): void {
         var self = this;
         var rootId: string = boxes.getRoot();
@@ -153,7 +167,9 @@ class SVGManager implements IViewManager {
 
         var tx: number = this.translationX;
         var ty: number = this.translationY;
-        this.svgRoot.setAttribute("transform", "translate("+(tx)+", "+(ty)+"), rotate("+this.rotation * 180 / Math.PI+"), translate("+(-tx)+", "+(-ty)+")");
+        this.svgRoot.setAttribute("transform", "rotate("+this.rotation * 180 / Math.PI+"), scale("+(1/this.scale)+")");
+
+        //this.svgRoot.setAttribute("transform", "translate("+(tx)+", "+(ty)+"), rotate("+this.rotation * 180 / Math.PI+"), translate("+(-tx)+", "+(-ty)+")");
     }
     private toCenterPoint(box:IBox):any {
         return {
@@ -234,7 +250,8 @@ class SVGManager implements IViewManager {
         this.refresh(this.lastBoxes);
     }
     setScale(s: number): void {
-
+        this.scale = s;
+        this.refresh(this.lastBoxes);
     }
     setSize(width: number, height: number): void {
         this.width = width;
@@ -243,10 +260,12 @@ class SVGManager implements IViewManager {
         this.refresh(this.lastBoxes);
     }
     viewToWorld(pt: Point): Point {
+        pt = this.scalePt(pt, this.scale);
         pt = this.rotatePt(pt, -this.rotation);
         return pt;
     }
     worldToView(pt: Point): Point {
+        pt = this.scalePt(pt, 1.0 / this.scale);
         pt = this.rotatePt(pt, this.rotation);
         return pt;
     }
@@ -257,6 +276,9 @@ class SVGManager implements IViewManager {
         var s = Math.sin(r);
         var c = Math.cos(r);
         return new Point(c*pt.getX()-s*pt.getY(), s*pt.getX()+c*pt.getY());
+    }
+    scalePt(pt: Point, s: number) {
+        return new Point(pt.getX()*s, pt.getY()*s);
     }
     rotate(r: number): void {
         this.rotation += r % (Math.PI*2);

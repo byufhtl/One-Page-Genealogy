@@ -27,18 +27,21 @@ class C implements IGraphicObjectListener, IOptionListener {
     private optionManager: OptionManager;
     private boxes: BoxMap;
 
+    private scaleFactor: number;
+
 
     constructor() {
         //this.source = new FamilySearchSource('LDJQ-2GC', 5);
         //this.source = new FamilySearchSource('K2N7-S9R', 3);
         //this.source = new FSAncestryDownloader('KWFX-MD1', 14);
-        this.source = new FSFullTreeDownloader('KWFX-MD1', 12);
+        this.source = new FSFullTreeDownloader('KWFX-MD1', 14);
         this.tree = new Tree();
         this.p = new P(this);
         this.viewManager = new MainViewManager();
 
         this.dx = 0;
         this.dy = 0;
+        this.scaleFactor = 1;
 
         this.tree.setListener(this.p);
         this.source.setListener(this.tree.getSourceListener());
@@ -68,8 +71,19 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.p.handle({type: 'update-translate', dx: this.dx, dy: this.dy});
         this.viewManager.setTranslation(this.dx, this.dy);
     }
-    scale(ds: number): void {
+    scale(ds: number, pt: Point): void {
+        if(ds > 0) {
+            ds = (9.0/10.0);
+        }
+        else {
+            ds = (10.0/9.0);
+        }
+        this.scaleFactor *= ds;
 
+        //var dx: number = pt.getX() * ds - pt.getX();
+        //var dy: number = pt.getY() * ds - pt.getY();
+
+        this.viewManager.setScale(this.scaleFactor);
     }
     click(id: string): void {
         //this.p.handle({type: 'horizontalNameLifeBox', id:id});
