@@ -1,5 +1,6 @@
 ///<reference path="IElement.ts"/>
 ///<reference path="BoxStyleFactory.ts"/>
+///<reference path="IGraphicObject.ts"/>
 /**
  * Created by curtis on 3/25/15.
  */
@@ -17,13 +18,13 @@ class BElement implements IElement {
         this.define(box);
 
         rootElement.appendChild(this.g);
-        var self = this;
-        (function () {
-            self.hammer = new Hammer(self.g);
-            self.hammer.on('tap', function (ev) {
-                graphicObject.fireClick(self.getLastBox().getNode().getId());
-            });
-        })();
+        //var self = this;
+        //(function () {
+        //    self.hammer = new Hammer(self.g);
+        //    self.hammer.on('tap', function (ev) {
+        //        graphicObject.fireClick(self.getLastBox().getNode().getId());
+        //    });
+        //})();
     }
     define(box: IBox) {
         box.copyContents(this.lastBox);

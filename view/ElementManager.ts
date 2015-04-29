@@ -13,6 +13,8 @@ class ElementManager implements IElementManager {
     private elementContainer;
     private bounds: {x:number; y:number; w:number; h:number};
     private graphicObject: IGraphicObject;
+    private ignoreBounds: boolean;
+
 
     constructor(elementContainer, graphicObject: IGraphicObject) {
         this.elementMap = {};
@@ -22,6 +24,8 @@ class ElementManager implements IElementManager {
         this.elementContainer = elementContainer;
         this.bounds = {x:0, y:0, w:0, h:0};
         this.graphicObject = graphicObject;
+        this.ignoreBounds = false;
+
 
     }
     requestElement(box: IBox): void {
@@ -37,7 +41,7 @@ class ElementManager implements IElementManager {
             if(this.needsDefine(box)) {
                 this.define(box);
             }
-            else {
+            else if(this.needsMove(box)) {
                 this.move(box);
             }
             this.currentMap[id] = this.elementMap[id];
@@ -76,6 +80,17 @@ class ElementManager implements IElementManager {
 
         return false;
     }
+    private needsMove(box: IBox): boolean {
+        var element: IElement = this.elementMap[box.getNode().getId()];
+        var lastBox: IBox = element.getLastBox();
+        if(box.getX() !== lastBox.getX()) {
+            return true;
+        }
+        if(box.getY() !== lastBox.getY()) {
+            return true;
+        }
+        return false;
+    }
     private getNewElement(): IElement {
         return new BElement();
     }
@@ -99,7 +114,13 @@ class ElementManager implements IElementManager {
         current.remove(this.elementContainer);
         delete this.elementMap[box.getNode().getId()];
     }
+    setIgnoreBound(ignore: boolean): void {
+        this.ignoreBounds = ignore;
+    }
     private inBounds(box: IBox): boolean {
+        if(this.ignoreBounds) {
+            return true;
+        }
         var inBound: boolean = true;
         var b = this.bounds;
 

@@ -8,12 +8,16 @@ class FSFullTreeDownloader implements  ISource {
     private listener: ISourceListener;
     private counter: {[s:string]: number};
     private unallocatedParents: {[s:string]: string[]};
+    private repeatCount: number;
+    private totalCount: number;
 
     private downloader: FSAncestryGenDownloader;
     constructor(private rootId: string, private generations: number) {
         this.counter = {};
         this.unallocatedParents = {};
         this.downloader = new FSAncestryGenDownloader();
+        this.repeatCount = 0;
+        this.totalCount = 0;
         this.setListener({
             gotNode(node: INode): void {
             },
@@ -66,8 +70,16 @@ class FSFullTreeDownloader implements  ISource {
     private singleUniqueId(id: string) {
         if(!this.counter.hasOwnProperty(id)) {
             this.counter[id] = 0;
+            this.totalCount += 1;
+        }
+        else{
+            this.repeatCount += 1;
+            this.totalCount += 1;
         }
         var count: number = this.counter[id]++;
+
+        //console.log(this.repeatCount);
+        //console.log(this.totalCount);
 
         return id+":"+String(count);
     }

@@ -6,12 +6,14 @@
 ///<reference path="SVGGraphicObject.ts"/>
 ///<reference path="../util/Point.ts"/>
 ///<reference path="ElementManager.ts"/>
+///<reference path="LineManager.ts"/>
 /**
  * Created by curtis on 3/10/15.
  */
 class SVGManager implements IViewManager {
 
     private svgRoot;
+    private mainSvg;
     private linePath;
     private renders:{[s:string]:IBoxRender;};
     private boundingRect;
@@ -28,11 +30,14 @@ class SVGManager implements IViewManager {
     private scale: number;
 
     private elementManager: ElementManager;
+    private lineManager: LineManager;
+    private refreshTriggered: boolean;
 
     constructor(svgElementId:string) {
         this.graphicObject = new SVGGraphicObject();
 
         var svg =  document.getElementById(svgElementId);
+        this.mainSvg = svg;
 
         //this is dangerous to just kill all listeners.
         $(svg).off();
@@ -45,6 +50,7 @@ class SVGManager implements IViewManager {
         this.svgRoot.appendChild(this.linePath);
 
         this.elementManager = new ElementManager(this.svgRoot, this.graphicObject);
+        this.lineManager = new LineManager();
 
         var self = this;
         this.boundingRect = null;
@@ -57,6 +63,8 @@ class SVGManager implements IViewManager {
         this.boundingRect = svg.getBoundingClientRect();
         this.width = this.boundingRect.right - this.boundingRect.left;
         this.height = this.boundingRect.bottom - this.boundingRect.top;
+        this.refreshTriggered = false;
+
         $(window).resize(function() {
             self.boundingRect = svg.getBoundingClientRect();
             self.refresh(self.lastBoxes);
@@ -129,18 +137,40 @@ class SVGManager implements IViewManager {
         }
     }
     refresh(boxes: BoxMap): IGraphicObject {
-        this.drawLine(boxes);
-        this.drawBoxes(boxes);
+        //this.drawLine(boxes);
+        //this.drawBoxes(boxes);
         this.lastBoxes = boxes;
+        this.triggerRefresh();
         return this.graphicObject;
     }
-
+    private triggerRefresh() {
+        //THIS IS GOOD FOR DEBUGGING WHEN YOU DON'T TO HAVE
+        //A FRAME RATE
+        //
+        var self = this;
+        if(!this.refreshTriggered) {
+            window.requestAnimationFrame(function(time){
+                self.realRefresh();
+                this.refreshTriggered = true;
+            });
+        }
+        else {
+            this.refreshTriggered = false;
+        }
+    }
+    private realRefresh(): void {
+        this.drawLine(this.lastBoxes);
+        this.drawBoxes(this.lastBoxes);
+    }
 
 
     private drawBoxes(boxes: BoxMap): void {
         var self = this;
         var rootId: string = boxes.getRoot();
         var queue: string[] = [];
+
+        var tx: number = this.translationX;
+        var ty: number = this.translationY;
 
         var topLeft = this.viewToWorld(new Point(0,0));
         var bottomRight = this.viewToWorld(new Point(this.width, this.height));
@@ -165,11 +195,7 @@ class SVGManager implements IViewManager {
         }
         this.elementManager.clearUnusedElement();
 
-        var tx: number = this.translationX;
-        var ty: number = this.translationY;
-        this.svgRoot.setAttribute("transform", "rotate("+this.rotation * 180 / Math.PI+"), scale("+(1/this.scale)+")");
-
-        //this.svgRoot.setAttribute("transform", "translate("+(tx)+", "+(ty)+"), rotate("+this.rotation * 180 / Math.PI+"), translate("+(-tx)+", "+(-ty)+")");
+        this.resetTransformation();
     }
     private toCenterPoint(box:IBox):any {
         return {
@@ -183,70 +209,34 @@ class SVGManager implements IViewManager {
     }
     private drawLine(boxes: BoxMap): void {
 
-        var d = "";
+        var tx: number = this.translationX;
+        var ty: number = this.translationY;
 
-        var rootId: string = boxes.getRoot();
-        var queue: string[] = [];
-        queue.push(rootId);
-        while(queue.length > 0) {
-            var box:IBox = boxes.getId(queue.shift());
-            var node:INode = box.getNode();
-            var branchIds = node.getBranchIds();
+        var topLeft = this.viewToWorld(new Point(0,0));
+        var bottomRight = this.viewToWorld(new Point(this.width, this.height));
 
-            var cx = box.getX() + box.getWidth()/2;
-            var cy = box.getY() + box.getHeight()/2;
+        this.lineManager.setBounds(topLeft.getX(), topLeft.getY(), bottomRight.getX(), bottomRight.getY());
 
-            var branchIdsTmp = [];
-            for(var i=0; i<branchIds.length; i++) {
-                var branchBox:IBox = boxes.getId(branchIds[i]);
-                if (!branchBox) {
-                    continue;
-                }
-                branchIdsTmp.push(branchIds[i]);
-            }
-            branchIds = branchIdsTmp;
+        var d = this.lineManager.requestLineString(boxes);
 
-            if(branchIds.length < 1) {
-
-            }
-            else if(branchIds.length == 1) {
-                d += "M " + cx + " " + cy + " ";
-                var first = this.toCenterPoint(boxes.getId(branchIds[0]));
-                d += "L " + first.getX() + " " + first.getY() + " ";
-            }
-            else {
-                var first = this.toCenterPoint(boxes.getId(branchIds[0]));
-                var last = this.toCenterPoint(boxes.getId(branchIds[branchIds.length - 1]));
-                var middleX = (first.getX() + cx)/2;
-
-                d += "M " + cx + " " + cy + " ";
-                d += "L " + middleX + " " + cy + " ";
-
-                d += "M " + first.getX() + " "+ first.getY() +" ";
-                d += "L " + (middleX) + " " + (first.getY()) + " ";
-
-                for(var j=0; j<branchIds.length; j++) {
-                    var child = this.toCenterPoint(boxes.getId(branchIds[j]));
-                    d += "M " + child.getX() + " " + child.getY() + " ";
-                    d += "L " + middleX + " "+child.getY()+" ";
-                }
-
-                d += "M " + middleX + " " + first.getY() + " ";
-                d += "L " + middleX + " " + last.getY() + " ";
-            }
-
-            for (var i:number = 0; i < branchIds.length; i++) {
-                var branchBox:IBox = boxes.getId(branchIds[i]);
-                if (!branchBox) {
-                    continue;
-                }
-                queue.push(branchIds[i]);
-            }
-        }
         this.linePath.setAttribute('stroke','black');
         this.linePath.setAttribute('d', d);
     }
+    private resetTransformation() {
+        var tx: number = this.translationX;
+        var ty: number = this.translationY;
+        var transform = [];
+
+        //do these happen backwards??? they don't match my view to world trasformations
+        transform.push('rotate('+this.rotation * 180 / Math.PI+')');
+        transform.push('scale('+1/this.scale+')');
+        transform.push('translate('+tx+','+ty+')');
+
+        this.svgRoot.setAttribute("transform", transform.join(','));
+    }
     setTranslation(x:number, y:number): void {
+        this.translationX = x;
+        this.translationY = y;
         this.refresh(this.lastBoxes);
     }
     setScale(s: number): void {
@@ -260,13 +250,19 @@ class SVGManager implements IViewManager {
         this.refresh(this.lastBoxes);
     }
     viewToWorld(pt: Point): Point {
+
         pt = this.scalePt(pt, this.scale);
         pt = this.rotatePt(pt, -this.rotation);
+        pt = this.translate(pt, -this.translationX, -this.translationY);
+
         return pt;
     }
     worldToView(pt: Point): Point {
-        pt = this.scalePt(pt, 1.0 / this.scale);
+
         pt = this.rotatePt(pt, this.rotation);
+        pt = this.scalePt(pt, 1.0 / this.scale);
+        pt = this.translate(pt, this.translationX, this.translationY);
+
         return pt;
     }
     translate(pt: Point, dx: number, dy: number): Point {
@@ -283,5 +279,20 @@ class SVGManager implements IViewManager {
     rotate(r: number): void {
         this.rotation += r % (Math.PI*2);
         this.refresh(this.lastBoxes);
+    }
+    getSVGString(): string {
+        this.elementManager.setIgnoreBound(true);
+        this.lineManager.setIgnoreBound(true);
+        this.realRefresh();
+
+        var s = new XMLSerializer();
+
+        var data = s.serializeToString(this.mainSvg);
+
+        this.elementManager.setIgnoreBound(true);
+        this.lineManager.setIgnoreBound(true);
+        this.realRefresh();
+
+        return data;
     }
 }

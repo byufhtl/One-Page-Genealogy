@@ -6,4 +6,5 @@ interface IElementManager {
     requestElement(box: IBox): void;
     clearUnusedElement(): void;
     setBounds(x: number, y: number, w: number, h: number): void;
+    setIgnoreBound(ignore: boolean): void;
 }

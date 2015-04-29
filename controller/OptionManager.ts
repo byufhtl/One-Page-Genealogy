@@ -1,4 +1,8 @@
 ///<reference path="IOptionManager.ts"/>
+///<reference path="../model/IBox.ts"/>
+///<reference path="../view/BoxStyleFactory.ts"/>
+///<reference path="../js/jsDeclarations.ts"/>
+
 /**
  * Created by curtis on 3/19/15.
  */
@@ -14,6 +18,9 @@ class OptionManager implements IOptionManager {
         });
         $('#opg-rotate-c').click(function(){
             self.listener.handleOption('rotate', {value: Math.PI/2});
+        });
+        $('#opg-download').click(function(){
+            self.listener.handleOption('request-download', null);
         });
     }
     handleOptionSetting(type:String, data:any): void {

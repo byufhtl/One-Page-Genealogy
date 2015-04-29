@@ -25,4 +25,7 @@ class MainViewManager implements IViewManager {
     rotate(r: number): void {
         this.svgManager.rotate(r);
     }
+    getSVGString(): string {
+        return this.svgManager.getSVGString();
+    }
 }

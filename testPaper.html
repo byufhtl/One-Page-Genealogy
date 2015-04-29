@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Load the Paper.js library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.9.22/paper-full.js"></script>
+    <!-- Define inlined JavaScript -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var canvas = document.getElementById('myCanvas');
+            paper.setup(canvas);
+            paper.project.importSVG('exampleChart.svg', function(item) {
+//                alert(item);
+                console.log('got document');
+                timeout();
+            });
+            var tx = 420;
+            var ty = 6506;
+            var prevTime = Date.now();
+            function timeout() {
+                setTimeout(function () {
+
+                    paper.view.center = [tx, ty];
+                    tx+=1;
+//                    ty+=1;
+                    prevTime = Date.now();
+                    paper.view.draw();
+                    var currentTime = Date.now();
+                    console.log(currentTime - prevTime);
+
+
+                    timeout();
+                }, 15);
+            }
+        });
+    </script>
+</head>
+<body>
+<canvas id="myCanvas" width=1000 height=1000></canvas>
+</body>
+</html>

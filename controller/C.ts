@@ -11,6 +11,7 @@
 ///<reference path="OptionManager.ts"/>
 ///<reference path="../sources/FSAncestryDownloader.ts"/>
 ///<reference path="../sources/FSFullTreeDownloader.ts"/>
+///<reference path="P.ts"/>
 /**
  * Created by curtis on 3/11/15.
  */
@@ -68,7 +69,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.dx += pt1.getX() - pt2.getX();
         this.dy += pt1.getY() - pt2.getY();
 
-        this.p.handle({type: 'update-translate', dx: this.dx, dy: this.dy});
+        //this.p.handle({type: 'update-translate', dx: this.dx, dy: this.dy});
         this.viewManager.setTranslation(this.dx, this.dy);
     }
     scale(ds: number, pt: Point): void {
@@ -100,8 +101,18 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if(key === 'rotate') {
             this.viewManager.rotate(value.value);
         }
+        else if(key === 'request-download') {
+            var s = this.viewManager.getSVGString();
+            var fileName = "opg_chart.svg";
+            var url = "data:image/svg+xml;utf8," + encodeURIComponent(s);
+            var link:any = document.createElement("a");
+            link.download = fileName;
+            link.href = url;
+            link.click();
+        }
         else if(key) {
             this.p.handle({type: key, value: value['type'], id:value['id']});
         }
+
     }
 }
