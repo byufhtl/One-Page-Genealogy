@@ -35,7 +35,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         //this.source = new FamilySearchSource('LDJQ-2GC', 5);
         //this.source = new FamilySearchSource('K2N7-S9R', 3);
         //this.source = new FSAncestryDownloader('KWFX-MD1', 14);
-        this.source = new FSFullTreeDownloader('KWFX-MD1', 14);
+        this.source = new FSFullTreeDownloader('KWFX-MD1', 5);
         this.tree = new Tree();
         this.p = new P(this);
         this.viewManager = new MainViewManager();
@@ -66,25 +66,20 @@ class C implements IGraphicObjectListener, IOptionListener {
     }
     translate(pt1: Point, pt2: Point): void {
 
-        this.dx += pt1.getX() - pt2.getX();
-        this.dy += pt1.getY() - pt2.getY();
+        var dx: number = (pt2.getX() - pt1.getX());
+        var dy: number = (pt2.getY() - pt1.getY());
 
-        //this.p.handle({type: 'update-translate', dx: this.dx, dy: this.dy});
-        this.viewManager.setTranslation(this.dx, this.dy);
+        this.viewManager.setTranslation(dx, dy);
     }
     scale(ds: number, pt: Point): void {
         if(ds > 0) {
-            ds = (9.0/10.0);
-        }
-        else {
             ds = (10.0/9.0);
         }
-        this.scaleFactor *= ds;
+        else {
+            ds = (9.0/10.0);
+        }
 
-        //var dx: number = pt.getX() * ds - pt.getX();
-        //var dy: number = pt.getY() * ds - pt.getY();
-
-        this.viewManager.setScale(this.scaleFactor);
+        this.viewManager.setScale(ds, pt);
     }
     click(id: string): void {
         //this.p.handle({type: 'horizontalNameLifeBox', id:id});

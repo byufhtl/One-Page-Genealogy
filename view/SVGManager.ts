@@ -227,20 +227,30 @@ class SVGManager implements IViewManager {
         var ty: number = this.translationY;
         var transform = [];
 
-        //do these happen backwards??? they don't match my view to world trasformations
+        //These happen in reverse
         transform.push('rotate('+this.rotation * 180 / Math.PI+')');
-        transform.push('scale('+1/this.scale+')');
-        transform.push('translate('+tx+','+ty+')');
+        transform.push('scale('+this.scale+')');
+        transform.push('translate('+-tx+','+-ty+')');
 
         this.svgRoot.setAttribute("transform", transform.join(','));
     }
     setTranslation(x:number, y:number): void {
-        this.translationX = x;
-        this.translationY = y;
+        this.translationX += x;
+        this.translationY += y;
         this.refresh(this.lastBoxes);
     }
-    setScale(s: number): void {
-        this.scale = s;
+    setScale(s: number, pt:Point): void {
+
+        var viewBefore: Point = this.worldToView(pt);
+        this.scale *= s;
+        var worldAfter: Point = this.viewToWorld(viewBefore);
+
+        var dx = worldAfter.getX() - pt.getX();
+        var dy = worldAfter.getY() - pt.getY();
+
+        this.translationX -= dx;
+        this.translationY -= dy;
+
         this.refresh(this.lastBoxes);
     }
     setSize(width: number, height: number): void {
@@ -251,17 +261,19 @@ class SVGManager implements IViewManager {
     }
     viewToWorld(pt: Point): Point {
 
-        pt = this.scalePt(pt, this.scale);
         pt = this.rotatePt(pt, -this.rotation);
-        pt = this.translate(pt, -this.translationX, -this.translationY);
+        pt = this.scalePt(pt, 1.0/this.scale);
+
+        pt = this.translate(pt, this.translationX, this.translationY);
 
         return pt;
     }
     worldToView(pt: Point): Point {
 
+        pt = this.translate(pt, -this.translationX, -this.translationY);
+
+        pt = this.scalePt(pt, this.scale);
         pt = this.rotatePt(pt, this.rotation);
-        pt = this.scalePt(pt, 1.0 / this.scale);
-        pt = this.translate(pt, this.translationX, this.translationY);
 
         return pt;
     }
@@ -277,17 +289,44 @@ class SVGManager implements IViewManager {
         return new Point(pt.getX()*s, pt.getY()*s);
     }
     rotate(r: number): void {
+        var viewBefore: Point = new Point(this.width/2, this.height/2);//this.worldToView(pt);
+        var pt: Point = this.viewToWorld(viewBefore);
         this.rotation += r % (Math.PI*2);
+        var worldAfter: Point = this.viewToWorld(viewBefore);
+
+        var dx = worldAfter.getX() - pt.getX();
+        var dy = worldAfter.getY() - pt.getY();
+
+        this.translationX -= dx;
+        this.translationY -= dy;
+
         this.refresh(this.lastBoxes);
     }
     getSVGString(): string {
         this.elementManager.setIgnoreBound(true);
         this.lineManager.setIgnoreBound(true);
+
+        var tx = this.translationX;
+        var ty = this.translationY;
+        var sc = this.scale;
+        var ro = this.rotation;
+
+        this.translationX = -10;
+        this.translationY = -10;
+        this.scale = 1;
+        this.rotation = 0;
+
         this.realRefresh();
 
         var s = new XMLSerializer();
 
         var data = s.serializeToString(this.mainSvg);
+
+        this.translationX = tx;
+        this.translationY = ty;
+        this.scale = sc;
+        this.rotation = ro;
+
 
         this.elementManager.setIgnoreBound(true);
         this.lineManager.setIgnoreBound(true);

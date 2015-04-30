@@ -16,8 +16,8 @@ class MainViewManager implements IViewManager {
     setTranslation(x:number, y:number): void {
         this.svgManager.setTranslation(x, y);
     }
-    setScale(s: number): void {
-        this.svgManager.setScale(s);
+    setScale(s: number, pt: Point): void {
+        this.svgManager.setScale(s, pt);
     }
     setSize(width: number, height: number): void {
 

@@ -1,0 +1,2 @@
+inkscape opg_chart.svg --export-area=0:-42347:3352:0 --export-png=opg_chart.png --export-width=3352 --export-height=42347 --export-dpi=200
+rsvg-convert  -f  pdf opg_chart.svg > opg_chart.pdf

@@ -7,7 +7,7 @@ interface IViewManager {
     refresh(boxMap: BoxMap): IGraphicObject;
 
     setTranslation(x:number, y:number): void;
-    setScale(s: number): void;
+    setScale(s: number, pt: Point): void;
     setSize(width: number, height: number): void;
     rotate(r: number): void;
     getSVGString(): string;

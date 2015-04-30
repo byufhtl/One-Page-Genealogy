@@ -1,6 +1,8 @@
 function SpacerTree() {
-  this.nodeMap;
-  this.node;
+    this.nodeMap = null;
+    this.node = null;
+    this.highest = 0;
+    this.lowest = 0;
 }
 SpacerTree.prototype.build = function(map, rootid) {
     var node = this.dfsBuild(map[rootid]);
@@ -8,6 +10,25 @@ SpacerTree.prototype.build = function(map, rootid) {
     var nodeMap = this.listToMap(genList);
 
     this.node = node;
+    var topBorder = node.getTopBorder();
+    var bottomBorder = node.getBottomBorder();
+    var lowest = Number.POSITIVE_INFINITY;
+    var highest = Number.NEGATIVE_INFINITY;
+
+    for(var i=0; i<topBorder.length; i++) {
+        if(topBorder[i].y < lowest) {
+            lowest = topBorder[i].y;
+        }
+    }
+    for(var i=0; i<bottomBorder.length; i++) {
+        if(bottomBorder[i].y > highest) {
+            highest = bottomBorder[i].y;
+        }
+    }
+
+
+    this.lowest = lowest;
+    this.highest = highest;
     this.nodeMap = nodeMap;
 
     return nodeMap;

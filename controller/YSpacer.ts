@@ -17,13 +17,16 @@ class YSpacer implements  IStyler {
         var nodeMap = spacerTree.build(this.createMap(boxes), boxes.getRoot());
         var node = spacerTree.node;
 
+        //console.log(spacerTree.lowest);
+        console.log(spacerTree.highest);
+
         for (var key in nodeMap) {
             if (nodeMap.hasOwnProperty(key)) {
                 var box: IBox = boxes.getId(key);
                 if(isNaN(nodeMap[key].y)) {
                     nodeMap[key].y = 0;
                 }
-                box.setY(nodeMap[key].y);
+                box.setY(nodeMap[key].y - spacerTree.lowest);
             }
         }
 
