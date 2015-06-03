@@ -49,4 +49,7 @@ class ClickRenderBox implements IBoxRender {
     getWidth(): number {
         return 150;
     }
+    requiresLoad(): boolean {
+        return false;
+    }
 }

@@ -29,7 +29,7 @@ class FSFullTreeDownloader implements  ISource {
         var seconds = new Date().getTime();
         var self = this;
         this.downloader.getGen(this.rootId, this.generations).then(function(people) {
-            console.log(((new Date().getTime()) - seconds)/1000);
+            //console.log(((new Date().getTime()) - seconds)/1000);
             for(var i=0; i<people.length; i++) {
                 var person = people[i];
                 var idData = self.nextUniqueId(person.getId(), person.getAscBranchIds());

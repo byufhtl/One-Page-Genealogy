@@ -49,4 +49,7 @@ class BasicSVGBox implements IBoxRender {
     getWidth(): number {
         return 100;
     }
+    requiresLoad(): boolean {
+        return false;
+    }
 }

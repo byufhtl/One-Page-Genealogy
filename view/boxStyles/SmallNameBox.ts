@@ -88,4 +88,7 @@ class SmallNameBox implements IBoxRender {
     getWidth(): number {
         return 300;
     }
+    requiresLoad(): boolean {
+        return false;
+    }
 }

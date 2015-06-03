@@ -55,5 +55,9 @@ class BoxStyleFactory {
         BoxStyleFactory.init();
         return BoxStyleFactory.boxes[type];
     }
+    static requiresLoad(type: string): boolean {
+        BoxStyleFactory.init();
+        return BoxStyleFactory.boxes[type].requiresLoad();
+    }
 
 }

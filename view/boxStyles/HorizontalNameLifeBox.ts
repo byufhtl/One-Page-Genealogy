@@ -73,4 +73,7 @@ class HorizontalNameLifeBox implements IBoxRender {
     getWidth(): number {
         return 400;
     }
+    requiresLoad(): boolean {
+        return false;
+    }
 }

@@ -137,4 +137,7 @@ class SmallPictureBox implements IBoxRender {
     getWidth(): number {
         return 300;
     }
+    requiresLoad(): boolean {
+        return true;
+    }
 }

@@ -148,4 +148,7 @@ class LargePictureBox2 implements IBoxRender {
     getWidth(): number {
         return 500;
     }
+    requiresLoad(): boolean {
+        return true;
+    }
 }

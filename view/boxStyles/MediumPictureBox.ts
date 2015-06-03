@@ -148,4 +148,7 @@ class MediumPictureBox implements IBoxRender {
     getWidth(): number {
         return 450;
     }
+    requiresLoad(): boolean {
+        return true;
+    }
 }

@@ -9,4 +9,6 @@ interface IBoxRender {
 
     getHeight(): number;
     getWidth(): number;
+
+    requiresLoad(): boolean;
 }

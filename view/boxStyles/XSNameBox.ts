@@ -88,4 +88,7 @@ class XSNameBox implements IBoxRender {
     getWidth(): number {
         return 200;
     }
+    requiresLoad(): boolean {
+        return false;
+    }
 }

@@ -64,4 +64,7 @@ class CompactSimpleNameBox implements IBoxRender {
     getWidth(): number {
         return 200;
     }
+    requiresLoad(): boolean {
+        return false;
+    }
 }
