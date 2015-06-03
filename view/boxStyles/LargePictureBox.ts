@@ -39,7 +39,6 @@ class LargePictureBox implements IBoxRender {
             text.setAttribute("x", "15");
             text.setAttribute("y", "300");
             text.setAttribute("font-size", "30px");
-            text.setAttribute("font-size", "30px");
             StringUtils.centerElement(text, 0, 260);
         }
 
