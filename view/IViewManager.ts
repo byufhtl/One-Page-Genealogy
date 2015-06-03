@@ -10,5 +10,5 @@ interface IViewManager {
     setScale(s: number, pt: Point): void;
     setSize(width: number, height: number): void;
     rotate(r: number): void;
-    getSVGString(): string;
+    getSVGString(): any;
 }

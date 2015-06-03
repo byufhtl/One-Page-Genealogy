@@ -112,6 +112,11 @@ class SVGManager implements IViewManager {
         hammer.on('panstart', function(ev) {
             startDrag(getHammerPosition(svg, ev.center))
         });
+        hammer.on('tap', function(ev) {
+            ev.preventDefault();
+            var pt = getHammerPosition(svg, ev.center);
+            self.graphicObject.fireClickPt(self.viewToWorld(new Point(pt.x, pt.y)));
+        });
         var pt1 = null;
         var pt2 = null;
         var dx = 0;
@@ -119,8 +124,6 @@ class SVGManager implements IViewManager {
 
         function startDrag(pt) {
             pt1 = pt;
-
-
         }
         function drag(pt) {
             pt2 = pt1;
@@ -184,6 +187,10 @@ class SVGManager implements IViewManager {
             var branchIds = node.getBranchIds();
 
             this.elementManager.requestElement(box);
+
+            if(box.isCollapsed()) {
+                continue;
+            }
 
             for (var i:number = 0; i < branchIds.length; i++) {
                 var branchBox:IBox = boxes.getId(branchIds[i]);
@@ -302,7 +309,9 @@ class SVGManager implements IViewManager {
 
         this.refresh(this.lastBoxes);
     }
-    getSVGString(): string {
+    getSVGString(): any {
+        var defer = $.Deferred();
+
         this.elementManager.setIgnoreBound(true);
         this.lineManager.setIgnoreBound(true);
 
@@ -318,20 +327,112 @@ class SVGManager implements IViewManager {
 
         this.realRefresh();
 
-        var s = new XMLSerializer();
+        var counter = 0;
+        var total = 0;
+        var self = this;
+        var repeatCallBack = function() {
+            counter++;
+            console.log(total, counter);
+            if(counter >= total) {
+                var s = new XMLSerializer();
 
-        var data = s.serializeToString(this.mainSvg);
+                self.elementManager.setIgnoreBound(true);
+                self.lineManager.setIgnoreBound(true);
+                var tx = self.translationX;
+                var ty = self.translationY;
+                var sc = self.scale;
+                var ro = self.rotation;
+
+                self.translationX = -10;
+                self.translationY = -10;
+                self.scale = 1;
+                self.rotation = 0;
+                self.realRefresh();
+
+                var data = s.serializeToString(self.mainSvg);
+                defer.resolve(data);
+
+                self.translationX = tx;
+                self.translationY = ty;
+                self.scale = sc;
+                self.rotation = ro;
+
+
+                self.elementManager.setIgnoreBound(false);
+                self.lineManager.setIgnoreBound(false);
+                self.realRefresh();
+
+
+            }
+        };
+        var queue = [];
+        var rootId = this.lastBoxes.getRoot();
+        var boxes: BoxMap = this.lastBoxes;
+        queue.push(rootId);
+        while(queue.length > 0) {
+            var box:IBox = boxes.getId(queue.shift());
+            if(!box) {
+                continue;
+            }
+            var node:INode = box.getNode();
+            var branchIds = node.getBranchIds();
+
+            if(box.getType() === 'simpleNameBox') {
+                total++;
+            }
+
+            if(box.isCollapsed()) {
+                continue;
+            }
+
+            for (var i:number = 0; i < branchIds.length; i++) {
+                var branchBox:IBox = boxes.getId(branchIds[i]);
+                if (!branchBox) {
+                    continue;
+                }
+                queue.push(branchIds[i]);
+            }
+        }
+
+        queue.push(rootId);
+        while(queue.length > 0) {
+            var box:IBox = boxes.getId(queue.shift());
+            if(!box) {
+                continue;
+            }
+            var node:INode = box.getNode();
+            var branchIds = node.getBranchIds();
+
+            if(box.getType() === 'simpleNameBox') {
+                node.getAttr('doneLoading').then(repeatCallBack, repeatCallBack);
+            }
+
+
+            if(box.isCollapsed()) {
+                continue;
+            }
+
+            for (var i:number = 0; i < branchIds.length; i++) {
+                var branchBox:IBox = boxes.getId(branchIds[i]);
+                if (!branchBox) {
+                    continue;
+                }
+                queue.push(branchIds[i]);
+            }
+        }
+        if(total === 0) {
+            setTimeout(repeatCallBack, 0);
+        }
 
         this.translationX = tx;
         this.translationY = ty;
         this.scale = sc;
         this.rotation = ro;
 
-
-        this.elementManager.setIgnoreBound(true);
-        this.lineManager.setIgnoreBound(true);
+        this.elementManager.setIgnoreBound(false);
+        this.lineManager.setIgnoreBound(false);
         this.realRefresh();
 
-        return data;
+        return defer.promise();
     }
 }

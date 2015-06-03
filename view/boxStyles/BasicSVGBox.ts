@@ -3,7 +3,7 @@
  * Created by curtis on 3/10/15.
  */
 class BasicSVGBox implements IBoxRender {
-    render(box:IBox): any {
+    render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var rect:Element = document.createElementNS("http://www.w3.org/2000/svg", "rect");
 

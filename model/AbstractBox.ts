@@ -4,6 +4,7 @@
 ///<reference path="IBox.ts"/>
 ///<reference path="../view/IBoxRender.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
+///<reference path="Box.ts"/>
 /**
  * Created by curtis on 3/7/15.
  */
@@ -65,6 +66,7 @@ class AbstractBox implements IBox {
         b.setType(this.getType());
         b.setX(this.getX());
         b.setY(this.getY());
+        b.setCollapsed(this.isCollapsed());
         return b;
     }
     copyContents(b: IBox): void {
@@ -73,6 +75,7 @@ class AbstractBox implements IBox {
         b.setType(this.getType());
         b.setX(this.getX());
         b.setY(this.getY());
+        b.setCollapsed(this.isCollapsed());
     }
     isCollapsed(): boolean {
         return this.collapsed;
@@ -87,5 +90,20 @@ class AbstractBox implements IBox {
         this.w = 0;
         this.type = null;
         this.collapsed = false;
+    }
+    hitTest(pt: Point): boolean {
+        if(this.x > pt.getX()) {
+            return false;
+        }
+        if(this.x + this.w < pt.getX()) {
+            return false;
+        }
+        if(this.y > pt.getY()) {
+            return false;
+        }
+        if(this.y + this.h < pt.getY()) {
+            return false;
+        }
+        return true;
     }
 }

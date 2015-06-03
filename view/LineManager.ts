@@ -25,6 +25,10 @@ class LineManager {
             var cx = box.getX() + box.getWidth()/2;
             var cy = box.getY() + box.getHeight()/2;
 
+            if(box.isCollapsed()) {
+                continue;
+            }
+
             var branchIdsTmp = [];
             for(var i=0; i<branchIds.length; i++) {
                 var branchBox:IBox = boxes.getId(branchIds[i]);
@@ -45,7 +49,9 @@ class LineManager {
                 if(this.shouldDrawLine(box, firstBox, lastBox)) {
                     var first = this.toCenterPoint(boxes.getId(branchIds[0]));
                     var last = this.toCenterPoint(boxes.getId(branchIds[branchIds.length - 1]));
-                    var middleX = (first.getX() + cx)/2;
+                    //var middleX = (first.getX() + cx)/2;
+                    var firstBox: IBox= boxes.getId(branchIds[0]);
+                    var middleX = first.getX()-firstBox.getWidth()/2 - 5;
 
                     this.d += "M " + cx + " " + cy + " ";
                     this.d += "L " + middleX + " " + cy + " ";

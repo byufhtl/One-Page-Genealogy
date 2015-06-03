@@ -4,6 +4,12 @@
 ///<reference path="boxStyles/SimpleNameBox.ts"/>
 ///<reference path="boxStyles/CompactSimpleNameBox.ts"/>
 ///<reference path="boxStyles/HorizontalNameLifeBox.ts"/>
+///<reference path="boxStyles/LargePictureBox.ts"/>
+///<reference path="boxStyles/LargePictureBox2.ts"/>
+///<reference path="boxStyles/MediumPictureBox.ts"/>
+///<reference path="boxStyles/SmallPictureBox.ts"/>
+///<reference path="boxStyles/SmallNameBox.ts"/>
+///<reference path="boxStyles/XSNameBox.ts"/>
 /**
  * Created by curtis on 3/13/15.
  */
@@ -21,6 +27,12 @@ class BoxStyleFactory {
         boxTypes.push(new SimpleNameBox());
         boxTypes.push(new CompactSimpleNameBox());
         boxTypes.push(new HorizontalNameLifeBox());
+        boxTypes.push(new LargePictureBox());
+        boxTypes.push(new LargePictureBox2());
+        boxTypes.push(new MediumPictureBox());
+        boxTypes.push(new SmallPictureBox());
+        boxTypes.push(new SmallNameBox());
+        boxTypes.push(new XSNameBox());
 
         BoxStyleFactory.boxes = {};
 

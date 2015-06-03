@@ -6,4 +6,5 @@ interface IGraphicObjectListener {
     translate(pt1: Point, pt2: Point): void;
     scale(ds: number, pt: Point): void;
     click(id: string): void;
+    clickPt(pt: Point): void;
 }

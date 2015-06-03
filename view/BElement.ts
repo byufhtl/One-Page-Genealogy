@@ -14,8 +14,8 @@ class BElement implements IElement {
     }
     make(box: IBox, rootElement, graphicObject: IGraphicObject) {
         this.lastBox = box.copy();
-        this.g = BoxStyleFactory.getNewBoxStyle(box.getType()).render(box);
-        this.define(box);
+        this.g = BoxStyleFactory.getNewBoxStyle(box.getType()).render(box, rootElement);
+        this.define(box, rootElement);
 
         rootElement.appendChild(this.g);
         //var self = this;
@@ -26,13 +26,13 @@ class BElement implements IElement {
         //    });
         //})();
     }
-    define(box: IBox) {
+    define(box: IBox, rootElement) {
         box.copyContents(this.lastBox);
-        this.move(box);
+        this.move(box, rootElement);
     }
-    move(box: IBox) {
+    move(box: IBox, rootElement) {
         box.copyContents(this.lastBox);
-        BoxStyleFactory.getNewBoxStyle(box.getType()).move(box, this.g);
+        BoxStyleFactory.getNewBoxStyle(box.getType()).move(box, this.g, rootElement);
     }
     remove(rootElement) {
         this.lastBox = null;

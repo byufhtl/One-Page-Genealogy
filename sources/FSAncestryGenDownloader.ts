@@ -5,13 +5,7 @@
 
 class FSAncestryGenDownloader {
     constructor() {
-        FamilySearch.init({
-            app_key: "NQ3Q-PBD8-LL9N-RCLZ-MZCZ-X7P8-7SMX-RD6N",
-            environment: 'production',
-            auth_callback: 'http://localhost:8000/auth/login/return/',
-            http_function: $.ajax,
-            deferred_function: $.Deferred
-        });
+
     }
     getGen(id: string, generations: number): any {
         var defer = $.Deferred();

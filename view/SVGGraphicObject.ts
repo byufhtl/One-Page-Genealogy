@@ -17,6 +17,9 @@ class SVGGraphicObject implements IGraphicObject {
     fireClick(id: string) {
         this.listener.click(id);
     }
+    fireClickPt(pt: Point) {
+        this.listener.clickPt(pt);
+    }
     fireScale(ds: number, pt: Point) {
         this.listener.scale(ds, pt);
     }

@@ -10,6 +10,7 @@
 ///<reference path="CollapseSpacer.ts"/>
 ///<reference path="TranslateSpacer.ts"/>
 ///<reference path="RotateSpacer.ts"/>
+///<reference path="GenerationSpacer2.ts"/>
 /**
  * Created by krr428 on 3/7/15.
  */
@@ -38,7 +39,8 @@ class P implements IControllerListener, ITreeListener {
 
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new SimpleGenerationSpacer());
+        this.stylingPipeline.push(new GenerationSpacer2());
+        //this.stylingPipeline.push(new SimpleGenerationSpacer());
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
 
@@ -47,7 +49,7 @@ class P implements IControllerListener, ITreeListener {
         this.transformationPipline = [];
         this.transformationPipline.push(this.translateSpacer);
     }
-    handle(param: any): void {
+    handle(param: any): any {
         var refresh = false;
         if(param.type) {
             if(param.type === 'changeIndividual') {
@@ -66,15 +68,52 @@ class P implements IControllerListener, ITreeListener {
                 this.collapseSpacer.collapseId(param.id, true);
                 refresh = true;
             }
+            else if(param.type === 'expand-sub-tree') {
+                this.collapseSpacer.collapseId(param.id, false);
+                refresh = true;
+            }
             else if(param.type === 'update-translate') {
                 this.translateSpacer.setTranslation(param.dx, param.dy);
                 refresh = true;
+            }
+            else if(param.type === 'getBoxByPoint') {
+                return this.getBoxByPoint(param.pt);
             }
         }
 
         if(refresh) {
             this.runPipeline();
         }
+    }
+    private getBoxByPoint(pt: Point): IBox {
+
+        var queue = [];
+
+        queue.push(this.secondBoxMap.getRoot());
+        while(queue.length > 0) {
+            var nextId: string = queue.shift();
+            var nextBox: IBox = this.secondBoxMap.getId(nextId);
+
+            if(!nextBox) {
+                continue;
+            }
+
+            if(nextBox.hitTest(pt)) {
+                return nextBox;
+            }
+
+            var nextNode: INode = nextBox.getNode();
+            var childrenIds: string[] = nextNode.getBranchIds();
+
+            if(nextBox.isCollapsed()) {
+                continue;
+            }
+
+            for(var i=0; i<childrenIds.length; i++) {
+                queue.push(childrenIds[i]);
+            }
+        }
+        return null;
     }
     private getGeneration(node: INode, target: string): number {
         if(node.getId() == target) {

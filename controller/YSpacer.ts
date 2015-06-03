@@ -7,6 +7,13 @@
  */
 class YSpacer implements  IStyler {
 
+    private high: number;
+    private low: number;
+
+    constructor() {
+
+    }
+
     //A little bit of a rough converter to get the data
     //formatted right for the spacing algorithm.
     //the spacer should probably be redone in typescript
@@ -17,8 +24,8 @@ class YSpacer implements  IStyler {
         var nodeMap = spacerTree.build(this.createMap(boxes), boxes.getRoot());
         var node = spacerTree.node;
 
-        //console.log(spacerTree.lowest);
-        console.log(spacerTree.highest);
+        this.high = spacerTree.lowest;
+        this.low = spacerTree.highest;
 
         for (var key in nodeMap) {
             if (nodeMap.hasOwnProperty(key)) {
@@ -50,6 +57,10 @@ class YSpacer implements  IStyler {
             map[id]['height'] = box.getHeight();
             map[id]['id'] = node.getId();
             map[id]['children'] = [];
+
+            if(box.isCollapsed()) {
+                continue;
+            }
 
             for(var i:number=0; i<branchIds.length; i++) {
                 var branchBox:IBox = boxes.getId(branchIds[i]);

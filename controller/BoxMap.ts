@@ -28,11 +28,17 @@ class BoxMap {
         }
         return newMap;
     }
+    //Copies the contents from this map to the boxes
     copyContents(boxes: BoxMap): void {
         for(var key in this.map) {
             if(this.map.hasOwnProperty(key)) {
                 this.map[key].copyContents(boxes.getId(key));
             }
         }
+        //for(var key in boxes.map) {
+        //    if(boxes.map.hasOwnProperty(key) && !this.map.hasOwnProperty(key)) {
+        //        boxes.removeId(key);
+        //    }
+        //}
     }
 }

@@ -27,15 +27,20 @@ class C implements IGraphicObjectListener, IOptionListener {
     private dy: number;
     private optionManager: OptionManager;
     private boxes: BoxMap;
-
     private scaleFactor: number;
 
+    private anchorPt: Point;
+    private anchorId: string;
 
-    constructor() {
-        //this.source = new FamilySearchSource('LDJQ-2GC', 5);
-        //this.source = new FamilySearchSource('K2N7-S9R', 3);
-        //this.source = new FSAncestryDownloader('KWFX-MD1', 14);
-        this.source = new FSFullTreeDownloader('KWFX-MD1', 5);
+
+    constructor(data) {
+
+        var rootId: string = data.rootId;
+        var generations: number = data.generations;
+
+        this.source = new FSFullTreeDownloader(rootId, generations);
+        this.anchorPt = new Point(10, 10);
+
         this.tree = new Tree();
         this.p = new P(this);
         this.viewManager = new MainViewManager();
@@ -52,15 +57,26 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.boxes = null;
 
         var self = this;
-        FamilySearch.getAccessToken().then(function (response) {
-            self.source.start();
-        });
+
+        self.source.start();
     }
     setViewManager(viewManager: IViewManager): void {
         this.viewManager = viewManager;
     }
     refresh(boxes: BoxMap): void {
         this.boxes = boxes;
+
+        if(!this.anchorId) {
+            this.anchorId = this.boxes.getRoot();
+        }
+
+        var newBox: IBox = this.boxes.getId(this.anchorId);
+        if(newBox) {
+            var newAnchor = new Point(newBox.getX(), newBox.getY());
+            this.translate(this.anchorPt, newAnchor);
+            this.anchorPt = newAnchor;
+        }
+
         this.graphicObject = this.viewManager.refresh(boxes);
         this.graphicObject.setListener(this);
     }
@@ -82,32 +98,43 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.viewManager.setScale(ds, pt);
     }
     click(id: string): void {
-        //this.p.handle({type: 'horizontalNameLifeBox', id:id});
         if(this.boxes && this.boxes.getId(id)) {
             var box:IBox = this.boxes.getId(id);
             this.optionManager.handleOptionSetting('selectIndividual', {box:box});
         }
-
+    }
+    clickPt(pt: Point): void {
+        var box: IBox = this.p.handle({type: 'getBoxByPoint', pt: pt});
+        if(box) {
+            this.anchorId = box.getNode().getId();
+            this.anchorPt = new Point(box.getX(), box.getY());
+            this.optionManager.handleOptionSetting('selectIndividual', {box: box});
+        }
     }
     handleOption(key:string, value:any):void {
         if(key === "collapse-sub-tree") {
-            this.p.handle({type: key, id:value['id']});
+            this.p.handle({type: key, id:value.id, box: value.box});
+        }
+        else if(key === "expand-sub-tree") {
+            this.p.handle({type: key, id:value.id, box: value.box});
         }
         else if(key === 'rotate') {
             this.viewManager.rotate(value.value);
         }
         else if(key === 'request-download') {
-            var s = this.viewManager.getSVGString();
-            var fileName = "opg_chart.svg";
-            var url = "data:image/svg+xml;utf8," + encodeURIComponent(s);
-            var link:any = document.createElement("a");
-            link.download = fileName;
-            link.href = url;
-            link.click();
+            this.viewManager.getSVGString().then(function(s){
+                //var s = this.viewManager.getSVGString();
+                var fileName = "opg_chart.svg";
+                var url = "data:image/svg+xml;utf8," + encodeURIComponent(s);
+                var link:any = document.createElement("a");
+                link.download = fileName;
+                link.href = url;
+                link.click();
+            });
+
         }
         else if(key) {
             this.p.handle({type: key, value: value['type'], id:value['id']});
         }
-
     }
 }

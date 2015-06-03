@@ -40,10 +40,10 @@ class Tree implements ITree {
                 self.boxes.setId(node.getId(), new Box(node));
                 self.updates.push(new Command('add-node', node));
 
-                if(Object.keys(self.treeMap).length % 10 === 0) {
-                    self.treeListener.handleUpdate(self, self.updates);
-                    self.updates = [];
-                }
+                //if(Object.keys(self.treeMap).length % 10 === 0) {
+                //    self.treeListener.handleUpdate(self, self.updates);
+                //    self.updates = [];
+                //}
 
             },
             done(): void {

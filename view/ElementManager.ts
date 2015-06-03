@@ -107,7 +107,7 @@ class ElementManager implements IElementManager {
         this.elementMap[box.getNode().getId()] = element;
     }
     private move(box: IBox): void {
-        this.elementMap[box.getNode().getId()].move(box);
+        this.elementMap[box.getNode().getId()].move(box, this.elementContainer);
     }
     private removeElement(box: IBox): void {
         var current: IElement = this.elementMap[box.getNode().getId()];

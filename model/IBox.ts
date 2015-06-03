@@ -1,4 +1,5 @@
 ///<reference path="INode.ts"/>
+///<reference path="../util/Point.ts"/>
 /**
  * Created by krr428 on 3/7/15.
  */
@@ -19,6 +20,7 @@ interface IBox {
     copyContents(original:IBox): void;
     isCollapsed(): boolean;
     setCollapsed(collapsed: boolean);
+    hitTest(pt: Point): boolean;
     clear():void;
 }
 
