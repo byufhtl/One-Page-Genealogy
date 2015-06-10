@@ -1,4 +1,4 @@
-///<reference path="IStyler.ts"/>
+ ///<reference path="IStyler.ts"/>
 ///<reference path="IControllerListener.ts"/>
 ///<reference path="../model/ITreeListener.ts"/>
 ///<reference path="SimpleGenerationSpacer.ts"/>
@@ -11,6 +11,7 @@
 ///<reference path="TranslateSpacer.ts"/>
 ///<reference path="RotateSpacer.ts"/>
 ///<reference path="GenerationSpacer2.ts"/>
+ ///<reference path="EightElevenSpacer.ts"/>
 /**
  * Created by krr428 on 3/7/15.
  */
@@ -39,7 +40,8 @@ class P implements IControllerListener, ITreeListener {
 
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new GenerationSpacer2());
+        this.stylingPipeline.push(new EightElevenSpacer());
+        //this.stylingPipeline.push(new GenerationSpacer2());
         //this.stylingPipeline.push(new SimpleGenerationSpacer());
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
