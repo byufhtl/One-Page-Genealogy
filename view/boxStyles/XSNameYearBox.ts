@@ -2,9 +2,9 @@
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
 /**
- * Created by curtis on 3/16/15.
+ * Created by renae on 6/18/15.
  */
-class XSNameBox implements IBoxRender {
+class XSNameYearBox implements IBoxRender {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -39,9 +39,20 @@ class XSNameBox implements IBoxRender {
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
             text.setAttribute("font-size", "10px");
-            StringUtils.centerElement(text, 0, 162);
+            StringUtils.fitName(text,node.getAttr('name'),20);
+            //StringUtils.centerElement(text, 0, 162);
         }
 
+        var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        g.appendChild(text3);
+        var nameTextPath = document.createTextNode("");
+        text3.appendChild(nameTextPath);
+        text3.setAttribute("x", "110");
+        text3.setAttribute("y", "8");
+        text3.setAttribute("font-size", "8px");
+
+        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 50);
+//        StringUtils.centerElement(text3, 0, 160);
 
         var gender = 'none';
         if(node.hasAttr('gender')) {
@@ -67,7 +78,7 @@ class XSNameBox implements IBoxRender {
         graphic.setAttribute("transform","translate("+(box.getX()+1)+", "+(box.getY()+1)+")");
     }
     getType(): string {
-        return "xsNameBox";
+        return "xsNameYearBox";
     }
     getHeight(): number {
         return 12;

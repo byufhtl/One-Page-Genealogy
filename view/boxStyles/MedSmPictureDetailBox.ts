@@ -2,9 +2,9 @@
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
 /**
- * Created by renae on 6/5/15.
+ * Created by renae on 6/12/15.
  */
-class SmallPictureDetailBox2 implements IBoxRender {
+class MedSmPictureDetailBox implements IBoxRender {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -14,15 +14,14 @@ class SmallPictureDetailBox2 implements IBoxRender {
 
         g.appendChild(rect);
 
-        rect.setAttribute('width', String(this.getWidth()-4));
-        rect.setAttribute('height', String(this.getHeight()-4));
+        rect.setAttribute('width', String(this.getWidth()));
+        rect.setAttribute('height', String(this.getHeight()));
 
         if(isNaN(box.getY())) {
             console.log(box);
         }
 
-        //g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
-        this.move(box,g);
+        g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
 
 
         rect.setAttribute('rx', "10");
@@ -37,10 +36,10 @@ class SmallPictureDetailBox2 implements IBoxRender {
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "60");
-            text.setAttribute("y", "15");
-            text.setAttribute("font-size", "15px");
-//            StringUtils.centerElement(text, 40, 220);
+            text.setAttribute("x", "100");
+            text.setAttribute("y", "25");
+            text.setAttribute("font-size", "17px");
+//            StringUtils.centerElement(text, 40, 240);
             StringUtils.fitName(text,node.getAttr('name'),30);
         }
 
@@ -48,32 +47,43 @@ class SmallPictureDetailBox2 implements IBoxRender {
         g.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "60");
-        text3.setAttribute("y", "30");
-        text3.setAttribute("font-size", "10px");
-
+        text3.setAttribute("x", "100");
+        text3.setAttribute("y", "45");
+        text3.setAttribute("font-size", "12px");
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
-//        StringUtils.centerElement(text3, 40, 220);
+//        StringUtils.centerElement(text3, 40, 240);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text4);
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
-        text4.setAttribute("x", "60");
-        text4.setAttribute("y", "42");
-        text4.setAttribute("font-size", "10px");
-//        StringUtils.centerElement(text4, 40, 220);
-        StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 40);
+        text4.setAttribute("x", "100");
+        text4.setAttribute("y", "62");
+        text4.setAttribute("font-size", "12px");
+//        StringUtils.centerElement(text4, 40, 240);
+        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 40);
+        text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text5);
         var nameTextPath = document.createTextNode("M: marriage place (year)");
         text5.appendChild(nameTextPath);
-        text5.setAttribute("x", "60");
-        text5.setAttribute("y", "54");
-        text5.setAttribute("font-size", "10px");
-//        StringUtils.centerElement(text5, 40, 220);
+        text5.setAttribute("x", "100");
+        text5.setAttribute("y", "77");
+        text5.setAttribute("font-size", "12px");
+//        StringUtils.centerElement(text5, 40, 240);
+        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
+        text5.textContent = 'D: '+text5.textContent;
+
+        var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        g.appendChild(text6);
+        var nameTextPath = document.createTextNode("M: marriage place (year)");
+        text6.appendChild(nameTextPath);
+        text6.setAttribute("x", "100");
+        text6.setAttribute("y", "92");
+        text6.setAttribute("font-size", "12px");
+//        StringUtils.centerElement(text6, 40, 240);
 
         var gender = 'none';
         if(node.hasAttr('gender')) {
@@ -97,8 +107,8 @@ class SmallPictureDetailBox2 implements IBoxRender {
         clippath.setAttribute('id', 'clip-'+node.getId());
         g.appendChild(clippath);
         var cliprect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        cliprect.setAttribute('width', '50');
-        cliprect.setAttribute('height', '50');
+        cliprect.setAttribute('width', '90');
+        cliprect.setAttribute('height', '90');
         cliprect.setAttribute('rx', '10');
         cliprect.setAttribute('ry', '10');
         cliprect.setAttribute('x', '5');
@@ -109,8 +119,8 @@ class SmallPictureDetailBox2 implements IBoxRender {
 
         if(node.hasAttr('profilePicturePromise')) {
             var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
-            svgimg.setAttribute('height','50');
-            svgimg.setAttribute('width','50');
+            svgimg.setAttribute('height','90');
+            svgimg.setAttribute('width','90');
             svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.svg');
             svgimg.setAttribute('x','5');
             svgimg.setAttribute('y','5');
@@ -122,8 +132,8 @@ class SmallPictureDetailBox2 implements IBoxRender {
                     return;
                 }
                 var svgimg2 = document.createElementNS('http://www.w3.org/2000/svg','image');
-                svgimg2.setAttribute('height','50');
-                svgimg2.setAttribute('width','50');
+                svgimg2.setAttribute('height','90');
+                svgimg2.setAttribute('width','90');
                 svgimg2.setAttribute('x','5');
                 svgimg2.setAttribute('y','5');
                 svgimg2.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
@@ -145,16 +155,16 @@ class SmallPictureDetailBox2 implements IBoxRender {
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+2)+")");
+        graphic.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
     }
     getType(): string {
-        return "smallPictureDetailBox2";
+        return "medSmPictureDetailBox";
     }
     getHeight(): number {
-        return 64;
+        return 100;
     }
     getWidth(): number {
-        return 254;
+        return 310;
     }
     requiresLoad(): boolean {
         return true;

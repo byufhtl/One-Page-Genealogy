@@ -6,8 +6,11 @@
 ///<reference path="boxStyles/HorizontalNameLifeBox.ts"/>
 ///<reference path="boxStyles/LargePictureBox.ts"/>
 ///<reference path="boxStyles/LargePictureBox2.ts"/>
+///<reference path="boxStyles/LargePictureDetailBox2.ts"/>
 ///<reference path="boxStyles/MidLargePictureBox.ts"/>
 ///<reference path="boxStyles/MediumPictureBox.ts"/>
+///<reference path="boxStyles/MediumPictureDetailBox.ts"/>
+///<reference path="boxStyles/MedSmPictureDetailBox.ts"/>
 ///<reference path="boxStyles/SmallPictureBox.ts"/>
 ///<reference path="boxStyles/SmallPictureBox2.ts"/>
 ///<reference path="boxStyles/SmallPictureDetailBox.ts"/>
@@ -15,6 +18,7 @@
 ///<reference path="boxStyles/SmallNameBox.ts"/>
 ///<reference path="boxStyles/SmallDetailBox.ts"/>
 ///<reference path="boxStyles/XSNameBox.ts"/>
+///<reference path="boxStyles/XSNameYearBox.ts"/>
 ///<reference path="boxStyles/XSDetailBox.ts"/>
 ///<reference path="boxStyles/SmallestNameBox.ts"/>
 /**
@@ -36,8 +40,11 @@ class BoxStyleFactory {
         boxTypes.push(new HorizontalNameLifeBox());
         boxTypes.push(new LargePictureBox());
         boxTypes.push(new LargePictureBox2());
+        boxTypes.push(new LargePictureDetailBox2());
         boxTypes.push(new MidLargePictureBox());
         boxTypes.push(new MediumPictureBox());
+        boxTypes.push(new MediumPictureDetailBox());
+        boxTypes.push(new MedSmPictureDetailBox());
         boxTypes.push(new SmallPictureBox());
         boxTypes.push(new SmallPictureBox2());
         boxTypes.push(new SmallPictureDetailBox());
@@ -45,6 +52,7 @@ class BoxStyleFactory {
         boxTypes.push(new SmallNameBox());
         boxTypes.push(new SmallDetailBox());
         boxTypes.push(new XSNameBox());
+        boxTypes.push(new XSNameYearBox());
         boxTypes.push(new XSDetailBox());
         boxTypes.push(new SmallestNameBox());
 

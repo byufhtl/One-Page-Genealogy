@@ -36,41 +36,43 @@ class SmallPictureDetailBox implements IBoxRender {
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "10");
+            text.setAttribute("x", "60");
             text.setAttribute("y", "15");
             text.setAttribute("font-size", "15px");
-            StringUtils.centerElement(text, 40, 240);
+//            StringUtils.centerElement(text, 40, 240);
+            StringUtils.fitName(text,node.getAttr('name'),30);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "10");
+        text3.setAttribute("x", "60");
         text3.setAttribute("y", "30");
         text3.setAttribute("font-size", "10px");
 
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
-        StringUtils.centerElement(text3, 40, 240);
+//        StringUtils.centerElement(text3, 40, 240);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text4);
-        var nameTextPath = document.createTextNode("B: birth place D: death place");
+        var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
-        text4.setAttribute("x", "10");
+        text4.setAttribute("x", "60");
         text4.setAttribute("y", "42");
         text4.setAttribute("font-size", "10px");
-        StringUtils.centerElement(text4, 40, 240);
+//        StringUtils.centerElement(text4, 40, 240);
+        StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 40);
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text5);
         var nameTextPath = document.createTextNode("M: marriage place (year)");
         text5.appendChild(nameTextPath);
-        text5.setAttribute("x", "10");
+        text5.setAttribute("x", "60");
         text5.setAttribute("y", "54");
         text5.setAttribute("font-size", "10px");
-        StringUtils.centerElement(text5, 40, 240);
+//        StringUtils.centerElement(text5, 40, 240);
 
         var gender = 'none';
         if(node.hasAttr('gender')) {

@@ -1,9 +1,9 @@
 ///<reference path="IStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 /**
- * Created by renae on 6/4/15.
+ * Created by renae on 6/10/15.
  */
-class EightElevenSpacer implements  IStyler {
+class DetailChartSpacer implements  IStyler {
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
@@ -36,49 +36,63 @@ class EightElevenSpacer implements  IStyler {
 
         if(generation == 0) {
             var bx = 0;
-            childBox.setType('medSmPictureDetailBox');
+            childBox.setType('largePictureDetailBox2');
             childBox.setX(bx);
-            childBox.setHeight(BoxStyleFactory.getHeight('medSmPictureDetailBox'));
-            childBox.setWidth(BoxStyleFactory.getWidth('medSmPictureDetailBox'));
+            childBox.setHeight(BoxStyleFactory.getHeight('largePictureDetailBox2'));
+            childBox.setWidth(BoxStyleFactory.getWidth('largePictureDetailBox2'));
         }
         else if(generation == 1) {
-            bx = parentBox.getX() + parentBox.getWidth()/2-100;// + 10;
+            bx = parentBox.getX() + parentBox.getWidth()/2 - 150;
+            childBox.setType('largePictureDetailBox2');
+            childBox.setX(bx);
+            childBox.setHeight(BoxStyleFactory.getHeight('largePictureDetailBox2'));
+            childBox.setWidth(BoxStyleFactory.getWidth('largePictureBox2'));
+        }
+        else if(generation == 2) {
+            bx = parentBox.getX() + parentBox.getWidth()/2 + 10;
+            childBox.setType('mediumPictureDetailBox');
+            childBox.setX(bx);
+            childBox.setHeight(BoxStyleFactory.getHeight('mediumPictureDetailBox'));
+            childBox.setWidth(BoxStyleFactory.getWidth('mediumPictureDetailBox'));
+        }
+        else if(generation == 3) {
+            bx = parentBox.getX() + parentBox.getWidth()/2 + 10;
             childBox.setType('smallPictureDetailBox');
             childBox.setX(bx);
             childBox.setHeight(BoxStyleFactory.getHeight('smallPictureDetailBox'));
             childBox.setWidth(BoxStyleFactory.getWidth('smallPictureDetailBox'));
         }
-        else if(generation == 2) {
-            bx = parentBox.getX() + parentBox.getWidth()/2;
-            childBox.setType('smallPictureDetailBox2');
-            childBox.setX(bx);
-            childBox.setHeight(BoxStyleFactory.getHeight('smallPictureDetailBox2'));
-            childBox.setWidth(BoxStyleFactory.getWidth('smallPictureDetailBox2'));
-        }
-        else if(generation == 3) {
+        else if(generation == 4) {
             bx = parentBox.getX() + parentBox.getWidth()/2 + 10;
             childBox.setType('smallDetailBox');
             childBox.setX(bx);
             childBox.setHeight(BoxStyleFactory.getHeight('smallDetailBox'));
             childBox.setWidth(BoxStyleFactory.getWidth('smallDetailBox'));
         }
-        else if(generation == 4) {
-            bx = parentBox.getX() + parentBox.getWidth()/2 + 30;
+        else if(generation == 5) {
+            bx = parentBox.getX() + parentBox.getWidth()/2 + 10;
+            childBox.setType('smallDetailBox');
+            childBox.setX(bx);
+            childBox.setHeight(BoxStyleFactory.getHeight('smallDetailBox'));
+            childBox.setWidth(BoxStyleFactory.getWidth('smallDetailBox'));
+        }
+        else if(generation == 6) {
+            bx = parentBox.getX() + parentBox.getWidth()/2 + 10;
             childBox.setType('xsDetailBox');
             childBox.setX(bx);
             childBox.setHeight(BoxStyleFactory.getHeight('xsDetailBox'));
             childBox.setWidth(BoxStyleFactory.getWidth('xsDetailBox'));
         }
-        else if(generation == 5) {
-            bx = parentBox.getX() + parentBox.getWidth()/2 + 20;
-            childBox.setType('smallestNameBox');
+        else if(generation == 7) {
+            bx = parentBox.getX() + parentBox.getWidth()/2 + 10;
+            childBox.setType('xsNameYearBox');
             childBox.setX(bx);
-            childBox.setHeight(BoxStyleFactory.getHeight('smallestNameBox'));
-            childBox.setWidth(BoxStyleFactory.getWidth('smallestNameBox'));
+            childBox.setHeight(BoxStyleFactory.getHeight('xsNameYearBox'));
+            childBox.setWidth(BoxStyleFactory.getWidth('xsNameYearBox'));
         }
         else {
             var bx = parentBox.getX() + parentBox.getWidth() + 10;
-            if(generation <= 7) {
+            if(generation <= 8) {
                 bx = parentBox.getX() + parentBox.getWidth()/2 + 10;
             }
             childBox.setType('smallestNameBox');

@@ -38,30 +38,45 @@ class SmallDetailBox implements IBoxRender {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
             text.setAttribute("x", "10");
-            text.setAttribute("y", "12");
+            text.setAttribute("y", "10");
             text.setAttribute("font-size", "12px");
-            StringUtils.centerElement(text, 0, 190);
+//            StringUtils.centerElement(text, 0, 190);
+            StringUtils.fitName(text,node.getAttr('name'),25);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "10");
-        text3.setAttribute("y", "22");
+        text3.setAttribute("x", "140");
+        text3.setAttribute("y", "10");
         text3.setAttribute("font-size", "8px");
 
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 210);
-        StringUtils.centerElement(text3, 0, 190);
+        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 50);//210);
+//        StringUtils.centerElement(text3, 0, 190);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text4);
-        var nameTextPath = document.createTextNode("B: birth place D: death place");
+        var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
         text4.setAttribute("x", "10");
-        text4.setAttribute("y", "31");
+        text4.setAttribute("y", "20");
         text4.setAttribute("font-size", "8px");
-        StringUtils.centerElement(text4, 0, 190);
+//        StringUtils.centerElement(text4, 0, 190);
+        //StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 45);
+        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 45);
+        text4.textContent = 'B: '+text4.textContent;
+
+        var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        g.appendChild(text5);
+        var nameTextPath = document.createTextNode("");
+        text5.appendChild(nameTextPath);
+        text5.setAttribute("x", "10");
+        text5.setAttribute("y", "29");
+        text5.setAttribute("font-size", "8px");
+//        StringUtils.centerElement(text4, 0, 190);
+        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 45);
+        text5.textContent = 'D: '+text5.textContent;
 
         var gender = 'none';
         if(node.hasAttr('gender')) {
@@ -90,7 +105,7 @@ class SmallDetailBox implements IBoxRender {
         return "smallDetailBox";
     }
     getHeight(): number {
-        return 39;
+        return 35;
     }
     getWidth(): number {
         return 194;

@@ -14,7 +14,7 @@ class SmallestNameBox implements IBoxRender {
 
         g.appendChild(rect);
 
-        rect.setAttribute('width', String(this.getWidth()-2));
+        rect.setAttribute('width', String(this.getWidth()-1));
         rect.setAttribute('height', String(this.getHeight()-5));
 
         if(isNaN(box.getY())) {
@@ -40,9 +40,19 @@ class SmallestNameBox implements IBoxRender {
             text.setAttribute("x", "10");
             text.setAttribute("y", "7");
             text.setAttribute("font-size", "8px");
-            StringUtils.centerElement(text, 0, 140);
+ //           StringUtils.centerElement(text, 0, 140);
+            StringUtils.fitName(text,node.getAttr('name'),20);
         }
 
+        var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        g.appendChild(text3);
+        var nameTextPath = document.createTextNode("");
+        text3.appendChild(nameTextPath);
+        text3.setAttribute("x", "90");
+        text3.setAttribute("y", "7");
+        text3.setAttribute("font-size", "8px");
+
+        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 50);
 
         var gender = 'none';
         if(node.hasAttr('gender')) {
@@ -71,7 +81,7 @@ class SmallestNameBox implements IBoxRender {
         return "smallestNameBox";
     }
     getHeight(): number {
-        return 16;
+        return 14;
     }
     getWidth(): number {
         return 142;
