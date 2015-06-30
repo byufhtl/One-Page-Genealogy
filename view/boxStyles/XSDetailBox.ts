@@ -95,7 +95,7 @@ class XSDetailBox implements IBoxRender {
         return "xsDetailBox";
     }
     getHeight(): number {
-        return 24;
+        return 25;
     }
     getWidth(): number {
         return 162;

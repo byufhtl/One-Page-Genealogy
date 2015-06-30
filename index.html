@@ -27,6 +27,7 @@
     <script src="controller/SimpleGenerationSpacer.js" type="text/javascript"></script>
     <script src="controller/GenerationSpacer2.js" type="text/javascript"></script>
     <script src="controller/EightElevenSpacer.js" type="text/javascript"></script>
+    <script src="controller/EightElevenDetailSpacer.js" type="text/javascript"></script>
     <script src="controller/DetailChartSpacer.js" type="text/javascript"></script>
     <script src="controller/LeafNodeSpacer.js" type="text/javascript"></script>
     <script src="controller/YSpacer.js" type="text/javascript"></script>
@@ -101,10 +102,11 @@
                 FamilySearch.getCurrentUser().then(function(response) {
                     var user = response.getUser();
                     var c = new C({
-//                        rootId: user.personId,
-                        rootId: 'KWCP-TBV',
-//                        rootId: 'KWNV-83K',
-                        generations: 16
+                        rootId: user.personId,
+//                        rootId: 'KWCP-TBV',
+//                        rootId: 'KW4R-RVZ',
+                        generations: 10
+
                     });
                 });
             });

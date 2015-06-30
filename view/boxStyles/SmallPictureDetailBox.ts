@@ -14,8 +14,8 @@ class SmallPictureDetailBox implements IBoxRender {
 
         g.appendChild(rect);
 
-        rect.setAttribute('width', String(this.getWidth()));
-        rect.setAttribute('height', String(this.getHeight()));
+        rect.setAttribute('width', String(this.getWidth()-4));
+        rect.setAttribute('height', String(this.getHeight()-6));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -144,13 +144,13 @@ class SmallPictureDetailBox implements IBoxRender {
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
+        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");
     }
     getType(): string {
         return "smallPictureDetailBox";
     }
     getHeight(): number {
-        return 60;
+        return 66;
     }
     getWidth(): number {
         return 270;

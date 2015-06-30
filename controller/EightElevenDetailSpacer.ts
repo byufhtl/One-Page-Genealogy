@@ -1,9 +1,9 @@
 ///<reference path="IStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 /**
- * Created by renae on 6/4/15.
+ * Created by renae on 6/30/15.
  */
-class EightElevenSpacer implements  IStyler {
+class EightElevenDetailSpacer implements  IStyler {
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
@@ -36,38 +36,38 @@ class EightElevenSpacer implements  IStyler {
 
         if(generation == 0) {
             var bx = 0;
-            childBox.setType('smallPictureDetailBox');//was midSmPictureDetailBox shift all down to revert
+            childBox.setType('medSmPictureDetailBox');//was medSmPictureDetailBox shift all down to revert
+            childBox.setX(bx);
+            childBox.setHeight(BoxStyleFactory.getHeight('medSmPictureDetailBox'));
+            childBox.setWidth(BoxStyleFactory.getWidth('medSmPictureDetailBox'));
+        }
+        else if(generation == 1) {
+            bx = parentBox.getX() + parentBox.getWidth()/2 - 100;
+            childBox.setType('smallPictureDetailBox');
             childBox.setX(bx);
             childBox.setHeight(BoxStyleFactory.getHeight('smallPictureDetailBox'));
             childBox.setWidth(BoxStyleFactory.getWidth('smallPictureDetailBox'));
         }
-        else if(generation == 1) {
-            bx = parentBox.getX() + parentBox.getWidth()/2-100;
-            childBox.setType('smallDetailBox');
-            childBox.setX(bx);
-            childBox.setHeight(BoxStyleFactory.getHeight('smallDetailBox'));
-            childBox.setWidth(BoxStyleFactory.getWidth('smallDetailBox'));
-        }
         else if(generation == 2) {
-            bx = parentBox.getX() + parentBox.getWidth()/3;///2;
-            childBox.setType('smallDetailBox');
+            bx = parentBox.getX() + parentBox.getWidth()/2 - 10;
+            childBox.setType('smallPictureDetailBox2');
             childBox.setX(bx);
-            childBox.setHeight(BoxStyleFactory.getHeight('smallDetailBox'));
-            childBox.setWidth(BoxStyleFactory.getWidth('smallDetailBox'));
+            childBox.setHeight(BoxStyleFactory.getHeight('smallPictureDetailBox2'));
+            childBox.setWidth(BoxStyleFactory.getWidth('smallPictureDetailBox2'));
         }
         else if(generation == 3) {
-            bx = parentBox.getX() + parentBox.getWidth()/3+20;///2 + 10;
+            bx = parentBox.getX() + parentBox.getWidth()/2 + 20;
+            childBox.setType('smallDetailBox');
+            childBox.setX(bx);
+            childBox.setHeight(BoxStyleFactory.getHeight('smallDetailBox'));
+            childBox.setWidth(BoxStyleFactory.getWidth('smallDetailBox'));
+        }
+        else if(generation == 4) {
+            bx = parentBox.getX() + parentBox.getWidth()/2 + 20;
             childBox.setType('xsDetailBox');
             childBox.setX(bx);
             childBox.setHeight(BoxStyleFactory.getHeight('xsDetailBox'));
             childBox.setWidth(BoxStyleFactory.getWidth('xsDetailBox'));
-        }
-        else if(generation == 4) {
-            bx = parentBox.getX() + parentBox.getWidth()/2 + 20;
-            childBox.setType('smallestNameBox');
-            childBox.setX(bx);
-            childBox.setHeight(BoxStyleFactory.getHeight('smallestNameBox'));
-            childBox.setWidth(BoxStyleFactory.getWidth('smallestNameBox'));
         }
         else if(generation == 5) {
             bx = parentBox.getX() + parentBox.getWidth()/2 + 20;

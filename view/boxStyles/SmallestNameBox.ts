@@ -37,22 +37,22 @@ class SmallestNameBox implements IBoxRender {
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "10");
+            text.setAttribute("x", "5");
             text.setAttribute("y", "7");
-            text.setAttribute("font-size", "8px");
+            text.setAttribute("font-size", "9px");
  //           StringUtils.centerElement(text, 0, 140);
-            StringUtils.fitName(text,node.getAttr('name'),20);
+            StringUtils.fitName(text,node.getAttr('name'),17);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "90");
+        text3.setAttribute("x", "85");
         text3.setAttribute("y", "7");
-        text3.setAttribute("font-size", "8px");
+        text3.setAttribute("font-size", "9px");
 
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 50);
+        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 55);
 
         var gender = 'none';
         if(node.hasAttr('gender')) {

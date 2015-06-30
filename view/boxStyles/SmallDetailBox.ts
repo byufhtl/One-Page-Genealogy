@@ -15,7 +15,7 @@ class SmallDetailBox implements IBoxRender {
         g.appendChild(rect);
 
         rect.setAttribute('width', String(this.getWidth()-4));
-        rect.setAttribute('height', String(this.getHeight()-4));
+        rect.setAttribute('height', String(this.getHeight()-6));//4));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -99,13 +99,13 @@ class SmallDetailBox implements IBoxRender {
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+2)+")");
+        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");//2)+")");
     }
     getType(): string {
         return "smallDetailBox";
     }
     getHeight(): number {
-        return 35;
+        return 37;//35;
     }
     getWidth(): number {
         return 194;
