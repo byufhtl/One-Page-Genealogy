@@ -46,13 +46,14 @@ class HorizontalNameLifeBox implements IBoxRender {
         }
 
         var gender = 'none';
+        var grayScale = box.isGray();
         if(node.hasAttr('gender')) {
             gender = node.getAttr('gender');
         }
-        if(gender === 'Male') {
+        if(gender === 'Male' && !grayScale) {
             rect.setAttribute('fill','#8DEEEE');
         }
-        else if(gender === 'Female') {
+        else if(gender === 'Female' && !grayScale) {
             rect.setAttribute('fill','#FFD1DC');
         }
         else {

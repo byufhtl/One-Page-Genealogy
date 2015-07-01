@@ -14,6 +14,7 @@
 ///<reference path="EightElevenSpacer.ts"/>
 ///<reference path="EightElevenDetailSpacer.ts"/>
 ///<reference path="DetailChartSpacer.ts"/>
+ ///<reference path="GreyScaleSpacer.ts"/>
 /**
  * Created by krr428 on 3/7/15.
  */
@@ -42,6 +43,7 @@ class P implements IControllerListener, ITreeListener {
 
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new GreyScaleSpacer());
         this.stylingPipeline.push(new DetailChartSpacer());
         //this.stylingPipeline.push(new EightElevenSpacer());
         //this.stylingPipeline.push(new EightElevenDetailSpacer());

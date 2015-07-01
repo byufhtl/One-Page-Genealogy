@@ -69,15 +69,16 @@ class XSDetailBox implements IBoxRender {
         StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 45);
 
         var gender = 'none';
+        var grayScale = box.isGray();
         if(node.hasAttr('gender')) {
             gender = node.getAttr('gender');
         }
-        if(gender === 'Male') {
+        if(gender === 'Male' && !grayScale) {
             rect.setAttribute('fill','#8DEEEE');
             rect.setAttribute('stroke', '#2ee0e0');
 
         }
-        else if(gender === 'Female') {
+        else if(gender === 'Female' && !grayScale) {
             rect.setAttribute('fill','#FFD1DC');
             rect.setAttribute('stroke', '#ffa3b9');
         }

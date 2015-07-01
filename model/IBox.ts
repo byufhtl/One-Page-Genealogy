@@ -5,6 +5,8 @@
  */
 
 interface IBox {
+    setGray(b:boolean);
+    isGray():boolean;
     getHeight(): number;
     setHeight(h: number);
     getWidth(): number;
