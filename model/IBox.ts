@@ -15,6 +15,8 @@ interface IBox {
     setX(x: number);
     getY(): number;
     setY(y: number);
+    getSpace():number;
+    setSpace(space:number);
     getNode(): INode;
     getType(): string;
     setType(type: string);

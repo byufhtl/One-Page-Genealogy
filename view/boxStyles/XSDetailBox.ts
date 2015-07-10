@@ -15,7 +15,7 @@ class XSDetailBox implements IBoxRender {
         g.appendChild(rect);
 
         rect.setAttribute('width', String(this.getWidth()-1));
-        rect.setAttribute('height', String(this.getHeight()-5));
+        rect.setAttribute('height', String(box.getHeight()-1-box.getSpace()));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -83,20 +83,22 @@ class XSDetailBox implements IBoxRender {
             rect.setAttribute('stroke', '#ffa3b9');
         }
         else {
-            rect.setAttribute('fill','#CFCFC4');
+            rect.setAttribute('fill','#E5E5E5');
             rect.setAttribute('stroke', 'black');
         }
 
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+(box.getX()+1)+", "+(box.getY()+3)+")");
+        //graphic.setAttribute("transform","translate("+(box.getX()+1)+", "+(box.getY()+2)+")");
+        graphic.setAttribute("transform","translate("+(box.getX()+1)+", "+
+            (box.getY()+1/2+Math.round(box.getSpace()/2))+")");
     }
     getType(): string {
         return "xsDetailBox";
     }
     getHeight(): number {
-        return 25;
+        return 19+1;
     }
     getWidth(): number {
         return 162;

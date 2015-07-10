@@ -48,7 +48,7 @@ class CompactSimpleNameBox implements IBoxRender {
             rect.setAttribute('fill','#FFD1DC');
         }
         else {
-            rect.setAttribute('fill','#CFCFC4');
+            rect.setAttribute('fill','#E5E5E5');
         }
 
         return g;

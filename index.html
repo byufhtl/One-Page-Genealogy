@@ -27,6 +27,8 @@
     <script src="controller/SimpleGenerationSpacer.js" type="text/javascript"></script>
     <script src="controller/GenerationSpacer2.js" type="text/javascript"></script>
     <script src="controller/GreyScaleSpacer.js" type="text/javascript"></script>
+    <script src="controller/GreyScaleSpacer.js" type="text/javascript"></script>
+    <script src="controller/SpacingSpacer.js" type="text/javascript"></script>
     <script src="controller/EightElevenSpacer.js" type="text/javascript"></script>
     <script src="controller/EightElevenDetailSpacer.js" type="text/javascript"></script>
     <script src="controller/DetailChartSpacer.js" type="text/javascript"></script>
@@ -103,10 +105,10 @@
                 FamilySearch.getCurrentUser().then(function(response) {
                     var user = response.getUser();
                     var c = new C({
-                        rootId: user.personId,
-//                        rootId: 'KWCP-TBV',
+//                        rootId: user.personId,
+                        rootId: 'KWCP-TBV',
 //                        rootId: 'KW4R-RVZ',
-                        generations: 10
+                        generations: 11
 
                     });
                 });
@@ -195,6 +197,23 @@
                                     <option value="simpleNameBox">Simple Box</option>
                                     <option value="horizontalNameLifeBox">Horizontal Line Box</option>
                                     <option value="compactSimpleNameBox">Compact Simple Box</option>
+                                    <option value="largePictureBox">Large Picture Vertical Box</option>
+                                    <option value="largePictureBox2">Large Picture Box</option>
+                                    <option value="largePictureDetailBox2">Large Picture Detail Box</option>
+                                    <option value="midLargePictureBox">Medium Large Picture Box</option>
+                                    <option value="mediumPictureBox">Medium Picture Box</option>
+                                    <option value="mediumPictureDetailBox">Medium Picture Detail Box</option>
+                                    <option value="medSmPictureDetailBox">Medium Small Picture Detail Box</option>
+                                    <option value="smallDetailBox">Small Detail Box</option>
+                                    <option value="smallNameBox">Small Name Box</option>
+                                    <option value="smallPictureBox">Small Picture Box</option>
+                                    <option value="smallPictureBox2">Small Picture Box Vertical</option>
+                                    <option value="smallPictureDetailBox">Small Picture Detail Box</option>
+                                    <option value="smallPictureDetailBox2">Smaller Picture Detail Box</option>
+                                    <option value="xsDetailBox">XS Detail Box</option>
+                                    <option value="xsNameBox">XS Name Box</option>
+                                    <option value="xsNameYearBox">XS Name Year Box</option>
+                                    <option value="smallestNameBox">Smallest Name Box</option>
                                 </select>
                             </div>
                             <div class="col-sm-12">

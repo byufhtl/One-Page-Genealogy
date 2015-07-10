@@ -13,6 +13,7 @@ class AbstractBox implements IBox {
     private grey: boolean;
     private x: number;
     private y: number;
+    private space: number;
     private w: number;
     private h: number;
     private type: string = null;
@@ -29,7 +30,7 @@ class AbstractBox implements IBox {
         return this.grey;
     }
     getHeight(): number {
-        return this.h;
+        return this.h + this.space;
     }
     setHeight(h: number) {
         this.h = h;
@@ -52,6 +53,12 @@ class AbstractBox implements IBox {
     setY(y: number) {
         this.y = y;
     }
+    getSpace():number {
+        return this.space;
+    }
+    setSpace(space:number){
+        this.space = space;
+    }
     getNode(): INode {
         return this.node;
     }
@@ -71,6 +78,7 @@ class AbstractBox implements IBox {
         b.setGray(this.isGray());
         b.setHeight(this.getHeight());
         b.setWidth(this.getWidth());
+        b.setSpace(this.getSpace());
         b.setType(this.getType());
         b.setX(this.getX());
         b.setY(this.getY());
@@ -81,6 +89,7 @@ class AbstractBox implements IBox {
         b.setGray(this.isGray());
         b.setHeight(this.getHeight());
         b.setWidth(this.getWidth());
+        b.setSpace(this.getSpace());
         b.setType(this.getType());
         b.setX(this.getX());
         b.setY(this.getY());
@@ -93,10 +102,12 @@ class AbstractBox implements IBox {
         this.collapsed = collapsed;
     }
     clear(): void {
+        this.grey = false;
         this.x = 0;
         this.y = 0;
         this.h = 0;
         this.w = 0;
+        this.space = 0;
         this.type = null;
         this.collapsed = false;
     }

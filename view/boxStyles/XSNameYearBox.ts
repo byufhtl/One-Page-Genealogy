@@ -14,8 +14,8 @@ class XSNameYearBox implements IBoxRender {
 
         g.appendChild(rect);
 
-        rect.setAttribute('width', String(this.getWidth()-1));
-        rect.setAttribute('height', String(this.getHeight()-1));
+        rect.setAttribute('width', String(this.getWidth()-1));//-stroke width
+        rect.setAttribute('height', String(box.getHeight()-1-box.getSpace()-1));//this.getHeight()-3));//-stroke width and 2x buffer
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -69,20 +69,21 @@ class XSNameYearBox implements IBoxRender {
             rect.setAttribute('stroke', '#ffa3b9');
         }
         else {
-            rect.setAttribute('fill','#CFCFC4');
+            rect.setAttribute('fill','#E5E5E5');
             rect.setAttribute('stroke', 'black');
         }
 
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+(box.getX()+1)+", "+(box.getY()+1)+")");
+        graphic.setAttribute("transform","translate("+(box.getX()+1)+", "+
+            (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
     getType(): string {
         return "xsNameYearBox";
     }
     getHeight(): number {
-        return 12;
+        return 11+1;//14;
     }
     getWidth(): number {
         return 162;

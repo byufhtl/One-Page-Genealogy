@@ -15,7 +15,7 @@ class SmallDetailBox implements IBoxRender {
         g.appendChild(rect);
 
         rect.setAttribute('width', String(this.getWidth()-4));
-        rect.setAttribute('height', String(this.getHeight()-6));//4));
+        rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));//this.getHeight()-6));//4));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -64,7 +64,7 @@ class SmallDetailBox implements IBoxRender {
         text4.setAttribute("font-size", "8px");
 //        StringUtils.centerElement(text4, 0, 190);
         //StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 45);
-        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 45);
+        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 40);
         text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -75,7 +75,7 @@ class SmallDetailBox implements IBoxRender {
         text5.setAttribute("y", "29");
         text5.setAttribute("font-size", "8px");
 //        StringUtils.centerElement(text4, 0, 190);
-        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 45);
+        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
         text5.textContent = 'D: '+text5.textContent;
 
         var gender = 'none';
@@ -93,20 +93,22 @@ class SmallDetailBox implements IBoxRender {
             rect.setAttribute('stroke', '#ffa3b9');
         }
         else {
-            rect.setAttribute('fill','#CFCFC4');
+            rect.setAttribute('fill','#E5E5E5');
             rect.setAttribute('stroke', 'black');
         }
 
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");//2)+")");
+        //graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");//2)+")");
+        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
+            (box.getY()+1/2+Math.round(box.getSpace()/2))+")");
     }
     getType(): string {
         return "smallDetailBox";
     }
     getHeight(): number {
-        return 37;//35;
+        return 32+2;//37//35;
     }
     getWidth(): number {
         return 194;

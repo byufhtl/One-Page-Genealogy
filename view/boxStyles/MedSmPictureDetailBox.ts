@@ -15,7 +15,7 @@ class MedSmPictureDetailBox implements IBoxRender {
         g.appendChild(rect);
 
         rect.setAttribute('width', String(this.getWidth()-4));
-        rect.setAttribute('height', String(this.getHeight()-6));
+        rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -36,9 +36,9 @@ class MedSmPictureDetailBox implements IBoxRender {
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "100");
+            text.setAttribute("x", "95");
             text.setAttribute("y", "25");
-            text.setAttribute("font-size", "17px");
+            text.setAttribute("font-size", "19px");
 //            StringUtils.centerElement(text, 40, 240);
             StringUtils.fitName(text,node.getAttr('name'),30);
         }
@@ -47,9 +47,9 @@ class MedSmPictureDetailBox implements IBoxRender {
         g.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "100");
+        text3.setAttribute("x", "95");
         text3.setAttribute("y", "45");
-        text3.setAttribute("font-size", "12px");
+        text3.setAttribute("font-size", "15px");
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
 //        StringUtils.centerElement(text3, 40, 240);
@@ -58,32 +58,32 @@ class MedSmPictureDetailBox implements IBoxRender {
         g.appendChild(text4);
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
-        text4.setAttribute("x", "100");
+        text4.setAttribute("x", "95");
         text4.setAttribute("y", "62");
-        text4.setAttribute("font-size", "12px");
+        text4.setAttribute("font-size", "14px");
 //        StringUtils.centerElement(text4, 40, 240);
-        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 40);
+        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 30);
         text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text5);
-        var nameTextPath = document.createTextNode("M: marriage place (year)");
+        var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
-        text5.setAttribute("x", "100");
+        text5.setAttribute("x", "95");
         text5.setAttribute("y", "77");
-        text5.setAttribute("font-size", "12px");
+        text5.setAttribute("font-size", "14px");
 //        StringUtils.centerElement(text5, 40, 240);
-        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
+        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 30);
         text5.textContent = 'D: '+text5.textContent;
 
-        var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        /*var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text6);
         var nameTextPath = document.createTextNode("M: marriage place (year)");
         text6.appendChild(nameTextPath);
         text6.setAttribute("x", "100");
         text6.setAttribute("y", "92");
         text6.setAttribute("font-size", "12px");
-//        StringUtils.centerElement(text6, 40, 240);
+//        StringUtils.centerElement(text6, 40, 240);*/
 
         var gender = 'none';
         var grayScale = box.isGray();
@@ -100,7 +100,7 @@ class MedSmPictureDetailBox implements IBoxRender {
             rect.setAttribute('stroke', '#ffa3b9');
         }
         else {
-            rect.setAttribute('fill','#CFCFC4');
+            rect.setAttribute('fill','#E5E5E5');
             rect.setAttribute('stroke', 'black');
         }
 
@@ -108,8 +108,8 @@ class MedSmPictureDetailBox implements IBoxRender {
         clippath.setAttribute('id', 'clip-'+node.getId());
         g.appendChild(clippath);
         var cliprect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        cliprect.setAttribute('width', '90');
-        cliprect.setAttribute('height', '90');
+        cliprect.setAttribute('width', '80');
+        cliprect.setAttribute('height', '80');
         cliprect.setAttribute('rx', '10');
         cliprect.setAttribute('ry', '10');
         cliprect.setAttribute('x', '5');
@@ -120,8 +120,8 @@ class MedSmPictureDetailBox implements IBoxRender {
 
         if(node.hasAttr('profilePicturePromise')) {
             var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
-            svgimg.setAttribute('height','90');
-            svgimg.setAttribute('width','90');
+            svgimg.setAttribute('height','80');
+            svgimg.setAttribute('width','80');
             svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.svg');
             svgimg.setAttribute('x','5');
             svgimg.setAttribute('y','5');
@@ -133,8 +133,8 @@ class MedSmPictureDetailBox implements IBoxRender {
                     return;
                 }
                 var svgimg2 = document.createElementNS('http://www.w3.org/2000/svg','image');
-                svgimg2.setAttribute('height','90');
-                svgimg2.setAttribute('width','90');
+                svgimg2.setAttribute('height','80');
+                svgimg2.setAttribute('width','80');
                 svgimg2.setAttribute('x','5');
                 svgimg2.setAttribute('y','5');
                 svgimg2.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
@@ -156,13 +156,15 @@ class MedSmPictureDetailBox implements IBoxRender {
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");
+        //graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");
+        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
+            (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
     getType(): string {
         return "medSmPictureDetailBox";
     }
     getHeight(): number {
-        return 104;
+        return 89+2//104;
     }
     getWidth(): number {
         return 312;

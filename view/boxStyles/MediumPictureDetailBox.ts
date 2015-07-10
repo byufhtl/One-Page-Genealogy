@@ -15,7 +15,7 @@ class MediumPictureDetailBox implements IBoxRender {
         g.appendChild(rect);
 
         rect.setAttribute('width', String(this.getWidth()-4));
-        rect.setAttribute('height', String(this.getHeight()-6));
+        rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -37,8 +37,8 @@ class MediumPictureDetailBox implements IBoxRender {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
             text.setAttribute("x", "110");
-            text.setAttribute("y", "25");
-            text.setAttribute("font-size", "24px");
+            text.setAttribute("y", "30");
+            text.setAttribute("font-size", "26px");
 //            StringUtils.centerElement(text, 40, 240);
             StringUtils.fitName(text,node.getAttr('name'),30);
         }
@@ -48,8 +48,8 @@ class MediumPictureDetailBox implements IBoxRender {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "110");
-        text3.setAttribute("y", "45");
-        text3.setAttribute("font-size", "15px");
+        text3.setAttribute("y", "55");
+        text3.setAttribute("font-size", "18px");
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
 //        StringUtils.centerElement(text3, 40, 240);
@@ -59,10 +59,10 @@ class MediumPictureDetailBox implements IBoxRender {
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
         text4.setAttribute("x", "110");
-        text4.setAttribute("y", "62");
-        text4.setAttribute("font-size", "15px");
+        text4.setAttribute("y", "77");
+        text4.setAttribute("font-size", "17px");
 //        StringUtils.centerElement(text4, 40, 240);
-        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 40);
+        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 30);
         text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -70,20 +70,20 @@ class MediumPictureDetailBox implements IBoxRender {
         var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
         text5.setAttribute("x", "110");
-        text5.setAttribute("y", "82");
-        text5.setAttribute("font-size", "15px");
+        text5.setAttribute("y", "97");
+        text5.setAttribute("font-size", "17px");
 //        StringUtils.centerElement(text5, 40, 240);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
         text5.textContent = 'D: '+text5.textContent;
 
-        var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        /*var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text6);
         var nameTextPath = document.createTextNode("M: marriage place (year)");
         text6.appendChild(nameTextPath);
         text6.setAttribute("x", "110");
         text6.setAttribute("y", "102");
         text6.setAttribute("font-size", "15px");
-//        StringUtils.centerElement(text6, 40, 240);
+//        StringUtils.centerElement(text6, 40, 240);*/
 
         var gender = 'none';
         var grayScale = box.isGray();
@@ -100,7 +100,7 @@ class MediumPictureDetailBox implements IBoxRender {
             rect.setAttribute('stroke', '#ffa3b9');
         }
         else {
-            rect.setAttribute('fill','#CFCFC4');
+            rect.setAttribute('fill','#E5E5E5');
             rect.setAttribute('stroke', 'black');
         }
 
@@ -156,13 +156,15 @@ class MediumPictureDetailBox implements IBoxRender {
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");
+        //graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");
+        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
+            (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
     getType(): string {
         return "mediumPictureDetailBox";
     }
     getHeight(): number {
-        return 114;
+        return 109+2;//114;
     }
     getWidth(): number {
         return 450;

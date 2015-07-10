@@ -15,7 +15,7 @@ class SmallNameBox implements IBoxRender {
         g.appendChild(rect);
 
         rect.setAttribute('width', String(this.getWidth()));
-        rect.setAttribute('height', String(this.getHeight()));
+        rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -71,20 +71,22 @@ class SmallNameBox implements IBoxRender {
             rect.setAttribute('stroke', '#ffa3b9');
         }
         else {
-            rect.setAttribute('fill','#CFCFC4');
+            rect.setAttribute('fill','#E5E5E5');
             rect.setAttribute('stroke', 'black');
         }
 
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
+        //graphic.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
+        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
+            (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
     getType(): string {
         return "smallNameBox";
     }
     getHeight(): number {
-        return 35;
+        return 35+2;//35;
     }
     getWidth(): number {
         return 300;

@@ -15,7 +15,7 @@ class SmallPictureDetailBox implements IBoxRender {
         g.appendChild(rect);
 
         rect.setAttribute('width', String(this.getWidth()-4));
-        rect.setAttribute('height', String(this.getHeight()-6));
+        rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -40,7 +40,7 @@ class SmallPictureDetailBox implements IBoxRender {
             text.setAttribute("y", "15");
             text.setAttribute("font-size", "15px");
 //            StringUtils.centerElement(text, 40, 240);
-            StringUtils.fitName(text,node.getAttr('name'),30);
+            StringUtils.fitName(text,node.getAttr('name'),40);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -63,16 +63,21 @@ class SmallPictureDetailBox implements IBoxRender {
         text4.setAttribute("y", "42");
         text4.setAttribute("font-size", "10px");
 //        StringUtils.centerElement(text4, 40, 240);
-        StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 40);
+        //StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 40);
+        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 40);
+        text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text5);
-        var nameTextPath = document.createTextNode("M: marriage place (year)");
+        //var nameTextPath = document.createTextNode("M: marriage place (year)");
+        var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
         text5.setAttribute("x", "60");
         text5.setAttribute("y", "54");
         text5.setAttribute("font-size", "10px");
 //        StringUtils.centerElement(text5, 40, 240);
+        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
+        text5.textContent = 'D: '+text5.textContent;
 
         var gender = 'none';
         var grayScale = box.isGray();
@@ -89,7 +94,7 @@ class SmallPictureDetailBox implements IBoxRender {
             rect.setAttribute('stroke', '#ffa3b9');
         }
         else {
-            rect.setAttribute('fill','#CFCFC4');
+            rect.setAttribute('fill','#E5E5E5');
             rect.setAttribute('stroke', 'black');
         }
 
@@ -145,13 +150,15 @@ class SmallPictureDetailBox implements IBoxRender {
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");
+        //graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");
+        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
+            (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
     getType(): string {
         return "smallPictureDetailBox";
     }
     getHeight(): number {
-        return 66;
+        return 61+2;//66;
     }
     getWidth(): number {
         return 270;

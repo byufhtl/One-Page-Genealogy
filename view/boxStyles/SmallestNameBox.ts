@@ -14,8 +14,9 @@ class SmallestNameBox implements IBoxRender {
 
         g.appendChild(rect);
 
-        rect.setAttribute('width', String(this.getWidth()-1));
-        rect.setAttribute('height', String(this.getHeight()-5));
+        rect.setAttribute('width', String(this.getWidth()-1));//-stroke width
+        //box.setSpace(.5);
+        rect.setAttribute('height', String(box.getHeight()-1-box.getSpace()));//-stroke width-spsz
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -69,20 +70,21 @@ class SmallestNameBox implements IBoxRender {
             rect.setAttribute('stroke', '#ffa3b9');
         }
         else {
-            rect.setAttribute('fill','#CFCFC4');
+            rect.setAttribute('fill','#E5E5E5');
             rect.setAttribute('stroke', 'black');
         }
 
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+(box.getX()+1)+", "+(box.getY()+3)+")");
+        graphic.setAttribute("transform","translate("+(box.getX()+1)+", "+
+            (box.getY()+1/2+Math.round(box.getSpace()/2))+")");//+stroke width+1/2space size
     }
     getType(): string {
         return "smallestNameBox";
     }
     getHeight(): number {
-        return 14;
+        return 9 +1;//9+stroke size+space size
     }
     getWidth(): number {
         return 142;

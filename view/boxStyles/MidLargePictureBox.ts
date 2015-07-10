@@ -15,7 +15,7 @@ class MidLargePictureBox implements IBoxRender {
         g.appendChild(rect);
 
         rect.setAttribute('width', String(this.getWidth()));
-        rect.setAttribute('height', String(this.getHeight()));
+        rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -39,7 +39,7 @@ class MidLargePictureBox implements IBoxRender {
             text.setAttribute("x", "15");
             text.setAttribute("y", "60");
             text.setAttribute("font-size", "30px");
-            StringUtils.centerElement(text, 210, 290);
+            StringUtils.centerElement(text, 180, 270);
         }
 
         var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -50,7 +50,7 @@ class MidLargePictureBox implements IBoxRender {
             text2.setAttribute("x", "15");
             text2.setAttribute("y", "95");
             text2.setAttribute("font-size", "40px");
-            StringUtils.centerElement(text2, 210, 270);
+            StringUtils.centerElement(text2, 180, 270);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -62,8 +62,8 @@ class MidLargePictureBox implements IBoxRender {
         text3.setAttribute("font-size", "20px");
 
 
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 270);
-        StringUtils.centerElement(text3, 210, 270);
+        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 300);
+        StringUtils.centerElement(text3, 180, 270);
 
 
 
@@ -90,8 +90,8 @@ class MidLargePictureBox implements IBoxRender {
         clippath.setAttribute('id', 'clip-'+node.getId());
         g.appendChild(clippath);
         var cliprect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        cliprect.setAttribute('width', '200');
-        cliprect.setAttribute('height', '200');
+        cliprect.setAttribute('width', '170');
+        cliprect.setAttribute('height', '170');
         cliprect.setAttribute('rx', '20');
         cliprect.setAttribute('ry', '20');
         cliprect.setAttribute('x', '5');
@@ -102,8 +102,8 @@ class MidLargePictureBox implements IBoxRender {
 
         if(node.hasAttr('profilePicturePromise')) {
             var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
-            svgimg.setAttribute('height','200');
-            svgimg.setAttribute('width','200');
+            svgimg.setAttribute('height','170');
+            svgimg.setAttribute('width','170');
             svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.svg');
             svgimg.setAttribute('x','5');
             svgimg.setAttribute('y','5');
@@ -115,8 +115,8 @@ class MidLargePictureBox implements IBoxRender {
                     return;
                 }
                 var svgimg2 = document.createElementNS('http://www.w3.org/2000/svg','image');
-                svgimg2.setAttribute('height','200');
-                svgimg2.setAttribute('width','200');
+                svgimg2.setAttribute('height','170');
+                svgimg2.setAttribute('width','170');
                 svgimg2.setAttribute('x','5');
                 svgimg2.setAttribute('y','5');
                 svgimg2.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
@@ -138,13 +138,15 @@ class MidLargePictureBox implements IBoxRender {
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
+        //graphic.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
+        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
+            (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
     getType(): string {
         return "midLargePictureBox";
     }
     getHeight(): number {
-        return 180;
+        return 180+2;//180;
     }
     getWidth(): number {
         return 460;

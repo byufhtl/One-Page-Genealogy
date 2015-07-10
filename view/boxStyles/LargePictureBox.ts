@@ -15,7 +15,7 @@ class LargePictureBox implements IBoxRender {
         g.appendChild(rect);
 
         rect.setAttribute('width', String(this.getWidth()));
-        rect.setAttribute('height', String(this.getHeight()));
+        rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -82,7 +82,7 @@ class LargePictureBox implements IBoxRender {
             rect.setAttribute('stroke', '#ffa3b9');
         }
         else {
-            rect.setAttribute('fill','#CFCFC4');
+            rect.setAttribute('fill','#E5E5E5');
             rect.setAttribute('stroke', 'black');
         }
 
@@ -138,13 +138,15 @@ class LargePictureBox implements IBoxRender {
         return g;
     }
     move(box:IBox, graphic: any): any {
-        graphic.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
+        //graphic.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
+        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
+            (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
     getType(): string {
         return "largePictureBox";
     }
     getHeight(): number {
-        return 450;
+        return 435+2;//450;
     }
     getWidth(): number {
         return 260;
