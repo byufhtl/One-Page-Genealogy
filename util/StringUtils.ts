@@ -782,6 +782,8 @@ class StringUtils {
     //-------------------------------
     private static toPlaceString(places){
         var result = "";
+        if(!places)
+            return result;
         for(var i = 0; i < places.length; i++){
             if(places[i] != null && places[i] != "")
                 result = result.concat((places[i] + ", "));

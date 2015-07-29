@@ -2,17 +2,19 @@
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
 /**
- * Created by renae on 6/5/15.
+ * Created by renae on 7/27/15.
  */
-class SmallPictureDetailBox implements IBoxRender {
+class SmallPicDetRotBox implements IBoxRender {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
             rootElement.appendChild(g);
         }
         var rect:Element = document.createElementNS("http://www.w3.org/2000/svg", "rect");
 
         g.appendChild(rect);
+        g.appendChild(gt);
 
         rect.setAttribute('width', String(this.getWidth()-4));
         rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
@@ -31,7 +33,7 @@ class SmallPictureDetailBox implements IBoxRender {
 
 
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        g.appendChild(text);
+        gt.appendChild(text);
 
         var node: INode = box.getNode();
         if(node.hasAttr('name')) {
@@ -45,7 +47,7 @@ class SmallPictureDetailBox implements IBoxRender {
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        g.appendChild(text3);
+        gt.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "60");
@@ -57,7 +59,7 @@ class SmallPictureDetailBox implements IBoxRender {
 //        StringUtils.centerElement(text3, 40, 240);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        g.appendChild(text4);
+        gt.appendChild(text4);
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
         text4.setAttribute("x", "60");
@@ -69,7 +71,7 @@ class SmallPictureDetailBox implements IBoxRender {
         text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        g.appendChild(text5);
+        gt.appendChild(text5);
         //var nameTextPath = document.createTextNode("M: marriage place (year)");
         var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
@@ -101,7 +103,7 @@ class SmallPictureDetailBox implements IBoxRender {
 
         var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
         clippath.setAttribute('id', 'clip-'+node.getId());
-        g.appendChild(clippath);
+        gt.appendChild(clippath);
         var cliprect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         cliprect.setAttribute('width', '50');
         cliprect.setAttribute('height', '50');
@@ -121,10 +123,10 @@ class SmallPictureDetailBox implements IBoxRender {
             svgimg.setAttribute('x','5');
             svgimg.setAttribute('y','5');
             svgimg.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
-            g.appendChild(svgimg);
+            gt.appendChild(svgimg);
             node.getAttr('profilePicturePromise').then(function(response) {
                 if(!response) {
-                    g.removeChild(svgimg);
+                    gt.removeChild(svgimg);
                     return;
                 }
                 var svgimg2 = document.createElementNS('http://www.w3.org/2000/svg','image');
@@ -135,45 +137,39 @@ class SmallPictureDetailBox implements IBoxRender {
                 svgimg2.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
 
                 function listener() {
-                    g.removeChild(svgimg);
+                    gt.removeChild(svgimg);
                     svgimg2.removeEventListener('load', listener);
                 }
                 svgimg2.addEventListener('load', listener);
                 svgimg2.setAttributeNS('http://www.w3.org/1999/xlink','href',response);
-                g.appendChild(svgimg2);
+                gt.appendChild(svgimg2);
 
 
             }, function() {
-                g.removeChild(svgimg);
+                gt.removeChild(svgimg);
             });
         }
+
+
+        gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+") rotate(-90 0,0)");
 
         return g;
     }
     move(box:IBox, graphic: any): any {
-        //graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");
+
         graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
             (box.getY()+1+Math.round(box.getSpace()/2))+")");
-//        graphic.setAttribute("transform","translate("+(box.getX()+2-this.getHeight()/2)+", "+
-//            (box.getY()+1+Math.round(box.getSpace()/2)+this.getWidth()/2)+") rotate(-90 0,0)");
-
-//        graphic.setAttribute("transform","translate("+(box.getX()+2-this.getHeight()/2)+", "+
-//            (box.getY()+1+Math.round(box.getSpace()/2)+this.getWidth()/2)+")");
-
-//        graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
-//            (box.getY()+1+Math.round(box.getSpace()/2))+")");
-
-
-//        graphic.setAttribute("transform","rotate(90 0,0)");
     }
     getType(): string {
-        return "smallPictureDetailBox";
+        return "smallPicDetRotBox";
     }
     getHeight(): number {
-        return 61+2;//66;
+//        return 61+2;//66;
+        return 270;
     }
     getWidth(): number {
-        return 270;
+//        return 270;
+        return 61+2;
     }
     requiresLoad(): boolean {
         return true;
