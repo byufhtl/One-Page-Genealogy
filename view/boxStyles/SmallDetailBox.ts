@@ -40,8 +40,9 @@ class SmallDetailBox implements IBoxRender {
             text.setAttribute("x", "10");
             text.setAttribute("y", "10");
             text.setAttribute("font-size", "12px");
+            text.setAttribute("style", "font-family:tahoma, sans-serif");
 //            StringUtils.centerElement(text, 0, 190);
-            StringUtils.fitName(text,node.getAttr('name'),25);
+            StringUtils.fitName(text,node.getAttr('name'),20);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -51,7 +52,7 @@ class SmallDetailBox implements IBoxRender {
         text3.setAttribute("x", "140");
         text3.setAttribute("y", "10");
         text3.setAttribute("font-size", "8px");
-
+        text3.setAttribute("style", "font-family:tahoma, sans-serif");
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 50);//210);
 //        StringUtils.centerElement(text3, 0, 190);
 
@@ -62,6 +63,7 @@ class SmallDetailBox implements IBoxRender {
         text4.setAttribute("x", "10");
         text4.setAttribute("y", "20");
         text4.setAttribute("font-size", "8px");
+        text4.setAttribute("style", "font-family:tahoma, sans-serif");
 //        StringUtils.centerElement(text4, 0, 190);
         //StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 45);
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 40);
@@ -74,6 +76,7 @@ class SmallDetailBox implements IBoxRender {
         text5.setAttribute("x", "10");
         text5.setAttribute("y", "29");
         text5.setAttribute("font-size", "8px");
+        text5.setAttribute("style", "font-family:tahoma, sans-serif");
 //        StringUtils.centerElement(text4, 0, 190);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
         text5.textContent = 'D: '+text5.textContent;

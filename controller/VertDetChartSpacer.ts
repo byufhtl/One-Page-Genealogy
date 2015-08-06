@@ -29,6 +29,7 @@ class VertDetChartSpacer implements  IStyler {
                 this.setBasedOnGeneration(box, branchBox, generation+1);
 
                 queue.push([branchIds[i], generation+1]);
+                box.setCollapsed(false);
             }
         }
     }
@@ -36,10 +37,11 @@ class VertDetChartSpacer implements  IStyler {
 
         if(generation == 0) {
             var bx = 0;
-            childBox.setType('largePicRotBox');
+            childBox.setType('largePicDetRotBox');
+            childBox.setType('largePicDetRotBox');
             childBox.setX(bx);
-            childBox.setHeight(BoxStyleFactory.getHeight('largePicRotBox'));
-            childBox.setWidth(BoxStyleFactory.getWidth('largePicRotBox'));
+            childBox.setHeight(BoxStyleFactory.getHeight('largePicDetRotBox'));
+            childBox.setWidth(BoxStyleFactory.getWidth('largePicDetRotBox'));
         }
         else if(generation == 1) {
             bx = parentBox.getX() + parentBox.getWidth()/2-25;// - 150;

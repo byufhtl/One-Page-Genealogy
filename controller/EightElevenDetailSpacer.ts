@@ -29,6 +29,12 @@ class EightElevenDetailSpacer implements  IStyler {
                 this.setBasedOnGeneration(box, branchBox, generation+1);
 
                 queue.push([branchIds[i], generation+1]);
+
+                box.setCollapsed(false);
+
+                if(generation>4) {
+                    box.setCollapsed(true);
+                }
             }
         }
     }
@@ -36,20 +42,20 @@ class EightElevenDetailSpacer implements  IStyler {
 
         if(generation == 0) {
             var bx = 0;
-            childBox.setType('medSmPictureDetailBox');//was medSmPictureDetailBox shift all down to revert
+            childBox.setType('medSmPictureDetailBox');
             childBox.setX(bx);
             childBox.setHeight(BoxStyleFactory.getHeight('medSmPictureDetailBox'));
             childBox.setWidth(BoxStyleFactory.getWidth('medSmPictureDetailBox'));
         }
         else if(generation == 1) {
             bx = parentBox.getX() + parentBox.getWidth()/2 - 100;
-            childBox.setType('smallPictureDetailBox');
+            childBox.setType('smallPictureDetailBox2');
             childBox.setX(bx);
-            childBox.setHeight(BoxStyleFactory.getHeight('smallPictureDetailBox'));
-            childBox.setWidth(BoxStyleFactory.getWidth('smallPictureDetailBox'));
+            childBox.setHeight(BoxStyleFactory.getHeight('smallPictureDetailBox2'));
+            childBox.setWidth(BoxStyleFactory.getWidth('smallPictureDetailBox2'));
         }
         else if(generation == 2) {
-            bx = parentBox.getX() + parentBox.getWidth()/2 - 10;
+            bx = parentBox.getX() + parentBox.getWidth()/2 - 15;
             childBox.setType('smallPictureDetailBox2');
             childBox.setX(bx);
             childBox.setHeight(BoxStyleFactory.getHeight('smallPictureDetailBox2'));
@@ -75,6 +81,7 @@ class EightElevenDetailSpacer implements  IStyler {
             childBox.setX(bx);
             childBox.setHeight(BoxStyleFactory.getHeight('smallestNameBox'));
             childBox.setWidth(BoxStyleFactory.getWidth('smallestNameBox'));
+            childBox.setSpace(3);
         }
         else {
             var bx = parentBox.getX() + parentBox.getWidth() + 10;
@@ -85,6 +92,7 @@ class EightElevenDetailSpacer implements  IStyler {
             childBox.setX(bx);
             childBox.setHeight(BoxStyleFactory.getHeight('smallestNameBox'));
             childBox.setWidth(BoxStyleFactory.getWidth('smallestNameBox'));
+            childBox.setSpace(4);
         }
     }
 }

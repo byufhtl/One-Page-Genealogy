@@ -39,6 +39,7 @@ class XSNameBox implements IBoxRender {
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
             text.setAttribute("font-size", "10px");
+            text.setAttribute("style", "font-family:tahoma, sans-serif");
             StringUtils.centerElement(text, 0, 162);
         }
 

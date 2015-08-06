@@ -19,7 +19,6 @@ class EightElevenSpacer implements  IStyler {
             var generation: number= data[1];
             var node:INode = box.getNode();
             var branchIds = node.getBranchIds();
-
             for(var i:number=0; i<branchIds.length; i++) {
                 var branchBox:IBox = boxes.getId(branchIds[i]);
                 if(!branchBox) {
@@ -27,8 +26,12 @@ class EightElevenSpacer implements  IStyler {
                 }
 
                 this.setBasedOnGeneration(box, branchBox, generation+1);
+                queue.push([branchIds[i], generation + 1]);
+                box.setCollapsed(false);
 
-                queue.push([branchIds[i], generation+1]);
+                if(generation>5) {
+                    box.setCollapsed(true);
+                }
             }
         }
     }
@@ -75,6 +78,7 @@ class EightElevenSpacer implements  IStyler {
             childBox.setX(bx);
             childBox.setHeight(BoxStyleFactory.getHeight('smallestNameBox'));
             childBox.setWidth(BoxStyleFactory.getWidth('smallestNameBox'));
+            //childBox.setSpace(5);
         }
         else {
             var bx = parentBox.getX() + parentBox.getWidth() + 10;
@@ -85,6 +89,7 @@ class EightElevenSpacer implements  IStyler {
             childBox.setX(bx);
             childBox.setHeight(BoxStyleFactory.getHeight('smallestNameBox'));
             childBox.setWidth(BoxStyleFactory.getWidth('smallestNameBox'));
+            childBox.setSpace(4);
         }
     }
 }

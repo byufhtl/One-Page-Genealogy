@@ -28,6 +28,7 @@ class C implements IGraphicObjectListener, IOptionListener {
     private optionManager: OptionManager;
     private boxes: BoxMap;
     private scaleFactor: number;
+    private greyscale: boolean;
 
     private anchorPt: Point;
     private anchorId: string;
@@ -44,6 +45,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.tree = new Tree();
         this.p = new P(this);
         this.viewManager = new MainViewManager();
+        this.greyscale = false;
 
         this.dx = 0;
         this.dy = 0;
@@ -132,6 +134,25 @@ class C implements IGraphicObjectListener, IOptionListener {
                 link.click();
             });
 
+        }
+        else if(key === 'detail-style') {
+            this.p.handle({type: key});
+        }
+        else if(key === 'vertical-style') {
+            this.p.handle({type: key});
+        }
+        else if(key === 'eight-eleven-style') {
+            this.p.handle({type: key});
+        }
+        else if(key === 'eight-eleven-detail-style') {
+            this.p.handle({type: key});
+        }
+        else if(key === 'toggle-greyscale') {
+            if(!this.greyscale)
+                this.greyscale = true;
+            else
+                this.greyscale = false;
+            this.p.handle({type: key, greyscale:this.greyscale});
         }
         else if(key) {
             this.p.handle({type: key, value: value['type'], id:value['id']});

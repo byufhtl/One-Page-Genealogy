@@ -39,6 +39,7 @@ class SmallNameBox implements IBoxRender {
             text.setAttribute("x", "10");
             text.setAttribute("y", "25");
             text.setAttribute("font-size", "20px");
+            text.setAttribute("style", "font-family:tahoma, sans-serif");
             StringUtils.centerElement(text, 0, 300);
         }
 

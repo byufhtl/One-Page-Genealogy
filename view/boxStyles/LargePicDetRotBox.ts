@@ -41,6 +41,8 @@ class LargePicDetRotBox implements IBoxRender {
             text.setAttribute("x", "220");
             text.setAttribute("y", "35");
             text.setAttribute("font-size", "30px");
+            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            StringUtils.fitName(text,node.getAttr('name'),30);
             //StringUtils.centerElement(text, 210, 290);
         }
 
@@ -52,6 +54,8 @@ class LargePicDetRotBox implements IBoxRender {
             text2.setAttribute("x", "220");
             text2.setAttribute("y", "80");
             text2.setAttribute("font-size", "40px");
+            text2.setAttribute("style", "font-family:tahoma, sans-serif");
+            StringUtils.fitName(text,node.getAttr('name'),30);
             //StringUtils.centerElement(text2, 210, 290);
         }
 
@@ -62,6 +66,7 @@ class LargePicDetRotBox implements IBoxRender {
         text3.setAttribute("x", "220");
         text3.setAttribute("y", "120");
         text3.setAttribute("font-size", "20px");
+        text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
@@ -74,6 +79,7 @@ class LargePicDetRotBox implements IBoxRender {
         text4.setAttribute("x", "220");
         text4.setAttribute("y", "150");
         text4.setAttribute("font-size", "20px");
+        text4.setAttribute("style", "font-family:sans-serif");
         //StringUtils.centerElement(text4, 210, 290);
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
         text4.textContent = 'B: '+text4.textContent;
@@ -85,6 +91,7 @@ class LargePicDetRotBox implements IBoxRender {
         text5.setAttribute("x", "220");
         text5.setAttribute("y", "175");
         text5.setAttribute("font-size", "20px");
+        text5.setAttribute("style", "font-family:tahoma, sans-serif");
         //StringUtils.centerElement(text5, 210, 290);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 25);
         text5.textContent = 'D: '+text5.textContent;

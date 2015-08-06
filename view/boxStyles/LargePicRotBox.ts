@@ -41,6 +41,8 @@ class LargePicRotBox implements IBoxRender {
             text.setAttribute("x", "15");
             text.setAttribute("y", "60");
             text.setAttribute("font-size", "30px");
+            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            StringUtils.fitName(text,node.getAttr('name'),30);
             StringUtils.centerElement(text, 210, 290);
         }
 
@@ -52,6 +54,8 @@ class LargePicRotBox implements IBoxRender {
             text2.setAttribute("x", "15");
             text2.setAttribute("y", "95");
             text2.setAttribute("font-size", "40px");
+            text2.setAttribute("style", "font-family:tahoma, sans-serif");
+            StringUtils.fitName(text,node.getAttr('name'),30);
             StringUtils.centerElement(text2, 210, 290);
         }
 
@@ -62,7 +66,7 @@ class LargePicRotBox implements IBoxRender {
         text3.setAttribute("x", "10");
         text3.setAttribute("y", "135");
         text3.setAttribute("font-size", "20px");
-
+        text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         StringUtils.centerElement(text3, 210, 290);

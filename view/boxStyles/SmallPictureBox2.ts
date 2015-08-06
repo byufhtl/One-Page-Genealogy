@@ -39,6 +39,7 @@ class SmallPictureBox2 implements IBoxRender {
             text.setAttribute("x", "0");
             text.setAttribute("y", "170");
             text.setAttribute("font-size", "20px");
+            text.setAttribute("style", "font-family:tahoma, sans-serif");
             StringUtils.centerElement(text, 0, 150);
         }
 
@@ -50,6 +51,7 @@ class SmallPictureBox2 implements IBoxRender {
             text2.setAttribute("x", "0");
             text2.setAttribute("y", "185");
             text2.setAttribute("font-size", "20px");
+            text2.setAttribute("style", "font-family:tahoma, sans-serif");
             StringUtils.centerElement(text2, 0, 150);
         }
 
@@ -60,7 +62,7 @@ class SmallPictureBox2 implements IBoxRender {
         text3.setAttribute("x", "0");
         text3.setAttribute("y", "220");
         text3.setAttribute("font-size", "15px");
-
+        text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 150);
         StringUtils.centerElement(text3, 0, 150);
@@ -72,6 +74,7 @@ class SmallPictureBox2 implements IBoxRender {
         text4.setAttribute("x", "0");
         text4.setAttribute("y", "240");
         text4.setAttribute("font-size", "15px");
+        text4.setAttribute("style", "font-family:tahoma, sans-serif");
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 18);
         text4.textContent = 'B: '+text4.textContent;
         StringUtils.centerElement(text4, 0, 150);
@@ -83,6 +86,7 @@ class SmallPictureBox2 implements IBoxRender {
         text5.setAttribute("x", "0");
         text5.setAttribute("y", "260");
         text5.setAttribute("font-size", "15px");
+        text5.setAttribute("style", "font-family:tahoma, sans-serif");
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 18);
         text5.textContent = 'D: '+text5.textContent;
         StringUtils.centerElement(text5, 0, 150);

@@ -22,6 +22,21 @@ class OptionManager implements IOptionManager {
         $('#opg-download').click(function(){
             self.listener.handleOption('request-download', null);
         });
+        $('#opg-detail-style').click(function(){
+            self.listener.handleOption('detail-style', null);
+        });
+        $('#opg-vertical-style').click(function(){
+            self.listener.handleOption('vertical-style', null);
+        });
+        $('#opg-eight-eleven-style').click(function(){
+            self.listener.handleOption('eight-eleven-style', null);
+        });
+        $('#opg-eight-eleven-detail-style').click(function(){
+            self.listener.handleOption('eight-eleven-detail-style', null);
+        });
+        $('#opg-toggle-greyscale').click(function(){
+            self.listener.handleOption('toggle-greyscale', null);
+        });
     }
     handleOptionSetting(type:String, data:any): void {
         var self = this;
@@ -72,6 +87,14 @@ class OptionManager implements IOptionManager {
             }
 
 
+        }
+        if(type === 'selectStyle') {
+            $('#opg-modal').modal('show');
+            setTimeout(function(){
+                self.renderTempBox(box);
+            },400);
+
+            //var generations = data.generations;
         }
         return;
     }

@@ -41,6 +41,7 @@ class MedSmPicDetRotBox implements IBoxRender {
             text.setAttribute("x", "95");
             text.setAttribute("y", "25");
             text.setAttribute("font-size", "19px");
+            text.setAttribute("style", "font-family:tahoma, sans-serif");
 //            StringUtils.centerElement(text, 40, 240);
             StringUtils.fitName(text,node.getAttr('name'),25);
         }
@@ -52,6 +53,7 @@ class MedSmPicDetRotBox implements IBoxRender {
         text3.setAttribute("x", "95");
         text3.setAttribute("y", "45");
         text3.setAttribute("font-size", "15px");
+        text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
 //        StringUtils.centerElement(text3, 40, 240);
@@ -63,6 +65,7 @@ class MedSmPicDetRotBox implements IBoxRender {
         text4.setAttribute("x", "95");
         text4.setAttribute("y", "62");
         text4.setAttribute("font-size", "14px");
+        text4.setAttribute("style", "font-family:tahoma, sans-serif");
 //        StringUtils.centerElement(text4, 40, 240);
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 30);
         text4.textContent = 'B: '+text4.textContent;
@@ -74,6 +77,7 @@ class MedSmPicDetRotBox implements IBoxRender {
         text5.setAttribute("x", "95");
         text5.setAttribute("y", "77");
         text5.setAttribute("font-size", "14px");
+        text5.setAttribute("style", "font-family:tahoma, sans-serif");
 //        StringUtils.centerElement(text5, 40, 240);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 30);
         text5.textContent = 'D: '+text5.textContent;

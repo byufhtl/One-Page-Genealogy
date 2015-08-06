@@ -39,6 +39,8 @@ class MediumPictureBox implements IBoxRender {
             text.setAttribute("x", "15");
             text.setAttribute("y", "30");
             text.setAttribute("font-size", "30px");
+            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            StringUtils.fitName(text,node.getAttr('name'),30);
             StringUtils.centerElement(text, 110, 350);
         }
 
@@ -50,6 +52,8 @@ class MediumPictureBox implements IBoxRender {
             text2.setAttribute("x", "10");
             text2.setAttribute("y", "70");
             text2.setAttribute("font-size", "40px");
+            text2.setAttribute("style", "font-family:tahoma, sans-serif");
+            StringUtils.fitName(text,node.getAttr('name'),30);
             StringUtils.centerElement(text2, 110, 350);
         }
 
@@ -60,7 +64,7 @@ class MediumPictureBox implements IBoxRender {
         text3.setAttribute("x", "10");
         text3.setAttribute("y", "100");
         text3.setAttribute("font-size", "20px");
-
+        text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 350);
         StringUtils.centerElement(text3, 110, 350);

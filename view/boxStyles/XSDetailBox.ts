@@ -40,8 +40,9 @@ class XSDetailBox implements IBoxRender {
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
             text.setAttribute("font-size", "10px");
+            text.setAttribute("style", "font-family:tahoma, sans-serif");
 //            StringUtils.centerElement(text, 0, 160);
-            StringUtils.fitName(text,node.getAttr('name'),20);
+            StringUtils.fitName(text,node.getAttr('name'),19);
 
         }
 
@@ -52,9 +53,9 @@ class XSDetailBox implements IBoxRender {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "110");
-        text3.setAttribute("y", "8");
+        text3.setAttribute("y", "7");
         text3.setAttribute("font-size", "8px");
-
+        text3.setAttribute("style", "font-family:tahoma, sans-serif");
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 50);
 //        StringUtils.centerElement(text3, 0, 160);
 
@@ -65,8 +66,9 @@ class XSDetailBox implements IBoxRender {
         text4.setAttribute("x", "10");
         text4.setAttribute("y", "17");
         text4.setAttribute("font-size", "8px");
+        text4.setAttribute("style", "font-family:tahoma, sans-serif");
 //        StringUtils.centerElement(text4, 0, 190);
-        StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 45);
+        StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 40);
 
         var gender = 'none';
         var grayScale = box.isGray();

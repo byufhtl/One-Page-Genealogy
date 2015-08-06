@@ -41,6 +41,7 @@ class SmallPicRotBox implements IBoxRender {
             text.setAttribute("x", "10");
             text.setAttribute("y", "25");
             text.setAttribute("font-size", "20px");
+            text.setAttribute("style", "font-family:tahoma, sans-serif");
             StringUtils.centerElement(text, 60, 240);
         }
 
@@ -51,6 +52,7 @@ class SmallPicRotBox implements IBoxRender {
         text3.setAttribute("x", "10");
         text3.setAttribute("y", "50");
         text3.setAttribute("font-size", "15px");
+        text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);

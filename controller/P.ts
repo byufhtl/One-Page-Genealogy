@@ -16,6 +16,7 @@
 ///<reference path="DetailChartSpacer.ts"/>
 ///<reference path="VertDetChartSpacer.ts"/>
 ///<reference path="GreyScaleSpacer.ts"/>
+///<reference path="ColorSpacer.ts"/>
 ///<reference path="SpacingSpacer.ts"/>
 /**
  * Created by krr428 on 3/7/15.
@@ -34,10 +35,11 @@ class P implements IControllerListener, ITreeListener {
     private beforeTransformBoxes: BoxMap;
     private firstBoxMap: BoxMap;
     private secondBoxMap: BoxMap;
+    private greyscale:boolean;
 
     constructor(private c: C) {
 
-
+        this.greyscale = false;
 
         this.customSpacer = new CustomSpacer();
         this.collapseSpacer = new CollapseSpacer();
@@ -45,6 +47,7 @@ class P implements IControllerListener, ITreeListener {
 
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new ColorSpacer());
         //this.stylingPipeline.push(new GreyScaleSpacer());
         this.stylingPipeline.push(new SpacingSpacer());
         //this.stylingPipeline.push(new DetailChartSpacer());
@@ -90,6 +93,27 @@ class P implements IControllerListener, ITreeListener {
             }
             else if(param.type === 'getBoxByPoint') {
                 return this.getBoxByPoint(param.pt);
+            }
+            else if(param.type === 'detail-style'){
+                this.changeStyleDetail();
+                refresh = true;
+            }
+            else if(param.type === 'vertical-style'){
+                this.changeStyleVert();
+                refresh = true;
+            }
+            else if(param.type === 'eight-eleven-style'){
+                this.changeStyleEightEleven();
+                refresh = true;
+            }
+            else if(param.type === 'eight-eleven-detail-style'){
+                this.changeStyleEightElevenDetail();
+                refresh = true;
+            }
+            else if(param.type === 'toggle-greyscale'){
+                this.greyscale = param.greyscale;
+                this.toggleGreyscale();
+                refresh = true;
             }
         }
 
@@ -189,6 +213,66 @@ class P implements IControllerListener, ITreeListener {
             this.transformationPipline[i].applyStyle(this.secondBoxMap);
         }
         return this.secondBoxMap;
+    }
+    private changeStyleDetail():void{
+        this.stylingPipeline = [];
+        this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new SpacingSpacer());
+        this.stylingPipeline.push(new DetailChartSpacer());
+        this.stylingPipeline.push(this.customSpacer);
+        this.stylingPipeline.push(new YSpacer());
+    }
+    private changeStyleVert():void{
+        this.stylingPipeline = [];
+        this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new SpacingSpacer());
+        this.stylingPipeline.push(new VertDetChartSpacer());
+        this.stylingPipeline.push(this.customSpacer);
+        this.stylingPipeline.push(new YSpacer());
+    }
+    private changeStyleEightEleven():void{
+
+        this.stylingPipeline = [];
+        this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new SpacingSpacer());
+        this.stylingPipeline.push(new EightElevenSpacer());
+        this.stylingPipeline.push(this.customSpacer);
+        this.stylingPipeline.push(new YSpacer());
+    }
+    private changeStyleEightElevenDetail():void{
+        this.stylingPipeline = [];
+        this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new SpacingSpacer());
+        this.stylingPipeline.push(new EightElevenDetailSpacer());
+        this.stylingPipeline.push(this.customSpacer);
+        this.stylingPipeline.push(new YSpacer());
+    }
+    private toggleGreyscale():void{
+        var temp = this.stylingPipeline;
+        this.stylingPipeline = [];
+        var i:number;
+        //console.log("toggle Greyscale");
+        //console.log(temp.length);
+        if(this.greyscale) {
+            //console.log("greyscale on");
+            this.stylingPipeline.push(this.collapseSpacer);
+            this.stylingPipeline.push(new GreyScaleSpacer());
+            for (i = 2; i < temp.length; i++) {
+                //console.log(temp[i]);
+                this.stylingPipeline.push(temp[i]);
+            }
+        }
+        else
+        {
+            //console.log("greyscale off");
+            this.stylingPipeline.push(this.collapseSpacer);
+            this.stylingPipeline.push(new ColorSpacer());
+            for (i = 2; i < temp.length; i++) {
+                //console.log(temp[i]);
+                this.stylingPipeline.push(temp[i]);
+            }
+        }
+
     }
 
 }

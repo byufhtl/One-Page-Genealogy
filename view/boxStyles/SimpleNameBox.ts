@@ -34,6 +34,7 @@ class SimpleNameBox implements IBoxRender {
             text.appendChild(nameTextPath);
             text.setAttribute("x", "5");
             text.setAttribute("y", "15");
+            text.setAttribute("style", "font-family:tahoma, sans-serif");
         }
 
         var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -43,6 +44,7 @@ class SimpleNameBox implements IBoxRender {
             text2.appendChild(nameTextPath);
             text2.setAttribute("x", "5");
             text2.setAttribute("y", "35");
+            text2.setAttribute("style", "font-family:tahoma, sans-serif");
         }
 
         var gender = 'none';
