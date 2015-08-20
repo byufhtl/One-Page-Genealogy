@@ -67,7 +67,7 @@ class SmallPictureDetailBox implements IBoxRender {
         text4.setAttribute("style", "font-family:tahoma, sans-serif");
 //        StringUtils.centerElement(text4, 40, 240);
         //StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 40);
-        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 40);
+        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 35);
         text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -80,7 +80,7 @@ class SmallPictureDetailBox implements IBoxRender {
         text5.setAttribute("font-size", "10px");
         text5.setAttribute("style", "font-family:tahoma, sans-serif");
 //        StringUtils.centerElement(text5, 40, 240);
-        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
+        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 35);
         text5.textContent = 'D: '+text5.textContent;
 
         var gender = 'none';
