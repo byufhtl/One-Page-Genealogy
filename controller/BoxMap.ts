@@ -32,7 +32,7 @@ class BoxMap {
     copyContents(boxes: BoxMap): void {
         for(var key in this.map) {
             if(this.map.hasOwnProperty(key)) {
-                console.log(this.map[key].getNode().getId()+" "+boxes.getId(key).getNode().getId());
+                //console.log(this.map[key].getNode().getId()+" "+boxes.getId(key).getNode().getId());
                 this.map[key].copyContents(boxes.getId(key));
             }
         }

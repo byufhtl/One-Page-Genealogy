@@ -35,6 +35,10 @@ SpacerTree.prototype.build = function(map, rootid) {
 };
 SpacerTree.prototype.dfsBuild = function(node) {
     var parent = new SquareNode(node.x, node.width, node.height, node.id);
+    if(!(node.hasOwnProperty("children"))){
+        console.log(node)
+
+    }
     if(node.children.length == 0) {
         return parent;
     }
@@ -42,6 +46,12 @@ SpacerTree.prototype.dfsBuild = function(node) {
         var childList = []
         for(var i=0; i<node.children.length; i++) {
             var child = node.children[i];
+            if(!(child.hasOwnProperty("children"))){
+                console.log(child)
+                console.log(i)
+                console.log(node.children)
+                return parent;
+            }
             childList.push(this.dfsBuild(child));
         }
         return MultiNode.generate(parent, childList, Math.floor(childList.length/2));

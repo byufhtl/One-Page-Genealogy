@@ -82,6 +82,7 @@ class SmallestNameBox implements IBoxRender {
         return g;
     }
     move(box:IBox, graphic: any): any {
+        console.log(box.getY()+1/2+Math.round(box.getSpace()/2))
         graphic.setAttribute("transform","translate("+(box.getX()+1)+", "+
             (box.getY()+1/2+Math.round(box.getSpace()/2))+")");//+stroke width+1/2space size
     }

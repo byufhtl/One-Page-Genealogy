@@ -27,33 +27,63 @@ class LargePictureBox2 implements IBoxRender {
         rect.setAttribute('rx', "20");
         rect.setAttribute('ry', "20");
         rect.setAttribute('stroke-width', '2');
+        //            StringUtils.centerElement(text, 210, 290);
+
 
 
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text);
-
-        var node: INode = box.getNode();
-        if(node.hasAttr('givenname')) {
-            var nameTextPath = document.createTextNode(box.getNode().getAttr('givenname'));
+        g.appendChild(text2);
+        var node = box.getNode();
+        if (node.hasAttr('givenname') && node.hasAttr('surname')) {
+            if (node.hasAttr('givenname') || node.hasAttr('given')) {
+                var nameTextPath = document.createTextNode(box.getNode().getAttr('givenname'));
+                text.appendChild(nameTextPath);
+                text.setAttribute("x", "220");
+                text.setAttribute("y", "65");
+                text.setAttribute("font-size", "30px");
+                text.setAttribute("style", "font-family:tahoma, sans-serif");
+                StringUtils.fitName(text, node.getAttr('givenname'), 30);
+                StringUtils.centerElement(text, 210, 290);
+            }
+            g.appendChild(text2);
+            if (node.hasAttr('surname')) {
+                var nameTextPath = document.createTextNode(box.getNode().getAttr('surname'));
+                text2.appendChild(nameTextPath);
+                text2.setAttribute("x", "220");
+                text2.setAttribute("y", "120");
+                text2.setAttribute("font-size", "40px");
+                text2.setAttribute("style", "font-family:tahoma, sans-serif");
+                StringUtils.fitName(text2, node.getAttr('surname'), 30);
+                StringUtils.centerElement(text2, 210, 290);
+            }
+        }
+        else if (node.hasAttr('name')) {
+            var fullname = (box.getNode().getAttr('name'));
+            var splitName = fullname.split(" ");
+            var firstName = "";
+            if (splitName.length == 2) {
+                firstName = splitName[0];
+            }
+            else if (splitName.length > 2) {
+                firstName = splitName[0] + " " + splitName[1];
+            }
+            var nameTextPath = document.createTextNode(firstName);
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "15");
-            text.setAttribute("y", "60");
+            text.setAttribute("x", "220");
+            text.setAttribute("y", "65");
             text.setAttribute("font-size", "30px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
-            StringUtils.fitName(text,node.getAttr('givenname'),30);
+            StringUtils.fitName(text, firstName, 30);
             StringUtils.centerElement(text, 210, 290);
-        }
-
-        var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        g.appendChild(text2);
-        if(node.hasAttr('surname')) {
-            var nameTextPath = document.createTextNode(box.getNode().getAttr('surname'));
-            text2.appendChild(nameTextPath);
-            text2.setAttribute("x", "15");
-            text2.setAttribute("y", "95");
+            var nameTextPath2 = document.createTextNode(splitName[splitName.length - 1]);
+            text2.appendChild(nameTextPath2);
+            text2.setAttribute("x", "220");
+            text2.setAttribute("y", "120");
             text2.setAttribute("font-size", "40px");
             text2.setAttribute("style", "font-family:tahoma, sans-serif");
-            StringUtils.fitName(text2,node.getAttr('surname'),30);
+            StringUtils.fitName(text2, node.getAttr('surname'), 30);
             StringUtils.centerElement(text2, 210, 290);
         }
 
@@ -62,7 +92,7 @@ class LargePictureBox2 implements IBoxRender {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "10");
-        text3.setAttribute("y", "135");
+        text3.setAttribute("y", "155");
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", "font-family:tahoma, sans-serif");
 

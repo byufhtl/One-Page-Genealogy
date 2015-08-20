@@ -990,7 +990,9 @@ class StringUtils {
 
     private static abbreviateCountry(places){
         for(var i = 0; i < places.length; i++){
-            if(places[i].toLowerCase().trim() in StringUtils.countryAbbrMap){
+            if (places[i] == null) {
+            }
+            else if (places[i].toLowerCase().trim() in StringUtils.countryAbbrMap) {
                 places[i] = StringUtils.countryAbbrMap[places[i].toLowerCase().trim()];
             }
         }

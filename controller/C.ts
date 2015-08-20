@@ -36,10 +36,50 @@ class C implements IGraphicObjectListener, IOptionListener {
 
     constructor(data) {
 
-        var rootId: string = data.rootId;
-        var generations: number = data.generations;
-
-        this.source = new FSFullTreeDownloader(rootId, generations);
+        //console.log(data);
+        var rootId: string = data.rootId;		        this.source = null;
+        var generations: number = data.generations;		        if (data.hasOwnProperty("gedData")) {
+            var attemptGed = data.gedData;
+            this.source = new FSFullTreeDownloader(rootId, generations);		            var gedNodes = {};
+            for (var key in attemptGed) {
+                var branchIds = [];
+                //ascendants
+                if (attemptGed[key].hasOwnProperty("ascBranchIds") && data.dscOrAsc == "ascendancy") {
+                    //var firstFam = attemptGed[key].familyChild[0];
+                    var firstFam = this.getBestAscendants(attemptGed, key);
+                    branchIds = attemptGed[key].ascBranchIds[firstFam];
+                }
+                //descendantsbr
+                if (attemptGed[key].hasOwnProperty("dscBranchIds") && data.dscOrAsc == "descendancy") {
+                    //var firstFam = attemptGed[key].familySpouse[0];
+                    if (attemptGed[key].familySpouse.length > 1) {
+                        //console.log(attemptGed[key].familySpouse);
+                        //console.log(attemptGed[key].dscBranchIds);
+                        var firstFam = this.getBestDescendants(attemptGed, key);
+                        branchIds = attemptGed[key].dscBranchIds[firstFam];
+                    }
+                    else {
+                        var firstFam = this.getBestDescendants(attemptGed, key);
+                        branchIds = attemptGed[key].dscBranchIds[firstFam];
+                    }
+                }
+                if (branchIds == null) {
+                    branchIds = [];
+                }
+                var individual = new GedcomNode(key, attemptGed[key], branchIds);
+                gedNodes[key] = individual;
+            }
+            //console.log(gedNodes)
+            //this.source = new GedcomDownloader(attemptGed["latestIndi"], 20, gedNodes);//"oldestIndi" for dsc, "latestIndi" for asc
+            //this.source = new GedcomDownloader("@I12154@", 20, gedNodes);//PROFESSOR BARRETT is @I12154@ do @175@ for an ascendant
+            this.source = new GedcomDownloader(data.rootId, data.generations, gedNodes);
+        }
+        else {
+            console.log("Making non-gedcom C");
+            var rootId = data.rootId;
+            var generations = data.generations;
+            this.source = new FSFullTreeDownloader(rootId, generations);
+        }
         this.anchorPt = new Point(10, 10);
 
         this.tree = new Tree();
@@ -62,6 +102,47 @@ class C implements IGraphicObjectListener, IOptionListener {
 
         self.source.start();
     }
+    getBestDescendants(attemptGed, key) {
+        if (attemptGed[key].familySpouse.length == 1) {
+            return attemptGed[key].familySpouse[0];
+        }
+        else {
+            var bestFam = "";
+            var biggest = 0;
+            for (var i = 0; i < attemptGed[key].familySpouse.length; i++) {
+                var famAttempt = attemptGed[key].familySpouse[i];
+                if (attemptGed[key].dscBranchIds.hasOwnProperty(famAttempt)) {
+                    if (attemptGed[key].dscBranchIds[famAttempt].length > biggest) {
+                        bestFam = famAttempt;
+                        biggest = attemptGed[key].dscBranchIds[famAttempt].length;
+                    }
+                }
+            }
+            return bestFam;
+        }
+    }
+    getBestAscendants(attemptGed, key) {
+        if (attemptGed[key].familyChild.length == 1) {
+            return attemptGed[key].familyChild[0];
+        }
+        else {
+            var bestFam = "";
+            var biggest = 0;
+            for (var i = 0; i < attemptGed[key].familyChild.length; i++) {
+                var famAttempt = attemptGed[key].familyChild[i];
+                if (attemptGed[key].ascBranchIds.hasOwnProperty(famAttempt)) {
+                    var depth = 0;
+                    var famAttemptDepth = 0;
+                    if (attemptGed[key].ascBranchIds[famAttempt].length > biggest) {
+                        bestFam = famAttempt;
+                        biggest = attemptGed[key].ascBranchIds[famAttempt].length;
+                    }
+                }
+            }
+            return bestFam;
+        }
+    }
+
     setViewManager(viewManager: IViewManager): void {
         this.viewManager = viewManager;
     }

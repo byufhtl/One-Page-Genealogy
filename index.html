@@ -22,6 +22,8 @@
     <script src="sources/FSPerson.js" type="text/javascript"></script>
     <script src="sources/FSDescNode.js" type="text/javascript"></script>
     <script src="sources/ImageLoader.js" type="text/javascript"></script>
+    <script src="sources/GedcomNode.js" type="text/javascript"></script>
+    <script src="sources/GedcomSource.js" type="text/javascript"></script>
 
     <script src="controller/BoxMap.js" type="text/javascript"></script>
     <script src="controller/P.js" type="text/javascript"></script>
@@ -43,6 +45,8 @@
     <script src="controller/RotateSpacer.js" type="text/javascript"></script>
     <script src="controller/OptionManager.js" type="text/javascript"></script>
     <script src="controller/C.js" type="text/javascript"></script>
+    <script src="controller/BorderBoxSpacer.js" type="text/javascript"></script>
+
 
     <script src="model/AbstractBox.js" type="text/javascript"></script>
     <script src="model/Box.js" type="text/javascript"></script>
@@ -99,6 +103,9 @@
     <script src="view/boxStyles/XSDetailBox.js" type="text/javascript"></script>
     <script src="view/boxStyles/SmallestNameBox.js" type="text/javascript"></script>
 
+    <script src = "static/jsonReader.js"></script>
+    <script src = "static/ged.js"></script>
+    <script src = "static/gedcomHandler.js"></script>
 
     <script>
         FamilySearch.init({
@@ -113,23 +120,38 @@
         });
 
         $(document).ready(function() {
-            FamilySearch.getAccessToken().then(function (response) {
-                FamilySearch.getCurrentUser().then(function(response) {
-                    var user = response.getUser();
-                    var c = new C({
-//                        rootId: user.personId,
-//                        rootId: 'KWCP-TBV',
-//                        rootId: 'KW4R-RVZ',
-//                        rootId: 'LCPG-L31', //Thomas Winter
-//                        rootId: 'M9WH-DXF', //John Boice
-                        rootId: 'LZJK-8TN', //Benjamen Boice
-//                        rootId: 'KC5H-R1T', //Jakob Schatz
-                        generations: 3
+            $("#fsbutton").click(familySearchDownload)
+            //$("#logoutbutton").click(logout)
 
-                    });
-                });
-            });
         });
+        function familySearchDownload() {
+            console.log("familysearch download")
+            $('#fsModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
+            $('#fsModal').show()
+            $('#fsSave').click(function () {
+                $('#fsModal').hide();
+                FamilySearch.getAccessToken().then(function (response) {
+                    FamilySearch.getCurrentUser().then(function (response) {
+                        var old_element = document.getElementById("opg-chart")
+                        var new_element = old_element.cloneNode(true);
+                        old_element.parentNode.replaceChild(new_element, old_element)
+                        while (new_element.lastChild) {
+                            new_element.removeChild(new_element.lastChild);
+                        }
+                        var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
+                        var user = response.getUser();
+                        var c = new C({
+                            rootId: user.personId,
+                            generations: generations
+                        })
+                    })
+                })
+            })//endFSSave
+        }
+
 
     </script>
 
@@ -152,120 +174,198 @@
             width: 100%;
             height: calc(100% - 60px);
         }
+
+
+        #gedbutton,#fsbutton {
+            margin-bottom: 15px;
+            margin-top: 15px;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">One Page Genealogy</a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a id="opg-rotate-cc" href="#"><i class="fa fa-rotate-left"></i></a></li>
-                    <li><a id="opg-rotate-c" href="#"><i class="fa fa-rotate-right"></i></a></li>
-                    <li><a id="opg-download" href="#"><i class="fa fa fa-download"></i></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Styles <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a id="opg-detail-style" href="#">Full Detail Style</a></li>
-                            <li><a id="opg-vertical-style" href="#">Vertical Detail Style</a></li>
-                            <li><a id="opg-eight-eleven-style" href="#">8 1/2 x 11 Style</a></li>
-                            <li><a id="opg-eight-eleven-detail-style" href="#">8 1/2 x 11 Detail Style</a></li>
-                            <li class="divider"></li>
-                            <li><a id="opg-toggle-greyscale" href="#">Toggle Greyscale</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">One Page Genealogy</a>
         </div>
-    </nav>
 
-    <div class="outer-content">
-        <svg id="opg-chart">
-
-        </svg>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><input id="myInput" type="file" style="visibility:hidden" /></li>
+                <li><input id = "gedbutton" type="button" value="Read Gedcom File" onclick="$('#myInput').click();" /></li>
+                <!--onclick="$('#fsbutton').on('click');"-->
+                <li><input id = "fsbutton" type="button" value="FamilySearch"/></li>
+                <li><a id="opg-rotate-cc" href="#"><i class="fa fa-rotate-left"></i></a></li>
+                <li><a id="opg-rotate-c" href="#"><i class="fa fa-rotate-right"></i></a></li>
+                <li><a id="opg-download" href="#"><i class="fa fa fa-download"></i></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Styles <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a id="opg-detail-style" href="#">Full Detail Style</a></li>
+                        <li><a id="opg-vertical-style" href="#">Vertical Detail Style</a></li>
+                        <li><a id="opg-eight-eleven-style" href="#">8 1/2 x 11 Style</a></li>
+                        <li><a id="opg-eight-eleven-detail-style" href="#">8 1/2 x 11 Detail Style</a></li>
+                        <li class="divider"></li>
+                        <li><a id="opg-toggle-greyscale" href="#">Toggle Greyscale</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
+</nav>
 
-    <div class="modal fade" id="opg-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Box Style Options</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <svg id="opg-modal-svg">
+<div class="outer-content">
+    <svg id="opg-chart">
 
-                                </svg>
-                            </div>
-                            <div class="col-sm-12">
-                                <select id="opg-modal-select">
-                                    <option value="simpleNameBox">Simple Box</option>
-                                    <option value="horizontalNameLifeBox">Horizontal Line Box</option>
-                                    <option value="compactSimpleNameBox">Compact Simple Box</option>
-                                    <option value="largePictureBox">Large Picture Vertical Box</option>
-                                    <option value="largePictureBox2">Large Picture Box</option>
-                                    <option value="largePicRotBox">Large Picture Rotated Box</option>
-                                    <option value="largePictureDetailBox2">Large Picture Detail Box</option>
-                                    <option value="largePicDetRotBox">Large Picture Detail Rotated Box</option>
-                                    <option value="midLargePictureBox">Medium Large Picture Box</option>
-                                    <option value="midLargePicRotBox">Medium Large Picture Rotated Box</option>
-                                    <option value="mediumPictureBox">Medium Picture Box</option>
-                                    <option value="medPicRotBox">Medium Picture Rotated Box</option>
-                                    <option value="mediumPictureDetailBox">Medium Picture Detail Box</option>
-                                    <option value="medPicDetRotBox">Medium Picture Detail Rotated Box</option>
-                                    <option value="medSmPictureDetailBox">Medium Small Picture Detail Box</option>
-                                    <option value="medSmPicDetRotBox">Medium Small Picture Detail Rotated Box</option>
-                                    <option value="smallDetailBox">Small Detail Box</option>
-                                    <option value="smallNameBox">Small Name Box</option>
-                                    <option value="smallPictureBox">Small Picture Box</option>
-                                    <option value="smallPicRotBox">Small Picture Rotated Box</option>
-                                    <option value="smallPictureBox2">Small Picture Box Vertical</option>
-                                    <option value="smallPictureDetailBox">Small Picture Detail Box</option>
-                                    <option value="smallPicDetRotBox">Small Picture Detail Rotated Box</option>
-                                    <option value="smallPictureDetailBox2">Smaller Picture Detail Box</option>
-                                    <option value="xsDetailBox">XS Detail Box</option>
-                                    <option value="xsNameBox">XS Name Box</option>
-                                    <option value="xsNameYearBox">XS Name Year Box</option>
-                                    <option value="smallestNameBox">Smallest Name Box</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-12">
-                                <p>Apply Change To: </p>
-                                <form role="form">
-                                    <div class="radio">
-                                        <label><input type="radio" name="opg-change-who" value='changeIndividual' checked>Individual</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label><input type="radio" name="opg-change-who" value='changeGeneration'>Generation</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-sm-12">
-                                <button type="button" class="btn btn-default" id="opg-modal-collapse">
-                                    Collapse
-                                </button>
-                            </div>
+    </svg>
+</div>
+
+<div class="modal fade" id="opg-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Box Style Options</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <svg id="opg-modal-svg">
+
+                            </svg>
+                        </div>
+                        <div class="col-sm-12">
+                            <select id="opg-modal-select">
+                                <option value="simpleNameBox">Simple Box</option>
+                                <option value="horizontalNameLifeBox">Horizontal Line Box</option>
+                                <option value="compactSimpleNameBox">Compact Simple Box</option>
+                                <option value="largePictureBox">Large Picture Vertical Box</option>
+                                <option value="largePictureBox2">Large Picture Box</option>
+                                <option value="largePicRotBox">Large Picture Rotated Box</option>
+                                <option value="largePictureDetailBox2">Large Picture Detail Box</option>
+                                <option value="largePicDetRotBox">Large Picture Detail Rotated Box</option>
+                                <option value="midLargePictureBox">Medium Large Picture Box</option>
+                                <option value="midLargePicRotBox">Medium Large Picture Rotated Box</option>
+                                <option value="mediumPictureBox">Medium Picture Box</option>
+                                <option value="medPicRotBox">Medium Picture Rotated Box</option>
+                                <option value="mediumPictureDetailBox">Medium Picture Detail Box</option>
+                                <option value="medPicDetRotBox">Medium Picture Detail Rotated Box</option>
+                                <option value="medSmPictureDetailBox">Medium Small Picture Detail Box</option>
+                                <option value="medSmPicDetRotBox">Medium Small Picture Detail Rotated Box</option>
+                                <option value="smallDetailBox">Small Detail Box</option>
+                                <option value="smallNameBox">Small Name Box</option>
+                                <option value="smallPictureBox">Small Picture Box</option>
+                                <option value="smallPicRotBox">Small Picture Rotated Box</option>
+                                <option value="smallPictureBox2">Small Picture Box Vertical</option>
+                                <option value="smallPictureDetailBox">Small Picture Detail Box</option>
+                                <option value="smallPicDetRotBox">Small Picture Detail Rotated Box</option>
+                                <option value="smallPictureDetailBox2">Smaller Picture Detail Box</option>
+                                <option value="xsDetailBox">XS Detail Box</option>
+                                <option value="xsNameBox">XS Name Box</option>
+                                <option value="xsNameYearBox">XS Name Year Box</option>
+                                <option value="smallestNameBox">Smallest Name Box</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12">
+                            <p>Apply Change To: </p>
+                            <form role="form">
+                                <div class="radio">
+                                    <label><input type="radio" name="opg-change-who" value='changeIndividual' checked>Individual</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="opg-change-who" value='changeGeneration'>Generation</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-default" id="opg-modal-collapse">
+                                Collapse
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="opg-modal-save">Save changes</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="opg-modal-save">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="gedcomModal" tabindex="-1" role="dialog" aria-labelledby="gedcomModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">GedcomOptions</h4>
+            </div>
+            <div class="modal-body">
+                <h3>Set person as Root</h3>
+                <select id = "gedcomSelect">
+                </select>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="radio" >
+                        <label><input type="radio" name="ascOrDsc" value='descendancy'>Descendancy</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="ascOrDsc" value='ascendancy' id = "generationsRadio" checked>Ascendancy</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-body">
+                <h4>Select Number of Generations</h4>
+                <select id = "generationsSelect">
+                </select>
+            </div>
+            <div class="modal-footer">
+                <p text-align="left">Gedcom reading possible thanks to <a target="_blank" href = "http://www.macwright.org/2015/01/05/parse-gedcom.html">Tom MacWright</a></p>
+                <button type="button" class="btn btn-primary" id="gedcomSave">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="fsModal" tabindex="-1" role="dialog" aria-labelledby="fsModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">FamilySearch Options</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Select Number of Generations</h4>
+                <select id = "fsGenerationsSelect">
+                    <script>
+                        for(var j = 1; j <=20;j++ ){
+                            if(j == 8){
+                                $('#fsGenerationsSelect').append($('<option>', {
+                                    value: j,
+                                    text: j,
+                                    selected: true
+                                }));
+                            }else{
+                                $('#fsGenerationsSelect').append($('<option>', {
+                                    value: j,
+                                    text: j
+                                }));
+                            }
+                        }
+                    </script>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="fsSave">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 </body>
 </html>
