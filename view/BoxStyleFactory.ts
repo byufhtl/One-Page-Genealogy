@@ -9,6 +9,7 @@
 ///<reference path="boxStyles/LargePicRotBox.ts"/>
 ///<reference path="boxStyles/LargePictureDetailBox2.ts"/>
 ///<reference path="boxStyles/LargePicDetRotBox.ts"/>
+///<reference path="boxStyles/LrgPicDetRotSpBox.ts"/>
 ///<reference path="boxStyles/MidLargePictureBox.ts"/>
 ///<reference path="boxStyles/MidLargePicRotBox.ts"/>
 ///<reference path="boxStyles/MediumPictureBox.ts"/>
@@ -51,6 +52,7 @@ class BoxStyleFactory {
         boxTypes.push(new LargePicRotBox());
         boxTypes.push(new LargePictureDetailBox2());
         boxTypes.push(new LargePicDetRotBox());
+        boxTypes.push(new LrgPicDetRotSpBox());
         boxTypes.push(new MidLargePictureBox());
         boxTypes.push(new MidLargePicRotBox());
         boxTypes.push(new MediumPictureBox());

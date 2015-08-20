@@ -2,9 +2,9 @@
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
 /**
- * Created by renae on 7/28/15.
+ * Created by renae on 8/20/15.
  */
-class LargePicDetRotBox implements IBoxRender {
+class LrgPicDetRotSpBox implements IBoxRender {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -35,18 +35,18 @@ class LargePicDetRotBox implements IBoxRender {
         gt.appendChild(text);
 
         var node: INode = box.getNode();
-        if(node.hasAttr('givenname')) {
-            var nameTextPath = document.createTextNode(box.getNode().getAttr('givenname'));
+        if(node.hasAttr('name')) {
+            var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "220");
+            text.setAttribute("x", "160");
             text.setAttribute("y", "35");
             text.setAttribute("font-size", "30px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
-            StringUtils.fitName(text,node.getAttr('givenname'),30);
+            StringUtils.fitName(text,node.getAttr('name'),28);
             //StringUtils.centerElement(text, 210, 290);
         }
 
-        var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        /*var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text2);
         if(node.hasAttr('surname')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('surname'));
@@ -57,17 +57,16 @@ class LargePicDetRotBox implements IBoxRender {
             text2.setAttribute("style", "font-family:tahoma, sans-serif");
             StringUtils.fitName(text2,node.getAttr('surname'),30);
             //StringUtils.centerElement(text2, 210, 290);
-        }
+        }*/
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "220");
-        text3.setAttribute("y", "120");
+        text3.setAttribute("x", "160");
+        text3.setAttribute("y", "75");
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", "font-family:tahoma, sans-serif");
-
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
@@ -76,24 +75,24 @@ class LargePicDetRotBox implements IBoxRender {
         gt.appendChild(text4);
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
-        text4.setAttribute("x", "220");
-        text4.setAttribute("y", "150");
+        text4.setAttribute("x", "160");
+        text4.setAttribute("y", "105");
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", "font-family:sans-serif");
         //StringUtils.centerElement(text4, 210, 290);
-        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
+        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
         text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text5);
         var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
-        text5.setAttribute("x", "220");
-        text5.setAttribute("y", "175");
+        text5.setAttribute("x", "160");
+        text5.setAttribute("y", "130");
         text5.setAttribute("font-size", "20px");
         text5.setAttribute("style", "font-family:tahoma, sans-serif");
         //StringUtils.centerElement(text5, 210, 290);
-        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 25);
+        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
         text5.textContent = 'D: '+text5.textContent;
 
         /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -104,6 +103,68 @@ class LargePicDetRotBox implements IBoxRender {
          text5.setAttribute("y", "200");
          text5.setAttribute("font-size", "20px");
          //StringUtils.centerElement(text5, 210, 290);*/
+
+
+        //if(node.hasAttr('spousename')) {
+        var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        gt.appendChild(text6);
+            var nameTextPath = document.createTextNode('Spouse Name');
+            text6.appendChild(nameTextPath);
+            text6.setAttribute("x", "160");
+            text6.setAttribute("y", "175");
+            text6.setAttribute("font-size", "30px");
+            text6.setAttribute("style", "font-family:tahoma, sans-serif");
+            StringUtils.fitName(text6,'Spouse Name',28);
+            //StringUtils.centerElement(text, 210, 290);
+        //}
+
+        var text7 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        gt.appendChild(text7);
+        var nameTextPath = document.createTextNode("");
+        text7.appendChild(nameTextPath);
+        text7.setAttribute("x", "160");
+        text7.setAttribute("y", "215");
+        text7.setAttribute("font-size", "20px");
+        text7.setAttribute("style", "font-family:tahoma, sans-serif");
+
+        StringUtils.fitDate(text7, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
+        //StringUtils.centerElement(text3, 210, 290);
+
+        var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        gt.appendChild(text8);
+        var nameTextPath = document.createTextNode("");
+        text8.appendChild(nameTextPath);
+        text8.setAttribute("x", "160");
+        text8.setAttribute("y", "245");
+        text8.setAttribute("font-size", "20px");
+        text8.setAttribute("style", "font-family:sans-serif");
+        //StringUtils.centerElement(text4, 210, 290);
+        StringUtils.fitPlace(text8, node.getAttr('birthplace'), 28);
+        text8.textContent = 'B: '+text8.textContent;
+
+        var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        gt.appendChild(text9);
+        var nameTextPath = document.createTextNode("");
+        text9.appendChild(nameTextPath);
+        text9.setAttribute("x", "160");
+        text9.setAttribute("y", "270");
+        text9.setAttribute("font-size", "20px");
+        text9.setAttribute("style", "font-family:tahoma, sans-serif");
+        //StringUtils.centerElement(text5, 210, 290);
+        StringUtils.fitPlace(text9, node.getAttr('deathplace'), 28);
+        text9.textContent = 'D: '+text9.textContent;
+
+        var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        gt.appendChild(text10);
+        var nameTextPath = document.createTextNode("M: (Marriage Date)");
+        text10.appendChild(nameTextPath);
+        text10.setAttribute("x", "160");
+        text10.setAttribute("y", "310");
+        text10.setAttribute("font-size", "20px");
+        text10.setAttribute("style", "font-family:tahoma, sans-serif");
+        //StringUtils.centerElement(text5, 210, 290);
+        //StringUtils.fitPlace(text9, node.getAttr('deathplace'), 25);
+        //text9.textContent = 'D: '+text9.textContent;
 
 
         var gender = 'none';
@@ -133,8 +194,8 @@ class LargePicDetRotBox implements IBoxRender {
         clippath.setAttribute('id', 'clip-'+node.getId());
         gt.appendChild(clippath);
         var cliprect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        cliprect.setAttribute('width', '190');
-        cliprect.setAttribute('height', '190');
+        cliprect.setAttribute('width', '135');
+        cliprect.setAttribute('height', '135');
         cliprect.setAttribute('rx', '20');
         cliprect.setAttribute('ry', '20');
         cliprect.setAttribute('x', '5');
@@ -145,8 +206,8 @@ class LargePicDetRotBox implements IBoxRender {
 
         if(node.hasAttr('profilePicturePromise')) {
             var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
-            svgimg.setAttribute('height','190');
-            svgimg.setAttribute('width','190');
+            svgimg.setAttribute('height','135');
+            svgimg.setAttribute('width','135');
             svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.svg');
             svgimg.setAttribute('x','5');
             svgimg.setAttribute('y','5');
@@ -158,8 +219,8 @@ class LargePicDetRotBox implements IBoxRender {
                     return;
                 }
                 var svgimg2 = document.createElementNS('http://www.w3.org/2000/svg','image');
-                svgimg2.setAttribute('height','190');
-                svgimg2.setAttribute('width','190');
+                svgimg2.setAttribute('height','135');
+                svgimg2.setAttribute('width','135');
                 svgimg2.setAttribute('x','5');
                 svgimg2.setAttribute('y','5');
                 svgimg2.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
@@ -178,6 +239,55 @@ class LargePicDetRotBox implements IBoxRender {
             });
         }
 
+        var clippath2 = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+        clippath2.setAttribute('id', 'clip-'+node.getId());
+        gt.appendChild(clippath2);
+        var cliprect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        cliprect2.setAttribute('width', '135');
+        cliprect2.setAttribute('height', '135');
+        cliprect2.setAttribute('rx', '20');
+        cliprect2.setAttribute('ry', '20');
+        cliprect2.setAttribute('x', '5');
+        cliprect2.setAttribute('y', '145');
+
+        clippath2.appendChild(cliprect2);
+
+
+        if(node.hasAttr('profilePicturePromise')) {
+            var svgimg3 = document.createElementNS('http://www.w3.org/2000/svg','image');
+            svgimg3.setAttribute('height','135');
+            svgimg3.setAttribute('width','135');
+            svgimg3.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.svg');
+            svgimg3.setAttribute('x','5');
+            svgimg3.setAttribute('y','145');
+            svgimg3.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
+            gt.appendChild(svgimg3);
+            node.getAttr('profilePicturePromise').then(function(response) {
+                if(!response) {
+                    gt.removeChild(svgimg3);
+                    return;
+                }
+                var svgimg4 = document.createElementNS('http://www.w3.org/2000/svg','image');
+                svgimg4.setAttribute('height','135');
+                svgimg4.setAttribute('width','135');
+                svgimg4.setAttribute('x','5');
+                svgimg4.setAttribute('y','145');
+                svgimg4.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
+
+                function listener() {
+                    gt.removeChild(svgimg3);
+                    svgimg4.removeEventListener('load', listener);
+                }
+                svgimg4.addEventListener('load', listener);
+                svgimg4.setAttributeNS('http://www.w3.org/1999/xlink','href',response);
+                gt.appendChild(svgimg4);
+
+
+            }, function() {
+                gt.removeChild(svgimg3);
+            });
+        }
+
         gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+") rotate(-90 0,0)");
 
         return g;
@@ -188,13 +298,13 @@ class LargePicDetRotBox implements IBoxRender {
             (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
     getType(): string {
-        return "largePicDetRotBox";
+        return "lrgPicDetRotSpBox";
     }
     getHeight(): number {
         return 500;
     }
     getWidth(): number {
-        return 199+2+3;//214;
+        return 349+2+3;//214;
     }
     requiresLoad(): boolean {
         return true;

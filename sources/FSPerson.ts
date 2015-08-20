@@ -2,7 +2,8 @@
  * Created by curtis on 3/16/15.
  */
 class FSPerson {
-    constructor(private id: string, private person, private ascBranchIds: string[], private dscBranchIds: string[] ) {
+    constructor(private id: string, private person, private ascBranchIds: string[],
+                private dscBranchIds: string[], private spouses: any[] ) {
 
     }
     getDscBranchIds(): string[] {
@@ -16,6 +17,9 @@ class FSPerson {
     }
     getId(): string {
         return this.id;
+    }
+    getSpouses(): any[] {
+        return this.spouses;
     }
 
 }

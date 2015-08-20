@@ -46,10 +46,10 @@ class VertDescDetChartSpacer implements  IStyler {
         //console.log("Help:" +childBox.getNode().getId());
         if(generation == 0) {
             var bx = 0;
-            childBox.setType('largePicDetRotBox');
+            childBox.setType('lrgPicDetRotSpBox');
             childBox.setX(bx);
-            childBox.setHeight(BoxStyleFactory.getHeight('largePicDetRotBox'));
-            childBox.setWidth(BoxStyleFactory.getWidth('largePicDetRotBox'));
+            childBox.setHeight(BoxStyleFactory.getHeight('lrgPicDetRotSpBox'));
+            childBox.setWidth(BoxStyleFactory.getWidth('lrgPicDetRotSpBox'));
             //console.log("heya! 4");
         }
         else if(generation == 1) {

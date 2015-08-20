@@ -71,6 +71,9 @@ class ElementManager implements IElementManager {
         var element: IElement = this.elementMap[box.getNode().getId()];
         var lastBox: IBox = element.getLastBox();
 
+        if(box.isGray() !== lastBox.isGray()) {
+            return true;
+        }
         if(box.getType() !== lastBox.getType()) {
             return true;
         }

@@ -49,7 +49,7 @@ class SmallPictureBox2 implements IBoxRender {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('surname'));
             text2.appendChild(nameTextPath);
             text2.setAttribute("x", "0");
-            text2.setAttribute("y", "185");
+            text2.setAttribute("y", "195");
             text2.setAttribute("font-size", "20px");
             text2.setAttribute("style", "font-family:tahoma, sans-serif");
             StringUtils.centerElement(text2, 0, 150);
@@ -116,7 +116,11 @@ class SmallPictureBox2 implements IBoxRender {
         if(node.hasAttr('gender')) {
             gender = node.getAttr('gender');
         }
-        if(gender === 'Male' && !grayScale) {
+        if(box.getColor()!= null && !grayScale){
+            rect.setAttribute('fill', box.getColor());
+            rect.setAttribute('stroke','black');
+        }
+        else if(gender === 'Male' && !grayScale) {
             rect.setAttribute('fill','#8DEEEE');
             rect.setAttribute('stroke', '#2ee0e0');
 

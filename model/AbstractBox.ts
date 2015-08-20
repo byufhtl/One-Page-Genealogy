@@ -11,6 +11,7 @@
 class AbstractBox implements IBox {
     private node: INode;
     private grey: boolean;
+    private color: string;
     private x: number;
     private y: number;
     private space: number;
@@ -26,10 +27,19 @@ class AbstractBox implements IBox {
     setGray(b:boolean) {
         this.grey = b;
     }
-    isGray() {
+    isGray():boolean {
         return this.grey;
     }
+    setColor(c:string){
+        this.color = c;
+    }
+    getColor():string{
+        return this.color;
+    }
     getHeight(): number {
+        console.log("What is going on?");
+        //console.log(this.h);
+        //console.log(this.space);
         return this.h + this.space;
     }
     setHeight(h: number) {
@@ -67,8 +77,12 @@ class AbstractBox implements IBox {
     }
     setType(type: string) {
         this.type = type;
+        //console.log("type: "+type);
+        if(!type){
+            type = "smallestNameBox";
+        }
         var render:IBoxRender = BoxStyleFactory.getNewBoxStyle(type);
-
+        //console.log("Is it here? "+render.getHeight());
         this.setHeight(render.getHeight());
         this.setWidth(render.getWidth());
 
@@ -76,6 +90,7 @@ class AbstractBox implements IBox {
     copy(): IBox {
         var b:Box = new AbstractBox(this.getNode());
         b.setGray(this.isGray());
+        b.setColor(this.getColor());
         b.setHeight(this.getHeight());
         b.setWidth(this.getWidth());
         b.setSpace(this.getSpace());
@@ -87,6 +102,8 @@ class AbstractBox implements IBox {
     }
     copyContents(b: IBox): void {
         b.setGray(this.isGray());
+        b.setColor(this.getColor());
+        //console.log("Or here? "+this.getHeight());
         b.setHeight(this.getHeight());
         b.setWidth(this.getWidth());
         b.setSpace(this.getSpace());

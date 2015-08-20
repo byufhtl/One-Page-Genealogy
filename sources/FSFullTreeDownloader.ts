@@ -1,6 +1,7 @@
 ///<reference path="../ISourceListener.ts"/>
 ///<reference path="../ISource.ts"/>
 ///<reference path="FSAncestryGenDownloader.ts"/>
+///<reference path="FSDescendancyGenDownloader.ts"/>
 /**
  * Created by curtis on 4/3/15.
  */
@@ -11,11 +12,13 @@ class FSFullTreeDownloader implements  ISource {
     private repeatCount: number;
     private totalCount: number;
 
-    private downloader: FSAncestryGenDownloader;
+    //private downloader: FSAncestryGenDownloader;
+    private downloader: FSDescendancyGenDownloader;
     constructor(private rootId: string, private generations: number) {
         this.counter = {};
         this.unallocatedParents = {};
-        this.downloader = new FSAncestryGenDownloader();
+        //this.downloader = new FSAncestryGenDownloader();
+        this.downloader = new FSDescendancyGenDownloader();
         this.repeatCount = 0;
         this.totalCount = 0;
         this.setListener({
@@ -32,7 +35,9 @@ class FSFullTreeDownloader implements  ISource {
             //console.log(((new Date().getTime()) - seconds)/1000);
             for(var i=0; i<people.length; i++) {
                 var person = people[i];
-                var idData = self.nextUniqueId(person.getId(), person.getAscBranchIds());
+                //console.log("person: "+person.getId());
+                //var idData = self.nextUniqueId(person.getId(), person.getAscBranchIds());
+                var idData = self.nextUniqueId(person.getId(), person.getDscBranchIds());
                 var node: FSDescNode = new FSDescNode(idData.id, person.getPerson(), idData.parentIds);
                 self.listener.gotNode(node);
             }
@@ -61,13 +66,19 @@ class FSFullTreeDownloader implements  ISource {
             }
             this.unallocatedParents[parentIds[i]].push(parentUniqueId);
         }
-
+        /*var i: number;
+        for(i = 0; i<uniqueParentIds.length; i++)
+        {
+            console.log(String(uniqueParentIds[i]));
+        }
+        console.log("next");*/
         return {
             id:uniqueId,
             parentIds: uniqueParentIds
         };
     }
     private singleUniqueId(id: string) {
+        //console.log("single: "+id);
         if(!this.counter.hasOwnProperty(id)) {
             this.counter[id] = 0;
             this.totalCount += 1;

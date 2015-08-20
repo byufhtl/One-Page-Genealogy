@@ -12,7 +12,7 @@ class FSAncestryGenDownloader {
         var self = this;
 
         var height = 8;
-        console.log(generations);
+        //console.log(generations);
         var firstDownloadAmount = Math.min(generations, height);
 
         var firstPromise = this.getGenerations(id, firstDownloadAmount);
@@ -69,7 +69,7 @@ class FSAncestryGenDownloader {
                     }
                     else {
                         var parents: string[] = self.getParents(response, i);
-                        var fsPerson: FSPerson = new FSPerson(person.id, person, parents, []);
+                        var fsPerson: FSPerson = new FSPerson(person.id, person, parents, [],null);
                         completed.push(fsPerson);
                     }
                 }

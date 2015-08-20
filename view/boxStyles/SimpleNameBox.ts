@@ -52,7 +52,11 @@ class SimpleNameBox implements IBoxRender {
         if(node.hasAttr('gender')) {
             gender = node.getAttr('gender');
         }
-        if(gender === 'Male' && !grayScale) {
+        if(box.getColor()!= null && !grayScale){
+            rect.setAttribute('fill', box.getColor());
+            rect.setAttribute('stroke','black');
+        }
+        else if(gender === 'Male' && !grayScale) {
             rect.setAttribute('fill','#8DEEEE');
         }
         else if(gender === 'Female' && !grayScale) {
