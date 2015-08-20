@@ -64,7 +64,7 @@ class MedSmPictureDetailBox implements IBoxRender {
         text4.setAttribute("font-size", "14px");
         text4.setAttribute("style", "font-family:tahoma, sans-serif");
 //        StringUtils.centerElement(text4, 40, 240);
-        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 30);
+        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
         text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -76,7 +76,7 @@ class MedSmPictureDetailBox implements IBoxRender {
         text5.setAttribute("font-size", "14px");
         text5.setAttribute("style", "font-family:tahoma, sans-serif");
 //        StringUtils.centerElement(text5, 40, 240);
-        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 30);
+        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 25);
         text5.textContent = 'D: '+text5.textContent;
 
         /*var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");

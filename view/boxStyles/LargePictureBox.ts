@@ -40,7 +40,7 @@ class LargePictureBox implements IBoxRender {
             text.setAttribute("y", "300");
             text.setAttribute("font-size", "30px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
-            StringUtils.fitName(text,node.getAttr('name'),30);
+            StringUtils.fitName(text,node.getAttr('givenname'),30);
             StringUtils.centerElement(text, 0, 260);
         }
 
@@ -53,7 +53,7 @@ class LargePictureBox implements IBoxRender {
             text2.setAttribute("y", "335");
             text2.setAttribute("font-size", "40px");
             text2.setAttribute("style", "font-family:tahoma, sans-serif");
-            StringUtils.fitName(text,node.getAttr('name'),30);
+            StringUtils.fitName(text2,node.getAttr('surname'),30);
             StringUtils.centerElement(text2, 0, 260);
         }
 

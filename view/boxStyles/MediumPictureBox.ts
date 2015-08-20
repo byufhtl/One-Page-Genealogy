@@ -40,7 +40,8 @@ class MediumPictureBox implements IBoxRender {
             text.setAttribute("y", "30");
             text.setAttribute("font-size", "30px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
-            StringUtils.fitName(text,node.getAttr('name'),30);
+            StringUtils.fitName(text,box.getNode().getAttr('givenname'),30);
+            console.log("given: "+box.getNode().getAttr('givenname'));
             StringUtils.centerElement(text, 110, 350);
         }
 
@@ -53,7 +54,7 @@ class MediumPictureBox implements IBoxRender {
             text2.setAttribute("y", "70");
             text2.setAttribute("font-size", "40px");
             text2.setAttribute("style", "font-family:tahoma, sans-serif");
-            StringUtils.fitName(text,node.getAttr('name'),30);
+            StringUtils.fitName(text2,node.getAttr('surname'),30);
             StringUtils.centerElement(text2, 110, 350);
         }
 
