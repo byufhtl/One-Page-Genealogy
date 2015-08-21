@@ -53,21 +53,38 @@ class VertDescDetChartSpacer implements  IStyler {
             //console.log("heya! 4");
         }
         else if(generation == 1) {
-            bx = parentBox.getX() + parentBox.getWidth()+10;// - 150;
-            childBox.setType('largePicDetRotBox');
-            childBox.setX(bx);
-            childBox.setHeight(BoxStyleFactory.getHeight('largePicDetRotBox'));
-            childBox.setWidth(BoxStyleFactory.getWidth('largePicDetRotBox'));
-            //console.log("heya! 5");
+            if(parentBox.getNode().getSpouses().length>1){
+                bx = parentBox.getX();// - 150;
+                childBox.setType('largePicDetRotBox');
+                childBox.setX(bx);
+                childBox.setHeight(BoxStyleFactory.getHeight('largePicDetRotBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('largePicDetRotBox'));
+            }
+            else{
+                bx = parentBox.getX() + parentBox.getWidth()+10;// - 150;
+                childBox.setType('largePicDetRotBox');
+                childBox.setX(bx);
+                childBox.setHeight(BoxStyleFactory.getHeight('largePicDetRotBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('largePicDetRotBox'));
+            }
         }
         else if(generation == 2) {
+            if(parentBox.getNode().getSpouses().length>1){
+                bx = parentBox.getX()+10;// - 150;
+                childBox.setType('largePicDetRotBox');
+                childBox.setX(bx);
+                childBox.setHeight(BoxStyleFactory.getHeight('largePicDetRotBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('largePicDetRotBox'));
+            }
             //console.log("heya! 6.0");
-            bx = parentBox.getX() + parentBox.getWidth() + 10;
-            childBox.setType('medSmPictureDetailBox');
-            childBox.setX(bx);
-            childBox.setHeight(BoxStyleFactory.getHeight('medSmPictureDetailBox'));
-            childBox.setWidth(BoxStyleFactory.getWidth('medSmPictureDetailBox'));
-            //console.log("heya! 6");
+            else {
+                bx = parentBox.getX() + parentBox.getWidth() + 10;
+                childBox.setType('medSmPictureDetailBox');
+                childBox.setX(bx);
+                childBox.setHeight(BoxStyleFactory.getHeight('medSmPictureDetailBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('medSmPictureDetailBox'));
+                //console.log("heya! 6");
+            }
         }
         else if(generation == 3) {
             bx = parentBox.getX() + parentBox.getWidth() + 10;

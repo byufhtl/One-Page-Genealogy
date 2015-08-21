@@ -6,5 +6,6 @@ interface INode {
     getAttr(key: string): any;
     hasAttr(key: string): boolean;
     getBranchIds(): string[];
+    getSpouses():any[];
 }
 

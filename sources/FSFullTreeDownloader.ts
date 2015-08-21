@@ -38,7 +38,7 @@ class FSFullTreeDownloader implements  ISource {
                 //console.log("person: "+person.getId());
                 //var idData = self.nextUniqueId(person.getId(), person.getAscBranchIds());
                 var idData = self.nextUniqueId(person.getId(), person.getDscBranchIds());
-                var node: FSDescNode = new FSDescNode(idData.id, person.getPerson(), idData.parentIds);
+                var node: FSDescNode = new FSDescNode(idData.id, person.getPerson(), idData.parentIds,person.getSpouses());
                 self.listener.gotNode(node);
             }
             self.listener.done();
