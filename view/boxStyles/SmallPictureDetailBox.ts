@@ -42,7 +42,7 @@ class SmallPictureDetailBox implements IBoxRender {
             text.setAttribute("font-size", "15px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
 //            StringUtils.centerElement(text, 40, 240);
-            StringUtils.fitName(text,node.getAttr('name'),40);
+            StringUtils.fitName(text,node.getAttr('name'),30);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");

@@ -20,6 +20,8 @@ interface IBox {
     getSpace():number;
     setSpace(space:number);
     getNode(): INode;
+    getSpouseNode(): INode;
+    setSpouseNode(sn: INode);
     getType(): string;
     setType(type: string);
     copy():IBox;

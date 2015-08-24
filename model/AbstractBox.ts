@@ -10,6 +10,7 @@
  */
 class AbstractBox implements IBox {
     private node: INode;
+    private spouseNode: INode;
     private grey: boolean;
     private color: string;
     private x: number;
@@ -71,6 +72,12 @@ class AbstractBox implements IBox {
     }
     getNode(): INode {
         return this.node;
+    }
+    getSpouseNode(): INode {
+        return this.spouseNode;
+    }
+    setSpouseNode(sn:INode) {
+        this.spouseNode = sn;
     }
     getType(): string {
         return this.type;

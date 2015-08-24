@@ -28,10 +28,10 @@ class NullBox implements IBoxRender {
         return "nullBox";
     }
     getHeight(): number {
-        return 500;
+        return 1;
     }
     getWidth(): number {
-        return 199+2+3;//214;
+        return 1;//214;
     }
     requiresLoad(): boolean {
         return true;

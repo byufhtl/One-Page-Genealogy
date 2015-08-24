@@ -41,7 +41,7 @@ class MedSmPictureDetailBox implements IBoxRender {
             text.setAttribute("font-size", "19px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
 //            StringUtils.centerElement(text, 40, 240);
-            StringUtils.fitName(text,node.getAttr('name'),30);
+            StringUtils.fitName(text,node.getAttr('name'),20);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");

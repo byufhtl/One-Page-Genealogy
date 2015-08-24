@@ -197,13 +197,24 @@ class FSDescendancyGenDownloader {
                 }
                 if(spousePackages.length >1){//newSpouses.length >1){//
                     dscBranchIds.push(spousePackages[i].id);//newSpouses[i].id);//
-                    var fsPersonSp = new FSPerson(spousePackages[i].id, spousePackages[i].person, [], spDscBranchIds, [id]);
+                    var mainPersonPackage = [];
+                    mainPersonPackage.push({
+                        id: id,
+                        person: person,
+                        children: [],
+                        childIds: [],
+                        dateTimestamp: spousePackages[i].dateTimestamp
+                    });
+                    var fsPersonSp = new FSPerson(spousePackages[i].id, spousePackages[i].person, [],
+                        spDscBranchIds, mainPersonPackage,false);
                     //var fsPersonSp = new FSPerson(newSpouses[i].id, newSpouses[i].person, [], spDscBranchIds, []);
                     completed.push(fsPersonSp);
                     //console.log("Hm "+spousePackages[i].id);//newSpouses[i].id);//
-                }//is it trying to do copyContents before the second is set?
+                    //check for multiple spouse loops?
+                }
             }
-            var fsPerson = new FSPerson(id, person, [], dscBranchIds, spousePackages);//newSpouses);//
+            var fsPerson = new FSPerson(id, person, [], dscBranchIds, spousePackages, true);//newSpouses);//
+            //If there is only one spouse, create a new FSDescNode or something for the spouse and stick it in?
             completed.push(fsPerson);
 
             defer.resolve({

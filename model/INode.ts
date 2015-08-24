@@ -7,5 +7,7 @@ interface INode {
     hasAttr(key: string): boolean;
     getBranchIds(): string[];
     getSpouses():any[];
+    getDisplaySpouse():INode;
+    isMainPerson():boolean;
 }
 
