@@ -8,7 +8,8 @@
 class FSDescNode implements INode {
     private urlPromise;
     private doneLoadingDefer;
-    constructor(private id: string, private person, private branchIds: string[],private spouses: any[]) {
+    constructor(private id: string, private person, private branchIds: string[],private spouses: any[],
+                private displaySpouse: FSDescNode, private isMain:boolean) {
         this.urlPromise = null;
         this.doneLoadingDefer = $.Deferred();
     }
@@ -100,5 +101,11 @@ class FSDescNode implements INode {
     }
     getSpouses(): any[] {
         return this.spouses;
+    }
+    getDisplaySpouse(): FSDescNode {
+        return this.displaySpouse;
+    }
+    isMainPerson(): boolean{
+        return this.isMain;
     }
 }

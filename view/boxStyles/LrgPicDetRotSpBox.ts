@@ -34,7 +34,23 @@ class LrgPicDetRotSpBox implements IBoxRender {
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text);
 
-        var node: INode = box.getNode();
+        var n: INode = box.getNode();
+        var sn: INode = n.getDisplaySpouse();
+        var node: INode;
+        var spousenode: INode;
+        var gender = 'none';
+        /*if(n.hasAttr('gender')) {
+            gender = n.getAttr('gender');
+        }
+        if(gender === 'Female') {
+            node = sn;
+            spousenode = n;
+        }*/
+        //else {
+            node = n;
+            spousenode = sn;
+        //}
+
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
@@ -42,6 +58,8 @@ class LrgPicDetRotSpBox implements IBoxRender {
             text.setAttribute("y", "35");
             text.setAttribute("font-size", "30px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
+            if(node.isMainPerson())
+                text.setAttribute("font-weight", "bold");
             StringUtils.fitName(text,node.getAttr('name'),28);
             //StringUtils.centerElement(text, 210, 290);
         }
@@ -106,6 +124,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
 
 
         //if(node.hasAttr('spousename')) {
+        spousenode = node.getDisplaySpouse();
         var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text6);
             var nameTextPath = document.createTextNode('Spouse Name');
@@ -114,7 +133,9 @@ class LrgPicDetRotSpBox implements IBoxRender {
             text6.setAttribute("y", "175");
             text6.setAttribute("font-size", "30px");
             text6.setAttribute("style", "font-family:tahoma, sans-serif");
-            StringUtils.fitName(text6,'Spouse Name',28);
+            if(spousenode.isMainPerson())
+                text6.setAttribute("font-weight", "bold");
+            StringUtils.fitName(text6,spousenode.getAttr('name'),28);
             //StringUtils.centerElement(text, 210, 290);
         //}
 
@@ -127,7 +148,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
         text7.setAttribute("font-size", "20px");
         text7.setAttribute("style", "font-family:tahoma, sans-serif");
 
-        StringUtils.fitDate(text7, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
+        StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
 
         var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -139,7 +160,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
         text8.setAttribute("font-size", "20px");
         text8.setAttribute("style", "font-family:sans-serif");
         //StringUtils.centerElement(text4, 210, 290);
-        StringUtils.fitPlace(text8, node.getAttr('birthplace'), 28);
+        StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
         text8.textContent = 'B: '+text8.textContent;
 
         var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -151,39 +172,30 @@ class LrgPicDetRotSpBox implements IBoxRender {
         text9.setAttribute("font-size", "20px");
         text9.setAttribute("style", "font-family:tahoma, sans-serif");
         //StringUtils.centerElement(text5, 210, 290);
-        StringUtils.fitPlace(text9, node.getAttr('deathplace'), 28);
+        StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
         text9.textContent = 'D: '+text9.textContent;
 
         var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text10);
-        var nameTextPath = document.createTextNode("M: (Marriage Date)");
+        var date = new Date();
+        date.setTime(node.getSpouses()[0].dateTimestamp);
+        var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(date.toDateString()));
         text10.appendChild(nameTextPath);
         text10.setAttribute("x", "160");
         text10.setAttribute("y", "310");
         text10.setAttribute("font-size", "20px");
         text10.setAttribute("style", "font-family:tahoma, sans-serif");
-        //StringUtils.centerElement(text5, 210, 290);
-        //StringUtils.fitPlace(text9, node.getAttr('deathplace'), 25);
-        //text9.textContent = 'D: '+text9.textContent;
 
 
-        var gender = 'none';
         var grayScale = box.isGray();
-        if(node.hasAttr('gender')) {
-            gender = node.getAttr('gender');
-        }
         if(box.getColor()!= null && !grayScale){
             rect.setAttribute('fill', box.getColor());
             rect.setAttribute('stroke','black');
         }
-        else if(gender === 'Male' && !grayScale) {
-            rect.setAttribute('fill','#8DEEEE');
-            rect.setAttribute('stroke', '#2ee0e0');
+        else if(!grayScale) {
+            rect.setAttribute('fill','#E2C6FF');//'#CC99FF');
+            rect.setAttribute('stroke', '#CC66FF');
 
-        }
-        else if(gender === 'Female' && !grayScale) {
-            rect.setAttribute('fill','#FFD1DC');
-            rect.setAttribute('stroke', '#ffa3b9');
         }
         else {
             rect.setAttribute('fill','#E5E5E5');
@@ -238,9 +250,9 @@ class LrgPicDetRotSpBox implements IBoxRender {
                 gt.removeChild(svgimg);
             });
         }
-
+        //spouse pic
         var clippath2 = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
-        clippath2.setAttribute('id', 'clip-'+node.getId());
+        clippath2.setAttribute('id', 'clip-'+spousenode.getId());
         gt.appendChild(clippath2);
         var cliprect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         cliprect2.setAttribute('width', '135');
@@ -253,16 +265,16 @@ class LrgPicDetRotSpBox implements IBoxRender {
         clippath2.appendChild(cliprect2);
 
 
-        if(node.hasAttr('profilePicturePromise')) {
+        if(spousenode.hasAttr('profilePicturePromise')) {
             var svgimg3 = document.createElementNS('http://www.w3.org/2000/svg','image');
             svgimg3.setAttribute('height','135');
             svgimg3.setAttribute('width','135');
             svgimg3.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.svg');
             svgimg3.setAttribute('x','5');
             svgimg3.setAttribute('y','145');
-            svgimg3.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
+            svgimg3.setAttribute('clip-path', 'url(#clip-'+spousenode.getId()+')');
             gt.appendChild(svgimg3);
-            node.getAttr('profilePicturePromise').then(function(response) {
+            spousenode.getAttr('profilePicturePromise').then(function(response) {
                 if(!response) {
                     gt.removeChild(svgimg3);
                     return;
@@ -272,7 +284,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
                 svgimg4.setAttribute('width','135');
                 svgimg4.setAttribute('x','5');
                 svgimg4.setAttribute('y','145');
-                svgimg4.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
+                svgimg4.setAttribute('clip-path', 'url(#clip-'+spousenode.getId()+')');
 
                 function listener() {
                     gt.removeChild(svgimg3);
@@ -304,7 +316,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
         return 500;
     }
     getWidth(): number {
-        return 349+2+3;//214;
+        return 319+2+3;//214;
     }
     requiresLoad(): boolean {
         return true;

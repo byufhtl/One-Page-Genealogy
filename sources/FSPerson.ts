@@ -2,8 +2,8 @@
  * Created by curtis on 3/16/15.
  */
 class FSPerson {
-    constructor(private id: string, private person, private ascBranchIds: string[],
-                private dscBranchIds: string[], private spouses: any[] ) {
+    constructor(private id: string, private person, private ascBranchIds: string[], private dscBranchIds: string[],
+                private spouses: any[], private isMain: boolean ) {
 
     }
     getDscBranchIds(): string[] {
@@ -20,6 +20,9 @@ class FSPerson {
     }
     getSpouses(): any[] {
         return this.spouses;
+    }
+    isMainPerson(): boolean{
+        return this.isMain;
     }
 
 }

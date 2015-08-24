@@ -30,6 +30,7 @@
 ///<reference path="boxStyles/XSNameYearBox.ts"/>
 ///<reference path="boxStyles/XSDetailBox.ts"/>
 ///<reference path="boxStyles/SmallestNameBox.ts"/>
+///<reference path="boxStyles/NullBox.ts"/>
 /**
  * Created by curtis on 3/13/15.
  */
@@ -73,6 +74,7 @@ class BoxStyleFactory {
         boxTypes.push(new XSNameYearBox());
         boxTypes.push(new XSDetailBox());
         boxTypes.push(new SmallestNameBox());
+        boxTypes.push(new NullBox());
 
         BoxStyleFactory.boxes = {};
 

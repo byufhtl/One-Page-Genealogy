@@ -34,6 +34,6 @@ class ColorSpacer implements  IStyler {
     }
     private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
         childBox.setGray(false);
-        childBox.setColor('green');
+        //childBox.setColor('green');
     }
 }
