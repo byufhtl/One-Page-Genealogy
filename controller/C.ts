@@ -21,6 +21,7 @@
 class C implements IGraphicObjectListener, IOptionListener {
 
     private source: ISource;
+    public dscOrAsc: string;
     private tree: ITree;
     private p: P;
     private viewManager: IViewManager;
@@ -40,10 +41,14 @@ class C implements IGraphicObjectListener, IOptionListener {
     constructor(data) {
 
         //console.log(data);
-        var rootId: string = data.rootId;		        this.source = null;
-        var generations: number = data.generations;		        if (data.hasOwnProperty("gedData")) {
+        var rootId: string = data.rootId;
+        this.dscOrAsc = data.dscOrAsc
+        this.source = null;
+        var generations: number = data.generations;
+        if (data.hasOwnProperty("gedData")) {
             var attemptGed = data.gedData;
-            this.source = new FSFullTreeDownloader(rootId, generations);		            var gedNodes = {};
+            this.source = new FSFullTreeDownloader(rootId, generations);
+            var gedNodes = {};
             for (var key in attemptGed) {
                 var branchIds = [];
                 //ascendants
