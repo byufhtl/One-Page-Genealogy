@@ -8,10 +8,12 @@
 class FSDescNode implements INode {
     private urlPromise;
     private doneLoadingDefer;
+    private marriagedate:string;
     constructor(private id: string, private person, private branchIds: string[],private spouses: any[],
                 private displaySpouse: FSDescNode, private isMain:boolean) {
         this.urlPromise = null;
         this.doneLoadingDefer = $.Deferred();
+        this.marriagedate = "";
     }
     getId(): string {
         return this.id;
@@ -52,6 +54,9 @@ class FSDescNode implements INode {
                     break;
                 case "deathplace":
                     val = this.person.$getDisplayDeathPlace();
+                    break;
+                case "marriagedate":
+                    val = this.marriagedate;
                     break;
                 case "url":
                     val = "https://familysearch.org/tree/#view=ancestor&person="+this.person.id;
@@ -107,5 +112,8 @@ class FSDescNode implements INode {
     }
     isMainPerson(): boolean{
         return this.isMain;
+    }
+    setMarriageDate(d:string){
+        this.marriagedate = d;
     }
 }

@@ -14,7 +14,6 @@ class FSDescendancyGenDownloader {
         var self = this;
 
         var height = 1;
-        //console.log(generations);
         var firstDownloadAmount = Math.min(generations, height);
 
         var firstPromise = this.getGenerations(id, firstDownloadAmount);
@@ -46,11 +45,13 @@ class FSDescendancyGenDownloader {
                     console.log("Promise Failed...");
                 });
             }
+
         }, function() {
             defer.reject();
         });
         return defer.promise();
     }
+
     getGenerations(id: string, generations: number): any {
         var self = this;
         var defer = $.Deferred();
@@ -58,11 +59,10 @@ class FSDescendancyGenDownloader {
         FamilySearch.getPersonWithRelationships(id, {persons: true}).then(function(response){
             var leafNodeIds = [];
             var completed = [];
+            console.log(id);
 
             var person = response.getPrimaryPerson();
             var spouses = response.getSpouses();
-            //var parents = response.getParentRelationshiup();//getFather();
-            //console.log("P: "+parents);
 
             var spousePackages = [];
 
@@ -76,8 +76,7 @@ class FSDescendancyGenDownloader {
                 var dateTimestamp = Number.NEGATIVE_INFINITY;
                 if(mar && mar.$getNormalizedDate()) {
                     dateTimestamp = new Date(mar.$getNormalizedDate()).getTime();
-                }
-                //console.log("Spouse: "+spouse.id);
+                };
                 spousePackages.push({
                     id: spouse.id,
                     person: spouse,
@@ -85,7 +84,6 @@ class FSDescendancyGenDownloader {
                     childIds: response.getChildIdsOf(spouse.id),
                     dateTimestamp: dateTimestamp
                 });
-                //console.log("X: "+spousePackages[i].childIds);
             }
 
             if(response.getChildIdsOf(null).length > 0) {
@@ -135,65 +133,21 @@ class FSDescendancyGenDownloader {
                     return -1;
                 });
             }
-            //okeday, moving onto the special downloader part?
-            //getting spouse again, because problems?
-            /*var newSpouses = [];
-            for(var i=0; i<spousePackages.length; i++) {
-                //console.log("Angst: "+spousePackages[i].id);
-                var spouse = spousePackages[i];
-                var newSpouse: any = {};
-                newSpouses.push(newSpouse);
-                var childIds = spouse.childIds;
-                newSpouse.person = spouse.person;
-                newSpouse.childIds = spouse.childIds;
-                newSpouse.uniqueChildIds = [];
-
-                if(spouse.person) {
-                    console.log("Well Then");
-                    (function(safeSpouse, safeNewSpouse) {
-                        safeNewSpouse.personPromise = function() {
-                            return self.getGenerations(safeSpouse.person.id,1);
-                        };
-                    })(spouse, newSpouse);
-                }
-                console.log("Angst: "+newSpouse.id);
-                newSpouse.uniqueChildIds.push(childIds);
-                newSpouses.push(newSpouse);
-
-                /*for(var j=0; j<childIds.length; j++) {
-                    var oldId = childIds[j];
-                    var newId = oldId;//self.nextUniqueId(oldId);
-                    //newBranchIds.push(newId);
-                    //self.setAddToPending(oldId, newId, uniqueId);
-                    newSpouse.uniqueChildIds.push(newId);
-                }
-                if(childIds.length === 0 && dscBranchIds.length > 0) {
-                    var fakeId = 'f~' + downloadId;
-                    var newId = self.nextUniqueId(fakeId);
-                    newBranchIds.push(newId);
-                    newSpouse.uniqueChildIds.push(newId);
-                    fakeNodes.push(new SpaceFillerNode(newId, uniqueId));
-                }
-
-
-            }*/
 
             //Sticking children in leafnode[] and creating fspeople
             var dscBranchIds = [];
+            console.log(id+" "+spousePackages.length);
             for(var i=0; i<spousePackages.length; i++) {//newSpouses.length; i++) {//
                 var childIds = spousePackages[i].childIds; //newSpouses[i].childIds;//
                 var spDscBranchIds = [];
-                //console.log("Num Sp: "+spousePackages.length);
                 for(var j=0; j<childIds.length; j++) {
                     if(spousePackages.length >1) {//newSpouses.length >1) {//
                         spDscBranchIds.push(childIds[j]);
-                        //console.log("XD "+childIds[j]);
                     }
                     else{
                         dscBranchIds.push(childIds[j]);
                     }
                     leafNodeIds.push(childIds[j]);
-                    //console.log("Child: "+childIds[j]);
                 }
                 if(spousePackages.length >1){//newSpouses.length >1){//
                     dscBranchIds.push(spousePackages[i].id);//newSpouses[i].id);//
@@ -207,15 +161,12 @@ class FSDescendancyGenDownloader {
                     });
                     var fsPersonSp = new FSPerson(spousePackages[i].id, spousePackages[i].person, [],
                         spDscBranchIds, mainPersonPackage,false);
-                    //var fsPersonSp = new FSPerson(newSpouses[i].id, newSpouses[i].person, [], spDscBranchIds, []);
                     completed.push(fsPersonSp);
-                    //console.log("Hm "+spousePackages[i].id);//newSpouses[i].id);//
-                    //check for multiple spouse loops?
                 }
             }
             var fsPerson = new FSPerson(id, person, [], dscBranchIds, spousePackages, true);//newSpouses);//
             //If there is only one spouse, create a new FSDescNode or something for the spouse and stick it in?
-            completed.push(fsPerson);
+            completed.unshift(fsPerson);
 
             defer.resolve({
                 leafNodeIds: leafNodeIds,
@@ -308,10 +259,5 @@ class FSDescendancyGenDownloader {
             }
         }
         return children;
-    }
-
-    private getPerson(): FSPerson {
-
-        return null;
     }
 }

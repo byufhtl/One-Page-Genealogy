@@ -47,6 +47,8 @@ class StringUtils {
 
         var date = new Date(dateString);
         var ret = [date.getDate(), StringUtils.months[date.getMonth()], date.getFullYear()].join(' ');
+        if(ret.indexOf('NaN')!= -1)
+            return '';
         return ret;
     }
 

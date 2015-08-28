@@ -35,7 +35,6 @@ class FSFullTreeDownloader implements  ISource {
             //console.log(((new Date().getTime()) - seconds)/1000);
             for(var i=0; i<people.length; i++) {
                 var person = people[i];
-                //console.log("person: "+person.getId());
                 //var idData = self.nextUniqueId(person.getId(), person.getAscBranchIds());
                 var idData = self.nextUniqueId(person.getId(), person.getDscBranchIds());
                 var node: FSDescNode = null;
@@ -44,6 +43,9 @@ class FSFullTreeDownloader implements  ISource {
                         [], [], null, !person.isMainPerson());
                     node = new FSDescNode(idData.id, person.getPerson(), idData.parentIds, person.getSpouses(),
                         spouseNode, person.isMainPerson());
+                    var date = new Date();
+                    date.setTime(node.getSpouses()[0].dateTimestamp);
+                    node.setMarriageDate(date.toDateString());
                 }
                 else {
                     node = new FSDescNode(idData.id, person.getPerson(), idData.parentIds,person.getSpouses(),null,true);

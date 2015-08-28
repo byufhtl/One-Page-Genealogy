@@ -69,7 +69,7 @@ class FSAncestryGenDownloader {
                     }
                     else {
                         var parents: string[] = self.getParents(response, i);
-                        var fsPerson: FSPerson = new FSPerson(person.id, person, parents, [],null);
+                        var fsPerson: FSPerson = new FSPerson(person.id, person, parents, [],null,false);
                         completed.push(fsPerson);
                     }
                 }

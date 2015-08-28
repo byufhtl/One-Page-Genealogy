@@ -85,7 +85,7 @@ class FSDownloader {
                         ascBranchIds.push(rel.$getMotherId());
                     }
                 }
-                var fsPerson = new FSPerson(id, person, ascBranchIds, dscBranchIds,null);
+                var fsPerson = new FSPerson(id, person, ascBranchIds, dscBranchIds,null,true);
                 self.cache[id] = fsPerson;
                 delete self.pending[id];
                 defer.resolve(fsPerson);
