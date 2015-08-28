@@ -149,11 +149,13 @@
                             new_element.removeChild(new_element.lastChild);
                         }
                         var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
+                        var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
                         var user = response.getUser();
                         var c = new C({
                             //rootId: user.personId,
                             rootId: 'LZJK-8TN',
-                            generations: generations
+                            generations: generations,
+                            dscOrAsc: dscOrAsc
                         })
                     })
                 })
@@ -370,6 +372,14 @@
                         }
                     </script>
                 </select>
+                <form role="form">
+                    <div class="radio" >
+                        <label><input type="radio" name="FSascOrDsc" value='descendancy'>Descendancy</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="FSascOrDsc" value='ascendancy' id = "fsgenerationsRadio" checked>Ascendancy</label>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="fsSave">Save changes</button>
