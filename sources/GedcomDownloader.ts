@@ -2,6 +2,7 @@
  * Created by justinrasband on 8/21/15.
  */
 ///<reference path="../ISource.ts"/>
+///<reference path="../util/StringUtils.ts"/>
 /**
  * Created by justinrasband on 8/6/15.
  */
@@ -51,13 +52,104 @@ var GedcomDownloader = (function () {
                     console.log(this.gedcom);
                 }
 
-                this.addLeafNodes(person, nextGen);
+                var spouseArray = []
+                if(person.person.hasOwnProperty("spouses")){
+                    if(person.person.spouses.length>1 && this.dscOrAsc == "descendancy"){
+                        this.addLeafNodes(person,spouseArray)
+                        //spouseArray.sort(this.sorter)
+                        Array.prototype.push.apply(nextGen, spouseArray);
+                        for(var i = 0; i < spouseArray.length;i++){
+                            this.addLeafNodes(spouseArray[i],nextGen)
+                        }
+                    }else{
+                        this.addLeafNodes(person, nextGen);
+
+                    }
+                }else{
+                    this.addLeafNodes(person, nextGen);
+
+                }
+
+
+
             }
+            if(generation == gens-1){
+                var tempNextGenArray = []
+                var throwAwayArray = []
+                for(var k = 0; k < nextGen.length;k++){
+                    if(nextGen[k].person.hasOwnProperty("spouses")){
+                        if(nextGen[k].person.spouses.length > 1){
+                            this.addLeafNodes(nextGen[k],tempNextGenArray)
+                        }else{
+                            this.addLeafNodes(nextGen[k],throwAwayArray)
+                        }
+                    }
+                }
+                if(tempNextGenArray.length > 0){
+                    Array.prototype.push.apply(nextGen, tempNextGenArray);
+                }
+            }
+
             Array.prototype.push.apply(toReturn, nextGen);
             currentGeneration = nextGen;
+
         }
         return toReturn;
     };
+    GedcomDownloader.prototype.sorter = function(a,b){
+        var comparingSpouses = false;
+        if(a.hasOwnProperty("displaySpouse")&&b.hasOwnProperty("displaySpouse")){
+            if(a.getDisplaySpouse() == null){
+
+            }else if (b.getDisplaySpouse() == null){
+
+            }else if(a.getDisplaySpouse().person.pid == b.getDisplaySpouse().person.pid){
+                comparingSpouses = true;
+            }
+        }
+        if(comparingSpouses){
+            //console.log("comparing spouses")
+
+            var aMarriage = StringUtils.standardDate(a.getAttr('marriagedate'))
+            var bMarriage = StringUtils.standardDate(b.getAttr('marriagedate'))
+            var aDate = new Date(aMarriage)
+            var bDate = new Date(bMarriage)
+            if(aDate.getTime() == bDate.getTime())
+                return 0;
+            if(aDate.getTime() > bDate.getTime())
+                return 1;
+            return -1;
+
+        }else if(a.hasAttr("birthdate")&&b.hasAttr("birthdate")){
+
+            var aBirth = StringUtils.standardDate(a.getAttr('birthdate'))
+            var bBirth = StringUtils.standardDate(b.getAttr('birthdate'))
+            var aDate = new Date(aBirth)
+            var bDate = new Date(bBirth)
+            if(aDate.getTime() == bDate.getTime())
+                return 0;
+            if(aDate.getTime() > bDate.getTime())
+                return 1;
+            return -1;
+
+        }else if(b.hasAttr("deathdate")&&a.hasAttr("deathdate")){
+
+            var aDeath = StringUtils.standardDate(a.getAttr('deathdate'))
+            var bDeath = StringUtils.standardDate(b.getAttr('deathdate'))
+            var aDate = new Date(aDeath)
+            var bDate = new Date(bDeath)
+            if(aDate.getTime() == bDate.getTime())
+                return 0;
+            if(aDate.getTime() > bDate.getTime())
+                return 1;
+            return -1;
+
+        }else{
+            return 0;
+        }
+
+
+    }
 
     GedcomDownloader.prototype.giveSpouseCommonFamily = function(person,spouseId){
 
@@ -79,13 +171,13 @@ var GedcomDownloader = (function () {
 
         if(commonFamily != "" && spousePerson.person.hasOwnProperty("dscBranchIds")){
             this.gedcom[spouseId].branchIds = spousePerson.person.dscBranchIds[commonFamily]
+        }else{
+            this.gedcom[spouseId].branchIds = []
         }
 
     };
 
     GedcomDownloader.prototype.handleMultipleSpouses = function(person){
-
-        console.log("Multiple spouses found for " + person.person.name)
 
         person.person.branchIds = person.person.spouses;
         person.setBranchIds(person.person.spouses)
@@ -102,11 +194,18 @@ var GedcomDownloader = (function () {
 
             var spouseId = person.branchIds[j]
 
+            var spouseHasMoreSpouses = false
             if(this.gedcom[spouseId].person.spouses.length > 1){
                 this.giveSpouseCommonFamily(person,spouseId)
+                spouseHasMoreSpouses = true;
             }
 
-            this.gedcom[spouseId].person.spouses = []
+            this.gedcom[spouseId].setDisplaySpouse(person)
+
+            var newSpouseArray = []
+            newSpouseArray.push(person.person.pid)
+            this.gedcom[spouseId].person.spouses = newSpouseArray
+
 
         }
 
@@ -114,13 +213,24 @@ var GedcomDownloader = (function () {
 
     GedcomDownloader.prototype.addLeafNodes = function (person, toReturn) {
 
-        if(person.person.hasOwnProperty("spouses")&&this.dscOrAsc == "descendancy") {
+        if(person.person.hasOwnProperty("spouses")) {
 
-            if (person.person.spouses.length > 1) {
-                this.handleMultipleSpouses
+            if (person.person.spouses.length > 1 && this.dscOrAsc == "descendancy") {
+                this.handleMultipleSpouses(person)
+
+            }else if (person.person.spouses.length > 1 && this.dscOrAsc == "ascendancy") {
+
+                //var spouseId = person.person.spouse[0]
+                //person.setDisplaySpouse(this.gedcom[spouseId])
+
+            }else if(person.person.spouses.length == 1){
+
+                var spouseId = person.person.spouses[0]
+                person.setDisplaySpouse(this.gedcom[spouseId])
             }
         }
 
+        var tempGenArray = []
         var ascIds = person.getBranchIds();
 
         for (var i = 0; i < ascIds.length; i++) {
@@ -128,14 +238,16 @@ var GedcomDownloader = (function () {
             var ascendant = this.gedcom[id];
 
             if (!(this.usedIds.hasOwnProperty(id))&&this.gedcom[id]!= null) {
-                toReturn.push(this.gedcom[id]);
+                tempGenArray.push(this.gedcom[id]);
                 this.usedIds[id] = "0";
             }
             else {
-                console.log("duplicate id: " + id);
+                //console.log("duplicate id: " + id);
             }
         }
+        tempGenArray.sort(this.sorter)
 
+        Array.prototype.push.apply(toReturn, tempGenArray);
 
     };
     GedcomDownloader.prototype.nextUniqueId = function (id, parentIds) {

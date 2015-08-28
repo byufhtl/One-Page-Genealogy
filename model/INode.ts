@@ -9,5 +9,6 @@ interface INode {
     getSpouses():any[];
     getDisplaySpouse():INode;
     isMainPerson():boolean;
+    setMarriageDate(d:string);
 }
 

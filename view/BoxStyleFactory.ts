@@ -31,6 +31,10 @@
 ///<reference path="boxStyles/XSDetailBox.ts"/>
 ///<reference path="boxStyles/SmallestNameBox.ts"/>
 ///<reference path="boxStyles/NullBox.ts"/>
+///<reference path="boxStyles/MedDetRotSpBox.ts"/>
+///<reference path="boxStyles/MedSmDetSpBox.ts"/>
+///<reference path="boxStyles/SmallDetSpBox.ts"/>
+///<reference path="boxStyles/XSDetSpBox.ts"/>
 /**
  * Created by curtis on 3/13/15.
  */
@@ -75,6 +79,10 @@ class BoxStyleFactory {
         boxTypes.push(new XSDetailBox());
         boxTypes.push(new SmallestNameBox());
         boxTypes.push(new NullBox());
+        boxTypes.push(new MedDetRotSpBox());
+        boxTypes.push(new SmallDetSpBox());
+        boxTypes.push(new SmallerDetSpBox());
+        boxTypes.push(new XSDetSpBox());
 
         BoxStyleFactory.boxes = {};
 

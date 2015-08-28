@@ -23,7 +23,7 @@
     <script src="sources/FSDescNode.js" type="text/javascript"></script>
     <script src="sources/ImageLoader.js" type="text/javascript"></script>
     <script src="sources/GedcomNode.js" type="text/javascript"></script>
-    <script src="sources/GedcomSource.js" type="text/javascript"></script>
+    <script src="sources/GedcomDownloader.js" type="text/javascript"></script>
 
     <script src="controller/BoxMap.js" type="text/javascript"></script>
     <script src="controller/P.js" type="text/javascript"></script>
@@ -103,6 +103,12 @@
     <script src="view/boxStyles/XSDetailBox.js" type="text/javascript"></script>
     <script src="view/boxStyles/SmallestNameBox.js" type="text/javascript"></script>
     <script src="view/boxStyles/NullBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/MedDetRotSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/MedSmDetSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SmallDetSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/XSDetSpBox.js" type="text/javascript"></script>
+
+
 
     <script src = "static/jsonReader.js"></script>
     <script src = "static/ged.js"></script>
@@ -145,7 +151,7 @@
                         var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
                         var user = response.getUser();
                         var c = new C({
-//                            rootId: user.personId,
+                            //rootId: user.personId,
                             rootId: 'LZJK-8TN',
                             generations: generations
                         })

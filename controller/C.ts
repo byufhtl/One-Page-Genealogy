@@ -12,6 +12,9 @@
 ///<reference path="../sources/FSAncestryDownloader.ts"/>
 ///<reference path="../sources/FSFullTreeDownloader.ts"/>
 ///<reference path="P.ts"/>
+///<reference path="../sources/GedcomDownloader.ts"/>
+///<reference path="../sources/GedcomNode.ts"/>
+
 /**
  * Created by curtis on 3/11/15.
  */
@@ -72,7 +75,7 @@ class C implements IGraphicObjectListener, IOptionListener {
             //console.log(gedNodes)
             //this.source = new GedcomDownloader(attemptGed["latestIndi"], 20, gedNodes);//"oldestIndi" for dsc, "latestIndi" for asc
             //this.source = new GedcomDownloader("@I12154@", 20, gedNodes);//PROFESSOR BARRETT is @I12154@ do @175@ for an ascendant
-            this.source = new GedcomDownloader(data.rootId, data.generations, gedNodes);
+            this.source = new GedcomDownloader(data.rootId, data.generations, gedNodes,data.dscOrAsc);
         }
         else {
             console.log("Making non-gedcom C");

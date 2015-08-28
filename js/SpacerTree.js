@@ -47,9 +47,9 @@ SpacerTree.prototype.dfsBuild = function(node) {
         for(var i=0; i<node.children.length; i++) {
             var child = node.children[i];
             if(!(child.hasOwnProperty("children"))){
-                console.log(child)
-                console.log(i)
-                console.log(node.children)
+                //console.log(child)
+                //console.log(i)
+                //console.log(node.children)
                 return parent;
             }
             childList.push(this.dfsBuild(child));
