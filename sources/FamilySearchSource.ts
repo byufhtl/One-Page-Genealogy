@@ -45,7 +45,7 @@ class FamilySearchSource implements ISource {
                 newBranchIds.push(newId);
                 self.initDownload(oldId, newId, depth+1);
             }
-            var node: FSDescNode = new FSDescNode(uniqueId, person.getPerson(), newBranchIds);
+            var node: FSDescNode = new FSDescNode(uniqueId, person.getPerson(), newBranchIds,[],null,true);
             self.listener.gotNode(node);
         },
         function(){

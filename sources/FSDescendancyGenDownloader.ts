@@ -59,7 +59,6 @@ class FSDescendancyGenDownloader {
         FamilySearch.getPersonWithRelationships(id, {persons: true}).then(function(response){
             var leafNodeIds = [];
             var completed = [];
-            console.log(id);
 
             var person = response.getPrimaryPerson();
             var spouses = response.getSpouses();
@@ -136,7 +135,6 @@ class FSDescendancyGenDownloader {
 
             //Sticking children in leafnode[] and creating fspeople
             var dscBranchIds = [];
-            console.log(id+" "+spousePackages.length);
             for(var i=0; i<spousePackages.length; i++) {//newSpouses.length; i++) {//
                 var childIds = spousePackages[i].childIds; //newSpouses[i].childIds;//
                 var spDscBranchIds = [];
@@ -246,12 +244,8 @@ class FSDescendancyGenDownloader {
                 if(tempDescNum.search("S") >= 0){
                     continue;
                 }
-                //console.log(tempDescNum+" "+(tempDescNum.match(/\./g) || []).length);
                 if(tempDescNum.search(descNum) == 0){
-                    //&&
-                    //console.log("GARAH!"+tempDescNum+" "+descNum);
                     if((tempDescNum.match(/\./g) || []).length == (descNum.match(/\./g) || []).length+1){
-                        //console.log("Whoot! P:"+descNum+" C:"+ tempDescNum);
                         children.push(response.getPerson(tempDescNum).id);
                     }
 

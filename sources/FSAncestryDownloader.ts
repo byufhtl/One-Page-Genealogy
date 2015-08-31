@@ -46,7 +46,7 @@ class FSAncestryDownloader implements ISource {
                     self.initDownload(oldId, newId, depth+1);
                 }
 
-                var node: FSDescNode = new FSDescNode(uniqueId, person.getPerson(), newBranchIds);
+                var node: FSDescNode = new FSDescNode(uniqueId, person.getPerson(), newBranchIds,null,null,true);
                 self.listener.gotNode(node);
             },
             function(){

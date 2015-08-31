@@ -12,13 +12,13 @@ class FSFullTreeDownloader implements  ISource {
     private repeatCount: number;
     private totalCount: number;
 
-    //private downloader: FSAncestryGenDownloader;
-    private downloader: FSDescendancyGenDownloader;
-    constructor(private rootId: string, private generations: number) {
+    private ascDownloader: FSAncestryGenDownloader;
+    private dscDownloader: FSDescendancyGenDownloader;
+    constructor(private rootId: string, private generations: number, private downloadType: string) {
         this.counter = {};
         this.unallocatedParents = {};
-        //this.downloader = new FSAncestryGenDownloader();
-        this.downloader = new FSDescendancyGenDownloader();
+        this.ascDownloader = new FSAncestryGenDownloader();
+        this.dscDownloader = new FSDescendancyGenDownloader();
         this.repeatCount = 0;
         this.totalCount = 0;
         this.setListener({
@@ -31,14 +31,28 @@ class FSFullTreeDownloader implements  ISource {
     start(): void {
         var seconds = new Date().getTime();
         var self = this;
-        this.downloader.getGen(this.rootId, this.generations).then(function(people) {
+        var downloader = null;
+        var type = this.downloadType;
+        console.log(this.downloadType);
+        if(this.downloadType === "ascendancy")
+            downloader = this.ascDownloader;
+        else if(this.downloadType === "descendancy")
+            downloader = this.dscDownloader;
+        downloader.getGen(this.rootId, this.generations).then(function(people) {
             //console.log(((new Date().getTime()) - seconds)/1000);
             for(var i=0; i<people.length; i++) {
                 var person = people[i];
+                var idData = null;
+                if(type == "ascendancy") {
+                    idData = self.nextUniqueId(person.getId(), person.getAscBranchIds());
+                }
+                else if(type == "descendancy") {
+                    idData = self.nextUniqueId(person.getId(), person.getDscBranchIds());
+                }
                 //var idData = self.nextUniqueId(person.getId(), person.getAscBranchIds());
-                var idData = self.nextUniqueId(person.getId(), person.getDscBranchIds());
+                //var idData = self.nextUniqueId(person.getId(), person.getDscBranchIds());
                 var node: FSDescNode = null;
-                if(person.getSpouses().length>0){
+                if(person.getSpouses() && person.getSpouses().length>0){
                     var spouseNode: FSDescNode = new FSDescNode(person.getSpouses()[0].id,person.getSpouses()[0].person,
                         [], [], null, !person.isMainPerson());
                     node = new FSDescNode(idData.id, person.getPerson(), idData.parentIds, person.getSpouses(),

@@ -30,4 +30,20 @@ class FakeNode implements INode {
     addBranchId(id: string): void {
         this.branchIds.push(id);
     }
+
+    getSpouses(): any[] {
+        return null;
+    }
+
+    getDisplaySpouse(): INode {
+        return null;
+    }
+
+    isMainPerson(): boolean{
+        return true;
+    }
+
+    setMarriageDate(d:string){
+        return null;
+    }
 }

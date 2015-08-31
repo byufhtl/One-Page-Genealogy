@@ -29,7 +29,7 @@ class DetailChartSpacer implements  IStyler {
                 this.setBasedOnGeneration(box, branchBox, generation+1);
 
                 queue.push([branchIds[i], generation+1]);
-                box.setCollapsed(false);
+                //box.setCollapsed(false);
             }
         }
     }

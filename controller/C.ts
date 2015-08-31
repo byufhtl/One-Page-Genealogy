@@ -43,7 +43,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         var rootId: string = data.rootId;		        this.source = null;
         var generations: number = data.generations;		        if (data.hasOwnProperty("gedData")) {
             var attemptGed = data.gedData;
-            this.source = new FSFullTreeDownloader(rootId, generations);		            var gedNodes = {};
+            this.source = new FSFullTreeDownloader(rootId, generations,null);		            var gedNodes = {};
             for (var key in attemptGed) {
                 var branchIds = [];
                 //ascendants
@@ -79,9 +79,9 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
         else {
             console.log("Making non-gedcom C");
-            var rootId = data.rootId;
-            var generations = data.generations;
-            this.source = new FSFullTreeDownloader(rootId, generations);
+            rootId = data.rootId;
+            generations = data.generations;
+            this.source = new FSFullTreeDownloader(rootId, generations, data.dscOrAsc);
         }
         this.anchorPt = new Point(10, 10);
 

@@ -30,7 +30,7 @@ class EightElevenDetailSpacer implements  IStyler {
 
                 queue.push([branchIds[i], generation+1]);
 
-                box.setCollapsed(false);
+                //box.setCollapsed(false);
 
                 if(generation>4) {
                     box.setCollapsed(true);
