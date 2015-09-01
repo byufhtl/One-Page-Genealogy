@@ -238,10 +238,10 @@ class VertDescDetChartSpacer implements  IStyler {
                 childBox.setWidth(BoxStyleFactory.getWidth('xsDetailBox'));
                 childBox.setSpouseNode(null);
             }else if(numSpouses==1){
-                childBox.setType('smallerDetSpBox');
+                childBox.setType('xsDetSpBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('smallerDetSpBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('smallerDetSpBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('xsDetSpBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('xsDetSpBox'));
                 childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
             }else{
                 childBox.setType('nullBox');
@@ -269,10 +269,10 @@ class VertDescDetChartSpacer implements  IStyler {
                 childBox.setWidth(BoxStyleFactory.getWidth('xsNameYearBox'));
                 childBox.setSpouseNode(null);
             }else if(numSpouses==1&&spouse != null){
-                childBox.setType('smallerDetSpBox');
+                childBox.setType('xsSpBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('smallerDetSpBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('smallerDetSpBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('xsSpBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('xsSpBox'));
                 childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
             }else{
                 childBox.setType('nullBox');
@@ -303,10 +303,10 @@ class VertDescDetChartSpacer implements  IStyler {
                 childBox.setWidth(BoxStyleFactory.getWidth('smallestNameBox'));
                 childBox.setSpouseNode(null);
             }else if(numSpouses==1){
-                childBox.setType('smallerDetSpBox');
+                childBox.setType('smallestSpBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('smallerDetSpBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('smallerDetSpBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('smallestSpBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('smallestSpBox'));
                 childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
             }else{
                 childBox.setType('nullBox');

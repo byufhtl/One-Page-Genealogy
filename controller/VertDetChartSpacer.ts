@@ -15,7 +15,7 @@ class VertDetChartSpacer implements  IStyler {
         while(queue.length > 0) {
             var data = queue.shift();
             var box:IBox = boxes.getId(data[0]);
-            console.log(box.getHeight());
+            //console.log(box.getHeight());
             var generation: number= data[1];
             var node:INode = box.getNode();
             var branchIds = node.getBranchIds();

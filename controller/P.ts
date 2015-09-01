@@ -53,7 +53,11 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.push(new SpacingSpacer());
         //this.stylingPipeline.push(new DetailChartSpacer());
         //his.stylingPipeline.push(new VertDetChartSpacer());
-        this.stylingPipeline.push(new VertDescDetChartSpacer());
+        if(c.dscOrAsc == "descendancy"){
+            this.stylingPipeline.push(new VertDescDetChartSpacer());
+        }else{
+            this.stylingPipeline.push(new VertDetChartSpacer());
+        }
         //this.stylingPipeline.push(new EightElevenSpacer());
         //this.stylingPipeline.push(new EightElevenDetailSpacer());
         //this.stylingPipeline.push(new GenerationSpacer2());
@@ -176,6 +180,7 @@ class P implements IControllerListener, ITreeListener {
             });
         }
         var branchIds: string[] = node.getBranchIds();
+        console.log(node)
         for(var i=0; i<branchIds.length; i++) {
             var child = this.tree.getId(branchIds[i]);
             if(child) {
