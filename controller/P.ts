@@ -180,6 +180,7 @@ class P implements IControllerListener, ITreeListener {
             });
         }
         var branchIds: string[] = node.getBranchIds();
+        console.log(node)
         for(var i=0; i<branchIds.length; i++) {
             var child = this.tree.getId(branchIds[i]);
             if(child) {

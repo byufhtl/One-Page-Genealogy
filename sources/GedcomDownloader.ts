@@ -232,6 +232,7 @@ var GedcomDownloader = (function () {
 
         var tempGenArray = []
         var ascIds = person.getBranchIds();
+        if(ascIds == null){return}
 
         for (var i = 0; i < ascIds.length; i++) {
             var id = ascIds[i];

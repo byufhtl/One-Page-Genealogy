@@ -35,6 +35,8 @@
 ///<reference path="boxStyles/MedSmDetSpBox.ts"/>
 ///<reference path="boxStyles/SmallDetSpBox.ts"/>
 ///<reference path="boxStyles/XSDetSpBox.ts"/>
+///<reference path="boxStyles/XSSpBox.ts"/>
+///<reference path="boxStyles/SmallestSpBox.ts"/>
 /**
  * Created by curtis on 3/13/15.
  */
@@ -83,6 +85,8 @@ class BoxStyleFactory {
         boxTypes.push(new SmallDetSpBox());
         boxTypes.push(new SmallerDetSpBox());
         boxTypes.push(new XSDetSpBox());
+        boxTypes.push(new XSSpBox());
+        boxTypes.push(new SmallestSpBox());
 
         BoxStyleFactory.boxes = {};
 

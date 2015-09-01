@@ -265,10 +265,10 @@ class VertDescDetChartSpacer implements  IStyler {
                 childBox.setWidth(BoxStyleFactory.getWidth('xsDetailBox'));
                 childBox.setSpouseNode(null);
             }else if(numSpouses==1){
-                childBox.setType('smallerDetSpBox');
+                childBox.setType('xsDetSpBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('smallerDetSpBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('smallerDetSpBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('xsDetSpBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('xsDetSpBox'));
                 //childBox.setSpouseNode(null);//???????need a more general idea of how to do this. . .
                 //var node: FSDescNode = new FSDescNode(spouse.id, spouse.person, [],[]);//check to make sure spouse was added
                 childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
@@ -303,10 +303,10 @@ class VertDescDetChartSpacer implements  IStyler {
                 childBox.setWidth(BoxStyleFactory.getWidth('xsNameYearBox'));
                 childBox.setSpouseNode(null);
             }else if(numSpouses==1&&spouse != null){
-                childBox.setType('smallerDetSpBox');
+                childBox.setType('xsSpBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('smallerDetSpBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('smallerDetSpBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('xsSpBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('xsSpBox'));
                 //childBox.setSpouseNode(null);//???????need a more general idea of how to do this. . .
                 //var node: FSDescNode = new FSDescNode(spouse.id, spouse.person, [],[]);//check to make sure spouse was added
                 childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
@@ -344,10 +344,10 @@ class VertDescDetChartSpacer implements  IStyler {
                 childBox.setWidth(BoxStyleFactory.getWidth('smallestNameBox'));
                 childBox.setSpouseNode(null);
             }else if(numSpouses==1){
-                childBox.setType('smallerDetSpBox');
+                childBox.setType('smallestSpBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('smallerDetSpBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('smallerDetSpBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('smallestSpBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('smallestSpBox'));
                 //childBox.setSpouseNode(null);//???????need a more general idea of how to do this. . .
                 //var node: FSDescNode = new FSDescNode(spouse.id, spouse.person, [],[]);//check to make sure spouse was added
                 childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
