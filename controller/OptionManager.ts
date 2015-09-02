@@ -68,6 +68,8 @@ class OptionManager implements IOptionManager {
                 $('#opg-modal').modal('hide');
                 var changeWho = $('input[name=opg-change-who]:checked').val();
                 self.listener.handleOption(changeWho, {type: box.getType(), id: box.getNode().getId()})
+                var changeWhoColor = $('input[name=opg-change-who-color]:checked').val();
+                self.listener.handleOption(changeWhoColor, {type: "green", id: box.getNode().getId()})
 
             });
 

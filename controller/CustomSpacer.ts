@@ -33,6 +33,10 @@ class CustomSpacer implements  IStyler {
                     if(map.hasOwnProperty('type')) {
                         box.setType(map['type']);
                     }
+                    if(map.hasOwnProperty('color')) {
+                        console.log("YOU FOUND ME!!");
+                        box.setColor(map['color']);
+                    }
                 }
             }
         }

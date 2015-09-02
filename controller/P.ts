@@ -85,6 +85,24 @@ class P implements IControllerListener, ITreeListener {
                 this.applyToGeneration(gen, root, param);
                 refresh = true;
             }
+            else if(param.type === 'changeIndColor') {
+                this.customSpacer.addCustomStyle(param.id, {
+                    color: param.value
+                });
+                refresh = true;
+            }
+            else if(param.type === 'changeGenColor') {
+                console.log("value: "+param.value);
+                var root:INode = this.tree.getRoot();
+                var gen = this.getGeneration(root, param.id);
+                this.applyColorToGeneration(gen, root, param);
+                refresh = true;
+            }
+            else if(param.type === 'changeBranchColor') {
+                var root:INode = this.tree.getRoot();
+                this.applyColorToBranch(root, param);
+                refresh = true;
+            }
             else if(param.type === 'collapse-sub-tree') {
                 this.collapseSpacer.collapseId(param.id, true);
                 refresh = true;
@@ -180,13 +198,44 @@ class P implements IControllerListener, ITreeListener {
             });
         }
         var branchIds: string[] = node.getBranchIds();
-        console.log(node)
+        //console.log(node)
         for(var i=0; i<branchIds.length; i++) {
             var child = this.tree.getId(branchIds[i]);
             if(child) {
                 this.applyToGeneration(gen - 1, child, param);
             }
         }
+    }
+
+    private applyColorToGeneration(gen: number, node: INode, param: any) {
+        if(gen === 0) {
+            this.customSpacer.addCustomStyle(node.getId(), {
+                color: param.value
+            });
+        }
+        var branchIds: string[] = node.getBranchIds();
+        //console.log(node);
+        for(var i=0; i<branchIds.length; i++) {
+            var child = this.tree.getId(branchIds[i]);
+            if(child) {
+                this.applyToGeneration(gen - 1, child, param);
+            }
+        }
+    }
+
+    private applyColorToBranch(node: INode, param: any) {
+        this.customSpacer.addCustomStyle(node.getId(), {
+            color: param.value
+        });
+        var branchIds: string[] = node.getBranchIds();
+        //console.log(node);
+        for(var i=0; i<branchIds.length; i++) {
+            var child = this.tree.getId(branchIds[i]);
+            if(child) {
+                this.applyColorToBranch(child ,param);
+            }
+        }
+
     }
 
     handleUpdate(tree: ITree, updates: ICommand[]): void {
