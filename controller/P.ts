@@ -184,7 +184,11 @@ class P implements IControllerListener, ITreeListener {
         for(var i=0; i<branchIds.length; i++) {
             var child = this.tree.getId(branchIds[i]);
             if(child) {
-                this.applyToGeneration(gen - 1, child, param);
+                if(child.getSpouses().length > 1){
+                    this.applyToGeneration(gen, child, param);
+                }else{
+                    this.applyToGeneration(gen - 1, child, param);
+                }
             }
         }
     }
