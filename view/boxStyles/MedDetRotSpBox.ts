@@ -35,8 +35,12 @@ class MedDetRotSpBox implements IBoxRender {
         rect.setAttribute('stroke-width', '2');
 
 
+        var secondG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        var firstG = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text);
+        gt.appendChild(firstG);
+        firstG.appendChild(text);
+        gt.appendChild(secondG)
 
         var n: INode = box.getNode();
         var sn: INode = n.getDisplaySpouse();
@@ -58,8 +62,8 @@ class MedDetRotSpBox implements IBoxRender {
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "10");
-            text.setAttribute("y", "110");
+            //text.setAttribute("x", "10");
+            //text.setAttribute("y", "110");
             text.setAttribute("font-size", "21px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
             if(node.isMainPerson())
@@ -68,25 +72,12 @@ class MedDetRotSpBox implements IBoxRender {
             //StringUtils.centerElement(text, 210, 290);
         }
 
-        /*var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-         gt.appendChild(text2);
-         if(node.hasAttr('surname')) {
-         var nameTextPath = document.createTextNode(box.getNode().getAttr('surname'));
-         text2.appendChild(nameTextPath);
-         text2.setAttribute("x", "220");
-         text2.setAttribute("y", "80");
-         text2.setAttribute("font-size", "40px");
-         text2.setAttribute("style", "font-family:tahoma, sans-serif");
-         StringUtils.fitName(text2,node.getAttr('surname'),30);
-         //StringUtils.centerElement(text2, 210, 290);
-         }*/
-
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text3);
+        firstG.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "10");
-        text3.setAttribute("y", "130");
+        //text3.setAttribute("x", "10");
+        text3.setAttribute("y", "20");
         text3.setAttribute("font-size", "17px");
         text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
@@ -94,11 +85,11 @@ class MedDetRotSpBox implements IBoxRender {
         //StringUtils.centerElement(text3, 210, 290);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text4);
+        firstG.appendChild(text4);
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
-        text4.setAttribute("x", "10");
-        text4.setAttribute("y", "150");
+        //text4.setAttribute("x", "10");
+        text4.setAttribute("y", "40");
         text4.setAttribute("font-size", "16px");
         text4.setAttribute("style", "font-family:sans-serif");
         //StringUtils.centerElement(text4, 210, 290);
@@ -106,11 +97,11 @@ class MedDetRotSpBox implements IBoxRender {
         text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text5);
+        firstG.appendChild(text5);
         var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
-        text5.setAttribute("x", "10");
-        text5.setAttribute("y", "170");
+        //text5.setAttribute("x", "10");
+        text5.setAttribute("y", "60");
         text5.setAttribute("font-size", "16px");
         text5.setAttribute("style", "font-family:tahoma, sans-serif");
         //StringUtils.centerElement(text5, 210, 290);
@@ -126,18 +117,44 @@ class MedDetRotSpBox implements IBoxRender {
          text5.setAttribute("font-size", "20px");
          //StringUtils.centerElement(text5, 210, 290);*/
 
+        firstG.setAttribute('transform','translate(10,110)')
+        secondG.setAttribute('transform','translate(10,110)')
 
-        //if(node.hasAttr('spousename')) {
         spousenode = node.getDisplaySpouse();
+
+
+        var firstGGender = null;
+        var secondGGender = null;
+
+        if(spousenode.hasAttr('gender')){
+            secondGGender = spousenode.getAttr('gender')
+            if(secondGGender== "Male"){
+                firstG.setAttribute('transform','translate(10,202)')
+            }else{
+                secondG.setAttribute('transform','translate(10,202)')
+            }
+        }else if(node.hasAttr('gender')){
+            firstGGender = node.getAttr('gender')
+            if(firstGGender == "Male"){
+                secondG.setAttribute('transform','translate(10,202)')
+            }else{
+                firstG.setAttribute('transform','translate(10,202)')
+            }
+        }else{
+            if(spousenode.isMainPerson()){
+                firstG.setAttribute('transform','translate(10,202)')
+            }else {
+                secondG.setAttribute('transform','translate(10,202)')
+            }
+        }
+
         //console.log(spousenode)
         if(spousenode != null) {
             //console.log("apparently spousenode isn't null.....")
             var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text6);
+            secondG.appendChild(text6);
             var nameTextPath = document.createTextNode('Spouse Name');
             text6.appendChild(nameTextPath);
-            text6.setAttribute("x", "10");
-            text6.setAttribute("y", "202");
             text6.setAttribute("font-size", "21px");
             text6.setAttribute("style", "font-family:tahoma, sans-serif");
             if (spousenode.isMainPerson())
@@ -150,11 +167,11 @@ class MedDetRotSpBox implements IBoxRender {
             //}
 
             var text7 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text7);
+            secondG.appendChild(text7);
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
-            text7.setAttribute("x", "10");
-            text7.setAttribute("y", "220");
+            //text7.setAttribute("x", "10");
+            text7.setAttribute("y", "20");
             text7.setAttribute("font-size", "17px");
             text7.setAttribute("style", "font-family:tahoma, sans-serif");
 
@@ -162,11 +179,11 @@ class MedDetRotSpBox implements IBoxRender {
             //StringUtils.centerElement(text3, 210, 290);
 
             var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text8);
+            secondG.appendChild(text8);
             var nameTextPath = document.createTextNode("");
             text8.appendChild(nameTextPath);
-            text8.setAttribute("x", "10");
-            text8.setAttribute("y", "240");
+            //text8.setAttribute("x", "10");
+            text8.setAttribute("y", "40");
             text8.setAttribute("font-size", "16px");
             text8.setAttribute("style", "font-family:sans-serif");
             //StringUtils.centerElement(text4, 210, 290);
@@ -174,11 +191,11 @@ class MedDetRotSpBox implements IBoxRender {
             text8.textContent = 'B: ' + text8.textContent;
 
             var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text9);
+            secondG.appendChild(text9);
             var nameTextPath = document.createTextNode("");
             text9.appendChild(nameTextPath);
-            text9.setAttribute("x", "10");
-            text9.setAttribute("y", '260');
+            //text9.setAttribute("x", "10");
+            text9.setAttribute("y", '60');
             text9.setAttribute("font-size", "16px");
             text9.setAttribute("style", "font-family:tahoma, sans-serif");
             //StringUtils.centerElement(text5, 210, 290);
@@ -199,6 +216,16 @@ class MedDetRotSpBox implements IBoxRender {
         text10.setAttribute("style", "font-family:tahoma, sans-serif");
         //StringUtils.centerElement(text10, 100, 290)
 
+        var nodeMale = false;
+        if (node.hasAttr('gender')){
+            if(node.getAttr('gender') == "Male"){
+                nodeMale = true;
+            }
+        }
+
+
+
+
         var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
         clippath.setAttribute('id', 'clip-'+node.getId());
         gt.appendChild(clippath);
@@ -207,7 +234,11 @@ class MedDetRotSpBox implements IBoxRender {
         cliprect.setAttribute('height', '84');
         cliprect.setAttribute('rx', '10');
         cliprect.setAttribute('ry', '10');
-        cliprect.setAttribute('x', '25');
+        if(nodeMale){
+            cliprect.setAttribute('x', '25');
+        }else{
+            cliprect.setAttribute('x', '140');
+        }
         cliprect.setAttribute('y', '7');
 
         clippath.appendChild(cliprect);
@@ -218,8 +249,11 @@ class MedDetRotSpBox implements IBoxRender {
             svgimg.setAttribute('height','84');
             svgimg.setAttribute('width','84');
             svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.svg');
-            svgimg.setAttribute('x','25');
-            svgimg.setAttribute('y','7');
+            if(nodeMale){
+                svgimg.setAttribute('x', '25');
+            }else{
+                svgimg.setAttribute('x', '140');
+            }            svgimg.setAttribute('y','7');
             svgimg.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
             gt.appendChild(svgimg);
             node.getAttr('profilePicturePromise').then(function(response) {
@@ -230,8 +264,11 @@ class MedDetRotSpBox implements IBoxRender {
                 var svgimg2 = document.createElementNS('http://www.w3.org/2000/svg','image');
                 svgimg2.setAttribute('height','85');
                 svgimg2.setAttribute('width','85');
-                svgimg2.setAttribute('x','25');
-                svgimg2.setAttribute('y','7');
+                if(nodeMale){
+                    svgimg2.setAttribute('x', '25');
+                }else{
+                    svgimg2.setAttribute('x', '140');
+                }                svgimg2.setAttribute('y','7');
                 svgimg2.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
 
                 function listener() {
@@ -250,6 +287,13 @@ class MedDetRotSpBox implements IBoxRender {
 
         if(spousenode != null) {
 
+            var spouseMale = false
+            if(spousenode.hasAttr('gender')){
+                if(spousenode.getAttr('gender') == "Male"){
+                    spouseMale = true;
+                }
+            }
+
             //spouse pic
             var clippath2 = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
             clippath2.setAttribute('id', 'clip-'+spousenode.getId());
@@ -259,7 +303,11 @@ class MedDetRotSpBox implements IBoxRender {
             cliprect2.setAttribute('height', '84');
             cliprect2.setAttribute('rx', '10');
             cliprect2.setAttribute('ry', '10');
-            cliprect2.setAttribute('x', '140');
+            if(spouseMale){
+                cliprect2.setAttribute('x','25')
+            }else{
+                cliprect2.setAttribute('x', '140');
+            }
             cliprect2.setAttribute('y', '7');
 
             clippath2.appendChild(cliprect2);
@@ -270,8 +318,11 @@ class MedDetRotSpBox implements IBoxRender {
                 svgimg3.setAttribute('height', '85');
                 svgimg3.setAttribute('width', '85');
                 svgimg3.setAttributeNS('http://www.w3.org/1999/xlink', 'href', 'images/loading.svg');
-                svgimg3.setAttribute('x', '140');
-                svgimg3.setAttribute('y', '7');
+                if(spouseMale){
+                    svgimg3.setAttribute('x','25')
+                }else{
+                    svgimg3.setAttribute('x', '140');
+                }                svgimg3.setAttribute('y', '7');
                 svgimg3.setAttribute('clip-path', 'url(#clip-' + spousenode.getId() + ')');
                 gt.appendChild(svgimg3);
                 spousenode.getAttr('profilePicturePromise').then(function (response) {
@@ -282,8 +333,11 @@ class MedDetRotSpBox implements IBoxRender {
                     var svgimg4 = document.createElementNS('http://www.w3.org/2000/svg', 'image');
                     svgimg4.setAttribute('height', '85');
                     svgimg4.setAttribute('width', '85');
-                    svgimg4.setAttribute('x', '140');
-                    svgimg4.setAttribute('y', '7');
+                    if(spouseMale){
+                        svgimg4.setAttribute('x','25')
+                    }else{
+                        svgimg4.setAttribute('x', '140');
+                    }                    svgimg4.setAttribute('y', '7');
                     svgimg4.setAttribute('clip-path', 'url(#clip-' + spousenode.getId() + ')');
 
                     function listener() {

@@ -33,8 +33,12 @@ class SmallerDetSpBox implements IBoxRender {
         rect.setAttribute('stroke-width', '2');
 
 
+        var secondG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        var firstG = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text);
+        gt.appendChild(firstG);
+        firstG.appendChild(text);
+        gt.appendChild(secondG)
 
         var n: INode = box.getNode();
         var sn: INode = n.getDisplaySpouse();
@@ -56,8 +60,8 @@ class SmallerDetSpBox implements IBoxRender {
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "10");
-            text.setAttribute("y", "12");
+            //text.setAttribute("x", "10");
+            //text.setAttribute("y", "12");
             text.setAttribute("font-size", "12px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
             if(node.isMainPerson())
@@ -67,11 +71,11 @@ class SmallerDetSpBox implements IBoxRender {
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text3);
+        firstG.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "140");
-        text3.setAttribute("y", "10");
+        text3.setAttribute("x", "130");
+        text3.setAttribute("y", "-2");
         text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
@@ -79,11 +83,11 @@ class SmallerDetSpBox implements IBoxRender {
         //StringUtils.centerElement(text3, 210, 290);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text4);
+        firstG.appendChild(text4);
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
-        text4.setAttribute("x", "10");
-        text4.setAttribute("y", "20");
+        //text4.setAttribute("x", "10");
+        text4.setAttribute("y", "10");
         text4.setAttribute("font-size", "8px");
         text4.setAttribute("style", "font-family:sans-serif");
         //StringUtils.centerElement(text4, 210, 290);
@@ -91,38 +95,56 @@ class SmallerDetSpBox implements IBoxRender {
         text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text5);
+        firstG.appendChild(text5);
         var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
-        text5.setAttribute("x", "10");
-        text5.setAttribute("y", "30");
+        //text5.setAttribute("x", "10");
+        text5.setAttribute("y", "20");
         text5.setAttribute("font-size", "8px");
         text5.setAttribute("style", "font-family:tahoma, sans-serif");
         //StringUtils.centerElement(text5, 210, 290);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
         text5.textContent = 'D: '+text5.textContent;
 
-        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-         g.appendChild(text5);
-         var nameTextPath = document.createTextNode("M: marriage place (year)");
-         text5.appendChild(nameTextPath);
-         text5.setAttribute("x", "225");
-         text5.setAttribute("y", "200");
-         text5.setAttribute("font-size", "20px");
-         //StringUtils.centerElement(text5, 210, 290);*/
+        firstG.setAttribute('transform','translate(10,12)')
+        secondG.setAttribute('transform','translate(10,12)')
 
-
-        //if(node.hasAttr('spousename')) {
         spousenode = node.getDisplaySpouse();
+
+
+        var firstGGender = null;
+        var secondGGender = null;
+
+        if(spousenode.hasAttr('gender')){
+            secondGGender = spousenode.getAttr('gender')
+            if(secondGGender== "Male"){
+                firstG.setAttribute('transform','translate(10,45)')
+            }else{
+                secondG.setAttribute('transform','translate(10,45)')
+            }
+        }else if(node.hasAttr('gender')){
+            firstGGender = node.getAttr('gender')
+            if(firstGGender == "Male"){
+                secondG.setAttribute('transform','translate(10,45)')
+            }else{
+                firstG.setAttribute('transform','translate(10,45)')
+            }
+        }else{
+            if(spousenode.isMainPerson()){
+                firstG.setAttribute('transform','translate(10,45)')
+            }else {
+                secondG.setAttribute('transform','translate(10,45)')
+            }
+        }
         //console.log(spousenode)
         if(spousenode != null) {
             //console.log("apparently spousenode isn't null.....")
             var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text6);
+            secondG.appendChild(text6);
             var nameTextPath = document.createTextNode('Spouse Name');
             text6.appendChild(nameTextPath);
-            text6.setAttribute("x", "10");
-            text6.setAttribute("y", "45");
+            //text6.setAttribute("x", "10");
+            //text6.setAttribute("y", "45");
             text6.setAttribute("font-size", "12px");
             text6.setAttribute("style", "font-family:tahoma, sans-serif");
             if (spousenode.isMainPerson())
@@ -135,11 +157,11 @@ class SmallerDetSpBox implements IBoxRender {
             //}
 
             var text7 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text7);
+            secondG.appendChild(text7);
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
-            text7.setAttribute("x", "140");
-            text7.setAttribute("y", "43");
+            text7.setAttribute("x", "130");
+            text7.setAttribute("y", "-2");
             text7.setAttribute("font-size", "8px");
             text7.setAttribute("style", "font-family:tahoma, sans-serif");
 
@@ -147,11 +169,11 @@ class SmallerDetSpBox implements IBoxRender {
             //StringUtils.centerElement(text3, 210, 290);
 
             var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text8);
+            secondG.appendChild(text8);
             var nameTextPath = document.createTextNode("");
             text8.appendChild(nameTextPath);
-            text8.setAttribute("x", "10");
-            text8.setAttribute("y", "55");
+            //text8.setAttribute("x", "10");
+            text8.setAttribute("y", "10");
             text8.setAttribute("font-size", "8px");
             text8.setAttribute("style", "font-family:sans-serif");
             //StringUtils.centerElement(text4, 210, 290);
@@ -159,11 +181,11 @@ class SmallerDetSpBox implements IBoxRender {
             text8.textContent = 'B: ' + text8.textContent;
 
             var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text9);
+            secondG.appendChild(text9);
             var nameTextPath = document.createTextNode("");
             text9.appendChild(nameTextPath);
-            text9.setAttribute("x", "10");
-            text9.setAttribute("y", '65');
+            //text9.setAttribute("x", "10");
+            text9.setAttribute("y", '20');
             text9.setAttribute("font-size", "8px");
             text9.setAttribute("style", "font-family:tahoma, sans-serif");
             //StringUtils.centerElement(text5, 210, 290);

@@ -38,8 +38,12 @@ class SmallDetSpBox implements IBoxRender {
         rect.setAttribute('stroke-width', '2');
 
 
+        var secondG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        var firstG = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text);
+        gt.appendChild(firstG);
+        firstG.appendChild(text);
+        gt.appendChild(secondG)
 
         var n: INode = box.getNode();
         var sn: INode = n.getDisplaySpouse();
@@ -54,8 +58,6 @@ class SmallDetSpBox implements IBoxRender {
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "60");
-            text.setAttribute("y", "15");
             text.setAttribute("font-size", "15px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
             if(node.isMainPerson())
@@ -64,25 +66,12 @@ class SmallDetSpBox implements IBoxRender {
             //StringUtils.centerElement(text, 210, 290);
         }
 
-        /*var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-         gt.appendChild(text2);
-         if(node.hasAttr('surname')) {
-         var nameTextPath = document.createTextNode(box.getNode().getAttr('surname'));
-         text2.appendChild(nameTextPath);
-         text2.setAttribute("x", "220");
-         text2.setAttribute("y", "80");
-         text2.setAttribute("font-size", "40px");
-         text2.setAttribute("style", "font-family:tahoma, sans-serif");
-         StringUtils.fitName(text2,node.getAttr('surname'),30);
-         //StringUtils.centerElement(text2, 210, 290);
-         }*/
-
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text3);
+        firstG.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "60");
-        text3.setAttribute("y", "26");
+        //text3.setAttribute("x", "60");
+        text3.setAttribute("y", "11");
         text3.setAttribute("font-size", "10px");
         text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
@@ -90,11 +79,11 @@ class SmallDetSpBox implements IBoxRender {
         //StringUtils.centerElement(text3, 210, 290);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text4);
+        firstG.appendChild(text4);
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
-        text4.setAttribute("x", "60");
-        text4.setAttribute("y", "38");
+        //text4.setAttribute("x", "60");
+        text4.setAttribute("y", "23");
         text4.setAttribute("font-size", "10px");
         text4.setAttribute("style", "font-family:sans-serif");
         //StringUtils.centerElement(text4, 210, 290);
@@ -102,38 +91,55 @@ class SmallDetSpBox implements IBoxRender {
         text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text5);
+        firstG.appendChild(text5);
         var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
-        text5.setAttribute("x", "60");
-        text5.setAttribute("y", "50");
+        //text5.setAttribute("x", "60");
+        text5.setAttribute("y", "35");
         text5.setAttribute("font-size", "10px");
         text5.setAttribute("style", "font-family:tahoma, sans-serif");
         //StringUtils.centerElement(text5, 210, 290);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
         text5.textContent = 'D: '+text5.textContent;
 
-        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-         g.appendChild(text5);
-         var nameTextPath = document.createTextNode("M: marriage place (year)");
-         text5.appendChild(nameTextPath);
-         text5.setAttribute("x", "225");
-         text5.setAttribute("y", "200");
-         text5.setAttribute("font-size", "20px");
-         //StringUtils.centerElement(text5, 210, 290);*/
 
+        firstG.setAttribute('transform','translate(60,15)')
+        secondG.setAttribute('transform','translate(60,15)')
 
-        //if(node.hasAttr('spousename')) {
         spousenode = node.getDisplaySpouse();
+
+
+        var firstGGender = null;
+        var secondGGender = null;
+
+        if(spousenode.hasAttr('gender')){
+            secondGGender = spousenode.getAttr('gender')
+            if(secondGGender== "Male"){
+                firstG.setAttribute('transform','translate(60,70)')
+            }else{
+                secondG.setAttribute('transform','translate(60,70)')
+            }
+        }else if(node.hasAttr('gender')){
+            firstGGender = node.getAttr('gender')
+            if(firstGGender == "Male"){
+                secondG.setAttribute('transform','translate(60,70)')
+            }else{
+                firstG.setAttribute('transform','translate(60,70)')
+            }
+        }else{
+            if(spousenode.isMainPerson()){
+                firstG.setAttribute('transform','translate(60,70)')
+            }else {
+                secondG.setAttribute('transform','translate(60,70)')
+            }
+        }
         //console.log(spousenode)
         if(spousenode != null) {
             //console.log("apparently spousenode isn't null.....")
             var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text6);
+            secondG.appendChild(text6);
             var nameTextPath = document.createTextNode('Spouse Name');
             text6.appendChild(nameTextPath);
-            text6.setAttribute("x", "60");
-            text6.setAttribute("y", "75");
             text6.setAttribute("font-size", "15px");
             text6.setAttribute("style", "font-family:tahoma, sans-serif");
             if (spousenode.isMainPerson())
@@ -146,11 +152,11 @@ class SmallDetSpBox implements IBoxRender {
             //}
 
             var text7 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text7);
+            secondG.appendChild(text7);
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
-            text7.setAttribute("x", "60");
-            text7.setAttribute("y", "86");
+            //text7.setAttribute("x", "60");
+            text7.setAttribute("y", "11");
             text7.setAttribute("font-size", "10px");
             text7.setAttribute("style", "font-family:tahoma, sans-serif");
 
@@ -158,11 +164,11 @@ class SmallDetSpBox implements IBoxRender {
             //StringUtils.centerElement(text3, 210, 290);
 
             var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text8);
+            secondG.appendChild(text8);
             var nameTextPath = document.createTextNode("");
             text8.appendChild(nameTextPath);
-            text8.setAttribute("x", "60");
-            text8.setAttribute("y", "98");
+            //text8.setAttribute("x", "60");
+            text8.setAttribute("y", "23");
             text8.setAttribute("font-size", "10px");
             text8.setAttribute("style", "font-family:sans-serif");
             //StringUtils.centerElement(text4, 210, 290);
@@ -170,11 +176,11 @@ class SmallDetSpBox implements IBoxRender {
             text8.textContent = 'B: ' + text8.textContent;
 
             var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text9);
+            secondG.appendChild(text9);
             var nameTextPath = document.createTextNode("");
             text9.appendChild(nameTextPath);
-            text9.setAttribute("x", "60");
-            text9.setAttribute("y", '110');
+            //text9.setAttribute("x", "60");
+            text9.setAttribute("y", '35');
             text9.setAttribute("font-size", "10px");
             text9.setAttribute("style", "font-family:tahoma, sans-serif");
             //StringUtils.centerElement(text5, 210, 290);
@@ -213,48 +219,31 @@ class SmallDetSpBox implements IBoxRender {
 
         var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
         clippath.setAttribute('id', 'clip-'+node.getId());
-        gt.appendChild(clippath);
+        firstG.appendChild(clippath);
         var cliprect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         cliprect.setAttribute('width', '50');
         cliprect.setAttribute('height', '50');
         cliprect.setAttribute('rx', '10');
         cliprect.setAttribute('ry', '10');
-        cliprect.setAttribute('x', '5');
-        cliprect.setAttribute('y', '5');
+        cliprect.setAttribute('x', '-55');
+        cliprect.setAttribute('y', '-10');
 
         clippath.appendChild(cliprect);
-
-        //var svgimg2 = document.createElementNS('http://www.w3.org/2000/svg','image');
-        //svgimg2.setAttribute('height','50');
-        //svgimg2.setAttribute('width','50');
-        //svgimg2.setAttribute('x','5');
-        //svgimg2.setAttribute('y','5');
-        //svgimg2.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
-        //svgimg2.setAttributeNS('http://www.w3.org/1999/xlink','href',"http://rlv.zcache.com/leaping_utahraptor_2_inch_round_button-r5530ba9a423c43e1997f5348183de41b_x7efx_1024.jpg?rlvnet=1");
-        //gt.appendChild(svgimg2);
 
 
         var clippath2 = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
         clippath2.setAttribute('id', 'clip-'+spousenode.getId());
-        gt.appendChild(clippath2);
+        secondG.appendChild(clippath2);
         var cliprect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         cliprect2.setAttribute('width', '50');
         cliprect2.setAttribute('height', '50');
         cliprect2.setAttribute('rx', '10');
         cliprect2.setAttribute('ry', '10');
-        cliprect2.setAttribute('x', '5');
-        cliprect2.setAttribute('y', '65');
+        cliprect2.setAttribute('x', '-55');
+        cliprect2.setAttribute('y', '-10');
 
         clippath2.appendChild(cliprect2);
 
-        //var svgimg4 = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-        //svgimg4.setAttribute('height', '50');
-        //svgimg4.setAttribute('width', '50');
-        //svgimg4.setAttribute('x', '5');
-        //svgimg4.setAttribute('y', '65');
-        //svgimg4.setAttribute('clip-path', 'url(#clip-' + spousenode.getId() + ')');
-        //svgimg4.setAttributeNS('http://www.w3.org/1999/xlink', 'href', "http://rlv.zcache.com/leaping_utahraptor_2_inch_round_button-r5530ba9a423c43e1997f5348183de41b_x7efx_1024.jpg?rlvnet=1");
-        //gt.appendChild(svgimg4);
 
 
         if(node.hasAttr('profilePicturePromise')) {
@@ -262,33 +251,33 @@ class SmallDetSpBox implements IBoxRender {
             svgimg.setAttribute('height','50');
             svgimg.setAttribute('width','50');
             svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.svg');
-            svgimg.setAttribute('x','5');
-            svgimg.setAttribute('y','5');
+            svgimg.setAttribute('x','-55');
+            svgimg.setAttribute('y','-10');
             //svgimg.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
-            gt.appendChild(svgimg);
+            firstG.appendChild(svgimg);
             node.getAttr('profilePicturePromise').then(function(response) {
                 if(!response) {
-                    gt.removeChild(svgimg);
+                    firstG.removeChild(svgimg);
                     return;
                 }
                 var svgimg2 = document.createElementNS('http://www.w3.org/2000/svg','image');
                 svgimg2.setAttribute('height','50');
                 svgimg2.setAttribute('width','50');
-                svgimg2.setAttribute('x','5');
-                svgimg2.setAttribute('y','5');
+                svgimg2.setAttribute('x','-55');
+                svgimg2.setAttribute('y','-10');
                 svgimg2.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
 
                 function listener() {
-                    gt.removeChild(svgimg);
+                    firstG.removeChild(svgimg);
                     svgimg2.removeEventListener('load', listener);
                 }
                 svgimg2.addEventListener('load', listener);
                 svgimg2.setAttributeNS('http://www.w3.org/1999/xlink','href',response);
-                gt.appendChild(svgimg2);
+                firstG.appendChild(svgimg2);
 
 
             }, function() {
-                gt.removeChild(svgimg);
+                firstG.removeChild(svgimg);
             });
         }
 
@@ -302,34 +291,34 @@ class SmallDetSpBox implements IBoxRender {
                 svgimg3.setAttribute('height', '50');
                 svgimg3.setAttribute('width', '50');
                 svgimg3.setAttributeNS('http://www.w3.org/1999/xlink', 'href', 'images/loading.svg');
-                svgimg3.setAttribute('x', '5');
-                svgimg3.setAttribute('y', '65');
+                svgimg3.setAttribute('x', '-55');
+                svgimg3.setAttribute('y', '-10');
                 //svgimg3.setAttribute('clip-path', 'url(#clip-' + spousenode.getId() + ')');
-                gt.appendChild(svgimg3);
+                secondG.appendChild(svgimg3);
                 spousenode.getAttr('profilePicturePromise').then(function (response) {
                     if (!response) {
-                        gt.removeChild(svgimg3);
+                        secondG.removeChild(svgimg3);
                         return;
                     }
                     var svgimg4 = document.createElementNS('http://www.w3.org/2000/svg', 'image');
                     svgimg4.setAttribute('height', '50');
                     svgimg4.setAttribute('width', '50');
-                    svgimg4.setAttribute('x', '5');
-                    svgimg4.setAttribute('y', '65');
+                    svgimg4.setAttribute('x', '-55');
+                    svgimg4.setAttribute('y', '-10');
                     svgimg4.setAttribute('clip-path', 'url(#clip-' + spousenode.getId() + ')');
 
                     function listener() {
-                        gt.removeChild(svgimg3);
+                        secondG.removeChild(svgimg3);
                         svgimg4.removeEventListener('load', listener);
                     }
 
                     svgimg4.addEventListener('load', listener);
                     svgimg4.setAttributeNS('http://www.w3.org/1999/xlink', 'href', response);
-                    gt.appendChild(svgimg4);
+                    secondG.appendChild(svgimg4);
 
 
                 }, function () {
-                    gt.removeChild(svgimg3);
+                    secondG.removeChild(svgimg3);
                 });
             }
         }

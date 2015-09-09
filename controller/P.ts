@@ -185,6 +185,11 @@ class P implements IControllerListener, ITreeListener {
             if(child) {
                 var childNum: number = this.getGeneration(child, target);
                 if(childNum > -1) {
+                    if(child.getDisplaySpouse() != null && this.c.dscOrAsc == "descendancy"){
+                        if(child.getDisplaySpouse().getSpouses().length > 1){
+                            return childNum
+                        }
+                    }
                     return childNum + 1;
                 }
             }
@@ -192,7 +197,7 @@ class P implements IControllerListener, ITreeListener {
         return -1;
     }
     private applyToGeneration(gen: number, node: INode, param: any) {
-        if(gen === 0) {
+        if(gen === 0&&node.getSpouses().length < 2) {
             this.customSpacer.addCustomStyle(node.getId(), {
                 type: param.value
             });

@@ -31,8 +31,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
         rect.setAttribute('stroke-width', '2');
 
 
-        var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text);
+
 
         var n: INode = box.getNode();
         var sn: INode = n.getDisplaySpouse();
@@ -51,11 +50,18 @@ class LrgPicDetRotSpBox implements IBoxRender {
             spousenode = sn;
         //}
 
+        var secondG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        var firstG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        gt.appendChild(firstG);
+        firstG.appendChild(text);
+        gt.appendChild(secondG)
+
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "160");
-            text.setAttribute("y", "35");
+            //text.setAttribute("x", "160");
+            //text.setAttribute("y", "35");
             text.setAttribute("font-size", "30px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
             if(node.isMainPerson())
@@ -63,6 +69,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
             StringUtils.fitName(text,node.getAttr('name'),28);
             //StringUtils.centerElement(text, 210, 290);
         }
+
 
         /*var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text2);
@@ -78,11 +85,11 @@ class LrgPicDetRotSpBox implements IBoxRender {
         }*/
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text3);
+        firstG.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "160");
-        text3.setAttribute("y", "75");
+        //text3.setAttribute("x", "160");
+        text3.setAttribute("y", "40");
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
@@ -90,11 +97,11 @@ class LrgPicDetRotSpBox implements IBoxRender {
         //StringUtils.centerElement(text3, 210, 290);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text4);
+        firstG.appendChild(text4);
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
-        text4.setAttribute("x", "160");
-        text4.setAttribute("y", "105");
+        //text4.setAttribute("x", "160");
+        text4.setAttribute("y", "70");
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", "font-family:sans-serif");
         //StringUtils.centerElement(text4, 210, 290);
@@ -102,38 +109,60 @@ class LrgPicDetRotSpBox implements IBoxRender {
         text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text5);
+        firstG.appendChild(text5);
         var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
-        text5.setAttribute("x", "160");
-        text5.setAttribute("y", "130");
+        //text5.setAttribute("x", "160");
+        text5.setAttribute("y", "95");
         text5.setAttribute("font-size", "20px");
         text5.setAttribute("style", "font-family:tahoma, sans-serif");
         //StringUtils.centerElement(text5, 210, 290);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
         text5.textContent = 'D: '+text5.textContent;
 
-        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-         g.appendChild(text5);
-         var nameTextPath = document.createTextNode("M: marriage place (year)");
-         text5.appendChild(nameTextPath);
-         text5.setAttribute("x", "225");
-         text5.setAttribute("y", "200");
-         text5.setAttribute("font-size", "20px");
-         //StringUtils.centerElement(text5, 210, 290);*/
+        firstG.setAttribute('transform','translate(160,35)')
+        secondG.setAttribute('transform','translate(160,35)')
+
+        spousenode = node.getDisplaySpouse();
+
+
+        var firstGGender = null;
+        var secondGGender = null;
+
+        if(spousenode.hasAttr('gender')){
+            secondGGender = spousenode.getAttr('gender')
+            if(secondGGender== "Male"){
+                firstG.setAttribute('transform','translate(160,170)')
+            }else{
+                secondG.setAttribute('transform','translate(160,170)')
+            }
+        }else if(node.hasAttr('gender')){
+            firstGGender = node.getAttr('gender')
+            if(firstGGender == "Male"){
+                secondG.setAttribute('transform','translate(160,170)')
+            }else{
+                firstG.setAttribute('transform','translate(160,170)')
+            }
+        }else{
+            if(spousenode.isMainPerson()){
+                firstG.setAttribute('transform','translate(160,170)')
+            }else {
+                secondG.setAttribute('transform','translate(160,170)')
+            }
+        }
 
 
         //if(node.hasAttr('spousename')) {
-        spousenode = node.getDisplaySpouse();
+
         //console.log(spousenode)
         if(spousenode != null) {
             //console.log("apparently spousenode isn't null.....")
             var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text6);
+            secondG.appendChild(text6);
             var nameTextPath = document.createTextNode('Spouse Name');
             text6.appendChild(nameTextPath);
-            text6.setAttribute("x", "160");
-            text6.setAttribute("y", "175");
+            //text6.setAttribute("x", "160");
+            //text6.setAttribute("y", "175");
             text6.setAttribute("font-size", "30px");
             text6.setAttribute("style", "font-family:tahoma, sans-serif");
             if (spousenode.isMainPerson())
@@ -146,11 +175,11 @@ class LrgPicDetRotSpBox implements IBoxRender {
             //}
 
             var text7 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text7);
+            secondG.appendChild(text7);
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
-            text7.setAttribute("x", "160");
-            text7.setAttribute("y", "215");
+            //text7.setAttribute("x", "160");
+            text7.setAttribute("y", "40");
             text7.setAttribute("font-size", "20px");
             text7.setAttribute("style", "font-family:tahoma, sans-serif");
 
@@ -158,11 +187,11 @@ class LrgPicDetRotSpBox implements IBoxRender {
             //StringUtils.centerElement(text3, 210, 290);
 
             var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text8);
+            secondG.appendChild(text8);
             var nameTextPath = document.createTextNode("");
             text8.appendChild(nameTextPath);
-            text8.setAttribute("x", "160");
-            text8.setAttribute("y", "245");
+            //text8.setAttribute("x", "160");
+            text8.setAttribute("y", "70");
             text8.setAttribute("font-size", "20px");
             text8.setAttribute("style", "font-family:sans-serif");
             //StringUtils.centerElement(text4, 210, 290);
@@ -170,11 +199,11 @@ class LrgPicDetRotSpBox implements IBoxRender {
             text8.textContent = 'B: ' + text8.textContent;
 
             var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text9);
+            secondG.appendChild(text9);
             var nameTextPath = document.createTextNode("");
             text9.appendChild(nameTextPath);
-            text9.setAttribute("x", "160");
-            text9.setAttribute("y", "270");
+            //text9.setAttribute("x", "160");
+            text9.setAttribute("y", "95");
             text9.setAttribute("font-size", "20px");
             text9.setAttribute("style", "font-family:tahoma, sans-serif");
             //StringUtils.centerElement(text5, 210, 290);
@@ -212,14 +241,14 @@ class LrgPicDetRotSpBox implements IBoxRender {
 
         var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
         clippath.setAttribute('id', 'clip-'+node.getId());
-        gt.appendChild(clippath);
+        firstG.appendChild(clippath);
         var cliprect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         cliprect.setAttribute('width', '135');
         cliprect.setAttribute('height', '135');
         cliprect.setAttribute('rx', '20');
         cliprect.setAttribute('ry', '20');
-        cliprect.setAttribute('x', '5');
-        cliprect.setAttribute('y', '5');
+        cliprect.setAttribute('x', '-145');
+        cliprect.setAttribute('y', '-25');
 
         clippath.appendChild(cliprect);
 
@@ -229,33 +258,33 @@ class LrgPicDetRotSpBox implements IBoxRender {
             svgimg.setAttribute('height','135');
             svgimg.setAttribute('width','135');
             svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.svg');
-            svgimg.setAttribute('x','5');
-            svgimg.setAttribute('y','5');
+            svgimg.setAttribute('x', '-145');
+            svgimg.setAttribute('y', '-25');
             svgimg.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
-            gt.appendChild(svgimg);
+            firstG.appendChild(svgimg);
             node.getAttr('profilePicturePromise').then(function(response) {
                 if(!response) {
-                    gt.removeChild(svgimg);
+                    firstG.removeChild(svgimg);
                     return;
                 }
                 var svgimg2 = document.createElementNS('http://www.w3.org/2000/svg','image');
                 svgimg2.setAttribute('height','135');
                 svgimg2.setAttribute('width','135');
-                svgimg2.setAttribute('x','5');
-                svgimg2.setAttribute('y','5');
+                svgimg2.setAttribute('x', '-145');
+                svgimg2.setAttribute('y', '-25');
                 svgimg2.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
 
                 function listener() {
-                    gt.removeChild(svgimg);
+                    firstG.removeChild(svgimg);
                     svgimg2.removeEventListener('load', listener);
                 }
                 svgimg2.addEventListener('load', listener);
                 svgimg2.setAttributeNS('http://www.w3.org/1999/xlink','href',response);
-                gt.appendChild(svgimg2);
+                firstG.appendChild(svgimg2);
 
 
             }, function() {
-                gt.removeChild(svgimg);
+                firstG.removeChild(svgimg);
             });
         }
 
@@ -264,14 +293,14 @@ class LrgPicDetRotSpBox implements IBoxRender {
             //spouse pic
             var clippath2 = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
             clippath2.setAttribute('id', 'clip-' + spousenode.getId());
-            gt.appendChild(clippath2);
+            secondG.appendChild(clippath2);
             var cliprect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
             cliprect2.setAttribute('width', '135');
             cliprect2.setAttribute('height', '135');
             cliprect2.setAttribute('rx', '20');
             cliprect2.setAttribute('ry', '20');
-            cliprect2.setAttribute('x', '5');
-            cliprect2.setAttribute('y', '145');
+            cliprect2.setAttribute('x', '-145');
+            cliprect2.setAttribute('y', '-25');
 
             clippath2.appendChild(cliprect2);
 
@@ -281,34 +310,34 @@ class LrgPicDetRotSpBox implements IBoxRender {
                 svgimg3.setAttribute('height', '135');
                 svgimg3.setAttribute('width', '135');
                 svgimg3.setAttributeNS('http://www.w3.org/1999/xlink', 'href', 'images/loading.svg');
-                svgimg3.setAttribute('x', '5');
-                svgimg3.setAttribute('y', '145');
+                svgimg3.setAttribute('x', '-145');
+                svgimg3.setAttribute('y', '-25');
                 svgimg3.setAttribute('clip-path', 'url(#clip-' + spousenode.getId() + ')');
-                gt.appendChild(svgimg3);
+                secondG.appendChild(svgimg3);
                 spousenode.getAttr('profilePicturePromise').then(function (response) {
                     if (!response) {
-                        gt.removeChild(svgimg3);
+                        secondG.removeChild(svgimg3);
                         return;
                     }
                     var svgimg4 = document.createElementNS('http://www.w3.org/2000/svg', 'image');
                     svgimg4.setAttribute('height', '135');
                     svgimg4.setAttribute('width', '135');
-                    svgimg4.setAttribute('x', '5');
-                    svgimg4.setAttribute('y', '145');
+                    svgimg4.setAttribute('x', '-145');
+                    svgimg4.setAttribute('y', '-25');
                     svgimg4.setAttribute('clip-path', 'url(#clip-' + spousenode.getId() + ')');
 
                     function listener() {
-                        gt.removeChild(svgimg3);
+                        secondG.removeChild(svgimg3);
                         svgimg4.removeEventListener('load', listener);
                     }
 
                     svgimg4.addEventListener('load', listener);
                     svgimg4.setAttributeNS('http://www.w3.org/1999/xlink', 'href', response);
-                    gt.appendChild(svgimg4);
+                    secondG.appendChild(svgimg4);
 
 
                 }, function () {
-                    gt.removeChild(svgimg3);
+                    secondG.removeChild(svgimg3);
                 });
             }
         }

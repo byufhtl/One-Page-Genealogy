@@ -41,14 +41,7 @@ class SmallestSpBox implements IBoxRender {
         var node: INode;
         var spousenode: INode;
         var gender = 'none';
-        /*if(n.hasAttr('gender')) {
-         gender = n.getAttr('gender');
-         }
-         if(gender === 'Female') {
-         node = sn;
-         spousenode = n;
-         }*/
-        //else {
+
         node = n;
         spousenode = sn;
         //}
@@ -72,7 +65,7 @@ class SmallestSpBox implements IBoxRender {
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "85");
         text3.setAttribute("y", "7");
-        text3.setAttribute("font-size", "8px");
+        text3.setAttribute("font-size", "28px");
         text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 50);
