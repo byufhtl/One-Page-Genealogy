@@ -33,15 +33,26 @@ class SmallestSpBox implements IBoxRender {
         rect.setAttribute('stroke-width', '1');
 
 
+        var secondG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        var firstG = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text);
+        gt.appendChild(firstG);
+        firstG.appendChild(text);
+        gt.appendChild(secondG)
 
         var n: INode = box.getNode();
         var sn: INode = n.getDisplaySpouse();
         var node: INode;
         var spousenode: INode;
         var gender = 'none';
-
+        /*if(n.hasAttr('gender')) {
+         gender = n.getAttr('gender');
+         }
+         if(gender === 'Female') {
+         node = sn;
+         spousenode = n;
+         }*/
+        //else {
         node = n;
         spousenode = sn;
         //}
@@ -49,64 +60,68 @@ class SmallestSpBox implements IBoxRender {
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "10");
-            text.setAttribute("y", "8");
+            //text.setAttribute("x", "10");
+            //text.setAttribute("y", "8");
             text.setAttribute("font-size", "10px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
             StringUtils.fitName(text,node.getAttr('name'),15);
+
             //StringUtils.centerElement(text, 210, 290);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text3);
+        firstG.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "85");
-        text3.setAttribute("y", "7");
-        text3.setAttribute("font-size", "28px");
+        text3.setAttribute("x", "75");
+        text3.setAttribute("y", "-1");
+        text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 50);
         //StringUtils.centerElement(text3, 210, 290);
 
-        //var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        //gt.appendChild(text4);
-        //var nameTextPath = document.createTextNode("");
-        //text4.appendChild(nameTextPath);
-        //text4.setAttribute("x", "10");
-        //text4.setAttribute("y", "16");
-        //text4.setAttribute("font-size", "8px");
-        //text4.setAttribute("style", "font-family:sans-serif");
-        ////StringUtils.centerElement(text4, 210, 290);
-        //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
-        //text4.textContent = 'B: '+text4.textContent;
+        firstG.setAttribute('transform','translate(10,8)')
+        secondG.setAttribute('transform','translate(10,8)')
 
-        //var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        //gt.appendChild(text5);
-        //var nameTextPath = document.createTextNode("");
-        //text5.appendChild(nameTextPath);
-        //text5.setAttribute("x", "10");
-        //text5.setAttribute("y", "30");
-        //text5.setAttribute("font-size", "8px");
-        //text5.setAttribute("style", "font-family:tahoma, sans-serif");
-        ////StringUtils.centerElement(text5, 210, 290);
-        //StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
-        //text5.textContent = 'D: '+text5.textContent;
-
-
-        //if(node.hasAttr('spousename')) {
         spousenode = node.getDisplaySpouse();
+
+
+        var firstGGender = null;
+        var secondGGender = null;
+
+        if(spousenode.hasAttr('gender')){
+            secondGGender = spousenode.getAttr('gender')
+            if(secondGGender== "Male"){
+                firstG.setAttribute('transform','translate(10,17)')
+            }else{
+                secondG.setAttribute('transform','translate(10,17)')
+            }
+        }else if(node.hasAttr('gender')){
+            firstGGender = node.getAttr('gender')
+            if(firstGGender == "Male"){
+                secondG.setAttribute('transform','translate(10,17)')
+            }else{
+                firstG.setAttribute('transform','translate(10,17)')
+            }
+        }else{
+            if(spousenode.isMainPerson()){
+                firstG.setAttribute('transform','translate(10,17)')
+            }else {
+                secondG.setAttribute('transform','translate(10,17)')
+            }
+        }
         //console.log(spousenode)
         if(spousenode != null) {
             //console.log("apparently spousenode isn't null.....")
             var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text6);
+            secondG.appendChild(text6);
             var nameTextPath = document.createTextNode('Spouse Name');
             text6.appendChild(nameTextPath);
-            text6.setAttribute("x", "10");
-            text6.setAttribute("y", "17");
+            //text6.setAttribute("x", "10");
+            //text6.setAttribute("y", "17");
             text6.setAttribute("font-size", "10px");
             text6.setAttribute("style", "font-family:tahoma, sans-serif");
             if (spousenode.isMainPerson())
@@ -119,11 +134,11 @@ class SmallestSpBox implements IBoxRender {
             //}
 
             var text7 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            gt.appendChild(text7);
+            secondG.appendChild(text7);
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
-            text7.setAttribute("x", "85");
-            text7.setAttribute("y", "16");
+            text7.setAttribute("x", "75");
+            text7.setAttribute("y", "-1");
             text7.setAttribute("font-size", "8px");
             text7.setAttribute("style", "font-family:tahoma, sans-serif");
 
