@@ -18,7 +18,9 @@
 ///<reference path="VertDescDetChartSpacer.ts"/>
 ///<reference path="GreyScaleSpacer.ts"/>
 ///<reference path="ColorSpacer.ts"/>
+///<reference path="GenderColorSpacer.ts"/>
 ///<reference path="SpacingSpacer.ts"/>
+///<reference path="IdTest.ts"/>
 /**
  * Created by krr428 on 3/7/15.
  */
@@ -36,11 +38,8 @@ class P implements IControllerListener, ITreeListener {
     private beforeTransformBoxes: BoxMap;
     private firstBoxMap: BoxMap;
     private secondBoxMap: BoxMap;
-    private greyscale:boolean;
 
     constructor(private c: C) {
-
-        this.greyscale = false;
 
         this.customSpacer = new CustomSpacer();
         this.collapseSpacer = new CollapseSpacer();
@@ -53,11 +52,12 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.push(new SpacingSpacer());
         //this.stylingPipeline.push(new DetailChartSpacer());
         //his.stylingPipeline.push(new VertDetChartSpacer());
-        if(c.dscOrAsc == "descendancy"){
-            this.stylingPipeline.push(new VertDescDetChartSpacer());
-        }else{
-            this.stylingPipeline.push(new VertDetChartSpacer());
-        }
+        //if(c.dscOrAsc == "descendancy"){
+        //    this.stylingPipeline.push(new VertDescDetChartSpacer());
+        //}else{
+        //    this.stylingPipeline.push(new VertDetChartSpacer());
+        //}
+        this.stylingPipeline.push(new IdTest());
         //this.stylingPipeline.push(new EightElevenSpacer());
         //this.stylingPipeline.push(new EightElevenDetailSpacer());
         //this.stylingPipeline.push(new GenerationSpacer2());
@@ -85,24 +85,6 @@ class P implements IControllerListener, ITreeListener {
                 this.applyToGeneration(gen, root, param);
                 refresh = true;
             }
-            else if(param.type === 'changeIndColor') {
-                this.customSpacer.addCustomStyle(param.id, {
-                    color: param.value
-                });
-                refresh = true;
-            }
-            else if(param.type === 'changeGenColor') {
-                console.log("value: "+param.value);
-                var root:INode = this.tree.getRoot();
-                var gen = this.getGeneration(root, param.id);
-                this.applyColorToGeneration(gen, root, param);
-                refresh = true;
-            }
-            else if(param.type === 'changeBranchColor') {
-                var root:INode = this.tree.getRoot();
-                this.applyColorToBranch(root, param);
-                refresh = true;
-            }
             else if(param.type === 'collapse-sub-tree') {
                 this.collapseSpacer.collapseId(param.id, true);
                 refresh = true;
@@ -118,6 +100,11 @@ class P implements IControllerListener, ITreeListener {
             else if(param.type === 'getBoxByPoint') {
                 return this.getBoxByPoint(param.pt);
             }
+            /*else if(param.type === 'detail-style' || param.type === 'vertical-style' ||
+                param.type === 'eight-eleven-style' || param.type === 'eight-eleven-detail-style'){
+                this.changeChartStyle(param.type);
+                refresh = true;
+            }*/
             else if(param.type === 'detail-style'){
                 this.changeStyleDetail();
                 refresh = true;
@@ -134,9 +121,21 @@ class P implements IControllerListener, ITreeListener {
                 this.changeStyleEightElevenDetail();
                 refresh = true;
             }
-            else if(param.type === 'toggle-greyscale'){
-                this.greyscale = param.greyscale;
+            /*else if(param.type == 'to-greyscale' || param.type =='to-branch-color'
+                || param.type == 'to-gender-color'){
+                this.changeColorStyle(param.type);
+                refresh = true;
+            }*/
+            else if(param.type === 'to-greyscale'){
                 this.toggleGreyscale();
+                refresh = true;
+            }
+            else if(param.type === 'to-branch-color'){
+                this.changeToBranchColor();
+                refresh = true;
+            }
+            else if(param.type === 'to-gender-color'){
+                this.changeToGenderColor();
                 refresh = true;
             }
         }
@@ -203,7 +202,6 @@ class P implements IControllerListener, ITreeListener {
             });
         }
         var branchIds: string[] = node.getBranchIds();
-        //console.log(node)
         for(var i=0; i<branchIds.length; i++) {
             var child = this.tree.getId(branchIds[i]);
             if(child) {
@@ -214,37 +212,6 @@ class P implements IControllerListener, ITreeListener {
                 }
             }
         }
-    }
-
-    private applyColorToGeneration(gen: number, node: INode, param: any) {
-        if(gen === 0) {
-            this.customSpacer.addCustomStyle(node.getId(), {
-                color: param.value
-            });
-        }
-        var branchIds: string[] = node.getBranchIds();
-        //console.log(node);
-        for(var i=0; i<branchIds.length; i++) {
-            var child = this.tree.getId(branchIds[i]);
-            if(child) {
-                this.applyToGeneration(gen - 1, child, param);
-            }
-        }
-    }
-
-    private applyColorToBranch(node: INode, param: any) {
-        this.customSpacer.addCustomStyle(node.getId(), {
-            color: param.value
-        });
-        var branchIds: string[] = node.getBranchIds();
-        //console.log(node);
-        for(var i=0; i<branchIds.length; i++) {
-            var child = this.tree.getId(branchIds[i]);
-            if(child) {
-                this.applyColorToBranch(child ,param);
-            }
-        }
-
     }
 
     handleUpdate(tree: ITree, updates: ICommand[]): void {
@@ -312,30 +279,78 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
+    private changeChartStyle(type:string):void{
+        var temp = this.stylingPipeline;
+        this.stylingPipeline = [];
+        var i:number;
+        for (i = 0; i < 2; i++) {
+            this.stylingPipeline.push(temp[i]);
+        }
+        if(type==='detail-style') {
+            this.stylingPipeline.push(new DetailChartSpacer());
+        }
+        else if(type==='vertical-style'){
+            this.stylingPipeline.push(new VertDetChartSpacer());
+        }
+        else if(type==='eight-eleven-style'){
+            this.stylingPipeline.push(new EightElevenSpacer());
+        }
+        else if(type==='eight-eleven-detail-style'){
+            this.stylingPipeline.push(new EightElevenDetailSpacer());
+        }
+        for (i = 2; i < temp.length; i++) {
+            this.stylingPipeline.push(temp[i]);
+        }
+    }
     private toggleGreyscale():void{
         var temp = this.stylingPipeline;
         this.stylingPipeline = [];
         var i:number;
-        //console.log("toggle Greyscale");
-        //console.log(temp.length);
-        if(this.greyscale) {
-            //console.log("greyscale on");
-            this.stylingPipeline.push(this.collapseSpacer);
-            this.stylingPipeline.push(new GreyScaleSpacer());
-            for (i = 2; i < temp.length; i++) {
-                //console.log(temp[i]);
-                this.stylingPipeline.push(temp[i]);
-            }
+        this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new GreyScaleSpacer());
+        for (i = 2; i < temp.length; i++) {
+            this.stylingPipeline.push(temp[i]);
         }
-        else
-        {
-            //console.log("greyscale off");
-            this.stylingPipeline.push(this.collapseSpacer);
+
+    }
+    private changeToBranchColor():void{
+        var temp = this.stylingPipeline;
+        this.stylingPipeline = [];
+        var i:number;
+        this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new ColorSpacer());
+        for (i = 2; i < temp.length; i++) {
+            this.stylingPipeline.push(temp[i]);
+        }
+
+    }
+    private changeToGenderColor():void{
+        var temp = this.stylingPipeline;
+        this.stylingPipeline = [];
+        var i:number;
+        this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new GenderColorSpacer());
+        for (i = 2; i < temp.length; i++) {
+            this.stylingPipeline.push(temp[i]);
+        }
+
+    }
+    private changeColorStyle(type:string):void{
+        console.log(type);
+        var temp = this.stylingPipeline;
+        this.stylingPipeline = [];
+        var i:number;
+        this.stylingPipeline.push(this.collapseSpacer);
+        if(type === 'to-greyscale') {
+            console.log("Grey");
+            this.stylingPipeline.push(new GreyScaleSpacer());
+        }
+        else if(type === 'to-branch-color')
             this.stylingPipeline.push(new ColorSpacer());
-            for (i = 2; i < temp.length; i++) {
-                //console.log(temp[i]);
-                this.stylingPipeline.push(temp[i]);
-            }
+        else if(type === 'to-gender-color')
+            this.stylingPipeline.push(new GenderColorSpacer());
+        for (i = 2; i < temp.length; i++) {
+            this.stylingPipeline.push(temp[i]);
         }
 
     }

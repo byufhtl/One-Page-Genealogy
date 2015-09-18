@@ -31,6 +31,7 @@
     <script src="controller/GenerationSpacer2.js" type="text/javascript"></script>
     <script src="controller/GreyScaleSpacer.js" type="text/javascript"></script>
     <script src="controller/ColorSpacer.js" type="text/javascript"></script>
+    <script src="controller/GenderColorSpacer.js" type="text/javascript"></script>
     <script src="controller/SpacingSpacer.js" type="text/javascript"></script>
     <script src="controller/EightElevenSpacer.js" type="text/javascript"></script>
     <script src="controller/EightElevenDetailSpacer.js" type="text/javascript"></script>
@@ -46,6 +47,7 @@
     <script src="controller/OptionManager.js" type="text/javascript"></script>
     <script src="controller/C.js" type="text/javascript"></script>
     <script src="controller/BorderBoxSpacer.js" type="text/javascript"></script>
+    <script src="controller/IdTest.js" type="text/javascript"></script>
 
 
     <script src="model/AbstractBox.js" type="text/javascript"></script>
@@ -109,6 +111,7 @@
     <script src="view/boxStyles/XSDetSpBox.js" type="text/javascript"></script>
     <script src="view/boxStyles/XSSpBox.js" type="text/javascript"></script>
     <script src="view/boxStyles/SmallestSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/IdBox.js" type="text/javascript"></script>
 
 
 
@@ -131,10 +134,19 @@
         });
 
         $(document).ready(function() {
+            //Set up new style that displays the id w/ count and get rid of counties
+            //$("#fsModal").show();
+            //window.location = 'login';
             $("#fsbutton").click(familySearchDownload)
+            $("#tofsbutton").click(fsHideFirstModal)
             //$("#logoutbutton").click(logout)
 
         });
+        function fsHideFirstModal(){
+            $('#downloadModal').hide();
+            familySearchDownload();
+        }
+
         function familySearchDownload() {
             console.log("familysearch download")
             $('#fsModal').modal({
@@ -189,12 +201,20 @@
             height: calc(100% - 60px);
         }
 
-
-        #gedbutton,#fsbutton {
+        #gedbutton,#fsbutton,#togedbutton,#tofsbutton {
             margin-bottom: 15px;
             margin-top: 15px;
             margin-left: 10px;
         }
+        #downloadModal{
+            display:block;
+        }
+        #splash-title{
+            text-align: center;
+            font-size: 400%;
+        }
+
+
     </style>
 </head>
 <body>
@@ -227,7 +247,9 @@
                         <li><a id="opg-eight-eleven-style" href="#">8 1/2 x 11 Style</a></li>
                         <li><a id="opg-eight-eleven-detail-style" href="#">8 1/2 x 11 Detail Style</a></li>
                         <li class="divider"></li>
-                        <li><a id="opg-toggle-greyscale" href="#">Toggle Greyscale</a></li>
+                        <li><a id="opg-to-greyscale" href="#">Greyscale</a></li>
+                        <li><a id="opg-to-branch-color" href="#">Color by Branch</a></li>
+                        <li><a id="opg-to-gender-color" href="#">Color by Gender</a></li>
                     </ul>
                 </li>
             </ul>
@@ -240,6 +262,28 @@
 
     </svg>
 </div>
+
+<div class="modal" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModal" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="splash-title" >Welcome to One Page Genealogy</h1>
+            </div>
+            <div class="modal-body" align="center">
+                <h3 style="text-align: center">All of your Genealogy on one page.</h3>
+                <h4 style="text-align: center">Select Type of Download</h4>
+                <input id = "togedbutton" type="button" value="Read Gedcom File" onclick="$('#downloadModal').hide(); $('#myInput').click();" /></li>
+                <input id = "tofsbutton" type="button" value="FamilySearch"/>
+
+            </div>
+            <div class="modal-footer">
+                <h6>BYU Family History Technology Lab</h6>
+                <p style="font-size: 60%">Copyright © Brigham Young University,</p>
+                <p style="font-size: 60%">Computer Science Department</p>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <div class="modal fade" id="opg-modal">
     <div class="modal-dialog">
@@ -303,21 +347,6 @@
                             <button type="button" class="btn btn-default" id="opg-modal-collapse">
                                 Collapse
                             </button>
-                        </div>
-                        <div class="col-sm-12">
-                            <p><i>Color</i></p>
-                            <p>Apply Change To: </p>
-                            <form role="form">
-                                <div class="radio">
-                                    <label><input type="radio" name="opg-change-who-color" value='changeIndColor' checked>Individual</label>
-                                </div>
-                                <div class="radio">
-                                    <label><input type="radio" name="opg-change-who-color" value='changeGenColor'>Generation</label>
-                                </div>
-                                <div class="radio">
-                                    <label><input type="radio" name="opg-change-who-color" value='changeBranchColor'>Branch</label>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
