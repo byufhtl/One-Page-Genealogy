@@ -11,6 +11,15 @@ class StringUtils {
         element.setAttribute('x', x + dw/2);
     }
     //**************************************************************************************************************
+    // Mixed formatting
+    //**************************************************************************************************************
+    public static fitDatePlace(textObj,dateStr,placeStr,width){
+        var date = StringUtils.standardDate(dateStr);
+        var place = StringUtils.fitPlaceJS(textObj, placeStr,width - date.length);
+        textObj.textContent = date+" "+ textObj.textContent;
+    }
+
+    //**************************************************************************************************************
     // Date formatting
     //**************************************************************************************************************
     public static fitDate(textObj, birthDateStr, deathDateStr, width) {
@@ -350,6 +359,51 @@ class StringUtils {
         StringUtils.initializeCountries();
         //StringUtils.fitToBoxesFiveAndSix(place);
         if(place != undefined){
+            var places = place.split(",");
+
+            //places = StringUtils.removeCounty(places); //Removes county for everybody
+
+            if(StringUtils.isUnitedStates(places[(places.length-1)].toLowerCase().trim())){
+
+                places[(places.length-1)] = "USA";
+
+                if(places[(places.length-2)] != undefined && (places[(places.length-2)].toLowerCase().trim()) in StringUtils.stateAbbrMap){
+                    places[(places.length-2)] = StringUtils.stateAbbrMap[places[(places.length-2)].toLowerCase().trim()];
+                }
+                place = StringUtils.toPlaceString(places);
+            }
+
+            else{ //Make sure that the place doesn't have the state at the end of the string without the country
+                if((places[(places.length-1)].toLowerCase().trim()) in StringUtils.stateAbbrMap){
+                    places[(places.length-1)] = StringUtils.stateAbbrMap[places[(places.length-1)].toLowerCase().trim()];
+                }
+                else if(places[(places.length-2)] != undefined && (places[(places.length-2)].toLowerCase().trim()) in StringUtils.stateAbbrMap){
+                    places[(places.length-2)] = StringUtils.stateAbbrMap[places[(places.length-2)].toLowerCase().trim()];
+                }
+                place = StringUtils.toPlaceString(places);
+            }
+        }
+        place = StringUtils.fitToBoxesOneThroughFour(place,width);
+        textObj.textContent = place;
+        return;
+    }
+
+    public static fitPlaceJS(textObj, place, width) {
+        if (!place) {
+            return '';
+        }
+        //1) Check to see if original can fit in given width
+        var longPlace = place;
+        textObj.textContent = longPlace;
+        if (textObj.getSubStringLength(0, longPlace.length) < width) {
+            return;
+        }
+
+        StringUtils.initializeStates();
+        StringUtils.initializeCountries();
+        //StringUtils.fitToBoxesFiveAndSix(place);
+        if(place != undefined){
+            place = StringUtils.removeCounty(place); //Removes county for everybody
             var places = place.split(",");
 
             //places = StringUtils.removeCounty(places); //Removes county for everybody

@@ -52,12 +52,12 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.push(new SpacingSpacer());
         //this.stylingPipeline.push(new DetailChartSpacer());
         //his.stylingPipeline.push(new VertDetChartSpacer());
-        //if(c.dscOrAsc == "descendancy"){
-        //    this.stylingPipeline.push(new VertDescDetChartSpacer());
-        //}else{
-        //    this.stylingPipeline.push(new VertDetChartSpacer());
-        //}
-        this.stylingPipeline.push(new IdTest());
+        if(c.dscOrAsc == "descendancy"){
+            this.stylingPipeline.push(new VertDescDetChartSpacer());
+        }else{
+            this.stylingPipeline.push(new VertDetChartSpacer());
+        }
+        //this.stylingPipeline.push(new IdTest());
         //this.stylingPipeline.push(new EightElevenSpacer());
         //this.stylingPipeline.push(new EightElevenDetailSpacer());
         //this.stylingPipeline.push(new GenerationSpacer2());
