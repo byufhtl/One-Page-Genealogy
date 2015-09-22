@@ -1,0 +1,138 @@
+<html>
+<head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/jquery.mousewheel.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <script src="sources/FakeNode.js" type="text/javascript"></script>
+    <script src="sources/FakeSource.js" type="text/javascript"></script>
+    <script src="sources/FamilySearchSource.js" type="text/javascript"></script>
+    <script src="sources/FSAncestryDownloader.js" type="text/javascript"></script>
+    <script src="sources/FSFullTreeDownloader.js" type="text/javascript"></script>
+    <script src="sources/FSAncestryGenDownloader.js" type="text/javascript"></script>
+    <script src="sources/FSDescendancyGenDownloader.js" type="text/javascript"></script>
+    <script src="sources/FSDownloader.js" type="text/javascript"></script>
+    <script src="sources/FSPerson.js" type="text/javascript"></script>
+    <script src="sources/FSDescNode.js" type="text/javascript"></script>
+    <script src="sources/ImageLoader.js" type="text/javascript"></script>
+    <script src="sources/GedcomNode.js" type="text/javascript"></script>
+    <script src="sources/GedcomDownloader.js" type="text/javascript"></script>
+
+    <script src="controller/BoxMap.js" type="text/javascript"></script>
+    <script src="controller/P.js" type="text/javascript"></script>
+    <script src="controller/SimpleGenerationSpacer.js" type="text/javascript"></script>
+    <script src="controller/GenerationSpacer2.js" type="text/javascript"></script>
+    <script src="controller/GreyScaleSpacer.js" type="text/javascript"></script>
+    <script src="controller/ColorSpacer.js" type="text/javascript"></script>
+    <script src="controller/SpacingSpacer.js" type="text/javascript"></script>
+    <script src="controller/EightElevenSpacer.js" type="text/javascript"></script>
+    <script src="controller/EightElevenDetailSpacer.js" type="text/javascript"></script>
+    <script src="controller/DetailChartSpacer.js" type="text/javascript"></script>
+    <script src="controller/VertDetChartSpacer.js" type="text/javascript"></script>
+    <script src="controller/VertDescDetChartSpacer.js" type="text/javascript"></script>
+    <script src="controller/LeafNodeSpacer.js" type="text/javascript"></script>
+    <script src="controller/YSpacer.js" type="text/javascript"></script>
+    <script src="controller/CustomSpacer.js" type="text/javascript"></script>
+    <script src="controller/CollapseSpacer.js" type="text/javascript"></script>
+    <script src="controller/TranslateSpacer.js" type="text/javascript"></script>
+    <script src="controller/RotateSpacer.js" type="text/javascript"></script>
+    <script src="controller/OptionManager.js" type="text/javascript"></script>
+    <script src="controller/C.js" type="text/javascript"></script>
+    <script src="controller/BorderBoxSpacer.js" type="text/javascript"></script>
+
+
+    <script src="model/AbstractBox.js" type="text/javascript"></script>
+    <script src="model/Box.js" type="text/javascript"></script>
+    <script src="model/Tree.js" type="text/javascript"></script>
+    <script src="model/Command.js" type="text/javascript"></script>
+
+    <script src="js/SpacerNode.js" type="text/javascript"></script>
+    <script src="js/SpacerTree.js" type="text/javascript"></script>
+
+    <script src="js/hammer.min.js" type="text/javascript"></script>
+
+
+    <script src="util/Point.js" type="text/javascript"></script>
+    <script src="util/DateFormat.js" type="text/javascript"></script>
+    <script src="util/StringUtils.js" type="text/javascript"></script>
+
+    <script src="view/MainViewManager.js" type="text/javascript"></script>
+    <script src="view/SVGManager.js" type="text/javascript"></script>
+    <script src="view/SVGGraphicObject.js" type="text/javascript"></script>
+    <script src="view/BoxStyleFactory.js" type="text/javascript"></script>
+    <script src="view/ElementManager.js" type="text/javascript"></script>
+    <script src="view/BElement.js" type="text/javascript"></script>
+    <script src="view/LineManager.js" type="text/javascript"></script>
+
+    <script src="view/boxStyles/ClickRenderBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/BasicSVGBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SimpleNameBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/CompactSimpleNameBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/HorizontalNameLifeBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/LargePictureBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/LargePictureBox2.js" type="text/javascript"></script>
+    <script src="view/boxStyles/LargePicRotBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/LargePictureDetailBox2.js" type="text/javascript"></script>
+    <script src="view/boxStyles/LargePicDetRotBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/LrgPicDetRotSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/MidLargePictureBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/MidLargePicRotBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/MediumPictureBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/MedPicRotBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/MediumPictureDetailBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/MedPicDetRotBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/MedSmPictureDetailBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/MedSmPicDetRotBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SmallPictureBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SmallPicRotBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SmallPictureDetailBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SmallPicDetRotBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SmallPictureDetailBox2.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SmallPictureBox2.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SmallNameBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SmallDetailBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/XSNameBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/XSNameYearBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/XSDetailBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SmallestNameBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/NullBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/MedDetRotSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/MedSmDetSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SmallDetSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/XSDetSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/XSSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/SmallestSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/BuildBox.js" type="text/javascript"></script>
+    <script src="sources/BuildNode.js" type="text/javascript"></script>
+
+    <script>
+        $(function(){
+            var node = new BuildNode('xxx-xxxx:0',{
+                'givenname': "Bob",
+                'surname': 'Wigington',
+                'gender': 'Male',
+                'birthdate': "11 Feb 1992",
+                'deathdate': "14 Mar 2060"
+            });
+            var box = new Box(node);
+            box.setX(10);
+            box.setY(10);
+            box.setType('buildBox')
+            box.setSpace(0);
+
+            console.log(box.getNode())
+
+            var render = new BuildBox();
+            render.render(box, document.getElementById('svg-g'));
+        });
+    </script>
+</head>
+<body>
+    <svg id="svg" height=100% width=100%>
+        <g id="svg-g">
+        </g>
+    </svg>
+</body>
+</html>
