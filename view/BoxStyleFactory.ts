@@ -37,6 +37,10 @@
 ///<reference path="boxStyles/XSDetSpBox.ts"/>
 ///<reference path="boxStyles/XSSpBox.ts"/>
 ///<reference path="boxStyles/SmallestSpBox.ts"/>
+///<reference path="boxStyles/JoSmBoxStyles/LargeDetRotSpBox.ts"/>
+///<reference path="boxStyles/JoSmBoxStyles/LargeDetRotBox.ts"/>
+///<reference path="boxStyles/JoSmBoxStyles/JSMedDetBox.ts"/>
+///<reference path="boxStyles/JoSmBoxStyles/SmallDetSpBox.ts"/>
 /**
  * Created by curtis on 3/13/15.
  */
@@ -87,6 +91,10 @@ class BoxStyleFactory {
         boxTypes.push(new XSDetSpBox());
         boxTypes.push(new XSSpBox());
         boxTypes.push(new SmallestSpBox());
+        boxTypes.push(new JSLrgDetRotSpBox());
+        boxTypes.push(new JSLargeDetRotBox());
+        boxTypes.push(new JSMedDetBox());
+        boxTypes.push(new JSSmallDetSpBox());
 
         BoxStyleFactory.boxes = {};
 

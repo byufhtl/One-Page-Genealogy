@@ -19,6 +19,7 @@
 ///<reference path="GreyScaleSpacer.ts"/>
 ///<reference path="ColorSpacer.ts"/>
 ///<reference path="SpacingSpacer.ts"/>
+///<reference path="JSstyleSpacer.ts"/>
 /**
  * Created by krr428 on 3/7/15.
  */
@@ -54,7 +55,7 @@ class P implements IControllerListener, ITreeListener {
         //this.stylingPipeline.push(new DetailChartSpacer());
         //his.stylingPipeline.push(new VertDetChartSpacer());
         if(c.dscOrAsc == "descendancy"){
-            this.stylingPipeline.push(new VertDescDetChartSpacer());
+            this.stylingPipeline.push(new JSstyleSpacer());
         }else{
             this.stylingPipeline.push(new VertDetChartSpacer());
         }

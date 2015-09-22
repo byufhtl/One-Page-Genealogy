@@ -3,6 +3,7 @@
  */
 ///<reference path="../ISource.ts"/>
 ///<reference path="../util/StringUtils.ts"/>
+///<reference path="GedcomNode.ts"/>
 /**
  * Created by justinrasband on 8/6/15.
  */
@@ -29,7 +30,15 @@ var GedcomDownloader = (function () {
         var people = this.getGenerations(this.rootId, this.generations);
         console.log(people);
         for (var i = 0; i < people.length; i++) {
-            this.listener.gotNode(people[i]);
+
+            var person = people[i];
+            var idData = this.nextUniqueId(person.getId(),person.getBranchIds());
+
+
+            var newPerson = new GedcomNode(idData.id, person.person, idData.parentIds);
+            newPerson.setDisplaySpouse(person.getDisplaySpouse());
+
+            this.listener.gotNode(newPerson);
         }
         this.listener.done();
     };
