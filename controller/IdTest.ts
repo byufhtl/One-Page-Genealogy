@@ -1,9 +1,9 @@
 ///<reference path="IStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 /**
- * Created by renae on 7/1/15.
+ * Created by renae on 9/18/15.
  */
-class GreyScaleSpacer implements  IStyler {
+class IdTest implements  IStyler {
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
@@ -33,7 +33,14 @@ class GreyScaleSpacer implements  IStyler {
         }
     }
     private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
-        //childBox.setGray(true);
-        childBox.setColor('white');
+        var bx = 0;
+
+        if(generation > 0) {
+            bx = parentBox.getX() + parentBox.getWidth() + 10;
+        }
+        childBox.setType('idBox');
+        childBox.setX(bx);
+        childBox.setHeight(BoxStyleFactory.getHeight('idBox'));
+        childBox.setWidth(BoxStyleFactory.getWidth('idBox'));
     }
 }

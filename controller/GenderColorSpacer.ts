@@ -1,14 +1,15 @@
 ///<reference path="IStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 /**
- * Created by renae on 7/1/15.
+ * Created by renae on 9/9/15.
  */
-class GreyScaleSpacer implements  IStyler {
+class GenderColorSpacer implements  IStyler {
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
 
-        this.setBasedOnGeneration(null, root, 0);
+        root.setGray(false);
+        root.setColor(null);
 
         var queue = [];
         queue.push([rootId,0]);
@@ -25,15 +26,11 @@ class GreyScaleSpacer implements  IStyler {
                 if(!branchBox) {
                     continue;
                 }
-
-                this.setBasedOnGeneration(box, branchBox, generation+1);
+                branchBox.setGray(false);
+                branchBox.setColor(null);
 
                 queue.push([branchIds[i], generation+1]);
             }
         }
-    }
-    private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
-        //childBox.setGray(true);
-        childBox.setColor('white');
     }
 }
