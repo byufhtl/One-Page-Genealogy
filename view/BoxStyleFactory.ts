@@ -87,6 +87,7 @@ class BoxStyleFactory {
         boxTypes.push(new XSDetSpBox());
         boxTypes.push(new XSSpBox());
         boxTypes.push(new SmallestSpBox());
+        boxTypes.push(new BuildBox());
 
         BoxStyleFactory.boxes = {};
 

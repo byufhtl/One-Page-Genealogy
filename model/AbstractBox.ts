@@ -28,6 +28,7 @@ class AbstractBox implements IBox {
     setGray(b:boolean) {
         this.grey = b;
     }
+
     isGray():boolean {
         return this.grey;
     }
