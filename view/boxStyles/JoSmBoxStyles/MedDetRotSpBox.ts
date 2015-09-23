@@ -95,7 +95,8 @@ class JSMedDetRotSpBox implements IBoxRender {
         text3.setAttribute("font-size", "17px");
         text3.setAttribute("style", "font-family:tahoma, sans-serif");
 
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
+        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
+        //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
         //StringUtils.centerElement(text3, 210, 290);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -106,11 +107,12 @@ class JSMedDetRotSpBox implements IBoxRender {
         text4.setAttribute("y", "40");
         text4.setAttribute("font-size", "16px");
         text4.setAttribute("style", "font-family:sans-serif");
+        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
         //StringUtils.centerElement(text4, 210, 290);
-        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
-        text4.textContent = 'B: '+text4.textContent;
+        //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
+        //text4.textContent = 'B: '+text4.textContent;
 
-        var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         firstG.appendChild(text5);
         var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
@@ -120,7 +122,7 @@ class JSMedDetRotSpBox implements IBoxRender {
         text5.setAttribute("style", "font-family:tahoma, sans-serif");
         //StringUtils.centerElement(text5, 210, 290);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
-        text5.textContent = 'D: '+text5.textContent;
+        text5.textContent = 'D: '+text5.textContent;*/
 
         /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
          g.appendChild(text5);
@@ -188,8 +190,8 @@ class JSMedDetRotSpBox implements IBoxRender {
             text7.setAttribute("y", "20");
             text7.setAttribute("font-size", "17px");
             text7.setAttribute("style", "font-family:tahoma, sans-serif");
-
-            StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
+            StringUtils.fitDatePlace(text7,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
+            //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
             //StringUtils.centerElement(text3, 210, 290);
 
             var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -200,11 +202,12 @@ class JSMedDetRotSpBox implements IBoxRender {
             text8.setAttribute("y", "40");
             text8.setAttribute("font-size", "16px");
             text8.setAttribute("style", "font-family:sans-serif");
+            StringUtils.fitDatePlace(text8,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
             //StringUtils.centerElement(text4, 210, 290);
-            StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
-            text8.textContent = 'B: ' + text8.textContent;
+            //StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
+            //text8.textContent = 'B: ' + text8.textContent;
 
-            var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            /*var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
             secondG.appendChild(text9);
             var nameTextPath = document.createTextNode("");
             text9.appendChild(nameTextPath);
@@ -214,7 +217,7 @@ class JSMedDetRotSpBox implements IBoxRender {
             text9.setAttribute("style", "font-family:tahoma, sans-serif");
             //StringUtils.centerElement(text5, 210, 290);
             StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
-            text9.textContent = 'D: ' + text9.textContent;
+            text9.textContent = 'D: ' + text9.textContent;*/
         }
 
         var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");
