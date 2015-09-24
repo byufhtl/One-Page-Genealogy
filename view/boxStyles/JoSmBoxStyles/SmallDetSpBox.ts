@@ -107,6 +107,8 @@ class JSSmallDetSpBox implements IBoxRender {
         text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
         StringUtils.fitDatePlace(text3,node.getAttr('birthdate'), node.getAttr('birthplace'), 70);
+        //StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
+        //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -146,6 +148,26 @@ class JSSmallDetSpBox implements IBoxRender {
 
         firstG.setAttribute('transform','translate(8,16)')
         secondG.setAttribute('transform','translate(8,16)')
+
+        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
+        //StringUtils.centerElement(text4, 210, 290);
+        //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
+        //text4.textContent = 'B: '+text4.textContent;
+
+        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        firstG.appendChild(text5);
+        var nameTextPath = document.createTextNode("");
+        text5.appendChild(nameTextPath);
+        //text5.setAttribute("x", "160");
+        text5.setAttribute("y", "95");
+        text5.setAttribute("font-size", "20px");
+        text5.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        //StringUtils.centerElement(text5, 210, 290);
+        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
+        text5.textContent = 'D: '+text5.textContent;*/
+
+        firstG.setAttribute('transform','translate(28,50)')
+        secondG.setAttribute('transform','translate(28,50)')
 
         spousenode = node.getDisplaySpouse();
 
@@ -204,6 +226,8 @@ class JSSmallDetSpBox implements IBoxRender {
             text7.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
             StringUtils.fitDatePlace(text7,spousenode.getAttr('birthdate'), spousenode.getAttr('birthplace'), 70);
+            //StringUtils.fitDatePlace(text7,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
+            //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
             //StringUtils.centerElement(text3, 210, 290);
 
             var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -215,7 +239,7 @@ class JSSmallDetSpBox implements IBoxRender {
             text8.setAttribute("font-size", "8px");
             text8.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
-            StringUtils.fitDatePlace(text8,spousenode.getAttr('deathdate'), spousenode.getAttr('deathplace'), 70);
+            StringUtils.fitDatePlace(text8,spousenode.getAttr('deathdate'), spousenode.getAttr('deathplace'), 70)
 
 
             //StringUtils.centerElement(text, 210, 290);
@@ -256,6 +280,21 @@ class JSSmallDetSpBox implements IBoxRender {
             ////StringUtils.centerElement(text5, 210, 290);
             //StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
             //text9.textContent = 'D: ' + text9.textContent;
+            //StringUtils.centerElement(text4, 210, 290);
+            //StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
+            //text8.textContent = 'B: ' + text8.textContent;
+
+            /*var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            secondG.appendChild(text9);
+            var nameTextPath = document.createTextNode("");
+            text9.appendChild(nameTextPath);
+            //text9.setAttribute("x", "160");
+            text9.setAttribute("y", "95");
+            text9.setAttribute("font-size", "20px");
+            text9.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            //StringUtils.centerElement(text5, 210, 290);
+            StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
+            text9.textContent = 'D: ' + text9.textContent;*/
         }
 
         var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");

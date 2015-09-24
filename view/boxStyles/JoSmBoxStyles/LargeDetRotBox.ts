@@ -81,8 +81,8 @@ class JSLargeDetRotBox implements IBoxRender {
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
-
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
+        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
+        //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
         StringUtils.centerElement(text3, 65, 300);
 
@@ -95,11 +95,12 @@ class JSLargeDetRotBox implements IBoxRender {
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
         //StringUtils.centerElement(text4, 210, 290);
-        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
-        text4.textContent = 'B: '+text4.textContent;
+        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
+        //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
+        //text4.textContent = 'B: '+text4.textContent;
         StringUtils.centerElement(text4, 65, 300);
 
-        var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text5);
         var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
@@ -110,7 +111,7 @@ class JSLargeDetRotBox implements IBoxRender {
         //StringUtils.centerElement(text5, 210, 290);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 25);
         text5.textContent = 'D: '+text5.textContent;
-        StringUtils.centerElement(text5, 65, 300);
+        StringUtils.centerElement(text5, 65, 300);*/
 
 
         var gender = 'none';
@@ -152,7 +153,7 @@ class JSLargeDetRotBox implements IBoxRender {
         return 440;
     }
     getWidth(): number {
-        return 199+2+3;//214;
+        return 169+2+3;//214;
     }
     requiresLoad(): boolean {
         return true;

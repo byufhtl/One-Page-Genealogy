@@ -82,8 +82,8 @@ class JSMedDetBox implements IBoxRender {
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
-
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
+        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
+        //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
         StringUtils.centerElement(text3, 40, 265);
 
@@ -96,11 +96,12 @@ class JSMedDetBox implements IBoxRender {
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
         //StringUtils.centerElement(text4, 210, 290);
-        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
-        text4.textContent = 'B: '+text4.textContent;
+        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
+        //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
+        //text4.textContent = 'B: '+text4.textContent;
         StringUtils.centerElement(text4, 40, 265);
 
-        var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text5);
         var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
@@ -111,7 +112,7 @@ class JSMedDetBox implements IBoxRender {
         //StringUtils.centerElement(text5, 210, 290);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 25);
         text5.textContent = 'D: '+text5.textContent;
-        StringUtils.centerElement(text5, 40, 265);
+        StringUtils.centerElement(text5, 40, 265);*/
 
 
         var gender = 'none';
@@ -151,7 +152,7 @@ class JSMedDetBox implements IBoxRender {
         return "JSMedDetBox";
     }
     getHeight(): number {
-        return 150;
+        return 135;
     }
     getWidth(): number {
         return 350;//214;
