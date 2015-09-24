@@ -409,7 +409,7 @@ class StringUtils {
         StringUtils.initializeCountries();
         //StringUtils.fitToBoxesFiveAndSix(place);
         if(place != undefined){
-            place = StringUtils.removeCounty(place); //Removes county for everybody
+            place = StringUtils.JSremoveCounty(place); //Removes county for everybody
             var places = place.split(",");
 
             //places = StringUtils.removeCounty(places); //Removes county for everybody
@@ -1035,6 +1035,25 @@ class StringUtils {
             var places = place.split(",");
             if(places.length >= 4){
                 var length = places.length - 2;
+                for(var i = 1; i < length; i++){
+                    places[i] = null;
+                }
+            }
+            return StringUtils.toPlaceString(places);
+        }
+        return place;
+    }
+
+    private static JSremoveCounty(place){
+        if(place != undefined){
+            var places = place.split(",");
+            if(places.length >= 4){
+                var length = places.length - 2;
+                for(var i = 1; i < length; i++){
+                    places[i] = null;
+                }
+            }else if(places.length >= 3){
+                var length = places.length - 1;
                 for(var i = 1; i < length; i++){
                     places[i] = null;
                 }
