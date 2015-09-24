@@ -383,7 +383,7 @@ class JSMedDetRotSpBox implements IBoxRender {
             rect.setAttribute('stroke','black');
         }
         else if(!grayScale) {
-            rect.setAttribute('fill','#E2C6FF');//'#CC99FF');
+            rect.setAttribute('fill','#F9F4FF');//'#CC99FF');
             rect.setAttribute('stroke', '#CC66FF');
 
         }

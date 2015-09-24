@@ -144,7 +144,6 @@ class JSMedDetBox implements IBoxRender {
     }
     move(box:IBox, graphic: any): any {
         //graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");
-        console.log(box)
         graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
             (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
