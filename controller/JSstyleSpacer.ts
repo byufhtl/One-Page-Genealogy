@@ -139,10 +139,10 @@ class JSstyleSpacer implements  IStyler {
             var spouse = childBox.getNode().getSpouses()[0];
 
             if(numSpouses==0){
-                childBox.setType('JSMedDetBox');
+                childBox.setType('JSSmallDetBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSMedDetBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSMedDetBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallDetBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallDetBox'));
                 childBox.setSpouseNode(null);
             }else if(numSpouses==1){
                 childBox.setType('JSSmallDetSpBox');
@@ -220,6 +220,5 @@ class JSstyleSpacer implements  IStyler {
             }
             /////ADDED FOR FUN
         }
-
     }
 }

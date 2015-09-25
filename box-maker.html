@@ -115,6 +115,7 @@
     <script src="view/boxStyles/JoSmBoxStyles/SmallestDetSpBox.js" type="text/javascript"></script>
     <script src="view/boxStyles/JoSmBoxStyles/SmallestDetBox.js" type="text/javascript"></script>
     <script src="view/boxStyles/IdBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmBoxStyles/SmallDetBox.js" type="text/javascript"></script>
 
 
     <script>
@@ -167,12 +168,16 @@
             var box = new Box(gedNode);
             box.setX(10);
             box.setY(10);
-            box.setType('JSSmallestDetBox')
+
+            box.setType('JSSmallDetBox')
+
             box.setSpace(0);
 
             console.log(box.getNode())
 
-            var render = new JSSmallestDetBox();
+            var render = new JSSmallDetBox();
+            console.log(render)
+
             render.render(box, document.getElementById('svg-g'));
         });
     </script>
