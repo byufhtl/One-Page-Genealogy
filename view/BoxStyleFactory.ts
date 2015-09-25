@@ -41,6 +41,10 @@
 ///<reference path="boxStyles/JoSmBoxStyles/LargeDetRotBox.ts"/>
 ///<reference path="boxStyles/JoSmBoxStyles/JSMedDetBox.ts"/>
 ///<reference path="boxStyles/JoSmBoxStyles/SmallDetSpBox.ts"/>
+///<reference path="boxStyles/JoSmBoxStyles/SmallerDetSpBox.ts"/>
+///<reference path="boxStyles/JoSmBoxStyles/SmallerDetBox.ts"/>
+///<reference path="boxStyles/JoSmBoxStyles/SmallestDetSpBox.ts"/>
+///<reference path="boxStyles/JoSmBoxStyles/SmallestDetBox.ts"/>
 
 ///<reference path="boxStyles/IdBox.ts"/>
 ///<reference path="boxStyles/BuildBox.ts"/>
@@ -98,6 +102,10 @@ class BoxStyleFactory {
         boxTypes.push(new JSLargeDetRotBox());
         boxTypes.push(new JSMedDetBox());
         boxTypes.push(new JSSmallDetSpBox());
+        boxTypes.push(new JSSmallerDetSpBox());
+        boxTypes.push(new JSSmallerDetBox());
+        boxTypes.push(new JSSmallestDetSpBox());
+        boxTypes.push(new JSSmallestDetBox());
         boxTypes.push(new BuildBox());
         boxTypes.push(new IdBox());
 

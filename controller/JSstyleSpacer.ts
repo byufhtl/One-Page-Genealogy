@@ -170,16 +170,16 @@ class JSstyleSpacer implements  IStyler {
             var spouse = childBox.getNode().getSpouses()[0];
 
             if(numSpouses==0){
-                childBox.setType('JSMedDetBox');
+                childBox.setType('JSSmallerDetBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSMedDetBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSMedDetBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallerDetBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallerDetBox'));
                 childBox.setSpouseNode(null);
             }else if(numSpouses==1){
-                childBox.setType('JSSmallDetSpBox');
+                childBox.setType('JSSmallerDetSpBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallDetSpBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallDetSpBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallerDetSpBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallerDetSpBox'));
                 childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
             }else{
                 childBox.setType('nullBox');
@@ -189,7 +189,7 @@ class JSstyleSpacer implements  IStyler {
             }
             /////ADDED FOR FUN
         }
-        else if(generation == 5) {
+        else if(generation >= 5) {
             if(parentBox.getNode().getSpouses().length>1){
                 bx = parentBox.getX()+10;// - 150;
             }
@@ -201,16 +201,16 @@ class JSstyleSpacer implements  IStyler {
             var spouse = childBox.getNode().getSpouses()[0];
 
             if(numSpouses==0){
-                childBox.setType('JSMedDetBox');
+                childBox.setType('JSSmallestDetBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSMedDetBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSMedDetBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallestDetBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallestDetBox'));
                 childBox.setSpouseNode(null);
             }else if(numSpouses==1){
-                childBox.setType('JSSmallDetSpBox');
+                childBox.setType('JSSmallestDetSpBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallDetSpBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallDetSpBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallestDetSpBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallestDetSpBox'));
                 childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
             }else{
                 childBox.setType('nullBox');
@@ -220,101 +220,6 @@ class JSstyleSpacer implements  IStyler {
             }
             /////ADDED FOR FUN
         }
-        else if(generation == 6) {
-            if(parentBox.getNode().getSpouses().length>1){
-                bx = parentBox.getX()+10;// - 150;
-            }
-            else {
-                bx = parentBox.getX() + parentBox.getWidth() + 10;
-            }
-            /////ADDED FOR FUN
-            var numSpouses = childBox.getNode().getSpouses().length;
-            var spouse = childBox.getNode().getSpouses()[0];
 
-            if(numSpouses==0){
-                childBox.setType('JSMedDetBox');
-                childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSMedDetBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSMedDetBox'));
-                childBox.setSpouseNode(null);
-            }else if(numSpouses==1){
-                childBox.setType('JSSmallDetSpBox');
-                childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallDetSpBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallDetSpBox'));
-                childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
-            }else{
-                childBox.setType('nullBox');
-                childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('nullBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('nullBox'));
-            }
-            /////ADDED FOR FUN
-        }
-        else if(generation == 7) {
-            if(parentBox.getNode().getSpouses().length>1){
-                bx = parentBox.getX()+10;// - 150;
-            }
-            else {
-                bx = parentBox.getX() + parentBox.getWidth() + 10;
-            }
-            /////ADDED FOR FUN
-            var numSpouses = childBox.getNode().getSpouses().length;
-            var spouse = childBox.getNode().getSpouses()[0];
-
-            if(numSpouses==0){
-                childBox.setType('JSMedDetBox');
-                childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSMedDetBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSMedDetBox'));
-                childBox.setSpouseNode(null);
-            }else if(numSpouses==1&&spouse != null){
-                childBox.setType('JSSmallDetSpBox');
-                childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallDetSpBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallDetSpBox'));
-                childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
-            }else{
-                childBox.setType('nullBox');
-                childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('nullBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('nullBox'));
-            }
-            /////ADDED FOR FUN
-        }
-        else {
-            if(parentBox.getNode().getSpouses().length>1){
-                bx = parentBox.getX()+10;// - 150;
-            }
-            else {
-                bx = parentBox.getX() + parentBox.getWidth() + 10;
-            }
-            /*if(generation <= 8) {
-             bx = parentBox.getX() + parentBox.getWidth()/2 + 10;
-             }*/
-            /////ADDED FOR FUN
-            var numSpouses = childBox.getNode().getSpouses().length;
-            var spouse = childBox.getNode().getSpouses()[0];
-
-            if(numSpouses==0){
-                childBox.setType('JSMedDetBox');
-                childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSMedDetBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSMedDetBox'));
-                childBox.setSpouseNode(null);
-            }else if(numSpouses==1){
-                childBox.setType('JSSmallDetSpBox');
-                childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallDetSpBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallDetSpBox'));
-                childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
-            }else{
-                childBox.setType('nullBox');
-                childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('nullBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('nullBox'));
-            }
-            /////ADDED FOR FUN
-        }
     }
 }

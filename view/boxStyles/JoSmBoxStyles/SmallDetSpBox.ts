@@ -102,7 +102,7 @@ class JSSmallDetSpBox implements IBoxRender {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         //text3.setAttribute("x", "160");
-        text3.setAttribute("y", "9");
+        text3.setAttribute("y", "11");
         text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
@@ -116,7 +116,7 @@ class JSSmallDetSpBox implements IBoxRender {
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
         //text3.setAttribute("x", "160");
-        text4.setAttribute("y", "18");
+        text4.setAttribute("y", "20");
         text4.setAttribute("font-size", "8px");
         text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
@@ -166,8 +166,7 @@ class JSSmallDetSpBox implements IBoxRender {
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
         text5.textContent = 'D: '+text5.textContent;*/
 
-        firstG.setAttribute('transform','translate(28,50)')
-        secondG.setAttribute('transform','translate(28,50)')
+
 
         spousenode = node.getDisplaySpouse();
 
@@ -221,7 +220,7 @@ class JSSmallDetSpBox implements IBoxRender {
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
             //text3.setAttribute("x", "160");
-            text7.setAttribute("y", "9");
+            text7.setAttribute("y", "11");
             text7.setAttribute("font-size", "8px");
             text7.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
@@ -235,7 +234,7 @@ class JSSmallDetSpBox implements IBoxRender {
             var nameTextPath = document.createTextNode("");
             text8.appendChild(nameTextPath);
             //text3.setAttribute("x", "160");
-            text8.setAttribute("y", "18");
+            text8.setAttribute("y", "20");
             text8.setAttribute("font-size", "8px");
             text8.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
@@ -305,7 +304,7 @@ class JSSmallDetSpBox implements IBoxRender {
         //var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(date.toDateString()));
         //text10.appendChild(nameTextPath);
         text10.setAttribute("x", "100");
-        text10.setAttribute("y", "41");
+        text10.setAttribute("y", "43");
         text10.setAttribute("font-size", "8px");
         text10.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
@@ -341,7 +340,7 @@ class JSSmallDetSpBox implements IBoxRender {
         return "JSSmallDetSpBox";
     }
     getHeight(): number {
-        return 55;
+        return 57;
     }
     getWidth(): number {
         return 250;//214;
