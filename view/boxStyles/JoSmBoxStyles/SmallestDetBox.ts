@@ -23,7 +23,7 @@ class JSSmallestDetBox implements IBoxRender {
         }
 
         g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
-        gt.setAttribute("transform","translate(7, 8)");
+        gt.setAttribute("transform","translate(7, 7)");
 
 
         rect.setAttribute('rx', "7");
@@ -151,7 +151,7 @@ class JSSmallestDetBox implements IBoxRender {
         return "JSSmallestDetBox";
     }
     getHeight(): number {
-        return 16;
+        return 15;
     }
     getWidth(): number {
         return 250;//214;

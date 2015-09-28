@@ -149,7 +149,7 @@ class JSSmallerDetBox implements IBoxRender {
         return "JSSmallerDetBox";
     }
     getHeight(): number {
-        return 15;
+        return 18;
     }
     getWidth(): number {
         return 250;//214;
