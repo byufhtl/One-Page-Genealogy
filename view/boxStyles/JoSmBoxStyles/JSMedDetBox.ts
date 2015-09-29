@@ -69,7 +69,7 @@ class JSMedDetBox implements IBoxRender {
         text.setAttribute('font-size', '35px');
         text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
         StringUtils.fitName(text, nameString, 16);
-        StringUtils.centerElement(text, 40, 265);
+        StringUtils.centerElement(text, 30, 255);
         text.setAttribute('y','50')
         text.setAttribute("font-weight", "bold");
 
@@ -85,7 +85,7 @@ class JSMedDetBox implements IBoxRender {
         StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
-        StringUtils.centerElement(text3, 40, 265);
+        StringUtils.centerElement(text3, 30, 255);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text4);
@@ -99,7 +99,7 @@ class JSMedDetBox implements IBoxRender {
         StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
         //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
         //text4.textContent = 'B: '+text4.textContent;
-        StringUtils.centerElement(text4, 40, 265);
+        StringUtils.centerElement(text4, 30, 255);
 
         /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text5);
@@ -154,7 +154,7 @@ class JSMedDetBox implements IBoxRender {
         return 135;
     }
     getWidth(): number {
-        return 350;//214;
+        return 325;//214;
     }
     requiresLoad(): boolean {
         return true;
