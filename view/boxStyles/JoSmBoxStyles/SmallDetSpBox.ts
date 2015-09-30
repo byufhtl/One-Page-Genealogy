@@ -106,7 +106,7 @@ class JSSmallDetSpBox implements IBoxRender {
         text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
-        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'), node.getAttr('birthplace'), 70);
+        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'), node.getAttr('birthplace'), 28);
         //StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
@@ -120,7 +120,7 @@ class JSSmallDetSpBox implements IBoxRender {
         text4.setAttribute("font-size", "8px");
         text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
-        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'), node.getAttr('deathplace'), 70);
+        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'), node.getAttr('deathplace'), 28);
 
         //var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         //firstG.appendChild(text4);
@@ -149,7 +149,7 @@ class JSSmallDetSpBox implements IBoxRender {
         firstG.setAttribute('transform','translate(8,16)')
         secondG.setAttribute('transform','translate(8,16)')
 
-        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
+        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),28);
         //StringUtils.centerElement(text4, 210, 290);
         //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
         //text4.textContent = 'B: '+text4.textContent;
@@ -226,7 +226,7 @@ class JSSmallDetSpBox implements IBoxRender {
             text7.setAttribute("font-size", "8px");
             text7.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
-            StringUtils.fitDatePlace(text7,spousenode.getAttr('birthdate'), spousenode.getAttr('birthplace'), 70);
+            StringUtils.fitDatePlace(text7,spousenode.getAttr('birthdate'), spousenode.getAttr('birthplace'), 28);
             //StringUtils.fitDatePlace(text7,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
             //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
             //StringUtils.centerElement(text3, 210, 290);
@@ -240,7 +240,7 @@ class JSSmallDetSpBox implements IBoxRender {
             text8.setAttribute("font-size", "8px");
             text8.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
-            StringUtils.fitDatePlace(text8,spousenode.getAttr('deathdate'), spousenode.getAttr('deathplace'), 70)
+            StringUtils.fitDatePlace(text8,spousenode.getAttr('deathdate'), spousenode.getAttr('deathplace'), 28)
 
 
 

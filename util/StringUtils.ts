@@ -31,22 +31,22 @@ class StringUtils {
     public static fitDate(textObj, birthDateStr, deathDateStr, width) {
         var longDate = '( '+StringUtils.standardDate(birthDateStr)+" - "+StringUtils.standardDate(deathDateStr)+" )";
         textObj.textContent = longDate;
-        if(textObj.getSubStringLength(0, longDate.length)<width) {
+        if(longDate.length<width){//textObj.getSubStringLength(0, longDate.length)<width) {
             return;
         }
         var medDate = '('+StringUtils.standardDate(birthDateStr)+"-"+StringUtils.standardDate(deathDateStr)+")";
         textObj.textContent = medDate;
-        if(textObj.getSubStringLength(0, medDate.length)<width) {
+        if(medDate.length<width){//textObj.getSubStringLength(0, medDate.length)<width) {
             return;
         }
         var smDate = '('+new Date(birthDateStr).getFullYear()+"-"+new Date(deathDateStr).getFullYear()+")";
         textObj.textContent = smDate;
-        if(textObj.getSubStringLength(0, smDate.length)<width) {
+        if(smDate.length<width){//textObj.getSubStringLength(0, smDate.length)<width) {
             return;
         }
         var xsDate = '('+new Date(birthDateStr).getFullYear()+"-"+(new Date(deathDateStr).getFullYear()+"").substring(2, 4);+")";
         textObj.textContent = xsDate;
-        if(textObj.getSubStringLength(0, xsDate.length)<width) {
+        if(xsDate.length<width){//textObj.getSubStringLength(0, xsDate.length)<width) {
             return;
         }
     }
@@ -90,7 +90,7 @@ class StringUtils {
         //1) Check to see if original can fit in given width
         var longName = name;
         textObj.textContent = longName;
-        if(textObj.getSubStringLength(0, longName.length)<width) {
+        if(longName.length < width){//textObj.getSubStringLength(0, longName.length)<width) {
             return;
         }
 
@@ -357,7 +357,7 @@ class StringUtils {
         //1) Check to see if original can fit in given width
         var longPlace = place;
         textObj.textContent = longPlace;
-        if (textObj.getSubStringLength(0, longPlace.length) < width) {
+        if (longPlace.length<width){//textObj.getSubStringLength(0, longPlace.length) < width) {
             return;
         }
 
@@ -401,7 +401,7 @@ class StringUtils {
         //1) Check to see if original can fit in given width
         var longPlace = place;
         textObj.textContent = longPlace;
-        if (textObj.getSubStringLength(0, longPlace.length) < width) {
+        if (longPlace.length<width){//textObj.getSubStringLength(0, longPlace.length) < width) {
             return;
         }
 
@@ -497,7 +497,7 @@ class StringUtils {
         //1) Check to see if original can fit in given width
         var longPlace = 'B: '+place1+ ' D: '+place2;
         textObj.textContent = longPlace;
-        if (textObj.getSubStringLength(0, longPlace.length) < width) {
+        if (longPlace.length<width){//textObj.getSubStringLength(0, longPlace.length) < width) {
             return;
         }
 

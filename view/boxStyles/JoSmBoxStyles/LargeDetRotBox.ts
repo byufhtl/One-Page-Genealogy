@@ -81,7 +81,7 @@ class JSLargeDetRotBox implements IBoxRender {
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
-        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
+        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),45);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
         StringUtils.centerElement(text3, 65, 300);
@@ -95,7 +95,7 @@ class JSLargeDetRotBox implements IBoxRender {
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
         //StringUtils.centerElement(text4, 210, 290);
-        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
+        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),45);
         //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
         //text4.textContent = 'B: '+text4.textContent;
         StringUtils.centerElement(text4, 65, 300);

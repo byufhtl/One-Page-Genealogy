@@ -69,7 +69,7 @@ class JSMedDetBox implements IBoxRender {
         text.setAttribute('font-size', '35px');
         text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
         StringUtils.fitName(text, nameString, 16);
-        StringUtils.centerElement(text, 40, 265);
+        StringUtils.centerElement(text, 35, 265);
         text.setAttribute('y','50')
         text.setAttribute("font-weight", "bold");
 
@@ -82,7 +82,7 @@ class JSMedDetBox implements IBoxRender {
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
-        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
+        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),32);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
         StringUtils.centerElement(text3, 40, 265);
@@ -96,7 +96,7 @@ class JSMedDetBox implements IBoxRender {
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
         //StringUtils.centerElement(text4, 210, 290);
-        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
+        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),32);
         //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
         //text4.textContent = 'B: '+text4.textContent;
         StringUtils.centerElement(text4, 40, 265);
