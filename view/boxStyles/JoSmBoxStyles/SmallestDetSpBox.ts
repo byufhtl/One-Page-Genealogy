@@ -17,7 +17,7 @@ class JSSmallestDetSpBox implements IBoxRender {
 
 
         rect.setAttribute('width', String(this.getWidth()-4));
-        rect.setAttribute('height', String(box.getHeight()-6-box.getSpace()));
+        rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -36,7 +36,7 @@ class JSSmallestDetSpBox implements IBoxRender {
         rect2.setAttribute('stroke-width','2')
         rect2.setAttribute('stroke','#E2C6FF')
         rect2.setAttribute('width', String(this.getWidth()-8));
-        rect2.setAttribute('height', String(box.getHeight()-10-box.getSpace()));
+        rect2.setAttribute('height', String(box.getHeight()-6-box.getSpace()));
         //rect2.setAttribute('height', String(box.getHeight()-10));
         g.appendChild(rect2)
         rect2.setAttribute('x','2')
@@ -108,8 +108,8 @@ class JSSmallestDetSpBox implements IBoxRender {
 
          StringUtils.fitDatePlace(text4,node.getAttr('deathdate'), node.getAttr('deathplace'), 70);*/
 
-        firstG.setAttribute('transform','translate(4,9)')
-        secondG.setAttribute('transform','translate(4,9)')
+        firstG.setAttribute('transform','translate(7,10)')
+        secondG.setAttribute('transform','translate(7,10)')
 
         //StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
         //StringUtils.centerElement(text4, 210, 290);
@@ -132,22 +132,22 @@ class JSSmallestDetSpBox implements IBoxRender {
             if(spousenode.hasAttr('gender')){
                 secondGGender = spousenode.getAttr('gender')
                 if(secondGGender== "Male"){
-                    firstG.setAttribute('transform','translate(4,18)')
+                    firstG.setAttribute('transform','translate(7,19)')
                 }else{
-                    secondG.setAttribute('transform','translate(4,18)')
+                    secondG.setAttribute('transform','translate(7,19)')
                 }
             }else if(node.hasAttr('gender')){
                 firstGGender = node.getAttr('gender')
                 if(firstGGender == "Male"){
-                    secondG.setAttribute('transform','translate(4,18)')
+                    secondG.setAttribute('transform','translate(7,19)')
                 }else{
-                    firstG.setAttribute('transform','translate(4,18)')
+                    firstG.setAttribute('transform','translate(7,19)')
                 }
             }else{
                 if(spousenode.isMainPerson()){
-                    firstG.setAttribute('transform','translate(4,18)')
+                    firstG.setAttribute('transform','translate(7,19)')
                 }else {
-                    secondG.setAttribute('transform','translate(4,18)')
+                    secondG.setAttribute('transform','translate(7,19)')
                 }
             }
             //console.log("apparently spousenode isn't null.....")
@@ -234,7 +234,7 @@ class JSSmallestDetSpBox implements IBoxRender {
         return "JSSmallestDetSpBox";
     }
     getHeight(): number {
-        return 28;
+        return 25;
     }
     getWidth(): number {
         return 245;//214;

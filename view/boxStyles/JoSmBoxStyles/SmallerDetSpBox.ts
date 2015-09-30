@@ -16,7 +16,7 @@ class JSSmallerDetSpBox implements IBoxRender {
 
 
         rect.setAttribute('width', String(this.getWidth()-4));
-        rect.setAttribute('height', String(box.getHeight()-6-box.getSpace()));
+        rect.setAttribute('height', String(box.getHeight()-3-box.getSpace()));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -25,8 +25,8 @@ class JSSmallerDetSpBox implements IBoxRender {
         g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
 
 
-        rect.setAttribute('rx', "7");
-        rect.setAttribute('ry', "7");
+        rect.setAttribute('rx', "7.5");
+        rect.setAttribute('ry', "7.5");
         rect.setAttribute('stroke-width', '2');
         rect.setAttribute('stroke', 'black')
         var rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -35,7 +35,7 @@ class JSSmallerDetSpBox implements IBoxRender {
         rect2.setAttribute('stroke-width','3')
         rect2.setAttribute('stroke','#E2C6FF')
         rect2.setAttribute('width', String(this.getWidth()-10));
-        rect2.setAttribute('height', String(box.getHeight()-12-box.getSpace()));
+        rect2.setAttribute('height', String(box.getHeight()-9-box.getSpace()));
         //rect2.setAttribute('height', String(box.getHeight()-10));
         g.appendChild(rect2)
         rect2.setAttribute('x','3')
@@ -234,7 +234,7 @@ class JSSmallerDetSpBox implements IBoxRender {
         return "JSSmallerDetSpBox";
     }
     getHeight(): number {
-        return 40;
+        return 35;
     }
     getWidth(): number {
         return 250;//214;

@@ -16,7 +16,7 @@ class JSSmallestDetBox implements IBoxRender {
 
 
         rect.setAttribute('width', String(this.getWidth()-4));
-        rect.setAttribute('height', String(box.getHeight()-6-box.getSpace()));
+        rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -26,20 +26,20 @@ class JSSmallestDetBox implements IBoxRender {
         gt.setAttribute("transform","translate(7, 7)");
 
 
-        rect.setAttribute('rx', "7");
-        rect.setAttribute('ry', "7");
-        rect.setAttribute('stroke-width', '2');
+        rect.setAttribute('rx', "6");
+        rect.setAttribute('ry', "6");
+        rect.setAttribute('stroke-width', '1');
         rect.setAttribute('stroke', 'black')
         var rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect2.setAttribute('rx','5')
-        rect2.setAttribute('ry','5')
+        rect2.setAttribute('rx','4.5')
+        rect2.setAttribute('ry','4.5')
         rect2.setAttribute('stroke-width','1')
         rect2.setAttribute('stroke','#FFFF66')
         rect2.setAttribute('width', String(this.getWidth()-7));
-        rect2.setAttribute('height', String(box.getHeight()-9-box.getSpace()));
+        rect2.setAttribute('height', String(box.getHeight()-4-box.getSpace()));
         //rect2.setAttribute('height', String(box.getHeight()-10));
         g.appendChild(rect2)
-        rect2.setAttribute('x','1')
+        rect2.setAttribute('x','1.5')
         rect2.setAttribute('y','1')
         rect2.setAttribute('fill-opacity','.001')
 
@@ -64,20 +64,16 @@ class JSSmallestDetBox implements IBoxRender {
         //spousenode = sn;
         //}
 
-        //var secondG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        //var firstG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text);
 
-        //gt.appendChild(firstG);
-        //firstG.appendChild(text);
-        //gt.appendChild(secondG)
 
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
             //text.setAttribute("x", "5");
-            //text.setAttribute("y", "2");
+            text.setAttribute("y", "2");
             text.setAttribute("font-size", "9px");
             text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
             if(node.isMainPerson())
@@ -92,7 +88,7 @@ class JSSmallestDetBox implements IBoxRender {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "150");
-        //text3.setAttribute("y", "11");
+        text3.setAttribute("y", "2");
         text3.setAttribute("font-size", "9px");
         text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
         StringUtils.fitYearsState(text3,node.getAttr('birthdate'),node.getAttr('deathdate'),node.getAttr('birthplace'),20);
@@ -154,7 +150,7 @@ class JSSmallestDetBox implements IBoxRender {
         return 15;
     }
     getWidth(): number {
-        return 250;//214;
+        return 245;//214;
     }
     requiresLoad(): boolean {
         return true;
