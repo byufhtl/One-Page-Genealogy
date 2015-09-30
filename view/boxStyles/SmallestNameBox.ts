@@ -54,7 +54,7 @@ class SmallestNameBox implements IBoxRender {
         text3.setAttribute("y", "7");
         text3.setAttribute("font-size", "9px");
         text3.setAttribute("style", "font-family:tahoma, sans-serif");
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 55);
+        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
 
         var gender = 'none';
         var grayScale = box.isGray();

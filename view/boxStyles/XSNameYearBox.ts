@@ -52,7 +52,7 @@ class XSNameYearBox implements IBoxRender {
         text3.setAttribute("y", "7");
         text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", "font-family:tahoma, sans-serif");
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 50);
+        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
 //        StringUtils.centerElement(text3, 0, 160);
 
         var gender = 'none';

@@ -127,7 +127,7 @@ class JSstyleSpacer implements  IStyler {
             }
             /////ADDED FOR FUN
         }
-        else if(generation == 4) {
+        else if(generation == 3) {
             if(parentBox.getNode().getSpouses().length>1){
                 bx = parentBox.getX()+10;// - 150;
             }
@@ -158,7 +158,7 @@ class JSstyleSpacer implements  IStyler {
             }
             /////ADDED FOR FUN
         }
-        else if(generation == 3) {
+        else if(generation == 4) {
             if(parentBox.getNode().getSpouses().length>1){
                 bx = parentBox.getX()+10;// - 150;
             }
