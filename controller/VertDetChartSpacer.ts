@@ -91,7 +91,7 @@ class VertDetChartSpacer implements  IStyler {
             childBox.setWidth(BoxStyleFactory.getWidth('xsNameYearBox'));
         }
         else {
-            var bx = 0;//parentBox.getX() + parentBox.getWidth() + 10;
+            var bx = parentBox.getX() + parentBox.getWidth() + 10;
             /*if(generation <= 8) {
                 bx = parentBox.getX() + parentBox.getWidth()/2 + 10;
             }*/

@@ -177,8 +177,8 @@
                         var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
                         var user = response.getUser();
                         var c = new C({
-                            //rootId: user.personId,
-                            rootId: 'LZJK-8TN',
+                            rootId: user.personId,
+                            //rootId: 'LZJK-8TN',
                             generations: generations,
                             dscOrAsc: dscOrAsc
                         })
