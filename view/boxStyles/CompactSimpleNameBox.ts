@@ -37,14 +37,13 @@ class CompactSimpleNameBox implements IBoxRender {
         }
 
         var gender = 'none';
-        var grayScale = box.isGray();
         if(node.hasAttr('gender')) {
             gender = node.getAttr('gender');
         }
-        if(gender === 'Male' && !grayScale) {
+        if(gender === 'Male') {
             rect.setAttribute('fill','#8DEEEE');
         }
-        else if(gender === 'Female' && !grayScale) {
+        else if(gender === 'Female') {
             rect.setAttribute('fill','#FFD1DC');
         }
         else {

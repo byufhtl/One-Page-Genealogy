@@ -8,7 +8,6 @@ class GenderColorSpacer implements  IStyler {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
 
-        root.setGray(false);
         root.setColor(null);
 
         var queue = [];
@@ -26,7 +25,6 @@ class GenderColorSpacer implements  IStyler {
                 if(!branchBox) {
                     continue;
                 }
-                branchBox.setGray(false);
                 branchBox.setColor(null);
 
                 queue.push([branchIds[i], generation+1]);

@@ -125,21 +125,20 @@ class JSSmallDetBox implements IBoxRender {
 
         firstG.setAttribute('transform','translate(8,16)')
 
-        var grayScale = box.isGray();
         //if(box.getColor()!= null && !grayScale){
         //    rect.setAttribute('fill', box.getColor());
         //    rect.setAttribute('stroke','black');
         //}
         //else
-        if(!grayScale) {
+        //if(!grayScale) {
             rect.setAttribute('fill','#F9F4FF');//'#CC99FF');
             //rect.setAttribute('stroke', '#CC66FF');
 
-        }
-        else {
-            rect.setAttribute('fill','#E5E5E5');
-            rect.setAttribute('stroke', 'black');
-        }
+        //}
+        //else {
+        //    rect.setAttribute('fill','#E5E5E5');
+        //    rect.setAttribute('stroke', 'black');
+        //}
 
 
         return g;

@@ -202,22 +202,20 @@ class JSSmallerDetSpBox implements IBoxRender {
         //text10.setAttribute("font-size", "8px");
         //text10.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
-
-        var grayScale = box.isGray();
         //if(box.getColor()!= null && !grayScale){
         //    rect.setAttribute('fill', box.getColor());
         //    rect.setAttribute('stroke','black');
         //}
         //else
-        if(!grayScale) {
+        //if(!grayScale) {
             rect.setAttribute('fill','#F9F4FF');//'#CC99FF');
             //rect.setAttribute('stroke', '#CC66FF');
 
-        }
-        else {
-            rect.setAttribute('fill','#E5E5E5');
-            rect.setAttribute('stroke', 'black');
-        }
+        //}
+        //else {
+        //    rect.setAttribute('fill','#E5E5E5');
+        //    rect.setAttribute('stroke', 'black');
+        //}
 
 
 

@@ -35,7 +35,6 @@ class ColorSpacer implements  IStyler {
         }
     }
     private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
-        childBox.setGray(false);
         if(generation == 0) {
             childBox.setColor('#a8f7ff');
 
@@ -48,7 +47,6 @@ class ColorSpacer implements  IStyler {
         }
     }
     private setBasedOnBranch(parentBox: IBox, childBox: IBox, generation: number, child: number, numSiblings: number){
-        childBox.setGray(false);
         //#a9ffaf green  12582849(green)
         //#ffffaf yellow 13092607(blue)
         //#fddcaf orange

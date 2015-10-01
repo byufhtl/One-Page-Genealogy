@@ -176,24 +176,13 @@ class XSSpBox implements IBoxRender {
         //StringUtils.centerElement(text10, 100, 290)
 
 
-        var grayScale = box.isGray();
-        if(box.getColor()!= null && !grayScale){
+        if(box.getColor()!= null){
             rect.setAttribute('fill', box.getColor());
-            rect.setAttribute('stroke','black');
-        }
-        else if(!grayScale) {
-            rect.setAttribute('fill','#E2C6FF');//'#CC99FF');
-            rect.setAttribute('stroke', '#CC66FF');
-
         }
         else {
-            rect.setAttribute('fill','#E5E5E5');
-            rect.setAttribute('stroke', 'black');
+            rect.setAttribute('fill','#E2C6FF');//'#CC99FF');
+
         }
-
-
-
-
 
         //gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+") rotate(-90 0,0)");
         //gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+")");

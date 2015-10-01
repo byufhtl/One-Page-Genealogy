@@ -11,7 +11,6 @@
 class AbstractBox implements IBox {
     private node: INode;
     private spouseNode: INode;
-    private grey: boolean;
     private color: string;
     private x: number;
     private y: number;
@@ -24,13 +23,6 @@ class AbstractBox implements IBox {
     constructor(node: INode) {
         this.node = node;
         this.collapsed = false;
-    }
-    setGray(b:boolean) {
-        this.grey = b;
-    }
-
-    isGray():boolean {
-        return this.grey;
     }
     setColor(c:string){
         this.color = c;
@@ -97,7 +89,6 @@ class AbstractBox implements IBox {
     }
     copy(): IBox {
         var b:Box = new AbstractBox(this.getNode());
-        b.setGray(this.isGray());
         b.setColor(this.getColor());
         b.setHeight(this.getHeight());
         b.setWidth(this.getWidth());
@@ -109,7 +100,6 @@ class AbstractBox implements IBox {
         return b;
     }
     copyContents(b: IBox): void {
-        b.setGray(this.isGray());
         b.setColor(this.getColor());
         //console.log("Or here? "+this.getHeight());
         b.setHeight(this.getHeight());
@@ -127,7 +117,6 @@ class AbstractBox implements IBox {
         this.collapsed = collapsed;
     }
     clear(): void {
-        this.grey = false;
         this.x = 0;
         this.y = 0;
         this.h = 0;

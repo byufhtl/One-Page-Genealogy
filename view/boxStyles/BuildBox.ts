@@ -29,6 +29,7 @@ class BuildBox implements IBoxRender {
         rect.setAttribute('rx', "20");
         rect.setAttribute('ry', "20");
         rect.setAttribute('stroke-width', '2');
+        rect.setAttribute('stroke', 'black');
         //            StringUtils.centerElement(text, 210, 290);
 
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -102,22 +103,21 @@ class BuildBox implements IBoxRender {
 
 
         var gender = 'none';
-        var grayScale = box.isGray();
         if(node.hasAttr('gender')) {
             gender = node.getAttr('gender');
         }
-        if(gender === 'Male' && !grayScale) {
+        if(gender === 'Male') {
             rect.setAttribute('fill','#8DEEEE');
-            rect.setAttribute('stroke', '#2ee0e0');
+            //rect.setAttribute('stroke', '#2ee0e0');
 
         }
-        else if(gender === 'Female'&& !grayScale) {
+        else if(gender === 'Female') {
             rect.setAttribute('fill','#FFD1DC');
-            rect.setAttribute('stroke', '#ffa3b9');
+            //rect.setAttribute('stroke', '#ffa3b9');
         }
         else {
             rect.setAttribute('fill','#E5E5E5');
-            rect.setAttribute('stroke', '#dddddd');
+            //rect.setAttribute('stroke', '#dddddd');
         }
 
         var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');

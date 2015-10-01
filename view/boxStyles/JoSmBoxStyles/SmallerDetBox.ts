@@ -118,21 +118,20 @@ class JSSmallerDetBox implements IBoxRender {
         //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
         //text4.textContent = 'B: '+text4.textContent;
 
-        var grayScale = box.isGray();
         //if(box.getColor()!= null && !grayScale){
         //    rect.setAttribute('fill', box.getColor());
         //    rect.setAttribute('stroke','black');
         //}
         //else
-        if(!grayScale) {
+        //if(!grayScale) {
             rect.setAttribute('fill','#FFFFE0');//'#CC99FF');
             //rect.setAttribute('stroke', '#CC66FF');
 
-        }
-        else {
-            rect.setAttribute('fill','#E5E5E5');
-            rect.setAttribute('stroke', 'black');
-        }
+        //}
+        //else {
+        //    rect.setAttribute('fill','#E5E5E5');
+        //    rect.setAttribute('stroke', 'black');
+        //}
 
 
 

@@ -29,6 +29,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
         rect.setAttribute('rx', "20");
         rect.setAttribute('ry', "20");
         rect.setAttribute('stroke-width', '2');
+        rect.setAttribute('stroke', 'black');
 
 
 
@@ -224,19 +225,11 @@ class LrgPicDetRotSpBox implements IBoxRender {
         text10.setAttribute("style", "font-family:tahoma, sans-serif");
 
 
-        var grayScale = box.isGray();
-        if(box.getColor()!= null && !grayScale){
+        if(box.getColor()!= null){
             rect.setAttribute('fill', box.getColor());
-            rect.setAttribute('stroke','black');
-        }
-        else if(!grayScale) {
-            rect.setAttribute('fill','#E2C6FF');//'#CC99FF');
-            rect.setAttribute('stroke', '#CC66FF');
-
         }
         else {
-            rect.setAttribute('fill','#E5E5E5');
-            rect.setAttribute('stroke', 'black');
+            rect.setAttribute('fill','#E2C6FF');//'#CC99FF');
         }
 
         var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');

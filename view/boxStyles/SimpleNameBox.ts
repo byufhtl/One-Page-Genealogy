@@ -48,18 +48,16 @@ class SimpleNameBox implements IBoxRender {
         }
 
         var gender = 'none';
-        var grayScale = box.isGray();
         if(node.hasAttr('gender')) {
             gender = node.getAttr('gender');
         }
-        if(box.getColor()!= null && !grayScale){
+        if(box.getColor()!= null){
             rect.setAttribute('fill', box.getColor());
-            rect.setAttribute('stroke','black');
         }
-        else if(gender === 'Male' && !grayScale) {
+        else if(gender === 'Male') {
             rect.setAttribute('fill','#8DEEEE');
         }
-        else if(gender === 'Female' && !grayScale) {
+        else if(gender === 'Female') {
             rect.setAttribute('fill','#FFD1DC');
         }
         else {

@@ -33,7 +33,6 @@ class GreyScaleSpacer implements  IStyler {
         }
     }
     private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
-        //childBox.setGray(true);
         childBox.setColor('white');
     }
 }
