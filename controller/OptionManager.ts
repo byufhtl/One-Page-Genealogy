@@ -34,6 +34,9 @@ class OptionManager implements IOptionManager {
         $('#opg-eight-eleven-detail-style').click(function(){
             self.listener.handleOption('eight-eleven-detail-style', null);
         });
+        $('#opg-js-public-style').click(function(){
+            self.listener.handleOption('js-public-style', null);
+        });
         $('#opg-to-greyscale').click(function(){
             self.listener.handleOption('to-greyscale', null);
         });
