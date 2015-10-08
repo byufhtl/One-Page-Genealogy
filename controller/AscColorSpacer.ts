@@ -58,13 +58,13 @@ class AscColorSpacer implements  IStyler {
             /*if(childBox.getNode().getBranchIds().length>2)
                 childBox.setColor('#d5bde9');//blue
             else*/
-                childBox.setColor('#c4b4f9');//'#a8f7ff');
+                childBox.setColor('#D9ABFF');//'#c4b4f9');//'#a8f7ff');
         }
         else if(generation==1) {
             if(child == 0)//father
-                childBox.setColor('#a8f7ff');//'#b4caff');
+                childBox.setColor('#ABE4FF');//'#a8f7ff');//'#b4caff');
             else //mother
-                childBox.setColor('#ffb8af');//#f8c1ea');
+                childBox.setColor('#FFABAB');//'#ffb8af');//#f8c1ea');
         }
         else if(generation == 2){
             var gender = 'none';
@@ -73,13 +73,13 @@ class AscColorSpacer implements  IStyler {
             }
 
             if(child == 0 && gender === 'Male')//
-                childBox.setColor('#a8f7ff');//'#a8f7ff');
+                childBox.setColor('#ABE4FF');//'#a8f7ff');//'#a8f7ff');
             else if(child == 1 && gender === 'Male')//
-                childBox.setColor('#a9ffaf');
+                childBox.setColor('#DDFFAB');//'#a9ffaf');
             else if(child == 0 && gender === 'Female')
-                childBox.setColor('#ffffaf');
+                childBox.setColor('#FFDAAB');//'#ffffaf');
             else if(child == 1 && gender === 'Female')
-                childBox.setColor('#ffb8af');//'#d5bde9');//'#fddcaf');
+                childBox.setColor('#FFABAB');//'#ffb8af');//'#d5bde9');//'#fddcaf');
             //else
              //   childBox.setColor(parentBox.getColor());
 

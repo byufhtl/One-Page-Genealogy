@@ -49,6 +49,8 @@ class LineManager {
                 if(this.shouldDrawLine(box, firstBox, lastBox)) {
                     var first = this.toCenterPoint(boxes.getId(branchIds[0]));
                     var last = this.toCenterPoint(boxes.getId(branchIds[branchIds.length - 1]));
+                    if(firstBox.getNode().getId() == lastBox.getNode().getId())
+                        last = this.toCenterPoint(box);
                     //var middleX = (first.getX() + cx)/2;
                     var firstBox: IBox= boxes.getId(branchIds[0]);
                     var middleX = first.getX()-firstBox.getWidth()/2 - 5;
@@ -101,6 +103,7 @@ class LineManager {
 
         //var result:boolean = this.allFailSameTest([parentResult, firstResult, lastResult]);
         var result: boolean = this.failedSameTest(parentResult, firstResult, lastResult);
+
         return !result;
     }
     //private allFailSameTest(dictionaries):boolean {
