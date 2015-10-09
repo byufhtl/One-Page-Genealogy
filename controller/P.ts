@@ -18,9 +18,11 @@
 ///<reference path="VertDescDetChartSpacer.ts"/>
 ///<reference path="GreyScaleSpacer.ts"/>
 ///<reference path="ColorSpacer.ts"/>
+///<reference path="AscColorSpacer.ts"/>
 ///<reference path="GenderColorSpacer.ts"/>
 ///<reference path="SpacingSpacer.ts"/>
 ///<reference path="JSstyleSpacer.ts"/>
+///<reference path="JSPublicSpacer.ts"/>
 ///<reference path="IdTest.ts"/>
 /**
  * Created by krr428 on 3/7/15.
@@ -48,7 +50,11 @@ class P implements IControllerListener, ITreeListener {
 
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new ColorSpacer());
+        if(c.dscOrAsc == "descendancy"){
+            this.stylingPipeline.push(new ColorSpacer());
+        }else{
+            this.stylingPipeline.push(new AscColorSpacer());
+        }
         //this.stylingPipeline.push(new GreyScaleSpacer());
         this.stylingPipeline.push(new SpacingSpacer());
         //this.stylingPipeline.push(new DetailChartSpacer());
@@ -120,6 +126,10 @@ class P implements IControllerListener, ITreeListener {
             }
             else if(param.type === 'eight-eleven-detail-style'){
                 this.changeStyleEightElevenDetail();
+                refresh = true;
+            }
+            else if(param.type === 'js-public-style'){
+                this.changeStyleJSPublic();
                 refresh = true;
             }
             /*else if(param.type == 'to-greyscale' || param.type =='to-branch-color'
@@ -280,6 +290,14 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
+    private changeStyleJSPublic():void{
+        this.stylingPipeline = [];
+        this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new SpacingSpacer());
+        this.stylingPipeline.push(new JSPublicSpacer());
+        this.stylingPipeline.push(this.customSpacer);
+        this.stylingPipeline.push(new YSpacer());
+    }
     private changeChartStyle(type:string):void{
         var temp = this.stylingPipeline;
         this.stylingPipeline = [];
@@ -298,6 +316,9 @@ class P implements IControllerListener, ITreeListener {
         }
         else if(type==='eight-eleven-detail-style'){
             this.stylingPipeline.push(new EightElevenDetailSpacer());
+        }
+        else if(type==='js-public-style'){
+            this.stylingPipeline.push(new JSPublicSpacer());
         }
         for (i = 2; i < temp.length; i++) {
             this.stylingPipeline.push(temp[i]);
@@ -319,7 +340,14 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline = [];
         var i:number;
         this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new ColorSpacer());
+
+        if(this.c.dscOrAsc == "descendancy"){
+            this.stylingPipeline.push(new ColorSpacer());
+        }else{
+            this.stylingPipeline.push(new AscColorSpacer());
+        }
+
+        //this.stylingPipeline.push(new ColorSpacer());
         for (i = 2; i < temp.length; i++) {
             this.stylingPipeline.push(temp[i]);
         }

@@ -69,7 +69,7 @@ class XSDetailBox implements IBoxRender {
         text4.setAttribute("font-size", "8px");
         text4.setAttribute("style", "font-family:tahoma, sans-serif");
 //        StringUtils.centerElement(text4, 0, 190);
-        StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 40);
+        StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 38);
 
         var gender = 'none';
         if(node.hasAttr('gender')) {

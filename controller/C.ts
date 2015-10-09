@@ -236,6 +236,9 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if(key === 'eight-eleven-detail-style') {
             this.p.handle({type: key});
         }
+        else if(key === 'js-public-style') {
+            this.p.handle({type: key});
+        }
         else if(key === 'to-greyscale') {
             /*if(!this.greyscale)
                 this.greyscale = true;

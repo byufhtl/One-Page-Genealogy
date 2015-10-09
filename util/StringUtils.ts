@@ -19,6 +19,12 @@ class StringUtils {
         textObj.textContent = date+" "+ textObj.textContent;
     }
 
+    public static fitDatePlace2(textObj,dateStr,placeStr,width){
+        var date = StringUtils.standardDate(dateStr);
+        var place = StringUtils.fitPlaceJS(textObj, placeStr,width - date.length);
+        textObj.textContent = date+" "+ textObj.textContent;
+    }
+
     public static fitYearsState(textObj,birthDateStr,deathDateStr, birthPlaceStr,width){
         var date = '('+new Date(birthDateStr).getFullYear()+"-"+new Date(deathDateStr).getFullYear()+")";
         var place = StringUtils.fitPlaceStateOnly(textObj, birthPlaceStr,width - date.length);
@@ -495,7 +501,17 @@ class StringUtils {
             return '';
         }
         //1) Check to see if original can fit in given width
-        var longPlace = 'B: '+place1+ ' D: '+place2;
+        var longPlace;// = 'B: '+place1+ ' D: '+place2;
+
+        if(place1 == null && place2 ==null)
+            longPlace = '';
+        else if(place1 == null && place2 != null)
+            longPlace = 'D: '+place2;
+        else if(place1 != null && place2==null)
+            longPlace = 'B: '+place1;
+        else
+            longPlace = 'B: '+place1+ ' D: '+place2;
+
         textObj.textContent = longPlace;
         if (longPlace.length<width){//textObj.getSubStringLength(0, longPlace.length) < width) {
             return;
@@ -566,6 +582,7 @@ class StringUtils {
             textObj.textContent = 'B: '+place1;
         else
             textObj.textContent = 'B: '+place1+ ' D: '+place2;
+
         return;
     }
 
@@ -625,7 +642,7 @@ class StringUtils {
             place = StringUtils.toPlaceString(places);
 
             if(place.length <= width)
-                return place;
+            return place;
 
             //8) Remove everything besides the last 2 positions
             places = StringUtils.removePlacesBelow2(places);
@@ -896,9 +913,9 @@ class StringUtils {
         var result = "";
         if(!places)
             return result;
-        for(var i = 0; i < places.length; i++){
-            if(places[i] != null && places[i] != "")
-                result = result.concat((places[i] + ", "));
+        for(var i = 0; i < places.length; i++) {
+            if (places[i] != null && places[i] != "")
+            result = result.concat((places[i] + ", "));
         }
         if(result.length === 0)
             return result;
