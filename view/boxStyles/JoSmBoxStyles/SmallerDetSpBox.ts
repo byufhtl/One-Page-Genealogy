@@ -174,33 +174,9 @@ class JSSmallerDetSpBox implements IBoxRender {
             text7.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
             StringUtils.fitYearsState(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('deathdate'),spousenode.getAttr('birthplace'),20);
-            //StringUtils.fitDatePlace(text7,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
-            //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
-            //StringUtils.centerElement(text3, 210, 290);
 
-            /*var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            secondG.appendChild(text8);
-            var nameTextPath = document.createTextNode("");
-            text8.appendChild(nameTextPath);
-            //text3.setAttribute("x", "160");
-            text8.setAttribute("y", "20");
-            text8.setAttribute("font-size", "8px");
-            text8.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-
-            StringUtils.fitDatePlace(text8,spousenode.getAttr('deathdate'), spousenode.getAttr('deathplace'), 70)*/
         }
 
-        //var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        //gt.appendChild(text10);
-        ////var date = new Date();
-        //var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(node.getAttr('marriagedate')));//date.toDateString()));
-        //text10.appendChild(nameTextPath);
-        ////var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(date.toDateString()));
-        ////text10.appendChild(nameTextPath);
-        //text10.setAttribute("x", "100");
-        //text10.setAttribute("y", "43");
-        //text10.setAttribute("font-size", "8px");
-        //text10.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
         //if(box.getColor()!= null && !grayScale){
         //    rect.setAttribute('fill', box.getColor());

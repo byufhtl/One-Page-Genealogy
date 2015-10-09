@@ -1,10 +1,10 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
 /**
- * Created by justinrasband on 9/10/15.
+ * Created by justinrasband on 10/7/15.
  */
 
-class JSLrgDetRotSpBox implements IBoxRender {
+class JSMassiveSpRotBox implements IBoxRender {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -26,21 +26,21 @@ class JSLrgDetRotSpBox implements IBoxRender {
         g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
 
 
-        rect.setAttribute('rx', "30");
-        rect.setAttribute('ry', "30");
-        rect.setAttribute('stroke-width', '5');
+        rect.setAttribute('rx', "40");
+        rect.setAttribute('ry', "40");
+        rect.setAttribute('stroke-width', '6');
         rect.setAttribute('stroke', 'black')
         var rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect2.setAttribute('rx','15')
-        rect2.setAttribute('ry','15')
-        rect2.setAttribute('stroke-width','15')
+        rect2.setAttribute('rx','24')
+        rect2.setAttribute('ry','24')
+        rect2.setAttribute('stroke-width','20')
         rect2.setAttribute('stroke','#E2C6FF')
-        rect2.setAttribute('width', String(this.getWidth()-33));
-        rect2.setAttribute('height', String(box.getHeight()-34-box.getSpace()));
+        rect2.setAttribute('width', String(this.getWidth()-37));
+        rect2.setAttribute('height', String(box.getHeight()-38-box.getSpace()));
         //rect2.setAttribute('height', String(box.getHeight()-10));
         g.appendChild(rect2)
-        rect2.setAttribute('x','15')
-        rect2.setAttribute('y','14')
+        rect2.setAttribute('x','17')
+        rect2.setAttribute('y','16')
         rect2.setAttribute('fill-opacity','.001')
 
         g.appendChild(gt);
@@ -75,7 +75,7 @@ class JSLrgDetRotSpBox implements IBoxRender {
             text.appendChild(nameTextPath);
             //text.setAttribute("x", "160");
             text.setAttribute("y", "18");
-            text.setAttribute("font-size", "40px");
+            text.setAttribute("font-size", "100px");
             text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
@@ -102,41 +102,26 @@ class JSLrgDetRotSpBox implements IBoxRender {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         //text3.setAttribute("x", "160");
-        text3.setAttribute("y", "50");
-        text3.setAttribute("font-size", "20px");
+        text3.setAttribute("y", "100");
+        text3.setAttribute("font-size", "60px");
         text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
         StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),28);//290);
-        //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
-        //StringUtils.centerElement(text3, 210, 290);
+
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         firstG.appendChild(text4);
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
         //text4.setAttribute("x", "160");
-        text4.setAttribute("y", "78");
-        text4.setAttribute("font-size", "20px");
+        text4.setAttribute("y", "160");
+        text4.setAttribute("font-size", "60px");
         text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
         StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),28);
-        //StringUtils.centerElement(text4, 210, 290);
-        //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
-        //text4.textContent = 'B: '+text4.textContent;
 
-        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        firstG.appendChild(text5);
-        var nameTextPath = document.createTextNode("");
-        text5.appendChild(nameTextPath);
-        //text5.setAttribute("x", "160");
-        text5.setAttribute("y", "95");
-        text5.setAttribute("font-size", "20px");
-        text5.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-        //StringUtils.centerElement(text5, 210, 290);
-        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
-        text5.textContent = 'D: '+text5.textContent;*/
 
-        firstG.setAttribute('transform','translate(28,50)')
-        secondG.setAttribute('transform','translate(28,50)')
+        firstG.setAttribute('transform','translate(30,100)')
+        secondG.setAttribute('transform','translate(30,100)')
 
         spousenode = node.getDisplaySpouse();
 
@@ -147,22 +132,22 @@ class JSLrgDetRotSpBox implements IBoxRender {
         if(spousenode.hasAttr('gender')){
             secondGGender = spousenode.getAttr('gender')
             if(secondGGender== "Male"){
-                firstG.setAttribute('transform','translate(28,165)')
+                firstG.setAttribute('transform','translate(800,100)')
             }else{
-                secondG.setAttribute('transform','translate(28,165)')
+                secondG.setAttribute('transform','translate(800,100)')
             }
         }else if(node.hasAttr('gender')){
             firstGGender = node.getAttr('gender')
             if(firstGGender == "Male"){
-                secondG.setAttribute('transform','translate(28,165)')
+                secondG.setAttribute('transform','translate(800,100)')
             }else{
-                firstG.setAttribute('transform','translate(28,165)')
+                firstG.setAttribute('transform','translate(800,100)')
             }
         }else{
             if(spousenode.isMainPerson()){
-                firstG.setAttribute('transform','translate(28,165)')
+                firstG.setAttribute('transform','translate(800,100)')
             }else {
-                secondG.setAttribute('transform','translate(28,165)')
+                secondG.setAttribute('transform','translate(800,100)')
             }
         }
 
@@ -178,7 +163,7 @@ class JSLrgDetRotSpBox implements IBoxRender {
             text6.appendChild(nameTextPath);
             //text6.setAttribute("x", "160");
             text6.setAttribute("y", "18");
-            text6.setAttribute("font-size", "40px");
+            text6.setAttribute("font-size", "100px");
             text6.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
@@ -194,8 +179,8 @@ class JSLrgDetRotSpBox implements IBoxRender {
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
             //text7.setAttribute("x", "160");
-            text7.setAttribute("y", "50");//"45");
-            text7.setAttribute("font-size", "20px");
+            text7.setAttribute("y", "100");//"45");
+            text7.setAttribute("font-size", "60px");
             text7.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
             StringUtils.fitDatePlace(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('birthplace'),28);
             //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
@@ -206,25 +191,11 @@ class JSLrgDetRotSpBox implements IBoxRender {
             var nameTextPath = document.createTextNode("");
             text8.appendChild(nameTextPath);
             //text8.setAttribute("x", "160");
-            text8.setAttribute("y", "78");
-            text8.setAttribute("font-size", "20px");
+            text8.setAttribute("y", "160");
+            text8.setAttribute("font-size", "60px");
             text8.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
             StringUtils.fitDatePlace(text8,spousenode.getAttr('deathdate'),spousenode.getAttr('deathplace'),28);
-            //StringUtils.centerElement(text4, 210, 290);
-            //StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
-            //text8.textContent = 'B: ' + text8.textContent;
 
-            /*var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            secondG.appendChild(text9);
-            var nameTextPath = document.createTextNode("");
-            text9.appendChild(nameTextPath);
-            //text9.setAttribute("x", "160");
-            text9.setAttribute("y", "95");
-            text9.setAttribute("font-size", "20px");
-            text9.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-            //StringUtils.centerElement(text5, 210, 290);
-            StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
-            text9.textContent = 'D: ' + text9.textContent;*/
         }
 
         var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -232,11 +203,9 @@ class JSLrgDetRotSpBox implements IBoxRender {
         //var date = new Date();
         var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(node.getAttr('marriagedate')));//date.toDateString()));
         text10.appendChild(nameTextPath);
-        //var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(date.toDateString()));
-        //text10.appendChild(nameTextPath);
-        text10.setAttribute("x", "25");
-        text10.setAttribute("y", "285");
-        text10.setAttribute("font-size", "20px");
+        text10.setAttribute("x", "540");
+        text10.setAttribute("y", "340");
+        text10.setAttribute("font-size", "60px");
         text10.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
 
@@ -246,8 +215,8 @@ class JSLrgDetRotSpBox implements IBoxRender {
         //}
         //else
         //if (!grayScale) {
-            rect.setAttribute('fill','#F9F4FF');//'#CC99FF');
-            //rect.setAttribute('stroke', '#CC66FF');
+        rect.setAttribute('fill','#F9F4FF');//'#CC99FF');
+        //rect.setAttribute('stroke', '#CC66FF');
 
         //}
         //else {
@@ -267,13 +236,13 @@ class JSLrgDetRotSpBox implements IBoxRender {
             (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
     getType(): string {
-        return "JSLrgDetRotSpBox";
+        return "JSMassiveSpouseRotBox";
     }
     getHeight(): number {
-        return 440;
+        return 1600;
     }
     getWidth(): number {
-        return 325;//214;
+        return 400;//214;
     }
     requiresLoad(): boolean {
         return true;
