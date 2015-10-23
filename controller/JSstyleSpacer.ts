@@ -53,10 +53,10 @@ class JSstyleSpacer implements  IStyler {
                 childBox.setWidth(BoxStyleFactory.getWidth('JSLargeDetRotBox'));
                 childBox.setSpouseNode(null);
             }else if(numSpouses==1){
-                childBox.setType('JSLrgDetRotSpBox');
+                childBox.setType('JSMassiveSpouseRotBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSLrgDetRotSpBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSLrgDetRotSpBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('JSMassiveSpouseRotBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('JSMassiveSpouseRotBox'));
                 childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
             }else{
                 childBox.setType('nullBox');

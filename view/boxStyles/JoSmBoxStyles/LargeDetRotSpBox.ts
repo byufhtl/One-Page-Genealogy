@@ -106,7 +106,7 @@ class JSLrgDetRotSpBox implements IBoxRender {
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
-        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);//290);
+        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),28);//290);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
 
@@ -118,7 +118,7 @@ class JSLrgDetRotSpBox implements IBoxRender {
         text4.setAttribute("y", "78");
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
+        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),28);
         //StringUtils.centerElement(text4, 210, 290);
         //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
         //text4.textContent = 'B: '+text4.textContent;
@@ -197,7 +197,8 @@ class JSLrgDetRotSpBox implements IBoxRender {
             text7.setAttribute("y", "50");//"45");
             text7.setAttribute("font-size", "20px");
             text7.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-            StringUtils.fitDatePlace(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('birthplace'),40);
+
+            StringUtils.fitDatePlace(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('birthplace'),28);
             //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
             //StringUtils.centerElement(text3, 210, 290);
 
@@ -209,7 +210,8 @@ class JSLrgDetRotSpBox implements IBoxRender {
             text8.setAttribute("y", "78");
             text8.setAttribute("font-size", "20px");
             text8.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-            StringUtils.fitDatePlace(text8,spousenode.getAttr('deathdate'),spousenode.getAttr('deathplace'),40);
+
+            StringUtils.fitDatePlace(text8,spousenode.getAttr('deathdate'),spousenode.getAttr('deathplace'),28);
             //StringUtils.centerElement(text4, 210, 290);
             //StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
             //text8.textContent = 'B: ' + text8.textContent;

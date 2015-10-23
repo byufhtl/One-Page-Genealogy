@@ -1,9 +1,10 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
 /**
- * Created by renae on 9/24/15.
+ * Created by justinrasband on 10/7/15.
  */
-class JSSmallerDetSpBox implements IBoxRender {
+
+class JSMassiveSpRotBox implements IBoxRender {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -16,7 +17,7 @@ class JSSmallerDetSpBox implements IBoxRender {
 
 
         rect.setAttribute('width', String(this.getWidth()-4));
-        rect.setAttribute('height', String(box.getHeight()-3-box.getSpace()));
+        rect.setAttribute('height', String(box.getHeight()-6-box.getSpace()));
 
         if(isNaN(box.getY())) {
             console.log(box);
@@ -25,21 +26,21 @@ class JSSmallerDetSpBox implements IBoxRender {
         g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
 
 
-        rect.setAttribute('rx', "7.5");
-        rect.setAttribute('ry', "7.5");
-        rect.setAttribute('stroke-width', '2');
+        rect.setAttribute('rx', "40");
+        rect.setAttribute('ry', "40");
+        rect.setAttribute('stroke-width', '6');
         rect.setAttribute('stroke', 'black')
         var rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect2.setAttribute('rx','5')
-        rect2.setAttribute('ry','5')
-        rect2.setAttribute('stroke-width','3')
+        rect2.setAttribute('rx','24')
+        rect2.setAttribute('ry','24')
+        rect2.setAttribute('stroke-width','20')
         rect2.setAttribute('stroke','#E2C6FF')
-        rect2.setAttribute('width', String(this.getWidth()-10));
-        rect2.setAttribute('height', String(box.getHeight()-9-box.getSpace()));
+        rect2.setAttribute('width', String(this.getWidth()-37));
+        rect2.setAttribute('height', String(box.getHeight()-38-box.getSpace()));
         //rect2.setAttribute('height', String(box.getHeight()-10));
         g.appendChild(rect2)
-        rect2.setAttribute('x','3')
-        rect2.setAttribute('y','3')
+        rect2.setAttribute('x','17')
+        rect2.setAttribute('y','16')
         rect2.setAttribute('fill-opacity','.001')
 
         g.appendChild(gt);
@@ -73,49 +74,54 @@ class JSSmallerDetSpBox implements IBoxRender {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
             //text.setAttribute("x", "160");
-            //text.setAttribute("y", "18");
-            text.setAttribute("font-size", "11px");
+            text.setAttribute("y", "18");
+            text.setAttribute("font-size", "100px");
             text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
-            StringUtils.fitName(text,node.getAttr('name'),28);
+            StringUtils.fitName(text,node.getAttr('name'),18);
             //StringUtils.centerElement(text, 210, 290);
         }
+
+
+        /*var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+         gt.appendChild(text2);
+         if(node.hasAttr('surname')) {
+         var nameTextPath = document.createTextNode(box.getNode().getAttr('surname'));
+         text2.appendChild(nameTextPath);
+         text2.setAttribute("x", "220");
+         text2.setAttribute("y", "80");
+         text2.setAttribute("font-size", "40px");
+         text2.setAttribute("style", "font-family:tahoma, sans-serif");
+         StringUtils.fitName(text2,node.getAttr('surname'),30);
+         //StringUtils.centerElement(text2, 210, 290);
+         }*/
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         firstG.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "150");
-        //text3.setAttribute("y", "11");
-        text3.setAttribute("font-size", "9px");
+        //text3.setAttribute("x", "160");
+        text3.setAttribute("y", "100");
+        text3.setAttribute("font-size", "60px");
         text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-        StringUtils.fitYearsState(text3,node.getAttr('birthdate'),node.getAttr('deathdate'),node.getAttr('birthplace'),20);
-        //StringUtils.fitDatePlace(text3,node.getAttr('birthdate'), node.getAttr('birthplace'), 70);
-        //StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
-        //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
-        //StringUtils.centerElement(text3, 210, 290);
 
-        /*var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),28);//290);
+
+
+        var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         firstG.appendChild(text4);
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
-        //text3.setAttribute("x", "160");
-        text4.setAttribute("y", "20");
-        text4.setAttribute("font-size", "8px");
+        //text4.setAttribute("x", "160");
+        text4.setAttribute("y", "160");
+        text4.setAttribute("font-size", "60px");
         text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-
-        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'), node.getAttr('deathplace'), 70);*/
-
-        firstG.setAttribute('transform','translate(8,13)')
-        secondG.setAttribute('transform','translate(6,13)')
-
-        //StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
-        //StringUtils.centerElement(text4, 210, 290);
-        //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
-        //text4.textContent = 'B: '+text4.textContent;
+        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),28);
 
 
+        firstG.setAttribute('transform','translate(30,100)')
+        secondG.setAttribute('transform','translate(30,100)')
 
         spousenode = node.getDisplaySpouse();
 
@@ -126,22 +132,22 @@ class JSSmallerDetSpBox implements IBoxRender {
         if(spousenode.hasAttr('gender')){
             secondGGender = spousenode.getAttr('gender')
             if(secondGGender== "Male"){
-                firstG.setAttribute('transform','translate(8,25)')
+                firstG.setAttribute('transform','translate(800,100)')
             }else{
-                secondG.setAttribute('transform','translate(8,25)')
+                secondG.setAttribute('transform','translate(800,100)')
             }
         }else if(node.hasAttr('gender')){
             firstGGender = node.getAttr('gender')
             if(firstGGender == "Male"){
-                secondG.setAttribute('transform','translate(8,25)')
+                secondG.setAttribute('transform','translate(800,100)')
             }else{
-                firstG.setAttribute('transform','translate(8,25)')
+                firstG.setAttribute('transform','translate(800,100)')
             }
         }else{
             if(spousenode.isMainPerson()){
-                firstG.setAttribute('transform','translate(8,25)')
+                firstG.setAttribute('transform','translate(800,100)')
             }else {
-                secondG.setAttribute('transform','translate(8,25)')
+                secondG.setAttribute('transform','translate(800,100)')
             }
         }
 
@@ -156,26 +162,51 @@ class JSSmallerDetSpBox implements IBoxRender {
             var nameTextPath = document.createTextNode('Spouse Name');
             text6.appendChild(nameTextPath);
             //text6.setAttribute("x", "160");
-            //text6.setAttribute("y", "18");
-            text6.setAttribute("font-size", "11px");
+            text6.setAttribute("y", "18");
+            text6.setAttribute("font-size", "100px");
             text6.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
-            StringUtils.fitName(text6, spousenode.getAttr('name'), 28);
+            StringUtils.fitName(text6, spousenode.getAttr('name'), 18);
+
+
+            //StringUtils.centerElement(text, 210, 290);
+            //}
 
             var text7 = document.createElementNS("http://www.w3.org/2000/svg", "text");
             secondG.appendChild(text7);
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
-            text7.setAttribute("x", "150");
-            //text7.setAttribute("y", "11");
-            text7.setAttribute("font-size", "9px");
+            //text7.setAttribute("x", "160");
+            text7.setAttribute("y", "100");//"45");
+            text7.setAttribute("font-size", "60px");
             text7.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            StringUtils.fitDatePlace(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('birthplace'),28);
+            //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
+            //StringUtils.centerElement(text3, 210, 290);
 
-            StringUtils.fitYearsState(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('deathdate'),spousenode.getAttr('birthplace'),20);
+            var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            secondG.appendChild(text8);
+            var nameTextPath = document.createTextNode("");
+            text8.appendChild(nameTextPath);
+            //text8.setAttribute("x", "160");
+            text8.setAttribute("y", "160");
+            text8.setAttribute("font-size", "60px");
+            text8.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            StringUtils.fitDatePlace(text8,spousenode.getAttr('deathdate'),spousenode.getAttr('deathplace'),28);
 
         }
+
+        var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        gt.appendChild(text10);
+        //var date = new Date();
+        var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(node.getAttr('marriagedate')));//date.toDateString()));
+        text10.appendChild(nameTextPath);
+        text10.setAttribute("x", "540");
+        text10.setAttribute("y", "340");
+        text10.setAttribute("font-size", "60px");
+        text10.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
 
         //if(box.getColor()!= null && !grayScale){
@@ -183,9 +214,9 @@ class JSSmallerDetSpBox implements IBoxRender {
         //    rect.setAttribute('stroke','black');
         //}
         //else
-        //if(!grayScale) {
-            rect.setAttribute('fill','#F9F4FF');//'#CC99FF');
-            //rect.setAttribute('stroke', '#CC66FF');
+        //if (!grayScale) {
+        rect.setAttribute('fill','#F9F4FF');//'#CC99FF');
+        //rect.setAttribute('stroke', '#CC66FF');
 
         //}
         //else {
@@ -195,7 +226,7 @@ class JSSmallerDetSpBox implements IBoxRender {
 
 
 
-        //gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+") rotate(-90 0,0)");
+        gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+") rotate(-90 0,0)");
 
         return g;
     }
@@ -205,13 +236,13 @@ class JSSmallerDetSpBox implements IBoxRender {
             (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
     getType(): string {
-        return "JSSmallerDetSpBox";
+        return "JSMassiveSpouseRotBox";
     }
     getHeight(): number {
-        return 35;
+        return 1600;
     }
     getWidth(): number {
-        return 250;//214;
+        return 400;//214;
     }
     requiresLoad(): boolean {
         return true;

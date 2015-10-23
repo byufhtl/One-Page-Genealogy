@@ -57,6 +57,7 @@
 ///<reference path="boxStyles/IdBox.ts"/>
 ///<reference path="boxStyles/BuildBox.ts"/>
 ///<reference path="boxStyles/JoSmBoxStyles/SmallDetBox.ts"/>
+///<reference path="boxStyles/JoSmBoxStyles/MassiveSpouseRotBox.ts"/>
 ///<reference path="boxStyles/JoSmPublicBoxStyles/SmallDetBox.ts"/>
 /**
  * Created by curtis on 3/13/15.
@@ -119,6 +120,7 @@ class BoxStyleFactory {
         boxTypes.push(new BuildBox());
         boxTypes.push(new IdBox());
         boxTypes.push(new JSSmallDetBox());
+        boxTypes.push(new JSMassiveSpRotBox());
         boxTypes.push(new JSLrgDetRotSpPubBox());
         boxTypes.push(new JSLargeDetRotPubBox());
         boxTypes.push(new JSMedDetPubBox());
