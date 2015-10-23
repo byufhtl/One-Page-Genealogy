@@ -167,7 +167,7 @@ class JSLrgDetRotSpPubBox implements IBoxRender {
             text7.setAttribute("y", "50");//"45");
             text7.setAttribute("font-size", "20px");
             text7.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-            StringUtils.fitDatePlace2(text7,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
+            StringUtils.fitDatePlace2(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('birthplace'),40);
             //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
             //StringUtils.centerElement(text3, 210, 290);
 
@@ -179,7 +179,7 @@ class JSLrgDetRotSpPubBox implements IBoxRender {
             text8.setAttribute("y", "78");
             text8.setAttribute("font-size", "20px");
             text8.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-            StringUtils.fitDatePlace2(text8,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
+            StringUtils.fitDatePlace2(text8,spousenode.getAttr('deathdate'),spousenode.getAttr('deathplace'),40);
         }
 
         var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");

@@ -19,6 +19,7 @@
 ///<reference path="GreyScaleSpacer.ts"/>
 ///<reference path="ColorSpacer.ts"/>
 ///<reference path="AscColorSpacer.ts"/>
+ ///<reference path="GenColorSpacer.ts"/>
 ///<reference path="GenderColorSpacer.ts"/>
 ///<reference path="SpacingSpacer.ts"/>
 ///<reference path="JSstyleSpacer.ts"/>
@@ -60,7 +61,8 @@ class P implements IControllerListener, ITreeListener {
         //this.stylingPipeline.push(new DetailChartSpacer());
         //his.stylingPipeline.push(new VertDetChartSpacer());
         if(c.dscOrAsc == "descendancy"){
-            this.stylingPipeline.push(new JSstyleSpacer());
+            //this.stylingPipeline.push(new JSstyleSpacer());
+            this.stylingPipeline.push(new JSPublicSpacer());
         }else{
             this.stylingPipeline.push(new VertDetChartSpacer());
         }
@@ -143,6 +145,10 @@ class P implements IControllerListener, ITreeListener {
             }
             else if(param.type === 'to-branch-color'){
                 this.changeToBranchColor();
+                refresh = true;
+            }
+            else if(param.type === 'to-generation-color'){
+                this.changeToGenColor();
                 refresh = true;
             }
             else if(param.type === 'to-gender-color'){
@@ -353,6 +359,17 @@ class P implements IControllerListener, ITreeListener {
         }
 
     }
+    private changeToGenColor():void{
+        var temp = this.stylingPipeline;
+        this.stylingPipeline = [];
+        var i:number;
+        this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new GenColorSpacer());
+        for (i = 2; i < temp.length; i++) {
+            this.stylingPipeline.push(temp[i]);
+        }
+
+    }
     private changeToGenderColor():void{
         var temp = this.stylingPipeline;
         this.stylingPipeline = [];
@@ -375,6 +392,8 @@ class P implements IControllerListener, ITreeListener {
             this.stylingPipeline.push(new GreyScaleSpacer());
         }
         else if(type === 'to-branch-color')
+            this.stylingPipeline.push(new GenColorSpacer());
+        else if(type === 'to-generation-color')
             this.stylingPipeline.push(new ColorSpacer());
         else if(type === 'to-gender-color')
             this.stylingPipeline.push(new GenderColorSpacer());

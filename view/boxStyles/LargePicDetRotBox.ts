@@ -44,7 +44,7 @@ class LargePicDetRotBox implements IBoxRender {
                 text.setAttribute("y", "35");
                 text.setAttribute("font-size", "30px");
                 text.setAttribute("style", "font-family:tahoma, sans-serif");
-                StringUtils.fitName(text, node.getAttr('givenname'), 30);
+                StringUtils.fitName(text, node.getAttr('givenname'), 16);
             }
             gt.appendChild(text2);
             if (node.hasAttr('surname')) {
@@ -54,7 +54,7 @@ class LargePicDetRotBox implements IBoxRender {
                 text2.setAttribute("y", "80");
                 text2.setAttribute("font-size", "40px");
                 text2.setAttribute("style", "font-family:tahoma, sans-serif");
-                StringUtils.fitName(text2, node.getAttr('surname'), 30);
+                StringUtils.fitName(text2, node.getAttr('surname'), 16);
             }
         }
         else if (node.hasAttr('name')) {
@@ -73,14 +73,14 @@ class LargePicDetRotBox implements IBoxRender {
             text.setAttribute("y", "35");
             text.setAttribute("font-size", "30px");
             text.setAttribute("style", "font-family:tahoma, sans-serif");
-            StringUtils.fitName(text, firstName, 30);
+            StringUtils.fitName(text, firstName, 16);
             var nameTextPath2 = document.createTextNode(splitName[splitName.length - 1]);
             text2.appendChild(nameTextPath2);
             text2.setAttribute("x", "220");
             text2.setAttribute("y", "80");
             text2.setAttribute("font-size", "40px");
             text2.setAttribute("style", "font-family:tahoma, sans-serif");
-            StringUtils.fitName(text2, node.getAttr('surname'), 30);
+            StringUtils.fitName(text2, node.getAttr('surname'), 16);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");

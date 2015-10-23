@@ -32,6 +32,7 @@
     <script src="controller/GreyScaleSpacer.js" type="text/javascript"></script>
     <script src="controller/ColorSpacer.js" type="text/javascript"></script>
     <script src="controller/AscColorSpacer.js" type="text/javascript"></script>
+    <script src="controller/GenColorSpacer.js" type="text/javascript"></script>
     <script src="controller/GenderColorSpacer.js" type="text/javascript"></script>
     <script src="controller/SpacingSpacer.js" type="text/javascript"></script>
     <script src="controller/EightElevenSpacer.js" type="text/javascript"></script>
@@ -188,9 +189,10 @@
                         var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
                         var user = response.getUser();
                         var c = new C({
-                            rootId: user.personId,
-                            //rootId: 'LZJK-8TN',
-                            //rootId: 'L67B-2X1',
+                            //rootId: user.personId,
+                            rootId: 'LZJK-8TN',
+                            //rootId: '9CZK-YB4',
+                            //rootId: 'LCPG-L31',    FIGURE OUT WHY IT DOWNLOADS MORE GENERATIONS THAN ASKED FOR
                             generations: generations,
                             dscOrAsc: dscOrAsc
                         })
@@ -271,6 +273,7 @@
                         <li class="divider"></li>
                         <li><a id="opg-to-greyscale" href="#">Greyscale</a></li>
                         <li><a id="opg-to-branch-color" href="#">Color by Branch</a></li>
+                        <li><a id="opg-to-generation-color" href="#">Color by Generation</a></li>
                         <li><a id="opg-to-gender-color" href="#">Color by Gender</a></li>
                     </ul>
                 </li>

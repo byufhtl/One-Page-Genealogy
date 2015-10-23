@@ -39,16 +39,42 @@ class FSFullTreeDownloader implements  ISource {
         else if(this.downloadType === "descendancy")
             downloader = this.dscDownloader;
         downloader.getGen(this.rootId, this.generations).then(function(people) {
-            //console.log(((new Date().getTime()) - seconds)/1000);
+            //We think this is BF order
             for(var i=0; i<people.length; i++) {
                 var person = people[i];
                 var idData = null;
                 if(type == "ascendancy") {
-                    idData = self.nextUniqueId(person.getId(), person.getAscBranchIds());
+                    //idData = self.nextUniqueId(person.getId(), person.getAscBranchIds());
+                    var idData:any = {};
+                    if(person.hasOwnProperty('realId')) {
+                        idData['id'] = person.realId;
+                    }
+                    else {
+                        idData['id'] = self.singleUniqueId(person.getId());
+                    }
+
+                    var parentIds = [];
+                    if(person.hasOwnProperty('helpParents')){
+                        for(var j=0; j<person.helpParents.length; j++) {
+                            var parent = person.helpParents[j];
+
+                            if(!parent.getId)
+                                continue;
+
+                            var parentId = self.singleUniqueId(parent.getId());
+                            parent.realId = parentId;
+                            parentIds.push(parentId);
+                        }
+                    }
+                    idData['parentIds'] = parentIds;
                 }
                 else if(type == "descendancy") {
                     idData = self.nextUniqueId(person.getId(), person.getDscBranchIds());
                 }
+
+
+
+
                 //var idData = self.nextUniqueId(person.getId(), person.getAscBranchIds());
                 //var idData = self.nextUniqueId(person.getId(), person.getDscBranchIds());
                 var node: FSDescNode = null;
