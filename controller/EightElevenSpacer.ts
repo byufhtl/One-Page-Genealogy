@@ -29,7 +29,7 @@ class EightElevenSpacer implements  IStyler {
                 queue.push([branchIds[i], generation + 1]);
                 //box.setCollapsed(false);
 
-                if(generation>5) {
+                if(generation==5){//5) {
                     box.setCollapsed(true);
                 }
                 else{

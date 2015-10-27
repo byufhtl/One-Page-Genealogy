@@ -180,7 +180,7 @@
                 var pid = document.getElementById("pid-search-input").value;
                 var isValidPid = false;
                 if(pid === '')
-                    pid = user.personId;
+                    isValidPid = true;
                 else{
                     pid.toUpperCase();
                     console.log(pid);
@@ -202,8 +202,8 @@
                             var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
                             var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
                             var user = response.getUser();
-                            //if(pid === '')
-                            //   pid = user.personId;
+                            if(pid === '')
+                               pid = user.personId;
                             //console.log(pid);
                             var c = new C({
                                 //rootId: user.person
@@ -446,6 +446,7 @@
             </div>
             <div class="modal-footer">
                 <p text-align="left">Gedcom reading possible thanks to <a target="_blank" href = "http://www.macwright.org/2015/01/05/parse-gedcom.html">Tom MacWright</a></p>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" id="gedcomSave">Save changes</button>
             </div>
         </div><!-- /.modal-content -->
@@ -495,6 +496,7 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" id="fsSave">Save changes</button>
             </div>
         </div><!-- /.modal-content -->

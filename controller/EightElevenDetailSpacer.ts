@@ -32,7 +32,7 @@ class EightElevenDetailSpacer implements  IStyler {
 
                 //box.setCollapsed(false);
 
-                if(generation>4) {
+                if(generation==4){//>4) {
                     box.setCollapsed(true);
                 }
             }
