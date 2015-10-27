@@ -177,28 +177,50 @@
             })
             $('#fsModal').show()
             $('#fsSave').click(function () {
-                $('#fsModal').hide();
-                FamilySearch.getAccessToken().then(function (response) {
-                    FamilySearch.getCurrentUser().then(function (response) {
-                        var old_element = document.getElementById("opg-chart")
-                        var new_element = old_element.cloneNode(true);
-                        old_element.parentNode.replaceChild(new_element, old_element)
-                        while (new_element.lastChild) {
-                            new_element.removeChild(new_element.lastChild);
-                        }
-                        var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
-                        var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
-                        var user = response.getUser();
-                        var c = new C({
-                            //rootId: user.personId,
-                            rootId: 'LZJK-8TN',
-                            //rootId: '9CZK-YB4',
-                            //rootId: 'LCPG-L31',    FIGURE OUT WHY IT DOWNLOADS MORE GENERATIONS THAN ASKED FOR
-                            generations: generations,
-                            dscOrAsc: dscOrAsc
+                var pid = document.getElementById("pid-search-input").value;
+                var isValidPid = false;
+                if(pid === '')
+                    pid = user.personId;
+                else{
+                    pid.toUpperCase();
+                    console.log(pid);
+                    //var regexp = new RegExp(/([A-Z]|[0-9]){4}-([A-Z]|[0-9]){3}/);
+                    isValidPid = /([A-Z]|[0-9]){4}-([A-Z]|[0-9]){3}/.test(pid);//regexp.test(pid);
+                }
+
+                if(isValidPid) {
+                    //$('#fsModal').hide();
+                    FamilySearch.getAccessToken().then(function (response) {
+                        FamilySearch.getCurrentUser().then(function (response) {
+                            var old_element = document.getElementById("opg-chart")
+                            var new_element = old_element.cloneNode(true);
+                            old_element.parentNode.replaceChild(new_element, old_element)
+                            while (new_element.lastChild) {
+                                new_element.removeChild(new_element.lastChild);
+                            }
+                            //var pid = document.getElementById("pid-search-input").value;
+                            var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
+                            var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
+                            var user = response.getUser();
+                            //if(pid === '')
+                            //   pid = user.personId;
+                            //console.log(pid);
+                            var c = new C({
+                                //rootId: user.person
+                                //rootId: 'LZJK-8TN',
+                                //rootId: '9CZK-YB4',
+                                //rootId: 'LCPG-L31',
+                                rootId: pid,
+                                generations: generations,
+                                dscOrAsc: dscOrAsc
+                            })
+                            $('#fsModal').hide();
                         })
                     })
-                })
+                }
+                else{
+                    alert("Invalid PID.")
+                }
             })//endFSSave
         }
 
@@ -260,6 +282,10 @@
                 <li><input id = "gedbutton" type="button" value="Read Gedcom File" onclick="$('#myInput').click();" /></li>
                 <!--onclick="$('#fsbutton').on('click');"-->
                 <li><input id = "fsbutton" type="button" value="FamilySearch"/></li>
+                <!--<li><input type="text" class="form-control" placeholder="Person ID" id="vp-pid-search-input" maxlength="8" size="8">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="vp-pid-search">Search</button>
+                    </span></li>-->
                 <li><a id="opg-rotate-cc" href="#"><i class="fa fa-rotate-left"></i></a></li>
                 <li><a id="opg-rotate-c" href="#"><i class="fa fa-rotate-right"></i></a></li>
                 <li><a id="opg-download" href="#"><i class="fa fa fa-download"></i></a></li>
@@ -328,9 +354,6 @@
                         </div>
                         <div class="col-sm-12">
                             <select id="opg-modal-select">
-                                <option value="simpleNameBox">Simple Box</option>
-                                <option value="horizontalNameLifeBox">Horizontal Line Box</option>
-                                <option value="compactSimpleNameBox">Compact Simple Box</option>
                                 <option value="largePictureBox">Large Picture Vertical Box</option>
                                 <option value="largePictureBox2">Large Picture Box</option>
                                 <option value="largePicRotBox">Large Picture Rotated Box</option>
@@ -435,6 +458,14 @@
                 <h4 class="modal-title">FamilySearch Options</h4>
             </div>
             <div class="modal-body">
+                <h4>Enter Root PID</h4>
+                <p>(No entry will select you as root)</p>
+                <div class="input-group input-group-sm" style="padding-top: 5px">
+                <input type="text" class="form-control" placeholder="Person ID" id="pid-search-input" maxlength="8" size="8">
+                    <!--<span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="vp-pid-search">Search</button>
+                    </span>-->
+                    </div>
                 <h4>Select Number of Generations</h4>
                 <select id = "fsGenerationsSelect">
                     <script>
