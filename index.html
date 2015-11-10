@@ -146,14 +146,14 @@
 
     <script>
         FamilySearch.init({
-            app_key: "NQ3Q-PBD8-LL9N-RCLZ-MZCZ-X7P8-7SMX-RD6N",
-            environment: 'production',
+            app_key: "a02j000000AiDyvAAF",//"NQ3Q-PBD8-LL9N-RCLZ-MZCZ-X7P8-7SMX-RD6N", <-rf product key
+            environment: 'sandbox',//'production',
             auth_callback: 'http://localhost:8000/auth/login/return/',
             http_function: $.ajax,
-            deferred_function: $.Deferred,
-            auto_signin: true,
-            save_access_token: true,
-            auto_expire: true
+            deferred_function: $.Deferred
+//            auto_signin: true,    <-put these back in when we get our own production key
+//            save_access_token: true,
+//            auto_expire: true
         });
 
         $(document).ready(function() {
@@ -286,6 +286,7 @@
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button" id="vp-pid-search">Search</button>
                     </span></li>-->
+                <!--<li><form><input type="checkbox" name="translate-branch" id="translate-branch"></form></li>-->
                 <li><a id="opg-rotate-cc" href="#"><i class="fa fa-rotate-left"></i></a></li>
                 <li><a id="opg-rotate-c" href="#"><i class="fa fa-rotate-right"></i></a></li>
                 <li><a id="opg-download" href="#"><i class="fa fa fa-download"></i></a></li>
@@ -425,7 +426,7 @@
                 <h4 class="modal-title" id="myModalLabel">GedcomOptions</h4>
             </div>
             <div class="modal-body">
-                <h3>Set person as Root</h3>
+                <h3>Set person as start of chart</h3>
                 <select id = "gedcomSelect">
                 </select>
             </div>
@@ -459,8 +460,9 @@
                 <h4 class="modal-title">FamilySearch Options</h4>
             </div>
             <div class="modal-body">
-                <h4>Enter Root PID</h4>
-                <p>(No entry will select you as root)</p>
+                <h4>Enter Starting FamilySearch ID</h4>
+                <p>This number is in the format XXXX-XXX as found in FamilySearch</p>
+                <p>(No entry will select you as the start of the chart)</p>
                 <div class="input-group input-group-sm" style="padding-top: 5px">
                 <input type="text" class="form-control" placeholder="Person ID" id="pid-search-input" maxlength="8" size="8">
                     <!--<span class="input-group-btn">
