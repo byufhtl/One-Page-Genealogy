@@ -142,6 +142,11 @@ var GedcomNode = (function () {
 
                     }
                     break;
+                case "baptism":
+                    if(this.person.hasOwnProperty("baptized")){
+                        val = this.person.baptized;
+                    }
+
             }
             if (val !== null && val !== undefined) {
                 if (get)

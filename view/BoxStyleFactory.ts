@@ -121,15 +121,15 @@ class BoxStyleFactory {
         boxTypes.push(new IdBox());
         boxTypes.push(new JSSmallDetBox());
         boxTypes.push(new JSMassiveSpRotBox());
-        boxTypes.push(new JSLrgDetRotSpPubBox());
-        boxTypes.push(new JSLargeDetRotPubBox());
-        boxTypes.push(new JSMedDetPubBox());
-        boxTypes.push(new JSSmallDetPubBox());
-        boxTypes.push(new JSSmallDetSpPubBox());
-        boxTypes.push(new JSSmallerDetSpPubBox());
-        boxTypes.push(new JSSmallerDetPubBox());
-        boxTypes.push(new JSSmallestDetSpPubBox());
-        boxTypes.push(new JSSmallestDetPubBox());
+        //boxTypes.push(new JSLrgDetRotSpPubBox());
+        //boxTypes.push(new JSLargeDetRotPubBox());
+        //boxTypes.push(new JSMedDetPubBox());
+        //boxTypes.push(new JSSmallDetPubBox());
+        //boxTypes.push(new JSSmallDetSpPubBox());
+        //boxTypes.push(new JSSmallerDetSpPubBox());
+        //boxTypes.push(new JSSmallerDetPubBox());
+        //boxTypes.push(new JSSmallestDetSpPubBox());
+        //boxTypes.push(new JSSmallestDetPubBox());
 
         BoxStyleFactory.boxes = {};
 

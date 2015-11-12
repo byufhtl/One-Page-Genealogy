@@ -8,7 +8,7 @@ class JSMassiveSpRotBox implements IBoxRender {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        if(rootElement) {
+        if (rootElement) {
             rootElement.appendChild(g);
         }
         var rect:Element = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -16,14 +16,14 @@ class JSMassiveSpRotBox implements IBoxRender {
         g.appendChild(rect);
 
 
-        rect.setAttribute('width', String(this.getWidth()-4));
-        rect.setAttribute('height', String(box.getHeight()-6-box.getSpace()));
+        rect.setAttribute('width', String(this.getWidth() - 4));
+        rect.setAttribute('height', String(box.getHeight() - 6 - box.getSpace()));
 
-        if(isNaN(box.getY())) {
+        if (isNaN(box.getY())) {
             console.log(box);
         }
 
-        g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
+        g.setAttribute("transform", "translate(" + box.getX() + ", " + box.getY() + ")");
 
 
         rect.setAttribute('rx', "40");
@@ -31,25 +31,25 @@ class JSMassiveSpRotBox implements IBoxRender {
         rect.setAttribute('stroke-width', '6');
         rect.setAttribute('stroke', 'black')
         var rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect2.setAttribute('rx','24')
-        rect2.setAttribute('ry','24')
-        rect2.setAttribute('stroke-width','20')
-        rect2.setAttribute('stroke','#E2C6FF')
-        rect2.setAttribute('width', String(this.getWidth()-37));
-        rect2.setAttribute('height', String(box.getHeight()-38-box.getSpace()));
+        rect2.setAttribute('rx', '24')
+        rect2.setAttribute('ry', '24')
+        rect2.setAttribute('stroke-width', '20')
+        rect2.setAttribute('stroke', '#E2C6FF')
+        rect2.setAttribute('width', String(this.getWidth() - 37));
+        rect2.setAttribute('height', String(box.getHeight() - 38 - box.getSpace()));
         //rect2.setAttribute('height', String(box.getHeight()-10));
         g.appendChild(rect2)
-        rect2.setAttribute('x','17')
-        rect2.setAttribute('y','16')
-        rect2.setAttribute('fill-opacity','.001')
+        rect2.setAttribute('x', '17')
+        rect2.setAttribute('y', '16')
+        rect2.setAttribute('fill-opacity', '.001')
 
         g.appendChild(gt);
 
 
-        var n: INode = box.getNode();
-        var sn: INode = n.getDisplaySpouse();
-        var node: INode;
-        var spousenode: INode;
+        var n:INode = box.getNode();
+        var sn:INode = n.getDisplaySpouse();
+        var node:INode;
+        var spousenode:INode;
         var gender = 'none';
         /*if(n.hasAttr('gender')) {
          gender = n.getAttr('gender');
@@ -70,16 +70,16 @@ class JSMassiveSpRotBox implements IBoxRender {
         firstG.appendChild(text);
         gt.appendChild(secondG)
 
-        if(node.hasAttr('name')) {
+        if (node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
             //text.setAttribute("x", "160");
             text.setAttribute("y", "18");
             text.setAttribute("font-size", "100px");
             text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-            if(node.isMainPerson())
+            if (node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
-            StringUtils.fitName(text,node.getAttr('name'),18);
+            StringUtils.fitName(text, node.getAttr('name'), 18);
             //StringUtils.centerElement(text, 210, 290);
         }
 
@@ -106,7 +106,7 @@ class JSMassiveSpRotBox implements IBoxRender {
         text3.setAttribute("font-size", "60px");
         text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
 
-        StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),28);//290);
+        StringUtils.fitDatePlace(text3, node.getAttr('birthdate'), node.getAttr('birthplace'), 28);//290);
 
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -117,11 +117,11 @@ class JSMassiveSpRotBox implements IBoxRender {
         text4.setAttribute("y", "160");
         text4.setAttribute("font-size", "60px");
         text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-        StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),28);
+        StringUtils.fitDatePlace(text4, node.getAttr('deathdate'), node.getAttr('deathplace'), 28);
 
 
-        firstG.setAttribute('transform','translate(30,100)')
-        secondG.setAttribute('transform','translate(30,100)')
+        firstG.setAttribute('transform', 'translate(30,100)')
+        secondG.setAttribute('transform', 'translate(30,100)')
 
         spousenode = node.getDisplaySpouse();
 
@@ -129,25 +129,25 @@ class JSMassiveSpRotBox implements IBoxRender {
         var firstGGender = null;
         var secondGGender = null;
 
-        if(spousenode.hasAttr('gender')){
+        if (spousenode.hasAttr('gender')) {
             secondGGender = spousenode.getAttr('gender')
-            if(secondGGender== "Male"){
-                firstG.setAttribute('transform','translate(800,100)')
-            }else{
-                secondG.setAttribute('transform','translate(800,100)')
+            if (secondGGender == "Male") {
+                firstG.setAttribute('transform', 'translate(800,100)')
+            } else {
+                secondG.setAttribute('transform', 'translate(800,100)')
             }
-        }else if(node.hasAttr('gender')){
+        } else if (node.hasAttr('gender')) {
             firstGGender = node.getAttr('gender')
-            if(firstGGender == "Male"){
-                secondG.setAttribute('transform','translate(800,100)')
-            }else{
-                firstG.setAttribute('transform','translate(800,100)')
+            if (firstGGender == "Male") {
+                secondG.setAttribute('transform', 'translate(800,100)')
+            } else {
+                firstG.setAttribute('transform', 'translate(800,100)')
             }
-        }else{
-            if(spousenode.isMainPerson()){
-                firstG.setAttribute('transform','translate(800,100)')
-            }else {
-                secondG.setAttribute('transform','translate(800,100)')
+        } else {
+            if (spousenode.isMainPerson()) {
+                firstG.setAttribute('transform', 'translate(800,100)')
+            } else {
+                secondG.setAttribute('transform', 'translate(800,100)')
             }
         }
 
@@ -155,7 +155,7 @@ class JSMassiveSpRotBox implements IBoxRender {
         //if(node.hasAttr('spousename')) {
 
         //console.log(spousenode)
-        if(spousenode != null) {
+        if (spousenode != null) {
             //console.log("apparently spousenode isn't null.....")
             var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
             secondG.appendChild(text6);
@@ -182,7 +182,7 @@ class JSMassiveSpRotBox implements IBoxRender {
             text7.setAttribute("y", "100");//"45");
             text7.setAttribute("font-size", "60px");
             text7.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-            StringUtils.fitDatePlace(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('birthplace'),28);
+            StringUtils.fitDatePlace(text7, spousenode.getAttr('birthdate'), spousenode.getAttr('birthplace'), 28);
             //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
             //StringUtils.centerElement(text3, 210, 290);
 
@@ -194,14 +194,14 @@ class JSMassiveSpRotBox implements IBoxRender {
             text8.setAttribute("y", "160");
             text8.setAttribute("font-size", "60px");
             text8.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-            StringUtils.fitDatePlace(text8,spousenode.getAttr('deathdate'),spousenode.getAttr('deathplace'),28);
+            StringUtils.fitDatePlace(text8, spousenode.getAttr('deathdate'), spousenode.getAttr('deathplace'), 28);
 
         }
 
         var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text10);
         //var date = new Date();
-        var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(node.getAttr('marriagedate')));//date.toDateString()));
+        var nameTextPath = document.createTextNode("M: " + StringUtils.standardDate(node.getAttr('marriagedate')));//date.toDateString()));
         text10.appendChild(nameTextPath);
         text10.setAttribute("x", "540");
         text10.setAttribute("y", "340");
@@ -215,7 +215,7 @@ class JSMassiveSpRotBox implements IBoxRender {
         //}
         //else
         //if (!grayScale) {
-        rect.setAttribute('fill','#F9F4FF');//'#CC99FF');
+        rect.setAttribute('fill', '#F9F4FF');//'#CC99FF');
         //rect.setAttribute('stroke', '#CC66FF');
 
         //}
@@ -223,7 +223,45 @@ class JSMassiveSpRotBox implements IBoxRender {
         //    rect.setAttribute('fill','#E5E5E5');
         //    rect.setAttribute('stroke', 'black');
         //}
+        if (node.hasAttr("baptism")) {
+            var baptism = node.getAttr("baptism");
+            //console.log(baptism);
+            var bDate = baptism.date;
+            bDate = new Date(bDate);
+            // console.log(bDate);
+            var deathDate;
+            if (node.hasAttr("deathdate")) {
+                deathDate = new Date(node.getAttr("deathdate"));
+                if (bDate < deathDate) {
+                    //baptized before death
+                    rect2.setAttribute('stroke', '#B0EB75')
+                    rect.setAttribute('fill', '#F1FBE6');
 
+                } else {
+                    //baptized after death
+                    rect2.setAttribute('stroke', '#E2C6FF')
+                    rect.setAttribute('fill', '#F9F4FF');
+
+                }
+            }
+        } else if(node.hasAttr("birthdate") && node.hasAttr("deathdate")){
+            var birthdate = new Date(node.getAttr("birthdate"))
+            var deathdate = new Date(node.getAttr("deathdate"))
+            var birthyear = birthdate.getFullYear();
+            var deathyear = deathdate.getFullYear();
+            if(deathyear - birthyear <= 8 ){
+                rect2.setAttribute('stroke','#FFFF66')
+                rect.setAttribute('fill','#FFFFE0');
+            }else{
+                //no baptism
+                rect2.setAttribute('stroke','#FF9999')
+                rect.setAttribute('fill','#F6E3E3');
+            }
+        }else{
+            //no baptism
+            rect2.setAttribute('stroke','#FF9999')
+            rect.setAttribute('fill','#F6E3E3');
+        }
 
 
         gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+") rotate(-90 0,0)");
