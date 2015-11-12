@@ -214,6 +214,25 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
         else if(key === 'request-download') {
             this.viewManager.getSVGString().then(function(s){
+                /*var form = document.createElement("form");
+                form.setAttribute("method", "POST");
+                form.setAttribute("style", "display:none");
+                form.setAttribute("id","pdfDownloadForm");
+                form.setAttribute("action", "http://opg.fhtl.byu/svgtopdf");
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "hidden");
+                hiddenField.setAttribute("id","svg");
+                hiddenField.setAttribute("name", "svg");
+                hiddenField.setAttribute("value", s);
+
+                form.appendChild(hiddenField);
+
+                document.body.appendChild(form);
+                form.submit();
+                document.body.removeChild(form);*/
+                //form.remove();
+
+
                 //var s = this.viewManager.getSVGString();
                 var fileName = "opg_chart.svg";
                 var url = "data:image/svg+xml;utf8," + encodeURIComponent(s);
@@ -248,6 +267,9 @@ class C implements IGraphicObjectListener, IOptionListener {
             this.p.handle({type: key});
         }
         else if(key === 'to-branch-color') {
+            this.p.handle({type: key});
+        }
+        else if(key === 'to-generation-color') {
             this.p.handle({type: key});
         }
         else if(key === 'to-gender-color') {

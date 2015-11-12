@@ -43,6 +43,9 @@ class OptionManager implements IOptionManager {
         $('#opg-to-branch-color').click(function(){
             self.listener.handleOption('to-branch-color', null);
         });
+        $('#opg-to-generation-color').click(function(){
+            self.listener.handleOption('to-generation-color', null);
+        });
         $('#opg-to-gender-color').click(function(){
             self.listener.handleOption('to-gender-color', null);
         });
