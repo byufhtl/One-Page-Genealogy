@@ -240,6 +240,6 @@ class SmallerDetSpBox implements IBoxRender {
         return 194;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

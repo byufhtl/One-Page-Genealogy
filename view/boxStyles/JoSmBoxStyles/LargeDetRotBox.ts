@@ -151,6 +151,6 @@ class JSLargeDetRotBox implements IBoxRender {
         return 169+2+3;//214;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

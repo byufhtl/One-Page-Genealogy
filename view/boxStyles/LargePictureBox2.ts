@@ -145,6 +145,7 @@ class LargePictureBox2 implements IBoxRender {
             node.getAttr('profilePicturePromise').then(function(response) {
                 if(!response) {
                     g.removeChild(svgimg);
+                    text.setAttribute('x', '5');
                     return;
                 }
                 var svgimg2 = document.createElementNS('http://www.w3.org/2000/svg','image');
@@ -165,6 +166,10 @@ class LargePictureBox2 implements IBoxRender {
 
             }, function() {
                 g.removeChild(svgimg);
+                text.setAttribute('x','25');
+                text2.setAttribute('x','25');
+                StringUtils.fitName(text2, node.getAttr('surname'), 20);
+                text3.setAttribute('x','25');
             });
         }
 

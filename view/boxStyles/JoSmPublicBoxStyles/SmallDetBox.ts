@@ -136,6 +136,6 @@ class JSSmallDetPubBox implements IBoxRender {
         return 250;//214;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

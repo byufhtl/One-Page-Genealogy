@@ -227,6 +227,6 @@ class XSDetSpBox implements IBoxRender {
         return 162;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

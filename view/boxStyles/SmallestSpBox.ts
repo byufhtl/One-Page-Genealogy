@@ -215,6 +215,6 @@ class SmallestSpBox implements IBoxRender {
         return 142;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

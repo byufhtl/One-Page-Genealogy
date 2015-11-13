@@ -153,6 +153,14 @@ class MediumPictureDetailBox implements IBoxRender {
 
             }, function() {
                 g.removeChild(svgimg);
+                text.setAttribute('x','25');
+                text3.setAttribute('x','25');
+                text4.setAttribute('x','25');
+                StringUtils.fitPlace(text4, node.getAttr('birthplace'), 45);
+                text4.textContent = 'B: '+text4.textContent;
+                text5.setAttribute('x','25');
+                StringUtils.fitPlace(text5, node.getAttr('deathplace'), 45);
+                text5.textContent = 'D: '+text5.textContent;
             });
         }
 

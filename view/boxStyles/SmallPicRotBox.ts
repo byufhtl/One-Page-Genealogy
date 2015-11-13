@@ -125,6 +125,8 @@ class SmallPicRotBox implements IBoxRender {
 
             }, function() {
                 gt.removeChild(svgimg);
+                text.setAttribute('x','7');
+                text3.setAttribute('x','7');
             });
         }
 

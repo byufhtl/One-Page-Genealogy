@@ -193,6 +193,17 @@ class LargePicDetRotBox implements IBoxRender {
 
             }, function() {
                 gt.removeChild(svgimg);
+                text.setAttribute('x','25');
+                text2.setAttribute('x','25');
+                StringUtils.fitName(text2, node.getAttr('surname'), 20);
+                text3.setAttribute('x','25');
+                text4.setAttribute('x','25');
+                StringUtils.fitPlace(text4, node.getAttr('birthplace'), 45);
+                text4.textContent = 'B: '+text4.textContent;
+                text5.setAttribute('x','25');
+                StringUtils.fitPlace(text5, node.getAttr('deathplace'), 45);
+                text5.textContent = 'D: '+text5.textContent;
+                //console.log("HMPH");
             });
         }
 

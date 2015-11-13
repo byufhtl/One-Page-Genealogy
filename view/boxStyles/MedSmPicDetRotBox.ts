@@ -155,6 +155,14 @@ class MedSmPicDetRotBox implements IBoxRender {
 
             }, function() {
                 gt.removeChild(svgimg);
+                text.setAttribute('x','15');
+                text3.setAttribute('x','15');
+                text4.setAttribute('x','15');
+                StringUtils.fitPlace(text4, node.getAttr('birthplace'), 40);
+                text4.textContent = 'B: '+text4.textContent;
+                text5.setAttribute('x','15');
+                StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
+                text5.textContent = 'D: '+text5.textContent;
             });
         }
 

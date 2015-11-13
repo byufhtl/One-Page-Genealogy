@@ -34,6 +34,6 @@ class NullBox implements IBoxRender {
         return 1;//214;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

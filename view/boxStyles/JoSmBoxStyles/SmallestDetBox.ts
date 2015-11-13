@@ -152,6 +152,6 @@ class JSSmallestDetBox implements IBoxRender {
         return 245;//214;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

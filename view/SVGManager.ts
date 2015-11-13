@@ -378,7 +378,9 @@ class SVGManager implements IViewManager {
             var branchIds = node.getBranchIds();
 
             if(BoxStyleFactory.requiresLoad(box.getType())) {
-                total++;
+                if (node.hasAttr('doneLoading')) {
+                    total++;
+                }
             }
 
             if(box.isCollapsed()) {
@@ -405,7 +407,9 @@ class SVGManager implements IViewManager {
 
             //if(box.getType() === 'simpleNameBox') {
             if(BoxStyleFactory.requiresLoad(box.getType())) {
-                node.getAttr('doneLoading').then(repeatCallBack, repeatCallBack);
+                if (node.hasAttr('doneLoading')) {
+                    node.getAttr('doneLoading').then(repeatCallBack, repeatCallBack);
+                }
             }
 
 

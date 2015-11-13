@@ -222,6 +222,6 @@ class JSLrgDetRotSpPubBox implements IBoxRender {
         return 325;//214;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }
