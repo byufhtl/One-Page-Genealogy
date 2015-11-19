@@ -28,4 +28,7 @@ class MainViewManager implements IViewManager {
     getSVGString(): any {
         return this.svgManager.getSVGString();
     }
+    clear():void{
+        delete(this.svgManager);
+    }
 }

@@ -145,15 +145,16 @@
     <script src = "static/gedcomHandler.js"></script>
 
     <script>
+        var c = null;
         FamilySearch.init({
-            app_key: "NQ3Q-PBD8-LL9N-RCLZ-MZCZ-X7P8-7SMX-RD6N", //<-rf product key //"a02j000000AiDyvAAF",//
-            environment: 'production', //'sandbox',//
+            app_key: "a02j000000AiDyvAAF",//"NQ3Q-PBD8-LL9N-RCLZ-MZCZ-X7P8-7SMX-RD6N", //<-rf product key //
+            environment: 'sandbox',//'production', //
             auth_callback: 'http://localhost:8000/auth/login/return/',
             http_function: $.ajax,
-            deferred_function: $.Deferred,
-            auto_signin: true,    //<-put these back in when we get our own production key
-            save_access_token: true,
-            auto_expire: true
+            deferred_function: $.Deferred//,
+//            auto_signin: true,    //<-put these back in when we get our own production key
+//            save_access_token: true,
+//            auto_expire: true
         });
 
         $(document).ready(function() {
@@ -205,7 +206,13 @@
                             if(pid === '')
                                pid = user.personId;
                             //console.log(pid);
-                            var c = new C({
+                            //we need to turn off old listeners before we create a new c.
+                            $('#opg-download').off('click');
+                            $('#fsSave').off('click');
+                            $('#fsGenerationsSelect').off('click');
+                            $('fsgenerationsRadio').off('click');
+                            c = new C({
+                            //var c = new C({
                                 //rootId: user.person
                                 //rootId: 'LZJK-8TN',
                                 //rootId: '9CZK-YB4',
