@@ -135,6 +135,10 @@ class MidLargePictureBox extends IBoxData {
 
             }, function() {
                 g.removeChild(svgimg);
+                text.setAttribute('x','25');
+                text2.setAttribute('x','25');
+                StringUtils.fitName(text2, node.getAttr('surname'), 20);
+                text3.setAttribute('x','25');
             });
         }
 

@@ -35,6 +35,6 @@ class NullBox extends IBoxData {
         return 1;//214;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

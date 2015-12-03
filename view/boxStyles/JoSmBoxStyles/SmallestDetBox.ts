@@ -153,6 +153,6 @@ class JSSmallestDetBox extends IBoxData {
         return 245;//214;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

@@ -216,6 +216,6 @@ class SmallestSpBox extends IBoxData {
         return 142;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

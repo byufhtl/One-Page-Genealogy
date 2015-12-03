@@ -26,6 +26,7 @@ class FSDescNode implements INode {
     }
     private getAndHasAttribute(get, attr) {
         var val = null;
+
         if(this.person) {
             switch (attr) {
                 case "surname":

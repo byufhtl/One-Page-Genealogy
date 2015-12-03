@@ -271,6 +271,6 @@ class JSMassiveSpRotBox extends IBoxData {
         return 400;//214;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

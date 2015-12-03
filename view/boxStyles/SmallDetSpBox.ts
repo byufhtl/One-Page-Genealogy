@@ -241,6 +241,6 @@ class SmallerDetSpBox extends IBoxData {
         return 194;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

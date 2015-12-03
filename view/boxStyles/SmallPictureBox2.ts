@@ -176,6 +176,14 @@ class SmallPictureBox2 extends IBoxData {
 
             }, function() {
                 g.removeChild(svgimg);
+                text.setAttribute('y','7');
+                text3.setAttribute('y','7');
+                text4.setAttribute('y','7');
+                //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 40);
+                //text4.textContent = 'B: '+text4.textContent;
+                text5.setAttribute('y','7');
+                //StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
+                //text5.textContent = 'D: '+text5.textContent;
             });
         }
 

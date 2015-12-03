@@ -65,9 +65,9 @@ class OptionManager implements IOptionManager {
             var opgModalSelect = $('#opg-modal-select');
             var opgModalSave = $('#opg-modal-save');
             var opgModalCollapse = $('#opg-modal-collapse');
-            opgModalSelect.off();
-            opgModalSave.off();
-            opgModalCollapse.off();
+            opgModalSelect.off('click');
+            opgModalSave.off('click');
+            opgModalCollapse.off('click');
 
 
             $('#opg-modal-select option[value='+box.getType()+']').prop('selected', true);

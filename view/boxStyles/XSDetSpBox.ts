@@ -228,6 +228,6 @@ class XSDetSpBox extends IBoxData {
         return 162;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

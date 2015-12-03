@@ -87,7 +87,7 @@ class FSDescendancyGenDownloader {
 
             if(response.getChildIdsOf(null).length > 0) {
                 spousePackages.push({
-                    id: null,
+                    id: "f~"+id,
                     person: null,
                     children: response.getChildrenOf(null),
                     childIds: response.getChildIdsOf(null),

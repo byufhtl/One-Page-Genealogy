@@ -139,6 +139,6 @@ class JSLargeDetRotBox extends IBoxData {
         return 169+2+3;//214;
     }
     requiresLoad(): boolean {
-        return true;
+        return false;
     }
 }

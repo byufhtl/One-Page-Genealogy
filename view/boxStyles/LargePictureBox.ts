@@ -166,6 +166,9 @@ class LargePictureBox extends IBoxData {
 
             }, function() {
                 g.removeChild(svgimg);
+                text.setAttribute('y','115');
+                text2.setAttribute('y','160');
+                text3.setAttribute('y','190');
             });
         }
 
