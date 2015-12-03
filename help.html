@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>OPG Help</title>
+</head>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="js/jquery.mousewheel.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<style>
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+    }
+    #page-wrap {
+        position: relative;
+        width: 10%;
+        float: left;
+    }
+    #help-sidebar {
+        padding: 1em;
+        width: 10%;
+        margin: 0;
+        position: fixed;
+    }
+    #help-list {
+        padding: 1em;
+        margin: 0;
+        width:90%;
+        float: right;
+    }
+    .navbar {
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+    }
+    .help-content {
+        width: 100%;
+        height: calc(100% - 60px);
+    }
+
+    #gedbutton,#fsbutton,#togedbutton,#tofsbutton {
+        margin-bottom: 15px;
+        margin-top: 15px;
+        margin-left: 10px;
+    }
+    #downloadModal{
+        display:block;
+    }
+    #splash-title{
+        text-align: center;
+        font-size: 400%;
+    }
+    .help-footer{
+        padding-left: 1em;
+    }
+
+
+</style>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">One Page Genealogy</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><input id="myInput" type="file" style="visibility:hidden" /></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="help-content">
+    <div id="page-wrap">
+        <div id="help-sidebar">
+            <h4>Content</h4>
+            <h5><a href="#start">Getting Started</a></h5>
+            <h5><a href="#print">Print/PDF</a></h5>
+            <h5><a href="#download">Download SVG</a></h5>
+        </div>
+    </div>
+    <div id="help-list">
+        <div id="start">
+            <h3>Getting Started</h3>
+            <p>One Page Genealogy is the perfect site to create a compact tree chart of your family with a
+                few quick clicks.</p>
+        </div>
+        <div id="print">
+            <h3>How to Print or save as a PDF</h3>
+            <p>Here is the current way of creating a PDF that you can edit and make the size you desire:</p>
+            <ul>
+                <li><p> Zoom out on the chart until your whole chart can be seen on your browser page.</p></li>
+                <li><p>Drag the chart over to be as close to the left side of the screen as possible.</p></li>
+            </ul>
+            <p>&nbsp</p>
+            <h4>If you are using Google Chrome:</h4>
+            <ul>
+                <li><p>Right click the chart and click "Print"</p></li>
+                <li><p>If you want a PDF, make sure the Destination is "Save as PDF." If it isn't, just click "Change..."
+              and select the "Save as PDF" option.  This way, you can edit the chart in any PDF editor and make
+                the chart more readable if needed.</p></li>
+            </ul>
+            <p>&nbsp</p>
+            <h4>If you are using Firefox:</h4>
+            <ul>
+                <li><p>At the top on the right of the browser click the icon with three horizontal bars.</p></li>
+                <li><p>Click print, then print again at the top of the new page that new pops up.</p></li>
+                <li><p>If you want a PDF, click "Print to File" at the top of the printer options.
+            This way, you can edit the chart in any PDF editor and make the chart more readable if needed.</p></li>
+            </ul>
+        </div>
+        <div id="download">
+            <h3>Download Chart as SVG</h3>
+            <p>To download the current chart as an SVG click the downward pointing arrow icon at the top right of the page </p>
+        </div>
+    </div>
+</div>
+<div class="help-footer">
+    <h6>BYU Family History Technology Lab</h6>
+    <p style="font-size: 60%">Copyright © Brigham Young University,</p>
+    <p style="font-size: 60%">Computer Science Department</p>
+</div>
+
+</body>
+</html>

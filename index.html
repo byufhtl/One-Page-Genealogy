@@ -147,14 +147,14 @@
     <script>
         var c = null;
         FamilySearch.init({
-            app_key: "a02j000000AiDyvAAF",//"NQ3Q-PBD8-LL9N-RCLZ-MZCZ-X7P8-7SMX-RD6N", //<-rf product key //
-            environment: 'sandbox',//'production', //
+            app_key: "NQ3Q-PBD8-LL9N-RCLZ-MZCZ-X7P8-7SMX-RD6N", //<-rf product key //"a02j000000AiDyvAAF",//
+            environment: 'production', //'sandbox',//
             auth_callback: 'http://localhost:8000/auth/login/return/',
             http_function: $.ajax,
-            deferred_function: $.Deferred//,
-//            auto_signin: true,    //<-put these back in when we get our own production key
-//            save_access_token: true,
-//            auto_expire: true
+            deferred_function: $.Deferred,
+            auto_signin: true,    //<-put these back in when we get our own production key
+            save_access_token: true,
+            auto_expire: true
         });
 
         $(document).ready(function() {
@@ -312,6 +312,7 @@
                         <li><a id="opg-to-gender-color" href="#">Color by Gender</a></li>
                     </ul>
                 </li>
+                <li><a id="opg-help" target="_blank" href="help.html">Help</a></li>
             </ul>
         </div>
     </div>
@@ -334,6 +335,7 @@
                 <h4 style="text-align: center">Select Type of Download</h4>
                 <input id = "togedbutton" type="button" value="Read Gedcom File" onclick="$('#downloadModal').hide(); $('#myInput').click();" /></li>
                 <input id = "tofsbutton" type="button" value="FamilySearch"/>
+                <p>Click <a id="opg-helpModal" target="_blank" href="help.html">here</a> for the site guide/help page.</p>
 
             </div>
             <div class="modal-footer">
