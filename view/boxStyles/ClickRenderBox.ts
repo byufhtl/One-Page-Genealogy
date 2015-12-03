@@ -1,8 +1,9 @@
 ///<reference path="../IBoxRender.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by curtis on 3/10/15.
  */
-class ClickRenderBox implements IBoxRender {
+class ClickRenderBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var rect:Element = document.createElementNS("http://www.w3.org/2000/svg", "rect");

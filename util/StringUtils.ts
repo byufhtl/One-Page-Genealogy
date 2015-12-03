@@ -26,7 +26,14 @@ class StringUtils {
     }
 
     public static fitYearsState(textObj,birthDateStr,deathDateStr, birthPlaceStr,width){
-        var date = '('+new Date(birthDateStr).getFullYear()+"-"+new Date(deathDateStr).getFullYear()+")";
+        var date = "";
+        if(deathDateStr == null){
+            date = '('+new Date(birthDateStr).getFullYear()+"-)";
+        }else if (birthDateStr == null){
+            date = "(-"+new Date(deathDateStr).getFullYear()+")";
+        }else{
+            date = '('+new Date(birthDateStr).getFullYear()+"-"+new Date(deathDateStr).getFullYear()+")";
+        }
         var place = StringUtils.fitPlaceStateOnly(textObj, birthPlaceStr,width - date.length);
         textObj.textContent = date+" "+ textObj.textContent;
     }
@@ -35,7 +42,16 @@ class StringUtils {
     // Date formatting
     //**************************************************************************************************************
     public static fitDate(textObj, birthDateStr, deathDateStr, width) {
-        var longDate = '( '+StringUtils.standardDate(birthDateStr)+" - "+StringUtils.standardDate(deathDateStr)+" )";
+        var longDate = "";
+        //console.log(birthDateStr);
+        //console.log(deathDateStr);
+        if(deathDateStr == null){
+            deathDateStr = "";
+        }
+        if (birthDateStr == null){
+            birthDateStr = "";
+        }
+        longDate = '( '+StringUtils.standardDate(birthDateStr)+" - "+StringUtils.standardDate(deathDateStr)+" )";
         textObj.textContent = longDate;
         if(longDate.length<width){//textObj.getSubStringLength(0, longDate.length)<width) {
             return;
@@ -45,12 +61,12 @@ class StringUtils {
         if(medDate.length<width){//textObj.getSubStringLength(0, medDate.length)<width) {
             return;
         }
-        var smDate = '('+new Date(birthDateStr).getFullYear()+"-"+new Date(deathDateStr).getFullYear()+")";
+        var smDate = '('+StringUtils.getYear(birthDateStr)+"-"+StringUtils.getYear(deathDateStr)+")";
         textObj.textContent = smDate;
         if(smDate.length<width){//textObj.getSubStringLength(0, smDate.length)<width) {
             return;
         }
-        var xsDate = '('+new Date(birthDateStr).getFullYear()+"-"+(new Date(deathDateStr).getFullYear()+"").substring(2, 4);+")";
+        var xsDate = '('+StringUtils.getYear(birthDateStr).substring(2, 4)+"-"+(StringUtils.getYear(deathDateStr)+"").substring(2, 4)+")";
         textObj.textContent = xsDate;
         if(xsDate.length<width){//textObj.getSubStringLength(0, xsDate.length)<width) {
             return;
@@ -71,6 +87,20 @@ class StringUtils {
         if(ret.indexOf('NaN')!= -1)
             return '';
         return ret;
+    }
+
+    public static getYear(dateString): string {
+        if(!dateString) {
+            return '';
+        }
+
+        if(dateString.length <= 4) {
+            return dateString;
+        }
+
+        var date = new Date(dateString);
+        var ret = date.getFullYear();
+        return ret.toString();
     }
 
     //**************************************************************************************************************

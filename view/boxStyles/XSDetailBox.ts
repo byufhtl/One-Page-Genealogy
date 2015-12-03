@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by renae on 6/5/15.
  */
-class XSDetailBox implements IBoxRender {
+class XSDetailBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -41,7 +42,7 @@ class XSDetailBox implements IBoxRender {
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
             text.setAttribute("font-size", "10px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
 //            StringUtils.centerElement(text, 0, 160);
             StringUtils.fitName(text,node.getAttr('name'),19);
 
@@ -56,7 +57,7 @@ class XSDetailBox implements IBoxRender {
         text3.setAttribute("x", "110");
         text3.setAttribute("y", "7");
         text3.setAttribute("font-size", "8px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
 //        StringUtils.centerElement(text3, 0, 160);
 
@@ -67,7 +68,7 @@ class XSDetailBox implements IBoxRender {
         text4.setAttribute("x", "10");
         text4.setAttribute("y", "17");
         text4.setAttribute("font-size", "8px");
-        text4.setAttribute("style", "font-family:tahoma, sans-serif");
+        text4.setAttribute("style", this.getFont() );
 //        StringUtils.centerElement(text4, 0, 190);
         StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 38);
 

@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by curtis on 3/16/15.
  */
-class XSNameBox implements IBoxRender {
+class XSNameBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -40,7 +41,7 @@ class XSNameBox implements IBoxRender {
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
             text.setAttribute("font-size", "10px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             StringUtils.centerElement(text, 0, 162);
         }
 

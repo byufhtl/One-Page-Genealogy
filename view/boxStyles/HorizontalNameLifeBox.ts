@@ -1,8 +1,9 @@
 ///<reference path="../IBoxRender.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by phobos2390 on 3/18/15.
  */
-class HorizontalNameLifeBox implements IBoxRender {
+class HorizontalNameLifeBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var rect:Element = document.createElementNS("http://www.w3.org/2000/svg", "rect");

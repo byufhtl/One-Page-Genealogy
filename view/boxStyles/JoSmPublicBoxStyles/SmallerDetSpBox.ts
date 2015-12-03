@@ -1,9 +1,10 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
+///<reference path="../../IBoxData.ts"/>
 /**
  * Created by renae on 10/2/15.
  */
-class JSSmallerDetSpPubBox implements IBoxRender {
+class JSSmallerDetSpPubBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -75,7 +76,7 @@ class JSSmallerDetSpPubBox implements IBoxRender {
             //text.setAttribute("x", "160");
             //text.setAttribute("y", "18");
             text.setAttribute("font-size", "11px");
-            text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
             StringUtils.fitName(text,node.getAttr('name'),28);
@@ -89,7 +90,7 @@ class JSSmallerDetSpPubBox implements IBoxRender {
         text3.setAttribute("x", "150");
         //text3.setAttribute("y", "11");
         text3.setAttribute("font-size", "9px");
-        text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
         StringUtils.fitYearsState(text3,node.getAttr('birthdate'),node.getAttr('deathdate'),node.getAttr('birthplace'),20);
 
 
@@ -139,7 +140,7 @@ class JSSmallerDetSpPubBox implements IBoxRender {
             //text6.setAttribute("x", "160");
             //text6.setAttribute("y", "18");
             text6.setAttribute("font-size", "11px");
-            text6.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            text6.setAttribute("style", this.getFont() );
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
@@ -152,8 +153,12 @@ class JSSmallerDetSpPubBox implements IBoxRender {
             text7.setAttribute("x", "150");
             //text7.setAttribute("y", "11");
             text7.setAttribute("font-size", "9px");
-            text7.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            text7.setAttribute("style", this.getFont() );
+            console.log(node.getAttr('name'));
+            console.log(node.getAttr('deathdate'));
+            console.log(spousenode.getAttr('name'));
 
+            console.log(spousenode.getAttr('deathdate'));
             StringUtils.fitYearsState(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('deathdate'),spousenode.getAttr('birthplace'),20);
 
         }

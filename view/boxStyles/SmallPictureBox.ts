@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by curtis on 3/16/15.
  */
-class SmallPictureBox implements IBoxRender {
+class SmallPictureBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -40,7 +41,7 @@ class SmallPictureBox implements IBoxRender {
             text.setAttribute("x", "10");
             text.setAttribute("y", "25");
             text.setAttribute("font-size", "20px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             StringUtils.centerElement(text, 60, 240);
         }
 
@@ -51,7 +52,7 @@ class SmallPictureBox implements IBoxRender {
         text3.setAttribute("x", "10");
         text3.setAttribute("y", "50");
         text3.setAttribute("font-size", "15px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
         StringUtils.centerElement(text3, 60, 240);

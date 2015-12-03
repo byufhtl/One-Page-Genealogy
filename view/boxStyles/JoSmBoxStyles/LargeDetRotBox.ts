@@ -1,10 +1,11 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
+///<reference path="../../IBoxData.ts"/>
 /**
  * Created by justinrasband on 9/14/15.
  */
 
-class JSLargeDetRotBox implements IBoxRender {
+class JSLargeDetRotBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -66,7 +67,7 @@ class JSLargeDetRotBox implements IBoxRender {
         }
         text.appendChild(nameTextPath);
         text.setAttribute('font-size', '40px');
-        text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text.setAttribute("style", this.getFont());
         StringUtils.fitName(text, nameString, 19);
         StringUtils.centerElement(text, 70, 300);
         text.setAttribute('y','70')
@@ -79,7 +80,7 @@ class JSLargeDetRotBox implements IBoxRender {
         text3.setAttribute("x", "25");
         text3.setAttribute("y", "100");
         text3.setAttribute("font-size", "20px");
-        text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont());
 
         StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),28);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
@@ -93,25 +94,12 @@ class JSLargeDetRotBox implements IBoxRender {
         text4.setAttribute("x", "25");
         text4.setAttribute("y", "130");
         text4.setAttribute("font-size", "20px");
-        text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text4.setAttribute("style", this.getFont());
         //StringUtils.centerElement(text4, 210, 290);
         StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),28);
         //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
         //text4.textContent = 'B: '+text4.textContent;
         StringUtils.centerElement(text4, 65, 300);
-
-        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text5);
-        var nameTextPath = document.createTextNode("");
-        text5.appendChild(nameTextPath);
-        text5.setAttribute("x", "25");
-        text5.setAttribute("y", "155");
-        text5.setAttribute("font-size", "20px");
-        text5.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-        //StringUtils.centerElement(text5, 210, 290);
-        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 25);
-        text5.textContent = 'D: '+text5.textContent;
-        StringUtils.centerElement(text5, 65, 300);*/
 
 
         var gender = 'none';

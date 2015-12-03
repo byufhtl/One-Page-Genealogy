@@ -1,8 +1,9 @@
 ///<reference path="../IBoxRender.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by curtis on 3/16/15.
  */
-class SimpleNameBox implements IBoxRender {
+class SimpleNameBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var rect:Element = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -34,7 +35,7 @@ class SimpleNameBox implements IBoxRender {
             text.appendChild(nameTextPath);
             text.setAttribute("x", "5");
             text.setAttribute("y", "15");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
         }
 
         var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -44,7 +45,7 @@ class SimpleNameBox implements IBoxRender {
             text2.appendChild(nameTextPath);
             text2.setAttribute("x", "5");
             text2.setAttribute("y", "35");
-            text2.setAttribute("style", "font-family:tahoma, sans-serif");
+            text2.setAttribute("style", this.getFont() );
         }
 
         var gender = 'none';

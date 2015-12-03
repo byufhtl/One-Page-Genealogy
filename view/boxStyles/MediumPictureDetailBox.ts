@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by renae on 6/18/15.
  */
-class MediumPictureDetailBox implements IBoxRender {
+class MediumPictureDetailBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -40,7 +41,7 @@ class MediumPictureDetailBox implements IBoxRender {
             text.setAttribute("x", "110");
             text.setAttribute("y", "30");
             text.setAttribute("font-size", "26px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
 //            StringUtils.centerElement(text, 40, 240);
             StringUtils.fitName(text,node.getAttr('name'),30);
         }
@@ -52,7 +53,7 @@ class MediumPictureDetailBox implements IBoxRender {
         text3.setAttribute("x", "110");
         text3.setAttribute("y", "55");
         text3.setAttribute("font-size", "18px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
 //        StringUtils.centerElement(text3, 40, 240);
@@ -64,7 +65,7 @@ class MediumPictureDetailBox implements IBoxRender {
         text4.setAttribute("x", "110");
         text4.setAttribute("y", "77");
         text4.setAttribute("font-size", "17px");
-        text4.setAttribute("style", "font-family:tahoma, sans-serif");
+        text4.setAttribute("style", this.getFont() );
 //        StringUtils.centerElement(text4, 40, 240);
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 30);
         text4.textContent = 'B: '+text4.textContent;
@@ -76,7 +77,7 @@ class MediumPictureDetailBox implements IBoxRender {
         text5.setAttribute("x", "110");
         text5.setAttribute("y", "97");
         text5.setAttribute("font-size", "17px");
-        text5.setAttribute("style", "font-family:tahoma, sans-serif");
+        text5.setAttribute("style", this.getFont() );
 //        StringUtils.centerElement(text5, 40, 240);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
         text5.textContent = 'D: '+text5.textContent;

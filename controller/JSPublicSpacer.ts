@@ -138,16 +138,16 @@ class JSPublicSpacer implements  IStyler {
             var spouse = childBox.getNode().getSpouses()[0];
 
             if(numSpouses==0){
-                childBox.setType('JSSmallDetPubBox');
+                childBox.setType('JSSmallerDetPubBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallDetPubBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallDetPubBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallerDetPubBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallerDetPubBox'));
                 childBox.setSpouseNode(null);
             }else if(numSpouses==1){
-                childBox.setType('JSSmallDetSpPubBox');
+                childBox.setType('JSSmallerDetSpPubBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallDetSpPubBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallDetSpPubBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallerDetSpPubBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallerDetSpPubBox'));
                 childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
             }else{
                 childBox.setType('nullBox');
@@ -168,17 +168,18 @@ class JSPublicSpacer implements  IStyler {
             var numSpouses = childBox.getNode().getSpouses().length;
             var spouse = childBox.getNode().getSpouses()[0];
 
+
             if(numSpouses==0){
-                childBox.setType('JSSmallerDetPubBox');
+                childBox.setType('JSSmallDetPubBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallerDetPubBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallerDetPubBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallDetPubBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallDetPubBox'));
                 childBox.setSpouseNode(null);
             }else if(numSpouses==1){
-                childBox.setType('JSSmallerDetSpPubBox');
+                childBox.setType('JSSmallDetSpPubBox');
                 childBox.setX(bx);
-                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallerDetSpPubBox'));
-                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallerDetSpPubBox'));
+                childBox.setHeight(BoxStyleFactory.getHeight('JSSmallDetSpPubBox'));
+                childBox.setWidth(BoxStyleFactory.getWidth('JSSmallDetSpPubBox'));
                 childBox.setSpouseNode(childBox.getNode().getDisplaySpouse());
             }else{
                 childBox.setType('nullBox');
@@ -186,6 +187,7 @@ class JSPublicSpacer implements  IStyler {
                 childBox.setHeight(BoxStyleFactory.getHeight('nullBox'));
                 childBox.setWidth(BoxStyleFactory.getWidth('nullBox'));
             }
+
             /////ADDED FOR FUN
         }
         else if(generation >= 5) {

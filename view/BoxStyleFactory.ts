@@ -37,6 +37,7 @@
 ///<reference path="boxStyles/XSDetSpBox.ts"/>
 ///<reference path="boxStyles/XSSpBox.ts"/>
 ///<reference path="boxStyles/SmallestSpBox.ts"/>
+
 ///<reference path="boxStyles/JoSmBoxStyles/LargeDetRotSpBox.ts"/>
 ///<reference path="boxStyles/JoSmBoxStyles/LargeDetRotBox.ts"/>
 ///<reference path="boxStyles/JoSmBoxStyles/JSMedDetBox.ts"/>
@@ -45,6 +46,9 @@
 ///<reference path="boxStyles/JoSmBoxStyles/SmallerDetBox.ts"/>
 ///<reference path="boxStyles/JoSmBoxStyles/SmallestDetSpBox.ts"/>
 ///<reference path="boxStyles/JoSmBoxStyles/SmallestDetBox.ts"/>
+///<reference path="boxStyles/JoSmBoxStyles/SmallDetBox.ts"/>
+///<reference path="boxStyles/JoSmBoxStyles/MassiveSpouseRotBox.ts"/>
+
 ///<reference path="boxStyles/JoSmPublicBoxStyles/LargeDetRotSpBox.ts"/>
 ///<reference path="boxStyles/JoSmPublicBoxStyles/LargeDetRotBox.ts"/>
 ///<reference path="boxStyles/JoSmPublicBoxStyles/MedDetBox.ts"/>
@@ -54,11 +58,11 @@
 ///<reference path="boxStyles/JoSmPublicBoxStyles/SmallestDetSpBox.ts"/>
 ///<reference path="boxStyles/JoSmPublicBoxStyles/SmallestDetBox.ts"/>
 
+
 ///<reference path="boxStyles/IdBox.ts"/>
 ///<reference path="boxStyles/BuildBox.ts"/>
-///<reference path="boxStyles/JoSmBoxStyles/SmallDetBox.ts"/>
-///<reference path="boxStyles/JoSmBoxStyles/MassiveSpouseRotBox.ts"/>
 ///<reference path="boxStyles/JoSmPublicBoxStyles/SmallDetBox.ts"/>
+
 /**
  * Created by curtis on 3/13/15.
  */
@@ -121,15 +125,15 @@ class BoxStyleFactory {
         boxTypes.push(new IdBox());
         boxTypes.push(new JSSmallDetBox());
         boxTypes.push(new JSMassiveSpRotBox());
-        //boxTypes.push(new JSLrgDetRotSpPubBox());
-        //boxTypes.push(new JSLargeDetRotPubBox());
-        //boxTypes.push(new JSMedDetPubBox());
-        //boxTypes.push(new JSSmallDetPubBox());
-        //boxTypes.push(new JSSmallDetSpPubBox());
-        //boxTypes.push(new JSSmallerDetSpPubBox());
-        //boxTypes.push(new JSSmallerDetPubBox());
-        //boxTypes.push(new JSSmallestDetSpPubBox());
-        //boxTypes.push(new JSSmallestDetPubBox());
+        boxTypes.push(new JSLrgDetRotSpPubBox());
+        boxTypes.push(new JSLargeDetRotPubBox());
+        boxTypes.push(new JSMedDetPubBox());
+        boxTypes.push(new JSSmallDetPubBox());
+        boxTypes.push(new JSSmallDetSpPubBox());
+        boxTypes.push(new JSSmallerDetSpPubBox());
+        boxTypes.push(new JSSmallerDetPubBox());
+        boxTypes.push(new JSSmallestDetSpPubBox());
+        boxTypes.push(new JSSmallestDetPubBox());
 
         BoxStyleFactory.boxes = {};
 

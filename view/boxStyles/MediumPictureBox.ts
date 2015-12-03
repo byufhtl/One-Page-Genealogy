@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by curtis on 3/16/15.
  */
-class MediumPictureBox implements IBoxRender {
+class MediumPictureBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -40,7 +41,7 @@ class MediumPictureBox implements IBoxRender {
             text.setAttribute("x", "15");
             text.setAttribute("y", "30");
             text.setAttribute("font-size", "30px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text,box.getNode().getAttr('givenname'),30);
             console.log("given: "+box.getNode().getAttr('givenname'));
             StringUtils.centerElement(text, 110, 350);
@@ -54,7 +55,7 @@ class MediumPictureBox implements IBoxRender {
             text2.setAttribute("x", "10");
             text2.setAttribute("y", "70");
             text2.setAttribute("font-size", "40px");
-            text2.setAttribute("style", "font-family:tahoma, sans-serif");
+            text2.setAttribute("style", this.getFont() );
             StringUtils.fitName(text2,node.getAttr('surname'),30);
             StringUtils.centerElement(text2, 110, 350);
         }
@@ -66,7 +67,7 @@ class MediumPictureBox implements IBoxRender {
         text3.setAttribute("x", "10");
         text3.setAttribute("y", "100");
         text3.setAttribute("font-size", "20px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 350);
         StringUtils.centerElement(text3, 110, 350);

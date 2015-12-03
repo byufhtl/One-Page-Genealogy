@@ -1,3 +1,4 @@
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by justinrasband on 8/28/15.
  */
@@ -5,7 +6,7 @@
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
 
-class SmallestSpBox implements IBoxRender {
+class SmallestSpBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -63,7 +64,7 @@ class SmallestSpBox implements IBoxRender {
             //text.setAttribute("x", "10");
             //text.setAttribute("y", "8");
             text.setAttribute("font-size", "10px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
             StringUtils.fitName(text,node.getAttr('name'),15);
@@ -78,7 +79,7 @@ class SmallestSpBox implements IBoxRender {
         text3.setAttribute("x", "75");
         text3.setAttribute("y", "-1");
         text3.setAttribute("font-size", "8px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
         //StringUtils.centerElement(text3, 210, 290);
@@ -123,7 +124,7 @@ class SmallestSpBox implements IBoxRender {
             //text6.setAttribute("x", "10");
             //text6.setAttribute("y", "17");
             text6.setAttribute("font-size", "10px");
-            text6.setAttribute("style", "font-family:tahoma, sans-serif");
+            text6.setAttribute("style", this.getFont() );
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
@@ -140,7 +141,7 @@ class SmallestSpBox implements IBoxRender {
             text7.setAttribute("x", "75");
             text7.setAttribute("y", "-1");
             text7.setAttribute("font-size", "8px");
-            text7.setAttribute("style", "font-family:tahoma, sans-serif");
+            text7.setAttribute("style", this.getFont() );
 
             StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 12);
             //StringUtils.centerElement(text3, 210, 290);
@@ -152,7 +153,7 @@ class SmallestSpBox implements IBoxRender {
             //text8.setAttribute("x", "10");
             //text8.setAttribute("y", "34");
             //text8.setAttribute("font-size", "8px");
-            //text8.setAttribute("style", "font-family:sans-serif");
+            //text8.setAttribute("style", this.getFont() );
             ////StringUtils.centerElement(text4, 210, 290);
             //StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
             //text8.textContent = 'B: ' + text8.textContent;
@@ -164,7 +165,7 @@ class SmallestSpBox implements IBoxRender {
             //text9.setAttribute("x", "10");
             //text9.setAttribute("y", '65');
             //text9.setAttribute("font-size", "8px");
-            //text9.setAttribute("style", "font-family:tahoma, sans-serif");
+            //text9.setAttribute("style", this.getFont() );
             ////StringUtils.centerElement(text5, 210, 290);
             //StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
             //text9.textContent = 'D: ' + text9.textContent;
@@ -180,7 +181,7 @@ class SmallestSpBox implements IBoxRender {
         //text10.setAttribute("x", "10");
         //text10.setAttribute("y", "24");
         //text10.setAttribute("font-size", "8px");
-        //text10.setAttribute("style", "font-family:tahoma, sans-serif");
+        //text10.setAttribute("style", this.getFont() );
         ////StringUtils.centerElement(text10, 100, 290)
 
 

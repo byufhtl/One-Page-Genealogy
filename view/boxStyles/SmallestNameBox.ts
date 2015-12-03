@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by renae on 6/4/15.
  */
-class SmallestNameBox implements IBoxRender {
+class SmallestNameBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -42,7 +43,7 @@ class SmallestNameBox implements IBoxRender {
             text.setAttribute("x", "5");
             text.setAttribute("y", "7");
             text.setAttribute("font-size", "9px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
  //           StringUtils.centerElement(text, 0, 140);
             StringUtils.fitName(text,node.getAttr('name'),15);
         }
@@ -54,7 +55,7 @@ class SmallestNameBox implements IBoxRender {
         text3.setAttribute("x", "85");
         text3.setAttribute("y", "7");
         text3.setAttribute("font-size", "9px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
 
         var gender = 'none';

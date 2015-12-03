@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by renae on 6/18/15.
  */
-class XSNameYearBox implements IBoxRender {
+class XSNameYearBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -40,7 +41,7 @@ class XSNameYearBox implements IBoxRender {
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
             text.setAttribute("font-size", "10px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text,node.getAttr('name'),18);
             //StringUtils.centerElement(text, 0, 162);
         }
@@ -52,7 +53,7 @@ class XSNameYearBox implements IBoxRender {
         text3.setAttribute("x", "110");
         text3.setAttribute("y", "7");
         text3.setAttribute("font-size", "8px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
 //        StringUtils.centerElement(text3, 0, 160);
 

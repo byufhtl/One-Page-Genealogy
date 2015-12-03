@@ -1,9 +1,10 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
+///<reference path="../../IBoxData.ts"/>
 /**
  * Created by renae on 10/2/15.
  */
-class JSSmallerDetPubBox implements IBoxRender {
+class JSSmallerDetPubBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -77,7 +78,7 @@ class JSSmallerDetPubBox implements IBoxRender {
             //text.setAttribute("x", "160");
             text.setAttribute("y", ".5");
             text.setAttribute("font-size", "11px");
-            text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
             StringUtils.fitName(text,node.getAttr('name'),28);
@@ -92,7 +93,7 @@ class JSSmallerDetPubBox implements IBoxRender {
         text3.setAttribute("x", "150");
         text3.setAttribute("y", "-1");
         text3.setAttribute("font-size", "9px");
-        text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
         StringUtils.fitYearsState(text3,node.getAttr('birthdate'),node.getAttr('deathdate'),node.getAttr('birthplace'),20);
 
 

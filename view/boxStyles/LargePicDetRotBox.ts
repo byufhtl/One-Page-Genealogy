@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by renae on 7/28/15.
  */
-class LargePicDetRotBox implements IBoxRender {
+class LargePicDetRotBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -43,7 +44,7 @@ class LargePicDetRotBox implements IBoxRender {
                 text.setAttribute("x", "220");
                 text.setAttribute("y", "35");
                 text.setAttribute("font-size", "30px");
-                text.setAttribute("style", "font-family:tahoma, sans-serif");
+                text.setAttribute("style", this.getFont() );
                 StringUtils.fitName(text, node.getAttr('givenname'), 16);
             }
             gt.appendChild(text2);
@@ -53,7 +54,7 @@ class LargePicDetRotBox implements IBoxRender {
                 text2.setAttribute("x", "220");
                 text2.setAttribute("y", "80");
                 text2.setAttribute("font-size", "40px");
-                text2.setAttribute("style", "font-family:tahoma, sans-serif");
+                text2.setAttribute("style", this.getFont() );
                 StringUtils.fitName(text2, node.getAttr('surname'), 16);
             }
         }
@@ -72,14 +73,14 @@ class LargePicDetRotBox implements IBoxRender {
             text.setAttribute("x", "220");
             text.setAttribute("y", "35");
             text.setAttribute("font-size", "30px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text, firstName, 16);
             var nameTextPath2 = document.createTextNode(splitName[splitName.length - 1]);
             text2.appendChild(nameTextPath2);
             text2.setAttribute("x", "220");
             text2.setAttribute("y", "80");
             text2.setAttribute("font-size", "40px");
-            text2.setAttribute("style", "font-family:tahoma, sans-serif");
+            text2.setAttribute("style", this.getFont() );
             StringUtils.fitName(text2, node.getAttr('surname'), 16);
         }
 
@@ -90,7 +91,7 @@ class LargePicDetRotBox implements IBoxRender {
         text3.setAttribute("x", "220");
         text3.setAttribute("y", "120");
         text3.setAttribute("font-size", "20px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
 
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
@@ -103,7 +104,7 @@ class LargePicDetRotBox implements IBoxRender {
         text4.setAttribute("x", "220");
         text4.setAttribute("y", "150");
         text4.setAttribute("font-size", "20px");
-        text4.setAttribute("style", "font-family:sans-serif");
+        text4.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text4, 210, 290);
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
         text4.textContent = 'B: '+text4.textContent;
@@ -115,7 +116,7 @@ class LargePicDetRotBox implements IBoxRender {
         text5.setAttribute("x", "220");
         text5.setAttribute("y", "175");
         text5.setAttribute("font-size", "20px");
-        text5.setAttribute("style", "font-family:tahoma, sans-serif");
+        text5.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text5, 210, 290);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 25);
         text5.textContent = 'D: '+text5.textContent;

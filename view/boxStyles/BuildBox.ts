@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by renae on 7/28/15.
  */
-class BuildBox implements IBoxRender {
+class BuildBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -44,7 +45,7 @@ class BuildBox implements IBoxRender {
                 text.setAttribute("x", "220");
                 text.setAttribute("y", "65");
                 text.setAttribute("font-size", "30px");
-                text.setAttribute("style", "font-family:tahoma, sans-serif");
+                text.setAttribute("style", this.getFont() );
                 StringUtils.fitName(text, node.getAttr('givenname'), 30);
                 StringUtils.centerElement(text, 210, 290);
             }
@@ -55,7 +56,7 @@ class BuildBox implements IBoxRender {
                 text2.setAttribute("x", "220");
                 text2.setAttribute("y", "120");
                 text2.setAttribute("font-size", "40px");
-                text2.setAttribute("style", "font-family:tahoma, sans-serif");
+                text2.setAttribute("style", this.getFont() );
                 StringUtils.fitName(text2, node.getAttr('surname'), 30);
                 StringUtils.centerElement(text2, 210, 290);
             }
@@ -75,7 +76,7 @@ class BuildBox implements IBoxRender {
             text.setAttribute("x", "220");
             text.setAttribute("y", "65");
             text.setAttribute("font-size", "30px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text, firstName, 30);
             StringUtils.centerElement(text, 210, 290);
             var nameTextPath2 = document.createTextNode(splitName[splitName.length - 1]);
@@ -83,7 +84,7 @@ class BuildBox implements IBoxRender {
             text2.setAttribute("x", "220");
             text2.setAttribute("y", "120");
             text2.setAttribute("font-size", "40px");
-            text2.setAttribute("style", "font-family:tahoma, sans-serif");
+            text2.setAttribute("style", this.getFont() );
             StringUtils.fitName(text2, node.getAttr('surname'), 30);
             StringUtils.centerElement(text2, 210, 290);
         }
@@ -95,7 +96,7 @@ class BuildBox implements IBoxRender {
         text3.setAttribute("x", "10");
         text3.setAttribute("y", "155");
         text3.setAttribute("font-size", "20px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         StringUtils.centerElement(text3, 210, 290);

@@ -1,5 +1,6 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
+///<reference path="../../IBoxData.ts"/>
 /**
  * Created by justinrasband on 9/14/15.
  */
@@ -7,7 +8,7 @@
  * Created by justinrasband on 8/25/15.
  */
 
-class JSMedDetRotSpBox implements IBoxRender {
+class JSMedDetRotSpBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -79,7 +80,7 @@ class JSMedDetRotSpBox implements IBoxRender {
             //text.setAttribute("x", "10");
             //text.setAttribute("y", "110");
             text.setAttribute("font-size", "21px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont());
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
             StringUtils.fitName(text,node.getAttr('name'),20);
@@ -93,7 +94,7 @@ class JSMedDetRotSpBox implements IBoxRender {
         //text3.setAttribute("x", "10");
         text3.setAttribute("y", "20");
         text3.setAttribute("font-size", "17px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont());
 
         StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),28);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
@@ -106,32 +107,9 @@ class JSMedDetRotSpBox implements IBoxRender {
         //text4.setAttribute("x", "10");
         text4.setAttribute("y", "40");
         text4.setAttribute("font-size", "16px");
-        text4.setAttribute("style", "font-family:sans-serif");
+        text4.setAttribute("style", this.getFont());
         StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),28);
-        //StringUtils.centerElement(text4, 210, 290);
-        //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
-        //text4.textContent = 'B: '+text4.textContent;
 
-        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        firstG.appendChild(text5);
-        var nameTextPath = document.createTextNode("");
-        text5.appendChild(nameTextPath);
-        //text5.setAttribute("x", "10");
-        text5.setAttribute("y", "60");
-        text5.setAttribute("font-size", "16px");
-        text5.setAttribute("style", "font-family:tahoma, sans-serif");
-        //StringUtils.centerElement(text5, 210, 290);
-        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
-        text5.textContent = 'D: '+text5.textContent;*/
-
-        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-         g.appendChild(text5);
-         var nameTextPath = document.createTextNode("M: marriage place (year)");
-         text5.appendChild(nameTextPath);
-         text5.setAttribute("x", "225");
-         text5.setAttribute("y", "200");
-         text5.setAttribute("font-size", "20px");
-         //StringUtils.centerElement(text5, 210, 290);*/
 
         firstG.setAttribute('transform','translate(10,110)')
         secondG.setAttribute('transform','translate(10,110)')
@@ -172,7 +150,7 @@ class JSMedDetRotSpBox implements IBoxRender {
             var nameTextPath = document.createTextNode('Spouse Name');
             text6.appendChild(nameTextPath);
             text6.setAttribute("font-size", "21px");
-            text6.setAttribute("style", "font-family:tahoma, sans-serif");
+            text6.setAttribute("style", this.getFont());
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
@@ -189,7 +167,7 @@ class JSMedDetRotSpBox implements IBoxRender {
             //text7.setAttribute("x", "10");
             text7.setAttribute("y", "20");
             text7.setAttribute("font-size", "17px");
-            text7.setAttribute("style", "font-family:tahoma, sans-serif");
+            text7.setAttribute("style", this.getFont());
             StringUtils.fitDatePlace(text7,node.getAttr('birthdate'),node.getAttr('birthplace'),28);
             //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
             //StringUtils.centerElement(text3, 210, 290);
@@ -201,23 +179,8 @@ class JSMedDetRotSpBox implements IBoxRender {
             //text8.setAttribute("x", "10");
             text8.setAttribute("y", "40");
             text8.setAttribute("font-size", "16px");
-            text8.setAttribute("style", "font-family:sans-serif");
+            text8.setAttribute("style", this.getFont());
             StringUtils.fitDatePlace(text8,node.getAttr('deathdate'),node.getAttr('deathplace'),28);
-            //StringUtils.centerElement(text4, 210, 290);
-            //StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
-            //text8.textContent = 'B: ' + text8.textContent;
-
-            /*var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            secondG.appendChild(text9);
-            var nameTextPath = document.createTextNode("");
-            text9.appendChild(nameTextPath);
-            //text9.setAttribute("x", "10");
-            text9.setAttribute("y", '60');
-            text9.setAttribute("font-size", "16px");
-            text9.setAttribute("style", "font-family:tahoma, sans-serif");
-            //StringUtils.centerElement(text5, 210, 290);
-            StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
-            text9.textContent = 'D: ' + text9.textContent;*/
         }
 
         var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -230,7 +193,7 @@ class JSMedDetRotSpBox implements IBoxRender {
         text10.setAttribute("x", "10");
         text10.setAttribute("y", "290");
         text10.setAttribute("font-size", "17px");
-        text10.setAttribute("style", "font-family:tahoma, sans-serif");
+        text10.setAttribute("style", this.getFont());
         //StringUtils.centerElement(text10, 100, 290)
 
         var nodeMale = false;

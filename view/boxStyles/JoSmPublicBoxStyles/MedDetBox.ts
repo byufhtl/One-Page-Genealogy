@@ -1,9 +1,10 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
+///<reference path="../../IBoxData.ts"/>
 /**
  * Created by renae on 10/2/15.
  */
-class JSMedDetPubBox implements IBoxRender {
+class JSMedDetPubBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -65,11 +66,12 @@ class JSMedDetPubBox implements IBoxRender {
         }
         text.appendChild(nameTextPath);
         text.setAttribute('font-size', '35px');
-        text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text.setAttribute("style", this.getFont());
         StringUtils.fitName(text, nameString, 16);
         StringUtils.centerElement(text, 30, 255);
         text.setAttribute('y','50')
         text.setAttribute("font-weight", "bold");
+
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text3);
@@ -78,7 +80,7 @@ class JSMedDetPubBox implements IBoxRender {
         text3.setAttribute("x", "25");
         text3.setAttribute("y", "75");
         text3.setAttribute("font-size", "20px");
-        text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont());
 
         StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),28);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
@@ -92,7 +94,7 @@ class JSMedDetPubBox implements IBoxRender {
         text4.setAttribute("x", "25");
         text4.setAttribute("y", "99");
         text4.setAttribute("font-size", "20px");
-        text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text4.setAttribute("style", this.getFont());
         //StringUtils.centerElement(text4, 210, 290);
         StringUtils.fitDatePlace2(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),28);
         //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);

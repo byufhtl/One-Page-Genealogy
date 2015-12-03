@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by renae on 6/4/15.
  */
-class MidLargePictureBox implements IBoxRender {
+class MidLargePictureBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -40,7 +41,7 @@ class MidLargePictureBox implements IBoxRender {
             text.setAttribute("x", "15");
             text.setAttribute("y", "60");
             text.setAttribute("font-size", "30px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             StringUtils.centerElement(text, 180, 270);
         }
 
@@ -52,7 +53,7 @@ class MidLargePictureBox implements IBoxRender {
             text2.setAttribute("x", "15");
             text2.setAttribute("y", "95");
             text2.setAttribute("font-size", "40px");
-            text2.setAttribute("style", "font-family:tahoma, sans-serif");
+            text2.setAttribute("style", this.getFont() );
             StringUtils.centerElement(text2, 180, 270);
         }
 
@@ -63,7 +64,7 @@ class MidLargePictureBox implements IBoxRender {
         text3.setAttribute("x", "10");
         text3.setAttribute("y", "135");
         text3.setAttribute("font-size", "20px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 300);
         StringUtils.centerElement(text3, 180, 270);

@@ -1,9 +1,10 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
+///<reference path="../../IBoxData.ts"/>
 /**
  * Created by renae on 10/2/15.
  */
-class JSMedDetRotSpPubBox implements IBoxRender {
+class JSMedDetRotSpPubBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -75,7 +76,7 @@ class JSMedDetRotSpPubBox implements IBoxRender {
             //text.setAttribute("x", "10");
             //text.setAttribute("y", "110");
             text.setAttribute("font-size", "21px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont());
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
             StringUtils.fitName(text,node.getAttr('name'),20);
@@ -89,7 +90,7 @@ class JSMedDetRotSpPubBox implements IBoxRender {
         //text3.setAttribute("x", "10");
         text3.setAttribute("y", "20");
         text3.setAttribute("font-size", "17px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont());
 
         StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
@@ -102,7 +103,7 @@ class JSMedDetRotSpPubBox implements IBoxRender {
         //text4.setAttribute("x", "10");
         text4.setAttribute("y", "40");
         text4.setAttribute("font-size", "16px");
-        text4.setAttribute("style", "font-family:sans-serif");
+        text4.setAttribute("style", this.getFont());
         StringUtils.fitDatePlace2(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
 
 
@@ -144,7 +145,7 @@ class JSMedDetRotSpPubBox implements IBoxRender {
             var nameTextPath = document.createTextNode('Spouse Name');
             text6.appendChild(nameTextPath);
             text6.setAttribute("font-size", "21px");
-            text6.setAttribute("style", "font-family:tahoma, sans-serif");
+            text6.setAttribute("style", this.getFont());
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
@@ -157,7 +158,7 @@ class JSMedDetRotSpPubBox implements IBoxRender {
             //text7.setAttribute("x", "10");
             text7.setAttribute("y", "20");
             text7.setAttribute("font-size", "17px");
-            text7.setAttribute("style", "font-family:tahoma, sans-serif");
+            text7.setAttribute("style", this.getFont());
             StringUtils.fitDatePlace2(text7,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
             //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
             //StringUtils.centerElement(text3, 210, 290);
@@ -169,7 +170,7 @@ class JSMedDetRotSpPubBox implements IBoxRender {
             //text8.setAttribute("x", "10");
             text8.setAttribute("y", "40");
             text8.setAttribute("font-size", "16px");
-            text8.setAttribute("style", "font-family:sans-serif");
+            text8.setAttribute("style", this.getFont());
             StringUtils.fitDatePlace2(text8,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
          }
 
@@ -183,7 +184,7 @@ class JSMedDetRotSpPubBox implements IBoxRender {
         text10.setAttribute("x", "10");
         text10.setAttribute("y", "290");
         text10.setAttribute("font-size", "17px");
-        text10.setAttribute("style", "font-family:tahoma, sans-serif");
+        text10.setAttribute("style", this.getFont());
         //StringUtils.centerElement(text10, 100, 290)
 
         var nodeMale = false;

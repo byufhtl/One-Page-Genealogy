@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by renae on 6/10/15.
  */
-class LargePictureDetailBox2 implements IBoxRender {
+class LargePictureDetailBox2 extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -42,7 +43,7 @@ class LargePictureDetailBox2 implements IBoxRender {
                 text.setAttribute("x", "220");
                 text.setAttribute("y", "35");
                 text.setAttribute("font-size", "30px");
-                text.setAttribute("style", "font-family:tahoma, sans-serif");
+                text.setAttribute("style", this.getFont() );
                 StringUtils.fitName(text, node.getAttr('givenname'), 30);
             }
             g.appendChild(text2);
@@ -52,7 +53,7 @@ class LargePictureDetailBox2 implements IBoxRender {
                 text2.setAttribute("x", "220");
                 text2.setAttribute("y", "80");
                 text2.setAttribute("font-size", "40px");
-                text2.setAttribute("style", "font-family:tahoma, sans-serif");
+                text2.setAttribute("style", this.getFont() );
                 StringUtils.fitName(text2, node.getAttr('surname'), 30);
             }
         }
@@ -71,14 +72,14 @@ class LargePictureDetailBox2 implements IBoxRender {
             text.setAttribute("x", "220");
             text.setAttribute("y", "35");
             text.setAttribute("font-size", "30px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text, firstName, 30);
             var nameTextPath2 = document.createTextNode(splitName[splitName.length - 1]);
             text2.appendChild(nameTextPath2);
             text2.setAttribute("x", "220");
             text2.setAttribute("y", "80");
             text2.setAttribute("font-size", "40px");
-            text2.setAttribute("style", "font-family:tahoma, sans-serif");
+            text2.setAttribute("style", this.getFont() );
             StringUtils.fitName(text2, node.getAttr('surname'), 30);
         }
 
@@ -89,7 +90,7 @@ class LargePictureDetailBox2 implements IBoxRender {
         text3.setAttribute("x", "220");
         text3.setAttribute("y", "120");
         text3.setAttribute("font-size", "20px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
@@ -101,7 +102,7 @@ class LargePictureDetailBox2 implements IBoxRender {
         text4.setAttribute("x", "220");
         text4.setAttribute("y", "150");
         text4.setAttribute("font-size", "20px");
-        text4.setAttribute("style", "font-family:tahoma, sans-serif");
+        text4.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text4, 210, 290);
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
         text4.textContent = 'B: '+text4.textContent;
@@ -113,7 +114,7 @@ class LargePictureDetailBox2 implements IBoxRender {
         text5.setAttribute("x", "220");
         text5.setAttribute("y", "175");
         text5.setAttribute("font-size", "20px");
-        text5.setAttribute("style", "font-family:tahoma, sans-serif");
+        text5.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text5, 210, 290);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 25);
         text5.textContent = 'D: '+text5.textContent;

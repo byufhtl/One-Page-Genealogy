@@ -1,10 +1,11 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
+///<reference path="../../IBoxData.ts"/>
 /**
  * Created by justinrasband on 9/10/15.
  */
 
-class JSLrgDetRotSpBox implements IBoxRender {
+class JSLrgDetRotSpBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -76,26 +77,12 @@ class JSLrgDetRotSpBox implements IBoxRender {
             //text.setAttribute("x", "160");
             text.setAttribute("y", "18");
             text.setAttribute("font-size", "40px");
-            text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            text.setAttribute("style", this.getFont());
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
             StringUtils.fitName(text,node.getAttr('name'),18);
             //StringUtils.centerElement(text, 210, 290);
         }
-
-
-        /*var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-         gt.appendChild(text2);
-         if(node.hasAttr('surname')) {
-         var nameTextPath = document.createTextNode(box.getNode().getAttr('surname'));
-         text2.appendChild(nameTextPath);
-         text2.setAttribute("x", "220");
-         text2.setAttribute("y", "80");
-         text2.setAttribute("font-size", "40px");
-         text2.setAttribute("style", "font-family:tahoma, sans-serif");
-         StringUtils.fitName(text2,node.getAttr('surname'),30);
-         //StringUtils.centerElement(text2, 210, 290);
-         }*/
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         firstG.appendChild(text3);
@@ -104,7 +91,7 @@ class JSLrgDetRotSpBox implements IBoxRender {
         //text3.setAttribute("x", "160");
         text3.setAttribute("y", "50");
         text3.setAttribute("font-size", "20px");
-        text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont());
 
         StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),28);//290);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
@@ -117,23 +104,8 @@ class JSLrgDetRotSpBox implements IBoxRender {
         //text4.setAttribute("x", "160");
         text4.setAttribute("y", "78");
         text4.setAttribute("font-size", "20px");
-        text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text4.setAttribute("style", this.getFont());
         StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),28);
-        //StringUtils.centerElement(text4, 210, 290);
-        //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
-        //text4.textContent = 'B: '+text4.textContent;
-
-        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        firstG.appendChild(text5);
-        var nameTextPath = document.createTextNode("");
-        text5.appendChild(nameTextPath);
-        //text5.setAttribute("x", "160");
-        text5.setAttribute("y", "95");
-        text5.setAttribute("font-size", "20px");
-        text5.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-        //StringUtils.centerElement(text5, 210, 290);
-        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
-        text5.textContent = 'D: '+text5.textContent;*/
 
         firstG.setAttribute('transform','translate(28,50)')
         secondG.setAttribute('transform','translate(28,50)')
@@ -169,7 +141,6 @@ class JSLrgDetRotSpBox implements IBoxRender {
 
         //if(node.hasAttr('spousename')) {
 
-        //console.log(spousenode)
         if(spousenode != null) {
             //console.log("apparently spousenode isn't null.....")
             var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -179,7 +150,7 @@ class JSLrgDetRotSpBox implements IBoxRender {
             //text6.setAttribute("x", "160");
             text6.setAttribute("y", "18");
             text6.setAttribute("font-size", "40px");
-            text6.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            text6.setAttribute("style", this.getFont());
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
@@ -196,7 +167,7 @@ class JSLrgDetRotSpBox implements IBoxRender {
             //text7.setAttribute("x", "160");
             text7.setAttribute("y", "50");//"45");
             text7.setAttribute("font-size", "20px");
-            text7.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            text7.setAttribute("style", this.getFont());
 
             StringUtils.fitDatePlace(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('birthplace'),28);
             //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
@@ -209,24 +180,10 @@ class JSLrgDetRotSpBox implements IBoxRender {
             //text8.setAttribute("x", "160");
             text8.setAttribute("y", "78");
             text8.setAttribute("font-size", "20px");
-            text8.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            text8.setAttribute("style", this.getFont());
 
             StringUtils.fitDatePlace(text8,spousenode.getAttr('deathdate'),spousenode.getAttr('deathplace'),28);
-            //StringUtils.centerElement(text4, 210, 290);
-            //StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
-            //text8.textContent = 'B: ' + text8.textContent;
 
-            /*var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            secondG.appendChild(text9);
-            var nameTextPath = document.createTextNode("");
-            text9.appendChild(nameTextPath);
-            //text9.setAttribute("x", "160");
-            text9.setAttribute("y", "95");
-            text9.setAttribute("font-size", "20px");
-            text9.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
-            //StringUtils.centerElement(text5, 210, 290);
-            StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
-            text9.textContent = 'D: ' + text9.textContent;*/
         }
 
         var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -239,7 +196,7 @@ class JSLrgDetRotSpBox implements IBoxRender {
         text10.setAttribute("x", "25");
         text10.setAttribute("y", "285");
         text10.setAttribute("font-size", "20px");
-        text10.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text10.setAttribute("style", this.getFont() );
 
 
         //if(box.getColor()!= null && !grayScale){

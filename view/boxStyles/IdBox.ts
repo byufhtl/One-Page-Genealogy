@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by renae on 9/18/15.
  */
-class IdBox implements IBoxRender {
+class IdBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -42,7 +43,7 @@ class IdBox implements IBoxRender {
             text.setAttribute("x", "15");
             text.setAttribute("y", "15");
             text.setAttribute("font-size", "15px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text, fullname, 25);
         }
 
@@ -53,7 +54,7 @@ class IdBox implements IBoxRender {
         text3.setAttribute("x", "15");
         text3.setAttribute("y", "32");
         text3.setAttribute("font-size", "15px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
 
         var gender = 'none';
         if(node.hasAttr('gender')) {

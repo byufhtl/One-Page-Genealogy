@@ -1,9 +1,10 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
+///<reference path="../../IBoxData.ts"/>
 /**
  * Created by renae on 9/25/15.
  */
-class JSSmallestDetBox implements IBoxRender {
+class JSSmallestDetBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -75,7 +76,7 @@ class JSSmallestDetBox implements IBoxRender {
             //text.setAttribute("x", "5");
             text.setAttribute("y", "2");
             text.setAttribute("font-size", "9px");
-            text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
             StringUtils.fitName(text,node.getAttr('name'),28);
@@ -90,7 +91,7 @@ class JSSmallestDetBox implements IBoxRender {
         text3.setAttribute("x", "150");
         text3.setAttribute("y", "2");
         text3.setAttribute("font-size", "9px");
-        text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
         StringUtils.fitYearsState(text3,node.getAttr('birthdate'),node.getAttr('deathdate'),node.getAttr('birthplace'),20);
         //StringUtils.fitDatePlace(text3,node.getAttr('birthdate'), node.getAttr('birthplace'), 70);
         //StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
@@ -104,7 +105,7 @@ class JSSmallestDetBox implements IBoxRender {
          //text3.setAttribute("x", "160");
          text4.setAttribute("y", "20");
          text4.setAttribute("font-size", "8px");
-         text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+         text4.setAttribute("style", this.getFont() );
 
          StringUtils.fitDatePlace(text4,node.getAttr('deathdate'), node.getAttr('deathplace'), 70);*/
 

@@ -1,9 +1,10 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
+///<reference path="../../IBoxData.ts"/>
 /**
  * Created by renae on 9/24/15.
  */
-class JSSmallestDetSpBox implements IBoxRender {
+class JSSmallestDetSpBox extends IBoxData {
 
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -76,7 +77,7 @@ class JSSmallestDetSpBox implements IBoxRender {
             //text.setAttribute("x", "160");
             //text.setAttribute("y", "18");
             text.setAttribute("font-size", "9px");
-            text.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            text.setAttribute("style", this.getFont());
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
             StringUtils.fitName(text,node.getAttr('name'),28);
@@ -90,7 +91,7 @@ class JSSmallestDetSpBox implements IBoxRender {
         text3.setAttribute("x", "150");
         //text3.setAttribute("y", "11");
         text3.setAttribute("font-size", "9px");
-        text3.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont());
         StringUtils.fitYearsState(text3,node.getAttr('birthdate'),node.getAttr('deathdate'),node.getAttr('birthplace'),20);
         //StringUtils.fitDatePlace(text3,node.getAttr('birthdate'), node.getAttr('birthplace'), 70);
         //StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
@@ -104,7 +105,7 @@ class JSSmallestDetSpBox implements IBoxRender {
          //text3.setAttribute("x", "160");
          text4.setAttribute("y", "20");
          text4.setAttribute("font-size", "8px");
-         text4.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+         text4.setAttribute("style", this.getFont() );
 
          StringUtils.fitDatePlace(text4,node.getAttr('deathdate'), node.getAttr('deathplace'), 70);*/
 
@@ -158,7 +159,7 @@ class JSSmallestDetSpBox implements IBoxRender {
             //text6.setAttribute("x", "160");
             //text6.setAttribute("y", "18");
             text6.setAttribute("font-size", "9px");
-            text6.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            text6.setAttribute("style", this.getFont());
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
@@ -171,7 +172,7 @@ class JSSmallestDetSpBox implements IBoxRender {
             text7.setAttribute("x", "150");
             //text7.setAttribute("y", "11");
             text7.setAttribute("font-size", "9px");
-            text7.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+            text7.setAttribute("style", this.getFont());
 
             StringUtils.fitYearsState(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('deathdate'),spousenode.getAttr('birthplace'),20);
             //StringUtils.fitDatePlace(text7,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
@@ -185,7 +186,7 @@ class JSSmallestDetSpBox implements IBoxRender {
              //text3.setAttribute("x", "160");
              text8.setAttribute("y", "20");
              text8.setAttribute("font-size", "8px");
-             text8.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+             text8.setAttribute("style", this.getFont() );
 
              StringUtils.fitDatePlace(text8,spousenode.getAttr('deathdate'), spousenode.getAttr('deathplace'), 70)*/
         }
@@ -200,7 +201,7 @@ class JSSmallestDetSpBox implements IBoxRender {
         //text10.setAttribute("x", "100");
         //text10.setAttribute("y", "43");
         //text10.setAttribute("font-size", "8px");
-        //text10.setAttribute("style", "font-family:'Times New Roman',tahoma, sans-serif");
+        //text10.setAttribute("style", this.getFont() );
 
 
         //if(box.getColor()!= null && !grayScale){

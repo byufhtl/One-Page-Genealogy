@@ -5,6 +5,8 @@
     <script src="js/jquery.mousewheel.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:300' rel='stylesheet' type='text/css'>
+    <script src="view/IBoxData.js" type = "text/javascript"></script>
 
     <script src="sources/FakeNode.js" type="text/javascript"></script>
     <script src="sources/FakeSource.js" type="text/javascript"></script>
@@ -119,6 +121,7 @@
     <script src="view/boxStyles/JoSmBoxStyles/MassiveSpouseRotBox.js" type="text/javascript"></script>
 
 
+
     <script>
         $(function(){
             var othernode = new BuildNode('xxx-xxxx:0',{
@@ -164,19 +167,18 @@
             var gedNode = new GedcomNode("@I0001@",person,[])
             var spouseGedNode = new GedcomNode("@I0002@",otherperson,[])
             gedNode.setDisplaySpouse(spouseGedNode)
-            //console.log(gedNode)
 
             var box = new Box(gedNode);
             box.setX(10);
             box.setY(10);
 
-            box.setType('JSMassiveSpouseRotBox')
+            box.setType('JSMedDetBox')
 
             box.setSpace(0);
 
             console.log(box.getNode())
 
-            var render = new JSMassiveSpRotBox();
+            var render = new JSMedDetBox();
             console.log(render)
 
             render.render(box, document.getElementById('svg-g'));

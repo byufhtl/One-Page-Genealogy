@@ -1,10 +1,11 @@
 ///<reference path="../IBoxRender.ts"/>
 ///<reference path="../../util/DateFormat.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
+///<reference path="../IBoxData.ts"/>
 /**
  * Created by renae on 8/20/15.
  */
-class LrgPicDetRotSpBox implements IBoxRender {
+class LrgPicDetRotSpBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -64,7 +65,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
             //text.setAttribute("x", "160");
             //text.setAttribute("y", "35");
             text.setAttribute("font-size", "30px");
-            text.setAttribute("style", "font-family:tahoma, sans-serif");
+            text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
             StringUtils.fitName(text,node.getAttr('name'),28);
@@ -80,7 +81,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
          text2.setAttribute("x", "220");
          text2.setAttribute("y", "80");
          text2.setAttribute("font-size", "40px");
-         text2.setAttribute("style", "font-family:tahoma, sans-serif");
+         text2.setAttribute("style", this.getFont() );
          StringUtils.fitName(text2,node.getAttr('surname'),30);
          //StringUtils.centerElement(text2, 210, 290);
          }*/
@@ -92,7 +93,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
         //text3.setAttribute("x", "160");
         text3.setAttribute("y", "40");
         text3.setAttribute("font-size", "20px");
-        text3.setAttribute("style", "font-family:tahoma, sans-serif");
+        text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
@@ -104,7 +105,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
         //text4.setAttribute("x", "160");
         text4.setAttribute("y", "70");
         text4.setAttribute("font-size", "20px");
-        text4.setAttribute("style", "font-family:sans-serif");
+        text4.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text4, 210, 290);
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
         text4.textContent = 'B: '+text4.textContent;
@@ -116,7 +117,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
         //text5.setAttribute("x", "160");
         text5.setAttribute("y", "95");
         text5.setAttribute("font-size", "20px");
-        text5.setAttribute("style", "font-family:tahoma, sans-serif");
+        text5.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text5, 210, 290);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
         text5.textContent = 'D: '+text5.textContent;
@@ -165,7 +166,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
             //text6.setAttribute("x", "160");
             //text6.setAttribute("y", "175");
             text6.setAttribute("font-size", "30px");
-            text6.setAttribute("style", "font-family:tahoma, sans-serif");
+            text6.setAttribute("style", this.getFont() );
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
@@ -182,7 +183,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
             //text7.setAttribute("x", "160");
             text7.setAttribute("y", "40");
             text7.setAttribute("font-size", "20px");
-            text7.setAttribute("style", "font-family:tahoma, sans-serif");
+            text7.setAttribute("style", this.getFont() );
 
             StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
             //StringUtils.centerElement(text3, 210, 290);
@@ -194,7 +195,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
             //text8.setAttribute("x", "160");
             text8.setAttribute("y", "70");
             text8.setAttribute("font-size", "20px");
-            text8.setAttribute("style", "font-family:sans-serif");
+            text8.setAttribute("style", this.getFont() );
             //StringUtils.centerElement(text4, 210, 290);
             StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
             text8.textContent = 'B: ' + text8.textContent;
@@ -206,7 +207,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
             //text9.setAttribute("x", "160");
             text9.setAttribute("y", "95");
             text9.setAttribute("font-size", "20px");
-            text9.setAttribute("style", "font-family:tahoma, sans-serif");
+            text9.setAttribute("style", this.getFont() );
             //StringUtils.centerElement(text5, 210, 290);
             StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
             text9.textContent = 'D: ' + text9.textContent;
@@ -222,7 +223,7 @@ class LrgPicDetRotSpBox implements IBoxRender {
         text10.setAttribute("x", "160");
         text10.setAttribute("y", "310");
         text10.setAttribute("font-size", "20px");
-        text10.setAttribute("style", "font-family:tahoma, sans-serif");
+        text10.setAttribute("style", this.getFont() );
 
 
         if(box.getColor()!= null){
