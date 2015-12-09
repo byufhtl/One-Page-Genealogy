@@ -158,11 +158,11 @@ class MediumPictureDetailBox extends IBoxData {
                 text3.setAttribute('x','25');
                 text4.setAttribute('x','25');
                 StringUtils.fitPlace(text4, node.getAttr('birthplace'), 45);
-                if(text4.textContent.length >3)
+                //if(text4.textContent.length >3)
                     text4.textContent = 'B: '+text4.textContent;
                 text5.setAttribute('x','25');
                 StringUtils.fitPlace(text5, node.getAttr('deathplace'), 45);
-                if(text5.textContent.length >3)
+                //if(text5.textContent.length >3)
                     text5.textContent = 'D: '+text5.textContent;
             });
         }

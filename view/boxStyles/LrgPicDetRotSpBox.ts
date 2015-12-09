@@ -284,11 +284,11 @@ class LrgPicDetRotSpBox extends IBoxData {
                 text3.setAttribute('x','25');
                 text4.setAttribute('x','25');
                 StringUtils.fitPlace(text4, node.getAttr('birthplace'), 45);
-                if(text4.textContent.length >3)
+                //if(text4.textContent.length >3)
                     text4.textContent = 'B: '+text4.textContent;
                 text5.setAttribute('x','25');
                 StringUtils.fitPlace(text5, node.getAttr('deathplace'), 45);
-                if(text5.textContent.length >3)
+                //if(text5.textContent.length >3)
                     text5.textContent = 'B: '+text5.textContent;
             });
         }
@@ -347,12 +347,12 @@ class LrgPicDetRotSpBox extends IBoxData {
                     text7.setAttribute('x','25');
                     text8.setAttribute('x','25');
                     StringUtils.fitPlace(text8, node.getAttr('birthplace'), 45);
-                    if(text8.textContent.length >3)
+                    //if(text8.textContent.length >3)
                         text8.textContent = 'B: '+text8.textContent;
                     text9.setAttribute('x','25');
                     StringUtils.fitPlace(text9, node.getAttr('deathplace'), 45);
-                    if(text9.textContent.length >3)
-                        text9.textContent = 'B: '+text9.textContent;
+                    //if(text9.textContent.length >3)
+                        text9.textContent = 'D: '+text9.textContent;
                 });
             }
         }

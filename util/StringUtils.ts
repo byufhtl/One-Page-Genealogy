@@ -387,6 +387,7 @@ class StringUtils {
     // Place formatting
     //**************************************************************************************************************
     public static fitPlace(textObj, place, width) {
+        textObj.textContent = "";
         if (!place) {
             return '';
         }
@@ -431,6 +432,7 @@ class StringUtils {
     }
 
     public static fitPlaceJS(textObj, place, width) {
+        textObj.textContent = "";
         if (!place) {
             return '';
         }
@@ -476,6 +478,7 @@ class StringUtils {
     }
 
     public static fitPlaceStateOnly(textObj, place, width) {
+        textObj.textContent = "";
         if (!place) {
             return '';
         }
@@ -527,6 +530,7 @@ class StringUtils {
 
     //For having both birth and death places on one line
     public static fit2Places(textObj, place1, place2, width) {
+        textObj.textContent = "";
         if (!place1 && !place2) {
             return '';
         }

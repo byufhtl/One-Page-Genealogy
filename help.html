@@ -54,7 +54,11 @@
         font-size: 400%;
     }
     .help-footer{
+        width: 100%;
         padding-left: 1em;
+        padding-right: 1em;
+        text-align: right;
+        float:right;
     }
 
 
@@ -86,6 +90,9 @@
         <div id="help-sidebar">
             <h4>Content</h4>
             <h5><a href="#start">Getting Started</a></h5>
+            <h5><a href="#create">Create Your Chart</a></h5>
+            <h5><a href="#explore">Explore Your Chart</a></h5>
+            <h5><a href="#edit">Edit Your Chart</a></h5>
             <h5><a href="#print">Print/PDF</a></h5>
             <h5><a href="#download">Download SVG</a></h5>
         </div>
@@ -95,6 +102,80 @@
             <h3>Getting Started</h3>
             <p>One Page Genealogy is the perfect site to create a compact tree chart of your family with a
                 few quick clicks.</p>
+        </div>
+        <div id="create">
+            <h3>Create Your Chart</h3>
+            <p>You can create a chart from two basic sources: a Gedcom file or FamilySearch.</p>
+            <h4>From a Gedcom</h4>
+            <ul>
+                <li><p>Once you have logged in, click "Read Gedcom File" if you want to create
+                a chart from a Gedcom file you have on your computer.</p></li>
+                <li><p>Select your Gedcom file using the window that pops up and click open.</p></li>
+                <li><p>Choose id of the person who will be at the beginning of the chart.</p></li>
+                <li><p>Choose the type of chart you want and how many generations back you want the chart to go.</p>
+                    <ul>
+                        <li>Ascendancy: creates a tree with each generation being the parents of the last generation.</li>
+                        <li>Descendancy: creates a tree with each generation being the children of the
+                            last generation by spouse.</li>
+                    </ul>
+                </li>
+                <li>Click "Save Changes" to create the chart. It may take a few minutes for the chart to appear.</li>
+                <li>If you click "Cancel" you can click the "Gedcom" or "FamilySearch" buttons at the top of the page
+                to restart the chart creation process.</li>
+            </ul>
+            <h4>From FamilySearch</h4>
+            <ul>
+                <li><p>Once you log in, click "FamilySearch" if you want to create a chart from data found
+                    on FamilySearch.</p></li>
+                <li><p>Enter the FamilySearch id (XXXX-XXX) of the person who will be at the beginning of the chart
+                    or leave it empty to start with yourself.</p></li>
+                <li><p>Choose the type of chart you want and how many generations back you want the chart to go.</p>
+                    <ul>
+                        <li>Ascendancy: creates a tree with each generation being the parents of the last generation.</li>
+                        <li>Descendancy: creates a tree with each generation being the children of the
+                            last generation by spouse.</li>
+                    </ul>
+                </li>
+                <li>Click "Save Changes" to create the chart. You will be prompted to log into FamilySearch.
+                    Once you've logged in, it may take a few minutes for the chart to appear.</li>
+                <li>If you click "Cancel" you can click the "Gedcom" or "FamilySearch" buttons at the top of the page
+                    to restart the chart creation process.</li>
+            </ul>
+        </div>
+        <div id="explore">
+            <h3>Explore Your Chart</h3>
+            <p>Now you have your chart on the page, but maybe it's a bit too big to see all of it.</p>
+            <ul>
+                <li><p>Zoom in and out: scroll middle mouse button.</p></li>
+                <li><p>Pan around: left click and drag the chart.</p></li>
+                <li><p>Click the arrows at the top of the screen to rotate your chart clockwise or counter-clockwise.</p></li>
+            </ul>
+        </div>
+        <div id="edit">
+            <h3>Edit Your Chart</h3>
+            <p>There are a few things you can do to edit how your chart looks.</p>
+            <h4>Changing Main Style</h4>
+            <ul>
+                <li><p>Click "Styles" at the top right of the page and then click the style you want.</p>
+                    <ul>
+                        <li><p>The upper options are presets that will change the style of each box on the chart
+                        to fit the chosen style. Descendancy styles will correctly display descendancy charts.</p></li>
+                        <li><p>The lower options are color presets that can be selected separately from the styles
+                        and will only change the colors of the boxes.</p></li>
+                    </ul>
+                </li>
+            </ul>
+            <h4>Changing Individual Box or Generation Styles</h4>
+            <ul>
+                <li><p>Click the box you wish to edit.</p></li>
+                <li><p>Use the drop down menu to preview any of the box styles.</p></li>
+                <li><p>Select if you want to just change the box you clicked ("Individual") or everyone
+                in the generation selected ("Generation").</p></li>
+                <li><p>Click "Collapse" if you don't want ancestors/descendants of that individual to be shown.
+                <i>Clicking this can reduce the size of your chart.</i></p></li>
+                <li><p>Click "Save Changes" to have the changes made to your chart or "Cancel" to leave the menu
+                without changing anything.</p></li>
+            </ul>
         </div>
         <div id="print">
             <h3>How to Print or save as a PDF</h3>
