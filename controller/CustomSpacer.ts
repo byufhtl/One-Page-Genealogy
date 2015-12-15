@@ -31,7 +31,15 @@ class CustomSpacer implements  IStyler {
                         box.setY(map['y']);
                     }
                     if(map.hasOwnProperty('type')) {
-                        box.setType(map['type']);
+                        if(box.getType() != 'nullBox') {
+                            //console.log(box.getNode().getSpouses().length + " " + map['type']);
+                            if (box.getNode().getSpouses().length == 0 && map['type'] == "JSLrgDetRotSpPubBox") {
+                                console.log("Fixed!!");
+                                box.setType("JSMedDetPubBox");
+                            }
+                            else
+                                box.setType(map['type']);
+                        }
                     }
                     if(map.hasOwnProperty('color')) {
                         box.setColor(map['color']);

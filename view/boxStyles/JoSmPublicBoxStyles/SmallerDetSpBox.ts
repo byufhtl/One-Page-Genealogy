@@ -106,32 +106,33 @@ class JSSmallerDetSpPubBox extends IBoxData {
         var firstGGender = null;
         var secondGGender = null;
 
-        if(spousenode.hasAttr('gender')){
-            secondGGender = spousenode.getAttr('gender')
-            if(secondGGender== "Male"){
-                firstG.setAttribute('transform','translate(8,25)')
-            }else{
-                secondG.setAttribute('transform','translate(8,25)')
-            }
-        }else if(node.hasAttr('gender')){
-            firstGGender = node.getAttr('gender')
-            if(firstGGender == "Male"){
-                secondG.setAttribute('transform','translate(8,25)')
-            }else{
-                firstG.setAttribute('transform','translate(8,25)')
-            }
-        }else{
-            if(spousenode.isMainPerson()){
-                firstG.setAttribute('transform','translate(8,25)')
-            }else {
-                secondG.setAttribute('transform','translate(8,25)')
-            }
-        }
-
-
-        //if(node.hasAttr('spousename')) {
-
         if(spousenode != null) {
+            if(spousenode.hasAttr('gender')){
+                secondGGender = spousenode.getAttr('gender')
+                if(secondGGender== "Male"){
+                    firstG.setAttribute('transform','translate(8,25)')
+                }else{
+                    secondG.setAttribute('transform','translate(8,25)')
+                }
+            }else if(node.hasAttr('gender')){
+                firstGGender = node.getAttr('gender')
+                if(firstGGender == "Male"){
+                    secondG.setAttribute('transform','translate(8,25)')
+                }else{
+                    firstG.setAttribute('transform','translate(8,25)')
+                }
+            }else{
+                if(spousenode.isMainPerson()){
+                    firstG.setAttribute('transform','translate(8,25)')
+                }else {
+                    secondG.setAttribute('transform','translate(8,25)')
+                }
+            }
+
+
+            //if(node.hasAttr('spousename')) {
+
+            //if(spousenode != null) {
 
             var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
             secondG.appendChild(text6);

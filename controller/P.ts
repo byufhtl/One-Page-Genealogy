@@ -91,6 +91,7 @@ class P implements IControllerListener, ITreeListener {
             else if(param.type === 'changeGeneration') {
                 var root:INode = this.tree.getRoot();
                 var gen = this.getGeneration(root, param.id);
+                console.log("Gen: "+gen);
                 this.applyToGeneration(gen, root, param);
                 refresh = true;
             }
@@ -206,6 +207,8 @@ class P implements IControllerListener, ITreeListener {
                             return childNum
                         }
                     }
+                    if(child.getSpouses().length >1)
+                        return childNum;
                     return childNum + 1;
                 }
             }
