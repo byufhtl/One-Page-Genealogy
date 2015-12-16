@@ -79,7 +79,7 @@ class JSLrgDetRotSpPubBox extends IBoxData {
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
-            StringUtils.fitName(text,node.getAttr('name'),18);
+            StringUtils.fitName(text,node.getAttr('name'),17);
             //StringUtils.centerElement(text, 210, 290);
         }
 
@@ -92,7 +92,7 @@ class JSLrgDetRotSpPubBox extends IBoxData {
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", this.getFont() );
 
-        StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);//290);
+        StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),38);//290);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
 
@@ -104,7 +104,7 @@ class JSLrgDetRotSpPubBox extends IBoxData {
         text4.setAttribute("y", "78");
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", this.getFont() );
-        StringUtils.fitDatePlace2(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),40);
+        StringUtils.fitDatePlace2(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),38);
 
         firstG.setAttribute('transform','translate(28,50)')
         secondG.setAttribute('transform','translate(28,50)')
@@ -154,7 +154,7 @@ class JSLrgDetRotSpPubBox extends IBoxData {
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
-            StringUtils.fitName(text6, spousenode.getAttr('name'), 18);
+            StringUtils.fitName(text6, spousenode.getAttr('name'), 17);
 
 
             //StringUtils.centerElement(text, 210, 290);
@@ -168,7 +168,7 @@ class JSLrgDetRotSpPubBox extends IBoxData {
             text7.setAttribute("y", "50");//"45");
             text7.setAttribute("font-size", "20px");
             text7.setAttribute("style", this.getFont() );
-            StringUtils.fitDatePlace2(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('birthplace'),40);
+            StringUtils.fitDatePlace2(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('birthplace'),38);
             //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
             //StringUtils.centerElement(text3, 210, 290);
 
@@ -180,7 +180,7 @@ class JSLrgDetRotSpPubBox extends IBoxData {
             text8.setAttribute("y", "78");
             text8.setAttribute("font-size", "20px");
             text8.setAttribute("style", this.getFont() );
-            StringUtils.fitDatePlace2(text8,spousenode.getAttr('deathdate'),spousenode.getAttr('deathplace'),40);
+            StringUtils.fitDatePlace2(text8,spousenode.getAttr('deathdate'),spousenode.getAttr('deathplace'),38);
         }
 
         var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");

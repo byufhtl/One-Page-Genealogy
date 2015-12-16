@@ -45,7 +45,7 @@ class MedSmPicDetRotBox extends IBoxData {
             text.setAttribute("font-size", "19px");
             text.setAttribute("style", this.getFont() );
 //            StringUtils.centerElement(text, 40, 240);
-            StringUtils.fitName(text,node.getAttr('name'),25);
+            StringUtils.fitName(text,node.getAttr('name'),23);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");

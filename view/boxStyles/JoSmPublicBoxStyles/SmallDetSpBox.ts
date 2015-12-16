@@ -79,7 +79,7 @@ class JSSmallDetSpPubBox extends IBoxData {
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
-            StringUtils.fitName(text,node.getAttr('name'),18);
+            StringUtils.fitName(text,node.getAttr('name'),16);
             //StringUtils.centerElement(text, 210, 290);
         }
 
@@ -92,7 +92,7 @@ class JSSmallDetSpPubBox extends IBoxData {
         text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", this.getFont() );
 
-        StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'), node.getAttr('birthplace'), 28);
+        StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'), node.getAttr('birthplace'), 26);
         //StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
@@ -106,7 +106,7 @@ class JSSmallDetSpPubBox extends IBoxData {
         text4.setAttribute("font-size", "8px");
         text4.setAttribute("style", this.getFont() );
 
-        StringUtils.fitDatePlace2(text4,node.getAttr('deathdate'), node.getAttr('deathplace'), 28);
+        StringUtils.fitDatePlace2(text4,node.getAttr('deathdate'), node.getAttr('deathplace'), 26);
 
         firstG.setAttribute('transform','translate(8,16)')
         secondG.setAttribute('transform','translate(8,16)')
@@ -129,22 +129,22 @@ class JSSmallDetSpPubBox extends IBoxData {
             if(spousenode.hasAttr('gender')){
                 secondGGender = spousenode.getAttr('gender')
                 if(secondGGender== "Male"){
-                    firstG.setAttribute('transform','translate(130,16)')
+                    firstG.setAttribute('transform','translate(125,16)')
                 }else{
-                    secondG.setAttribute('transform','translate(130,16)')
+                    secondG.setAttribute('transform','translate(125,16)')
                 }
             }else if(node.hasAttr('gender')){
                 firstGGender = node.getAttr('gender')
                 if(firstGGender == "Male"){
-                    secondG.setAttribute('transform','translate(130,16)')
+                    secondG.setAttribute('transform','translate(125,16)')
                 }else{
-                    firstG.setAttribute('transform','translate(130,16)')
+                    firstG.setAttribute('transform','translate(125,16)')
                 }
             }else{
                 if(spousenode.isMainPerson()){
-                    firstG.setAttribute('transform','translate(130,16)')
+                    firstG.setAttribute('transform','translate(125,16)')
                 }else {
-                    secondG.setAttribute('transform','translate(130,16)')
+                    secondG.setAttribute('transform','translate(125,16)')
                 }
             }
 
@@ -160,7 +160,7 @@ class JSSmallDetSpPubBox extends IBoxData {
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
-            StringUtils.fitName(text6, spousenode.getAttr('name'), 18);
+            StringUtils.fitName(text6, spousenode.getAttr('name'), 16);
 
             var text7 = document.createElementNS("http://www.w3.org/2000/svg", "text");
             secondG.appendChild(text7);
@@ -171,7 +171,7 @@ class JSSmallDetSpPubBox extends IBoxData {
             text7.setAttribute("font-size", "8px");
             text7.setAttribute("style", this.getFont() );
 
-            StringUtils.fitDatePlace2(text7,spousenode.getAttr('birthdate'), spousenode.getAttr('birthplace'), 28);
+            StringUtils.fitDatePlace2(text7,spousenode.getAttr('birthdate'), spousenode.getAttr('birthplace'), 26);
             //StringUtils.fitDatePlace(text7,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
             //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
             //StringUtils.centerElement(text3, 210, 290);
@@ -185,7 +185,7 @@ class JSSmallDetSpPubBox extends IBoxData {
             text8.setAttribute("font-size", "8px");
             text8.setAttribute("style", this.getFont() );
 
-            StringUtils.fitDatePlace2(text8,spousenode.getAttr('deathdate'), spousenode.getAttr('deathplace'), 28)
+            StringUtils.fitDatePlace2(text8,spousenode.getAttr('deathdate'), spousenode.getAttr('deathplace'), 26)
         }
 
         var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");

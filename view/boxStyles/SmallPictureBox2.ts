@@ -42,7 +42,8 @@ class SmallPictureBox2 extends IBoxData {
             text.setAttribute("y", "170");
             text.setAttribute("font-size", "20px");
             text.setAttribute("style", this.getFont() );
-            StringUtils.centerElement(text, 0, 150);
+            StringUtils.fitName(text,box.getNode().getAttr('givenname'),14);
+            StringUtils.centerElement(text, 0, 150)
         }
 
         var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -54,6 +55,7 @@ class SmallPictureBox2 extends IBoxData {
             text2.setAttribute("y", "195");
             text2.setAttribute("font-size", "20px");
             text2.setAttribute("style", this.getFont() );
+            StringUtils.fitName(text2,box.getNode().getAttr('surname'),14);
             StringUtils.centerElement(text2, 0, 150);
         }
 
@@ -66,7 +68,7 @@ class SmallPictureBox2 extends IBoxData {
         text3.setAttribute("font-size", "15px");
         text3.setAttribute("style", this.getFont() );
 
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 150);
+        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 20);//140);
         StringUtils.centerElement(text3, 0, 150);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -176,14 +178,14 @@ class SmallPictureBox2 extends IBoxData {
 
             }, function() {
                 g.removeChild(svgimg);
-                text.setAttribute('y','7');
-                text2.setAttribute('y','32');
-                text3.setAttribute('y','57');
-                text4.setAttribute('y','77');
-                StringUtils.fitPlace(text4, node.getAttr('birthplace'), 40);
+                text.setAttribute('y','108');
+                text2.setAttribute('y','133');
+                text3.setAttribute('y','158');
+                text4.setAttribute('y','178');
+                StringUtils.fitPlace(text4, node.getAttr('birthplace'), 18);
                 text4.textContent = 'B: '+text4.textContent;
-                text5.setAttribute('y','97');
-                StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
+                text5.setAttribute('y','198');
+                StringUtils.fitPlace(text5, node.getAttr('deathplace'), 18);
                 text5.textContent = 'D: '+text5.textContent;
             });
         }

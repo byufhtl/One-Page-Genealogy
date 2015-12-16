@@ -67,7 +67,7 @@ class JSMedDetPubBox extends IBoxData {
         text.appendChild(nameTextPath);
         text.setAttribute('font-size', '35px');
         text.setAttribute("style", this.getFont());
-        StringUtils.fitName(text, nameString, 16);
+        StringUtils.fitName(text, nameString, 14);
         StringUtils.centerElement(text, 30, 255);
         text.setAttribute('y','50')
         text.setAttribute("font-weight", "bold");
@@ -82,7 +82,7 @@ class JSMedDetPubBox extends IBoxData {
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", this.getFont());
 
-        StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),28);
+        StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),26);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
         StringUtils.centerElement(text3, 30, 255);
@@ -96,7 +96,7 @@ class JSMedDetPubBox extends IBoxData {
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", this.getFont());
         //StringUtils.centerElement(text4, 210, 290);
-        StringUtils.fitDatePlace2(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),28);
+        StringUtils.fitDatePlace2(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),26);
         //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
         //text4.textContent = 'B: '+text4.textContent;
         StringUtils.centerElement(text4, 30, 255);

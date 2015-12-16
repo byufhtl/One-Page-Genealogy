@@ -104,7 +104,7 @@ class LargePictureDetailBox2 extends IBoxData {
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text4, 210, 290);
-        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
+        StringUtils.fitPlace(text4, node.getAttr('birthplace'), 24);
         text4.textContent = 'B: '+text4.textContent;
 
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -116,7 +116,7 @@ class LargePictureDetailBox2 extends IBoxData {
         text5.setAttribute("font-size", "20px");
         text5.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text5, 210, 290);
-        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 25);
+        StringUtils.fitPlace(text5, node.getAttr('deathplace'), 24);
         text5.textContent = 'D: '+text5.textContent;
 
         /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
