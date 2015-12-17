@@ -92,7 +92,7 @@ class JSSmallDetPubBox extends IBoxData {
         text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", this.getFont() );
 
-        StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'), node.getAttr('birthplace'), 70);
+        StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'), node.getAttr('birthplace'), 58);
         //StringUtils.fitDatePlace(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),40);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
@@ -106,7 +106,7 @@ class JSSmallDetPubBox extends IBoxData {
         text4.setAttribute("font-size", "8px");
         text4.setAttribute("style", this.getFont() );
 
-        StringUtils.fitDatePlace2(text4,node.getAttr('deathdate'), node.getAttr('deathplace'), 70);
+        StringUtils.fitDatePlace2(text4,node.getAttr('deathdate'), node.getAttr('deathplace'), 58);
 
 
 

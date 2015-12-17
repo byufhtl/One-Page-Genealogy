@@ -81,7 +81,7 @@ class JSLargeDetRotPubBox extends IBoxData {
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", this.getFont());
 
-        StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),45);
+        StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),41);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
         StringUtils.centerElement(text3, 65, 300);
