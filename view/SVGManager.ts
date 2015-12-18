@@ -15,6 +15,7 @@ class SVGManager implements IViewManager {
     private svgRoot;
     private mainSvg;
     private linePath;
+    private svgLoading;
     private renders:{[s:string]:IBoxRender;};
     private boundingRect;
     private graphicObject: SVGGraphicObject;
@@ -43,8 +44,17 @@ class SVGManager implements IViewManager {
         $(svg).off();
         $(window).off();
 
+
         this.svgRoot = document.createElementNS("http://www.w3.org/2000/svg", "g");
         svg.appendChild(this.svgRoot);
+
+        this.svgLoading = document.createElementNS("http://www.w3.org/2000/svg", "image");
+        this.svgLoading.setAttribute('height','500');
+        this.svgLoading.setAttribute('width','500');
+        this.svgLoading.setAttribute('x', '50%');
+        this.svgLoading.setAttribute('transform', 'translate(-250)');
+        this.svgLoading.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.gif');
+        this.svgRoot.appendChild(this.svgLoading);
 
         this.linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
         this.svgRoot.appendChild(this.linePath);
@@ -162,6 +172,12 @@ class SVGManager implements IViewManager {
         }
     }
     private realRefresh(): void {
+        //TODO: check for rootNode existance or null
+        //if none exists, show the loading gif
+        if(this.lastBoxes.getRoot() !== null && this.svgLoading){
+            this.svgRoot.removeChild(this.svgLoading);
+            this.svgLoading = null;
+        }
         this.drawLine(this.lastBoxes);
         this.drawBoxes(this.lastBoxes);
     }
