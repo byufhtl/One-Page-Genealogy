@@ -63,11 +63,11 @@ class SmallestSpBox extends IBoxData {
             text.appendChild(nameTextPath);
             //text.setAttribute("x", "10");
             //text.setAttribute("y", "8");
-            text.setAttribute("font-size", "10px");
+            text.setAttribute("font-size", "8px");
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
-            StringUtils.fitName(text,node.getAttr('name'),15);
+            StringUtils.fitName(text,node.getAttr('name'),14);
 
             //StringUtils.centerElement(text, 210, 290);
         }
@@ -77,15 +77,15 @@ class SmallestSpBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "75");
-        text3.setAttribute("y", "-1");
+        //text3.setAttribute("y", "-1");
         text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
         //StringUtils.centerElement(text3, 210, 290);
 
-        firstG.setAttribute('transform','translate(10,8)')
-        secondG.setAttribute('transform','translate(10,8)')
+        firstG.setAttribute('transform','translate(10,7)')
+        secondG.setAttribute('transform','translate(10,7)')
 
         spousenode = node.getDisplaySpouse();
 
@@ -96,22 +96,22 @@ class SmallestSpBox extends IBoxData {
         if(spousenode.hasAttr('gender')){
             secondGGender = spousenode.getAttr('gender')
             if(secondGGender== "Male"){
-                firstG.setAttribute('transform','translate(10,17)')
+                firstG.setAttribute('transform','translate(10,16)')
             }else{
-                secondG.setAttribute('transform','translate(10,17)')
+                secondG.setAttribute('transform','translate(10,16)')
             }
         }else if(node.hasAttr('gender')){
             firstGGender = node.getAttr('gender')
             if(firstGGender == "Male"){
-                secondG.setAttribute('transform','translate(10,17)')
+                secondG.setAttribute('transform','translate(10,16)')
             }else{
-                firstG.setAttribute('transform','translate(10,17)')
+                firstG.setAttribute('transform','translate(10,16)')
             }
         }else{
             if(spousenode.isMainPerson()){
-                firstG.setAttribute('transform','translate(10,17)')
+                firstG.setAttribute('transform','translate(10,16)')
             }else {
-                secondG.setAttribute('transform','translate(10,17)')
+                secondG.setAttribute('transform','translate(10,16)')
             }
         }
         //console.log(spousenode)
@@ -123,12 +123,12 @@ class SmallestSpBox extends IBoxData {
             text6.appendChild(nameTextPath);
             //text6.setAttribute("x", "10");
             //text6.setAttribute("y", "17");
-            text6.setAttribute("font-size", "10px");
+            text6.setAttribute("font-size", "8px");
             text6.setAttribute("style", this.getFont() );
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
-            StringUtils.fitName(text6, spousenode.getAttr('name'), 15);
+            StringUtils.fitName(text6, spousenode.getAttr('name'), 14);
 
 
             //StringUtils.centerElement(text, 210, 290);
@@ -139,7 +139,7 @@ class SmallestSpBox extends IBoxData {
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
             text7.setAttribute("x", "75");
-            text7.setAttribute("y", "-1");
+            //text7.setAttribute("y", "-1");
             text7.setAttribute("font-size", "8px");
             text7.setAttribute("style", this.getFont() );
 

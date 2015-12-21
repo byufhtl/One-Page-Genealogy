@@ -69,7 +69,7 @@ class LrgPicDetRotSpBox extends IBoxData {
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
-            StringUtils.fitName(text,node.getAttr('name'),28);
+            StringUtils.fitName(text,node.getAttr('name'),24);
             //StringUtils.centerElement(text, 210, 290);
         }
 
@@ -171,7 +171,7 @@ class LrgPicDetRotSpBox extends IBoxData {
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
-            StringUtils.fitName(text6, spousenode.getAttr('name'), 28);
+            StringUtils.fitName(text6, spousenode.getAttr('name'), 24);
 
 
             //StringUtils.centerElement(text, 210, 290);

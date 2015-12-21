@@ -81,7 +81,7 @@ class SmallerDetSpBox extends IBoxData {
         text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", this.getFont() );
 
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 50);
+        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 20);
         //StringUtils.centerElement(text3, 210, 290);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -167,7 +167,7 @@ class SmallerDetSpBox extends IBoxData {
             text7.setAttribute("font-size", "8px");
             text7.setAttribute("style", this.getFont() );
 
-            StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 50);
+            StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 20);
             //StringUtils.centerElement(text3, 210, 290);
 
             var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");

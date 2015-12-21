@@ -42,7 +42,7 @@ class SmallestNameBox extends IBoxData {
             text.appendChild(nameTextPath);
             text.setAttribute("x", "5");
             text.setAttribute("y", "7");
-            text.setAttribute("font-size", "9px");
+            text.setAttribute("font-size", "8px");
             text.setAttribute("style", this.getFont() );
  //           StringUtils.centerElement(text, 0, 140);
             StringUtils.fitName(text,node.getAttr('name'),15);
@@ -54,7 +54,7 @@ class SmallestNameBox extends IBoxData {
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "85");
         text3.setAttribute("y", "7");
-        text3.setAttribute("font-size", "9px");
+        text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
 

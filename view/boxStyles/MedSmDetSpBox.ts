@@ -73,7 +73,7 @@ class SmallDetSpBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         //text3.setAttribute("x", "60");
-        text3.setAttribute("y", "11");
+        text3.setAttribute("y", "12");
         text3.setAttribute("font-size", "10px");
         text3.setAttribute("style", this.getFont() );
 
@@ -85,7 +85,7 @@ class SmallDetSpBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
         //text4.setAttribute("x", "60");
-        text4.setAttribute("y", "23");
+        text4.setAttribute("y", "24");
         text4.setAttribute("font-size", "10px");
         text4.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text4, 210, 290);
@@ -97,7 +97,7 @@ class SmallDetSpBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
         //text5.setAttribute("x", "60");
-        text5.setAttribute("y", "35");
+        text5.setAttribute("y", "36");
         text5.setAttribute("font-size", "10px");
         text5.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text5, 210, 290);
@@ -158,7 +158,7 @@ class SmallDetSpBox extends IBoxData {
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
             //text7.setAttribute("x", "60");
-            text7.setAttribute("y", "11");
+            text7.setAttribute("y", "12");
             text7.setAttribute("font-size", "10px");
             text7.setAttribute("style", this.getFont() );
 
@@ -170,7 +170,7 @@ class SmallDetSpBox extends IBoxData {
             var nameTextPath = document.createTextNode("");
             text8.appendChild(nameTextPath);
             //text8.setAttribute("x", "60");
-            text8.setAttribute("y", "23");
+            text8.setAttribute("y", "24");
             text8.setAttribute("font-size", "10px");
             text8.setAttribute("style", this.getFont() );
             //StringUtils.centerElement(text4, 210, 290);
@@ -182,7 +182,7 @@ class SmallDetSpBox extends IBoxData {
             var nameTextPath = document.createTextNode("");
             text9.appendChild(nameTextPath);
             //text9.setAttribute("x", "60");
-            text9.setAttribute("y", '35');
+            text9.setAttribute("y", '36');
             text9.setAttribute("font-size", "10px");
             text9.setAttribute("style", this.getFont() );
             //StringUtils.centerElement(text5, 210, 290);

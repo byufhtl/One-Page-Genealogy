@@ -41,7 +41,7 @@ class SmallDetailBox extends IBoxData {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
             text.setAttribute("x", "10");
-            text.setAttribute("y", "10");
+            text.setAttribute("y", "11");
             text.setAttribute("font-size", "12px");
             text.setAttribute("style", this.getFont() );
 //            StringUtils.centerElement(text, 0, 190);

@@ -80,7 +80,7 @@ class MedDetRotSpBox extends IBoxData {
         text3.appendChild(nameTextPath);
         //text3.setAttribute("x", "10");
         text3.setAttribute("y", "20");
-        text3.setAttribute("font-size", "17px");
+        text3.setAttribute("font-size", "16px");
         text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
@@ -174,7 +174,7 @@ class MedDetRotSpBox extends IBoxData {
             text7.appendChild(nameTextPath);
             //text7.setAttribute("x", "10");
             text7.setAttribute("y", "20");
-            text7.setAttribute("font-size", "17px");
+            text7.setAttribute("font-size", "16px");
             text7.setAttribute("style", this.getFont() );
 
             StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
@@ -214,7 +214,7 @@ class MedDetRotSpBox extends IBoxData {
         //text10.appendChild(nameTextPath);
         text10.setAttribute("x", "10");
         text10.setAttribute("y", "290");
-        text10.setAttribute("font-size", "17px");
+        text10.setAttribute("font-size", "16px");
         text10.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text10, 100, 290)
 
