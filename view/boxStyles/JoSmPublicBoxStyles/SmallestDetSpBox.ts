@@ -89,13 +89,13 @@ class JSSmallestDetSpPubBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "150");
-        //text3.setAttribute("y", "11");
-        text3.setAttribute("font-size", "9px");
+        text3.setAttribute("y", "-1");
+        text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitYearsState(text3,node.getAttr('birthdate'),node.getAttr('deathdate'),node.getAttr('birthplace'),20);
 
-        firstG.setAttribute('transform','translate(7,10)')
-        secondG.setAttribute('transform','translate(7,10)')
+        firstG.setAttribute('transform','translate(6,11)')
+        secondG.setAttribute('transform','translate(6,11)')
 
 
 
@@ -114,22 +114,22 @@ class JSSmallestDetSpPubBox extends IBoxData {
             if(spousenode.hasAttr('gender')){
                 secondGGender = spousenode.getAttr('gender')
                 if(secondGGender== "Male"){
-                    firstG.setAttribute('transform','translate(7,19)')
+                    firstG.setAttribute('transform','translate(6,20)')
                 }else{
-                    secondG.setAttribute('transform','translate(7,19)')
+                    secondG.setAttribute('transform','translate(6,20)')
                 }
             }else if(node.hasAttr('gender')){
                 firstGGender = node.getAttr('gender')
                 if(firstGGender == "Male"){
-                    secondG.setAttribute('transform','translate(7,19)')
+                    secondG.setAttribute('transform','translate(6,20)')
                 }else{
-                    firstG.setAttribute('transform','translate(7,19)')
+                    firstG.setAttribute('transform','translate(6,20)')
                 }
             }else{
                 if(spousenode.isMainPerson()){
-                    firstG.setAttribute('transform','translate(7,19)')
+                    firstG.setAttribute('transform','translate(6,20)')
                 }else {
-                    secondG.setAttribute('transform','translate(7,19)')
+                    secondG.setAttribute('transform','translate(6,20)')
                 }
             }
 
@@ -151,8 +151,8 @@ class JSSmallestDetSpPubBox extends IBoxData {
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
             text7.setAttribute("x", "150");
-            //text7.setAttribute("y", "11");
-            text7.setAttribute("font-size", "9px");
+            text7.setAttribute("y", "-1");
+            text7.setAttribute("font-size", "8px");
             text7.setAttribute("style", this.getFont() );
 
 
@@ -183,7 +183,7 @@ class JSSmallestDetSpPubBox extends IBoxData {
         return "JSSmallestDetSpPubBox";
     }
     getHeight(): number {
-        return 25;
+        return 26;
     }
     getWidth(): number {
         return 245;//214;

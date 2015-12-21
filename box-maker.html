@@ -120,6 +120,27 @@
     <script src="view/boxStyles/JoSmBoxStyles/SmallDetBox.js" type="text/javascript"></script>
     <script src="view/boxStyles/JoSmBoxStyles/MassiveSpouseRotBox.js" type="text/javascript"></script>
 
+    <script src="view/boxStyles/JoSmBoxStyles/LargeDetRotSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmBoxStyles/LargeDetRotBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmBoxStyles/JSMedDetBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmBoxStyles/SmallDetSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmBoxStyles/SmallerDetSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmBoxStyles/SmallerDetBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmBoxStyles/SmallestDetSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmBoxStyles/SmallestDetBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmBoxStyles/SmallDetBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmBoxStyles/MassiveSpouseRotBox.js" type="text/javascript"></script>
+
+    <script src="view/boxStyles/JoSmPublicBoxStyles/LargeDetRotSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmPublicBoxStyles/LargeDetRotBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmPublicBoxStyles/MedDetBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmPublicBoxStyles/SmallDetBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmPublicBoxStyles/SmallDetSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmPublicBoxStyles/SmallerDetSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmPublicBoxStyles/SmallerDetBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmPublicBoxStyles/SmallestDetSpBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmPublicBoxStyles/SmallestDetBox.js" type="text/javascript"></script>
+
 
 
     <script>
@@ -140,7 +161,7 @@
                 'displaySpouse': othernode
             });
             var person = {
-                'name': "Joseph Maquentosh Wigington",
+                'name': "Joseph Maquentosh Wiginton",
                 'givenname':"Joseph Maquentosh",
                 'surname': 'Wigington',
                 'gender': 'Male',
@@ -152,7 +173,7 @@
 
             };
             var otherperson = {
-                'name': "Josephina Mackentosh Wigington",
+                'name': "Josephina Mackentosh Wigton",
                 'givenname':"Josephina Maquentosh",
                 'surname': 'Wigington',
                 'gender': 'Female',
@@ -172,13 +193,13 @@
             box.setX(10);
             box.setY(10);
 
-            box.setType('JSMedDetBox')
+            box.setType('JSSmallestDetPubBox')
 
             box.setSpace(0);
 
             console.log(box.getNode())
 
-            var render = new JSMedDetBox();
+            var render = new JSSmallestDetPubBox();
             console.log(render)
 
             render.render(box, document.getElementById('svg-g'));

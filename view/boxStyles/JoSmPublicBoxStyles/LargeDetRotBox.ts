@@ -77,7 +77,7 @@ class JSLargeDetRotPubBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "25");
-        text3.setAttribute("y", "100");
+        text3.setAttribute("y", "105");
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", this.getFont());
 
@@ -91,7 +91,7 @@ class JSLargeDetRotPubBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
         text4.setAttribute("x", "25");
-        text4.setAttribute("y", "130");
+        text4.setAttribute("y", "135");
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text4, 210, 290);

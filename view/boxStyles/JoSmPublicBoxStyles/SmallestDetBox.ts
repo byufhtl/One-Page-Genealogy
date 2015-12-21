@@ -45,7 +45,7 @@ class JSSmallestDetPubBox extends IBoxData {
         rect2.setAttribute('fill-opacity','.001')
 
         g.appendChild(gt);
-        //gt.setAttribute("transform","translate(2, 2)");
+        //gt.setAttribute("transform","translate(-1, 0)");
 
 
         var n: INode = box.getNode();
@@ -73,8 +73,8 @@ class JSSmallestDetPubBox extends IBoxData {
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            //text.setAttribute("x", "5");
-            text.setAttribute("y", "2");
+            text.setAttribute("x", "-1");
+            text.setAttribute("y", "3");
             text.setAttribute("font-size", "9px");
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
@@ -88,9 +88,9 @@ class JSSmallestDetPubBox extends IBoxData {
         //firstG.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "150");
+        text3.setAttribute("x", "149");
         text3.setAttribute("y", "2");
-        text3.setAttribute("font-size", "9px");
+        text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitYearsState(text3,node.getAttr('birthdate'),node.getAttr('deathdate'),node.getAttr('birthplace'),20);
 

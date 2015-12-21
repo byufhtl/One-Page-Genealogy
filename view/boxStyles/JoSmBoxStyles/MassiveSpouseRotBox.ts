@@ -80,7 +80,7 @@ class JSMassiveSpRotBox extends IBoxData {
             text.setAttribute("style", this.getFont());
             if (node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
-            StringUtils.fitName(text, node.getAttr('name'), 18);
+            StringUtils.fitName(text, node.getAttr('name'), 14);
             //StringUtils.centerElement(text, 210, 290);
         }
 
@@ -156,7 +156,7 @@ class JSMassiveSpRotBox extends IBoxData {
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
-            StringUtils.fitName(text6, spousenode.getAttr('name'), 18);
+            StringUtils.fitName(text6, spousenode.getAttr('name'), 14);
 
 
             //StringUtils.centerElement(text, 210, 290);

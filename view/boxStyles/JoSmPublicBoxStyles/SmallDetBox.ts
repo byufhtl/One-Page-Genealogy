@@ -74,7 +74,7 @@ class JSSmallDetPubBox extends IBoxData {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
             //text.setAttribute("x", "160");
-            //text.setAttribute("y", "18");
+            text.setAttribute("y", "2");
             text.setAttribute("font-size", "12px");
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
@@ -88,7 +88,7 @@ class JSSmallDetPubBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         //text3.setAttribute("x", "160");
-        text3.setAttribute("y", "9");
+        text3.setAttribute("y", "12");
         text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", this.getFont() );
 
@@ -102,7 +102,7 @@ class JSSmallDetPubBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
         //text3.setAttribute("x", "160");
-        text4.setAttribute("y", "18");
+        text4.setAttribute("y", "21");
         text4.setAttribute("font-size", "8px");
         text4.setAttribute("style", this.getFont() );
 

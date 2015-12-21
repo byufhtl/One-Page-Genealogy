@@ -69,7 +69,7 @@ class JSMedDetPubBox extends IBoxData {
         text.setAttribute("style", this.getFont());
         StringUtils.fitName(text, nameString, 14);
         StringUtils.centerElement(text, 30, 255);
-        text.setAttribute('y','50')
+        text.setAttribute('y','55')
         text.setAttribute("font-weight", "bold");
 
 
@@ -78,7 +78,7 @@ class JSMedDetPubBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "25");
-        text3.setAttribute("y", "75");
+        text3.setAttribute("y", "83");
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", this.getFont());
 
@@ -92,7 +92,7 @@ class JSMedDetPubBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
         text4.setAttribute("x", "25");
-        text4.setAttribute("y", "99");
+        text4.setAttribute("y", "105");
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", this.getFont());
         //StringUtils.centerElement(text4, 210, 290);

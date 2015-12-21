@@ -76,8 +76,8 @@ class JSSmallerDetPubBox extends IBoxData {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
             //text.setAttribute("x", "160");
-            text.setAttribute("y", ".5");
-            text.setAttribute("font-size", "11px");
+            text.setAttribute("y", "1");
+            text.setAttribute("font-size", "10px");
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
@@ -91,7 +91,7 @@ class JSSmallerDetPubBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "150");
-        text3.setAttribute("y", "-1");
+        //text3.setAttribute("y", "-1");
         text3.setAttribute("font-size", "9px");
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitYearsState(text3,node.getAttr('birthdate'),node.getAttr('deathdate'),node.getAttr('birthplace'),20);
@@ -116,7 +116,7 @@ class JSSmallerDetPubBox extends IBoxData {
         return "JSSmallerDetPubBox";
     }
     getHeight(): number {
-        return 18;
+        return 19;
     }
     getWidth(): number {
         return 250;//214;

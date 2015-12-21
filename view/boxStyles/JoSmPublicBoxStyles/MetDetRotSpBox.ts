@@ -4,6 +4,7 @@
 /**
  * Created by renae on 10/2/15.
  */
+    //CURRENTLY NOT USED BY JSPublicSpacer.ts
 class JSMedDetRotSpPubBox extends IBoxData {
     render(box:IBox, rootElement): any {
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");

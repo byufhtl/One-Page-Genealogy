@@ -75,11 +75,11 @@ class JSSmallerDetSpPubBox extends IBoxData {
             text.appendChild(nameTextPath);
             //text.setAttribute("x", "160");
             //text.setAttribute("y", "18");
-            text.setAttribute("font-size", "11px");
+            text.setAttribute("font-size", "10px");
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
-            StringUtils.fitName(text,node.getAttr('name'),28);
+            StringUtils.fitName(text,node.getAttr('name'),24);
             //StringUtils.centerElement(text, 210, 290);
         }
 
@@ -94,8 +94,8 @@ class JSSmallerDetSpPubBox extends IBoxData {
         StringUtils.fitYearsState(text3,node.getAttr('birthdate'),node.getAttr('deathdate'),node.getAttr('birthplace'),20);
 
 
-        firstG.setAttribute('transform','translate(8,13)')
-        secondG.setAttribute('transform','translate(6,13)')
+        firstG.setAttribute('transform','translate(6,14)')
+        secondG.setAttribute('transform','translate(6,14)')
 
 
 
@@ -110,22 +110,22 @@ class JSSmallerDetSpPubBox extends IBoxData {
             if(spousenode.hasAttr('gender')){
                 secondGGender = spousenode.getAttr('gender')
                 if(secondGGender== "Male"){
-                    firstG.setAttribute('transform','translate(8,25)')
+                    firstG.setAttribute('transform','translate(6,25)')
                 }else{
-                    secondG.setAttribute('transform','translate(8,25)')
+                    secondG.setAttribute('transform','translate(6,25)')
                 }
             }else if(node.hasAttr('gender')){
                 firstGGender = node.getAttr('gender')
                 if(firstGGender == "Male"){
-                    secondG.setAttribute('transform','translate(8,25)')
+                    secondG.setAttribute('transform','translate(6,25)')
                 }else{
-                    firstG.setAttribute('transform','translate(8,25)')
+                    firstG.setAttribute('transform','translate(6,25)')
                 }
             }else{
                 if(spousenode.isMainPerson()){
-                    firstG.setAttribute('transform','translate(8,25)')
+                    firstG.setAttribute('transform','translate(6,25)')
                 }else {
-                    secondG.setAttribute('transform','translate(8,25)')
+                    secondG.setAttribute('transform','translate(6,25)')
                 }
             }
 
@@ -140,12 +140,12 @@ class JSSmallerDetSpPubBox extends IBoxData {
             text6.appendChild(nameTextPath);
             //text6.setAttribute("x", "160");
             //text6.setAttribute("y", "18");
-            text6.setAttribute("font-size", "11px");
+            text6.setAttribute("font-size", "10px");
             text6.setAttribute("style", this.getFont() );
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
 
-            StringUtils.fitName(text6, spousenode.getAttr('name'), 28);
+            StringUtils.fitName(text6, spousenode.getAttr('name'), 24);
 
             var text7 = document.createElementNS("http://www.w3.org/2000/svg", "text");
             secondG.appendChild(text7);
