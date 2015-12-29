@@ -263,8 +263,6 @@ class SVGManager implements IViewManager {
         this.refresh(this.lastBoxes);
     }
     setScale(s: number, pt:Point): void {
-        console.log("scale:",this.scale);
-        console.log("s:", s);
         if((this.scale > .05 || s > 1) && (this.scale < 20 || s < 1)) {
             var viewBefore:Point = this.worldToView(pt);
             this.scale *= s;

@@ -92,6 +92,7 @@ class FSDownloader {
             },
             //failed
             function() {
+                alert("Error: Something went wrong");
                 delete self.pending[id];
                 defer.reject();
             });

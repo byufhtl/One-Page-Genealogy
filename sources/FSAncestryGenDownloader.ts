@@ -105,7 +105,9 @@ class FSAncestryGenDownloader {
                 people: completed,
                 childPointers: unprocessedLeafNodes
             });
-        }, function(){
+        }, function(response){
+            alert("Error: You don't have permission to see this person's tree.");
+            location.reload();
             defer.reject();
         });
         return defer.promise();
