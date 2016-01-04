@@ -20,31 +20,31 @@
  */
 class C implements IGraphicObjectListener, IOptionListener {
 
-    private source: ISource;
-    public dscOrAsc: string;
-    private tree: ITree;
-    private p: P;
-    private viewManager: IViewManager;
+    private source:ISource;
+    public dscOrAsc:string;
+    private tree:ITree;
+    private p:P;
+    private viewManager:IViewManager;
     //private optionListener: IOptionListener;
-    private graphicObject: IGraphicObject;
-    private dx: number;
-    private dy: number;
-    private optionManager: OptionManager;
-    private boxes: BoxMap;
-    private scaleFactor: number;
-    private greyscale: boolean;
+    private graphicObject:IGraphicObject;
+    private dx:number;
+    private dy:number;
+    private optionManager:OptionManager;
+    private boxes:BoxMap;
+    private scaleFactor:number;
+    private greyscale:boolean;
 
-    private anchorPt: Point;
-    private anchorId: string;
+    private anchorPt:Point;
+    private anchorId:string;
 
 
     constructor(data) {
 
         //console.log(data);
-        var rootId: string = data.rootId;
+        var rootId:string = data.rootId;
         this.dscOrAsc = data.dscOrAsc
         this.source = null;
-        var generations: number = data.generations;
+        var generations:number = data.generations;
         if (data.hasOwnProperty("gedData")) {
             var attemptGed = data.gedData;
             this.source = new FSFullTreeDownloader(rootId, generations, null);
@@ -80,7 +80,7 @@ class C implements IGraphicObjectListener, IOptionListener {
             //console.log(gedNodes)
             //this.source = new GedcomDownloader(attemptGed["latestIndi"], 20, gedNodes);//"oldestIndi" for dsc, "latestIndi" for asc
             //this.source = new GedcomDownloader("@I12154@", 20, gedNodes);//PROFESSOR BARRETT is @I12154@ do @175@ for an ascendant
-            this.source = new GedcomDownloader(data.rootId, data.generations, gedNodes,data.dscOrAsc);
+            this.source = new GedcomDownloader(data.rootId, data.generations, gedNodes, data.dscOrAsc);
         }
         else {
             console.log("Making non-gedcom C");
@@ -110,6 +110,7 @@ class C implements IGraphicObjectListener, IOptionListener {
 
         self.source.start();
     }
+
     getBestDescendants(attemptGed, key) {
         if (attemptGed[key].familySpouse.length == 1) {
             return attemptGed[key].familySpouse[0];
@@ -129,6 +130,7 @@ class C implements IGraphicObjectListener, IOptionListener {
             return bestFam;
         }
     }
+
     getBestAscendants(attemptGed, key) {
         if (attemptGed[key].familyChild.length == 1) {
             return attemptGed[key].familyChild[0];
@@ -151,18 +153,19 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
     }
 
-    setViewManager(viewManager: IViewManager): void {
+    setViewManager(viewManager:IViewManager):void {
         this.viewManager = viewManager;
     }
-    refresh(boxes: BoxMap): void {
+
+    refresh(boxes:BoxMap):void {
         this.boxes = boxes;
 
-        if(!this.anchorId) {
+        if (!this.anchorId) {
             this.anchorId = this.boxes.getRoot();
         }
 
-        var newBox: IBox = this.boxes.getId(this.anchorId);
-        if(newBox) {
+        var newBox:IBox = this.boxes.getId(this.anchorId);
+        if (newBox) {
             var newAnchor = new Point(newBox.getX(), newBox.getY());
             this.translate(this.anchorPt, newAnchor);
             this.anchorPt = newAnchor;
@@ -171,45 +174,50 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.graphicObject = this.viewManager.refresh(boxes);
         this.graphicObject.setListener(this);
     }
-    translate(pt1: Point, pt2: Point): void {
 
-        var dx: number = (pt2.getX() - pt1.getX());
-        var dy: number = (pt2.getY() - pt1.getY());
+    translate(pt1:Point, pt2:Point):void {
+
+        var dx:number = (pt2.getX() - pt1.getX());
+        var dy:number = (pt2.getY() - pt1.getY());
 
         this.viewManager.setTranslation(dx, dy);
     }
-    scale(ds: number, pt: Point): void {
-        if(ds > 0) {
-            ds = (10.0/9.0);
+
+    scale(ds:number, pt:Point):void {
+        if (ds > 0) {
+            ds = (10.0 / 9.0);
         }
         else {
-            ds = (9.0/10.0);
+            ds = (9.0 / 10.0);
         }
 
         this.viewManager.setScale(ds, pt);
     }
-    click(id: string): void {
-        if(this.boxes && this.boxes.getId(id)) {
+
+    click(id:string):void {
+        if (this.boxes && this.boxes.getId(id)) {
             var box:IBox = this.boxes.getId(id);
-            this.optionManager.handleOptionSetting('selectIndividual', {box:box});
+            this.optionManager.handleOptionSetting('selectIndividual', {box: box});
         }
     }
-    clickPt(pt: Point): void {
-        var box: IBox = this.p.handle({type: 'getBoxByPoint', pt: pt});
-        if(box) {
+
+    clickPt(pt:Point):void {
+        var box:IBox = this.p.handle({type: 'getBoxByPoint', pt: pt});
+        if (box) {
             this.anchorId = box.getNode().getId();
             this.anchorPt = new Point(box.getX(), box.getY());
             this.optionManager.handleOptionSetting('selectIndividual', {box: box});
         }
     }
+
     handleOption(key:string, value:any):void {
-        if(key === "collapse-sub-tree") {
-            this.p.handle({type: key, id:value.id, box: value.box});
+        if (key === "collapse-sub-tree") {
+            this.p.handle({type: key, id: value.id, box: value.box});
         }
-        else if(key === "expand-sub-tree") {
-            this.p.handle({type: key, id:value.id, box: value.box});
+        else if (key === "expand-sub-tree") {
+            this.p.handle({type: key, id: value.id, box: value.box});
         }
-        else if(key === 'rotate') {
+        else if (key === 'rotate') {
             this.viewManager.rotate(value.value);
         }
         // else if(key === 'request-download') {
@@ -244,7 +252,7 @@ class C implements IGraphicObjectListener, IOptionListener {
 
         // }
         else if (key === 'request-download') {
-            this.viewManager.getSVGString().then(function(s){
+            this.viewManager.getSVGString().then(function (s) {
                 $('<form>', {
                     'action': 'https://opg.fhtl.byu.edu/convert/',
                     'method': 'POST',
@@ -255,40 +263,40 @@ class C implements IGraphicObjectListener, IOptionListener {
                 })).appendTo('body').submit();
             });
         }
-        else if(key === 'detail-style') {
+        else if (key === 'detail-style') {
             this.p.handle({type: key});
         }
-        else if(key === 'vertical-style') {
+        else if (key === 'vertical-style') {
             this.p.handle({type: key});
         }
-        else if(key === 'eight-eleven-style') {
+        else if (key === 'eight-eleven-style') {
             this.p.handle({type: key});
         }
-        else if(key === 'eight-eleven-detail-style') {
+        else if (key === 'eight-eleven-detail-style') {
             this.p.handle({type: key});
         }
-        else if(key === 'js-public-style') {
+        else if (key === 'js-public-style') {
             this.p.handle({type: key});
         }
-        else if(key === 'to-greyscale') {
+        else if (key === 'to-greyscale') {
             /*if(!this.greyscale)
-                this.greyscale = true;
-            else
-                this.greyscale = false;
-            this.p.handle({type: key, greyscale:this.greyscale});*/
+             this.greyscale = true;
+             else
+             this.greyscale = false;
+             this.p.handle({type: key, greyscale:this.greyscale});*/
             this.p.handle({type: key});
         }
-        else if(key === 'to-branch-color') {
+        else if (key === 'to-branch-color') {
             this.p.handle({type: key});
         }
-        else if(key === 'to-generation-color') {
+        else if (key === 'to-generation-color') {
             this.p.handle({type: key});
         }
-        else if(key === 'to-gender-color') {
+        else if (key === 'to-gender-color') {
             this.p.handle({type: key});
         }
-        else if(key) {
-            this.p.handle({type: key, value: value['type'], id:value['id']});
+        else if (key) {
+            this.p.handle({type: key, value: value['type'], id: value['id']});
         }
     }
 }
