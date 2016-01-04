@@ -246,7 +246,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'request-download') {
             this.viewManager.getSVGString().then(function(s){
                 $('<form>', {
-                    'action': 'http://opg.fhtl.byu.edu/convert',
+                    'action': 'https://opg.fhtl.byu.edu/convert/',
                     'method': 'POST',
                 }).append($('<input>', {
                     'name': 'svg',

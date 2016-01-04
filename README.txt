@@ -4,7 +4,8 @@ Instructions for One Page Genealogy Development
 ----------------------------------------------------
 
 
-WebStorm is the recommended IDE for development with typescript
+WebStorm is the recommended IDE for development with typescript.
+You can get a free student jetbrains account to use WebStorm for free.
 
 
 
