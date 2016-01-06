@@ -263,18 +263,19 @@ class SVGManager implements IViewManager {
         this.refresh(this.lastBoxes);
     }
     setScale(s: number, pt:Point): void {
+        if((this.scale > .05 || s > 1) && (this.scale < 20 || s < 1)) {
+            var viewBefore:Point = this.worldToView(pt);
+            this.scale *= s;
+            var worldAfter:Point = this.viewToWorld(viewBefore);
 
-        var viewBefore: Point = this.worldToView(pt);
-        this.scale *= s;
-        var worldAfter: Point = this.viewToWorld(viewBefore);
+            var dx = worldAfter.getX() - pt.getX();
+            var dy = worldAfter.getY() - pt.getY();
 
-        var dx = worldAfter.getX() - pt.getX();
-        var dy = worldAfter.getY() - pt.getY();
+            this.translationX -= dx;
+            this.translationY -= dy;
 
-        this.translationX -= dx;
-        this.translationY -= dy;
-
-        this.refresh(this.lastBoxes);
+            this.refresh(this.lastBoxes);
+        }
     }
     setSize(width: number, height: number): void {
         this.width = width;
