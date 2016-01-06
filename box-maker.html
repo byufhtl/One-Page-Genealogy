@@ -193,13 +193,14 @@
             box.setX(10);
             box.setY(10);
 
-            box.setType('smallestSpBox')
+            box.setType('smallNameBox')
 
             box.setSpace(0);
+            
 
             console.log(box.getNode())
 
-            var render = new SmallestSpBox();
+            var render = new SmallNameBox();
             console.log(render)
 
             render.render(box, document.getElementById('svg-g'));
