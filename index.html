@@ -151,6 +151,14 @@
 
     <script>
         var c = null;
+        var token;
+        if(window.location.href.indexOf("fstoken") > -1){
+            var url = window.location.href;
+            var a = $('<a>', { href:url })[0];
+            var jwt = a.search.slice(a.search.indexOf('=') + 1 , -1);
+            token = JSON.parse(atob(jwt.split('.')[1]))['fs_access_token'];
+            console.log(token);
+        }
         FamilySearch.init({
 
             app_key: "NQ3Q-PBD8-LL9N-RCLZ-MZCZ-X7P8-7SMX-RD6N", //<-rf product key //"a02j000000AiDyvAAF",//
@@ -158,12 +166,18 @@
             auth_callback: 'http://localhost:8000/auth/login/return/',
             http_function: $.ajax,
             deferred_function: $.Deferred,
+            access_token: token,
             auto_signin: true,    //<-put these back in when we get our own production key
             save_access_token: true,
             auto_expire: true
         });
 
         $(document).ready(function() {
+
+            if(localStorage.getItem("numGenerations") && FamilySearch.hasAccessToken()){
+                fsHideFirstModal();
+            }
+
             //$("#fsModal").show();
             //window.location = 'login';
             $("#fsbutton").click(familySearchDownload)
@@ -177,14 +191,33 @@
         }
 
         function familySearchDownload() {
-            console.log("familysearch download")
-            $('#fsModal').modal({
-                backdrop: 'static',
-                keyboard: false
-            })
-            $('#fsModal').show()
-            $('#fsSave').click(function () {
-                var pid = document.getElementById("pid-search-input").value;
+            var numGenerations;
+            var pid;
+            var direction;
+
+            if (localStorage.getItem("numGenerations")) {
+                numGenerations = localStorage.getItem("numGenerations");
+                pid = localStorage.getItem("pid");
+                direction = localStorage.getItem("direction");
+                localStorage.removeItem("numGenerations");
+                localStorage.removeItem("pid");
+                localStorage.removeItem("direction");
+                download();
+            } else {
+                $('#fsModal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })
+                $('#fsModal').show();
+                $('#fsSave').click(function(){
+                    pid = document.getElementById("pid-search-input").value;
+                    numGenerations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
+                    direction = $('input[name=FSascOrDsc]:checked').val();
+                    download();
+                });
+            }
+
+            function download(){
                 var isValidPid = false;
                 if(pid === '')
                     isValidPid = true;
@@ -197,43 +230,52 @@
 
                 if(isValidPid) {
                     //$('#fsModal').hide();
-                    FamilySearch.getAccessToken().then(function (response) {
-                        FamilySearch.getCurrentUser().then(function (response) {
-                            var old_element = document.getElementById("opg-chart")
-                            var new_element = old_element.cloneNode(true);
-                            old_element.parentNode.replaceChild(new_element, old_element)
-                            while (new_element.lastChild) {
-                                new_element.removeChild(new_element.lastChild);
-                            }
-                            //var pid = document.getElementById("pid-search-input").value;
-                            var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
-                            var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
-                            var user = response.getUser();
-                            if(pid === '')
-                               pid = user.personId;
-                            //we need to turn off old listeners before we create a new c.
-                            $('#opg-download').off('click');
-                            $('#fsSave').off('click');
-                            $('#fsGenerationsSelect').off('click');
-                            $('fsgenerationsRadio').off('click');
-                            c = new C({
-                            //var c = new C({
-                                //rootId: user.person
-                                //rootId: 'LZJK-8TN',
-                                //rootId: '9CZK-YB4',
-                                //rootId: 'LCPG-L31',
-                                rootId: pid,
-                                generations: generations,
-                                dscOrAsc: dscOrAsc
+
+                    if(!FamilySearch.hasAccessToken()){
+                        localStorage.setItem("numGenerations", $("option:selected", ('#fsGenerationsSelect'))[0].value);
+                        localStorage.setItem("pid", pid);
+                        localStorage.setItem("direction", $('input[name=FSascOrDsc]:checked').val());
+                        window.location = 'https://fhtl.byu.edu/auth?redirect=' + encodeURIComponent(document.location.origin);
+                    }else{
+                        continueExecution();
+                    }
+
+                    function continueExecution() {
+                        FamilySearch.getAccessToken().then(function (response) {
+                            console.log(FamilySearch);
+                            FamilySearch.getCurrentUser().then(function (response) {
+                                console.log("got current user");
+                                var old_element = document.getElementById("opg-chart")
+                                var new_element = old_element.cloneNode(true);
+                                old_element.parentNode.replaceChild(new_element, old_element)
+                                while (new_element.lastChild) {
+                                    new_element.removeChild(new_element.lastChild);
+                                }
+                                //var pid = document.getElementById("pid-search-input").value;
+                                //var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
+                                //var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
+                                var user = response.getUser();
+                                if (pid === '')
+                                    pid = user.personId;
+                                //we need to turn off old listeners before we create a new c.
+                                $('#opg-download').off('click');
+                                $('#fsSave').off('click');
+                                $('#fsGenerationsSelect').off('click');
+                                $('fsgenerationsRadio').off('click');
+                                c = new C({
+                                    rootId: pid,
+                                    generations: numGenerations,
+                                    dscOrAsc: direction
+                                })
+                                $('#fsModal').hide();
                             })
-                            $('#fsModal').hide();
                         })
-                    })
+                    }
                 }
                 else{
                     alert("Invalid PID.")
                 }
-            })//endFSSave
+            }
         }
 
 
@@ -325,6 +367,7 @@
 
 <div class="outer-content">
     <svg id="opg-chart"></svg>
+
     <div class="footer">
         <a href='https://fhtl.byu.edu'>BYU Family History Technology Lab</a><br>
         <a href='//cs.byu.edu'><small>Copyright © Brigham Young University, Computer Science Department</small></a>
