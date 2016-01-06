@@ -43,7 +43,7 @@ class MediumPictureBox extends IBoxData {
             text.setAttribute("font-size", "30px");
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text,box.getNode().getAttr('givenname'),30);
-            console.log("given: "+box.getNode().getAttr('givenname'));
+            //console.log("given: "+box.getNode().getAttr('givenname'));
             StringUtils.centerElement(text, 110, 350);
         }
 

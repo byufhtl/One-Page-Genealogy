@@ -157,7 +157,6 @@
             var a = $('<a>', { href:url })[0];
             var jwt = a.search.slice(a.search.indexOf('=') + 1 , -1);
             token = JSON.parse(atob(jwt.split('.')[1]))['fs_access_token'];
-            console.log(token);
         }
         FamilySearch.init({
 
@@ -223,7 +222,7 @@
                     isValidPid = true;
                 else{
                     pid = pid.toUpperCase();
-                    console.log(pid);
+                    //console.log(pid);
                     //var regexp = new RegExp(/([A-Z]|[0-9]){4}-([A-Z]|[0-9]){3}/);
                     isValidPid = /([A-Z]|[0-9]){4}-([A-Z]|[0-9]){3}/.test(pid);//regexp.test(pid);
                 }
@@ -239,42 +238,40 @@
                     }else{
                         continueExecution();
                     }
-
-                    function continueExecution() {
-                        FamilySearch.getAccessToken().then(function (response) {
-                            console.log(FamilySearch);
-                            FamilySearch.getCurrentUser().then(function (response) {
-                                console.log("got current user");
-                                var old_element = document.getElementById("opg-chart")
-                                var new_element = old_element.cloneNode(true);
-                                old_element.parentNode.replaceChild(new_element, old_element)
-                                while (new_element.lastChild) {
-                                    new_element.removeChild(new_element.lastChild);
-                                }
-                                //var pid = document.getElementById("pid-search-input").value;
-                                //var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
-                                //var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
-                                var user = response.getUser();
-                                if (pid === '')
-                                    pid = user.personId;
-                                //we need to turn off old listeners before we create a new c.
-                                $('#opg-download').off('click');
-                                $('#fsSave').off('click');
-                                $('#fsGenerationsSelect').off('click');
-                                $('fsgenerationsRadio').off('click');
-                                c = new C({
-                                    rootId: pid,
-                                    generations: numGenerations,
-                                    dscOrAsc: direction
-                                })
-                                $('#fsModal').hide();
-                            })
-                        })
-                    }
                 }
                 else{
                     alert("Invalid PID.")
                 }
+            }
+
+            function continueExecution() {
+                FamilySearch.getAccessToken().then(function (response) {
+                    FamilySearch.getCurrentUser().then(function (response) {
+                        var old_element = document.getElementById("opg-chart")
+                        var new_element = old_element.cloneNode(true);
+                        old_element.parentNode.replaceChild(new_element, old_element)
+                        while (new_element.lastChild) {
+                            new_element.removeChild(new_element.lastChild);
+                        }
+                        //var pid = document.getElementById("pid-search-input").value;
+                        //var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
+                        //var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
+                        var user = response.getUser();
+                        if (pid === '')
+                            pid = user.personId;
+                        //we need to turn off old listeners before we create a new c.
+                        $('#opg-download').off('click');
+                        $('#fsSave').off('click');
+                        $('#fsGenerationsSelect').off('click');
+                        $('fsgenerationsRadio').off('click');
+                        c = new C({
+                            rootId: pid,
+                            generations: numGenerations,
+                            dscOrAsc: direction
+                        })
+                        $('#fsModal').hide();
+                    })
+                })
             }
         }
 
@@ -348,7 +345,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Styles <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a id="opg-detail-style" href="#">Full Detail Style</a></li>
-                        <li><a id="opg-vertical-style" href="#">Vertical Detail Style</a></li>
+                        <li><a id="opg-vertical-style" href="#">Vertical Detail Style (Default)</a></li>
                         <li><a id="opg-eight-eleven-style" href="#">8 1/2 x 11 Style</a></li>
                         <li><a id="opg-eight-eleven-detail-style" href="#">8 1/2 x 11 Detail Style</a></li>
                         <li><a id="opg-js-public-style" href="#">Descendancy with Border Style</a></li>
