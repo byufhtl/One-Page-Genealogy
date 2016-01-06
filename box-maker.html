@@ -167,7 +167,7 @@
                 'gender': 'Male',
                 'birthdate': "11 Feb 1992",
                 'deathdate': "15 Mar 1993",
-                'birthplace':"slj, slc, ut, USA",
+                'birthplace':"Salt Lake City, Salt Lake County, Utah, USA",
                 'familySpouse': "@F32@",
                 'spouses': "@I0002"
 
@@ -179,7 +179,7 @@
                 'gender': 'Female',
                 'birthdate': "11 Feb 1900",
                 'deathdate': "14 Mar 1903",
-                'birthplace':"slj, slc, ut, USA",
+                'birthplace':"American Fork, Utah County, Utah, USA",
                 'familySpouse': "@F32@",
                 'spouses': "@I0001"
 
@@ -193,14 +193,14 @@
             box.setX(10);
             box.setY(10);
 
-            box.setType('smallNameBox')
+            box.setType('xsSpBox')
 
             box.setSpace(0);
             
 
             console.log(box.getNode())
 
-            var render = new SmallNameBox();
+            var render = new XSSpBox();
             console.log(render)
 
             render.render(box, document.getElementById('svg-g'));

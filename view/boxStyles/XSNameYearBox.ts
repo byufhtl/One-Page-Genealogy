@@ -40,7 +40,7 @@ class XSNameYearBox extends IBoxData {
             text.appendChild(nameTextPath);
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
-            text.setAttribute("font-size", "10px");
+            text.setAttribute("font-size", "9px");
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text,node.getAttr('name'),18);
             //StringUtils.centerElement(text, 0, 162);
@@ -51,7 +51,7 @@ class XSNameYearBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "110");
-        text3.setAttribute("y", "7");
+        text3.setAttribute("y", "8");
         text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
@@ -84,7 +84,7 @@ class XSNameYearBox extends IBoxData {
         return "xsNameYearBox";
     }
     getHeight(): number {
-        return 11+1;//14;
+        return 11+2;//14;
     }
     getWidth(): number {
         return 162;

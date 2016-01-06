@@ -44,7 +44,8 @@ class SmallPicRotBox extends IBoxData {
             text.setAttribute("y", "25");
             text.setAttribute("font-size", "20px");
             text.setAttribute("style", this.getFont() );
-            StringUtils.centerElement(text, 60, 240);
+            StringUtils.fitName(text,node.getAttr('name'),28);
+            StringUtils.centerElement(text, 40, 240);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");

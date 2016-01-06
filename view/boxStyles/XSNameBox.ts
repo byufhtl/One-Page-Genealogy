@@ -40,7 +40,7 @@ class XSNameBox extends IBoxData {
             text.appendChild(nameTextPath);
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
-            text.setAttribute("font-size", "10px");
+            text.setAttribute("font-size", "9px");
             text.setAttribute("style", this.getFont() );
             StringUtils.centerElement(text, 0, 162);
         }
@@ -74,7 +74,7 @@ class XSNameBox extends IBoxData {
         return "xsNameBox";
     }
     getHeight(): number {
-        return 10+1;
+        return 10+3;
     }
     getWidth(): number {
         return 162;

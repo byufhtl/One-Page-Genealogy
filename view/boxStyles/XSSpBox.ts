@@ -59,7 +59,7 @@ class XSSpBox extends IBoxData {
             text.appendChild(nameTextPath);
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
-            text.setAttribute("font-size", "10px");
+            text.setAttribute("font-size", "9px");
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
@@ -115,7 +115,7 @@ class XSSpBox extends IBoxData {
             text6.appendChild(nameTextPath);
             text6.setAttribute("x", "10");
             text6.setAttribute("y", "17");
-            text6.setAttribute("font-size", "10px");
+            text6.setAttribute("font-size", "9px");
             text6.setAttribute("style", this.getFont() );
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
@@ -171,7 +171,7 @@ class XSSpBox extends IBoxData {
         //var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(date.toDateString()));
         //text10.appendChild(nameTextPath);
         text10.setAttribute("x", "10");
-        text10.setAttribute("y", "24");
+        text10.setAttribute("y", "25");
         text10.setAttribute("font-size", "8px");
         text10.setAttribute("style", this.getFont() );
         //StringUtils.centerElement(text10, 100, 290)
@@ -199,7 +199,7 @@ class XSSpBox extends IBoxData {
         return "xsSpBox";
     }
     getHeight(): number {
-        return 27;
+        return 29;
     }
     getWidth(): number {
         return 162;

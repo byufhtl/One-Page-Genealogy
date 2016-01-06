@@ -41,7 +41,7 @@ class XSDetailBox extends IBoxData {
             text.appendChild(nameTextPath);
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
-            text.setAttribute("font-size", "10px");
+            text.setAttribute("font-size", "9px");
             text.setAttribute("style", this.getFont() );
 //            StringUtils.centerElement(text, 0, 160);
             StringUtils.fitName(text,node.getAttr('name'),19);
@@ -55,7 +55,7 @@ class XSDetailBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "110");
-        text3.setAttribute("y", "7");
+        text3.setAttribute("y", "8");
         text3.setAttribute("font-size", "8px");
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);

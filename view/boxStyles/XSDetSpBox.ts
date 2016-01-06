@@ -64,7 +64,7 @@ class XSDetSpBox extends IBoxData {
             text.appendChild(nameTextPath);
             //text.setAttribute("x", "10");
             //text.setAttribute("y", "8");
-            text.setAttribute("font-size", "10px");
+            text.setAttribute("font-size", "9px");
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
@@ -135,7 +135,7 @@ class XSDetSpBox extends IBoxData {
             text6.appendChild(nameTextPath);
             //text6.setAttribute("x", "10");
             //text6.setAttribute("y", "26");
-            text6.setAttribute("font-size", "10px");
+            text6.setAttribute("font-size", "9px");
             text6.setAttribute("style", this.getFont() );
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");

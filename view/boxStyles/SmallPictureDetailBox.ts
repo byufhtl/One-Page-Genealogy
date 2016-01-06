@@ -44,7 +44,7 @@ class SmallPictureDetailBox extends IBoxData {
             text.setAttribute("font-size", "15px");
             text.setAttribute("style", this.getFont() );
 //            StringUtils.centerElement(text, 40, 240);
-            StringUtils.fitName(text,node.getAttr('name'),30);
+            StringUtils.fitName(text,node.getAttr('name'),24);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
