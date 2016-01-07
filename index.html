@@ -175,6 +175,10 @@
 
             if(localStorage.getItem("numGenerations") && FamilySearch.hasAccessToken()){
                 fsHideFirstModal();
+            }else if(localStorage.getItem("numGenerations")){
+                localStorage.removeItem("numGenerations");
+                localStorage.removeItem("pid");
+                localStorage.removeItem("direction");
             }
 
             //$("#fsModal").show();
@@ -516,15 +520,17 @@
                 <h4 class="modal-title">FamilySearch Options</h4>
             </div>
             <div class="modal-body">
-                <h4>Enter Starting FamilySearch ID</h4>
+                <h4>Enter starting person ID from FamilySearch</h4>
                 <p>This number is in the format XXXX-XXX as found in FamilySearch</p>
                 <p>(No entry will select you as the start of the chart)</p>
-                <div class="input-group input-group-sm" style="padding-top: 5px">
-                <input type="text" class="form-control" placeholder="Person ID" id="pid-search-input" maxlength="8" size="13">
+                <div class="input-group input-group-sm" style="float: left;">
+                    <input type="text" class="form-control" placeholder="XXXX-XXX" id="pid-search-input" maxlength="8" size="13">
                     <!--<span class="input-group-btn">
                         <button class="btn btn-default" type="button" id="vp-pid-search">Search</button>
                     </span>-->
-                    </div>
+                </div>
+                <label for="pid-search-input" style="padding-left: 10px"> (optional)</label>
+                <br/><br/>
                 <h4>Select Number of Generations</h4>
                 <p>Note: Expect longer loading times for larger numbers of generations.</p>
                 <select id = "fsGenerationsSelect">
@@ -555,6 +561,8 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <div style="float: left; text-align: left">If not already authenticated, <br/>pressing "Submit" will redirect to FamilySearch.
+                </div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" id="fsSave">Submit</button>
             </div>
