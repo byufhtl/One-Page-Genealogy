@@ -521,7 +521,7 @@
             </div>
             <div class="modal-body">
                 <h4>Enter starting person ID from FamilySearch</h4>
-                <p>This number is in the format XXXX-XXX as found in FamilySearch</p>
+                <p>This ID is in the format XXXX-XXX as found in FamilySearch</p>
                 <p>(No entry will select you as the start of the chart)</p>
                 <div class="input-group input-group-sm" style="float: left;">
                     <input type="text" class="form-control" placeholder="XXXX-XXX" id="pid-search-input" maxlength="8" size="13">
@@ -561,10 +561,16 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <div style="float: left; text-align: left">If not already authenticated, <br/>pressing "Submit" will redirect to FamilySearch.
-                </div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="fsSave">Submit</button>
+                <button type="button" class="btn btn-primary" id="fsSave"></button>
+                <script>
+                    console.log(FamilySearch.hasAccessToken);
+                    if (FamilySearch.hasAccessToken()) {
+                        $('#fsSave').html("Submit");
+                    } else {
+                        $('#fsSave').html("Login with FamilySearch");
+                    }
+                </script>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
