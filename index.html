@@ -462,6 +462,9 @@
                                 <div class="radio">
                                     <label><input type="radio" name="opg-change-who" value='changeGeneration'>Generation</label>
                                 </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="opg-change-who" value='changeAll'>Entire Chart</label>
+                                </div>
                             </form>
                         </div>
                         <div class="col-sm-12">
@@ -564,7 +567,6 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" id="fsSave"></button>
                 <script>
-                    console.log(FamilySearch.hasAccessToken);
                     if (FamilySearch.hasAccessToken()) {
                         $('#fsSave').html("Submit");
                     } else {
