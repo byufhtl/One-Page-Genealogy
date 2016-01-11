@@ -436,7 +436,7 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" id="fsSave"></button>
                 <script>
-                    if (FamilySearch.hasAccessToken()) {
+                    if (!isExpired()) {
                         $('#fsSave').html("Submit");
                     } else {
                         $('#fsSave').html("Login with FamilySearch");

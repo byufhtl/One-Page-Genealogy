@@ -9,7 +9,7 @@ if (window.location.href.indexOf("fstoken") > -1) {
     var url = window.location.href;
     var a = $('<a>', {href: url})[0];
     var jwt = a.search.slice(a.search.indexOf('=') + 1, -1);
-    token = JSON.parse(atob(jwt.split('.')[1]))['fs_access_token'];
+    token = JSON.parse(atob(jwt.split('.')[1]));
 }
 FamilySearch.init({
 
@@ -18,7 +18,7 @@ FamilySearch.init({
     auth_callback: 'http://localhost:8000/auth/login/return/',
     http_function: $.ajax,
     deferred_function: $.Deferred,
-    access_token: token,
+    access_token: token['fs_access_token'],
     auto_signin: true,    //<-put these back in when we get our own production key
     save_access_token: true,
     auto_expire: true
@@ -44,6 +44,10 @@ $(document).ready(function () {
 function fsHideFirstModal() {
     $('#downloadModal').hide();
     familySearchDownload();
+}
+
+function isExpired(){
+    return token['exp'] < (Date.now() / 1000);
 }
 
 function familySearchDownload() {
@@ -87,7 +91,7 @@ function familySearchDownload() {
         if (isValidPid) {
             //$('#fsModal').hide();
 
-            if (!FamilySearch.hasAccessToken()) {
+            if (!FamilySearch.hasAccessToken() || isExpired()) {
                 localStorage.setItem("numGenerations", $("option:selected", ('#fsGenerationsSelect'))[0].value);
                 localStorage.setItem("pid", pid);
                 localStorage.setItem("direction", $('input[name=FSascOrDsc]:checked').val());
@@ -103,6 +107,7 @@ function familySearchDownload() {
 
     function continueExecution() {
         FamilySearch.getAccessToken().then(function (response) {
+
             FamilySearch.getCurrentUser().then(function (response) {
                 var old_element = document.getElementById("opg-chart")
                 var new_element = old_element.cloneNode(true);
