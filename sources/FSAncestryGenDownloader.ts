@@ -3,10 +3,14 @@
 ///<reference path="FSDownloader.ts"/>
 ///<reference path="FSDescNode.ts"/>
 
+declare function familySearchDownload(): void;
+
 class FSAncestryGenDownloader {
+
     constructor() {
 
     }
+
     getGen(id: string, generations: number, child: FSPerson): any {
         var defer = $.Deferred();
         var self = this;
@@ -49,6 +53,7 @@ class FSAncestryGenDownloader {
         });
         return defer.promise();
     }
+
     getGenerations(id: string, generations: number, childPerson: FSPerson): any {
         var self = this;
         var defer = $.Deferred();
@@ -106,12 +111,14 @@ class FSAncestryGenDownloader {
                 childPointers: unprocessedLeafNodes
             });
         }, function(){
-            alert("Error: You don't have permission to see this person's tree.");
-            location.reload();
+            alert("Error: You don't have access to this person's tree.");
+            //$('#fsModal').show();
+            familySearchDownload();
             defer.reject();
         });
         return defer.promise();
     }
+
     private getParents(response, ahn: number): string[] {
         var parents: string[] = [];
         var father = ahn * 2;
