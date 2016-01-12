@@ -20,7 +20,7 @@ class JSSmallerDetSpPubBox extends IBoxData {
         rect.setAttribute('height', String(box.getHeight()-3-box.getSpace()));
 
         if(isNaN(box.getY())) {
-            console.log(box);
+            //console.log(box);
         }
 
         g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
@@ -155,11 +155,7 @@ class JSSmallerDetSpPubBox extends IBoxData {
             //text7.setAttribute("y", "11");
             text7.setAttribute("font-size", "9px");
             text7.setAttribute("style", this.getFont() );
-            console.log(node.getAttr('name'));
-            console.log(node.getAttr('deathdate'));
-            console.log(spousenode.getAttr('name'));
 
-            console.log(spousenode.getAttr('deathdate'));
             StringUtils.fitYearsState(text7,spousenode.getAttr('birthdate'),spousenode.getAttr('deathdate'),spousenode.getAttr('birthplace'),20);
 
         }
