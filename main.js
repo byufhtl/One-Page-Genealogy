@@ -10,6 +10,7 @@ if (window.location.href.indexOf("fstoken") > -1) {
     var a = $('<a>', {href: url})[0];
     var jwt = a.search.slice(a.search.indexOf('=') + 1, -1);
     token = JSON.parse(atob(jwt.split('.')[1]));
+    var accessToken = token['fs_access_token'];
 }
 FamilySearch.init({
 
@@ -18,7 +19,7 @@ FamilySearch.init({
     auth_callback: 'http://localhost:8000/auth/login/return/',
     http_function: $.ajax,
     deferred_function: $.Deferred,
-    access_token: token['fs_access_token'],
+    access_token: accessToken,
     auto_signin: true,    //<-put these back in when we get our own production key
     save_access_token: true,
     auto_expire: true
