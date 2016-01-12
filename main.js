@@ -48,8 +48,12 @@ function fsHideFirstModal() {
 }
 
 function isExpired(){
-    console.log("Token expires in " + ((token['exp'] - Date.now()/1000) / 60).toFixed(2) + " min");
-    return token['exp'] < (Date.now() / 1000);
+    if(token) {
+        console.log("Token expires in " + ((token['exp'] - Date.now() / 1000) / 60).toFixed(2) + " min");
+        return token['exp'] < (Date.now() / 1000);
+    }else{
+        return true;
+    }
 }
 
 function familySearchDownload() {
