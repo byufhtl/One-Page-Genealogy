@@ -83,7 +83,7 @@ class C implements IGraphicObjectListener, IOptionListener {
             this.source = new GedcomDownloader(data.rootId, data.generations, gedNodes, data.dscOrAsc);
         }
         else {
-            console.log("Making non-gedcom C");
+            //console.log("Making non-gedcom C");
             rootId = data.rootId;
             generations = data.generations;
             this.source = new FSFullTreeDownloader(rootId, generations, data.dscOrAsc);

@@ -70,7 +70,7 @@ class XSDetailBox extends IBoxData {
         text4.setAttribute("font-size", "8px");
         text4.setAttribute("style", this.getFont() );
 //        StringUtils.centerElement(text4, 0, 190);
-        StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 38);
+        StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 30);
 
         var gender = 'none';
         if(node.hasAttr('gender')) {

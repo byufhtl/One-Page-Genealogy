@@ -33,7 +33,7 @@ class FSFullTreeDownloader implements  ISource {
         var self = this;
         var downloader = null;
         var type = this.downloadType;
-        console.log(this.downloadType);
+        //console.log(this.downloadType);
         if(this.downloadType === "ascendancy")
             downloader = this.ascDownloader;
         else if(this.downloadType === "descendancy")

@@ -95,6 +95,15 @@ class P implements IControllerListener, ITreeListener {
                 this.applyToGeneration(gen, root, param);
                 refresh = true;
             }
+            else if(param.type === 'changeAll'){
+                var root:INode = this.tree.getRoot();
+                //var gen = this.getGeneration(root, param.id);
+
+                for(var gen=0; gen < 20; gen++) {
+                    this.applyToGeneration(gen, root, param);
+                }
+                refresh = true;
+            }
             else if(param.type === 'collapse-sub-tree') {
                 this.collapseSpacer.collapseId(param.id, true);
                 refresh = true;

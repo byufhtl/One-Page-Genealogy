@@ -109,7 +109,7 @@ class SVGManager implements IViewManager {
         var pan = hammer.add( new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 0 }) );
         var pinch = new Hammer.Pinch();
 
-        console.log("creating listener");
+        //console.log("creating listener");
         hammer.add([pan, pinch]);
 
         hammer.on('panmove', function(ev) {

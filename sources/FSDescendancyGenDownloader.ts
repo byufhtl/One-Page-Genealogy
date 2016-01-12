@@ -5,6 +5,9 @@
 /**
  * Created by renae on 8/6/15.
  */
+
+declare function familySearchDownload(): void;
+
 class FSDescendancyGenDownloader {
     constructor() {
 
@@ -171,6 +174,9 @@ class FSDescendancyGenDownloader {
                 people: completed
             });
         }, function(){
+            alert("Error: You don't have access to this person's tree")
+            //$('#fsModal').show();
+            familySearchDownload();
             defer.reject();
         });
 
