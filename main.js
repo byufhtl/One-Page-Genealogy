@@ -47,6 +47,7 @@ function fsHideFirstModal() {
 }
 
 function isExpired(){
+    console.log("Token expires in " + ((token['exp'] - Date.now()/1000) / 60).toFixed(2) + " min");
     return token['exp'] < (Date.now() / 1000);
 }
 
@@ -68,6 +69,11 @@ function familySearchDownload() {
             backdrop: 'static',
             keyboard: false
         })
+        if (FamilySearch.hasAccessToken && !isExpired()) {
+            $('#fsSave').html("Submit");
+        } else {
+            $('#fsSave').html("Login with FamilySearch");
+        }
         $('#fsModal').show();
         $('#fsSave').click(function () {
             pid = document.getElementById("pid-search-input").value;
