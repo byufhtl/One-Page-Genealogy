@@ -3,6 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>OPG Help</title>
+    <link rel="shortcut icon" href="favicon.ico">
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -93,8 +94,8 @@
             <h5><a href="#create">Create Your Chart</a></h5>
             <h5><a href="#explore">Explore Your Chart</a></h5>
             <h5><a href="#edit">Edit Your Chart</a></h5>
-            <h5><a href="#print">Print/PDF</a></h5>
-            <h5><a href="#download">Download SVG</a></h5>
+            <h5><a href="#print">Print/Download</a></h5>
+            <h5><a href="#contact">Contact</a></h5>
         </div>
     </div>
     <div id="help-list">
@@ -106,6 +107,8 @@
         <div id="create">
             <h3>Create Your Chart</h3>
             <p>You can create a chart from two basic sources: a Gedcom file or FamilySearch.</p>
+            <p>Note: You can always click the "Gedcom" or "FamilySearch" buttons at the top of the page
+                to restart the chart creation process.</p>
             <h4>From a Gedcom</h4>
             <ul>
                 <li><p>Once you have logged in, click "Read Gedcom File" if you want to create
@@ -120,26 +123,30 @@
                     </ul>
                 </li>
                 <li>Click "Save Chart" to create the chart. It may take a few minutes for the chart to appear.</li>
-                <li>If you click "Cancel" you can click the "Gedcom" or "FamilySearch" buttons at the top of the page
-                to restart the chart creation process.</li>
             </ul>
             <h4>From FamilySearch</h4>
             <ul>
-                <li><p>Once you log in, click "FamilySearch" if you want to create a chart from data found
+                <li><p>Click "FamilySearch" if you want to create a chart from data found
                     on FamilySearch.</p></li>
                 <li><p>Enter the FamilySearch id (XXXX-XXX) of the person who will be at the beginning of the chart
                     or leave it empty to start with yourself.</p></li>
-                <li><p>Choose the type of chart you want and how many generations back you want the chart to go.</p>
+                <li><p>Choose the type of chart you want (Descendancy of Ascendancy) and how many generations you want displayed in the chart.</p>
                     <ul>
-                        <li>Ascendancy: creates a tree with each generation being the parents of the last generation.</li>
+                        <li>Ascendancy: creates a tree with each generation being the parents of the previous generation.</li>
                         <li>Descendancy: creates a tree with each generation being the children of the
-                            last generation by spouse.</li>
+                            previous generation by spouse.</li>
                     </ul>
                 </li>
-                <li>Click "Submit" to create the chart. You will be prompted to log into FamilySearch.
-                    Once you've logged in, it may take a few minutes for the chart to appear.</li>
-                <li>If you click "Cancel" you can click the "Gedcom" or "FamilySearch" buttons at the top of the page
-                    to restart the chart creation process.</li>
+                <li>If you have not already authenticated with FamilySearch:
+                    <ul>
+                        <li>You will be prompted to do so through FamilySearch login.</li>
+                        <li>This is necessary because all the data for your tree is pulled straight from FamilySearch.</li>
+                   </ul>
+                </li>
+                <li>If you've previously authenticated with FamilySearch through One Page Genealogy, simply press "Submit" to generate your chart.</li>
+                <li>Because of the large amount of data, may take a few minutes for the chart to appear.</li>
+                <li>Expect longer loading times for larger numbers of generations.</li>
+                </li>
             </ul>
         </div>
         <div id="explore">
@@ -156,54 +163,39 @@
             <p>There are a few things you can do to edit how your chart looks.</p>
             <h4>Changing Main Style</h4>
             <ul>
-                <li><p>Click "Styles" at the top right of the page and then click the style you want.</p>
+                <li><p>Click "Styles" at the top right of the page and then choose the style you want.</p>
                     <ul>
-                        <li><p>The upper options are presets that will change the style of each box on the chart
+                        <li><p>The upper options will change the style of every box on the chart
                         to fit the chosen style. Descendancy styles will correctly display descendancy charts.</p></li>
-                        <li><p>The lower options are color presets that can be selected separately from the styles
+                        <li><p>The lower options can be selected separately from the styles
                         and will only change the colors of the boxes.</p></li>
                     </ul>
                 </li>
             </ul>
-            <h4>Changing Individual Box or Generation Styles</h4>
+            <h4>Customize Box Styles</h4>
             <ul>
                 <li><p>Click the box you wish to edit.</p></li>
                 <li><p>Use the drop down menu to preview any of the box styles.</p></li>
-                <li><p>Select if you want to just change the box you clicked ("Individual") or everyone
-                in the generation selected ("Generation").</p></li>
+                <li><p>Select if you want to just change the box you clicked ("Individual"), everyone
+                in that generation ("Generation"), or everyone in the entire chart ("Entire Chart").</p></li>
+                <!--
                 <li><p>Click "Collapse" if you don't want ancestors/descendants of that individual to be shown.
                 <i>Clicking this can reduce the size of your chart.</i></p></li>
+                -->
                 <li><p>Click "Save Changes" to have the changes made to your chart or "Cancel" to leave the menu
                 without changing anything.</p></li>
             </ul>
         </div>
         <div id="print">
             <h3>How to Print or save as a PDF</h3>
-            <p>Here is the current way of creating a PDF that you can edit and make the size you desire:</p>
-            <ul>
-                <li><p> Zoom out on the chart until your whole chart can be seen on your browser page.</p></li>
-                <li><p>Drag the chart over to be as close to the left side of the screen as possible.</p></li>
-            </ul>
-            <p>&nbsp</p>
-            <h4>If you are using Google Chrome:</h4>
-            <ul>
-                <li><p>Right click the chart and click "Print"</p></li>
-                <li><p>If you want a PDF, make sure the Destination is "Save as PDF." If it isn't, just click "Change..."
-              and select the "Save as PDF" option.  This way, you can edit the chart in any PDF editor and make
-                the chart more readable if needed.</p></li>
-            </ul>
-            <p>&nbsp</p>
-            <h4>If you are using Firefox:</h4>
-            <ul>
-                <li><p>At the top on the right of the browser click the icon with three horizontal bars.</p></li>
-                <li><p>Click print, then print again at the top of the new page that new pops up.</p></li>
-                <li><p>If you want a PDF, click "Print to File" at the top of the printer options.
-            This way, you can edit the chart in any PDF editor and make the chart more readable if needed.</p></li>
-            </ul>
+            <p>Simply press the download button (downward point arrow icon) at the top right to save your chart as a PDF.</p>
+            <p>You can then take the downloaded PDF to a nearby print service center.</p>
+
         </div>
-        <div id="download">
-            <h3>Download Chart as SVG</h3>
-            <p>To download the current chart as an SVG click the downward pointing arrow icon at the top right of the page </p>
+        <div id="contact">
+            <h3>Contact</h3>
+            <p>We would love to hear from you!</p>
+            <p>If you have questions or feedback, email us at <a href="mailto:fhtlab@gmail.com">fhtlab@gmail.com</a></p>
         </div>
     </div>
 </div>
