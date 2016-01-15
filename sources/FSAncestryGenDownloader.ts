@@ -53,6 +53,12 @@ class FSAncestryGenDownloader {
                             document.createTextNode(percent),
                             document.getElementById("svgPercent").firstChild
                         );
+                        if(completed === self.leftToDownload -1){
+                            document.getElementById("svgPercent").replaceChild(
+                                document.createTextNode(""),
+                                document.getElementById("svgPercent").firstChild
+                            );
+                        }
                     }
                     if(completed === promises.length) {
                         defer.resolve(allPeople);
