@@ -87,6 +87,10 @@ class C implements IGraphicObjectListener, IOptionListener {
             rootId = data.rootId;
             generations = data.generations;
             this.source = new FSFullTreeDownloader(rootId, generations, data.dscOrAsc);
+            //var self = this;
+            //this.source.addPercentListener(function(percent){
+            //    document.getElementById()
+            //});
         }
         this.anchorPt = new Point(10, 10);
 

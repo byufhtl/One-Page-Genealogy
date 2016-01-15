@@ -6,6 +6,7 @@
 declare function familySearchDownload(): void;
 
 class FSAncestryGenDownloader {
+    private leftToDownload:number = -1;
 
     constructor() {
 
@@ -16,7 +17,6 @@ class FSAncestryGenDownloader {
         var self = this;
 
         var height = 8;
-        //console.log(generations);
         var firstDownloadAmount = Math.min(generations, height);
 
         var firstPromise = this.getGenerations(id, firstDownloadAmount,child);
@@ -24,22 +24,36 @@ class FSAncestryGenDownloader {
         firstPromise.then(function(response) {
             var leafNodeIds = response.leafNodeIds;
             var childPointers = response.childPointers;
+            var leftToDownload = 0;
             if(generations > height) {
                 for(var i=0; i< leafNodeIds.length; i++) {
-
                     promises.push(self.getGen(leafNodeIds[i], generations-height,childPointers[i]));
                 }
             }
+
+            if(self.leftToDownload === -1){
+                self.leftToDownload = leafNodeIds.length + 1;
+            }
+            leftToDownload = leafNodeIds.length + 1;
 
             var allPeople = response.people;
             var completed = 0;
             if(promises.length ===0){
                 defer.resolve(allPeople);
             }
-            for(var i=0; i< promises.length; i++) {
+            for(var i=0; i < promises.length; i++) {
                 promises[i].then(function(people) {
                     allPeople = allPeople.concat(people);
                     completed += 1;
+                    if(self.leftToDownload === leftToDownload) {
+                        var percent = (100 * completed / self.leftToDownload).toFixed(0) + "%";
+                        //console.log(percent + " " + completed + "/" + self.leftToDownload);
+                        document.getElementById("percentRect").setAttribute("fill", "white");
+                        document.getElementById("svgPercent").replaceChild(
+                            document.createTextNode(percent),
+                            document.getElementById("svgPercent").firstChild
+                        );
+                    }
                     if(completed === promises.length) {
                         defer.resolve(allPeople);
                     }
@@ -59,7 +73,7 @@ class FSAncestryGenDownloader {
         var defer = $.Deferred();
         FamilySearch.getAncestry(id, {
             generations: generations,
-            personDetails: true
+            personDetails: false
         }).then(function(response) {
             var leafNodeIds = [];
             var completed = [];

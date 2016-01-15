@@ -16,6 +16,7 @@ class SVGManager implements IViewManager {
     private mainSvg;
     private linePath;
     private svgLoading;
+    private svgPercent;
     private renders:{[s:string]:IBoxRender;};
     private boundingRect;
     private graphicObject: SVGGraphicObject;
@@ -55,6 +56,27 @@ class SVGManager implements IViewManager {
         this.svgLoading.setAttribute('transform', 'translate(-250)');
         this.svgLoading.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.gif');
         this.svgRoot.appendChild(this.svgLoading);
+
+        var rect:Element = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect.setAttribute("width", "100");
+        rect.setAttribute("height", "100");
+        rect.setAttribute("fill", "none");
+        rect.setAttribute("id", "percentRect");
+        rect.setAttribute("x", "50%");
+        rect.setAttribute("transform", "translate(-50)");
+        rect.setAttribute("y", "200");
+        this.svgRoot.appendChild(rect);
+
+        this.svgPercent = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        var text = document.createTextNode("");
+        this.svgPercent.appendChild(text);
+        this.svgPercent.setAttribute('id', 'svgPercent');
+        this.svgPercent.setAttribute('x', '50%');
+        this.svgPercent.setAttribute("transform", "translate(-50)");
+        this.svgPercent.setAttribute('y', '260');
+        this.svgPercent.setAttribute('font-size', '50px');
+        this.svgRoot.appendChild(this.svgPercent);
+
 
         this.linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
         this.svgRoot.appendChild(this.linePath);
