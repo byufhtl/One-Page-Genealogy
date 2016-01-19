@@ -6,6 +6,9 @@
 /**
  * Created by curtis on 3/19/15.
  */
+
+declare var accessToken;
+
 class OptionManager implements IOptionManager {
     private static DISPLAY_PADDING:number = 5;
 
@@ -60,15 +63,24 @@ class OptionManager implements IOptionManager {
             },400);
 
 
-
+            //$('#opg-modal').on('hidden.bs.modal', function(){
+            //    console.log("destroyed");
+            //    $(this).data('bs.modal', null);
+            //});
 
             var opgModalSelect = $('#opg-modal-select');
             var opgModalSave = $('#opg-modal-save');
             var opgModalCollapse = $('#opg-modal-collapse');
+            var opgModalFSview = $('#FS-view');
             opgModalSelect.off('click');
             opgModalSave.off('click');
             opgModalCollapse.off('click');
+            opgModalFSview.off('click');
 
+            opgModalFSview.click(function(){
+                var pid = box.getNode().getId().substring(0,8);
+                window.open("https://familysearch.org/tree/#view=ancestor&person="+pid, '_blank');
+            });
 
             $('#opg-modal-select option[value='+box.getType()+']').prop('selected', true);
             opgModalSelect.change(function() {
@@ -78,6 +90,7 @@ class OptionManager implements IOptionManager {
             });
             opgModalSave.click(function() {
                 $('#opg-modal').modal('hide');
+                console.log("ran save");
                 var changeWho = $('input[name=opg-change-who]:checked').val();
                 self.listener.handleOption(changeWho, {type: box.getType(), id: box.getNode().getId()})
                 //var changeWhoColor = $('input[name=opg-change-who-color]:checked').val();
