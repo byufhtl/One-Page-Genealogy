@@ -177,6 +177,8 @@ class C implements IGraphicObjectListener, IOptionListener {
 
         this.graphicObject = this.viewManager.refresh(boxes);
         this.graphicObject.setListener(this);
+
+        console.log(this.boxes);
     }
 
     translate(pt1:Point, pt2:Point):void {

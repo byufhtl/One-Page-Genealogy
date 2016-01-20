@@ -50,6 +50,7 @@ class FSAncestryDownloader implements ISource {
                 self.listener.gotNode(node);
             },
             function(){
+                alert("Error: Download Failed. Please try again.");
                 console.log("Download failed...");
             });
     }

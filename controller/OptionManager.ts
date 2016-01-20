@@ -62,24 +62,30 @@ class OptionManager implements IOptionManager {
                 self.renderTempBox(box);
             },400);
 
-
-            //$('#opg-modal').on('hidden.bs.modal', function(){
-            //    console.log("destroyed");
-            //    $(this).data('bs.modal', null);
-            //});
-
             var opgModalSelect = $('#opg-modal-select');
             var opgModalSave = $('#opg-modal-save');
             var opgModalCollapse = $('#opg-modal-collapse');
             var opgModalFSview = $('#FS-view');
+            var opgModalVPview = $('#VP-view');
             opgModalSelect.off('click');
             opgModalSave.off('click');
             opgModalCollapse.off('click');
             opgModalFSview.off('click');
+            opgModalVPview.off('click');
 
             opgModalFSview.click(function(){
                 var pid = box.getNode().getId().substring(0,8);
                 window.open("https://familysearch.org/tree/#view=ancestor&person="+pid, '_blank');
+            });
+
+            opgModalVPview.click(function(){
+                var pid:string = box.getNode().getId().substring(0,8);
+                var root:string = localStorage.getItem('rootPID');
+                window['vpdata'] = {
+                    rootId: pid,
+                    accessToken: accessToken
+                };
+                window.open('/vprf/index.html');
             });
 
             $('#opg-modal-select option[value='+box.getType()+']').prop('selected', true);
