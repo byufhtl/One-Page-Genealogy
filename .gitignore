@@ -3,4 +3,4 @@
 *.js.map
 !js/*.*
 !main.js
-!vprf/*.*
+!vprf/*/*.*
