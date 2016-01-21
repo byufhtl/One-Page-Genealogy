@@ -31,7 +31,7 @@ $(document).ready(function () {
         fsHideFirstModal();
     } else if (localStorage.getItem("numGenerations")) {
         localStorage.removeItem("numGenerations");
-        //localStorage.removeItem("rootPID");
+        localStorage.removeItem("rootPID");
         localStorage.removeItem("direction");
     }
 
@@ -66,7 +66,7 @@ function familySearchDownload() {
         rootPID = localStorage.getItem("rootPID");
         direction = localStorage.getItem("direction");
         localStorage.removeItem("numGenerations");
-        //localStorage.removeItem("rootPID");
+        localStorage.removeItem("rootPID");
         localStorage.removeItem("direction");
         download();
     } else {

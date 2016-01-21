@@ -83,4 +83,7 @@ class Tree implements ITree {
         }
         return this.boxes;
     }
+    getTreeMap(): {} {
+        return this.treeMap;
+    }
 }

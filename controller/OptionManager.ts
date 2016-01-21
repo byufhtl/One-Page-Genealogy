@@ -7,7 +7,6 @@
  * Created by curtis on 3/19/15.
  */
 
-declare var accessToken;
 
 class OptionManager implements IOptionManager {
     private static DISPLAY_PADDING:number = 5;
@@ -80,12 +79,7 @@ class OptionManager implements IOptionManager {
 
             opgModalVPview.click(function(){
                 var pid:string = box.getNode().getId().substring(0,8);
-                var root:string = localStorage.getItem('rootPID');
-                window['vpdata'] = {
-                    rootId: pid,
-                    accessToken: accessToken
-                };
-                window.open('/vprf/index.html');
+                self.listener.handleOption('VP-view', {id: pid});
             });
 
             $('#opg-modal-select option[value='+box.getType()+']').prop('selected', true);
@@ -96,7 +90,7 @@ class OptionManager implements IOptionManager {
             });
             opgModalSave.click(function() {
                 $('#opg-modal').modal('hide');
-                console.log("ran save");
+                //console.log("ran save");
                 var changeWho = $('input[name=opg-change-who]:checked').val();
                 self.listener.handleOption(changeWho, {type: box.getType(), id: box.getNode().getId()})
                 //var changeWhoColor = $('input[name=opg-change-who-color]:checked').val();
