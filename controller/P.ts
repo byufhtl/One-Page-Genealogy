@@ -29,7 +29,10 @@
  * Created by krr428 on 3/7/15.
  */
 
-class P implements IControllerListener, ITreeListener {
+declare var accessToken;
+
+
+ class P implements IControllerListener, ITreeListener {
 
     private stylingPipeline: IStyler[]; // This changes based on
     private transformationPipline: IStyler[];
@@ -103,6 +106,33 @@ class P implements IControllerListener, ITreeListener {
                     this.applyToGeneration(gen, root, param);
                 }
                 refresh = true;
+            }
+            else if(param.type === 'VP-view'){
+                //console.log(this.tree.getTreeMap());
+                var childMap: {[key: string]: string} = {};
+                var treeMap = this.tree.getTreeMap();
+                for(var key in treeMap){
+                    if(treeMap.hasOwnProperty(key)){
+                        if(treeMap[key].getBranchIds().length > 0) {
+                            for (var i in treeMap[key].getBranchIds()) {
+                                childMap[treeMap[key].getBranchIds()[i].substring(0,8)] = key.substring(0,8);
+                            }
+                        }
+                    }
+                }
+                var list = [];
+                var currentPID = param.id;
+                list.push(currentPID);
+                while(childMap[currentPID] != null){
+                    list.push(childMap[currentPID]);
+                    currentPID = childMap[currentPID];
+                }
+                window['vpdata'] = {
+                    rootId: list[0],
+                    highlightPaths: [list],
+                    accessToken: accessToken
+                };
+                window.open('/vprf/index.html');
             }
             else if(param.type === 'collapse-sub-tree') {
                 this.collapseSpacer.collapseId(param.id, true);

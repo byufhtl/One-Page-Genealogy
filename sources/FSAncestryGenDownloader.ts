@@ -132,7 +132,6 @@ class FSAncestryGenDownloader {
             });
         }, function(){
             alert("Error: You don't have access to this person's tree.");
-            //$('#fsModal').show();
             familySearchDownload();
             defer.reject();
         });

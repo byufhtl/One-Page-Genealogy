@@ -31,7 +31,7 @@ $(document).ready(function () {
         fsHideFirstModal();
     } else if (localStorage.getItem("numGenerations")) {
         localStorage.removeItem("numGenerations");
-        localStorage.removeItem("pid");
+        localStorage.removeItem("rootPID");
         localStorage.removeItem("direction");
     }
 
@@ -58,15 +58,15 @@ function isExpired(){
 
 function familySearchDownload() {
     var numGenerations;
-    var pid;
+    var rootPID;
     var direction;
 
     if (localStorage.getItem("numGenerations")) {
         numGenerations = localStorage.getItem("numGenerations");
-        pid = localStorage.getItem("pid");
+        rootPID = localStorage.getItem("rootPID");
         direction = localStorage.getItem("direction");
         localStorage.removeItem("numGenerations");
-        localStorage.removeItem("pid");
+        localStorage.removeItem("rootPID");
         localStorage.removeItem("direction");
         download();
     } else {
@@ -81,7 +81,7 @@ function familySearchDownload() {
         }
         $('#fsModal').show();
         $('#fsSave').click(function () {
-            pid = document.getElementById("pid-search-input").value;
+            rootPID = document.getElementById("pid-search-input").value;
             numGenerations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
             direction = $('input[name=FSascOrDsc]:checked').val();
             download();
@@ -90,13 +90,13 @@ function familySearchDownload() {
 
     function download() {
         var isValidPid = false;
-        if (pid === '')
+        if (rootPID === '')
             isValidPid = true;
         else {
-            pid = pid.toUpperCase();
-            //console.log(pid);
+            rootPID = rootPID.toUpperCase();
+            //console.log(rootPID);
             //var regexp = new RegExp(/([A-Z]|[0-9]){4}-([A-Z]|[0-9]){3}/);
-            isValidPid = /([A-Z]|[0-9]){4}-([A-Z]|[0-9]){3}/.test(pid);//regexp.test(pid);
+            isValidPid = /([A-Z]|[0-9]){4}-([A-Z]|[0-9]){3}/.test(rootPID);//regexp.test(pid);
         }
 
         if (isValidPid) {
@@ -104,7 +104,7 @@ function familySearchDownload() {
 
             if (!FamilySearch.hasAccessToken() || isExpired()) {
                 localStorage.setItem("numGenerations", $("option:selected", ('#fsGenerationsSelect'))[0].value);
-                localStorage.setItem("pid", pid);
+                localStorage.setItem("rootPID", rootPID);
                 localStorage.setItem("direction", $('input[name=FSascOrDsc]:checked').val());
                 window.location = 'https://fhtl.byu.edu/auth?redirect=' + encodeURIComponent(document.location.origin);
             } else {
@@ -130,18 +130,19 @@ function familySearchDownload() {
                 //var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
                 //var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
                 var user = response.getUser();
-                if (pid === '')
-                    pid = user.personId;
+                if (rootPID === '')
+                    rootPID = user.personId;
                 //we need to turn off old listeners before we create a new c.
                 $('#opg-download').off('click');
                 $('#fsSave').off('click');
                 $('#fsGenerationsSelect').off('click');
                 $('fsgenerationsRadio').off('click');
                 c = new C({
-                    rootId: pid,
+                    rootId: rootPID,
                     generations: numGenerations,
                     dscOrAsc: direction
                 })
+                localStorage.setItem("rootPID", rootPID);
                 $('#fsModal').hide();
             })
         })
