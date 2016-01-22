@@ -52,7 +52,7 @@ class GenColorSpacer implements  IStyler {
         }
         else if(!repeat && generation <= 10) {
             var newColor:number = (parseInt(parentBox.getColor().split("#")[1],16));//.toString();
-            newColor = newColor-30;
+            newColor = newColor-64;
             var newHex = "#"+newColor.toString(16);
             childBox.setColor(newHex);
         }

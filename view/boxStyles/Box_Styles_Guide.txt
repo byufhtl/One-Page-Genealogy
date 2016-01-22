@@ -1,0 +1,64 @@
+//============================================================================================================
+||    /===================\                                                                                 ||
+||    |                   |      HOW TO BOX STYLE                                                           ||
+||    |                   |                                                                                 ||
+||    |      0     0      |                                                                                 ||
+||    |         /         |                                                                                 ||
+||    |                   |                                                                                 ||
+||    |     \_______/     |                                                                                 ||
+||    |                   |                                                                                 ||
+||    |                   |                                                                                 ||
+||    \===================/                                                     -Calvin McMurray 1/21/2016  ||
+\\==========================================================================================================//
+
+Box styles dictate the color, shape, style, font, and formatting of the boxes used to represent individual people.
+The box styles follow a pretty basic format and template guide.
+
+    I)   Graphics/Setup
+    II)  Box Config
+        i)   Width/Height Settings
+        ii)  Border Settings
+        iii) Color Schematics
+    III) Text Config
+        i)   Name Config
+        ii)  Date Config(?)
+        iii) Birth Place Config(?)
+        iv)  Death Place Config(?)
+        v)   Picture Config(?)
+    IV)  Translation
+    V)   Type
+    VI)  Dimensions
+    VII) Loading
+
+Most of these settings are almost always identical. Points II, III, and VI are more commonly mutable, since they control
+content and appearance rather than movement or loading.
+Depending on the content of the box, the number of configuration sections in III may vary.
+
+Text configuration is reliant upon the StringUtils.ts file, which does the text formatting for the box, making the
+information fit neatly inside of the box.
+
+New box styles must be registered in BoxStyleFactory.ts file to be included in the functional product.
+
+The box styles are currently undergoing revision and expansion. The formatting to the code blocks is being changed slightly
+for readability, and certain functionalities have been moved within the code to allow for cohesive grouping.
+
+The centered style previously featured in some box styles has been removed for consistency.
+Features may be added later to allow the user to toggle the justification manually across generations/trees.
+
+The following code was also excised from the code in its commented state. As it may prove useful later, I'm saving it here.
+
+        /*var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+         g.appendChild(text6);
+         var nameTextPath = document.createTextNode("M: marriage place (year)");
+         text6.appendChild(nameTextPath);
+         text6.setAttribute("x", "110");
+         text6.setAttribute("y", "102");
+         text6.setAttribute("font-size", "15px");
+         //        StringUtils.centerElement(text6, 40, 240);*/
+
+This bit was in the first line of all of the styles Translation functions, always commented out. Excised and stored here.
+
+        //graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");
+
+Box widths were also strange, since the return value was a sum of two magic numbers, and a third magic number commented-
+out off to one side. The summed numbers were converted into a single number, and the commented-out number was removed.

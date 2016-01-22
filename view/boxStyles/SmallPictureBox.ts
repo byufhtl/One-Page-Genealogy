@@ -38,26 +38,23 @@ class SmallPictureBox extends IBoxData {
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "10");
+            text.setAttribute("x", "60");
             text.setAttribute("y", "25");
             text.setAttribute("font-size", "20px");
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text,node.getAttr('name'),28);
-
-            StringUtils.centerElement(text, 40, 240);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "10");
+        text3.setAttribute("x", "60");
         text3.setAttribute("y", "50");
         text3.setAttribute("font-size", "15px");
         text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
-        StringUtils.centerElement(text3, 60, 240);
 
 
 

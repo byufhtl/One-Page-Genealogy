@@ -7,6 +7,9 @@
  */
 class LargePictureDetailBox2 extends IBoxData {
     render(box:IBox, rootElement): any {
+
+        // SETUP =================================================================================
+
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
             rootElement.appendChild(g);
@@ -14,6 +17,9 @@ class LargePictureDetailBox2 extends IBoxData {
         var rect:Element = document.createElementNS("http://www.w3.org/2000/svg", "rect");
 
         g.appendChild(rect);
+        var node = box.getNode();
+
+        // BOX CONFIG ============================================================================
 
         rect.setAttribute('width', String(this.getWidth()-4));
         rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
@@ -24,23 +30,41 @@ class LargePictureDetailBox2 extends IBoxData {
 
         g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
 
-
         rect.setAttribute('rx', "20");
         rect.setAttribute('ry', "20");
         rect.setAttribute('stroke-width', '2');
         rect.setAttribute('stroke', 'black');
 
+        // Color Schemes
+        var gender = 'none';
+        if(node.hasAttr('gender')) {
+            gender = node.getAttr('gender');
+        }
+        if(box.getColor()!= null){
+            rect.setAttribute('fill', box.getColor());
+        }
+        else if(gender === 'Male') {
+            rect.setAttribute('fill','#8DEEEE');
+        }
+        else if(gender === 'Female') {
+            rect.setAttribute('fill','#FFD1DC');
+        }
+        else {
+            rect.setAttribute('fill','#E5E5E5');
+        }
 
+        // TEXT CONFIG ===========================================================================
+
+        // Name
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
         var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text);
         g.appendChild(text2);
-        var node = box.getNode();
         if (node.hasAttr('givenname') && node.hasAttr('surname')) {
             if (node.hasAttr('givenname') || node.hasAttr('given')) {
                 var nameTextPath = document.createTextNode(box.getNode().getAttr('givenname'));
                 text.appendChild(nameTextPath);
-                text.setAttribute("x", "220");
+                text.setAttribute("x", "205");
                 text.setAttribute("y", "35");
                 text.setAttribute("font-size", "30px");
                 text.setAttribute("style", this.getFont() );
@@ -50,7 +74,7 @@ class LargePictureDetailBox2 extends IBoxData {
             if (node.hasAttr('surname')) {
                 var nameTextPath = document.createTextNode(box.getNode().getAttr('surname'));
                 text2.appendChild(nameTextPath);
-                text2.setAttribute("x", "220");
+                text2.setAttribute("x", "205");
                 text2.setAttribute("y", "80");
                 text2.setAttribute("font-size", "40px");
                 text2.setAttribute("style", this.getFont() );
@@ -69,83 +93,56 @@ class LargePictureDetailBox2 extends IBoxData {
             }
             var nameTextPath = document.createTextNode(firstName);
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "220");
+            text.setAttribute("x", "205");
             text.setAttribute("y", "35");
             text.setAttribute("font-size", "30px");
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text, firstName, 30);
             var nameTextPath2 = document.createTextNode(splitName[splitName.length - 1]);
             text2.appendChild(nameTextPath2);
-            text2.setAttribute("x", "220");
+            text2.setAttribute("x", "205");
             text2.setAttribute("y", "80");
             text2.setAttribute("font-size", "40px");
             text2.setAttribute("style", this.getFont() );
             StringUtils.fitName(text2, node.getAttr('surname'), 30);
         }
 
+        // Dates
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "220");
+        text3.setAttribute("x", "205");
         text3.setAttribute("y", "120");
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", this.getFont() );
-
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
-        //StringUtils.centerElement(text3, 210, 290);
 
+        // Birth Place
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text4);
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
-        text4.setAttribute("x", "220");
+        text4.setAttribute("x", "205");
         text4.setAttribute("y", "150");
         text4.setAttribute("font-size", "20px");
         text4.setAttribute("style", this.getFont() );
-        //StringUtils.centerElement(text4, 210, 290);
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 24);
         text4.textContent = 'B: '+text4.textContent;
 
+        // Death Place
         var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text5);
         var nameTextPath = document.createTextNode("");
         text5.appendChild(nameTextPath);
-        text5.setAttribute("x", "220");
+        text5.setAttribute("x", "205");
         text5.setAttribute("y", "175");
         text5.setAttribute("font-size", "20px");
         text5.setAttribute("style", this.getFont() );
-        //StringUtils.centerElement(text5, 210, 290);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 24);
         text5.textContent = 'D: '+text5.textContent;
 
-        /*var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        g.appendChild(text5);
-        var nameTextPath = document.createTextNode("M: marriage place (year)");
-        text5.appendChild(nameTextPath);
-        text5.setAttribute("x", "225");
-        text5.setAttribute("y", "200");
-        text5.setAttribute("font-size", "20px");
-        //StringUtils.centerElement(text5, 210, 290);*/
-
-
-        var gender = 'none';
-        if(node.hasAttr('gender')) {
-            gender = node.getAttr('gender');
-        }
-        if(box.getColor()!= null){
-            rect.setAttribute('fill', box.getColor());
-        }
-        else if(gender === 'Male') {
-            rect.setAttribute('fill','#8DEEEE');
-        }
-        else if(gender === 'Female') {
-            rect.setAttribute('fill','#FFD1DC');
-        }
-        else {
-            rect.setAttribute('fill','#E5E5E5');
-        }
-
+        // Picture
         var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
         clippath.setAttribute('id', 'clip-'+node.getId());
         g.appendChild(clippath);
@@ -158,7 +155,6 @@ class LargePictureDetailBox2 extends IBoxData {
         cliprect.setAttribute('y', '5');
 
         clippath.appendChild(cliprect);
-
 
         if(node.hasAttr('profilePicturePromise')) {
             var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
@@ -198,31 +194,40 @@ class LargePictureDetailBox2 extends IBoxData {
                 text3.setAttribute('x','25');
                 text4.setAttribute('x','25');
                 StringUtils.fitPlace(text4, node.getAttr('birthplace'), 45);
-                //if(text4.textContent.length >3)
                     text4.textContent = 'B: '+text4.textContent;
                 text5.setAttribute('x','25');
                 StringUtils.fitPlace(text5, node.getAttr('deathplace'), 45);
-                //if(text5.textContent.length >3)
                     text5.textContent = 'D: '+text5.textContent;
             });
         }
 
         return g;
     }
+
+    // TRANSLATION ===============================================================================
+
     move(box:IBox, graphic: any): any {
-        //graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+(box.getY()+4)+")");
         graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
             (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
+
+    // TYPE ======================================================================================
+
     getType(): string {
         return "largePictureDetailBox2";
     }
+
+    // DIMENSIONS ================================================================================
+
     getHeight(): number {
-        return 199+2;//214;
+        return 201;
     }
     getWidth(): number {
         return 500;
     }
+
+    // LOADING ===================================================================================
+
     requiresLoad(): boolean {
         return true;
     }

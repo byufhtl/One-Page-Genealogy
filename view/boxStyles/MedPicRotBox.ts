@@ -7,6 +7,9 @@
  */
 class MedPicRotBox extends IBoxData {
     render(box:IBox, rootElement): any {
+
+        // SETUP =================================================================================
+
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -16,6 +19,9 @@ class MedPicRotBox extends IBoxData {
 
         g.appendChild(rect);
         g.appendChild(gt);
+        var node: INode = box.getNode();
+
+        // BOX CONFIG ============================================================================
 
         rect.setAttribute('width', String(this.getWidth()));
         rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
@@ -26,54 +32,10 @@ class MedPicRotBox extends IBoxData {
 
         g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
 
-
         rect.setAttribute('rx', "10");
         rect.setAttribute('ry', "10");
         rect.setAttribute('stroke-width', '2');
         rect.setAttribute('stroke', 'black');
-
-
-        var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text);
-
-        var node: INode = box.getNode();
-        if(node.hasAttr('givenname')) {
-            var nameTextPath = document.createTextNode(box.getNode().getAttr('givenname'));
-            text.appendChild(nameTextPath);
-            text.setAttribute("x", "15");
-            text.setAttribute("y", "30");
-            text.setAttribute("font-size", "30px");
-            text.setAttribute("style", this.getFont() );
-            StringUtils.fitName(text,node.getAttr('givenname'),30);
-            StringUtils.centerElement(text, 110, 350);
-        }
-
-        var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text2);
-        if(node.hasAttr('surname')) {
-            var nameTextPath = document.createTextNode(box.getNode().getAttr('surname'));
-            text2.appendChild(nameTextPath);
-            text2.setAttribute("x", "10");
-            text2.setAttribute("y", "70");
-            text2.setAttribute("font-size", "40px");
-            text2.setAttribute("style", this.getFont() );
-            StringUtils.fitName(text2,node.getAttr('surname'),30);
-            StringUtils.centerElement(text2, 110, 350);
-        }
-
-        var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text3);
-        var nameTextPath = document.createTextNode("");
-        text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "10");
-        text3.setAttribute("y", "100");
-        text3.setAttribute("font-size", "20px");
-        text3.setAttribute("style", this.getFont() );
-
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 350);
-        StringUtils.centerElement(text3, 110, 350);
-
-
 
         var gender = 'none';
         if(node.hasAttr('gender')) {
@@ -92,6 +54,47 @@ class MedPicRotBox extends IBoxData {
             rect.setAttribute('fill','#E5E5E5');
         }
 
+        // TEXT CONFIG ===========================================================================
+
+        // Given Name
+        var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        gt.appendChild(text);
+        if(node.hasAttr('givenname')) {
+            var nameTextPath = document.createTextNode(box.getNode().getAttr('givenname'));
+            text.appendChild(nameTextPath);
+            text.setAttribute("x", "115");
+            text.setAttribute("y", "30");
+            text.setAttribute("font-size", "30px");
+            text.setAttribute("style", this.getFont() );
+            StringUtils.fitName(text,node.getAttr('givenname'),30);
+        }
+
+        // Surname
+        var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        gt.appendChild(text2);
+        if(node.hasAttr('surname')) {
+            var nameTextPath = document.createTextNode(box.getNode().getAttr('surname'));
+            text2.appendChild(nameTextPath);
+            text2.setAttribute("x", "115");
+            text2.setAttribute("y", "70");
+            text2.setAttribute("font-size", "40px");
+            text2.setAttribute("style", this.getFont() );
+            StringUtils.fitName(text2,node.getAttr('surname'),30);
+        }
+
+        // Dates
+        var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        gt.appendChild(text3);
+        var nameTextPath = document.createTextNode("");
+        text3.appendChild(nameTextPath);
+        text3.setAttribute("x", "115");
+        text3.setAttribute("y", "100");
+        text3.setAttribute("font-size", "20px");
+        text3.setAttribute("style", this.getFont() );
+        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 350);
+        //StringUtils.centerElement(text3, 110, 350);
+
+        // Picture
         var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
         clippath.setAttribute('id', 'clip-'+node.getId());
         gt.appendChild(clippath);
@@ -102,9 +105,7 @@ class MedPicRotBox extends IBoxData {
         cliprect.setAttribute('ry', '10');
         cliprect.setAttribute('x', '5');
         cliprect.setAttribute('y', '5');
-
         clippath.appendChild(cliprect);
-
 
         if(node.hasAttr('profilePicturePromise')) {
             var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
@@ -149,20 +150,30 @@ class MedPicRotBox extends IBoxData {
 
         return g;
     }
+
+    // TRANSLATION ===============================================================================
+
     move(box:IBox, graphic: any): any {
-        //graphic.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
         graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
             (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
+
+    // TYPE ======================================================================================
+
     getType(): string {
         return "medPicRotBox";
     }
+
+    // DIMENSIONS ================================================================================
+
     getHeight(): number {
         return 450;
     }
     getWidth(): number {
-        return 110+2;//110;
+        return 112;
     }
+
+    // LOADING ===================================================================================
     requiresLoad(): boolean {
         return true;
     }

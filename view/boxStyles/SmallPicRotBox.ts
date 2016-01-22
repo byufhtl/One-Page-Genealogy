@@ -7,6 +7,9 @@
  */
 class SmallPicRotBox extends IBoxData {
     render(box:IBox, rootElement): any {
+
+        // SETUP =================================================================================
+
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -16,6 +19,9 @@ class SmallPicRotBox extends IBoxData {
 
         g.appendChild(rect);
         g.appendChild(gt);
+        var node: INode = box.getNode();
+
+        // BOX CONFIG ============================================================================
 
         rect.setAttribute('width', String(this.getWidth()));
         rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
@@ -26,42 +32,10 @@ class SmallPicRotBox extends IBoxData {
 
         gt.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
 
-
         rect.setAttribute('rx', "10");
         rect.setAttribute('ry', "10");
         rect.setAttribute('stroke-width', '2');
         rect.setAttribute('stroke', 'black');
-
-
-        var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text);
-
-        var node: INode = box.getNode();
-        if(node.hasAttr('name')) {
-            var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
-            text.appendChild(nameTextPath);
-            text.setAttribute("x", "10");
-            text.setAttribute("y", "25");
-            text.setAttribute("font-size", "20px");
-            text.setAttribute("style", this.getFont() );
-            StringUtils.fitName(text,node.getAttr('name'),28);
-            StringUtils.centerElement(text, 40, 240);
-        }
-
-        var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        gt.appendChild(text3);
-        var nameTextPath = document.createTextNode("");
-        text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "10");
-        text3.setAttribute("y", "50");
-        text3.setAttribute("font-size", "15px");
-        text3.setAttribute("style", this.getFont() );
-
-
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
-        StringUtils.centerElement(text3, 60, 240);
-
-
 
         var gender = 'none';
         if(node.hasAttr('gender')) {
@@ -81,6 +55,35 @@ class SmallPicRotBox extends IBoxData {
             rect.setAttribute('fill','#E5E5E5');
         }
 
+        // Text CONFIG ===========================================================================
+
+        var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        gt.appendChild(text);
+
+        // Name
+        if(node.hasAttr('name')) {
+            var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
+            text.appendChild(nameTextPath);
+            text.setAttribute("x", "65");
+            text.setAttribute("y", "25");
+            text.setAttribute("font-size", "20px");
+            text.setAttribute("style", this.getFont() );
+            StringUtils.fitName(text,node.getAttr('name'),28);
+            //StringUtils.centerElement(text, 40, 240);
+        }
+
+        // Dates
+        var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        gt.appendChild(text3);
+        var nameTextPath = document.createTextNode("");
+        text3.appendChild(nameTextPath);
+        text3.setAttribute("x", "65");
+        text3.setAttribute("y", "50");
+        text3.setAttribute("font-size", "15px");
+        text3.setAttribute("style", this.getFont() );
+        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
+
+        // Picture
         var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
         clippath.setAttribute('id', 'clip-'+node.getId());
         gt.appendChild(clippath);
@@ -93,7 +96,6 @@ class SmallPicRotBox extends IBoxData {
         cliprect.setAttribute('y', '5');
 
         clippath.appendChild(cliprect);
-
 
         if(node.hasAttr('profilePicturePromise')) {
             var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
@@ -124,7 +126,6 @@ class SmallPicRotBox extends IBoxData {
                 svgimg2.setAttributeNS('http://www.w3.org/1999/xlink','href',response);
                 gt.appendChild(svgimg2);
 
-
             }, function() {
                 gt.removeChild(svgimg);
                 text.setAttribute('x','7');
@@ -136,20 +137,31 @@ class SmallPicRotBox extends IBoxData {
 
         return g;
     }
+
+    // TRANSLATION ===============================================================================
+
     move(box:IBox, graphic: any): any {
-        //graphic.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
         graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
             (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
+
+    // TYPE ======================================================================================
+
     getType(): string {
         return "smallPicRotBox";
     }
+
+    // DIMENSIONS =================================================================================
+
     getHeight(): number {
         return 300;
     }
     getWidth(): number {
-        return 60+2-2;//60;
+        return 60;
     }
+
+    // LOADING ===================================================================================
+
     requiresLoad(): boolean {
         return true;
     }
