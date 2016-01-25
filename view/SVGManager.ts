@@ -357,6 +357,8 @@ class SVGManager implements IViewManager {
     }
     getSVGString(): any {
 
+        $("body").css("cursor", "progress");
+
         var defer = $.Deferred();
 
         this.elementManager.setIgnoreBound(true);
@@ -382,6 +384,7 @@ class SVGManager implements IViewManager {
             counter++;
             console.log(total, counter);
             if(counter >= total) {
+                $("body").css("cursor", "default");
                 var s = new XMLSerializer();
 
                 self.elementManager.setIgnoreBound(true);
@@ -488,7 +491,6 @@ class SVGManager implements IViewManager {
         this.elementManager.setIgnoreBound(false);
         this.lineManager.setIgnoreBound(false);
         this.realRefresh();
-
 
 
         return defer.promise();
