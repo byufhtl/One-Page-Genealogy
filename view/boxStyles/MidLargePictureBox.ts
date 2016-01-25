@@ -38,11 +38,10 @@ class MidLargePictureBox extends IBoxData {
         if(node.hasAttr('givenname')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('givenname'));
             text.appendChild(nameTextPath);
-            text.setAttribute("x", "15");
+            text.setAttribute("x", "190");
             text.setAttribute("y", "60");
             text.setAttribute("font-size", "30px");
             text.setAttribute("style", this.getFont() );
-            StringUtils.centerElement(text, 180, 270);
         }
 
         var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -50,24 +49,22 @@ class MidLargePictureBox extends IBoxData {
         if(node.hasAttr('surname')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('surname'));
             text2.appendChild(nameTextPath);
-            text2.setAttribute("x", "15");
+            text2.setAttribute("x", "190");
             text2.setAttribute("y", "95");
             text2.setAttribute("font-size", "40px");
             text2.setAttribute("style", this.getFont() );
-            StringUtils.centerElement(text2, 180, 270);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "10");
+        text3.setAttribute("x", "190");
         text3.setAttribute("y", "135");
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 300);
-        StringUtils.centerElement(text3, 180, 270);
 
 
 

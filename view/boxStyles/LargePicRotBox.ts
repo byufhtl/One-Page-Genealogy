@@ -7,6 +7,9 @@
  */
 class LargePicRotBox extends IBoxData {
     render(box:IBox, rootElement): any {
+
+        // SETUP =================================================================================
+
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -16,6 +19,9 @@ class LargePicRotBox extends IBoxData {
 
         g.appendChild(rect);
         g.appendChild(gt);
+        var node = box.getNode();
+
+        // BOX CONFIG ============================================================================
 
         rect.setAttribute('width', String(this.getWidth()));
         rect.setAttribute('height', String(box.getHeight()-2-box.getSpace()));
@@ -26,20 +32,35 @@ class LargePicRotBox extends IBoxData {
 
         g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
 
-
         rect.setAttribute('rx', "20");
         rect.setAttribute('ry', "20");
         rect.setAttribute('stroke-width', '2');
         rect.setAttribute('stroke', 'black');
-        //            StringUtils.centerElement(text, 210, 290);
 
+        var gender = 'none';
+        if(node.hasAttr('gender')) {
+            gender = node.getAttr('gender');
+        }
+        if(box.getColor()!= null){
+            rect.setAttribute('fill', box.getColor());
+        }
+        else if(gender === 'Male') {
+            rect.setAttribute('fill','#8DEEEE');
+        }
+        else if(gender === 'Female') {
+            rect.setAttribute('fill','#FFD1DC');
+        }
+        else {
+            rect.setAttribute('fill','#E5E5E5');
+        }
 
+        // TEXT CONFIG ===========================================================================
 
+        // Name
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
         var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text);
         gt.appendChild(text2);
-        var node = box.getNode();
         if (node.hasAttr('givenname') && node.hasAttr('surname')) {
             if (node.hasAttr('givenname') || node.hasAttr('given')) {
                 var nameTextPath = document.createTextNode(box.getNode().getAttr('givenname'));
@@ -49,7 +70,6 @@ class LargePicRotBox extends IBoxData {
                 text.setAttribute("font-size", "30px");
                 text.setAttribute("style", this.getFont() );
                 StringUtils.fitName(text, node.getAttr('givenname'), 30);
-                StringUtils.centerElement(text, 210, 290);
             }
             gt.appendChild(text2);
             if (node.hasAttr('surname')) {
@@ -60,7 +80,6 @@ class LargePicRotBox extends IBoxData {
                 text2.setAttribute("font-size", "40px");
                 text2.setAttribute("style", this.getFont() );
                 StringUtils.fitName(text2, node.getAttr('surname'), 30);
-                StringUtils.centerElement(text2, 210, 290);
             }
         }
         else if (node.hasAttr('name')) {
@@ -80,7 +99,6 @@ class LargePicRotBox extends IBoxData {
             text.setAttribute("font-size", "30px");
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text, firstName, 30);
-            StringUtils.centerElement(text, 210, 290);
             var nameTextPath2 = document.createTextNode(splitName[splitName.length - 1]);
             text2.appendChild(nameTextPath2);
             text2.setAttribute("x", "220");
@@ -88,40 +106,22 @@ class LargePicRotBox extends IBoxData {
             text2.setAttribute("font-size", "40px");
             text2.setAttribute("style", this.getFont() );
             StringUtils.fitName(text2, node.getAttr('surname'), 30);
-            StringUtils.centerElement(text2, 210, 290);
         }
 
+        // Dates
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text3);
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
-        text3.setAttribute("x", "10");
+        text3.setAttribute("x", "220");
         text3.setAttribute("y", "155");
         text3.setAttribute("font-size", "20px");
         text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
-        StringUtils.centerElement(text3, 210, 290);
+        //StringUtils.centerElement(text3, 210, 290);
 
-
-
-        var gender = 'none';
-        if(node.hasAttr('gender')) {
-            gender = node.getAttr('gender');
-        }
-        if(box.getColor()!= null){
-            rect.setAttribute('fill', box.getColor());
-        }
-        else if(gender === 'Male') {
-            rect.setAttribute('fill','#8DEEEE');
-        }
-        else if(gender === 'Female') {
-            rect.setAttribute('fill','#FFD1DC');
-        }
-        else {
-            rect.setAttribute('fill','#E5E5E5');
-        }
-
+        // Picture
         var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
         clippath.setAttribute('id', 'clip-'+node.getId());
         gt.appendChild(clippath);
@@ -134,7 +134,6 @@ class LargePicRotBox extends IBoxData {
         cliprect.setAttribute('y', '5');
 
         clippath.appendChild(cliprect);
-
 
         if(node.hasAttr('profilePicturePromise')) {
             var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
@@ -179,20 +178,31 @@ class LargePicRotBox extends IBoxData {
 
         return g;
     }
+
+    // TRANSLATION ===============================================================================
+
     move(box:IBox, graphic: any): any {
-        //graphic.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
         graphic.setAttribute("transform","translate("+(box.getX()+2)+", "+
             (box.getY()+1+Math.round(box.getSpace()/2))+")");
     }
+
+    // TYPE ======================================================================================
+
     getType(): string {
         return "largePicRotBox";
     }
+
+    // DIMENSIONS ================================================================================
+
     getHeight(): number {
         return 500;
     }
     getWidth(): number {
         return 210+2;
     }
+
+    // LOADING ===================================================================================
+
     requiresLoad(): boolean {
         return true;
     }

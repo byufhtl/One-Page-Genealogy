@@ -185,23 +185,23 @@
 
             };
 
-            var gedNode = new GedcomNode("@I0001@",person,[])
-            var spouseGedNode = new GedcomNode("@I0002@",otherperson,[])
-            gedNode.setDisplaySpouse(spouseGedNode)
+            var gedNode = new GedcomNode("@I0001@",person,[]);
+            var spouseGedNode = new GedcomNode("@I0002@",otherperson,[]);
+            gedNode.setDisplaySpouse(spouseGedNode);
 
             var box = new Box(gedNode);
             box.setX(10);
             box.setY(10);
 
-            box.setType('xsSpBox')
+            box.setType('xsSpBox');
 
             box.setSpace(0);
             
 
-            console.log(box.getNode())
+            console.log(box.getNode());
 
-            var render = new XSSpBox();
-            console.log(render)
+            var render = new SmallestNameBox();
+            console.log(render);
 
             render.render(box, document.getElementById('svg-g'));
         });

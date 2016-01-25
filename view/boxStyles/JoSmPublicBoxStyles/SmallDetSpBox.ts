@@ -6,6 +6,7 @@
  */
 class JSSmallDetSpPubBox extends IBoxData {
     render(box:IBox, rootElement): any {
+        console.log("Nailed it...");
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
@@ -29,19 +30,19 @@ class JSSmallDetSpPubBox extends IBoxData {
         rect.setAttribute('rx', "10");
         rect.setAttribute('ry', "10");
         rect.setAttribute('stroke-width', '3');
-        rect.setAttribute('stroke', 'black')
+        rect.setAttribute('stroke', 'black');
         var rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect2.setAttribute('rx','5')
-        rect2.setAttribute('ry','5')
-        rect2.setAttribute('stroke-width','5')
-        rect2.setAttribute('stroke','#E2C6FF')
+        rect2.setAttribute('rx','5');
+        rect2.setAttribute('ry','5');
+        rect2.setAttribute('stroke-width','5');
+        rect2.setAttribute('stroke','#E2C6FF');
         rect2.setAttribute('width', String(this.getWidth()-14));
         rect2.setAttribute('height', String(box.getHeight()-16-box.getSpace()));
         //rect2.setAttribute('height', String(box.getHeight()-10));
-        g.appendChild(rect2)
-        rect2.setAttribute('x','5')
-        rect2.setAttribute('y','5')
-        rect2.setAttribute('fill-opacity','.001')
+        g.appendChild(rect2);
+        rect2.setAttribute('x','5');
+        rect2.setAttribute('y','5');
+        rect2.setAttribute('fill-opacity','.001');
 
         g.appendChild(gt);
 
@@ -68,7 +69,7 @@ class JSSmallDetSpPubBox extends IBoxData {
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(firstG);
         firstG.appendChild(text);
-        gt.appendChild(secondG)
+        gt.appendChild(secondG);
 
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
@@ -108,8 +109,8 @@ class JSSmallDetSpPubBox extends IBoxData {
 
         StringUtils.fitDatePlace2(text4,node.getAttr('deathdate'), node.getAttr('deathplace'), 26);
 
-        firstG.setAttribute('transform','translate(8,18)')
-        secondG.setAttribute('transform','translate(8,18)')
+        firstG.setAttribute('transform','translate(8,18)');
+        secondG.setAttribute('transform','translate(8,18)');
 
         //StringUtils.fitDatePlace(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),28);
 
@@ -127,14 +128,14 @@ class JSSmallDetSpPubBox extends IBoxData {
         //console.log(spousenode)
         if(spousenode != null) {
             if(spousenode.hasAttr('gender')){
-                secondGGender = spousenode.getAttr('gender')
+                secondGGender = spousenode.getAttr('gender');
                 if(secondGGender== "Male"){
                     firstG.setAttribute('transform','translate(125,18)')
                 }else{
                     secondG.setAttribute('transform','translate(125,18)')
                 }
             }else if(node.hasAttr('gender')){
-                firstGGender = node.getAttr('gender')
+                firstGGender = node.getAttr('gender');
                 if(firstGGender == "Male"){
                     secondG.setAttribute('transform','translate(125,18)')
                 }else{
