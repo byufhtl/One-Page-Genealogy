@@ -27,6 +27,11 @@ FamilySearch.init({
 
 $(document).ready(function () {
 
+    $('#downloadModal').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+
     if (localStorage.getItem("numGenerations") && FamilySearch.hasAccessToken()) {
         fsHideFirstModal();
     } else if (localStorage.getItem("numGenerations")) {
