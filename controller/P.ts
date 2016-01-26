@@ -30,6 +30,7 @@
  */
 
 declare var accessToken;
+ declare var numGenerations;
 
 
  class P implements IControllerListener, ITreeListener {
@@ -194,6 +195,46 @@ declare var accessToken;
             else if(param.type === 'to-gender-color'){
                 this.changeToGenderColor();
                 refresh = true;
+            }else if(param.type === 'show-empty'){
+                var repeat = true;
+                var countID = 0;
+                while(repeat) {
+                    repeat = false;
+                    var childMap: {[key: string]: string} = {};
+                    var treeMap = this.tree.getTreeMap();
+                    //Create Child Map:
+                    for(var key in treeMap){
+                        if(treeMap.hasOwnProperty(key)){
+                            if(treeMap[key].getBranchIds().length > 0) {
+                                for (var i in treeMap[key].getBranchIds()) {
+                                    childMap[treeMap[key].getBranchIds()[i].substring(0,8)] = key.substring(0,8);
+                                }
+                            }
+                        }
+                    }
+
+                    //Use Child Map for each person to determine empty boxes
+                    for (var box in this.firstBoxMap.getMap()) {
+                        var list = [];
+                        var currentPID = box.substr(0, 8);
+                        list.push(currentPID);
+                        while (childMap[currentPID] != null) {
+                            list.push(childMap[currentPID]);
+                            currentPID = childMap[currentPID];
+                        }
+
+                        //If it needs empty Boxes and is allowed empty boxes, then add them
+                        if (list.length > 1 &&
+                            list.length < numGenerations &&
+                            this.firstBoxMap.getId(box).getNode().getBranchIds().length === 0) {
+
+                            this.firstBoxMap.getId(box).getNode().setBranchIds([String(countID), String(countID + 1)]);
+                            countID += 2;
+                            refresh = true;
+                            repeat = true;
+                        }
+                    }
+                }
             }
         }
 
@@ -287,6 +328,8 @@ declare var accessToken;
 
                 this.firstBoxMap.setId(node.getId(), new AbstractBox(node));
                 this.secondBoxMap.setId(node.getId(), new AbstractBox(node));
+            }else{
+                console.log("Error: Unknown Command");
             }
         }
         this.runPipeline();

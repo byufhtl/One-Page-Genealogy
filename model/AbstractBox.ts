@@ -31,9 +31,6 @@ class AbstractBox implements IBox {
         return this.color;
     }
     getHeight(): number {
-        //console.log("What is going on?");
-        //console.log(this.h);
-        //console.log(this.space);
         return this.h + this.space;
     }
     setHeight(h: number) {

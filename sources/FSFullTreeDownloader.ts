@@ -88,12 +88,21 @@ class FSFullTreeDownloader implements  ISource {
                     node.setMarriageDate(date.toDateString());
                 }
                 else {
-                    node = new FSDescNode(idData.id, person.getPerson(), idData.parentIds,person.getSpouses(),null,true);
+                    node = new FSDescNode(idData.id, person.getPerson(), idData.parentIds, person.getSpouses(), null, true);
                 }
 
 
                 self.listener.gotNode(node);
             }
+
+            var numPeople = Math.pow(2,+self.generations) -1;
+            var numExtra = numPeople - people.length;
+            //console.log(numExtra);
+            for(var i=0; i < numExtra; i++){
+                node = new FSDescNode(String(i), null, [], [], null, true);
+                self.listener.gotNode(node);
+            }
+
             self.listener.done();
         });
     }

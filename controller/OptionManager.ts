@@ -51,6 +51,9 @@ class OptionManager implements IOptionManager {
         $('#opg-to-gender-color').click(function(){
             self.listener.handleOption('to-gender-color', null);
         });
+        $('#opg-show-empty').click(function(){
+            self.listener.handleOption('show-empty', null);
+        });
     }
     handleOptionSetting(type:String, data:any): void {
         var self = this;

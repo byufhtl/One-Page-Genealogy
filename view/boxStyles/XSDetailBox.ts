@@ -7,6 +7,7 @@
  */
 class XSDetailBox extends IBoxData {
     render(box:IBox, rootElement): any {
+
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g");
         if(rootElement) {
             rootElement.appendChild(g);

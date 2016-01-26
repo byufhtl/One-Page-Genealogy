@@ -2,7 +2,7 @@
  * Created by Jared on 1/11/16.
  */
 
-
+var numGenerations
 var c = null;
 var token;
 if (window.location.href.indexOf("fstoken") > -1) {
@@ -57,7 +57,7 @@ function isExpired(){
 }
 
 function familySearchDownload() {
-    var numGenerations;
+    //var numGenerations;
     var rootPID;
     var direction;
 
