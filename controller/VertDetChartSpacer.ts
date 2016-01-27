@@ -4,6 +4,8 @@
  * Created by renae on 7/28/15.
  */
 class VertDetChartSpacer implements  IStyler {
+    private initialized:boolean = true;
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
@@ -28,10 +30,15 @@ class VertDetChartSpacer implements  IStyler {
                 this.setBasedOnGeneration(box, branchBox, generation+1);
 
                 queue.push([branchIds[i], generation+1]);
-                box.setCollapsed(false);
+
+                if(this.initialized && generation === 4 || generation === 5) {
+                    box.setCollapsed(false);
+                }
             }
         }
+        this.initialized = false;
     }
+
     private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
         if(generation == 0) {
             var bx = 0;

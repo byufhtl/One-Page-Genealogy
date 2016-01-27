@@ -4,6 +4,8 @@
  * Created by renae on 6/30/15.
  */
 class EightElevenDetailSpacer implements  IStyler {
+    private initialized:boolean = true;
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
@@ -30,13 +32,12 @@ class EightElevenDetailSpacer implements  IStyler {
 
                 queue.push([branchIds[i], generation+1]);
 
-                //box.setCollapsed(false);
-
-                if(generation==4){//>4) {
+                if(this.initialized && generation === 4){//>4) {
                     box.setCollapsed(true);
                 }
             }
         }
+        this.initialized = false;
     }
     private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
 
