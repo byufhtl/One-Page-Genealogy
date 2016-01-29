@@ -10,6 +10,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="js/familysearch-javascript-sdk.min.js" type="text/javascript"></script>
+    <script src="js/spectrum.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/spectrum.css"/>
 
 
     <script src="sources/FakeNode.js" type="text/javascript"></script>
@@ -35,6 +37,7 @@
     <script src="controller/AscColorSpacer.js" type="text/javascript"></script>
     <script src="controller/GenColorSpacer.js" type="text/javascript"></script>
     <script src="controller/GenderColorSpacer.js" type="text/javascript"></script>
+    <script src="controller/GenColorVibrantSpacer.js" type="text/javascript"></script>
     <script src="controller/SpacingSpacer.js" type="text/javascript"></script>
     <script src="controller/EightElevenSpacer.js" type="text/javascript"></script>
     <script src="controller/EightElevenDetailSpacer.js" type="text/javascript"></script>
@@ -78,6 +81,7 @@
     <script src="view/BElement.js" type="text/javascript"></script>
     <script src="view/LineManager.js" type="text/javascript"></script>
     <script src="view/IBoxData.js" type = "text/javascript"></script>
+    <script src="view/ColorManager.js" type = "text/javascript"></script>
 
     <script src="view/boxStyles/ClickRenderBox.js" type="text/javascript"></script>
     <script src="view/boxStyles/BasicSVGBox.js" type="text/javascript"></script>
@@ -236,7 +240,8 @@
                         <li class="divider"></li>
                         <li><a id="opg-to-greyscale" href="#">Greyscale</a></li>
                         <li><a id="opg-to-branch-color" href="#">Color by Branch</a></li>
-                        <li><a id="opg-to-generation-color" href="#">Color by Generation</a></li>
+                        <li><a id="opg-to-generation-color" href="#">Color by Generation (Monochrome)</a></li>
+                        <li><a id="opg-to-generation-color-vibrant" href="#">Color by Generation (Vibrant)</a></li>
                         <li><a id="opg-to-gender-color" href="#">Color by Gender</a></li>
                     </ul>
                 </li>
@@ -334,6 +339,14 @@
 
                             </select>
                         </div>
+                        <div class="col-sm-12">
+                            <span>Box Color:</span>
+                            <input type="text" id="box-color-picker"/>
+                        </div>
+                        <!--<div class="col-sm-12">
+                            <span>Text Color:</span>
+                            <input type="text" id="box-text-color-picker"/>
+                        </div>-->
                         <div class="col-sm-12">
                             <p>Apply Change To: </p>
                             <form role="form">

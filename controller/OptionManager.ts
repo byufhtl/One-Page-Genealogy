@@ -48,6 +48,9 @@ class OptionManager implements IOptionManager {
         $('#opg-to-generation-color').click(function(){
             self.listener.handleOption('to-generation-color', null);
         });
+        $('#opg-to-generation-color-vibrant').click(function(){
+            self.listener.handleOption('to-generation-color-vibrant', null);
+        });
         $('#opg-to-gender-color').click(function(){
             self.listener.handleOption('to-gender-color', null);
         });
@@ -60,6 +63,22 @@ class OptionManager implements IOptionManager {
             setTimeout(function(){
                 self.renderTempBox(box);
             },400);
+
+            $('#box-color-picker').spectrum({
+                color: box.getColor(),
+                change: function(color){
+                    box.setColor(color.toHexString());
+                    self.renderTempBox(box);
+                }
+            });
+
+            $('#box-color-picker').spectrum({
+                color: box.getColor(),
+                change: function(color){
+                    box.setColor(color.toHexString());
+                    self.renderTempBox(box);
+                }
+            });
 
             var opgModalSelect = $('#opg-modal-select');
             var opgModalSave = $('#opg-modal-save');
@@ -92,7 +111,7 @@ class OptionManager implements IOptionManager {
                 $('#opg-modal').modal('hide');
                 //console.log("ran save");
                 var changeWho = $('input[name=opg-change-who]:checked').val();
-                self.listener.handleOption(changeWho, {type: box.getType(), id: box.getNode().getId()})
+                self.listener.handleOption(changeWho, {type: box.getType(), id: box.getNode().getId(), color: box.getColor()})
                 //var changeWhoColor = $('input[name=opg-change-who-color]:checked').val();
                 //self.listener.handleOption(changeWhoColor, {type: "green", id: box.getNode().getId()})
 

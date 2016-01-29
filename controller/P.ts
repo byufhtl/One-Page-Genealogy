@@ -1,4 +1,4 @@
- ///<reference path="IStyler.ts"/>
+///<reference path="IStyler.ts"/>
 ///<reference path="IControllerListener.ts"/>
 ///<reference path="../model/ITreeListener.ts"/>
 ///<reference path="SimpleGenerationSpacer.ts"/>
@@ -19,7 +19,8 @@
 ///<reference path="GreyScaleSpacer.ts"/>
 ///<reference path="ColorSpacer.ts"/>
 ///<reference path="AscColorSpacer.ts"/>
- ///<reference path="GenColorSpacer.ts"/>
+///<reference path="GenColorSpacer.ts"/>
+///<reference path="GenColorVibrantSpacer.ts"/>
 ///<reference path="GenderColorSpacer.ts"/>
 ///<reference path="SpacingSpacer.ts"/>
 ///<reference path="JSstyleSpacer.ts"/>
@@ -59,26 +60,14 @@ declare var accessToken;
         }else{
             this.stylingPipeline.push(new AscColorSpacer());
         }
-        //this.stylingPipeline.push(new GreyScaleSpacer());
         this.stylingPipeline.push(new SpacingSpacer());
-        //this.stylingPipeline.push(new DetailChartSpacer());
-        //his.stylingPipeline.push(new VertDetChartSpacer());
         if(c.dscOrAsc == "descendancy"){
-            //this.stylingPipeline.push(new JSstyleSpacer());
             this.stylingPipeline.push(new JSPublicSpacer());
         }else{
             this.stylingPipeline.push(new VertDetChartSpacer());
         }
-        //this.stylingPipeline.push(new IdTest());
-        //this.stylingPipeline.push(new EightElevenSpacer());
-        //this.stylingPipeline.push(new EightElevenDetailSpacer());
-        //this.stylingPipeline.push(new GenerationSpacer2());
-        //this.stylingPipeline.push(new SimpleGenerationSpacer());
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
-
-        //this.stylingPipeline.push(this.translateSpacer);
-
         this.transformationPipline = [];
         this.transformationPipline.push(this.translateSpacer);
     }
@@ -88,6 +77,7 @@ declare var accessToken;
             if(param.type === 'changeIndividual') {
                 this.customSpacer.addCustomStyle(param.id, {
                     type: param.value
+                    ,color: param.color
                 });
                 refresh = true;
             }
@@ -174,11 +164,6 @@ declare var accessToken;
                 this.changeStyleJSPublic();
                 refresh = true;
             }
-            /*else if(param.type == 'to-greyscale' || param.type =='to-branch-color'
-                || param.type == 'to-gender-color'){
-                this.changeColorStyle(param.type);
-                refresh = true;
-            }*/
             else if(param.type === 'to-greyscale'){
                 this.toggleGreyscale();
                 refresh = true;
@@ -189,6 +174,10 @@ declare var accessToken;
             }
             else if(param.type === 'to-generation-color'){
                 this.changeToGenColor();
+                refresh = true;
+            }
+            else if(param.type === 'to-generation-color-vibrant'){
+                this.changeToGenColorVibrant();
                 refresh = true;
             }
             else if(param.type === 'to-gender-color'){
@@ -258,6 +247,7 @@ declare var accessToken;
         if(gen === 0&&node.getSpouses().length < 2) {
             this.customSpacer.addCustomStyle(node.getId(), {
                 type: param.value
+                ,color: param.color
             });
         }
         var branchIds: string[] = node.getBranchIds();
@@ -381,7 +371,6 @@ declare var accessToken;
         for (i = 2; i < temp.length; i++) {
             this.stylingPipeline.push(temp[i]);
         }
-
     }
     private changeToBranchColor():void{
         var temp = this.stylingPipeline;
@@ -411,6 +400,16 @@ declare var accessToken;
             this.stylingPipeline.push(temp[i]);
         }
 
+    }
+    private changeToGenColorVibrant():void{
+        var temp = this.stylingPipeline;
+        this.stylingPipeline = [];
+        var i:number;
+        this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline.push(new GenColorVibrantSpacer());
+        for (i = 2; i < temp.length; i++) {
+            this.stylingPipeline.push(temp[i]);
+        }
     }
     private changeToGenderColor():void{
         var temp = this.stylingPipeline;

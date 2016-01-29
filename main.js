@@ -41,6 +41,9 @@ $(document).ready(function () {
     $("#tofsbutton").click(fsHideFirstModal)
     //$("#logoutbutton").click(logout)
 
+    $("#box-color-picker").spectrum({});
+    $("#box-text-color-picker").spectrum({});
+
 });
 function fsHideFirstModal() {
     $('#downloadModal').hide();

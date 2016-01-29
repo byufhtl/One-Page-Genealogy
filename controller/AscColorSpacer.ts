@@ -1,14 +1,15 @@
 ///<reference path="IStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
+///<reference path="../view/ColorManager.ts"/>
 /**
  * Created by renae on 10/5/15.
+ * Last updated 1/29/2016
  */
 class AscColorSpacer implements  IStyler {
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
 
-        //this.setBasedOnGeneration(null, root, 0);
         this.setBasedOnBranch(null, root, 0,0,1);
 
         var queue = [];
@@ -27,7 +28,6 @@ class AscColorSpacer implements  IStyler {
                     continue;
                 }
 
-                //this.setBasedOnGeneration(box, branchBox, generation+1);
                 this.setBasedOnBranch(box,branchBox,generation+1,i,branchIds.length);
 
                 queue.push([branchIds[i], generation+1]);
@@ -36,35 +36,27 @@ class AscColorSpacer implements  IStyler {
     }
     private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
         if(generation == 0) {
-            childBox.setColor('#a8f7ff');
-
+            childBox.setColor(ColorManager.blue());
         }
-        else {//if(generation == 1) {
-            var newColor:number = (parseInt(parentBox.getColor().split("#")[1],16));//.toString();
+        else {
+            var newColor:number = (parseInt(parentBox.getColor().split("#")[1],16));
             newColor = newColor-20;
             var newHex = "#"+newColor.toString(16);
             childBox.setColor(newHex);
         }
     }
     private setBasedOnBranch(parentBox: IBox, childBox: IBox, generation: number, child: number, numSiblings: number){
-        //#a9ffaf green  12582849(green)
-        //#ffffaf yellow 13092607(blue)
-        //#fddcaf orange
-        //#ffb8af red
-        //#ffd1dc pink
-        //#e6c8ff purple
-
         if(generation == 0){
             /*if(childBox.getNode().getBranchIds().length>2)
                 childBox.setColor('#d5bde9');//blue
             else*/
-                childBox.setColor('#D9ABFF');//'#c4b4f9');//'#a8f7ff');
+                childBox.setColor(ColorManager.purple());
         }
         else if(generation==1) {
-            if(child == 0)//father
-                childBox.setColor('#ABE4FF');//'#a8f7ff');//'#b4caff');
-            else //mother
-                childBox.setColor('#FFABAB');//'#ffb8af');//#f8c1ea');
+            if(child == 0)
+                childBox.setColor(ColorManager.blue());
+            else
+                childBox.setColor(ColorManager.pink());
         }
         else if(generation == 2){
             var gender = 'none';
@@ -72,40 +64,18 @@ class AscColorSpacer implements  IStyler {
                 gender = parentBox.getNode().getAttr('gender');
             }
 
-            if(child == 0 && gender === 'Male')//
-                childBox.setColor('#ABE4FF');//'#a8f7ff');//'#a8f7ff');
-            else if(child == 1 && gender === 'Male')//
-                childBox.setColor('#DDFFAB');//'#a9ffaf');
+            if(child == 0 && gender === 'Male')
+                childBox.setColor(ColorManager.blue());
+            else if(child == 1 && gender === 'Male')
+                childBox.setColor(ColorManager.green());
             else if(child == 0 && gender === 'Female')
-                childBox.setColor('#FFDAAB');//'#ffffaf');
+                childBox.setColor(ColorManager.orange());
             else if(child == 1 && gender === 'Female')
-                childBox.setColor('#FFABAB');//'#ffb8af');//'#d5bde9');//'#fddcaf');
-            //else
-             //   childBox.setColor(parentBox.getColor());
-
-            /*else if(numSiblings >2){
-                child = child % 6;
-                if(child == 0)
-                    childBox.setColor('#d5bde9');//purple
-                else if(child == 1)
-                    childBox.setColor('#a8f7ff');//blue
-                else if(child == 2)
-                    childBox.setColor('#a9ffaf');//green
-                else if(child == 3)
-                    childBox.setColor('#ffffaf');//yellow
-                else if(child == 4)
-                    childBox.setColor('#fddcaf');//orange
-                else if(child == 5)
-                    childBox.setColor('#ffb8af');//red
-            }
-            else {
-                childBox.setColor('#ffd1dc')
-            }*/
+                childBox.setColor(ColorManager.pink());
         }
         else {
             childBox.setColor(parentBox.getColor());
         }
-
     }
 
     private modifyColor(hex:string,type:string, amount: number): string{

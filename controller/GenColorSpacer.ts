@@ -1,7 +1,9 @@
 ///<reference path="IStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
+///<reference path="../view/ColorManager.ts"/>
 /**
  * Created by renae on 10/14/15.
+ * Last updated 1/29/2016.
  */
 class GenColorSpacer implements  IStyler {
     applyStyle(boxes: BoxMap): void {
@@ -47,7 +49,7 @@ class GenColorSpacer implements  IStyler {
     }
     private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number,repeat: boolean) {
         if(generation == 0) {
-            childBox.setColor('#a8f7ff');
+            childBox.setColor(ColorManager.blue());
 
         }
         else if(!repeat && generation <= 10) {
@@ -60,7 +62,7 @@ class GenColorSpacer implements  IStyler {
             childBox.setColor(parentBox.getColor());
     }
 
-    private setBasedOnBranch2(parentBox: IBox, childBox: IBox, generation: number, child: number, numSiblings: number){
+ private setBasedOnBranch2(parentBox: IBox, childBox: IBox, generation: number, child: number){
         //#a9ffaf green  #aefbc2(green)
         //#ffffaf yellow 13092607(blue)
         //#fddcaf orange #deffb7(a yellow green)
@@ -69,7 +71,7 @@ class GenColorSpacer implements  IStyler {
         //#e6c8ff purple #ecb9fb(purply pink)
 
         if(generation == 0){
-            childBox.setColor('#c7d2fb');//'#c7c6ff');//old opg blue?
+            childBox.setColor(ColorManager.blue());
         }
         else if (generation==1){
             if(child == 0){

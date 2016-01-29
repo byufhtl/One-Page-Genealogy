@@ -1,7 +1,9 @@
 ///<reference path="IStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
+///<reference path="../view/ColorManager.ts"/>
 /**
  * Created by renae on 8/5/15.
+ * Last updated 1/29/2016
  */
 class ColorSpacer implements  IStyler {
     applyStyle(boxes: BoxMap): void {
@@ -68,25 +70,33 @@ class ColorSpacer implements  IStyler {
 
             if(numSiblings>0){// && !parentBox.getNode().getSpouses().length>1){
                 child = child % 6;
-                if(child == 0)
-                    childBox.setColor('#d5bde9');//purple
-                else if(child == 1)
-                    childBox.setColor('#a8f7ff');//blue
-                else if(child == 2)
-                    childBox.setColor('#a9ffaf');//green
-                else if(child == 3)
-                    childBox.setColor('#ffffaf');//yellow
-                else if(child == 4)
-                    childBox.setColor('#fddcaf');//orange
-                else if(child == 5)
-                    childBox.setColor('#ffb8af');//red
+                switch(child) {
+                    case 0:
+                        childBox.setColor(ColorManager.purple());
+                        break;
+                    case 1:
+                        childBox.setColor(ColorManager.blue());
+                        break;
+                    case 2:
+                        childBox.setColor(ColorManager.green());
+                        break;
+                    case 3:
+                        childBox.setColor(ColorManager.yellow());
+                        break;
+                    case 4:
+                        childBox.setColor(ColorManager.orange());
+                        break;
+                    case 5:
+                        childBox.setColor(ColorManager.red());
+                        break;
+                }
             }
 
             else if(childBox.getNode().getBranchIds().length>2) {
-                childBox.setColor('#d5bde9');//blue
+                childBox.setColor(ColorManager.purple());
             }
             else
-                childBox.setColor('#a8f7ff');
+                childBox.setColor(ColorManager.blue());
         }
         //else if(generation == 1 && parentBox.getNode().getSpouses().length>1)
         //{
@@ -100,21 +110,29 @@ class ColorSpacer implements  IStyler {
             else if(!genZeroMult && (numSiblings >1 ||
                 (!genOneMult && childBox.getNode().getSpouses().length>1))){// && parentBox.getNode().getSpouses().length>=1){
                 child = child % 6;
-                if(child == 0)
-                    childBox.setColor('#d5bde9');//purple
-                else if(child == 1)
-                    childBox.setColor('#a8f7ff');//blue
-                else if(child == 2)
-                    childBox.setColor('#a9ffaf');//green
-                else if(child == 3)
-                    childBox.setColor('#ffffaf');//yellow
-                else if(child == 4)
-                    childBox.setColor('#fddcaf');//orange
-                else if(child == 5)
-                    childBox.setColor('#ffb8af');//red
+                switch(child) {
+                    case 0:
+                        childBox.setColor(ColorManager.purple());
+                        break;
+                    case 1:
+                        childBox.setColor(ColorManager.blue());
+                        break;
+                    case 2:
+                        childBox.setColor(ColorManager.green());
+                        break;
+                    case 3:
+                        childBox.setColor(ColorManager.yellow());
+                        break;
+                    case 4:
+                        childBox.setColor(ColorManager.orange());
+                        break;
+                    case 5:
+                        childBox.setColor(ColorManager.red());
+                        break;
+                }
             }
             else {
-                //childBox.setColor('#ffd1dc')
+                //childBox.setColor(ColorManager.pink());
                 childBox.setColor(parentBox.getColor());
             }
         }
