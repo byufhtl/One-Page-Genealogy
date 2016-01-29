@@ -46,4 +46,8 @@ class FakeNode implements INode {
     setMarriageDate(d:string){
         return null;
     }
+
+    setBranchIds(ids:string[]){
+        return null;
+    }
 }

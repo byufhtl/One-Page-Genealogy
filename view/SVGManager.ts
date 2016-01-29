@@ -17,6 +17,7 @@ class SVGManager implements IViewManager {
     private linePath;
     private svgLoading;
     private svgPercent;
+    private rect;
     private renders:{[s:string]:IBoxRender;};
     private boundingRect;
     private graphicObject: SVGGraphicObject;
@@ -57,15 +58,15 @@ class SVGManager implements IViewManager {
         this.svgLoading.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.gif');
         this.svgRoot.appendChild(this.svgLoading);
 
-        var rect:Element = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect.setAttribute("width", "100");
-        rect.setAttribute("height", "100");
-        rect.setAttribute("fill", "none");
-        rect.setAttribute("id", "percentRect");
-        rect.setAttribute("x", "50%");
-        rect.setAttribute("transform", "translate(-50)");
-        rect.setAttribute("y", "200");
-        this.svgRoot.appendChild(rect);
+        this.rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        this.rect.setAttribute("width", "100");
+        this.rect.setAttribute("height", "100");
+        this.rect.setAttribute("fill", "none");
+        this.rect.setAttribute("id", "percentRect");
+        this.rect.setAttribute("x", "50%");
+        this.rect.setAttribute("transform", "translate(-50)");
+        this.rect.setAttribute("y", "200");
+        this.svgRoot.appendChild(this.rect);
 
         this.svgPercent = document.createElementNS("http://www.w3.org/2000/svg", "text");
         var text = document.createTextNode("");
@@ -194,11 +195,15 @@ class SVGManager implements IViewManager {
         }
     }
     private realRefresh(): void {
-        //TODO: check for rootNode existance or null
+        //TODO: check for rootNode existence or null
         //if none exists, show the loading gif
         if(this.lastBoxes.getRoot() !== null && this.svgLoading){
             this.svgRoot.removeChild(this.svgLoading);
+            this.svgRoot.removeChild(this.rect);
+            this.svgRoot.removeChild(this.svgPercent);
             this.svgLoading = null;
+            this.rect = null;
+            this.svgPercent = null;
         }
         this.drawLine(this.lastBoxes);
         this.drawBoxes(this.lastBoxes);
@@ -277,7 +282,9 @@ class SVGManager implements IViewManager {
         transform.push('scale('+this.scale+')');
         transform.push('translate('+-tx+','+-ty+')');
 
-        this.svgRoot.setAttribute("transform", transform.join(','));
+        this.svgRoot.setAttribute("transform", transform.join(' '));
+        this.mainSvg.setAttribute("width", this.svgRoot.getBBox().width + 200);
+        this.mainSvg.setAttribute("height", this.svgRoot.getBBox().height + 200);
     }
     setTranslation(x:number, y:number): void {
         this.translationX += x;
@@ -349,6 +356,9 @@ class SVGManager implements IViewManager {
         this.refresh(this.lastBoxes);
     }
     getSVGString(): any {
+
+        $("body").css("cursor", "progress");
+
         var defer = $.Deferred();
 
         this.elementManager.setIgnoreBound(true);
@@ -359,20 +369,22 @@ class SVGManager implements IViewManager {
         var sc = this.scale;
         var ro = this.rotation;
 
-        this.translationX = -10;
-        this.translationY = -10;
+        this.translationX = -100;
+        this.translationY = -100;
         this.scale = 1;
         this.rotation = 0;
 
         this.realRefresh();
 
+        var self = this;
+
         var counter = 0;
         var total = 0;
-        var self = this;
         var repeatCallBack = function() {
             counter++;
             console.log(total, counter);
             if(counter >= total) {
+                $("body").css("cursor", "default");
                 var s = new XMLSerializer();
 
                 self.elementManager.setIgnoreBound(true);
@@ -382,13 +394,16 @@ class SVGManager implements IViewManager {
                 var sc = self.scale;
                 var ro = self.rotation;
 
-                self.translationX = -10;
-                self.translationY = -10;
+                self.translationX = -100;
+                self.translationY = -100;
                 self.scale = 1;
                 self.rotation = 0;
                 self.realRefresh();
 
+
                 var data = s.serializeToString(self.mainSvg);
+                //console.log(data);
+
                 defer.resolve(data);
 
                 self.translationX = tx;
@@ -476,6 +491,7 @@ class SVGManager implements IViewManager {
         this.elementManager.setIgnoreBound(false);
         this.lineManager.setIgnoreBound(false);
         this.realRefresh();
+
 
         return defer.promise();
     }

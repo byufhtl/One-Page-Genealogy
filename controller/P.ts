@@ -31,6 +31,7 @@
  */
 
 declare var accessToken;
+ declare var numGenerations;
 
 
  class P implements IControllerListener, ITreeListener {
@@ -183,6 +184,44 @@ declare var accessToken;
             else if(param.type === 'to-gender-color'){
                 this.changeToGenderColor();
                 refresh = true;
+            }else if(param.type === 'show-empty'){
+                var childMap: {[key: string]: string} = {};
+                var treeMap = this.tree.getTreeMap();
+                //Create Child Map:
+                for(var key in treeMap){
+                    if(treeMap.hasOwnProperty(key)){
+                        if(treeMap[key].getBranchIds().length > 0) {
+                            for (var i in treeMap[key].getBranchIds()) {
+                                var index = treeMap[key].getBranchIds()[i];
+                                if(index.indexOf(":") === 8) {
+                                    childMap[index] = key;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                var countID = -1;
+                //Use Child Map for each person to determine empty boxes
+                for (var box in this.firstBoxMap.getMap()) {
+                    var list = [];
+                    var currentPID = box;
+                    list.push(currentPID);
+                    while (childMap[currentPID] != null) {
+                        list.push(childMap[currentPID]);
+                        currentPID = childMap[currentPID];
+                    }
+
+                    //If it needs empty Boxes and is allowed empty boxes, then add them
+                    if (list.length > 1 &&
+                        list.length < numGenerations &&
+                        this.firstBoxMap.getId(box).getNode().getBranchIds().length === 0) {
+
+                        countID = this.addBlanks(box, countID, numGenerations, list.length);
+                        //countID += 2;
+                        refresh = true;
+                    }
+                }
             }
         }
 
@@ -190,6 +229,23 @@ declare var accessToken;
             this.runPipeline();
         }
     }
+
+    private addBlanks(box: string, countID: number, numGen: number, listLen: number) : number{
+        //console.log(box + ": (" + String(countID + 1) + "," + String(countID + 2) + ")");
+        this.firstBoxMap.getId(box).getNode().setBranchIds([String(countID + 1), String(countID + 2)]);
+        listLen++;
+        var newCount = -1;
+        if(listLen < numGen){
+            newCount = this.addBlanks(String(countID + 1), countID + 2, numGen, listLen);
+            newCount = this.addBlanks(String(countID + 2), newCount, numGen, listLen);
+        }
+
+        if(newCount === -1){
+            newCount = countID + 2;
+        }
+        return newCount;
+    }
+
     private getBoxByPoint(pt: Point): IBox {
 
         var queue = [];
@@ -277,6 +333,8 @@ declare var accessToken;
 
                 this.firstBoxMap.setId(node.getId(), new AbstractBox(node));
                 this.secondBoxMap.setId(node.getId(), new AbstractBox(node));
+            }else{
+                console.log("Error: Unknown Command");
             }
         }
         this.runPipeline();

@@ -303,6 +303,9 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'to-gender-color') {
             this.p.handle({type: key});
         }
+        else if (key === 'show-empty'){
+            this.p.handle({type: key});
+        }
         else if (key) {
             this.p.handle({type: key, value: value['type'], id: value['id'], color: value['color']});
         }

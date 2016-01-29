@@ -38,6 +38,7 @@ class FSFullTreeDownloader implements  ISource {
             downloader = this.ascDownloader;
         else if(this.downloadType === "descendancy")
             downloader = this.dscDownloader;
+        var extraPeople = 0;
         downloader.getGen(this.rootId, this.generations).then(function(people) {
             //We think this is BF order
             for(var i=0; i<people.length; i++) {
@@ -88,12 +89,24 @@ class FSFullTreeDownloader implements  ISource {
                     node.setMarriageDate(date.toDateString());
                 }
                 else {
-                    node = new FSDescNode(idData.id, person.getPerson(), idData.parentIds,person.getSpouses(),null,true);
+                    node = new FSDescNode(idData.id, person.getPerson(), idData.parentIds, person.getSpouses(), null, true);
                 }
 
 
                 self.listener.gotNode(node);
             }
+
+            /*
+            var numPeople = Math.pow(2,+self.generations) -1;
+            var numExtra = numPeople - people.length;
+            //console.log(numExtra);
+            for(var i=extraPeople; i < numExtra+extraPeople; i++){
+                node = new FSDescNode(String(i), null, [], [], null, true);
+                self.listener.gotNode(node);
+            }
+            extraPeople += numExtra;
+            */
+
             self.listener.done();
         });
     }

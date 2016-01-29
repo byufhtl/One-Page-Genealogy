@@ -4,6 +4,8 @@
  * Created by renae on 10/2/15.
  */
 class JSPublicSpacer implements  IStyler {
+    private initialized:boolean = true;
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
@@ -36,9 +38,13 @@ class JSPublicSpacer implements  IStyler {
 
                     queue.push([branchIds[i], generation + 1]);
                 }
-                //box.setCollapsed(false);
+
+                if(this.initialized && generation === 4 || generation === 5) {
+                    box.setCollapsed(false);
+                }
             }
         }
+        this.initialized = false;
     }
     private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
         if(generation == 0) {

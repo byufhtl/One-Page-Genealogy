@@ -10,6 +10,9 @@ class BoxMap {
     getRoot(): string {
         return this.rootId;
     }
+    getMap(): {[s:string]: IBox} {
+        return this.map;
+    }
     getId(id: string): IBox{
         return this.map[id];
     }

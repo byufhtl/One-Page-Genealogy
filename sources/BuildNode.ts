@@ -49,4 +49,7 @@ class BuildNode implements INode {
     setMarriageDate(d:string){
         //this.marriagedate = d;
     }
+    setBranchIds(is:string[]){
+        //do nothing for now.
+    }
 }

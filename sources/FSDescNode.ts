@@ -117,4 +117,7 @@ class FSDescNode implements INode {
     setMarriageDate(d:string){
         this.marriagedate = d;
     }
+    setBranchIds(ids:string[]){
+        this.branchIds = ids;
+    }
 }

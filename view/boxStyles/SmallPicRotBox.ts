@@ -119,7 +119,7 @@ class SmallPicRotBox extends IBoxData {
                 svgimg2.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
 
                 function listener() {
-                    g.removeChild(svgimg);
+                    gt.removeChild(svgimg);
                     svgimg2.removeEventListener('load', listener);
                 }
                 svgimg2.addEventListener('load', listener);

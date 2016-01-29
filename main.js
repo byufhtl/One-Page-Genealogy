@@ -1,8 +1,8 @@
 /**
- * Created by jared on 1/11/16.
+ * Created by Jared on 1/11/16.
  */
 
-
+var numGenerations
 var c = null;
 var token;
 if (window.location.href.indexOf("fstoken") > -1) {
@@ -26,6 +26,11 @@ FamilySearch.init({
 });
 
 $(document).ready(function () {
+
+    $('#downloadModal').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
 
     if (localStorage.getItem("numGenerations") && FamilySearch.hasAccessToken()) {
         fsHideFirstModal();
@@ -60,7 +65,7 @@ function isExpired(){
 }
 
 function familySearchDownload() {
-    var numGenerations;
+    //var numGenerations;
     var rootPID;
     var direction;
 
