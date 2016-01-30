@@ -170,6 +170,9 @@
             height: 100%;
             margin: 0;
         }
+        .nav-tabs {
+            border-width: 3px;
+        }
         #opg-chart {
             width: 100%;
             height: 93%;
@@ -310,54 +313,67 @@
 
                             </svg>
                         </div>
-                        <div class="col-sm-12">
-                            <select id="opg-modal-select">
-                                <option value="largePictureBox">Large Picture Vertical Box</option>
-                                <option value="largePictureBox2">Large Picture Box</option>
-                                <option value="largePicRotBox">Large Picture Rotated Box</option>
-                                <option value="largePictureDetailBox2">Large Picture Detail Box</option>
-                                <option value="largePicDetRotBox">Large Picture Detail Rotated Box</option>
-                                <option value="midLargePictureBox">Medium Large Picture Box</option>
-                                <option value="midLargePicRotBox">Medium Large Picture Rotated Box</option>
-                                <option value="mediumPictureBox">Medium Picture Box</option>
-                                <option value="medPicRotBox">Medium Picture Rotated Box</option>
-                                <option value="mediumPictureDetailBox">Medium Picture Detail Box</option>
-                                <option value="medPicDetRotBox">Medium Picture Detail Rotated Box</option>
-                                <option value="medSmPictureDetailBox">Medium Small Picture Detail Box</option>
-                                <option value="medSmPicDetRotBox">Medium Small Picture Detail Rotated Box</option>
-                                <option value="smallDetailBox">Small Detail Box</option>
-                                <option value="smallNameBox">Small Name Box</option>
-                                <option value="smallPictureBox">Small Picture Box</option>
-                                <option value="smallPicRotBox">Small Picture Rotated Box</option>
-                                <option value="smallPictureBox2">Small Picture Box Vertical</option>
-                                <option value="smallPictureDetailBox">Small Picture Detail Box</option>
-                                <option value="smallPicDetRotBox">Small Picture Detail Rotated Box</option>
-                                <option value="smallPictureDetailBox2">Smaller Picture Detail Box</option>
-                                <option value="xsDetailBox">XS Detail Box</option>
-                                <option value="xsNameBox">XS Name Box</option>
-                                <option value="xsNameYearBox">XS Name Year Box</option>
-                                <option value="smallestNameBox">Smallest Name Box</option>
-                                <option value="JSLrgDetRotSpPubBox">JS Large Rotated Spouse Box</option>
-                                <option value="JSLargeDetRotPubBox">JS Large Rotated Box</option>
-                                <option value="JSMedDetPubBox">JS Medium Rotated Box</option>
-                                <option value="JSSmallDetPubBox">JS Small Rotated Box</option>
-                                <option value="JSSmallDetSpPubBox">JS Small Rotated Spouse Box</option>
-                                <option value="JSSmallerDetPubBox">JS Smaller Rotated Box</option>
-                                <option value="JSSmallerDetSpPubBox">JS Smaller Rotated Spouse Box</option>
-                                <option value="JSSmallestDetPubBox">JS Smallest Rotated Box</option>
-                                <option value="JSSmallestDetSpPubBox">JS Smallest Rotated Spouse Box</option>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="div[name='size_and_orientation_pane'">Size/Orientation</a> </li>
+                            <li ><a data-toggle="tab" href="div[name='color_pane'">Colors</a> </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div name="size_and_orientation_pane" class="tab-pane fade in active">
+                                <div class="col-sm-12">
+                                    <select id="opg-modal-select">
+                                        <option value="largePictureBox">Large Picture Vertical Box</option>
+                                        <option value="largePictureBox2">Large Picture Box</option>
+                                        <option value="largePicRotBox">Large Picture Rotated Box</option>
+                                        <option value="largePictureDetailBox2">Large Picture Detail Box</option>
+                                        <option value="largePicDetRotBox">Large Picture Detail Rotated Box</option>
+                                        <option value="midLargePictureBox">Medium Large Picture Box</option>
+                                        <option value="midLargePicRotBox">Medium Large Picture Rotated Box</option>
+                                        <option value="mediumPictureBox">Medium Picture Box</option>
+                                        <option value="medPicRotBox">Medium Picture Rotated Box</option>
+                                        <option value="mediumPictureDetailBox">Medium Picture Detail Box</option>
+                                        <option value="medPicDetRotBox">Medium Picture Detail Rotated Box</option>
+                                        <option value="medSmPictureDetailBox">Medium Small Picture Detail Box</option>
+                                        <option value="medSmPicDetRotBox">Medium Small Picture Detail Rotated Box</option>
+                                        <option value="smallDetailBox">Small Detail Box</option>
+                                        <option value="smallNameBox">Small Name Box</option>
+                                        <option value="smallPictureBox">Small Picture Box</option>
+                                        <option value="smallPicRotBox">Small Picture Rotated Box</option>
+                                        <option value="smallPictureBox2">Small Picture Box Vertical</option>
+                                        <option value="smallPictureDetailBox">Small Picture Detail Box</option>
+                                        <option value="smallPicDetRotBox">Small Picture Detail Rotated Box</option>
+                                        <option value="smallPictureDetailBox2">Smaller Picture Detail Box</option>
+                                        <option value="xsDetailBox">XS Detail Box</option>
+                                        <option value="xsNameBox">XS Name Box</option>
+                                        <option value="xsNameYearBox">XS Name Year Box</option>
+                                        <option value="smallestNameBox">Smallest Name Box</option>
+                                        <option value="JSLrgDetRotSpPubBox">JS Large Rotated Spouse Box</option>
+                                        <option value="JSLargeDetRotPubBox">JS Large Rotated Box</option>
+                                        <option value="JSMedDetPubBox">JS Medium Rotated Box</option>
+                                        <option value="JSSmallDetPubBox">JS Small Rotated Box</option>
+                                        <option value="JSSmallDetSpPubBox">JS Small Rotated Spouse Box</option>
+                                        <option value="JSSmallerDetPubBox">JS Smaller Rotated Box</option>
+                                        <option value="JSSmallerDetSpPubBox">JS Smaller Rotated Spouse Box</option>
+                                        <option value="JSSmallestDetPubBox">JS Smallest Rotated Box</option>
+                                        <option value="JSSmallestDetSpPubBox">JS Smallest Rotated Spouse Box</option>
 
 
-                            </select>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div name="color_pane" class="tab-pane fade">
+                                <div class="col-sm-12">
+                                    <span>Box Color:</span>
+                                    <input type="text" id="box-color-picker"/>
+                                </div>
+                                <!--<div class="col-sm-12">
+                                    <span>Text Color:</span>
+                                    <input type="text" id="box-text-color-picker"/>
+                                </div>-->
+                            </div>
                         </div>
-                        <div class="col-sm-12">
-                            <span>Box Color:</span>
-                            <input type="text" id="box-color-picker"/>
-                        </div>
-                        <!--<div class="col-sm-12">
-                            <span>Text Color:</span>
-                            <input type="text" id="box-text-color-picker"/>
-                        </div>-->
+
                         <div class="col-sm-12">
                             <p>Apply Change To: </p>
                             <form role="form">
