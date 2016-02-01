@@ -31,24 +31,24 @@
  */
 
 declare var accessToken;
- declare var numGenerations;
+declare var numGenerations;
 
 
- class P implements IControllerListener, ITreeListener {
+class P implements IControllerListener, ITreeListener {
 
-    private stylingPipeline: IStyler[]; // This changes based on
-    private transformationPipline: IStyler[];
+    private stylingPipeline:IStyler[]; // This changes based on
+    private transformationPipline:IStyler[];
 
-    private collapseSpacer: CollapseSpacer;
-    private customSpacer: CustomSpacer;
-    private translateSpacer: TranslateSpacer;
+    private collapseSpacer:CollapseSpacer;
+    private customSpacer:CustomSpacer;
+    private translateSpacer:TranslateSpacer;
     private tree:ITree;
 
-    private beforeTransformBoxes: BoxMap;
-    private firstBoxMap: BoxMap;
-    private secondBoxMap: BoxMap;
+    private beforeTransformBoxes:BoxMap;
+    private firstBoxMap:BoxMap;
+    private secondBoxMap:BoxMap;
 
-    constructor(private c: C) {
+    constructor(private c:C) {
 
         this.customSpacer = new CustomSpacer();
         this.collapseSpacer = new CollapseSpacer();
@@ -56,15 +56,15 @@ declare var accessToken;
 
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
-        if(c.dscOrAsc == "descendancy"){
+        if (c.dscOrAsc == "descendancy") {
             this.stylingPipeline.push(new ColorSpacer());
-        }else{
+        } else {
             this.stylingPipeline.push(new AscColorSpacer());
         }
         this.stylingPipeline.push(new SpacingSpacer());
-        if(c.dscOrAsc == "descendancy"){
+        if (c.dscOrAsc == "descendancy") {
             this.stylingPipeline.push(new JSPublicSpacer());
-        }else{
+        } else {
             this.stylingPipeline.push(new VertDetChartSpacer());
         }
         this.stylingPipeline.push(this.customSpacer);
@@ -72,41 +72,42 @@ declare var accessToken;
         this.transformationPipline = [];
         this.transformationPipline.push(this.translateSpacer);
     }
-    handle(param: any): any {
+
+    handle(param:any):any {
         var refresh = false;
-        if(param.type) {
-            if(param.type === 'changeIndividual') {
+        if (param.type) {
+            if (param.type === 'changeIndividual') {
                 this.customSpacer.addCustomStyle(param.id, {
                     type: param.value
-                    ,color: param.color
+                    , color: param.color
                 });
                 refresh = true;
             }
-            else if(param.type === 'changeGeneration') {
+            else if (param.type === 'changeGeneration') {
                 var root:INode = this.tree.getRoot();
                 var gen = this.getGeneration(root, param.id);
-                console.log("Gen: "+gen);
+                console.log("Gen: " + gen);
                 this.applyToGeneration(gen, root, param);
                 refresh = true;
             }
-            else if(param.type === 'changeAll'){
+            else if (param.type === 'changeAll') {
                 var root:INode = this.tree.getRoot();
                 //var gen = this.getGeneration(root, param.id);
 
-                for(var gen=0; gen < 20; gen++) {
+                for (var gen = 0; gen < numGenerations; gen++) {
                     this.applyToGeneration(gen, root, param);
                 }
                 refresh = true;
             }
-            else if(param.type === 'VP-view'){
+            else if (param.type === 'VP-view') {
                 //console.log(this.tree.getTreeMap());
-                var childMap: {[key: string]: string} = {};
+                var childMap:{[key: string]: string} = {};
                 var treeMap = this.tree.getTreeMap();
-                for(var key in treeMap){
-                    if(treeMap.hasOwnProperty(key)){
-                        if(treeMap[key].getBranchIds().length > 0) {
+                for (var key in treeMap) {
+                    if (treeMap.hasOwnProperty(key)) {
+                        if (treeMap[key].getBranchIds().length > 0) {
                             for (var i in treeMap[key].getBranchIds()) {
-                                childMap[treeMap[key].getBranchIds()[i].substring(0,8)] = key.substring(0,8);
+                                childMap[treeMap[key].getBranchIds()[i].substring(0, 8)] = key.substring(0, 8);
                             }
                         }
                     }
@@ -114,7 +115,7 @@ declare var accessToken;
                 var list = [];
                 var currentPID = param.id;
                 list.push(currentPID);
-                while(childMap[currentPID] != null){
+                while (childMap[currentPID] != null) {
                     list.push(childMap[currentPID]);
                     currentPID = childMap[currentPID];
                 }
@@ -125,173 +126,222 @@ declare var accessToken;
                 };
                 window.open('/vprf/index.html');
             }
-            else if(param.type === 'collapse-sub-tree') {
+            else if (param.type === 'collapse-sub-tree') {
                 this.collapseSpacer.collapseId(param.id, true);
                 refresh = true;
             }
-            else if(param.type === 'expand-sub-tree') {
+            else if (param.type === 'expand-sub-tree') {
                 this.collapseSpacer.collapseId(param.id, false);
                 refresh = true;
             }
-            else if(param.type === 'update-translate') {
+            else if (param.type === 'update-translate') {
                 this.translateSpacer.setTranslation(param.dx, param.dy);
                 refresh = true;
             }
-            else if(param.type === 'getBoxByPoint') {
+            else if (param.type === 'getBoxByPoint') {
                 return this.getBoxByPoint(param.pt);
             }
             /*else if(param.type === 'detail-style' || param.type === 'vertical-style' ||
-                param.type === 'eight-eleven-style' || param.type === 'eight-eleven-detail-style'){
-                this.changeChartStyle(param.type);
-                refresh = true;
-            }*/
-            else if(param.type === 'detail-style'){
+             param.type === 'eight-eleven-style' || param.type === 'eight-eleven-detail-style'){
+             this.changeChartStyle(param.type);
+             refresh = true;
+             }*/
+            else if (param.type === 'detail-style') {
                 this.changeStyleDetail();
                 refresh = true;
             }
-            else if(param.type === 'vertical-style'){
+            else if (param.type === 'vertical-style') {
                 this.changeStyleVert();
                 refresh = true;
             }
-            else if(param.type === 'eight-eleven-style'){
+            else if (param.type === 'eight-eleven-style') {
                 this.changeStyleEightEleven();
                 refresh = true;
             }
-            else if(param.type === 'eight-eleven-detail-style'){
+            else if (param.type === 'eight-eleven-detail-style') {
                 this.changeStyleEightElevenDetail();
                 refresh = true;
             }
-            else if(param.type === 'js-public-style'){
+            else if (param.type === 'js-public-style') {
                 this.changeStyleJSPublic();
                 refresh = true;
             }
-            else if(param.type === 'to-greyscale'){
+            else if (param.type === 'to-greyscale') {
                 this.toggleGreyscale();
                 refresh = true;
             }
-            else if(param.type === 'to-branch-color'){
+            else if (param.type === 'to-branch-color') {
                 this.changeToBranchColor();
                 refresh = true;
             }
-            else if(param.type === 'to-generation-color'){
+            else if (param.type === 'to-generation-color') {
                 this.changeToGenColor();
                 refresh = true;
             }
-            else if(param.type === 'to-generation-color-vibrant'){
+            else if (param.type === 'to-generation-color-vibrant') {
                 this.changeToGenColorVibrant();
                 refresh = true;
             }
-            else if(param.type === 'to-gender-color'){
+            else if (param.type === 'to-gender-color') {
                 this.changeToGenderColor();
                 refresh = true;
-            }else if(param.type === 'show-empty'){
-                var childMap: {[key: string]: string} = {};
-                var treeMap = this.tree.getTreeMap();
-                //Create Child Map:
-                for(var key in treeMap){
-                    if(treeMap.hasOwnProperty(key)){
-                        if(treeMap[key].getBranchIds().length > 0) {
-                            for (var i in treeMap[key].getBranchIds()) {
-                                var index = treeMap[key].getBranchIds()[i];
-                                if(index.indexOf(":") === 8) {
-                                    childMap[index] = key;
-                                }
-                            }
-                        }
-                    }
+            } else if (param.type === 'show-empty') {
+                var showOption = document.getElementById('opg-show-empty').innerHTML;
+                if (showOption === "Show Empty Boxes") {
+                    document.getElementById('opg-show-empty').innerHTML = "Hide Empty Boxes";
+                    this.showEmptyBoxes();
+                    refresh = true;
+                } else {
+                    document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
+                    this.hideEmptyBoxes();
+                    refresh = true;
                 }
 
-                var countID = -1;
-                //Use Child Map for each person to determine empty boxes
-                for (var box in this.firstBoxMap.getMap()) {
-                    var list = [];
-                    var currentPID = box;
-                    list.push(currentPID);
-                    while (childMap[currentPID] != null) {
-                        list.push(childMap[currentPID]);
-                        currentPID = childMap[currentPID];
-                    }
-
-                    //If it needs empty Boxes and is allowed empty boxes, then add them
-                    if (list.length > 1 &&
-                        list.length < numGenerations &&
-                        this.firstBoxMap.getId(box).getNode().getBranchIds().length === 0) {
-
-                        countID = this.addBlanks(box, countID, numGenerations, list.length);
-                        //countID += 2;
-                        refresh = true;
-                    }
-                }
             }
         }
 
-        if(refresh) {
+        if (refresh) {
             this.runPipeline();
         }
     }
 
-    private addBlanks(box: string, countID: number, numGen: number, listLen: number) : number{
-        //console.log(box + ": (" + String(countID + 1) + "," + String(countID + 2) + ")");
-        this.firstBoxMap.getId(box).getNode().setBranchIds([String(countID + 1), String(countID + 2)]);
-        listLen++;
-        var newCount = -1;
-        if(listLen < numGen){
-            newCount = this.addBlanks(String(countID + 1), countID + 2, numGen, listLen);
-            newCount = this.addBlanks(String(countID + 2), newCount, numGen, listLen);
+    private hideEmptyBoxes() {
+        var treeMap = this.tree.getTreeMap();
+
+        for (var key in treeMap){
+            if (treeMap.hasOwnProperty(key)) {
+                if (treeMap[key].getBranchIds().length > 0){
+                    var branchIds = treeMap[key].getBranchIds();
+                    //Must traverse backwards because we're deleting as we go.
+                    for (var i=branchIds.length-1; i >=0; i--) {
+                        var index = branchIds[i];
+                        if(index.indexOf(":") !== 8) {
+                            branchIds.splice(i,1);
+                        }
+                    }
+                    treeMap[key].setBranchIds(branchIds);
+                }
+            }
+        }
+    }
+
+    private showEmptyBoxes() {
+        var childMap:{[key: string]: string} = {};
+        var treeMap = this.tree.getTreeMap();
+
+        //Create Child Map:
+        for (var key in treeMap) {
+            if (treeMap.hasOwnProperty(key)) {
+                if (treeMap[key].getBranchIds().length > 0) {
+                    for (var i in treeMap[key].getBranchIds()) {
+                        var index = treeMap[key].getBranchIds()[i];
+                        if (index !== null && index.indexOf(":") === 8) {
+                            childMap[index] = key;
+                        }
+                    }
+                }
+            }
         }
 
-        if(newCount === -1){
+        var countID = 0;
+        //Use Child Map for each person to determine empty boxes
+        for (var box in this.firstBoxMap.getMap()) {
+            var list = [];
+            var currentPID = box;
+            list.push(currentPID);
+            while (childMap[currentPID] != null) {
+                list.push(childMap[currentPID]);
+                currentPID = childMap[currentPID];
+            }
+
+            //If it needs empty Boxes and is allowed empty boxes, then add them
+            if (list.length > 1 &&
+                list.length < numGenerations &&
+                this.firstBoxMap.getId(box).getNode().getBranchIds().length === 0) {
+
+                countID = this.addBlanks(box, countID, numGenerations, list.length);
+                //countID += 2;
+            }
+        }
+        //console.log(this.tree.getTreeMap());
+    }
+
+    private addBlanks(box:string, countID:number, numGen:number, listLen:number):number {
+        //Create two new empty nodes and add them to the maps:
+        var node0:FSDescNode = new FSDescNode(String(countID), null, [], [], null, true);
+        var node1:FSDescNode = new FSDescNode(String(countID + 1), null, [], [], null, true);
+        this.firstBoxMap.setId(node0.getId(), new AbstractBox(node0));
+        this.secondBoxMap.setId(node0.getId(), new AbstractBox(node0));
+        this.firstBoxMap.setId(node1.getId(), new AbstractBox(node1));
+        this.secondBoxMap.setId(node1.getId(), new AbstractBox(node1));
+
+        //connect the empty nodes in the correct place:
+        //console.log(box + ": (" + String(countID) + "," + String(countID + 1) + ")");
+        this.firstBoxMap.getId(box).getNode().setBranchIds([String(countID), String(countID + 1)]);
+
+        listLen++;
+        var newCount = -1;
+
+        //This if-statement makes it recursive - adding empty boxes to fill the chart.
+        //Without this if-statement, it will just add the first empty boxes.
+        if (listLen < numGen) {
+            newCount = this.addBlanks(String(countID), countID + 2, numGen, listLen);
+            newCount = this.addBlanks(String(countID + 1), newCount, numGen, listLen);
+        }
+
+        if (newCount === -1) {
             newCount = countID + 2;
         }
         return newCount;
     }
 
-    private getBoxByPoint(pt: Point): IBox {
+    private getBoxByPoint(pt:Point):IBox {
 
         var queue = [];
 
         queue.push(this.secondBoxMap.getRoot());
-        while(queue.length > 0) {
-            var nextId: string = queue.shift();
-            var nextBox: IBox = this.secondBoxMap.getId(nextId);
+        while (queue.length > 0) {
+            var nextId:string = queue.shift();
+            var nextBox:IBox = this.secondBoxMap.getId(nextId);
 
-            if(!nextBox) {
+            if (!nextBox) {
                 continue;
             }
 
-            if(nextBox.hitTest(pt)) {
+            if (nextBox.hitTest(pt)) {
                 return nextBox;
             }
 
-            var nextNode: INode = nextBox.getNode();
-            var childrenIds: string[] = nextNode.getBranchIds();
+            var nextNode:INode = nextBox.getNode();
+            var childrenIds:string[] = nextNode.getBranchIds();
 
-            if(nextBox.isCollapsed()) {
+            if (nextBox.isCollapsed()) {
                 continue;
             }
 
-            for(var i=0; i<childrenIds.length; i++) {
+            for (var i = 0; i < childrenIds.length; i++) {
                 queue.push(childrenIds[i]);
             }
         }
         return null;
     }
-    private getGeneration(node: INode, target: string): number {
-        if(node.getId() == target) {
+
+    private getGeneration(node:INode, target:string):number {
+        if (node.getId() == target) {
             return 0;
         }
-        var branchIds: string[] = node.getBranchIds();
-        for(var i=0; i<branchIds.length; i++) {
+        var branchIds:string[] = node.getBranchIds();
+        for (var i = 0; i < branchIds.length; i++) {
             var child = this.tree.getId(branchIds[i]);
-            if(child) {
-                var childNum: number = this.getGeneration(child, target);
-                if(childNum > -1) {
-                    if(child.getDisplaySpouse() != null && this.c.dscOrAsc == "descendancy"){
-                        if(child.getDisplaySpouse().getSpouses().length > 1){
+            if (child) {
+                var childNum:number = this.getGeneration(child, target);
+                if (childNum > -1) {
+                    if (child.getDisplaySpouse() != null && this.c.dscOrAsc == "descendancy") {
+                        if (child.getDisplaySpouse().getSpouses().length > 1) {
                             return childNum
                         }
                     }
-                    if(child.getSpouses().length >1)
+                    if (child.getSpouses().length > 1)
                         return childNum;
                     return childNum + 1;
                 }
@@ -299,61 +349,65 @@ declare var accessToken;
         }
         return -1;
     }
-    private applyToGeneration(gen: number, node: INode, param: any) {
-        if(gen === 0&&node.getSpouses().length < 2) {
+
+    private applyToGeneration(gen:number, node:INode, param:any) {
+        if (gen === 0 && node.getSpouses().length < 2) {
             this.customSpacer.addCustomStyle(node.getId(), {
                 type: param.value
-                ,color: param.color
+                , color: param.color
             });
         }
-        var branchIds: string[] = node.getBranchIds();
-        for(var i=0; i<branchIds.length; i++) {
+        var branchIds:string[] = node.getBranchIds();
+        for (var i = 0; i < branchIds.length; i++) {
             var child = this.tree.getId(branchIds[i]);
-            if(child) {
-                if(child.getSpouses().length > 1){
+            if (child) {
+                if (child.getSpouses().length > 1) {
                     this.applyToGeneration(gen, child, param);
-                }else{
+                } else {
                     this.applyToGeneration(gen - 1, child, param);
                 }
             }
         }
     }
 
-    handleUpdate(tree: ITree, updates: ICommand[]): void {
+    handleUpdate(tree:ITree, updates:ICommand[]):void {
         this.tree = tree;
-        for(var i=0; i<updates.length; i++) {
-            var command: ICommand = updates[i];
-            if(command.getType() === "add-node") {
+        for (var i = 0; i < updates.length; i++) {
+            var command:ICommand = updates[i];
+            if (command.getType() === "add-node") {
                 var node:INode = command.getValue();
 
-                if(!this.firstBoxMap) {
+                if (!this.firstBoxMap) {
                     this.firstBoxMap = new BoxMap(node.getId());
                     this.secondBoxMap = new BoxMap(node.getId());
                 }
 
                 this.firstBoxMap.setId(node.getId(), new AbstractBox(node));
                 this.secondBoxMap.setId(node.getId(), new AbstractBox(node));
-            }else{
+            } else {
                 console.log("Error: Unknown Command");
             }
         }
         this.runPipeline();
     }
+
     private runPipeline():void {
-        for(var i=0; i<this.stylingPipeline.length; i++) {
+        for (var i = 0; i < this.stylingPipeline.length; i++) {
             this.stylingPipeline[i].applyStyle(this.firstBoxMap);
         }
         this.runTranslationPipeline(this.firstBoxMap);
         this.c.refresh(this.secondBoxMap);
     }
-    private runTranslationPipeline(boxMap: BoxMap): BoxMap {
+
+    private runTranslationPipeline(boxMap:BoxMap):BoxMap {
         boxMap.copyContents(this.secondBoxMap);
-        for(var i=0; i<this.transformationPipline.length; i++) {
+        for (var i = 0; i < this.transformationPipline.length; i++) {
             this.transformationPipline[i].applyStyle(this.secondBoxMap);
         }
         return this.secondBoxMap;
     }
-    private changeStyleDetail():void{
+
+    private changeStyleDetail():void {
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
         this.stylingPipeline.push(new SpacingSpacer());
@@ -361,7 +415,8 @@ declare var accessToken;
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
-    private changeStyleVert():void{
+
+    private changeStyleVert():void {
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
         this.stylingPipeline.push(new SpacingSpacer());
@@ -369,7 +424,8 @@ declare var accessToken;
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
-    private changeStyleEightEleven():void{
+
+    private changeStyleEightEleven():void {
 
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
@@ -378,7 +434,8 @@ declare var accessToken;
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
-    private changeStyleEightElevenDetail():void{
+
+    private changeStyleEightElevenDetail():void {
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
         this.stylingPipeline.push(new SpacingSpacer());
@@ -386,7 +443,8 @@ declare var accessToken;
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
-    private changeStyleJSPublic():void{
+
+    private changeStyleJSPublic():void {
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
         this.stylingPipeline.push(new SpacingSpacer());
@@ -394,33 +452,35 @@ declare var accessToken;
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
-    private changeChartStyle(type:string):void{
+
+    private changeChartStyle(type:string):void {
         var temp = this.stylingPipeline;
         this.stylingPipeline = [];
         var i:number;
         for (i = 0; i < 2; i++) {
             this.stylingPipeline.push(temp[i]);
         }
-        if(type==='detail-style') {
+        if (type === 'detail-style') {
             this.stylingPipeline.push(new DetailChartSpacer());
         }
-        else if(type==='vertical-style'){
+        else if (type === 'vertical-style') {
             this.stylingPipeline.push(new VertDetChartSpacer());
         }
-        else if(type==='eight-eleven-style'){
+        else if (type === 'eight-eleven-style') {
             this.stylingPipeline.push(new EightElevenSpacer());
         }
-        else if(type==='eight-eleven-detail-style'){
+        else if (type === 'eight-eleven-detail-style') {
             this.stylingPipeline.push(new EightElevenDetailSpacer());
         }
-        else if(type==='js-public-style'){
+        else if (type === 'js-public-style') {
             this.stylingPipeline.push(new JSPublicSpacer());
         }
         for (i = 2; i < temp.length; i++) {
             this.stylingPipeline.push(temp[i]);
         }
     }
-    private toggleGreyscale():void{
+
+    private toggleGreyscale():void {
         var temp = this.stylingPipeline;
         this.stylingPipeline = [];
         var i:number;
@@ -430,15 +490,16 @@ declare var accessToken;
             this.stylingPipeline.push(temp[i]);
         }
     }
-    private changeToBranchColor():void{
+
+    private changeToBranchColor():void {
         var temp = this.stylingPipeline;
         this.stylingPipeline = [];
         var i:number;
         this.stylingPipeline.push(this.collapseSpacer);
 
-        if(this.c.dscOrAsc == "descendancy"){
+        if (this.c.dscOrAsc == "descendancy") {
             this.stylingPipeline.push(new ColorSpacer());
-        }else{
+        } else {
             this.stylingPipeline.push(new AscColorSpacer());
         }
 
@@ -448,7 +509,8 @@ declare var accessToken;
         }
 
     }
-    private changeToGenColor():void{
+
+    private changeToGenColor():void {
         var temp = this.stylingPipeline;
         this.stylingPipeline = [];
         var i:number;
@@ -459,7 +521,8 @@ declare var accessToken;
         }
 
     }
-    private changeToGenColorVibrant():void{
+
+    private changeToGenColorVibrant():void {
         var temp = this.stylingPipeline;
         this.stylingPipeline = [];
         var i:number;
@@ -469,7 +532,8 @@ declare var accessToken;
             this.stylingPipeline.push(temp[i]);
         }
     }
-    private changeToGenderColor():void{
+
+    private changeToGenderColor():void {
         var temp = this.stylingPipeline;
         this.stylingPipeline = [];
         var i:number;
@@ -480,21 +544,22 @@ declare var accessToken;
         }
 
     }
-    private changeColorStyle(type:string):void{
+
+    private changeColorStyle(type:string):void {
         console.log(type);
         var temp = this.stylingPipeline;
         this.stylingPipeline = [];
         var i:number;
         this.stylingPipeline.push(this.collapseSpacer);
-        if(type === 'to-greyscale') {
+        if (type === 'to-greyscale') {
             console.log("Grey");
             this.stylingPipeline.push(new GreyScaleSpacer());
         }
-        else if(type === 'to-branch-color')
+        else if (type === 'to-branch-color')
             this.stylingPipeline.push(new GenColorSpacer());
-        else if(type === 'to-generation-color')
+        else if (type === 'to-generation-color')
             this.stylingPipeline.push(new ColorSpacer());
-        else if(type === 'to-gender-color')
+        else if (type === 'to-gender-color')
             this.stylingPipeline.push(new GenderColorSpacer());
         for (i = 2; i < temp.length; i++) {
             this.stylingPipeline.push(temp[i]);

@@ -27,6 +27,7 @@ class GenderColorSpacer implements  IStyler {
                 if(!branchBox) {
                     continue;
                 }
+
                 var gender  = branchBox.getNode().getAttr('gender');
                 if(gender == "Male"){
                     branchBox.setColor(ColorManager.blue());
@@ -37,6 +38,7 @@ class GenderColorSpacer implements  IStyler {
                 else{
                     branchBox.setColor(ColorManager.gray());
                 }
+
 
                 queue.push([branchIds[i], generation+1]);
             }
