@@ -46,35 +46,39 @@ class AscColorSpacer implements  IStyler {
         }
     }
     private setBasedOnBranch(parentBox: IBox, childBox: IBox, generation: number, child: number, numSiblings: number){
-        if(generation == 0){
-            /*if(childBox.getNode().getBranchIds().length>2)
-                childBox.setColor('#d5bde9');//blue
-            else*/
+        if(!childBox.getNode().hasAttr('name')){
+            childBox.setColor(ColorManager.gray());
+        }else {
+            if (generation == 0) {
+                /*if(childBox.getNode().getBranchIds().length>2)
+                 childBox.setColor('#d5bde9');//blue
+                 else*/
                 childBox.setColor(ColorManager.purple());
-        }
-        else if(generation==1) {
-            if(child == 0)
-                childBox.setColor(ColorManager.blue());
-            else
-                childBox.setColor(ColorManager.pink());
-        }
-        else if(generation == 2){
-            var gender = 'none';
-            if(parentBox.getNode().hasAttr('gender')) {
-                gender = parentBox.getNode().getAttr('gender');
             }
+            else if (generation == 1) {
+                if (child == 0)
+                    childBox.setColor(ColorManager.blue());
+                else
+                    childBox.setColor(ColorManager.pink());
+            }
+            else if (generation == 2) {
+                var gender = 'none';
+                if (parentBox.getNode().hasAttr('gender')) {
+                    gender = parentBox.getNode().getAttr('gender');
+                }
 
-            if(child == 0 && gender === 'Male')
-                childBox.setColor(ColorManager.blue());
-            else if(child == 1 && gender === 'Male')
-                childBox.setColor(ColorManager.green());
-            else if(child == 0 && gender === 'Female')
-                childBox.setColor(ColorManager.orange());
-            else if(child == 1 && gender === 'Female')
-                childBox.setColor(ColorManager.pink());
-        }
-        else {
-            childBox.setColor(parentBox.getColor());
+                if (child == 0 && gender === 'Male')
+                    childBox.setColor(ColorManager.blue());
+                else if (child == 1 && gender === 'Male')
+                    childBox.setColor(ColorManager.green());
+                else if (child == 0 && gender === 'Female')
+                    childBox.setColor(ColorManager.orange());
+                else if (child == 1 && gender === 'Female')
+                    childBox.setColor(ColorManager.pink());
+            }
+            else {
+                childBox.setColor(parentBox.getColor());
+            }
         }
     }
 

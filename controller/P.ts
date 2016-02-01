@@ -188,12 +188,12 @@ class P implements IControllerListener, ITreeListener {
             } else if (param.type === 'show-empty') {
                 var showOption = document.getElementById('opg-show-empty').innerHTML;
                 if (showOption === "Show Empty Boxes") {
-                    document.getElementById('opg-show-empty').innerHTML = "Hide Empty Boxes";
                     this.showEmptyBoxes();
+                    document.getElementById('opg-show-empty').innerHTML = "Hide Empty Boxes";
                     refresh = true;
                 } else {
-                    document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
                     this.hideEmptyBoxes();
+                    document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
                     refresh = true;
                 }
 

@@ -33,7 +33,7 @@ class GenderColorSpacer implements  IStyler {
                     branchBox.setColor(ColorManager.blue());
                 }
                 else if(gender == "Female"){
-                    branchBox.setColor(ColorManager.pink());
+                    branchBox.setColor(ColorManager.femalePink());
                 }
                 else{
                     branchBox.setColor(ColorManager.gray());
