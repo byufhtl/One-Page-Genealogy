@@ -207,6 +207,13 @@ class SVGManager implements IViewManager {
         }
         this.drawLine(this.lastBoxes);
         this.drawBoxes(this.lastBoxes);
+        //document.getElementById('chart-dimensions').innerHTML =
+        //    "(" + String(document.getElementById("opg-chart").getAttribute('width')) + ", " +
+        //        String(document.getElementById("opg-chart").getAttribute("height")) + ")";
+
+        document.getElementById("chart-dimensions").innerHTML =
+            (this.svgRoot.getBBox().width/72).toFixed(1) + '" x ' +
+            (this.svgRoot.getBBox().height/72).toFixed(1) + '"';
     }
 
 
@@ -388,7 +395,6 @@ class SVGManager implements IViewManager {
             if(counter >= total) {
                 $("body").css("cursor", "default");
                 var s = new XMLSerializer();
-
                 self.elementManager.setIgnoreBound(true);
                 self.lineManager.setIgnoreBound(true);
                 var tx = self.translationX;
