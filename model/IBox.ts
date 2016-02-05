@@ -7,6 +7,8 @@
 interface IBox {
     setColor(c:string);
     getColor(): string;
+    setTextColor(c:string);
+    getTextColor();
     getHeight(): number;
     setHeight(h: number);
     getWidth(): number;

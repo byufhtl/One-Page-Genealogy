@@ -307,7 +307,7 @@ class C implements IGraphicObjectListener, IOptionListener {
             this.p.handle({type: key});
         }
         else if (key) {
-            this.p.handle({type: key, value: value['type'], id: value['id'], color: value['color']});
+            this.p.handle({type: key, value: value['type'], id: value['id'], color: value['color'], textcolor: value['textcolor']});
         }
     }
 }

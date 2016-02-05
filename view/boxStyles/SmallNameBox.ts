@@ -41,23 +41,10 @@ class SmallNameBox extends IBoxData {
             text.setAttribute("x", "10");
             text.setAttribute("y", "25");
             text.setAttribute("font-size", "20px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
             StringUtils.centerElement(text, 0, 300);
         }
-
-        //var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        //g.appendChild(text3);
-        //var nameTextPath = document.createTextNode("");
-        //text3.appendChild(nameTextPath);
-        //text3.setAttribute("x", "10");
-        //text3.setAttribute("y", "50");
-        //text3.setAttribute("font-size", "15px");
-        //
-        //
-        //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
-        //StringUtils.centerElement(text3, 60, 240);
-
-
 
         var gender = 'none';
         if(node.hasAttr('gender')) {

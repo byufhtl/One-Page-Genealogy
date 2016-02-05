@@ -41,6 +41,7 @@ class XSNameBox extends IBoxData {
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
             text.setAttribute("font-size", "9px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
             StringUtils.centerElement(text, 0, 162);
         }

@@ -35,6 +35,9 @@ class HorizontalNameLifeBox extends IBoxData {
             text.appendChild(nameTextPath);
             text.setAttribute("x", "5");
             text.setAttribute("y", "15");
+            if(box.getTextColor() != null) {
+                text.setAttribute("fill", box.getTextColor());
+            }
         }
 
         var text2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -44,6 +47,9 @@ class HorizontalNameLifeBox extends IBoxData {
             text2.appendChild(nameTextPath);
             text2.setAttribute("x", "205");
             text2.setAttribute("y", "15");
+            if(box.getTextColor() != null) {
+                text2.setAttribute("fill", box.getTextColor());
+            }
         }
 
         var gender = 'none';

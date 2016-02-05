@@ -75,10 +75,10 @@ class OptionManager implements IOptionManager {
                 }
             });
 
-            $('#box-color-picker').spectrum({
-                color: box.getColor(),
+            $('#box-text-color-picker').spectrum({
+                color: box.getTextColor(),
                 change: function(color){
-                    box.setColor(color.toHexString());
+                    box.setTextColor(color.toHexString());
                     self.renderTempBox(box);
                 }
             });
@@ -114,7 +114,7 @@ class OptionManager implements IOptionManager {
                 $('#opg-modal').modal('hide');
                 //console.log("ran save");
                 var changeWho = $('input[name=opg-change-who]:checked').val();
-                self.listener.handleOption(changeWho, {type: box.getType(), id: box.getNode().getId(), color: box.getColor()})
+                self.listener.handleOption(changeWho, {type: box.getType(), id: box.getNode().getId(), color: box.getColor(), textcolor: box.getTextColor()});
                 //var changeWhoColor = $('input[name=opg-change-who-color]:checked').val();
                 //self.listener.handleOption(changeWhoColor, {type: "green", id: box.getNode().getId()})
 

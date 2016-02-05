@@ -63,6 +63,7 @@ class MediumPictureBox extends IBoxData {
             text.setAttribute("x", "115");
             text.setAttribute("y", "30");
             text.setAttribute("font-size", "30px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text,box.getNode().getAttr('givenname'),30);
         }
@@ -76,6 +77,7 @@ class MediumPictureBox extends IBoxData {
             text2.setAttribute("x", "115");
             text2.setAttribute("y", "70");
             text2.setAttribute("font-size", "40px");
+            text2.setAttribute("fill", box.getTextColor());
             text2.setAttribute("style", this.getFont() );
             StringUtils.fitName(text2,node.getAttr('surname'),30);
         }
@@ -88,6 +90,7 @@ class MediumPictureBox extends IBoxData {
         text3.setAttribute("x", "115");
         text3.setAttribute("y", "100");
         text3.setAttribute("font-size", "20px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 350);
 

@@ -40,7 +40,7 @@ class XSDetSpBox extends IBoxData {
         var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(firstG);
         firstG.appendChild(text);
-        gt.appendChild(secondG)
+        gt.appendChild(secondG);
 
         var n: INode = box.getNode();
         var sn: INode = n.getDisplaySpouse();
@@ -62,14 +62,12 @@ class XSDetSpBox extends IBoxData {
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            //text.setAttribute("x", "10");
-            //text.setAttribute("y", "8");
             text.setAttribute("font-size", "9px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
             StringUtils.fitName(text,node.getAttr('name'),19);
-            //StringUtils.centerElement(text, 210, 290);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -79,25 +77,23 @@ class XSDetSpBox extends IBoxData {
         text3.setAttribute("x", "100");
         text3.setAttribute("y", "-1");
         text3.setAttribute("font-size", "8px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
-
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
-        //StringUtils.centerElement(text3, 210, 290);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         firstG.appendChild(text4);
         var nameTextPath = document.createTextNode("");
         text4.appendChild(nameTextPath);
-        //text4.setAttribute("x", "10");
         text4.setAttribute("y", "8");
         text4.setAttribute("font-size", "8px");
+        text4.setAttribute("fill", box.getTextColor());
         text4.setAttribute("style", this.getFont() );
-        //StringUtils.centerElement(text4, 210, 290);
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
         text4.textContent = 'B: '+text4.textContent;
 
-        firstG.setAttribute('transform','translate(10,8)')
-        secondG.setAttribute('transform','translate(10,8)')
+        firstG.setAttribute('transform','translate(10,8)');
+        secondG.setAttribute('transform','translate(10,8)');
 
         spousenode = node.getDisplaySpouse();
 
@@ -106,14 +102,14 @@ class XSDetSpBox extends IBoxData {
         var secondGGender = null;
 
         if(spousenode.hasAttr('gender')){
-            secondGGender = spousenode.getAttr('gender')
+            secondGGender = spousenode.getAttr('gender');
             if(secondGGender== "Male"){
                 firstG.setAttribute('transform','translate(10,26)')
             }else{
                 secondG.setAttribute('transform','translate(10,26)')
             }
         }else if(node.hasAttr('gender')){
-            firstGGender = node.getAttr('gender')
+            firstGGender = node.getAttr('gender');
             if(firstGGender == "Male"){
                 secondG.setAttribute('transform','translate(10,26)')
             }else{
@@ -133,54 +129,33 @@ class XSDetSpBox extends IBoxData {
             secondG.appendChild(text6);
             var nameTextPath = document.createTextNode('Spouse Name');
             text6.appendChild(nameTextPath);
-            //text6.setAttribute("x", "10");
-            //text6.setAttribute("y", "26");
             text6.setAttribute("font-size", "9px");
+            text6.setAttribute("fill", box.getTextColor());
             text6.setAttribute("style", this.getFont() );
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
-
             StringUtils.fitName(text6, spousenode.getAttr('name'), 19);
-
-
-            //StringUtils.centerElement(text, 210, 290);
-            //}
 
             var text7 = document.createElementNS("http://www.w3.org/2000/svg", "text");
             secondG.appendChild(text7);
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
             text7.setAttribute("x", "100");
-            //text7.setAttribute("y", "-1");
             text7.setAttribute("font-size", "8px");
+            text7.setAttribute("fill", box.getTextColor());
             text7.setAttribute("style", this.getFont() );
-
             StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 12);
-            //StringUtils.centerElement(text3, 210, 290);
 
             var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
             secondG.appendChild(text8);
             var nameTextPath = document.createTextNode("");
             text8.appendChild(nameTextPath);
-            //text8.setAttribute("x", "10");
             text8.setAttribute("y", "8");
             text8.setAttribute("font-size", "8px");
+            text8.setAttribute("fill", box.getTextColor());
             text8.setAttribute("style", this.getFont() );
-            //StringUtils.centerElement(text4, 210, 290);
             StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
             text8.textContent = 'B: ' + text8.textContent;
-
-            //var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            //gt.appendChild(text9);
-            //var nameTextPath = document.createTextNode("");
-            //text9.appendChild(nameTextPath);
-            //text9.setAttribute("x", "10");
-            //text9.setAttribute("y", '65');
-            //text9.setAttribute("font-size", "8px");
-            //text9.setAttribute("style", this.getFont() );
-            ////StringUtils.centerElement(text5, 210, 290);
-            //StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
-            //text9.textContent = 'D: ' + text9.textContent;
         }
 
         var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -193,9 +168,8 @@ class XSDetSpBox extends IBoxData {
         text10.setAttribute("x", "10");
         text10.setAttribute("y", "42");
         text10.setAttribute("font-size", "8px");
+        text10.setAttribute("fill", box.getTextColor());
         text10.setAttribute("style", this.getFont() );
-        //StringUtils.centerElement(text10, 100, 290)
-
 
         if(box.getColor()!= null){
             rect.setAttribute('fill', box.getColor());
@@ -203,10 +177,6 @@ class XSDetSpBox extends IBoxData {
         else {
             rect.setAttribute('fill','#E2C6FF');//'#CC99FF');
         }
-
-
-
-
 
         //gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+") rotate(-90 0,0)");
         //gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+")");

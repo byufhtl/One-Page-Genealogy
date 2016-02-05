@@ -44,6 +44,12 @@ class CustomSpacer implements  IStyler {
                     if(map.hasOwnProperty('color')) {
                         box.setColor(map['color']);
                     }
+                    if(map.hasOwnProperty('textcolor')){
+                        box.setTextColor(map['textcolor']);
+                    }
+                    else{
+                        box.setTextColor('#000000');
+                    }
                 }
             }
         }

@@ -41,6 +41,7 @@ class SmallPictureBox extends IBoxData {
             text.setAttribute("x", "60");
             text.setAttribute("y", "25");
             text.setAttribute("font-size", "20px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text,node.getAttr('name'),28);
         }
@@ -52,6 +53,7 @@ class SmallPictureBox extends IBoxData {
         text3.setAttribute("x", "60");
         text3.setAttribute("y", "50");
         text3.setAttribute("font-size", "15px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);

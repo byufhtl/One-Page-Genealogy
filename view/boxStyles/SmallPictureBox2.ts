@@ -41,6 +41,7 @@ class SmallPictureBox2 extends IBoxData {
             text.setAttribute("x", "0");
             text.setAttribute("y", "170");
             text.setAttribute("font-size", "20px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text,box.getNode().getAttr('givenname'),14);
             StringUtils.centerElement(text, 0, 150)
@@ -54,6 +55,7 @@ class SmallPictureBox2 extends IBoxData {
             text2.setAttribute("x", "0");
             text2.setAttribute("y", "195");
             text2.setAttribute("font-size", "20px");
+            text2.setAttribute("fill", box.getTextColor());
             text2.setAttribute("style", this.getFont() );
             StringUtils.fitName(text2,box.getNode().getAttr('surname'),14);
             StringUtils.centerElement(text2, 0, 150);
@@ -66,9 +68,9 @@ class SmallPictureBox2 extends IBoxData {
         text3.setAttribute("x", "0");
         text3.setAttribute("y", "220");
         text3.setAttribute("font-size", "15px");
+        text.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
-
-        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 20);//140);
+        StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 20);
         StringUtils.centerElement(text3, 0, 150);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -78,6 +80,7 @@ class SmallPictureBox2 extends IBoxData {
         text4.setAttribute("x", "0");
         text4.setAttribute("y", "240");
         text4.setAttribute("font-size", "15px");
+        text4.setAttribute("fill", box.getTextColor());
         text4.setAttribute("style", this.getFont() );
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 18);
         text4.textContent = 'B: '+text4.textContent;
@@ -90,30 +93,11 @@ class SmallPictureBox2 extends IBoxData {
         text5.setAttribute("x", "0");
         text5.setAttribute("y", "260");
         text5.setAttribute("font-size", "15px");
+        text5.setAttribute("fill", box.getTextColor());
         text5.setAttribute("style", this.getFont() );
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 18);
         text5.textContent = 'D: '+text5.textContent;
         StringUtils.centerElement(text5, 0, 150);
-
-        /*var text6 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        g.appendChild(text6);
-        var nameTextPath = document.createTextNode("M: marriage place");
-        text6.appendChild(nameTextPath);
-        text6.setAttribute("x", "0");
-        text6.setAttribute("y", "270");
-        text6.setAttribute("font-size", "15px");
-        StringUtils.centerElement(text6, 0, 160);
-
-        var text7 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        g.appendChild(text7);
-        var nameTextPath = document.createTextNode("(marriage date)");
-        text7.appendChild(nameTextPath);
-        text7.setAttribute("x", "0");
-        text7.setAttribute("y", "290");
-        text7.setAttribute("font-size", "15px");
-        StringUtils.centerElement(text7, 0, 160);*/
-
-
 
         var gender = 'none';
         if(node.hasAttr('gender')) {

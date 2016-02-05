@@ -41,8 +41,8 @@ class MedSmPictureDetailBox extends IBoxData {
             text.setAttribute("x", "95");
             text.setAttribute("y", "25");
             text.setAttribute("font-size", "19px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
-//            StringUtils.centerElement(text, 40, 240);
             StringUtils.fitName(text,node.getAttr('name'),20);
         }
 
@@ -53,9 +53,9 @@ class MedSmPictureDetailBox extends IBoxData {
         text3.setAttribute("x", "95");
         text3.setAttribute("y", "45");
         text3.setAttribute("font-size", "15px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
-//        StringUtils.centerElement(text3, 40, 240);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text4);
@@ -64,8 +64,8 @@ class MedSmPictureDetailBox extends IBoxData {
         text4.setAttribute("x", "95");
         text4.setAttribute("y", "62");
         text4.setAttribute("font-size", "14px");
+        text4.setAttribute("fill", box.getTextColor());
         text4.setAttribute("style", this.getFont() );
-//        StringUtils.centerElement(text4, 40, 240);
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
         text4.textContent = 'B: '+text4.textContent;
 
@@ -76,8 +76,8 @@ class MedSmPictureDetailBox extends IBoxData {
         text5.setAttribute("x", "95");
         text5.setAttribute("y", "77");
         text5.setAttribute("font-size", "14px");
+        text5.setAttribute("fill", box.getTextColor());
         text5.setAttribute("style", this.getFont() );
-//        StringUtils.centerElement(text5, 40, 240);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 25);
         text5.textContent = 'D: '+text5.textContent;
 

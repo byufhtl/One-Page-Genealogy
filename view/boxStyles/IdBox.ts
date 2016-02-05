@@ -43,6 +43,9 @@ class IdBox extends IBoxData {
             text.setAttribute("x", "15");
             text.setAttribute("y", "15");
             text.setAttribute("font-size", "15px");
+            if(box.getTextColor() != null) {
+                text.setAttribute("fill", box.getTextColor());
+            }
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text, fullname, 25);
         }
@@ -54,6 +57,9 @@ class IdBox extends IBoxData {
         text3.setAttribute("x", "15");
         text3.setAttribute("y", "32");
         text3.setAttribute("font-size", "15px");
+        if(box.getTextColor() != null) {
+            text3.setAttribute("fill", box.getTextColor());
+        }
         text3.setAttribute("style", this.getFont() );
 
         var gender = 'none';

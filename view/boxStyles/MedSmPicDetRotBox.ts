@@ -43,8 +43,8 @@ class MedSmPicDetRotBox extends IBoxData {
             text.setAttribute("x", "95");
             text.setAttribute("y", "25");
             text.setAttribute("font-size", "19px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
-//            StringUtils.centerElement(text, 40, 240);
             StringUtils.fitName(text,node.getAttr('name'),23);
         }
 
@@ -55,6 +55,7 @@ class MedSmPicDetRotBox extends IBoxData {
         text3.setAttribute("x", "95");
         text3.setAttribute("y", "45");
         text3.setAttribute("font-size", "15px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
@@ -67,6 +68,7 @@ class MedSmPicDetRotBox extends IBoxData {
         text4.setAttribute("x", "95");
         text4.setAttribute("y", "62");
         text4.setAttribute("font-size", "14px");
+        text4.setAttribute("fill", box.getTextColor());
         text4.setAttribute("style", this.getFont() );
 //        StringUtils.centerElement(text4, 40, 240);
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
@@ -79,6 +81,7 @@ class MedSmPicDetRotBox extends IBoxData {
         text5.setAttribute("x", "95");
         text5.setAttribute("y", "77");
         text5.setAttribute("font-size", "14px");
+        text5.setAttribute("fill", box.getTextColor());
         text5.setAttribute("style", this.getFont() );
 //        StringUtils.centerElement(text5, 40, 240);
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 25);

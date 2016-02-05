@@ -42,8 +42,8 @@ class XSNameYearBox extends IBoxData {
             text.setAttribute("y", "8");
             text.setAttribute("font-size", "9px");
             text.setAttribute("style", this.getFont() );
+            text.setAttribute("fill", box.getTextColor());
             StringUtils.fitName(text,node.getAttr('name'),18);
-            //StringUtils.centerElement(text, 0, 162);
         }
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -53,9 +53,9 @@ class XSNameYearBox extends IBoxData {
         text3.setAttribute("x", "110");
         text3.setAttribute("y", "8");
         text3.setAttribute("font-size", "8px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
-//        StringUtils.centerElement(text3, 0, 160);
 
         var gender = 'none';
         if(node.hasAttr('gender')) {

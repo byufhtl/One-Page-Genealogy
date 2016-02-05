@@ -61,9 +61,8 @@ class SmallestSpBox extends IBoxData {
         if(node.hasAttr('name')) {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
-            //text.setAttribute("x", "10");
-            //text.setAttribute("y", "8");
             text.setAttribute("font-size", "8px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
@@ -77,12 +76,10 @@ class SmallestSpBox extends IBoxData {
         var nameTextPath = document.createTextNode("");
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "75");
-        //text3.setAttribute("y", "-1");
         text3.setAttribute("font-size", "8px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
-
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
-        //StringUtils.centerElement(text3, 210, 290);
 
         firstG.setAttribute('transform','translate(10,7)')
         secondG.setAttribute('transform','translate(10,7)')
@@ -121,9 +118,8 @@ class SmallestSpBox extends IBoxData {
             secondG.appendChild(text6);
             var nameTextPath = document.createTextNode('Spouse Name');
             text6.appendChild(nameTextPath);
-            //text6.setAttribute("x", "10");
-            //text6.setAttribute("y", "17");
             text6.setAttribute("font-size", "8px");
+            text6.setAttribute("fill", box.getTextColor());
             text6.setAttribute("style", this.getFont() );
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
@@ -139,51 +135,13 @@ class SmallestSpBox extends IBoxData {
             var nameTextPath = document.createTextNode("");
             text7.appendChild(nameTextPath);
             text7.setAttribute("x", "75");
-            //text7.setAttribute("y", "-1");
             text7.setAttribute("font-size", "8px");
+            text7.setAttribute("fill", box.getTextColor());
             text7.setAttribute("style", this.getFont() );
 
             StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 12);
-            //StringUtils.centerElement(text3, 210, 290);
 
-            //var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            //gt.appendChild(text8);
-            //var nameTextPath = document.createTextNode("");
-            //text8.appendChild(nameTextPath);
-            //text8.setAttribute("x", "10");
-            //text8.setAttribute("y", "34");
-            //text8.setAttribute("font-size", "8px");
-            //text8.setAttribute("style", this.getFont() );
-            ////StringUtils.centerElement(text4, 210, 290);
-            //StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
-            //text8.textContent = 'B: ' + text8.textContent;
-
-            //var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            //gt.appendChild(text9);
-            //var nameTextPath = document.createTextNode("");
-            //text9.appendChild(nameTextPath);
-            //text9.setAttribute("x", "10");
-            //text9.setAttribute("y", '65');
-            //text9.setAttribute("font-size", "8px");
-            //text9.setAttribute("style", this.getFont() );
-            ////StringUtils.centerElement(text5, 210, 290);
-            //StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
-            //text9.textContent = 'D: ' + text9.textContent;
         }
-
-        //var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        //gt.appendChild(text10);
-        ////var date = new Date();
-        //var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(node.getAttr('marriagedate')));//date.toDateString()));
-        //text10.appendChild(nameTextPath);
-        ////var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(date.toDateString()));
-        ////text10.appendChild(nameTextPath);
-        //text10.setAttribute("x", "10");
-        //text10.setAttribute("y", "24");
-        //text10.setAttribute("font-size", "8px");
-        //text10.setAttribute("style", this.getFont() );
-        ////StringUtils.centerElement(text10, 100, 290)
-
 
         if(box.getColor()!= null){
             rect.setAttribute('fill', box.getColor());
@@ -191,10 +149,6 @@ class SmallestSpBox extends IBoxData {
         else {
             rect.setAttribute('fill','#E2C6FF');//'#CC99FF');
         }
-
-
-
-
 
         //gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+") rotate(-90 0,0)");
         //gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+")");

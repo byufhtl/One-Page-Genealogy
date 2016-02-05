@@ -59,6 +59,9 @@ class LrgPicDetRotSpBox extends IBoxData {
             var nameTextPath = document.createTextNode(box.getNode().getAttr('name'));
             text.appendChild(nameTextPath);
             text.setAttribute("font-size", "30px");
+            if(box.getTextColor() != null) {
+                text.setAttribute("fill", box.getTextColor());
+            }
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
@@ -73,6 +76,9 @@ class LrgPicDetRotSpBox extends IBoxData {
         text3.appendChild(nameTextPath);
         text3.setAttribute("y", "40");
         text3.setAttribute("font-size", "20px");
+        if(box.getTextColor() != null) {
+            text3.setAttribute("fill", box.getTextColor());
+        }
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
 
@@ -83,6 +89,9 @@ class LrgPicDetRotSpBox extends IBoxData {
         text4.appendChild(nameTextPath);
         text4.setAttribute("y", "70");
         text4.setAttribute("font-size", "20px");
+        if(box.getTextColor() != null) {
+            text4.setAttribute("fill", box.getTextColor());
+        }
         text4.setAttribute("style", this.getFont() );
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
         text4.textContent = 'B: '+text4.textContent;
@@ -94,6 +103,9 @@ class LrgPicDetRotSpBox extends IBoxData {
         text5.appendChild(nameTextPath);
         text5.setAttribute("y", "95");
         text5.setAttribute("font-size", "20px");
+        if(box.getTextColor() != null) {
+            text5.setAttribute("fill", box.getTextColor());
+        }
         text5.setAttribute("style", this.getFont() );
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
         text5.textContent = 'D: '+text5.textContent;
@@ -135,6 +147,9 @@ class LrgPicDetRotSpBox extends IBoxData {
             var nameTextPath = document.createTextNode('Spouse Name');
             text6.appendChild(nameTextPath);
             text6.setAttribute("font-size", "30px");
+            if(box.getTextColor() != null) {
+                text6.setAttribute("fill", box.getTextColor());
+            }
             text6.setAttribute("style", this.getFont() );
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
@@ -146,6 +161,9 @@ class LrgPicDetRotSpBox extends IBoxData {
             text7.appendChild(nameTextPath);
             text7.setAttribute("y", "40");
             text7.setAttribute("font-size", "20px");
+            if(box.getTextColor() != null) {
+                text7.setAttribute("fill", box.getTextColor());
+            }
             text7.setAttribute("style", this.getFont() );
             StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
 
@@ -155,6 +173,9 @@ class LrgPicDetRotSpBox extends IBoxData {
             text8.appendChild(nameTextPath);
             text8.setAttribute("y", "70");
             text8.setAttribute("font-size", "20px");
+            if(box.getTextColor() != null) {
+                text8.setAttribute("fill", box.getTextColor());
+            }
             text8.setAttribute("style", this.getFont() );
             StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
             text8.textContent = 'B: ' + text8.textContent;
@@ -165,6 +186,9 @@ class LrgPicDetRotSpBox extends IBoxData {
             text9.appendChild(nameTextPath);
             text9.setAttribute("y", "95");
             text9.setAttribute("font-size", "20px");
+            if(box.getTextColor() != null) {
+                text9.setAttribute("fill", box.getTextColor());
+            }
             text9.setAttribute("style", this.getFont() );
             StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
             text9.textContent = 'D: ' + text9.textContent;
@@ -177,6 +201,7 @@ class LrgPicDetRotSpBox extends IBoxData {
         text10.setAttribute("x", "160");
         text10.setAttribute("y", "310");
         text10.setAttribute("font-size", "20px");
+        text10.setAttribute("fill", box.getTextColor());
         text10.setAttribute("style", this.getFont() );
 
         if(box.getColor()!= null){

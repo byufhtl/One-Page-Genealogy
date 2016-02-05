@@ -35,6 +35,7 @@ class SimpleNameBox extends IBoxData {
             text.appendChild(nameTextPath);
             text.setAttribute("x", "5");
             text.setAttribute("y", "15");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
         }
 
@@ -45,6 +46,7 @@ class SimpleNameBox extends IBoxData {
             text2.appendChild(nameTextPath);
             text2.setAttribute("x", "5");
             text2.setAttribute("y", "35");
+            text2.setAttribute("fill", box.getTextColor());
             text2.setAttribute("style", this.getFont() );
         }
 

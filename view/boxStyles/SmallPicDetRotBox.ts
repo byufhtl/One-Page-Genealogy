@@ -66,6 +66,7 @@ class SmallPicDetRotBox extends IBoxData {
             text.setAttribute("x", "60");
             text.setAttribute("y", "15");
             text.setAttribute("font-size", "15px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text,node.getAttr('name'),24);
         }
@@ -78,6 +79,7 @@ class SmallPicDetRotBox extends IBoxData {
         text3.setAttribute("x", "60");
         text3.setAttribute("y", "30");
         text3.setAttribute("font-size", "10px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 240);
 
@@ -89,6 +91,7 @@ class SmallPicDetRotBox extends IBoxData {
         text4.setAttribute("x", "60");
         text4.setAttribute("y", "42");
         text4.setAttribute("font-size", "10px");
+        text4.setAttribute("fill", box.getTextColor());
         text4.setAttribute("style", this.getFont() );
         StringUtils.fitPlace(text4, node.getAttr('birthplace'),40);
         text4.textContent = 'B: '+text4.textContent;
@@ -101,6 +104,7 @@ class SmallPicDetRotBox extends IBoxData {
         text5.setAttribute("x", "60");
         text5.setAttribute("y", "54");
         text5.setAttribute("font-size", "10px");
+        text5.setAttribute("fill", box.getTextColor());
         text5.setAttribute("style", this.getFont() );
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
         text5.textContent = 'D: '+text5.textContent;

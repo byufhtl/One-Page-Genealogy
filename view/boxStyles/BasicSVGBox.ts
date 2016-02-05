@@ -33,6 +33,9 @@ class BasicSVGBox extends IBoxData {
         text.appendChild(nameTextPath);
         text.setAttribute("x", "5");
         text.setAttribute("y", "15");
+        if(box.getTextColor() != null) {
+            text.setAttribute("fill", box.getTextColor());
+        }
 
 
         return g;

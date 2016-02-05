@@ -67,6 +67,7 @@ class MidLargePicRotBox extends IBoxData{
             text.setAttribute("x", "185");
             text.setAttribute("y", "60");
             text.setAttribute("font-size", "30px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
         }
 
@@ -79,6 +80,7 @@ class MidLargePicRotBox extends IBoxData{
             text2.setAttribute("x", "185");
             text2.setAttribute("y", "95");
             text2.setAttribute("font-size", "40px");
+            text2.setAttribute("fill", box.getTextColor());
             text2.setAttribute("style", this.getFont() );
         }
 
@@ -90,9 +92,9 @@ class MidLargePicRotBox extends IBoxData{
         text3.setAttribute("x", "185");
         text3.setAttribute("y", "135");
         text3.setAttribute("font-size", "20px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 300);
-        //StringUtils.centerElement(text3, 180, 270);
 
         // Picture
         var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');

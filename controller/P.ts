@@ -79,6 +79,7 @@ declare var accessToken;
                 this.customSpacer.addCustomStyle(param.id, {
                     type: param.value
                     ,color: param.color
+                    ,textcolor: param.textcolor
                 });
                 refresh = true;
             }
@@ -304,6 +305,7 @@ declare var accessToken;
             this.customSpacer.addCustomStyle(node.getId(), {
                 type: param.value
                 ,color: param.color
+                ,textcolor: param.textcolor
             });
         }
         var branchIds: string[] = node.getBranchIds();

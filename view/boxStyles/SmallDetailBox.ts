@@ -68,6 +68,7 @@ class SmallDetailBox extends IBoxData {
             text.setAttribute("x", "10");
             text.setAttribute("y", "11");
             text.setAttribute("font-size", "12px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text,node.getAttr('name'),20);
         }
@@ -80,6 +81,7 @@ class SmallDetailBox extends IBoxData {
         text3.setAttribute("x", "140");
         text3.setAttribute("y", "10");
         text3.setAttribute("font-size", "8px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
 
@@ -91,6 +93,7 @@ class SmallDetailBox extends IBoxData {
         text4.setAttribute("x", "10");
         text4.setAttribute("y", "20");
         text4.setAttribute("font-size", "8px");
+        text4.setAttribute("fill", box.getTextColor());
         text4.setAttribute("style", this.getFont() );
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 40);
         text4.textContent = 'B: '+text4.textContent;
@@ -103,6 +106,7 @@ class SmallDetailBox extends IBoxData {
         text5.setAttribute("x", "10");
         text5.setAttribute("y", "29");
         text5.setAttribute("font-size", "8px");
+        text5.setAttribute("fill", box.getTextColor());
         text5.setAttribute("style", this.getFont() );
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 40);
         text5.textContent = 'D: '+text5.textContent;

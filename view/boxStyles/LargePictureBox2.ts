@@ -68,6 +68,9 @@ class LargePictureBox2 extends IBoxData {
                 text.setAttribute("x", "220");
                 text.setAttribute("y", "65");
                 text.setAttribute("font-size", "30px");
+                if(box.getTextColor() != null) {
+                    text.setAttribute("fill", box.getTextColor());
+                }
                 text.setAttribute("style", this.getFont() );
                 StringUtils.fitName(text, node.getAttr('givenname'), 30);
             }
@@ -78,6 +81,9 @@ class LargePictureBox2 extends IBoxData {
                 text2.setAttribute("x", "220");
                 text2.setAttribute("y", "120");
                 text2.setAttribute("font-size", "40px");
+                if(box.getTextColor() != null) {
+                    text2.setAttribute("fill", box.getTextColor());
+                }
                 text2.setAttribute("style", this.getFont() );
                 StringUtils.fitName(text2, node.getAttr('surname'), 30);
             }
@@ -97,6 +103,9 @@ class LargePictureBox2 extends IBoxData {
             text.setAttribute("x", "220");
             text.setAttribute("y", "65");
             text.setAttribute("font-size", "30px");
+            if(box.getTextColor() != null) {
+                text.setAttribute("fill", box.getTextColor());
+            }
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text, firstName, 30);
             var nameTextPath2 = document.createTextNode(splitName[splitName.length - 1]);
@@ -104,6 +113,9 @@ class LargePictureBox2 extends IBoxData {
             text2.setAttribute("x", "220");
             text2.setAttribute("y", "120");
             text2.setAttribute("font-size", "40px");
+            if(box.getTextColor() != null) {
+                text2.setAttribute("fill", box.getTextColor());
+            }
             text2.setAttribute("style", this.getFont() );
             StringUtils.fitName(text2, node.getAttr('surname'), 30);
         }
@@ -115,7 +127,9 @@ class LargePictureBox2 extends IBoxData {
         text3.appendChild(nameTextPath);
         text3.setAttribute("x", "220");
         text3.setAttribute("y", "155");
-        text3.setAttribute("font-size", "20px");
+        text3.setAttribute("font-size", "20px");if(box.getTextColor() != null) {
+            text3.setAttribute("fill", box.getTextColor());
+        }
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
 

@@ -60,6 +60,7 @@ class XSSpBox extends IBoxData {
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
             text.setAttribute("font-size", "9px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
@@ -74,35 +75,10 @@ class XSSpBox extends IBoxData {
         text3.setAttribute("x", "110");
         text3.setAttribute("y", "7");
         text3.setAttribute("font-size", "8px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
-        //StringUtils.centerElement(text3, 210, 290);
-
-        //var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        //gt.appendChild(text4);
-        //var nameTextPath = document.createTextNode("");
-        //text4.appendChild(nameTextPath);
-        //text4.setAttribute("x", "10");
-        //text4.setAttribute("y", "16");
-        //text4.setAttribute("font-size", "8px");
-        //text4.setAttribute("style", this.getFont() );
-        ////StringUtils.centerElement(text4, 210, 290);
-        //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 28);
-        //text4.textContent = 'B: '+text4.textContent;
-
-        //var text5 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        //gt.appendChild(text5);
-        //var nameTextPath = document.createTextNode("");
-        //text5.appendChild(nameTextPath);
-        //text5.setAttribute("x", "10");
-        //text5.setAttribute("y", "30");
-        //text5.setAttribute("font-size", "8px");
-        //text5.setAttribute("style", this.getFont() );
-        ////StringUtils.centerElement(text5, 210, 290);
-        //StringUtils.fitPlace(text5, node.getAttr('deathplace'), 28);
-        //text5.textContent = 'D: '+text5.textContent;
-
 
         //if(node.hasAttr('spousename')) {
         spousenode = node.getDisplaySpouse();
@@ -116,15 +92,11 @@ class XSSpBox extends IBoxData {
             text6.setAttribute("x", "10");
             text6.setAttribute("y", "17");
             text6.setAttribute("font-size", "9px");
+            text6.setAttribute("fill", box.getTextColor());
             text6.setAttribute("style", this.getFont() );
             if (spousenode.isMainPerson())
                 text6.setAttribute("font-weight", "bold");
-
             StringUtils.fitName(text6, spousenode.getAttr('name'), 19);
-
-
-            //StringUtils.centerElement(text, 210, 290);
-            //}
 
             var text7 = document.createElementNS("http://www.w3.org/2000/svg", "text");
             gt.appendChild(text7);
@@ -133,39 +105,13 @@ class XSSpBox extends IBoxData {
             text7.setAttribute("x", "110");
             text7.setAttribute("y", "16");
             text7.setAttribute("font-size", "8px");
+            text7.setAttribute("fill", box.getTextColor());
             text7.setAttribute("style", this.getFont() );
-
             StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 12);
-            //StringUtils.centerElement(text3, 210, 290);
-
-            //var text8 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            //gt.appendChild(text8);
-            //var nameTextPath = document.createTextNode("");
-            //text8.appendChild(nameTextPath);
-            //text8.setAttribute("x", "10");
-            //text8.setAttribute("y", "34");
-            //text8.setAttribute("font-size", "8px");
-            //text8.setAttribute("style", this.getFont() );
-            ////StringUtils.centerElement(text4, 210, 290);
-            //StringUtils.fitPlace(text8, spousenode.getAttr('birthplace'), 28);
-            //text8.textContent = 'B: ' + text8.textContent;
-
-            //var text9 = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            //gt.appendChild(text9);
-            //var nameTextPath = document.createTextNode("");
-            //text9.appendChild(nameTextPath);
-            //text9.setAttribute("x", "10");
-            //text9.setAttribute("y", '65');
-            //text9.setAttribute("font-size", "8px");
-            //text9.setAttribute("style", this.getFont() );
-            ////StringUtils.centerElement(text5, 210, 290);
-            //StringUtils.fitPlace(text9, spousenode.getAttr('deathplace'), 28);
-            //text9.textContent = 'D: ' + text9.textContent;
         }
 
         var text10 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text10);
-        //var date = new Date();
         var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(node.getAttr('marriagedate')));//date.toDateString()));
         text10.appendChild(nameTextPath);
         //var nameTextPath = document.createTextNode("M: "+StringUtils.standardDate(date.toDateString()));
@@ -173,9 +119,8 @@ class XSSpBox extends IBoxData {
         text10.setAttribute("x", "10");
         text10.setAttribute("y", "25");
         text10.setAttribute("font-size", "8px");
+        text10.setAttribute("fill", box.getTextColor());
         text10.setAttribute("style", this.getFont() );
-        //StringUtils.centerElement(text10, 100, 290)
-
 
         if(box.getColor()!= null){
             rect.setAttribute('fill', box.getColor());

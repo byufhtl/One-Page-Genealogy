@@ -43,8 +43,8 @@ class XSDetailBox extends IBoxData {
             text.setAttribute("x", "10");
             text.setAttribute("y", "8");
             text.setAttribute("font-size", "9px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
-//            StringUtils.centerElement(text, 0, 160);
             StringUtils.fitName(text,node.getAttr('name'),19);
 
         }
@@ -58,9 +58,9 @@ class XSDetailBox extends IBoxData {
         text3.setAttribute("x", "110");
         text3.setAttribute("y", "8");
         text3.setAttribute("font-size", "8px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 12);
-//        StringUtils.centerElement(text3, 0, 160);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         g.appendChild(text4);
@@ -69,8 +69,8 @@ class XSDetailBox extends IBoxData {
         text4.setAttribute("x", "10");
         text4.setAttribute("y", "17");
         text4.setAttribute("font-size", "8px");
+        text4.setAttribute("fill", box.getTextColor());
         text4.setAttribute("style", this.getFont() );
-//        StringUtils.centerElement(text4, 0, 190);
         StringUtils.fit2Places(text4, node.getAttr('birthplace'),node.getAttr('deathplace'), 30);
 
         var gender = 'none';

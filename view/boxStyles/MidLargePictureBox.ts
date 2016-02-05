@@ -41,6 +41,7 @@ class MidLargePictureBox extends IBoxData {
             text.setAttribute("x", "190");
             text.setAttribute("y", "60");
             text.setAttribute("font-size", "30px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
         }
 
@@ -52,6 +53,7 @@ class MidLargePictureBox extends IBoxData {
             text2.setAttribute("x", "190");
             text2.setAttribute("y", "95");
             text2.setAttribute("font-size", "40px");
+            text2.setAttribute("fill", box.getTextColor());
             text2.setAttribute("style", this.getFont() );
         }
 
@@ -62,11 +64,10 @@ class MidLargePictureBox extends IBoxData {
         text3.setAttribute("x", "190");
         text3.setAttribute("y", "135");
         text3.setAttribute("font-size", "20px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
 
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 300);
-
-
 
         var gender = 'none';
         if(node.hasAttr('gender')) {
