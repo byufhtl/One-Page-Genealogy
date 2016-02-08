@@ -80,22 +80,24 @@ class SVGManager implements IViewManager {
         this.svgRoot.appendChild(this.svgPercent);
 
         this.ruler = document.getElementById("ruler");
-        for(var i=0; i < 1000; i++) {
-            var inch = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            inch.setAttribute("x1", String(i*72));
-            inch.setAttribute('y1', "0");
-            inch.setAttribute("x2", String(i*72));
-            inch.setAttribute("y2", "100");
-            inch.setAttribute("style", "stroke:rgb(20,20,20); stroke-width:2");
-            this.ruler.appendChild(inch);
+        if(this.ruler.childNodes.length === 0) {
+            for (var i = 0; i < 1000; i++) {
+                var inch = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                inch.setAttribute("x1", String(i * 72));
+                inch.setAttribute('y1', "0");
+                inch.setAttribute("x2", String(i * 72));
+                inch.setAttribute("y2", "100");
+                inch.setAttribute("style", "stroke:rgb(20,20,20); stroke-width:2");
+                this.ruler.appendChild(inch);
 
-            var halfInch = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            halfInch.setAttribute("x1", String((i)*72+36));
-            halfInch.setAttribute('y1', "0");
-            halfInch.setAttribute("x2", String(i*72+36));
-            halfInch.setAttribute("y2", "20");
-            halfInch.setAttribute("style", "stroke:rgb(20,20,20); stroke-width:1");
-            this.ruler.appendChild(halfInch);
+                var halfInch = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                halfInch.setAttribute("x1", String((i) * 72 + 36));
+                halfInch.setAttribute('y1', "0");
+                halfInch.setAttribute("x2", String(i * 72 + 36));
+                halfInch.setAttribute("y2", "20");
+                halfInch.setAttribute("style", "stroke:rgb(20,20,20); stroke-width:1");
+                this.ruler.appendChild(halfInch);
+            }
         }
 
         this.linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
