@@ -4,6 +4,7 @@
 
 var numGenerations
 var c = null;
+var optionManager = null;
 var token;
 if (window.location.href.indexOf("fstoken") > -1) {
     var url = window.location.href;
@@ -136,6 +137,8 @@ function familySearchDownload() {
                 while (new_element.lastChild) {
                     new_element.removeChild(new_element.lastChild);
                 }
+                document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
+
                 //var pid = document.getElementById("pid-search-input").value;
                 //var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
                 //var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
@@ -147,10 +150,15 @@ function familySearchDownload() {
                 $('#fsSave').off('click');
                 $('#fsGenerationsSelect').off('click');
                 $('fsgenerationsRadio').off('click');
+
+                if(optionManager === null){
+                    optionManager = new OptionManager();
+                }
                 c = new C({
                     rootId: rootPID,
                     generations: numGenerations,
-                    dscOrAsc: direction
+                    dscOrAsc: direction,
+                    optionManager: optionManager
                 })
                 localStorage.setItem("rootPID", rootPID);
                 $('#fsModal').hide();

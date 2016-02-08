@@ -105,7 +105,7 @@ class C implements IGraphicObjectListener, IOptionListener {
 
         this.tree.setListener(this.p);
         this.source.setListener(this.tree.getSourceListener());
-        this.optionManager = new OptionManager();
+        this.optionManager = data.optionManager;
         this.optionManager.setListener(this);
 
         this.boxes = null;

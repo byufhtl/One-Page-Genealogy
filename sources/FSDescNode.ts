@@ -41,6 +41,9 @@ class FSDescNode implements INode {
                 case "gender":
                     val = this.person.$getDisplayGender();
                     break;
+                case "living":
+                    val = this.person.living;
+                    break;
                 case "lifespan":
                     val = this.person.$getDisplayLifeSpan();
                     break;

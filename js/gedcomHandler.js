@@ -2,6 +2,7 @@
  * Created by justinrasband on 8/13/15.
  */
 var c = null;
+var optionManager = null;
 var gedcom = new GEDCOM()
 var indiMap = {};
 
@@ -233,13 +234,17 @@ function useData(gedOutput){
         while (chartSVGElement.lastChild) {
             chartSVGElement.removeChild(chartSVGElement.lastChild);
         }
+        //document.getElementById('opg-show-empty').innerHTML = "Nothing Here";
 
+        if(optionManager === null){
+            optionManager = new OptionManager();
+        }
         c = new C({
             rootId: rootId,
             gedData: indiMap,
             generations: generations,
-            dscOrAsc:dscOrAsc
-
+            dscOrAsc: dscOrAsc,
+            optionManager: optionManager
         });
 
         var gedcomSelectElement = cloneRemove(document.getElementById('gedcomSelect'))
