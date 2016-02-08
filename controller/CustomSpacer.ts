@@ -37,8 +37,9 @@ class CustomSpacer implements  IStyler {
                                 console.log("Fixed!!");
                                 box.setType("JSMedDetPubBox");
                             }
-                            else
+                            else{
                                 box.setType(map['type']);
+                            }
                         }
                     }
                     if(map.hasOwnProperty('color')) {
@@ -46,9 +47,11 @@ class CustomSpacer implements  IStyler {
                     }
                     if(map.hasOwnProperty('textcolor')){
                         box.setTextColor(map['textcolor']);
+                        console.log("text color found: " + map['textcolor'] + " (Box: " + map['color'] + ")");
                     }
                     else{
                         box.setTextColor('#000000');
+                        console.log("no text color");
                     }
                 }
             }

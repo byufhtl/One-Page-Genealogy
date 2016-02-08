@@ -9,7 +9,7 @@ class ColorManager {
      * @type {string[]} The hex-encoded string colors.
      */
     private static boxColors: string[] = [
-            "#8888FF"   // 0) Purple
+            "#D9ABFF"   // 0) Purple
         ,   "#D9ABFF"   // 1) Indigo
         ,   "#ABE4FF"   // 2) Blue
         ,   "#DEFFB7"   // 3) Green
@@ -18,6 +18,7 @@ class ColorManager {
         ,   "#FFB8AF"   // 6) Red
         ,   "#FFABAB"   // 7) Pink
         ,   "#E5E5E5"   // 8) Gray
+        ,   "#ffccff"   // 9) FemalePink
     ];
 
     /**
@@ -77,10 +78,17 @@ class ColorManager {
     }
 
     /**
-     * @returns {string} a hex-encoded color value for the standard OPG purple
+     * @returns {string} a hex-encoded color value for the standard OPG gray
      */
     static gray() : string{
         return this.boxColors[8];
+    }
+
+    /**
+     * @returns {string} a hex-encoded color value for the standard OPG female pink
+     */
+    static femalePink() : string{
+        return this.boxColors[9];
     }
 
     /**

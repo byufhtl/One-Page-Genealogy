@@ -207,6 +207,13 @@ class SVGManager implements IViewManager {
         }
         this.drawLine(this.lastBoxes);
         this.drawBoxes(this.lastBoxes);
+        //document.getElementById('chart-dimensions').innerHTML =
+        //    "(" + String(document.getElementById("opg-chart").getAttribute('width')) + ", " +
+        //        String(document.getElementById("opg-chart").getAttribute("height")) + ")";
+
+        document.getElementById("chart-dimensions").innerHTML =
+            (this.svgRoot.getBBox().width/72).toFixed(1) + '" x ' +
+            (this.svgRoot.getBBox().height/72).toFixed(1) + '"';
     }
 
 
@@ -292,7 +299,9 @@ class SVGManager implements IViewManager {
         this.refresh(this.lastBoxes);
     }
     setScale(s: number, pt:Point): void {
-        if((this.scale > .05 || s > 1) && (this.scale < 20 || s < 1)) {
+        if((!($("#opg-modal").data('bs.modal') || {}).isShown) &&
+            (this.scale > .05 || s > 1) && (this.scale < 20 || s < 1)) {
+
             var viewBefore:Point = this.worldToView(pt);
             this.scale *= s;
             var worldAfter:Point = this.viewToWorld(viewBefore);
@@ -386,7 +395,6 @@ class SVGManager implements IViewManager {
             if(counter >= total) {
                 $("body").css("cursor", "default");
                 var s = new XMLSerializer();
-
                 self.elementManager.setIgnoreBound(true);
                 self.lineManager.setIgnoreBound(true);
                 var tx = self.translationX;

@@ -69,6 +69,7 @@ class OptionManager implements IOptionManager {
 
             $('#box-color-picker').spectrum({
                 color: box.getColor(),
+                clickoutFiresChange: true,
                 change: function(color){
                     box.setColor(color.toHexString());
                     self.renderTempBox(box);
@@ -77,9 +78,11 @@ class OptionManager implements IOptionManager {
 
             $('#box-text-color-picker').spectrum({
                 color: box.getTextColor(),
+                clickoutFiresChange: true,
                 change: function(color){
                     box.setTextColor(color.toHexString());
                     self.renderTempBox(box);
+                    console.log("Color Changed!");
                 }
             });
 
