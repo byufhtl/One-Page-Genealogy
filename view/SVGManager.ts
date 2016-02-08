@@ -21,6 +21,7 @@ class SVGManager implements IViewManager {
     private renders:{[s:string]:IBoxRender;};
     private boundingRect;
     private graphicObject: SVGGraphicObject;
+    private ruler;
 
     private height: number;
     private width: number;
@@ -78,6 +79,24 @@ class SVGManager implements IViewManager {
         this.svgPercent.setAttribute('font-size', '50px');
         this.svgRoot.appendChild(this.svgPercent);
 
+        this.ruler = document.getElementById("ruler");
+        for(var i=0; i < 1000; i++) {
+            var inch = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            inch.setAttribute("x1", String(i*72));
+            inch.setAttribute('y1', "0");
+            inch.setAttribute("x2", String(i*72));
+            inch.setAttribute("y2", "100");
+            inch.setAttribute("style", "stroke:rgb(20,20,20); stroke-width:2");
+            this.ruler.appendChild(inch);
+
+            var halfInch = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            halfInch.setAttribute("x1", String((i)*72+36));
+            halfInch.setAttribute('y1', "0");
+            halfInch.setAttribute("x2", String(i*72+36));
+            halfInch.setAttribute("y2", "20");
+            halfInch.setAttribute("style", "stroke:rgb(20,20,20); stroke-width:1");
+            this.ruler.appendChild(halfInch);
+        }
 
         this.linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
         this.svgRoot.appendChild(this.linePath);
@@ -211,11 +230,28 @@ class SVGManager implements IViewManager {
         //    "(" + String(document.getElementById("opg-chart").getAttribute('width')) + ", " +
         //        String(document.getElementById("opg-chart").getAttribute("height")) + ")";
 
+        this.updateRuler();
         document.getElementById("chart-dimensions").innerHTML =
             (this.svgRoot.getBBox().width/72).toFixed(1) + '" x ' +
             (this.svgRoot.getBBox().height/72).toFixed(1) + '"';
     }
 
+    private updateRuler(){
+        //console.log(this.ruler.childNodes);
+        for(var index in this.ruler.childNodes){
+            if(this.ruler.childNodes.hasOwnProperty(index)){
+                var child = this.ruler.childNodes[index];
+                var x = index*36*this.scale;
+                //var x = child.getAttribute('x1');
+                //console.log("x: " + x);
+                //console.log("scale: " + this.scale);
+                //console.log('index: ' + index);
+                //console.log("x*scale: " + x*this.scale);
+                child.setAttribute('x1', x);
+                child.setAttribute('x2', x);
+            }
+        }
+    }
 
     private drawBoxes(boxes: BoxMap): void {
         var self = this;

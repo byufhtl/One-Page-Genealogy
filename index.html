@@ -172,14 +172,28 @@
         }
         #opg-chart {
             width: 100%;
-            height: 93%;
+            height: 88%;
             margin: 0;
         }
+
         .navbar {
             padding-bottom: 0px;
             margin-bottom: 0px;
             border-radius: 0px;
         }
+
+        #ruler {
+            width: 90%;
+            height: 5%;
+            background-color: #d2a779;
+        }
+
+        #dimensions {
+            width: 10%;
+            height:5%;
+            background-color: #d2a779;
+        }
+
         .outer-content {
             width: 100%;
             height: calc(100% - 60px);
@@ -262,10 +276,13 @@
 </nav>
 
 <div class="outer-content">
+    <svg id="ruler" style="float:left;"></svg>
+    <div id="dimensions" style="float:right;">
+        <p style="color:black; font-size:25px; margin: 5px" id="chart-dimensions"></p>
+    </div>
     <svg id="opg-chart"></svg>
 
     <div class="footer">
-        <p style="float:right; font-size:25px; margin: 5px" id="chart-dimensions"></p>
         <a style="float:left" href='https://fhtl.byu.edu'>BYU Family History Technology Lab</a><br>
         <a style="float:left" href='//cs.byu.edu'><small>Copyright © Brigham Young University, Computer Science Department</small></a>
     </div>
