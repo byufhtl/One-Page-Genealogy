@@ -2,7 +2,7 @@
  * Created by Jared on 1/11/16.
  */
 
-var numGenerations
+var numGenerations;
 var c = null;
 var optionManager = null;
 var token;
@@ -131,6 +131,7 @@ function familySearchDownload() {
         FamilySearch.getAccessToken().then(function (response) {
 
             FamilySearch.getCurrentUser().then(function (response) {
+                localStorage.setItem("chartType", "FamilySearch");
                 var old_element = document.getElementById("opg-chart")
                 var new_element = old_element.cloneNode(true);
                 old_element.parentNode.replaceChild(new_element, old_element)

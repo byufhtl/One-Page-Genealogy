@@ -196,7 +196,6 @@ class P implements IControllerListener, ITreeListener {
                     document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
                     refresh = true;
                 }
-
             }
         }
 
@@ -215,7 +214,8 @@ class P implements IControllerListener, ITreeListener {
                     //Must traverse backwards because we're deleting as we go.
                     for (var i=branchIds.length-1; i >=0; i--) {
                         var index = branchIds[i];
-                        if(index.indexOf(":") !== 8) {
+                        if(localStorage.getItem("chartType") === "FamilySearch" && index.indexOf(":") !== 8 ||
+                            localStorage.getItem("chartType") === "Gedcom" && index.indexOf("@") !== 0) {
                             branchIds.splice(i,1);
                         }
                     }
@@ -235,13 +235,14 @@ class P implements IControllerListener, ITreeListener {
                 if (treeMap[key].getBranchIds().length > 0) {
                     for (var i in treeMap[key].getBranchIds()) {
                         var index = treeMap[key].getBranchIds()[i];
-                        if (index !== null && index.indexOf(":") === 8) {
+                        if (index !== null && (index.indexOf(":") === 8 || index.indexOf("@") === 0)) {
                             childMap[index] = key;
                         }
                     }
                 }
             }
         }
+        //console.log(childMap);
 
         var countID = 0;
         //Use Child Map for each person to determine empty boxes

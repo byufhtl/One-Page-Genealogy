@@ -3,8 +3,9 @@
  */
 var c = null;
 var optionManager = null;
-var gedcom = new GEDCOM()
+var gedcom = new GEDCOM();
 var indiMap = {};
+var numGenerations;
 
 
 $(document).ready(function() {
@@ -223,12 +224,15 @@ function useData(gedOutput){
     $('#gedcomModal').show()
 
     $('#gedcomSave').click(function(){
-
+        localStorage.setItem("chartType", "Gedcom");
         $('#gedcomModal').hide();
 
         var dscOrAsc = $('input[name=ascOrDsc]:checked').val();
         var rootId = $("option:selected", ('#gedcomSelect'))[0].value;
         var generations = $("option:selected", ('#generationsSelect'))[0].value;
+
+        localStorage.setItem("rootID", rootId);
+        numGenerations = generations;
 
         var chartSVGElement = cloneRemove(document.getElementById("opg-chart"))
         while (chartSVGElement.lastChild) {
