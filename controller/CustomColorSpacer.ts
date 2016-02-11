@@ -2,7 +2,7 @@
 /**
  * Created by curtis on 3/9/15.
  */
-class CustomSpacer implements  IStyler {
+class CustomColorSpacer implements  IStyler {
 
     private customMap: {[s:string]: {}};
 
@@ -15,6 +15,8 @@ class CustomSpacer implements  IStyler {
                 var box: IBox = boxes.getId(key);
 
                 if(box) {
+                    console.log("Current type:  " + box.getType());
+                    console.log("Current color: " + box.getColor());
                     var map = this.customMap[key];
 
                     if(map.hasOwnProperty('x')) {
@@ -23,20 +25,13 @@ class CustomSpacer implements  IStyler {
                     if(map.hasOwnProperty('y')) {
                         box.setY(map['y']);
                     }
-                    if(map.hasOwnProperty('type')) {
-                        if(box.getType() != 'nullBox') {
-                            //console.log(box.getNode().getSpouses().length + " " + map['type']);
-                            if (box.getNode().getSpouses().length == 0 && map['type'] == "JSLrgDetRotSpPubBox") {
-                                console.log("Fixed!!");
-                                box.setType("JSMedDetPubBox");
-                            }
-                            else{
-                                box.setType(map['type']);
-                            }
-                        }
+                    if(map.hasOwnProperty('color')) {
+                        box.setColor(map['color']);
+                        console.log("Setting box color to: " + map['color']);
                     }
-                    else{
-                        box.setType(box.getType());
+                    if(map.hasOwnProperty('textcolor')){
+                        box.setTextColor(map['textcolor']);
+                        console.log("Setting text color to: " + map['textcolor']);
                     }
                 }
             }

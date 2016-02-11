@@ -5,6 +5,7 @@
 ///<reference path="YSpacer.ts"/>
 ///<reference path="../view/IViewManager.ts"/>
 ///<reference path="CustomSpacer.ts"/>
+///<reference path="CustomColorSpacer.ts"/>
 ///<reference path="C.ts"/>
 ///<reference path="LeafNodeSpacer.ts"/>
 ///<reference path="CollapseSpacer.ts"/>
@@ -41,6 +42,7 @@ class P implements IControllerListener, ITreeListener {
 
     private collapseSpacer:CollapseSpacer;
     private customSpacer:CustomSpacer;
+    private customColorSpacer:CustomColorSpacer;
     private translateSpacer:TranslateSpacer;
     private tree:ITree;
 
@@ -51,6 +53,7 @@ class P implements IControllerListener, ITreeListener {
     constructor(private c:C) {
 
         this.customSpacer = new CustomSpacer();
+        this.customColorSpacer = new CustomColorSpacer();
         this.collapseSpacer = new CollapseSpacer();
         this.translateSpacer = new TranslateSpacer();
 
@@ -58,6 +61,7 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.push(this.collapseSpacer);
         if (c.dscOrAsc == "descendancy") {
             this.stylingPipeline.push(new ColorSpacer());
+            this.stylingPipeline.push(new CustomColorSpacer());
         } else {
             this.stylingPipeline.push(new AscColorSpacer());
         }
@@ -68,6 +72,7 @@ class P implements IControllerListener, ITreeListener {
             this.stylingPipeline.push(new VertDetChartSpacer());
         }
         this.stylingPipeline.push(this.customSpacer);
+        this.stylingPipeline.push(this.customColorSpacer);
         this.stylingPipeline.push(new YSpacer());
         this.transformationPipline = [];
         this.transformationPipline.push(this.translateSpacer);
@@ -77,12 +82,17 @@ class P implements IControllerListener, ITreeListener {
         var refresh = false;
         if (param.type) {
             if (param.type === 'changeIndividual') {
-                this.customSpacer.addCustomStyle(param.id, {
-                    type: param.value
-                    ,color: param.color
-                    ,textcolor: param.textcolor
-
-                });
+                if(param.hasOwnProperty('value')){
+                    this.customSpacer.addCustomStyle(param.id,{
+                        type: param.value
+                    });
+                }
+                if(param.hasOwnProperty('color')){
+                    this.customColorSpacer.addCustomStyle(param.id,{
+                        color: param.color,
+                        textcolor: param.textcolor
+                    })
+                }
                 refresh = true;
             }
             else if (param.type === 'changeGeneration') {
@@ -354,11 +364,17 @@ class P implements IControllerListener, ITreeListener {
 
     private applyToGeneration(gen:number, node:INode, param:any) {
         if (gen === 0 && node.getSpouses().length < 2) {
-            this.customSpacer.addCustomStyle(node.getId(), {
-                type: param.value
-                ,color: param.color
-                ,textcolor: param.textcolor
-            });
+            if(param.hasOwnProperty('value')){
+                this.customSpacer.addCustomStyle(node.getId(),{
+                    type: param.value
+                });
+            }
+            if(param.hasOwnProperty('color')){
+                this.customColorSpacer.addCustomStyle(node.getId(),{
+                    color: param.color,
+                    textcolor: param.textcolor
+                })
+            }
         }
         var branchIds:string[] = node.getBranchIds();
         for (var i = 0; i < branchIds.length; i++) {
@@ -415,6 +431,7 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.push(this.collapseSpacer);
         this.stylingPipeline.push(new SpacingSpacer());
         this.stylingPipeline.push(new DetailChartSpacer());
+        this.customSpacer = new CustomSpacer();
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
@@ -424,6 +441,7 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.push(this.collapseSpacer);
         this.stylingPipeline.push(new SpacingSpacer());
         this.stylingPipeline.push(new VertDetChartSpacer());
+        this.customSpacer = new CustomSpacer();
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
@@ -434,6 +452,7 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.push(this.collapseSpacer);
         this.stylingPipeline.push(new SpacingSpacer());
         this.stylingPipeline.push(new EightElevenSpacer());
+        this.customSpacer = new CustomSpacer();
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
@@ -443,6 +462,7 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.push(this.collapseSpacer);
         this.stylingPipeline.push(new SpacingSpacer());
         this.stylingPipeline.push(new EightElevenDetailSpacer());
+        this.customSpacer = new CustomSpacer();
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
@@ -452,6 +472,7 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.push(this.collapseSpacer);
         this.stylingPipeline.push(new SpacingSpacer());
         this.stylingPipeline.push(new JSPublicSpacer());
+        this.customSpacer = new CustomSpacer();
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(new YSpacer());
     }
@@ -567,7 +588,5 @@ class P implements IControllerListener, ITreeListener {
         for (i = 2; i < temp.length; i++) {
             this.stylingPipeline.push(temp[i]);
         }
-
     }
-
 }

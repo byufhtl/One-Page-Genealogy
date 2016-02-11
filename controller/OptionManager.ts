@@ -12,8 +12,15 @@ class OptionManager implements IOptionManager {
     private static DISPLAY_PADDING:number = 5;
 
     private listener: IOptionListener;
+
+    private customSize:boolean;
+    private customColor:boolean;
+
     constructor() {
         var self = this;
+
+        this.customSize = false;
+        this.customColor = false;
 
         $('#opg-rotate-cc').click(function(){
             self.listener.handleOption('rotate', {value: -Math.PI/2});
@@ -25,34 +32,34 @@ class OptionManager implements IOptionManager {
             self.listener.handleOption('request-download', null);
         });
         $('#opg-detail-style').click(function(){
-            self.listener.handleOption('detail-style', null);
+            self.handleStyleChange('detail-style');
         });
         $('#opg-vertical-style').click(function(){
-            self.listener.handleOption('vertical-style', null);
+            self.handleStyleChange('vertical-style');
         });
         $('#opg-eight-eleven-style').click(function(){
-            self.listener.handleOption('eight-eleven-style', null);
+            self.handleStyleChange('eight-eleven-style');
         });
         $('#opg-eight-eleven-detail-style').click(function(){
-            self.listener.handleOption('eight-eleven-detail-style', null);
+            self.handleStyleChange('eight-eleven-detail-style');
         });
         $('#opg-js-public-style').click(function(){
-            self.listener.handleOption('js-public-style', null);
+            self.handleStyleChange('js-public-style');
         });
         $('#opg-to-greyscale').click(function(){
-            self.listener.handleOption('to-greyscale', null);
+            self.handleStyleChange('to-greyscale',false);
         });
         $('#opg-to-branch-color').click(function(){
-            self.listener.handleOption('to-branch-color', null);
+            self.handleStyleChange('to-branch-color',false);
         });
         $('#opg-to-generation-color').click(function(){
-            self.listener.handleOption('to-generation-color', null);
+            self.handleStyleChange('to-generation-color',false);
         });
         $('#opg-to-generation-color-vibrant').click(function(){
-            self.listener.handleOption('to-generation-color-vibrant', null);
+            self.handleStyleChange('to-generation-color-color',false);
         });
         $('#opg-to-gender-color').click(function(){
-            self.listener.handleOption('to-gender-color', null);
+            self.handleStyleChange('to-gender-color',false);
         });
         $('#opg-show-empty').click(function(){
             self.listener.handleOption('show-empty', null);
@@ -87,12 +94,14 @@ class OptionManager implements IOptionManager {
             });
 
             var opgModalSelect = $('#opg-modal-select');
-            var opgModalSave = $('#opg-modal-save');
+            var opgModalSizeSave = $('#opg-modal-save-size');
+            var opgModalColorSave = $('#opg-modal-save-color');
             var opgModalCollapse = $('#opg-modal-collapse');
             var opgModalFSview = $('#FS-view');
             var opgModalVPview = $('#VP-view');
             opgModalSelect.off('click');
-            opgModalSave.off('click');
+            opgModalSizeSave.off('click');
+            opgModalColorSave.off('click');
             opgModalCollapse.off('click');
             opgModalFSview.off('click');
             opgModalVPview.off('click');
@@ -113,16 +122,18 @@ class OptionManager implements IOptionManager {
                 box.setType(this.value);
                 self.renderTempBox(box);
             });
-            opgModalSave.click(function() {
+            opgModalSizeSave.click(function() {
                 $('#opg-modal').modal('hide');
-                //console.log("ran save");
                 var changeWho = $('input[name=opg-change-who]:checked').val();
-                self.listener.handleOption(changeWho, {type: box.getType(), id: box.getNode().getId(), color: box.getColor(), textcolor: box.getTextColor()});
-                //var changeWhoColor = $('input[name=opg-change-who-color]:checked').val();
-                //self.listener.handleOption(changeWhoColor, {type: "green", id: box.getNode().getId()})
-
+                self.listener.handleOption(changeWho, {type: box.getType(), id: box.getNode().getId()});
+                this.customSize = true;
             });
-
+            opgModalColorSave.click(function() {
+                $('#opg-modal').modal('hide');
+                var changeWho = $('input[name=opg-change-who]:checked').val();
+                self.listener.handleOption(changeWho, {id: box.getNode().getId(), color: box.getColor(), textcolor: box.getTextColor()});
+                this.customColor = true;
+            });
             if(box.isCollapsed()) {
                 opgModalCollapse.html('Expand');
                 opgModalCollapse.click(function() {
@@ -161,7 +172,37 @@ class OptionManager implements IOptionManager {
 
 
     }
+    private handleStyleChange(changeType:string, sizeChange:boolean = true){
+        if((this.customColor && !sizeChange) || (this.customSize && sizeChange)){
+            console.log("Style Change - Override Protocol");
+            this.displayWarning(changeType,sizeChange);
+        }
+        else {
+            console.log("Style Change - No Override");
+            this.listener.handleOption(changeType, null);
+        }
+    }
+    private displayWarning(type : string, sizeBased:boolean){
+        console.log('Should show warning modal...');
+        var self = this;
+        var warningModal = $('#warningModal');
+        warningModal.modal('show');
+        $('#warning-cancel').click(function(){
+            warningModal.modal('hide');
+        })
+        $('#warning-continue').click(function(){
+            self.listener.handleOption(type, null);
+            if(sizeBased){
+                this.customSize = false;
+            }
+            else{
+                this.customColor = false;
+            }
+            warningModal.modal('hide');
+        })
+    }
     setListener(listener: IOptionListener) {
         this.listener = listener;
     }
+
 }

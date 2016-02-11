@@ -47,6 +47,7 @@
     <script src="controller/LeafNodeSpacer.js" type="text/javascript"></script>
     <script src="controller/YSpacer.js" type="text/javascript"></script>
     <script src="controller/CustomSpacer.js" type="text/javascript"></script>
+    <script src="controller/CustomColorSpacer.js" type="text/javascript"></script>
     <script src="controller/CollapseSpacer.js" type="text/javascript"></script>
     <script src="controller/TranslateSpacer.js" type="text/javascript"></script>
     <script src="controller/RotateSpacer.js" type="text/javascript"></script>
@@ -170,13 +171,35 @@
             height: 100%;
             margin: 0;
         }
+
+        .nav-tabs > li > a{
+            background-color: #dddddd;
+            color: #2c3e50;
+        }
+
+        .nav-tabs > li > a:focus,
+        .nav-tabs > li > a:hover{
+            border-width: 3px;
+            border-color: #2c3e50;
+        }
+
         .nav-tabs > li.active > a,
         .nav-tabs > li.active > a:focus,
         .nav-tabs > li.active > a:hover{
             background-color: #2c3e50;
             color: #ffffff;
+            border-width: 3px;
+            border-color: #2c3e50;
         }
 
+        .tab-pane{
+            border: 3px;
+            border-color: #2c3e50;
+        }
+
+        .padded{
+            padding: 2px;
+        }
         #opg-chart {
             width: 100%;
             height: 93%;
@@ -312,7 +335,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="row">
+                    <div class="row" id="tab-content-box">
                         <div class="col-sm-12">
                             <svg id="opg-modal-svg">
 
@@ -322,10 +345,10 @@
                             <li class="active"><a data-toggle="tab" href="div[name='size_and_orientation_pane'">Size/Orientation</a> </li>
                             <li ><a data-toggle="tab" href="div[name='color_pane'">Colors</a> </li>
                         </ul>
-                        <div class="tab-content">
+                        <div class="tab-content" style="border-color: #2c3e50; border-width: 3px">
                             <div name="size_and_orientation_pane" class="tab-pane fade in active">
                                 <div class="col-sm-12">
-                                    <select id="opg-modal-select">
+                                    <select id="opg-modal-select" class="padded">
                                         <option value="largePictureBox">Large Picture Vertical Box</option>
                                         <option value="largePictureBox2">Large Picture Box</option>
                                         <option value="largePicRotBox">Large Picture Rotated Box</option>
@@ -360,26 +383,31 @@
                                         <option value="JSSmallerDetSpPubBox">JS Smaller Rotated Spouse Box</option>
                                         <option value="JSSmallestDetPubBox">JS Smallest Rotated Box</option>
                                         <option value="JSSmallestDetSpPubBox">JS Smallest Rotated Spouse Box</option>
-
-
                                     </select>
+                                </div>
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-primary" id="opg-modal-save-size">Save Changes</button>
                                 </div>
                             </div>
 
                             <div name="color_pane" class="tab-pane fade">
-                                <div class="col-sm-12">
+                                <div class="col-sm-12 padded">
                                     <span>Box Color:</span>
                                     <input type="text" id="box-color-picker"/>
                                 </div>
-                                <div class="col-sm-12">
+                                <div class="col-sm-12 padded">
                                     <span>Text Color:</span>
                                     <input type="text" id="box-text-color-picker"/>
+                                </div>
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-primary" id="opg-modal-save-color">Save Changes</button>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-sm-12">
-                            <p>Apply Change To: </p>
+                            <br/>
+                            <span>Apply Change To: </span>
                             <form role="form">
                                 <div class="radio">
                                     <label><input type="radio" name="opg-change-who" value='changeIndividual' checked>Individual</label>
@@ -393,19 +421,13 @@
                             </form>
                         </div>
 
-                        <div class="col-sm-12">
-                            <button type="button" class="btn btn-primary" id="opg-modal-collapse">
-                                Collapse
-                            </button>
-                        </div>
-
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" style="float: left;" id="FS-view">View on FamilySearch</button>
-                <button type="button" class="btn btn-primary" style="float: right;" id="opg-modal-save">Save changes</button>
                 <button type="button" class="btn btn-primary" style="float: left;" id="VP-view">View on Virtual Pedigree</button>
+                <button type="button" class="btn btn-primary" style="..." id="opg-modal-collapse">Collapse</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -499,6 +521,23 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
+<div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="warningModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Are you sure?</h4>
+            </div>
+            <div class="modal-body">
+                <p>Performing this action will override custom styles you may have added.</p>
+                <p>Is this okay?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" id="warning-cancel">Cancel</button>
+                <button type="button" class="btn btn-primary" id="warning-continue">Continue</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
 </html>
