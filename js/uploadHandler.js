@@ -3,12 +3,12 @@
  */
 
 $(document).ready(function() {
-    $("#svgFile").change(inputChange)
+    $("#svgFile").change(inputChanged)
 });
 
 var optionManager = null;
 
-function inputChange(data) {
+function inputChanged(data) {
     var input = data.target.files[0];
     var reader = new FileReader();
 

@@ -139,6 +139,7 @@ function familySearchDownload() {
                     new_element.removeChild(new_element.lastChild);
                 }
                 document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
+                $('#ruler-height').val("");
 
                 //var pid = document.getElementById("pid-search-input").value;
                 //var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;

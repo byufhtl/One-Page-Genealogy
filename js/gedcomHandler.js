@@ -13,14 +13,12 @@ $(document).ready(function() {
 });
 
 function inputChange(data) {
-
     //console.log(data.target.files[0])
     var gedInput = data.target.files[0];
     var reader = new FileReader();
     var gedString = "";
 
     function readFile(e){
-
         gedString = reader.result
         if (gedString.charCodeAt(0) == 65279) gedString = gedString.substring(1);
         var output = gedcom.parse(gedString);
@@ -28,7 +26,7 @@ function inputChange(data) {
 
     }
 
-    reader.onload = readFile
+    reader.onload = readFile;
     reader.readAsText(gedInput);
 };
 
@@ -238,7 +236,9 @@ function useData(gedOutput){
         while (chartSVGElement.lastChild) {
             chartSVGElement.removeChild(chartSVGElement.lastChild);
         }
-        //document.getElementById('opg-show-empty').innerHTML = "Nothing Here";
+
+        document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
+        $('#ruler-height').val("");
 
         if(optionManager === null){
             optionManager = new OptionManager();
