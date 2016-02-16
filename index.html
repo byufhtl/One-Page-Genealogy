@@ -173,7 +173,7 @@
         }
         #opg-chart {
             width: 100%;
-            height: 89%;
+            height: 94%;
             margin: 0;
         }
 
@@ -184,7 +184,7 @@
         }
 
         #ruler {
-            width: 87%;
+            width: 100%;
             height: 5%;
             background-color: #d2a779;
         }
@@ -253,6 +253,7 @@
                 <li><a id="opg-download" title="Download PDF" href="#"><i class="fa fa-download"></i></a></li>
                 <li><a id="opg-save" title="Save" href="#"><i class="fa fa-floppy-o"></i></a></li>
                 <li><a id="opg-open" title="Open" href="#"><i class="fa fa-folder-open" onclick="$('#svgFile').click();"></i></a></li>
+                <li><a id="opg-ruler" title="Show Ruler" href="#"><img style="width:16px;height:16px;"src="images/ruler.png"></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Styles <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -281,10 +282,7 @@
 </nav>
 
 <div class="outer-content">
-    <svg id="ruler" style="float:left;"></svg>
-    <div id="dimensions" style="float:right;">
-        <p style="color:black; font-size:25px; text-align: center;" id="chart-dimensions"></p>
-    </div>
+    <svg id="ruler" style="display:none"></svg>
 
     <svg id="opg-chart"></svg>
 
@@ -499,6 +497,35 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="fsSave"></button>
 
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div class="modal fade" id="rulerModal" tabindex="-1" role="dialog" aria-labelledby="rulerModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Ruler Options</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Please input print dimensions (inches)</h4>
+                <p>Note: The ratio is fixed, so changing one value will automatically change the other.</p>
+                <a id="ruler-ratio" style="display:none"></a>
+                <a id="ruler-original-height" style="display:none"></a>
+                <div class="input-group input-group-sm" style="display:inline-block">
+                    <input type="text" class="form-control" onChange="handleHeight(this.value)" id="ruler-height" size="7">
+                </div>
+                <p style="display:inline-block;vertical-align: 10px" >&times;</p>
+                <div class="input-group input-group-sm" style="display:inline-block">
+                    <input type="text" class="form-control" onChange="handleWidth(this.value)" id="ruler-width" size="7">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="ruler-save">Save</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

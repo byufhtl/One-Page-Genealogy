@@ -27,9 +27,12 @@ class OptionManager implements IOptionManager {
         $('#opg-save').click(function() {
             self.listener.handleOption('save', null);
         });
-        //$('#opg-open').click(function() {
-        //    self.listener.handleOption('open', null);
-        //});
+        $('#opg-ruler').click(function() {
+            self.listener.handleOption('ruler', null);
+        });
+        $('#ruler-save').click(function() {
+            self.listener.handleOption('ruler-save', null);
+        });
         $('#opg-detail-style').click(function(){
             self.listener.handleOption('detail-style', null);
         });
@@ -74,7 +77,7 @@ class OptionManager implements IOptionManager {
             $('#opg-modal').modal('show');
             setTimeout(function(){
                 self.renderTempBox(box);
-            },400);
+            },0);
 
             $('#box-color-picker').spectrum({
                 color: box.getColor(),

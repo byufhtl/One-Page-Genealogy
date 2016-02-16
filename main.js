@@ -168,3 +168,13 @@ function familySearchDownload() {
     }
 }
 
+function handleHeight(height){
+    var ratio = $('#ruler-ratio').val();
+    $('#ruler-width').val((height*ratio).toFixed(1));
+}
+
+function handleWidth(width){
+    var ratio = $('#ruler-ratio').val();
+    $('#ruler-height').val((width/ratio).toFixed(1));
+}
+

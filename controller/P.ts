@@ -394,7 +394,6 @@ class P implements IControllerListener, ITreeListener {
                 var node:INode = command.getValue();
 
                 if (!this.firstBoxMap) {
-                    console.log("fsdgdfg");
                     this.firstBoxMap = new BoxMap(node.getId());
                     this.secondBoxMap = new BoxMap(node.getId());
                 }
