@@ -82,6 +82,12 @@ class C implements IGraphicObjectListener, IOptionListener {
             //this.source = new GedcomDownloader("@I12154@", 20, gedNodes);//PROFESSOR BARRETT is @I12154@ do @175@ for an ascendant
             this.source = new GedcomDownloader(data.rootId, data.generations, gedNodes, data.dscOrAsc);
         }
+        else if (data.hasOwnProperty("file")) {
+            this.boxes = data.boxes;
+            this.source = undefined;
+            this.optionManager = data.optionManager;
+            var skipSource = true;
+        }
         else {
             //console.log("Making non-gedcom C");
             rootId = data.rootId;
@@ -104,7 +110,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.scaleFactor = 1;
 
         this.tree.setListener(this.p);
-        this.source.setListener(this.tree.getSourceListener());
+
         this.optionManager = data.optionManager;
         this.optionManager.setListener(this);
 
@@ -112,7 +118,25 @@ class C implements IGraphicObjectListener, IOptionListener {
 
         var self = this;
 
-        self.source.start();
+        if(!skipSource) {
+            this.source.setListener(this.tree.getSourceListener());
+            self.source.start();
+        }else{
+            this.boxes =  new BoxMap(data.boxes.rootId);
+            console.log(data.boxes);
+            var self = this;
+            this.boxes.deserializeMap(data.boxes.map).then(function() {
+                self.p.setMaps(self.boxes);
+                var map = self.boxes.getMap();
+                for(var box in map){
+                    if(map.hasOwnProperty(box)){
+                        self.tree.getSourceListener().gotNode(map[box].getNode());
+                    }
+                }
+                //self.p.handleUpdate(self.tree, []);
+                self.refresh(self.boxes);
+            });
+        }
     }
 
     getBestDescendants(attemptGed, key) {
@@ -163,7 +187,7 @@ class C implements IGraphicObjectListener, IOptionListener {
 
     refresh(boxes:BoxMap):void {
         this.boxes = boxes;
-
+        console.log(this.boxes);
         if (!this.anchorId) {
             this.anchorId = this.boxes.getRoot();
         }
@@ -225,6 +249,8 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'rotate') {
             this.viewManager.rotate(value.value);
         }
+        // DON"T GET RID OF THIS COMMENTED CODE!
+
         // else if(key === 'request-download') {
         //     this.viewManager.getSVGString().then(function(s){
         //         /*var form = document.createElement("form");
@@ -268,6 +294,15 @@ class C implements IGraphicObjectListener, IOptionListener {
                 })).appendTo('body').submit();
             });
         }
+        else if (key === 'save'){
+             var boxes = JSON.stringify(this.boxes);
+             var fileName = "opg_chart.json";
+             var url = "data:text+json;utf8," + boxes;
+             var link:any = document.createElement("a");
+             link.download = fileName;
+             link.href = url;
+             link.click();
+        }
         else if (key === 'detail-style') {
             this.p.handle({type: key});
         }
@@ -304,6 +339,9 @@ class C implements IGraphicObjectListener, IOptionListener {
             this.p.handle({type: key});
         }
         else if (key === 'show-empty'){
+            this.p.handle({type: key});
+        }
+        else if (key === 'show-duplicates'){
             this.p.handle({type: key});
         }
         else if (key) {

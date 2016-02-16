@@ -244,11 +244,6 @@ class SVGManager implements IViewManager {
             if(this.ruler.childNodes.hasOwnProperty(index)){
                 var child = this.ruler.childNodes[index];
                 var x = index*36*this.scale;
-                //var x = child.getAttribute('x1');
-                //console.log("x: " + x);
-                //console.log("scale: " + this.scale);
-                //console.log('index: ' + index);
-                //console.log("x*scale: " + x*this.scale);
                 child.setAttribute('x1', x);
                 child.setAttribute('x2', x);
             }

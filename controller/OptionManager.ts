@@ -24,6 +24,12 @@ class OptionManager implements IOptionManager {
         $('#opg-download').click(function(){
             self.listener.handleOption('request-download', null);
         });
+        $('#opg-save').click(function() {
+            self.listener.handleOption('save', null);
+        });
+        //$('#opg-open').click(function() {
+        //    self.listener.handleOption('open', null);
+        //});
         $('#opg-detail-style').click(function(){
             self.listener.handleOption('detail-style', null);
         });
@@ -56,6 +62,9 @@ class OptionManager implements IOptionManager {
         });
         $('#opg-show-empty').click(function(){
             self.listener.handleOption('show-empty', null);
+        });
+        $('#opg-show-duplicates').click(function(){
+            self.listener.handleOption('show-duplicates', null);
         });
     }
     handleOptionSetting(type:String, data:any): void {

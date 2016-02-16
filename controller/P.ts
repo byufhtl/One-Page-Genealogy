@@ -73,6 +73,12 @@ class P implements IControllerListener, ITreeListener {
         this.transformationPipline.push(this.translateSpacer);
     }
 
+    setMaps(boxMap: BoxMap){
+        //This function should only be used when loading a chart from file
+        this.firstBoxMap = boxMap;
+        this.secondBoxMap = boxMap;
+    }
+
     handle(param:any):any {
         var refresh = false;
         if (param.type) {
@@ -85,6 +91,7 @@ class P implements IControllerListener, ITreeListener {
             }
             else if (param.type === 'changeGeneration') {
                 var root:INode = this.tree.getRoot();
+                console.log(root);
                 var gen = this.getGeneration(root, param.id);
                 console.log("Gen: " + gen);
                 this.applyToGeneration(gen, root, param);
@@ -185,7 +192,8 @@ class P implements IControllerListener, ITreeListener {
             else if (param.type === 'to-gender-color') {
                 this.changeToGenderColor();
                 refresh = true;
-            } else if (param.type === 'show-empty') {
+            }
+            else if (param.type === 'show-empty') {
                 var showOption = document.getElementById('opg-show-empty').innerHTML;
                 if (showOption === "Show Empty Boxes") {
                     this.showEmptyBoxes();
@@ -196,6 +204,9 @@ class P implements IControllerListener, ITreeListener {
                     document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
                     refresh = true;
                 }
+            }
+            else if (param.type === 'show-duplicates') {
+                console.log('showing duplicates');
             }
         }
 
@@ -300,6 +311,10 @@ class P implements IControllerListener, ITreeListener {
 
         var queue = [];
 
+        if(this.secondBoxMap === undefined){
+            this.secondBoxMap = this.firstBoxMap.copy();
+        }
+
         queue.push(this.secondBoxMap.getRoot());
         while (queue.length > 0) {
             var nextId:string = queue.shift();
@@ -379,6 +394,7 @@ class P implements IControllerListener, ITreeListener {
                 var node:INode = command.getValue();
 
                 if (!this.firstBoxMap) {
+                    console.log("fsdgdfg");
                     this.firstBoxMap = new BoxMap(node.getId());
                     this.secondBoxMap = new BoxMap(node.getId());
                 }

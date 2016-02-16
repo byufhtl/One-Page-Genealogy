@@ -12,7 +12,7 @@
     <script src="js/familysearch-javascript-sdk.min.js" type="text/javascript"></script>
     <script src="js/spectrum.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/spectrum.css"/>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.0/bluebird.min.js"></script>
 
     <script src="sources/FakeNode.js" type="text/javascript"></script>
     <script src="sources/FakeSource.js" type="text/javascript"></script>
@@ -161,6 +161,7 @@
     <script src = "js/jsonReader.js"></script>
     <script src = "js/ged.js"></script>
     <script src = "js/gedcomHandler.js"></script>
+    <script src = 'js/uploadHandler.js'></script>
 
     <script src = "main.js" type="text/javascript"></script>
 
@@ -172,7 +173,7 @@
         }
         #opg-chart {
             width: 100%;
-            height: 88%;
+            height: 89%;
             margin: 0;
         }
 
@@ -237,6 +238,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
+                <li><input id="svgFile" type="file" style="visibility:hidden" /></li>
                 <li><input id="myInput" type="file" style="visibility:hidden" /></li>
                 <li><input id="gedbutton" type="button" value="Read Gedcom File" onclick="$('#myInput').click();" /></li>
                 <!--onclick="$('#fsbutton').on('click');"-->
@@ -248,7 +250,9 @@
                 <!--<li><form><input type="checkbox" name="translate-branch" id="translate-branch"></form></li>-->
                 <li><a id="opg-rotate-cc" title="Rotate Left" href="#"><i class="fa fa-rotate-left"></i></a></li>
                 <li><a id="opg-rotate-c" title="Rotate Right" href="#"><i class="fa fa-rotate-right"></i></a></li>
-                <li><a id="opg-download" title="Download" href="#"><i class="fa fa fa-download"></i></a></li>
+                <li><a id="opg-download" title="Download PDF" href="#"><i class="fa fa-download"></i></a></li>
+                <li><a id="opg-save" title="Save" href="#"><i class="fa fa-floppy-o"></i></a></li>
+                <li><a id="opg-open" title="Open" href="#"><i class="fa fa-folder-open" onclick="$('#svgFile').click();"></i></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Styles <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -266,6 +270,7 @@
 
                         <li class="divider"></li>
                         <li><a id="opg-show-empty" href="#">Show Empty Boxes</a></li>
+                        <li><a id="opg-show-duplicates" href="#">Highlight Duplicates</a></li>
                         <li></li>
                     </ul>
                 </li>
@@ -278,8 +283,9 @@
 <div class="outer-content">
     <svg id="ruler" style="float:left;"></svg>
     <div id="dimensions" style="float:right;">
-        <p style="color:black; font-size:25px; text-align: center; margin: 5px" id="chart-dimensions"></p>
+        <p style="color:black; font-size:25px; text-align: center;" id="chart-dimensions"></p>
     </div>
+
     <svg id="opg-chart"></svg>
 
     <div class="footer">
