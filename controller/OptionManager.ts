@@ -64,11 +64,25 @@ class OptionManager implements IOptionManager {
             self.listener.handleOption('to-gender-color', null);
         });
         $('#opg-show-empty').click(function(){
-            self.listener.handleOption('show-empty', null);
+            var showOption = document.getElementById('opg-show-empty').innerHTML;
+            if (showOption === "Show Empty Boxes") {
+                $('#showEmptyModal').modal('show');
+            }else{
+                self.listener.handleOption('hide-empty', null);
+            }
+        });
+        $('#modal-show-empty').click(function(){
+            $('#showEmptyModal').modal('hide');
+            self.listener.handleOption('show-empty', {recurse: true});
+        });
+        $('#modal-show-fruit').click(function(){
+            $('#showEmptyModal').modal('hide');
+            self.listener.handleOption('show-empty', {recurse: false});
         });
         $('#opg-show-duplicates').click(function(){
             self.listener.handleOption('show-duplicates', null);
         });
+
     }
     handleOptionSetting(type:String, data:any): void {
         var self = this;

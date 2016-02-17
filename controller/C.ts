@@ -187,7 +187,6 @@ class C implements IGraphicObjectListener, IOptionListener {
 
     refresh(boxes:BoxMap):void {
         this.boxes = boxes;
-        console.log(this.boxes);
         if (!this.anchorId) {
             this.anchorId = this.boxes.getRoot();
         }
@@ -364,9 +363,13 @@ class C implements IGraphicObjectListener, IOptionListener {
             this.p.handle({type: key});
         }
         else if (key === 'show-empty'){
+            console.log('value: ' + value.recurse);
+            this.p.handle({type: key, recurse: value.recurse});
+        }
+        else if (key === 'hide-empty'){
             this.p.handle({type: key});
         }
-        else if (key === 'show-duplicates'){
+        else if (key === 'show-duplicates') {
             this.p.handle({type: key});
         }
         else if (key) {
