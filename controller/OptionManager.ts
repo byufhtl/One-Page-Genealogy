@@ -155,7 +155,7 @@ class OptionManager implements IOptionManager {
             });
             opgModalColorSave.click(function() {
                 $('#opg-modal').modal('hide');
-                var changeWho = $('input[name=opg-change-who]:checked').val();
+                var changeWho = $('input[name=opg-change-who-color]:checked').val();
                 self.listener.handleOption(changeWho, {id: box.getNode().getId(), color: box.getColor(), textcolor: box.getTextColor()});
                 this.customColor = true;
             });
