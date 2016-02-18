@@ -37,7 +37,7 @@ var GedcomDownloader = (function () {
 
             var newPerson = new GedcomNode(idData.id, person.person, idData.parentIds);
             newPerson.setDisplaySpouse(person.getDisplaySpouse());
-
+            console.log(newPerson);
             this.listener.gotNode(newPerson);
         }
         this.listener.done();

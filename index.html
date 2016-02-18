@@ -244,7 +244,7 @@
         #downloadModal{
             display:block;
         }
-        #splash-title{
+        .splash-title{
             text-align: center;
             font-size: 400%;
         }
@@ -328,8 +328,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h1 class="modal-title" id="splash-title">Welcome to</h1>
-                <h1 class="modal-title" id="splash-title">One Page Genealogy</h1>
+                <h1 class="modal-title splash-title">Welcome to</h1>
+                <h1 class="modal-title splash-title">One Page Genealogy</h1>
             </div>
             <div class="modal-body" align="center">
                 <h3 style="text-align: center">All of your Genealogy on one page.</h3>
@@ -363,7 +363,7 @@
 
                             </svg>
                         </div>
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs" style="margin-bottom:20px">
                             <li class="active"><a data-toggle="tab" href="div[name='size_and_orientation_pane'">Size/Orientation</a> </li>
                             <li ><a data-toggle="tab" href="div[name='color_pane'">Colors</a> </li>
                         </ul>
@@ -408,6 +408,23 @@
                                         <option value="JSSmallestDetSpPubBox">JS Smallest Rotated Spouse Box</option>
                                     </select>
                                 </div>
+
+                                <div class="col-sm-12">
+                                    <br/>
+                                    <span>Apply Change To: </span>
+                                    <form role="form">
+                                        <div class="radio">
+                                            <label><input type="radio" name="opg-change-who" value='changeIndividual' checked>Individual</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" name="opg-change-who" value='changeGeneration'>Generation</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" name="opg-change-who" value='changeAll'>Entire Chart</label>
+                                        </div>
+                                    </form>
+                                </div>
+
                                 <div class="col-sm-12">
                                     <button type="button" class="btn btn-primary" id="opg-modal-save-size">Save Changes</button>
                                 </div>
@@ -423,26 +440,28 @@
                                     <input type="text" id="box-text-color-picker"/>
                                 </div>-->
                                 <div class="col-sm-12">
+                                    <br/>
+                                    <span>Apply Change To: </span>
+                                    <form role="form">
+                                        <div class="radio">
+                                            <label><input type="radio" name="opg-change-who-color" value='changeIndividual' checked>Individual</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" name="opg-change-who-color" value='changeGeneration'>Generation</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" name="opg-change-who-color" value='changeAll'>Entire Chart</label>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="col-sm-12">
                                     <button type="button" class="btn btn-primary" id="opg-modal-save-color">Save Changes</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12">
-                            <br/>
-                            <span>Apply Change To: </span>
-                            <form role="form">
-                                <div class="radio">
-                                    <label><input type="radio" name="opg-change-who" value='changeIndividual' checked>Individual</label>
-                                </div>
-                                <div class="radio">
-                                    <label><input type="radio" name="opg-change-who" value='changeGeneration'>Generation</label>
-                                </div>
-                                <div class="radio">
-                                    <label><input type="radio" name="opg-change-who" value='changeAll'>Entire Chart</label>
-                                </div>
-                            </form>
-                        </div>
+
 
                     </div>
                 </div>
@@ -455,6 +474,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
 <div class="modal fade" id="gedcomModal" tabindex="-1" role="dialog" aria-labelledby="gedcomModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -489,6 +509,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
 <div class="modal fade" id="fsModal" tabindex="-1" role="dialog" aria-labelledby="fsModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

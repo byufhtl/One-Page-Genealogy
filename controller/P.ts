@@ -91,7 +91,7 @@ class P implements IControllerListener, ITreeListener {
         var refresh = false;
         if (param.type) {
             if (param.type === 'changeIndividual') {
-                console.log("Individual Change...");
+                //console.log("Individual Change...");
                 if(param.hasOwnProperty('value')){
                     this.customSpacer.addCustomStyle(param.id,{
                         type: param.value
@@ -150,7 +150,6 @@ class P implements IControllerListener, ITreeListener {
                 refresh = true;
             }
             else if (param.type === 'show-empty') {
-                console.log("param: " + param.recurse);
                 this.showEmptyBoxes(param.recurse);
                 document.getElementById('opg-show-empty').innerHTML = "Hide Empty Boxes";
                 refresh = true;
@@ -160,20 +159,51 @@ class P implements IControllerListener, ITreeListener {
                 refresh = true;
             }
             else if (param.type === 'show-duplicates') {
-                console.log('showing duplicates is not yet fully implemented.');
-                var map = this.firstBoxMap.getMap();
-                for(var box in map){
-                    if(box.charAt(box.length-1) === "0"){
-                        //this setColor does nothing because it is over-written in the pipeline
-                        map[box].setColor("red");
-                    }
-                }
+                var count = this.showDuplicates();
+                console.log("Done. " + count + " duplicates found.");
                 refresh = true;
             }
         }
         if (refresh) {
             this.runPipeline();
         }
+    }
+
+    private showDuplicates(){
+        var map = this.firstBoxMap.getMap();
+        var count = 0;
+        for(var box in map){
+            if(box.charAt(box.length-1) !== "0"){
+                count++;
+                var numDup = parseInt(box.charAt(box.length-1));
+                var color = this.getRandomColor()
+                while(numDup >=0 ) {
+                    var id = box.replace(box.charAt(box.length-1),numDup);
+                    this.customColorSpacer.addCustomStyle(id,{
+                        color: color
+                    });
+                    numDup--;
+                }
+            }
+        }
+        return count;
+    }
+    private getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+    private lightenDarkenColor(col,amt) {
+        var num = parseInt(col,16);
+        var r = (num >> 16) + amt;
+        var b = ((num >> 8) & 0x00FF) + amt;
+        var g = (num & 0x0000FF) + amt;
+        var newColor = g | (b << 8) | (r << 16);
+        console.log(newColor.toString(16));
+        return "#" + newColor.toString(16);
     }
 
     private hideEmptyBoxes() {

@@ -62,7 +62,7 @@ class BoxMap {
                 });
         }, 0).then(function() {
                 console.log('all done');
-                console.log(resultMap);
+                //console.log(resultMap);
                 self.map = resultMap;
             }
         );
