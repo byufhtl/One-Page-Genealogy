@@ -2,8 +2,10 @@
  * Created by justinrasband on 8/13/15.
  */
 var c = null;
-var gedcom = new GEDCOM()
+var optionManager = null;
+var gedcom = new GEDCOM();
 var indiMap = {};
+var numGenerations;
 
 
 $(document).ready(function() {
@@ -11,14 +13,12 @@ $(document).ready(function() {
 });
 
 function inputChange(data) {
-
     //console.log(data.target.files[0])
     var gedInput = data.target.files[0];
     var reader = new FileReader();
     var gedString = "";
 
     function readFile(e){
-
         gedString = reader.result
         if (gedString.charCodeAt(0) == 65279) gedString = gedString.substring(1);
         var output = gedcom.parse(gedString);
@@ -26,7 +26,7 @@ function inputChange(data) {
 
     }
 
-    reader.onload = readFile
+    reader.onload = readFile;
     reader.readAsText(gedInput);
 };
 
@@ -222,24 +222,33 @@ function useData(gedOutput){
     $('#gedcomModal').show()
 
     $('#gedcomSave').click(function(){
-
+        localStorage.setItem("chartType", "Gedcom");
         $('#gedcomModal').hide();
 
         var dscOrAsc = $('input[name=ascOrDsc]:checked').val();
         var rootId = $("option:selected", ('#gedcomSelect'))[0].value;
         var generations = $("option:selected", ('#generationsSelect'))[0].value;
 
+        localStorage.setItem("rootID", rootId);
+        numGenerations = generations;
+
         var chartSVGElement = cloneRemove(document.getElementById("opg-chart"))
         while (chartSVGElement.lastChild) {
             chartSVGElement.removeChild(chartSVGElement.lastChild);
         }
 
+        document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
+        $('#ruler-height').val("");
+
+        if(optionManager === null){
+            optionManager = new OptionManager();
+        }
         c = new C({
             rootId: rootId,
             gedData: indiMap,
             generations: generations,
-            dscOrAsc:dscOrAsc
-
+            dscOrAsc: dscOrAsc,
+            optionManager: optionManager
         });
 
         var gedcomSelectElement = cloneRemove(document.getElementById('gedcomSelect'))

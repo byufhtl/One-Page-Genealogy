@@ -81,6 +81,12 @@ class P implements IControllerListener, ITreeListener {
         this.transformationPipline.push(this.translateSpacer);
     }
 
+    setMaps(boxMap: BoxMap){
+        //This function should only be used when loading a chart from file
+        this.firstBoxMap = boxMap;
+        this.secondBoxMap = boxMap;
+    }
+
     handle(param:any):any {
         var refresh = false;
         if (param.type) {
@@ -104,6 +110,7 @@ class P implements IControllerListener, ITreeListener {
             else if (param.type === 'changeGeneration') {
                 console.log("Gen Change...");
                 var root:INode = this.tree.getRoot();
+                console.log(root);
                 var gen = this.getGeneration(root, param.id);
                 console.log("Gen: " + gen);
                 this.applyToGeneration(gen, root, param);
@@ -120,31 +127,7 @@ class P implements IControllerListener, ITreeListener {
                 refresh = true;
             }
             else if (param.type === 'VP-view') {
-                //console.log(this.tree.getTreeMap());
-                var childMap:{[key: string]: string} = {};
-                var treeMap = this.tree.getTreeMap();
-                for (var key in treeMap) {
-                    if (treeMap.hasOwnProperty(key)) {
-                        if (treeMap[key].getBranchIds().length > 0) {
-                            for (var i in treeMap[key].getBranchIds()) {
-                                childMap[treeMap[key].getBranchIds()[i].substring(0, 8)] = key.substring(0, 8);
-                            }
-                        }
-                    }
-                }
-                var list = [];
-                var currentPID = param.id;
-                list.push(currentPID);
-                while (childMap[currentPID] != null) {
-                    list.push(childMap[currentPID]);
-                    currentPID = childMap[currentPID];
-                }
-                window['vpdata'] = {
-                    rootId: list[0],
-                    highlightPaths: [list],
-                    accessToken: accessToken
-                };
-                window.open('/vprf/index.html');
+                this.vpView(param.id);
             }
             else if (param.type === 'collapse-sub-tree') {
                 this.collapseSpacer.collapseId(param.id, true);
@@ -168,17 +151,25 @@ class P implements IControllerListener, ITreeListener {
                 refresh = true;
             }
             else if (param.type === 'show-empty') {
-                var showOption = document.getElementById('opg-show-empty').innerHTML;
-                if (showOption === "Show Empty Boxes") {
-                    this.showEmptyBoxes();
-                    document.getElementById('opg-show-empty').innerHTML = "Hide Empty Boxes";
-                    refresh = true;
-                } else {
-                    this.hideEmptyBoxes();
-                    document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
-                    refresh = true;
+                console.log("param: " + param.recurse);
+                this.showEmptyBoxes(param.recurse);
+                document.getElementById('opg-show-empty').innerHTML = "Hide Empty Boxes";
+                refresh = true;
+            }else if (param.type === 'hide-empty') {
+                this.hideEmptyBoxes();
+                document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
+                refresh = true;
+            }
+            else if (param.type === 'show-duplicates') {
+                console.log('showing duplicates is not yet fully implemented.');
+                var map = this.firstBoxMap.getMap();
+                for(var box in map){
+                    if(box.charAt(box.length-1) === "0"){
+                        //this setColor does nothing because it is over-written in the pipeline
+                        map[box].setColor("red");
+                    }
                 }
-
+                refresh = true;
             }
         }
         if (refresh) {
@@ -196,7 +187,8 @@ class P implements IControllerListener, ITreeListener {
                     //Must traverse backwards because we're deleting as we go.
                     for (var i=branchIds.length-1; i >=0; i--) {
                         var index = branchIds[i];
-                        if(index.indexOf(":") !== 8) {
+                        if(localStorage.getItem("chartType") === "FamilySearch" && index.indexOf(":") !== 8 ||
+                            localStorage.getItem("chartType") === "Gedcom" && index.indexOf("@") !== 0) {
                             branchIds.splice(i,1);
                         }
                     }
@@ -206,7 +198,7 @@ class P implements IControllerListener, ITreeListener {
         }
     }
 
-    private showEmptyBoxes() {
+    private showEmptyBoxes(recurse:boolean) {
         var childMap:{[key: string]: string} = {};
         var treeMap = this.tree.getTreeMap();
 
@@ -216,13 +208,14 @@ class P implements IControllerListener, ITreeListener {
                 if (treeMap[key].getBranchIds().length > 0) {
                     for (var i in treeMap[key].getBranchIds()) {
                         var index = treeMap[key].getBranchIds()[i];
-                        if (index !== null && index.indexOf(":") === 8) {
+                        if (index !== null && (index.indexOf(":") === 8 || index.indexOf("@") === 0)) {
                             childMap[index] = key;
                         }
                     }
                 }
             }
         }
+        //console.log(childMap);
 
         var countID = 0;
         //Use Child Map for each person to determine empty boxes
@@ -240,14 +233,14 @@ class P implements IControllerListener, ITreeListener {
                 list.length < numGenerations &&
                 this.firstBoxMap.getId(box).getNode().getBranchIds().length === 0) {
 
-                countID = this.addBlanks(box, countID, numGenerations, list.length);
+                countID = this.addBlanks(recurse, box, countID, numGenerations, list.length);
                 //countID += 2;
             }
         }
         //console.log(this.tree.getTreeMap());
     }
 
-    private addBlanks(box:string, countID:number, numGen:number, listLen:number):number {
+    private addBlanks(recurse:boolean, box:string, countID:number, numGen:number, listLen:number):number {
         //Create two new empty nodes and add them to the maps:
         var node0:FSDescNode = new FSDescNode(String(countID), null, [], [], null, true);
         var node1:FSDescNode = new FSDescNode(String(countID + 1), null, [], [], null, true);
@@ -265,9 +258,9 @@ class P implements IControllerListener, ITreeListener {
 
         //This if-statement makes it recursive - adding empty boxes to fill the chart.
         //Without this if-statement, it will just add the first empty boxes.
-        if (listLen < numGen) {
-            newCount = this.addBlanks(String(countID), countID + 2, numGen, listLen);
-            newCount = this.addBlanks(String(countID + 1), newCount, numGen, listLen);
+        if (recurse && listLen < numGen) {
+            newCount = this.addBlanks(recurse, String(countID), countID + 2, numGen, listLen);
+            newCount = this.addBlanks(recurse, String(countID + 1), newCount, numGen, listLen);
         }
 
         if (newCount === -1) {
@@ -276,9 +269,41 @@ class P implements IControllerListener, ITreeListener {
         return newCount;
     }
 
+    private vpView(paramId:string):any {
+        //console.log(this.tree.getTreeMap());
+        var childMap:{[key: string]: string} = {};
+        var treeMap = this.tree.getTreeMap();
+        for (var key in treeMap) {
+            if (treeMap.hasOwnProperty(key)) {
+                if (treeMap[key].getBranchIds().length > 0) {
+                    for (var i in treeMap[key].getBranchIds()) {
+                        childMap[treeMap[key].getBranchIds()[i].substring(0, 8)] = key.substring(0, 8);
+                    }
+                }
+            }
+        }
+        var list = [];
+        var currentPID = paramId;
+        list.push(currentPID);
+        while (childMap[currentPID] != null) {
+            list.push(childMap[currentPID]);
+            currentPID = childMap[currentPID];
+        }
+        window['vpdata'] = {
+            rootId: list[0],
+            highlightPaths: [list],
+            accessToken: accessToken
+        };
+        window.open('/vprf/index.html');
+    }
+
     private getBoxByPoint(pt:Point):IBox {
 
         var queue = [];
+
+        if(this.secondBoxMap === undefined){
+            this.secondBoxMap = this.firstBoxMap.copy();
+        }
 
         queue.push(this.secondBoxMap.getRoot());
         while (queue.length > 0) {

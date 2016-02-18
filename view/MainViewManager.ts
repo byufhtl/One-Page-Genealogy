@@ -31,4 +31,7 @@ class MainViewManager implements IViewManager {
     clear():void{
         delete(this.svgManager);
     }
+    setRuler(): any {
+        return this.svgManager.setRuler();
+    }
 }

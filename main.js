@@ -2,8 +2,9 @@
  * Created by Jared on 1/11/16.
  */
 
-var numGenerations
+var numGenerations;
 var c = null;
+var optionManager = null;
 var token;
 if (window.location.href.indexOf("fstoken") > -1) {
     var url = window.location.href;
@@ -130,12 +131,16 @@ function familySearchDownload() {
         FamilySearch.getAccessToken().then(function (response) {
 
             FamilySearch.getCurrentUser().then(function (response) {
+                localStorage.setItem("chartType", "FamilySearch");
                 var old_element = document.getElementById("opg-chart")
                 var new_element = old_element.cloneNode(true);
                 old_element.parentNode.replaceChild(new_element, old_element)
                 while (new_element.lastChild) {
                     new_element.removeChild(new_element.lastChild);
                 }
+                document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
+                $('#ruler-height').val("");
+
                 //var pid = document.getElementById("pid-search-input").value;
                 //var generations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
                 //var dscOrAsc = $('input[name=FSascOrDsc]:checked').val();
@@ -147,15 +152,30 @@ function familySearchDownload() {
                 $('#fsSave').off('click');
                 $('#fsGenerationsSelect').off('click');
                 $('fsgenerationsRadio').off('click');
+
+                if(optionManager === null){
+                    optionManager = new OptionManager();
+                }
                 c = new C({
                     rootId: rootPID,
                     generations: numGenerations,
-                    dscOrAsc: direction
+                    dscOrAsc: direction,
+                    optionManager: optionManager
                 })
                 localStorage.setItem("rootPID", rootPID);
                 $('#fsModal').hide();
             })
         })
     }
+}
+
+function handleHeight(height){
+    var ratio = $('#ruler-ratio').val();
+    $('#ruler-width').val((height*ratio).toFixed(1));
+}
+
+function handleWidth(width){
+    var ratio = $('#ruler-ratio').val();
+    $('#ruler-height').val((width/ratio).toFixed(1));
 }
 

@@ -28,7 +28,7 @@ class CustomSpacer implements  IStyler {
                         if(box.getType() != 'nullBox') {
                             //console.log(box.getNode().getSpouses().length + " " + map['type']);
                             if (box.getNode().getSpouses().length == 0 && map['type'] == "JSLrgDetRotSpPubBox") {
-                                console.log("Fixed!!");
+                                //console.log("Fixed!!");
                                 box.setType("JSMedDetPubBox");
                             }
                             else{

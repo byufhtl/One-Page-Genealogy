@@ -82,6 +82,12 @@ class C implements IGraphicObjectListener, IOptionListener {
             //this.source = new GedcomDownloader("@I12154@", 20, gedNodes);//PROFESSOR BARRETT is @I12154@ do @175@ for an ascendant
             this.source = new GedcomDownloader(data.rootId, data.generations, gedNodes, data.dscOrAsc);
         }
+        else if (data.hasOwnProperty("file")) {
+            this.boxes = data.boxes;
+            this.source = undefined;
+            this.optionManager = data.optionManager;
+            var skipSource = true;
+        }
         else {
             //console.log("Making non-gedcom C");
             rootId = data.rootId;
@@ -104,15 +110,33 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.scaleFactor = 1;
 
         this.tree.setListener(this.p);
-        this.source.setListener(this.tree.getSourceListener());
-        this.optionManager = new OptionManager();
+
+        this.optionManager = data.optionManager;
         this.optionManager.setListener(this);
 
         this.boxes = null;
 
         var self = this;
 
-        self.source.start();
+        if(!skipSource) {
+            this.source.setListener(this.tree.getSourceListener());
+            self.source.start();
+        }else{
+            this.boxes =  new BoxMap(data.boxes.rootId);
+            console.log(data.boxes);
+            var self = this;
+            this.boxes.deserializeMap(data.boxes.map).then(function() {
+                self.p.setMaps(self.boxes);
+                var map = self.boxes.getMap();
+                for(var box in map){
+                    if(map.hasOwnProperty(box)){
+                        self.tree.getSourceListener().gotNode(map[box].getNode());
+                    }
+                }
+                //self.p.handleUpdate(self.tree, []);
+                self.refresh(self.boxes);
+            });
+        }
     }
 
     getBestDescendants(attemptGed, key) {
@@ -163,7 +187,6 @@ class C implements IGraphicObjectListener, IOptionListener {
 
     refresh(boxes:BoxMap):void {
         this.boxes = boxes;
-
         if (!this.anchorId) {
             this.anchorId = this.boxes.getRoot();
         }
@@ -225,6 +248,8 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'rotate') {
             this.viewManager.rotate(value.value);
         }
+        // DON'T GET RID OF THIS COMMENTED CODE!
+
         // else if(key === 'request-download') {
         //     this.viewManager.getSVGString().then(function(s){
         //         /*var form = document.createElement("form");
@@ -268,6 +293,40 @@ class C implements IGraphicObjectListener, IOptionListener {
                 })).appendTo('body').submit();
             });
         }
+        else if (key === 'save'){
+             var boxes = JSON.stringify(this.boxes);
+             var fileName = "opg_chart.json";
+             var url = "data:text+json;utf8," + boxes;
+             var link:any = document.createElement("a");
+             link.download = fileName;
+             link.href = url;
+             link.click();
+        }
+        else if (key === 'ruler'){
+            //have user select dimensions and then display ruler
+            if($('#ruler-height').val() === "") {
+                this.viewManager.getSVGString().then(function (s) {
+                    //console.log(s);
+                    var wIndex = s.indexOf('width="') + 7;
+                    var hIndex = s.indexOf('height="') + 8;
+                    var width = s.slice(wIndex, s.indexOf('"', wIndex));
+                    var height = s.slice(hIndex, s.indexOf('"', hIndex));
+                    $('#ruler-ratio').val(width/height);
+                    $('#ruler-original-height').val(height);
+                    $('#ruler-height').val((height / 72).toFixed(1));
+                    $('#ruler-width').val((width / 72).toFixed(1));
+                    $('#rulerModal').modal('show');
+                })
+            }else{
+                $('#rulerModal').modal('show');
+            }
+        }
+        else if (key === 'ruler-save'){
+            $('#rulerModal').modal('hide');
+            $('#opg-chart').css("height","89%");
+            $('#ruler').css('display', 'block');
+            this.viewManager.setRuler();
+        }
         else if (key === 'detail-style') {
             this.p.handle({type: key});
         }
@@ -303,7 +362,14 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'to-gender-color') {
             this.p.handle({type: key});
         }
-        else if (key === 'show-empty') {
+        else if (key === 'show-empty'){
+            console.log('value: ' + value.recurse);
+            this.p.handle({type: key, recurse: value.recurse});
+        }
+        else if (key === 'hide-empty'){
+            this.p.handle({type: key});
+        }
+        else if (key === 'show-duplicates') {
             this.p.handle({type: key});
         }
         else if (key) {

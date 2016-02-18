@@ -31,6 +31,15 @@ class OptionManager implements IOptionManager {
         $('#opg-download').click(function(){
             self.listener.handleOption('request-download', null);
         });
+        $('#opg-save').click(function() {
+            self.listener.handleOption('save', null);
+        });
+        $('#opg-ruler').click(function() {
+            self.listener.handleOption('ruler', null);
+        });
+        $('#ruler-save').click(function() {
+            self.listener.handleOption('ruler-save', null);
+        });
         $('#opg-detail-style').click(function(){
             self.handleStyleChange('detail-style');
         });
@@ -62,8 +71,25 @@ class OptionManager implements IOptionManager {
             self.handleStyleChange('to-gender-color',false);
         });
         $('#opg-show-empty').click(function(){
-            self.listener.handleOption('show-empty', null);
+            var showOption = document.getElementById('opg-show-empty').innerHTML;
+            if (showOption === "Show Empty Boxes") {
+                $('#showEmptyModal').modal('show');
+            }else{
+                self.listener.handleOption('hide-empty', null);
+            }
         });
+        $('#modal-show-empty').click(function(){
+            $('#showEmptyModal').modal('hide');
+            self.listener.handleOption('show-empty', {recurse: true});
+        });
+        $('#modal-show-fruit').click(function(){
+            $('#showEmptyModal').modal('hide');
+            self.listener.handleOption('show-empty', {recurse: false});
+        });
+        $('#opg-show-duplicates').click(function(){
+            self.listener.handleOption('show-duplicates', null);
+        });
+
     }
     handleOptionSetting(type:String, data:any): void {
         var self = this;
@@ -72,7 +98,7 @@ class OptionManager implements IOptionManager {
             $('#opg-modal').modal('show');
             setTimeout(function(){
                 self.renderTempBox(box);
-            },400);
+            },0);
 
             $('#box-color-picker').spectrum({
                 color: box.getColor(),

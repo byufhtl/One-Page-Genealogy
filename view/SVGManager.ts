@@ -21,6 +21,8 @@ class SVGManager implements IViewManager {
     private renders:{[s:string]:IBoxRender;};
     private boundingRect;
     private graphicObject: SVGGraphicObject;
+    private ruler;
+    private rulerSet : boolean;
 
     private height: number;
     private width: number;
@@ -37,6 +39,7 @@ class SVGManager implements IViewManager {
     private refreshTriggered: boolean;
 
     constructor(svgElementId:string) {
+        this.rulerSet = false;
         this.graphicObject = new SVGGraphicObject();
 
         var svg =  document.getElementById(svgElementId);
@@ -77,7 +80,6 @@ class SVGManager implements IViewManager {
         this.svgPercent.setAttribute('y', '260');
         this.svgPercent.setAttribute('font-size', '50px');
         this.svgRoot.appendChild(this.svgPercent);
-
 
         this.linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
         this.svgRoot.appendChild(this.linePath);
@@ -172,6 +174,7 @@ class SVGManager implements IViewManager {
             pt1 = null;
         }
     }
+
     refresh(boxes: BoxMap): IGraphicObject {
         //this.drawLine(boxes);
         //this.drawBoxes(boxes);
@@ -211,11 +214,55 @@ class SVGManager implements IViewManager {
         //    "(" + String(document.getElementById("opg-chart").getAttribute('width')) + ", " +
         //        String(document.getElementById("opg-chart").getAttribute("height")) + ")";
 
-        document.getElementById("chart-dimensions").innerHTML =
-            (this.svgRoot.getBBox().width/72).toFixed(1) + '" x ' +
-            (this.svgRoot.getBBox().height/72).toFixed(1) + '"';
+        if(this.rulerSet) {
+            this.updateRuler();
+        }
     }
 
+    private updateRuler(){
+        //console.log(this.ruler.childNodes);
+        var originalHeight = $('#ruler-original-height').val();
+        var height = $('#ruler-height').val() * 72;
+        var ratio = height/originalHeight;
+
+        for(var index in this.ruler.childNodes){
+            if(this.ruler.childNodes.hasOwnProperty(index)){
+                var child = this.ruler.childNodes[index];
+                var x = index*36*this.scale/ratio;
+                child.setAttribute('x1', x);
+                child.setAttribute('x2', x);
+            }
+        }
+    }
+
+    public setRuler(){
+        this.ruler = document.getElementById("ruler");
+        var originalHeight = $('#ruler-original-height').val();
+        var height = $('#ruler-height').val() * 72;
+        var ratio = height/originalHeight;
+
+        if(this.ruler.childNodes.length === 0) {
+            for (var i = 0; i < 1000; i++) {
+                var inch = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                inch.setAttribute("x1", String(i * 72 / ratio));
+                inch.setAttribute('y1', "0");
+                inch.setAttribute("x2", String(i * 72 / ratio));
+                inch.setAttribute("y2", "100");
+                inch.setAttribute("style", "stroke:rgb(20,20,20); stroke-width:2");
+                this.ruler.appendChild(inch);
+
+                var halfInch = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                halfInch.setAttribute("x1", String((i) * 72 / ratio + 36));
+                halfInch.setAttribute('y1', "0");
+                halfInch.setAttribute("x2", String(i * 72 / ratio + 36));
+                halfInch.setAttribute("y2", "20");
+                halfInch.setAttribute("style", "stroke:rgb(20,20,20); stroke-width:1");
+                this.ruler.appendChild(halfInch);
+            }
+        }
+        this.rulerSet = true;
+        this.realRefresh();
+    }
 
     private drawBoxes(boxes: BoxMap): void {
         var self = this;
@@ -364,6 +411,7 @@ class SVGManager implements IViewManager {
 
         this.refresh(this.lastBoxes);
     }
+
     getSVGString(): any {
 
         $("body").css("cursor", "progress");

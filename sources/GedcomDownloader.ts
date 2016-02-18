@@ -28,7 +28,7 @@ var GedcomDownloader = (function () {
     GedcomDownloader.prototype.start = function () {
         var seconds = new Date().getTime();
         var people = this.getGenerations(this.rootId, this.generations);
-        console.log(people);
+        //console.log(people);
         for (var i = 0; i < people.length; i++) {
 
             var person = people[i];
