@@ -110,7 +110,6 @@ class P implements IControllerListener, ITreeListener {
             else if (param.type === 'changeGeneration') {
                 console.log("Gen Change...");
                 var root:INode = this.tree.getRoot();
-                console.log(root);
                 var gen = this.getGeneration(root, param.id);
                 console.log("Gen: " + gen);
                 this.applyToGeneration(gen, root, param);

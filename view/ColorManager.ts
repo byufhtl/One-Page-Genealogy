@@ -19,6 +19,7 @@ class ColorManager {
         ,   "#FFABAB"   // 7) Pink
         ,   "#E5E5E5"   // 8) Gray
         ,   "#ffccff"   // 9) FemalePink
+        ,   "#2C3E50"   // 10) OPG Blue
     ];
 
     /**
@@ -95,11 +96,11 @@ class ColorManager {
      * @returns {string} a hex-encoded color value for the standard OPG theme blue.
      */
     static OPGblue() : string{
-        return "2C3E50";
+        return this.boxColors[10];
     }
 
     /**
-     * Grabs a hex-encoded color value via a numeric index over the color spectrum, proceding in the following order:
+     * Grabs a hex-encoded color value via a numeric index over the color spectrum, proceeding in the following order:
      *      0) Purple       3) Green        6) Red
      *      1) Indigo       4) Yellow       7) Pink
      *      2) Blue         5) Orange       8) Gray
