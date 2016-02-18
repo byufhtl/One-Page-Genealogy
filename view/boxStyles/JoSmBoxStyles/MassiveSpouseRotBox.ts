@@ -77,9 +77,11 @@ class JSMassiveSpRotBox extends IBoxData {
             //text.setAttribute("x", "160");
             text.setAttribute("y", "18");
             text.setAttribute("font-size", "100px");
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont());
-            if (node.isMainPerson())
+            if (node.isMainPerson()) {
                 text.setAttribute("font-weight", "bold");
+            }
             StringUtils.fitName(text, node.getAttr('name'), 14);
             //StringUtils.centerElement(text, 210, 290);
         }
@@ -92,6 +94,7 @@ class JSMassiveSpRotBox extends IBoxData {
         //text3.setAttribute("x", "160");
         text3.setAttribute("y", "100");
         text3.setAttribute("font-size", "60px");
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont());
 
         StringUtils.fitDatePlace(text3, node.getAttr('birthdate'), node.getAttr('birthplace'), 28);//290);
@@ -104,6 +107,7 @@ class JSMassiveSpRotBox extends IBoxData {
         //text4.setAttribute("x", "160");
         text4.setAttribute("y", "160");
         text4.setAttribute("font-size", "60px");
+        text4.setAttribute("fill", box.getTextColor());
         text4.setAttribute("style", this.getFont());
         StringUtils.fitDatePlace(text4, node.getAttr('deathdate'), node.getAttr('deathplace'), 28);
 
@@ -152,10 +156,11 @@ class JSMassiveSpRotBox extends IBoxData {
             //text6.setAttribute("x", "160");
             text6.setAttribute("y", "18");
             text6.setAttribute("font-size", "100px");
+            text6.setAttribute("fill", box.getTextColor());
             text6.setAttribute("style", this.getFont());
-            if (spousenode.isMainPerson())
+            if (spousenode.isMainPerson()) {
                 text6.setAttribute("font-weight", "bold");
-
+            }
             StringUtils.fitName(text6, spousenode.getAttr('name'), 14);
 
 
@@ -169,6 +174,7 @@ class JSMassiveSpRotBox extends IBoxData {
             //text7.setAttribute("x", "160");
             text7.setAttribute("y", "100");//"45");
             text7.setAttribute("font-size", "60px");
+            text7.setAttribute("fill", box.getTextColor());
             text7.setAttribute("style", this.getFont());
             StringUtils.fitDatePlace(text7, spousenode.getAttr('birthdate'), spousenode.getAttr('birthplace'), 28);
             //StringUtils.fitDate(text7, spousenode.getAttr('birthdate'), node.getAttr('deathdate'), 290);
@@ -181,6 +187,7 @@ class JSMassiveSpRotBox extends IBoxData {
             //text8.setAttribute("x", "160");
             text8.setAttribute("y", "160");
             text8.setAttribute("font-size", "60px");
+            text8.setAttribute("fill", box.getTextColor());
             text8.setAttribute("style", this.getFont());
             StringUtils.fitDatePlace(text8, spousenode.getAttr('deathdate'), spousenode.getAttr('deathplace'), 28);
 
@@ -194,23 +201,11 @@ class JSMassiveSpRotBox extends IBoxData {
         text10.setAttribute("x", "540");
         text10.setAttribute("y", "340");
         text10.setAttribute("font-size", "60px");
+        text10.setAttribute("fill", box.getTextColor());
         text10.setAttribute("style", this.getFont());
 
+        rect.setAttribute('fill', '#F9F4FF');
 
-        //if(box.getColor()!= null && !grayScale){
-        //    rect.setAttribute('fill', box.getColor());
-        //    rect.setAttribute('stroke','black');
-        //}
-        //else
-        //if (!grayScale) {
-        rect.setAttribute('fill', '#F9F4FF');//'#CC99FF');
-        //rect.setAttribute('stroke', '#CC66FF');
-
-        //}
-        //else {
-        //    rect.setAttribute('fill','#E5E5E5');
-        //    rect.setAttribute('stroke', 'black');
-        //}
         if (node.hasAttr("baptism")) {
             var baptism = node.getAttr("baptism");
             //console.log(baptism);

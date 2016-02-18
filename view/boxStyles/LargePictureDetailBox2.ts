@@ -67,9 +67,7 @@ class LargePictureDetailBox2 extends IBoxData {
                 text.setAttribute("x", "205");
                 text.setAttribute("y", "35");
                 text.setAttribute("font-size", "30px");
-                if(box.getTextColor() != null) {
-                    text.setAttribute("fill", box.getTextColor());
-                }
+                text.setAttribute("fill", box.getTextColor());
                 text.setAttribute("style", this.getFont() );
                 StringUtils.fitName(text, node.getAttr('givenname'), 30);
             }
@@ -80,9 +78,7 @@ class LargePictureDetailBox2 extends IBoxData {
                 text2.setAttribute("x", "205");
                 text2.setAttribute("y", "80");
                 text2.setAttribute("font-size", "40px");
-                if(box.getTextColor() != null) {
-                    text2.setAttribute("fill", box.getTextColor());
-                }
+                text2.setAttribute("fill", box.getTextColor());
                 text2.setAttribute("style", this.getFont() );
                 StringUtils.fitName(text2, node.getAttr('surname'), 30);
             }
@@ -102,9 +98,7 @@ class LargePictureDetailBox2 extends IBoxData {
             text.setAttribute("x", "205");
             text.setAttribute("y", "35");
             text.setAttribute("font-size", "30px");
-            if(box.getTextColor() != null) {
-                text.setAttribute("fill", box.getTextColor());
-            }
+            text.setAttribute("fill", box.getTextColor());
             text.setAttribute("style", this.getFont() );
             StringUtils.fitName(text, firstName, 30);
             var nameTextPath2 = document.createTextNode(splitName[splitName.length - 1]);
@@ -112,9 +106,7 @@ class LargePictureDetailBox2 extends IBoxData {
             text2.setAttribute("x", "205");
             text2.setAttribute("y", "80");
             text2.setAttribute("font-size", "40px");
-            if(box.getTextColor() != null) {
-                text2.setAttribute("fill", box.getTextColor());
-            }
+            text2.setAttribute("fill", box.getTextColor());
             text2.setAttribute("style", this.getFont() );
             StringUtils.fitName(text2, node.getAttr('surname'), 30);
         }
@@ -127,9 +119,7 @@ class LargePictureDetailBox2 extends IBoxData {
         text3.setAttribute("x", "205");
         text3.setAttribute("y", "120");
         text3.setAttribute("font-size", "20px");
-        if(box.getTextColor() != null) {
-            text3.setAttribute("fill", box.getTextColor());
-        }
+        text3.setAttribute("fill", box.getTextColor());
         text3.setAttribute("style", this.getFont() );
         StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
 
@@ -141,9 +131,7 @@ class LargePictureDetailBox2 extends IBoxData {
         text4.setAttribute("x", "205");
         text4.setAttribute("y", "150");
         text4.setAttribute("font-size", "20px");
-        if(box.getTextColor() != null) {
-            text4.setAttribute("fill", box.getTextColor());
-        }
+        text4.setAttribute("fill", box.getTextColor());
         text4.setAttribute("style", this.getFont() );
         StringUtils.fitPlace(text4, node.getAttr('birthplace'), 24);
         text4.textContent = 'B: '+text4.textContent;
@@ -156,9 +144,7 @@ class LargePictureDetailBox2 extends IBoxData {
         text5.setAttribute("x", "205");
         text5.setAttribute("y", "175");
         text5.setAttribute("font-size", "20px");
-        if(box.getTextColor() != null) {
-            text5.setAttribute("fill", box.getTextColor());
-        }
+        text5.setAttribute("fill", box.getTextColor());
         text5.setAttribute("style", this.getFont() );
         StringUtils.fitPlace(text5, node.getAttr('deathplace'), 24);
         text5.textContent = 'D: '+text5.textContent;

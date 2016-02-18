@@ -24,6 +24,7 @@ class AbstractBox implements IBox {
     constructor(node: INode) {
         this.node = node;
         this.collapsed = false;
+        this.text_color = "#000000";
     }
     setColor(c:string){
         this.color = c;

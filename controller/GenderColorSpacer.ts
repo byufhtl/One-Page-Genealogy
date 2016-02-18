@@ -1,11 +1,11 @@
-///<reference path="IStyler.ts"/>
+///<reference path="IColorStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 ///<reference path="../view/ColorManager.ts"/>
 /**
  * Created by renae on 9/9/15.
  * Last updated on 1/29/2016
  */
-class GenderColorSpacer implements  IStyler {
+class GenderColorSpacer implements  IColorStyler {
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

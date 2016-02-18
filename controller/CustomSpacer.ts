@@ -1,6 +1,7 @@
 ///<reference path="IStyler.ts"/>
 /**
  * Created by curtis on 3/9/15.
+ * Last updated 2/18/2016.
  */
 class CustomSpacer implements  IStyler {
 
@@ -44,5 +45,9 @@ class CustomSpacer implements  IStyler {
     }
     addCustomStyle(id: string, customStyle: {}) {
         this.customMap[id] = customStyle;
+    }
+    clear(): CustomSpacer{
+        this.customMap = {};
+        return this;
     }
 }

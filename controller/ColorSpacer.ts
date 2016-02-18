@@ -1,11 +1,11 @@
-///<reference path="IStyler.ts"/>
+///<reference path="IColorStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 ///<reference path="../view/ColorManager.ts"/>
 /**
  * Created by renae on 8/5/15.
- * Last updated 1/29/2016
+ * Last updated 2/18/2016
  */
-class ColorSpacer implements  IStyler {
+class ColorSpacer implements  IColorStyler {
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

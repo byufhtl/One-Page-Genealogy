@@ -6,6 +6,7 @@
 ///<reference path="../view/IViewManager.ts"/>
 ///<reference path="CustomSpacer.ts"/>
 ///<reference path="CustomColorSpacer.ts"/>
+///<reference path="CustomTextColorSpacer.ts"/>
 ///<reference path="C.ts"/>
 ///<reference path="LeafNodeSpacer.ts"/>
 ///<reference path="CollapseSpacer.ts"/>
@@ -43,6 +44,7 @@ class P implements IControllerListener, ITreeListener {
     private collapseSpacer:CollapseSpacer;
     private customSpacer:CustomSpacer;
     private customColorSpacer:CustomColorSpacer;
+    private customTextColorSpacer: CustomTextColorSpacer;
     private translateSpacer:TranslateSpacer;
     private tree:ITree;
 
@@ -54,6 +56,7 @@ class P implements IControllerListener, ITreeListener {
 
         this.customSpacer = new CustomSpacer();
         this.customColorSpacer = new CustomColorSpacer();
+        this.customTextColorSpacer = new CustomTextColorSpacer();
         this.collapseSpacer = new CollapseSpacer();
         this.translateSpacer = new TranslateSpacer();
 
@@ -61,7 +64,6 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.push(this.collapseSpacer);
         if (c.dscOrAsc == "descendancy") {
             this.stylingPipeline.push(new ColorSpacer());
-            this.stylingPipeline.push(new CustomColorSpacer());
         } else {
             this.stylingPipeline.push(new AscColorSpacer());
         }
@@ -73,6 +75,7 @@ class P implements IControllerListener, ITreeListener {
         }
         this.stylingPipeline.push(this.customSpacer);
         this.stylingPipeline.push(this.customColorSpacer);
+        this.stylingPipeline.push(this.customTextColorSpacer);
         this.stylingPipeline.push(new YSpacer());
         this.transformationPipline = [];
         this.transformationPipline.push(this.translateSpacer);
@@ -82,6 +85,7 @@ class P implements IControllerListener, ITreeListener {
         var refresh = false;
         if (param.type) {
             if (param.type === 'changeIndividual') {
+                console.log("Individual Change...");
                 if(param.hasOwnProperty('value')){
                     this.customSpacer.addCustomStyle(param.id,{
                         type: param.value
@@ -89,13 +93,16 @@ class P implements IControllerListener, ITreeListener {
                 }
                 if(param.hasOwnProperty('color')){
                     this.customColorSpacer.addCustomStyle(param.id,{
-                        color: param.color,
+                        color: param.color
+                    });
+                    this.customTextColorSpacer.addCustomStyle(param.id,{
                         textcolor: param.textcolor
-                    })
+                    });
                 }
                 refresh = true;
             }
             else if (param.type === 'changeGeneration') {
+                console.log("Gen Change...");
                 var root:INode = this.tree.getRoot();
                 var gen = this.getGeneration(root, param.id);
                 console.log("Gen: " + gen);
@@ -103,6 +110,7 @@ class P implements IControllerListener, ITreeListener {
                 refresh = true;
             }
             else if (param.type === 'changeAll') {
+                console.log("All Change...");
                 var root:INode = this.tree.getRoot();
                 //var gen = this.getGeneration(root, param.id);
 
@@ -153,51 +161,13 @@ class P implements IControllerListener, ITreeListener {
             else if (param.type === 'getBoxByPoint') {
                 return this.getBoxByPoint(param.pt);
             }
-            /*else if(param.type === 'detail-style' || param.type === 'vertical-style' ||
-             param.type === 'eight-eleven-style' || param.type === 'eight-eleven-detail-style'){
-             this.changeChartStyle(param.type);
-             refresh = true;
-             }*/
-            else if (param.type === 'detail-style') {
-                this.changeStyleDetail();
+            else if(this.changeChartStyle(param.type)){ // This function automatically handles chart spacing.
                 refresh = true;
             }
-            else if (param.type === 'vertical-style') {
-                this.changeStyleVert();
+            else if(this.changeColorStyle(param.type)){ // This function automatically handles color spacing.
                 refresh = true;
             }
-            else if (param.type === 'eight-eleven-style') {
-                this.changeStyleEightEleven();
-                refresh = true;
-            }
-            else if (param.type === 'eight-eleven-detail-style') {
-                this.changeStyleEightElevenDetail();
-                refresh = true;
-            }
-            else if (param.type === 'js-public-style') {
-                this.changeStyleJSPublic();
-                refresh = true;
-            }
-            else if (param.type === 'to-greyscale') {
-                this.toggleGreyscale();
-                refresh = true;
-            }
-            else if (param.type === 'to-branch-color') {
-                this.changeToBranchColor();
-                refresh = true;
-            }
-            else if (param.type === 'to-generation-color') {
-                this.changeToGenColor();
-                refresh = true;
-            }
-            else if (param.type === 'to-generation-color-vibrant') {
-                this.changeToGenColorVibrant();
-                refresh = true;
-            }
-            else if (param.type === 'to-gender-color') {
-                this.changeToGenderColor();
-                refresh = true;
-            } else if (param.type === 'show-empty') {
+            else if (param.type === 'show-empty') {
                 var showOption = document.getElementById('opg-show-empty').innerHTML;
                 if (showOption === "Show Empty Boxes") {
                     this.showEmptyBoxes();
@@ -211,7 +181,6 @@ class P implements IControllerListener, ITreeListener {
 
             }
         }
-
         if (refresh) {
             this.runPipeline();
         }
@@ -371,7 +340,9 @@ class P implements IControllerListener, ITreeListener {
             }
             if(param.hasOwnProperty('color')){
                 this.customColorSpacer.addCustomStyle(node.getId(),{
-                    color: param.color,
+                    color: param.color
+                });
+                this.customTextColorSpacer.addCustomStyle(node.getId(),{
                     textcolor: param.textcolor
                 })
             }
@@ -411,7 +382,8 @@ class P implements IControllerListener, ITreeListener {
     }
 
     private runPipeline():void {
-        for (var i = 0; i < this.stylingPipeline.length; i++) {
+        var i:number;
+        for (i = 0; i < this.stylingPipeline.length; i++) {
             this.stylingPipeline[i].applyStyle(this.firstBoxMap);
         }
         this.runTranslationPipeline(this.firstBoxMap);
@@ -426,167 +398,103 @@ class P implements IControllerListener, ITreeListener {
         return this.secondBoxMap;
     }
 
-    private changeStyleDetail():void {
+    /**
+     * Attempts to change the style spacer for the chart. Succeeds and returns true if the supplied type matches a style
+     * spacer. Fails and returns false if the supplied type does not match a style spacer.
+     *
+     * @param type A key word that may map to a particular style spacer.
+     *
+     * @returns {boolean} whether or not the style spacing was edited as a result of the function.
+     */
+    private changeChartStyle(type:string):boolean {
+        var style: IStyler;
+        switch(type){
+            case 'detail-style':
+                style = new DetailChartSpacer();
+                break;
+            case 'vertical-style':
+                style = new VertDetChartSpacer();
+                break;
+            case 'eight-eleven-style':
+                style = new EightElevenSpacer();
+                break;
+            case 'eight-eleven-detail-style':
+                style = new EightElevenDetailSpacer();
+                break;
+            case 'js-public-style':
+                style = new JSPublicSpacer();
+                break;
+            default:
+                return false;
+        }
         this.stylingPipeline = [];
         this.stylingPipeline.push(this.collapseSpacer);
         this.stylingPipeline.push(new SpacingSpacer());
-        this.stylingPipeline.push(new DetailChartSpacer());
-        this.customSpacer = new CustomSpacer();
-        this.stylingPipeline.push(this.customSpacer);
+
+        this.stylingPipeline.push(style);
+
+        this.stylingPipeline.push(this.customSpacer.clear());
+        this.stylingPipeline.push(this.customColorSpacer);
+        this.stylingPipeline.push(this.customTextColorSpacer);
         this.stylingPipeline.push(new YSpacer());
+        return true;
     }
 
-    private changeStyleVert():void {
+    /**
+     * Attempts to change the style spacer for the chart. Succeeds and returns true if the supplied type matches a style
+     * spacer. Fails and returns false if the supplied type does not match a style spacer.
+     *
+     * @param type A key word that may map to a particular style spacer.
+     *
+     * @returns {boolean} whether or not the style spacing was edited as a result of the function.
+     */
+    private changeColorStyle(type:string):boolean {
+        var style: IStyler;
+        switch (type){
+            case 'to-greyscale':
+                style = new GreyScaleSpacer();
+                break;
+            case 'to-branch-color':
+                if(this.c.dscOrAsc == "descendancy") {
+                    style = new ColorSpacer();
+                }
+                else{
+                    style = new AscColorSpacer();
+                }
+                break;
+            case 'to-generation-color':
+                style = new ColorSpacer();
+                break;
+            case 'to-generation-color-vibrant':
+                style = new GenColorVibrantSpacer();
+                break;
+            case 'to-gender-color':
+                style = new GenderColorSpacer();
+                break;
+            default:
+                return false;
+        }
+        var temp = this.stylingPipeline;
         this.stylingPipeline = [];
-        this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new SpacingSpacer());
-        this.stylingPipeline.push(new VertDetChartSpacer());
-        this.customSpacer = new CustomSpacer();
+        /*
+         The first three entries in the styling pipeline are:
+         Collapse Spacer,
+         Spacing Spacer,
+         Style Spacer * There are several of these that may be in place.
+
+         These Spacers need to be added first.
+         */
+        var i: number;
+        for(i = 0; i < 3; ++i){
+            this.stylingPipeline[i] = temp[i];
+        }
+
+        this.stylingPipeline.push(style);
+
         this.stylingPipeline.push(this.customSpacer);
+        this.stylingPipeline.push(this.customColorSpacer.clear());
+        this.stylingPipeline.push(this.customTextColorSpacer.clear());
         this.stylingPipeline.push(new YSpacer());
-    }
-
-    private changeStyleEightEleven():void {
-
-        this.stylingPipeline = [];
-        this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new SpacingSpacer());
-        this.stylingPipeline.push(new EightElevenSpacer());
-        this.customSpacer = new CustomSpacer();
-        this.stylingPipeline.push(this.customSpacer);
-        this.stylingPipeline.push(new YSpacer());
-    }
-
-    private changeStyleEightElevenDetail():void {
-        this.stylingPipeline = [];
-        this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new SpacingSpacer());
-        this.stylingPipeline.push(new EightElevenDetailSpacer());
-        this.customSpacer = new CustomSpacer();
-        this.stylingPipeline.push(this.customSpacer);
-        this.stylingPipeline.push(new YSpacer());
-    }
-
-    private changeStyleJSPublic():void {
-        this.stylingPipeline = [];
-        this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new SpacingSpacer());
-        this.stylingPipeline.push(new JSPublicSpacer());
-        this.customSpacer = new CustomSpacer();
-        this.stylingPipeline.push(this.customSpacer);
-        this.stylingPipeline.push(new YSpacer());
-    }
-
-    private changeChartStyle(type:string):void {
-        var temp = this.stylingPipeline;
-        this.stylingPipeline = [];
-        var i:number;
-        for (i = 0; i < 2; i++) {
-            this.stylingPipeline.push(temp[i]);
-        }
-        if (type === 'detail-style') {
-            this.stylingPipeline.push(new DetailChartSpacer());
-        }
-        else if (type === 'vertical-style') {
-            this.stylingPipeline.push(new VertDetChartSpacer());
-        }
-        else if (type === 'eight-eleven-style') {
-            this.stylingPipeline.push(new EightElevenSpacer());
-        }
-        else if (type === 'eight-eleven-detail-style') {
-            this.stylingPipeline.push(new EightElevenDetailSpacer());
-        }
-        else if (type === 'js-public-style') {
-            this.stylingPipeline.push(new JSPublicSpacer());
-        }
-        for (i = 2; i < temp.length; i++) {
-            this.stylingPipeline.push(temp[i]);
-        }
-    }
-
-    private toggleGreyscale():void {
-        var temp = this.stylingPipeline;
-        this.stylingPipeline = [];
-        var i:number;
-        this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new GreyScaleSpacer());
-        for (i = 2; i < temp.length; i++) {
-            this.stylingPipeline.push(temp[i]);
-        }
-    }
-
-    private changeToBranchColor():void {
-        var temp = this.stylingPipeline;
-        this.stylingPipeline = [];
-        var i:number;
-        this.stylingPipeline.push(this.collapseSpacer);
-
-        if (this.c.dscOrAsc == "descendancy") {
-            this.stylingPipeline.push(new ColorSpacer());
-        } else {
-            this.stylingPipeline.push(new AscColorSpacer());
-        }
-
-        //this.stylingPipeline.push(new ColorSpacer());
-        for (i = 2; i < temp.length; i++) {
-            this.stylingPipeline.push(temp[i]);
-        }
-
-    }
-
-    private changeToGenColor():void {
-        var temp = this.stylingPipeline;
-        this.stylingPipeline = [];
-        var i:number;
-        this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new GenColorSpacer());
-        for (i = 2; i < temp.length; i++) {
-            this.stylingPipeline.push(temp[i]);
-        }
-
-    }
-
-    private changeToGenColorVibrant():void {
-        var temp = this.stylingPipeline;
-        this.stylingPipeline = [];
-        var i:number;
-        this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new GenColorVibrantSpacer());
-        for (i = 2; i < temp.length; i++) {
-            this.stylingPipeline.push(temp[i]);
-        }
-    }
-
-    private changeToGenderColor():void {
-        var temp = this.stylingPipeline;
-        this.stylingPipeline = [];
-        var i:number;
-        this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new GenderColorSpacer());
-        for (i = 2; i < temp.length; i++) {
-            this.stylingPipeline.push(temp[i]);
-        }
-
-    }
-
-    private changeColorStyle(type:string):void {
-        console.log(type);
-        var temp = this.stylingPipeline;
-        this.stylingPipeline = [];
-        var i:number;
-        this.stylingPipeline.push(this.collapseSpacer);
-        if (type === 'to-greyscale') {
-            console.log("Grey");
-            this.stylingPipeline.push(new GreyScaleSpacer());
-        }
-        else if (type === 'to-branch-color')
-            this.stylingPipeline.push(new GenColorSpacer());
-        else if (type === 'to-generation-color')
-            this.stylingPipeline.push(new ColorSpacer());
-        else if (type === 'to-gender-color')
-            this.stylingPipeline.push(new GenderColorSpacer());
-        for (i = 2; i < temp.length; i++) {
-            this.stylingPipeline.push(temp[i]);
-        }
+        return true;
     }
 }

@@ -56,7 +56,7 @@ class OptionManager implements IOptionManager {
             self.handleStyleChange('to-generation-color',false);
         });
         $('#opg-to-generation-color-vibrant').click(function(){
-            self.handleStyleChange('to-generation-color-color',false);
+            self.handleStyleChange('to-generation-color-vibrant',false);
         });
         $('#opg-to-gender-color').click(function(){
             self.handleStyleChange('to-gender-color',false);
@@ -89,7 +89,6 @@ class OptionManager implements IOptionManager {
                 change: function(color){
                     box.setTextColor(color.toHexString());
                     self.renderTempBox(box);
-                    console.log("Color Changed!");
                 }
             });
 

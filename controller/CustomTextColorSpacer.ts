@@ -3,7 +3,7 @@
  * Created by curtis on 3/9/15.
  * Last updated 2/18/16.
  */
-class CustomColorSpacer implements  IColorStyler {
+class CustomTextColorSpacer implements  IColorStyler {
 
     private customMap: {[s:string]: {}};
 
@@ -24,8 +24,8 @@ class CustomColorSpacer implements  IColorStyler {
                     if(map.hasOwnProperty('y')) {
                         box.setY(map['y']);
                     }
-                    if(map.hasOwnProperty('color')) {
-                        box.setColor(map['color']);
+                    if(map.hasOwnProperty('textcolor')){
+                        box.setTextColor(map['textcolor']);
                     }
                 }
             }
@@ -34,8 +34,12 @@ class CustomColorSpacer implements  IColorStyler {
     addCustomStyle(id: string, customStyle: {}) {
         this.customMap[id] = customStyle;
     }
-    clear(): CustomColorSpacer{
-        this.customMap = {};
+    clear(): CustomTextColorSpacer{
+        for(var id in this.customMap){
+            if(this.customMap[id].hasOwnProperty("textcolor")){
+                this.customMap[id]["textcolor"] = "#000000";
+            }
+        }
         return this;
     }
 }
