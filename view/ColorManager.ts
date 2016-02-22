@@ -10,14 +10,14 @@ class ColorManager {
      */
     private static boxColors: string[] = [
             "#D9ABFF"   // 0) Purple
-        ,   "#ABE4FF"   // 2) Blue
-        ,   "#DEFFB7"   // 3) Green
-        ,   "#FFFFAF"   // 4) Yellow
-        ,   "#FDDCAF"   // 5) Orange
-        ,   "#FFB8AF"   // 6) Red
-        ,   "#ffccff"   // 7) Pink
-        ,   "#E5E5E5"   // 8) Gray
-        ,   "#2C3E50"   // 9) OPG Blue
+        ,   "#ABE4FF"   // 1) Blue
+        ,   "#DEFFB7"   // 2) Green
+        ,   "#FFFFAF"   // 3) Yellow
+        ,   "#FDDCAF"   // 4) Orange
+        ,   "#FFB8AF"   // 5) Red
+        ,   "#ffccff"   // 6) Pink
+        ,   "#E5E5E5"   // 7) Gray
+        ,   "#2C3E50"   // 8) OPG Blue
     ];
 
     /**
@@ -28,80 +28,73 @@ class ColorManager {
     }
 
     /**
-     * @returns {string} a hex-encoded color value for the standard OPG indigo
-     */
-    static indigo() : string{
-        return this.boxColors[1];
-    }
-
-    /**
      * @returns {string} a hex-encoded color value for the standard OPG blue
      */
     static blue() : string {
-        return this.boxColors[2];
+        return this.boxColors[1];
     }
 
     /**
      * @returns {string} a hex-encoded color value for the standard OPG green
      */
     static green() : string{
-        return this.boxColors[3];
+        return this.boxColors[2];
     }
 
     /**
      * @returns {string} a hex-encoded color value for the standard OPG yellow
      */
     static yellow() : string{
-        return this.boxColors[4];
+        return this.boxColors[3];
     }
 
     /**
      * @returns {string} a hex-encoded color value for the standard OPG orange
      */
     static orange() : string{
-        return this.boxColors[5];
+        return this.boxColors[4];
     }
 
     /**
      * @returns {string} a hex-encoded color value for the standard OPG red
      */
     static red() : string{
-        return this.boxColors[6];
+        return this.boxColors[5];
     }
 
     /**
      * @returns {string} a hex-encoded color value for the standard OPG pink
      */
     static pink() : string{
-        return this.boxColors[7];
-    }
-
-    /**
-     * @returns {string} a hex-encoded color value for the standard OPG gray
-     */
-    static gray() : string{
-        return this.boxColors[8];
+        return this.boxColors[6];
     }
 
     /**
      * @returns {string} a hex-encoded color value for the standard OPG female pink
      */
     static femalePink() : string{
-        return this.boxColors[9];
+        return this.boxColors[6];
+    }
+
+    /**
+     * @returns {string} a hex-encoded color value for the standard OPG gray
+     */
+    static gray() : string{
+        return this.boxColors[7];
     }
 
     /**
      * @returns {string} a hex-encoded color value for the standard OPG theme blue.
      */
     static OPGblue() : string{
-        return this.boxColors[10];
+        return this.boxColors[8];
     }
 
     /**
      * Grabs a hex-encoded color value via a numeric index over the color spectrum, proceeding in the following order:
-     *      0) Purple       3) Green        6) Red
-     *      1) Indigo       4) Yellow       7) Pink
-     *      2) Blue         5) Orange
+     *      0) Purple     3) Yellow
+     *      1) Blue       4) Orange
+     *      2) Green      5) Red
      * If the index passed in is not within the acceptable range, the colors wrap around, guaranteeing a returned value.
      *
      * @param index the index of the color being selected.
