@@ -43,6 +43,9 @@ class OptionManager implements IOptionManager {
         $('#opg-detail-style').click(function(){
             self.handleStyleChange('detail-style');
         });
+        $('#opg-reunion-style').click(function(){
+            self.handleStyleChange('reunion-style');
+        });
         $('#opg-vertical-style').click(function(){
             self.handleStyleChange('vertical-style');
         });
@@ -54,6 +57,9 @@ class OptionManager implements IOptionManager {
         });
         $('#opg-js-public-style').click(function(){
             self.handleStyleChange('js-public-style');
+        });
+        $('#opg-js-reunion-public-style').click(function(){
+            self.handleStyleChange('js-reunion-public-style');
         });
         $('#opg-to-greyscale').click(function(){
             self.handleStyleChange('to-greyscale',false);

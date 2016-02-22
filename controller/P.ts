@@ -16,6 +16,8 @@
 ///<reference path="EightElevenSpacer.ts"/>
 ///<reference path="EightElevenDetailSpacer.ts"/>
 ///<reference path="DetailChartSpacer.ts"/>
+///<reference path="FamilyReunionChartSpacer.ts"/>
+///<reference path="FamilyReunionDescPublicSpacer.ts"/>
 ///<reference path="VertDetChartSpacer.ts"/>
 ///<reference path="VertDescDetChartSpacer.ts"/>
 ///<reference path="GreyScaleSpacer.ts"/>
@@ -24,12 +26,14 @@
 ///<reference path="GenColorSpacer.ts"/>
 ///<reference path="GenColorVibrantSpacer.ts"/>
 ///<reference path="GenderColorSpacer.ts"/>
+///<reference path="BaptismColorSpacer.ts"/>
 ///<reference path="SpacingSpacer.ts"/>
 ///<reference path="JSstyleSpacer.ts"/>
 ///<reference path="JSPublicSpacer.ts"/>
 ///<reference path="IdTest.ts"/>
 /**
  * Created by krr428 on 3/7/15.
+ * Last updated 2/19/16.
  */
 
 declare var accessToken;
@@ -466,6 +470,9 @@ class P implements IControllerListener, ITreeListener {
             case 'detail-style':
                 style = new DetailChartSpacer();
                 break;
+            case 'reunion-style':
+                style = new FamilyReunionChartSpacer();
+                break;
             case 'vertical-style':
                 style = new VertDetChartSpacer();
                 break;
@@ -477,6 +484,9 @@ class P implements IControllerListener, ITreeListener {
                 break;
             case 'js-public-style':
                 style = new JSPublicSpacer();
+                break;
+            case 'js-reunion-public-style':
+                style = new FamilyReunionDescPublicSpacer();
                 break;
             default:
                 return false;

@@ -1,9 +1,9 @@
 ///<reference path="IStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 /**
- * Created by renae on 6/10/15.
+ * Created by calvinmcm 2/19/16.
  */
-class DetailChartSpacer implements  IStyler {
+class FamilyReunionChartSpacer implements  IStyler {
     private initialized:boolean = true;
 
     applyStyle(boxes: BoxMap): void {
@@ -46,13 +46,13 @@ class DetailChartSpacer implements  IStyler {
 
         if(generation == 0) {
             bx = 0;
-            childBox.setType('largePictureDetailBox2');
-            childBox.setX(bx);
-            childBox.setHeight(BoxStyleFactory.getHeight('largePictureDetailBox2'));
-            childBox.setWidth(BoxStyleFactory.getWidth('largePictureDetailBox2'));
+            childBox.setType('JSMassiveSpouseRotBox');
+            childBox.setX(bx-250);
+            childBox.setHeight(BoxStyleFactory.getHeight('JSMassiveSpouseRotBox'));
+            childBox.setWidth(BoxStyleFactory.getWidth('JSMassiveSpouseRotBox'));
         }
         else if(generation == 1) {
-            bx = parentBox.getX() + parentBox.getWidth()/2 - 150;
+            bx = parentBox.getX() + parentBox.getWidth() + 20;
             childBox.setType('largePictureDetailBox2');
             childBox.setX(bx);
             childBox.setHeight(BoxStyleFactory.getHeight('largePictureDetailBox2'));
@@ -101,7 +101,7 @@ class DetailChartSpacer implements  IStyler {
             childBox.setWidth(BoxStyleFactory.getWidth('xsNameYearBox'));
         }
         else {
-            var bx = parentBox.getX() + parentBox.getWidth() + 10;
+            bx = parentBox.getX() + parentBox.getWidth() + 10;
             if(generation <= 8) {
                 bx = parentBox.getX() + parentBox.getWidth()/2 + 10;
             }

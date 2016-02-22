@@ -119,4 +119,45 @@ class ColorManager {
         }
         return this.boxColors[index];
     }
+
+    /**
+     * Lightens a hex color code, passing it back out. If the code is missing a leading #, the result also omits the '#'
+     * The lightening is capped at the maximum RBG values, or #ffffff
+     *
+     * @param hex the hex code to lighten
+     * @param amount the amount to lighten it by.
+     * @returns {string|any} The new hex code.
+     */
+    static lighten(hex:string, amount:number=16) : string{
+        if(hex.length !== 6 && hex.length !== 7){
+            return hex;
+        }
+        var hexed = false;
+        if(hex[0] === '#'){
+            hex = hex.substr(1,hex.length);
+            hexed = true;
+        }
+        var Rstr = hex.substr(0,2);
+        var Gstr = hex.substr(2,4);
+        var Bstr = hex.substr(4,6);
+
+        var R = parseInt(Rstr[0]+Rstr[1],16) + amount;
+        var G = parseInt(Gstr[0]+Gstr[1],16) + amount;
+        var B = parseInt(Bstr[0]+Bstr[1],16) + amount;
+
+        if(R > 255){R=255;}
+        if(G > 255){G=255;}
+        if(B > 255){B=255;}
+
+        Rstr = R.toString(16);
+        Gstr = G.toString(16);
+        Bstr = B.toString(16);
+
+        var out;
+        if(hexed){
+            out = '#'
+        }
+        out += Rstr + Gstr + Bstr;
+        return out;
+    }
 }

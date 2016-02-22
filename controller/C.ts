@@ -331,6 +331,9 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'detail-style') {
             this.p.handle({type: key});
         }
+        else if (key === 'reunion-style') {
+            this.p.handle({type: key});
+        }
         else if (key === 'vertical-style') {
             this.p.handle({type: key});
         }
@@ -343,12 +346,10 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'js-public-style') {
             this.p.handle({type: key});
         }
+        else if (key === 'js-reunion-public-style') {
+            this.p.handle({type: key});
+        }
         else if (key === 'to-greyscale') {
-            /*if(!this.greyscale)
-             this.greyscale = true;
-             else
-             this.greyscale = false;
-             this.p.handle({type: key, greyscale:this.greyscale});*/
             this.p.handle({type: key});
         }
         else if (key === 'to-branch-color') {

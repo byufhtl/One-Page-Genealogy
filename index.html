@@ -37,11 +37,14 @@
     <script src="controller/AscColorSpacer.js" type="text/javascript"></script>
     <script src="controller/GenColorSpacer.js" type="text/javascript"></script>
     <script src="controller/GenderColorSpacer.js" type="text/javascript"></script>
+    <script src="controller/BaptismColorSpacer.js" type="text/javascript"></script>
     <script src="controller/GenColorVibrantSpacer.js" type="text/javascript"></script>
     <script src="controller/SpacingSpacer.js" type="text/javascript"></script>
     <script src="controller/EightElevenSpacer.js" type="text/javascript"></script>
     <script src="controller/EightElevenDetailSpacer.js" type="text/javascript"></script>
     <script src="controller/DetailChartSpacer.js" type="text/javascript"></script>
+    <script src="controller/FamilyReunionChartSpacer.js" type="text/javascript"></script>
+    <script src="controller/FamilyReunionDescPublicSpacer.js" type="text/javascript"></script>
     <script src="controller/VertDetChartSpacer.js" type="text/javascript"></script>
     <script src="controller/VertDescDetChartSpacer.js" type="text/javascript"></script>
     <script src="controller/LeafNodeSpacer.js" type="text/javascript"></script>
@@ -136,6 +139,7 @@
     <script src="view/boxStyles/JoSmBoxStyles/SmallestDetBox.js" type="text/javascript"></script>
     <script src="view/boxStyles/JoSmBoxStyles/SmallDetBox.js" type="text/javascript"></script>
     <script src="view/boxStyles/JoSmBoxStyles/MassiveSpouseRotBox.js" type="text/javascript"></script>
+    <script src="view/boxStyles/JoSmBoxStyles/XLSpouseRotBox.js" type="text/javascript"></script>
 
     <script src="view/boxStyles/JoSmPublicBoxStyles/LargeDetRotSpBox.js" type="text/javascript"></script>
     <script src="view/boxStyles/JoSmPublicBoxStyles/LargeDetRotBox.js" type="text/javascript"></script>
@@ -289,18 +293,28 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Styles <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a id="opg-detail-style" href="#">Full Detail Style</a></li>
+                        <li><a id="opg-reunion-style" href="#">Family Reunion Detail Style</a></li>
                         <li><a id="opg-vertical-style" href="#">Vertical Detail Style (Default)</a></li>
                         <li><a id="opg-eight-eleven-style" href="#">8 1/2 x 11 Style</a></li>
                         <li><a id="opg-eight-eleven-detail-style" href="#">8 1/2 x 11 Detail Style</a></li>
+                        <li class="divider">Descendency View Only</li>
                         <li><a id="opg-js-public-style" href="#">Descendancy with Border Style</a></li>
-                        <li class="divider"></li>
+                        <li><a id="opg-js-reunion-public-style" href="#">Family Reunion Descendancy with Border Style</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Colors <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
                         <li><a id="opg-to-greyscale" href="#">Greyscale</a></li>
                         <li><a id="opg-to-branch-color" href="#">Color by Branch</a></li>
                         <li><a id="opg-to-generation-color" href="#">Color by Generation (Monochrome)</a></li>
                         <li><a id="opg-to-generation-color-vibrant" href="#">Color by Generation (Vibrant)</a></li>
                         <li><a id="opg-to-gender-color" href="#">Color by Gender</a></li>
-
-                        <li class="divider"></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Options <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
                         <li><a id="opg-show-empty" href="#">Show Empty Boxes</a></li>
                         <li><a id="opg-show-duplicates" href="#">Highlight Duplicates</a></li>
                         <li></li>
@@ -371,41 +385,41 @@
                             <div name="size_and_orientation_pane" class="tab-pane fade in active">
                                 <div class="col-sm-12">
                                     <select id="opg-modal-select" class="padded">
-                                        <option value="largePictureBox">Large Picture Vertical Box</option>
-                                        <option value="largePictureBox2">Large Picture Box</option>
-                                        <option value="largePicRotBox">Large Picture Rotated Box</option>
-                                        <option value="largePictureDetailBox2">Large Picture Detail Box</option>
-                                        <option value="largePicDetRotBox">Large Picture Detail Rotated Box</option>
-                                        <option value="midLargePictureBox">Medium Large Picture Box</option>
-                                        <option value="midLargePicRotBox">Medium Large Picture Rotated Box</option>
-                                        <option value="mediumPictureBox">Medium Picture Box</option>
-                                        <option value="medPicRotBox">Medium Picture Rotated Box</option>
-                                        <option value="mediumPictureDetailBox">Medium Picture Detail Box</option>
-                                        <option value="medPicDetRotBox">Medium Picture Detail Rotated Box</option>
-                                        <option value="medSmPictureDetailBox">Medium Small Picture Detail Box</option>
-                                        <option value="medSmPicDetRotBox">Medium Small Picture Detail Rotated Box</option>
-                                        <option value="smallDetailBox">Small Detail Box</option>
-                                        <option value="smallNameBox">Small Name Box</option>
-                                        <option value="smallPictureBox">Small Picture Box</option>
-                                        <option value="smallPicRotBox">Small Picture Rotated Box</option>
-                                        <option value="smallPictureBox2">Small Picture Box Vertical</option>
-                                        <option value="smallPictureDetailBox">Small Picture Detail Box</option>
-                                        <option value="smallPicDetRotBox">Small Picture Detail Rotated Box</option>
-                                        <option value="smallPictureDetailBox2">Smaller Picture Detail Box</option>
-                                        <option value="xsDetailBox">XS Detail Box</option>
-                                        <option value="xsNameBox">XS Name Box</option>
-                                        <option value="xsNameYearBox">XS Name Year Box</option>
-                                        <option value="smallestNameBox">Smallest Name Box</option>
-                                        <option value="JSMassiveSpouseRotBox">JS Massive Rotated Spouse Box</option>
-                                        <option value="JSLrgDetRotSpPubBox">JS Large Rotated Spouse Box</option>
-                                        <option value="JSLargeDetRotPubBox">JS Large Rotated Box</option>
-                                        <option value="JSMedDetPubBox">JS Medium Rotated Box</option>
-                                        <option value="JSSmallDetPubBox">JS Small Rotated Box</option>
-                                        <option value="JSSmallDetSpPubBox">JS Small Rotated Spouse Box</option>
-                                        <option value="JSSmallerDetPubBox">JS Smaller Rotated Box</option>
-                                        <option value="JSSmallerDetSpPubBox">JS Smaller Rotated Spouse Box</option>
-                                        <option value="JSSmallestDetPubBox">JS Smallest Rotated Box</option>
-                                        <option value="JSSmallestDetSpPubBox">JS Smallest Rotated Spouse Box</option>
+                                        <option value="largePictureBox">(XL) Picture, Vertical Alignment</option>
+                                        <option value="largePictureBox2">(XL) Picture</option>
+                                        <option value="largePicRotBox">(XL) Picture, Rotated</option>
+                                        <option value="largePictureDetailBox2">(XL) Picture, Detail</option>
+                                        <option value="largePicDetRotBox">(XL) Picture, Detail, Rotated</option>
+                                        <option value="midLargePictureBox">(L) Picture</option>
+                                        <option value="midLargePicRotBox">(L) Picture, Rotated</option>
+                                        <option value="mediumPictureBox">(M) Picture</option>
+                                        <option value="medPicRotBox">(M) Picture, Rotated</option>
+                                        <option value="mediumPictureDetailBox">(M) Picture, Detail</option>
+                                        <option value="medPicDetRotBox">(M) Picture, Detail, Rotated</option>
+                                        <option value="medSmPictureDetailBox">(M) Picture, Detail</option>
+                                        <option value="medSmPicDetRotBox">(M) Picture, Detail, Rotated</option>
+                                        <option value="smallPictureBox2">(M) Picture, Vertical Alignment</option>
+                                        <option value="smallDetailBox">(S) Detail</option>
+                                        <option value="smallNameBox">(S) Name</option>
+                                        <option value="smallPictureBox">(S) Picture</option>
+                                        <option value="smallPicRotBox">(S) Picture, Rotated</option>
+                                        <option value="smallPictureDetailBox">(S) Picture, Detail</option>
+                                        <option value="smallPicDetRotBox">(S) Picture, Detail, Rotated</option>
+                                        <option value="smallPictureDetailBox2">(S)  Picture, Detail, Short</option>
+                                        <option value="xsDetailBox">(XS) Detail</option>
+                                        <option value="xsNameBox">(XS) Name</option>
+                                        <option value="xsNameYearBox">(XS) Name, Year</option>
+                                        <option value="smallestNameBox">(XXS) Name</option>
+                                        <option value="JSMassiveSpouseRotBox">Bordered (XXL) Rotated, Detail, Spouse</option>
+                                        <option value="JSLrgDetRotSpPubBox">Bordered (L) Rotated, Detail, Spouse</option>
+                                        <option value="JSLargeDetRotPubBox">Bordered (L) Rotated, Detail </option>
+                                        <option value="JSMedDetPubBox">Bordered (M) Detail</option>
+                                        <option value="JSSmallDetPubBox">Bordered (S) Detail</option>
+                                        <option value="JSSmallDetSpPubBox">Bordered (S) Detail, Spouse</option>
+                                        <option value="JSSmallerDetPubBox">Bordered (XS) Detail</option>
+                                        <option value="JSSmallerDetSpPubBox">Bordered (XS) - Detail, Spouse</option>
+                                        <option value="JSSmallestDetPubBox">Bordered (XXS) - Detail</option>
+                                        <option value="JSSmallestDetSpPubBox">Bordered (XXS) - Detail, Spouse</option>
                                     </select>
                                 </div>
 
