@@ -217,13 +217,7 @@
         #ruler {
             width: 100%;
             height: 5%;
-            background-color: #d2a779;
-        }
-
-        #dimensions {
-            width: 13%;
-            height:5%;
-            background-color: #d2a779;
+            /*background-color: #d2a779;*/
         }
 
         .outer-content {
@@ -269,8 +263,8 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><input id="svgFile" type="file" style="visibility:hidden" /></li>
-                <li><input id="myInput" type="file" style="visibility:hidden" /></li>
+                <li style="display:none"><input id="svgFile" type="file" style="visibility:hidden" /></li>
+                <li style="display:none"><input id="myInput" type="file" style="visibility:hidden" /></li>
                 <li><input id="gedbutton" type="button" value="Read Gedcom File" onclick="$('#myInput').click();" /></li>
                 <!--onclick="$('#fsbutton').on('click');"-->
                 <li><input id="fsbutton" type="button" value="FamilySearch"/></li>
@@ -313,7 +307,7 @@
 </nav>
 
 <div class="outer-content">
-    <svg id="ruler" style="display:none"></svg>
+    <!--<svg id="ruler" style="display:none"></svg>-->
 
     <svg id="opg-chart"></svg>
 
@@ -586,6 +580,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button style="float:left" type="button" class="btn btn-primary" id="ruler-hide">Hide Ruler</button>
                 <button type="button" class="btn btn-primary" id="ruler-save">Save</button>
             </div>
         </div><!-- /.modal-content -->
