@@ -33,7 +33,7 @@ function JSONREADER(gedData){
                 readIndividual(entry)
             } else if (entry["tag"] == "FAM"){
                 readFamily(entry)
-            }
+        }
 
         }
 

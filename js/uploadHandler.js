@@ -24,6 +24,7 @@ function inputChanged(data) {
             optionManager = new OptionManager();
         }
 
+        console.log(boxes);
         c = new C({
             optionManager: optionManager,
             boxes: boxes,

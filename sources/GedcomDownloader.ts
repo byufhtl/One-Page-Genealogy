@@ -103,6 +103,7 @@ var GedcomDownloader = (function () {
             currentGeneration = nextGen;
 
         }
+        console.log(toReturn);
         return toReturn;
     };
     GedcomDownloader.prototype.sorter = function(a,b){
