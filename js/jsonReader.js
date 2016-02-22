@@ -34,7 +34,6 @@ function JSONREADER(gedData){
             } else if (entry["tag"] == "FAM"){
                 readFamily(entry)
             }
-
         }
 
 

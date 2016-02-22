@@ -116,26 +116,26 @@ class C implements IGraphicObjectListener, IOptionListener {
 
         this.boxes = null;
 
-        var self = this;
-
         if(!skipSource) {
             this.source.setListener(this.tree.getSourceListener());
-            self.source.start();
+            this.source.start();
         }else{
             this.boxes =  new BoxMap(data.boxes.rootId);
-            console.log(data.boxes);
-            var self = this;
-            this.boxes.deserializeMap(data.boxes.map).then(function() {
-                self.p.setMaps(self.boxes);
-                var map = self.boxes.getMap();
-                for(var box in map){
-                    if(map.hasOwnProperty(box)){
-                        self.tree.getSourceListener().gotNode(map[box].getNode());
-                    }
+            //console.log(data.boxes);
+            this.boxes.deserializeMap(data.boxes.map);
+            //.then was here
+            this.p.setMaps(this.boxes);
+            var map = this.boxes.getMap();
+
+            console.log(this.boxes);
+
+            for(var key in map){
+                if(map.hasOwnProperty(key)){
+                    this.tree.getSourceListener().gotNode(map[key].getNode());
                 }
-                //self.p.handleUpdate(self.tree, []);
-                self.refresh(self.boxes);
-            });
+            }
+            //this.p.handleUpdate(this.tree, []);
+            this.refresh(this.boxes);
         }
     }
 

@@ -177,7 +177,7 @@ class P implements IControllerListener, ITreeListener {
         var map = this.firstBoxMap.getMap();
         var count = 0;
         for(var box in map){
-            if(box.charAt(box.length-1) !== "0"){
+            if(box.charAt(box.length-1) !== "0" && box.charAt(8) === ':'){
                 count++;
                 var numDup = parseInt(box.charAt(box.length-1));
                 var color = this.getRandomColor()
