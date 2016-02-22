@@ -60,7 +60,7 @@ class AscColorSpacer implements  IColorStyler {
                     childBox.setColor(ColorManager.blue());
                 }
                 else {
-                    childBox.setColor(ColorManager.pink());
+                    childBox.setColor(ColorManager.red());
                 }
             }
             else if (generation == 2) {
@@ -76,7 +76,7 @@ class AscColorSpacer implements  IColorStyler {
                 else if (child == 0 && gender === 'Female')
                     childBox.setColor(ColorManager.orange());
                 else if (child == 1 && gender === 'Female')
-                    childBox.setColor(ColorManager.pink());
+                    childBox.setColor(ColorManager.red());
             }
             else {
                 childBox.setColor(parentBox.getColor());

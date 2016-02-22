@@ -42,6 +42,6 @@ class GenColorVibrantSpacer implements  IColorStyler {
         }
     }
     private setBasedOnGenerationVibrant(childBox: IBox, generation: number) {
-        childBox.setColor(ColorManager.getColorByIndex(generation%9));
+        childBox.setColor(ColorManager.getColorByIndex((generation%6)));
     }
 }

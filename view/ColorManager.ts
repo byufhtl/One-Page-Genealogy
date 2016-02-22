@@ -10,16 +10,14 @@ class ColorManager {
      */
     private static boxColors: string[] = [
             "#D9ABFF"   // 0) Purple
-        ,   "#D9ABFF"   // 1) Indigo
         ,   "#ABE4FF"   // 2) Blue
         ,   "#DEFFB7"   // 3) Green
         ,   "#FFFFAF"   // 4) Yellow
         ,   "#FDDCAF"   // 5) Orange
         ,   "#FFB8AF"   // 6) Red
-        ,   "#FFABAB"   // 7) Pink
+        ,   "#ffccff"   // 7) Pink
         ,   "#E5E5E5"   // 8) Gray
-        ,   "#ffccff"   // 9) FemalePink
-        ,   "#2C3E50"   // 10) OPG Blue
+        ,   "#2C3E50"   // 9) OPG Blue
     ];
 
     /**
@@ -103,7 +101,7 @@ class ColorManager {
      * Grabs a hex-encoded color value via a numeric index over the color spectrum, proceeding in the following order:
      *      0) Purple       3) Green        6) Red
      *      1) Indigo       4) Yellow       7) Pink
-     *      2) Blue         5) Orange       8) Gray
+     *      2) Blue         5) Orange
      * If the index passed in is not within the acceptable range, the colors wrap around, guaranteeing a returned value.
      *
      * @param index the index of the color being selected.
@@ -111,11 +109,11 @@ class ColorManager {
      * @returns {string} a hex-encoded color value.
      */
     static getColorByIndex(index:number) : string{
-        while(index > 8){
-            index -= 8;
+        while(index > 5){
+            index -= 5;
         }
         while(index < 0){
-            index += 8
+            index += 5;
         }
         return this.boxColors[index];
     }

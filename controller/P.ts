@@ -527,7 +527,7 @@ class P implements IControllerListener, ITreeListener {
                 }
                 break;
             case 'to-generation-color':
-                style = new ColorSpacer();
+                style = new GenColorSpacer();
                 break;
             case 'to-generation-color-vibrant':
                 style = new GenColorVibrantSpacer();
