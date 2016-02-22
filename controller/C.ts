@@ -324,9 +324,13 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
         else if (key === 'ruler-save'){
             $('#rulerModal').modal('hide');
-            $('#opg-chart').css("height","89%");
+            //$('#opg-chart').css("height","89%");
             $('#ruler').css('display', 'block');
             this.viewManager.setRuler();
+        }
+        else if (key === 'ruler-hide'){
+            $('#rulerModal').modal('hide');
+            $('#ruler').css('display', 'none');
         }
         else if (key === 'detail-style') {
             this.p.handle({type: key});

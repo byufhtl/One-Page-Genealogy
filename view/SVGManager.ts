@@ -23,6 +23,7 @@ class SVGManager implements IViewManager {
     private graphicObject: SVGGraphicObject;
     private ruler;
     private rulerSet : boolean;
+    private rulerTextContainer;
 
     private height: number;
     private width: number;
@@ -49,6 +50,8 @@ class SVGManager implements IViewManager {
         $(svg).off();
         $(window).off();
 
+        this.rulerTextContainer = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        this.rulerTextContainer.setAttribute('fill', '#d2a779');
 
         this.svgRoot = document.createElementNS("http://www.w3.org/2000/svg", "g");
         svg.appendChild(this.svgRoot);
@@ -220,7 +223,7 @@ class SVGManager implements IViewManager {
     }
 
     private updateRuler(){
-        //console.log(this.ruler.childNodes);
+
         var originalHeight = $('#ruler-original-height').val();
         var height = $('#ruler-height').val() * 72;
         var ratio = height/originalHeight;
@@ -233,10 +236,22 @@ class SVGManager implements IViewManager {
                 child.setAttribute('x2', x);
             }
         }
+
+        for(var index in this.rulerTextContainer.childNodes){
+            if(this.rulerTextContainer.childNodes.hasOwnProperty(index)){
+                var child = this.rulerTextContainer.childNodes[index];
+                var x = index*360*this.scale/ratio + 5;
+                child.setAttribute('x', x);
+            }
+        }
     }
 
     public setRuler(){
         this.ruler = document.getElementById("ruler");
+        if(this.ruler === null) {
+            this.ruler = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            this.ruler.setAttribute('id', 'ruler');
+        }
         var originalHeight = $('#ruler-original-height').val();
         var height = $('#ruler-height').val() * 72;
         var ratio = height/originalHeight;
@@ -247,20 +262,33 @@ class SVGManager implements IViewManager {
                 inch.setAttribute("x1", String(i * 72 / ratio));
                 inch.setAttribute('y1', "0");
                 inch.setAttribute("x2", String(i * 72 / ratio));
-                inch.setAttribute("y2", "100");
+                inch.setAttribute("y2", "30");
                 inch.setAttribute("style", "stroke:rgb(20,20,20); stroke-width:2");
                 this.ruler.appendChild(inch);
+
+                if(i % 5 === 0){
+                    var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                    var num = document.createTextNode(String(i));
+                    text.setAttribute('x', String(i*72/ratio + 5));
+                    text.setAttribute('y', "30");
+                    text.setAttribute('fill', 'black');
+                    text.appendChild(num);
+                    this.rulerTextContainer.appendChild(text);
+                }
 
                 var halfInch = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 halfInch.setAttribute("x1", String((i) * 72 / ratio + 36));
                 halfInch.setAttribute('y1', "0");
                 halfInch.setAttribute("x2", String(i * 72 / ratio + 36));
-                halfInch.setAttribute("y2", "20");
+                halfInch.setAttribute("y2", "10");
                 halfInch.setAttribute("style", "stroke:rgb(20,20,20); stroke-width:1");
                 this.ruler.appendChild(halfInch);
             }
         }
         this.rulerSet = true;
+        //this.mainSvg.appendChild(this.rulerTextContainer);
+        this.ruler.appendChild(this.rulerTextContainer);
+        this.mainSvg.appendChild(this.ruler);
         this.realRefresh();
     }
 
@@ -416,6 +444,9 @@ class SVGManager implements IViewManager {
 
         $("body").css("cursor", "progress");
 
+        var rulerDisplay = $('#ruler').css('display');
+        $('#ruler').remove();
+
         var defer = $.Deferred();
 
         this.elementManager.setIgnoreBound(true);
@@ -546,6 +577,11 @@ class SVGManager implements IViewManager {
 
         this.elementManager.setIgnoreBound(false);
         this.lineManager.setIgnoreBound(false);
+
+        if(rulerDisplay !== undefined && rulerDisplay !== 'none'){
+            this.setRuler();
+        }
+
         this.realRefresh();
 
 
