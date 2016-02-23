@@ -6,7 +6,9 @@
  * Created by curtis on 3/9/15.
  */
 class YSpacer implements  IStyler {
-
+    getName() : string {
+        return "YSpacer";
+    }
     private high: number;
     private low: number;
 
@@ -18,6 +20,13 @@ class YSpacer implements  IStyler {
     //formatted right for the spacing algorithm.
     //the spacer should probably be redone in typescript
     //but for now we can do this ugly step
+
+    setHigh(h:number){
+        this.high = h;
+    }
+    setLow(l:number){
+        this.low = l;
+    }
 
     applyStyle(boxes: BoxMap): void {
         var spacerTree = new SpacerTree();

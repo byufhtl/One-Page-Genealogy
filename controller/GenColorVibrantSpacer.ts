@@ -7,6 +7,9 @@
  * Last updated 1/29/2016
  */
 class GenColorVibrantSpacer implements  IColorStyler {
+    getName() : string {
+        return "GenColorVibrantSpacer";
+    }
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

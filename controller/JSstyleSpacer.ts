@@ -5,6 +5,9 @@
  */
 
 class JSstyleSpacer implements  IStyler {
+    getName() : string {
+        return "JSstyleSpacer";
+    }
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

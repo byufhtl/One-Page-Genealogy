@@ -6,6 +6,11 @@
  * Last updated 2/18/2016
  */
 class AscColorSpacer implements  IColorStyler {
+
+    getName() : string {
+        return "AscColorSpacer";
+    }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

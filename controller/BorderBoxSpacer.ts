@@ -4,6 +4,9 @@
  * Created by renae on 8/18/15.
  */
 class BorderBoxSpacer implements  IStyler {
+    getName() : string {
+        return "BorderBoxSpacer";
+    }
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

@@ -4,6 +4,9 @@
  * Created by renae on 10/2/15.
  */
 class FamilyReunionDescPublicSpacer implements  IStyler {
+    getName() : string {
+        return "FamilyReunionDescPublicSpacer";
+    }
     private initialized:boolean = true;
 
     applyStyle(boxes: BoxMap): void {

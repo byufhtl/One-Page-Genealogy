@@ -4,6 +4,9 @@
  * Created by renae on 7/28/15.
  */
 class VertDetChartSpacer implements  IStyler {
+    getName() : string {
+        return "VertDetChartSpacer";
+    }
     private initialized:boolean = true;
 
     applyStyle(boxes: BoxMap): void {

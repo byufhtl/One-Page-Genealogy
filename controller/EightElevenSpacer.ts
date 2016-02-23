@@ -4,6 +4,9 @@
  * Created by renae on 6/4/15.
  */
 class EightElevenSpacer implements  IStyler {
+    getName() : string {
+        return "EightElevenSpacer";
+    }
     private initialized:boolean = true;
 
     applyStyle(boxes: BoxMap): void {

@@ -4,11 +4,16 @@
  * Last updated 2/18/2016.
  */
 class CustomSpacer implements  IStyler {
-
+    getName() : string {
+        return "CustomSpacer";
+    }
     private customMap: {[s:string]: {}};
 
     constructor() {
         this.customMap = {};
+    }
+    setCustomMap(map:{[s:string]: boolean}){
+        this.customMap = map;
     }
     applyStyle(boxes: BoxMap): void {
         for (var key in this.customMap) {

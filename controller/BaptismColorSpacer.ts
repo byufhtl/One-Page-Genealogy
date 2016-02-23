@@ -6,6 +6,11 @@
  * Last updated on 1/29/2016
  */
 class BaptismColorSpacer implements  IColorStyler {
+
+    getName() : string {
+        return "BaptismColorSpacer";
+    }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

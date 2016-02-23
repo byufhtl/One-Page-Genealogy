@@ -3,11 +3,21 @@
  * Created by curtis on 3/25/15.
  */
 class CollapseSpacer implements IStyler {
+
+    getName() : string {
+        return "CollapseSpacer";
+    }
+
     private customMap: {[s:string]: boolean};
 
     constructor() {
         this.customMap = {};
     }
+
+    setCustomMap(map:{[s:string]: boolean}){
+        this.customMap = map;
+    }
+
     applyStyle(boxes: BoxMap): void {
         for (var key in this.customMap) {
             if (this.customMap.hasOwnProperty(key)) {

@@ -4,7 +4,9 @@
  * Created by curtis on 3/27/15.
  */
 class RotateSpacer implements  IStyler {
-
+    getName() : string {
+        return "RotateSpacer";
+    }
 
     constructor() {
 

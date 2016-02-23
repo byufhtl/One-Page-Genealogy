@@ -6,6 +6,9 @@
  * Last updated 2/18/2016.
  */
 class GenColorSpacer implements  IColorStyler {
+    getName() : string {
+        return "GenColorSpacer";
+    }
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

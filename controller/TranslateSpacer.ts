@@ -4,6 +4,9 @@
  * Created by curtis on 3/27/15.
  */
 class TranslateSpacer implements  IStyler {
+    getName() : string {
+        return "TranslateSpacer";
+    }
     private dx: number;
     private dy: number;
 
