@@ -224,7 +224,7 @@ class P implements IControllerListener, ITreeListener {
             if(box.charAt(box.length-1) !== "0" && box.charAt(8) === ':'){
                 count++;
                 var numDup = parseInt(box.charAt(box.length-1));
-                var color = this.getRandomColor()
+                var color = ColorManager.generateRandomColor();
                 while(numDup >=0 ) {
                     var id = box.replace(box.charAt(box.length-1),numDup);
                     this.customColorSpacer.addCustomStyle(id,{
@@ -235,23 +235,6 @@ class P implements IControllerListener, ITreeListener {
             }
         }
         return count;
-    }
-    private getRandomColor() {
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        for (var i = 0; i < 6; i++ ) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
-    private lightenDarkenColor(col,amt) {
-        var num = parseInt(col,16);
-        var r = (num >> 16) + amt;
-        var b = ((num >> 8) & 0x00FF) + amt;
-        var g = (num & 0x0000FF) + amt;
-        var newColor = g | (b << 8) | (r << 16);
-        console.log(newColor.toString(16));
-        return "#" + newColor.toString(16);
     }
 
     private hideEmptyBoxes() {
@@ -264,8 +247,10 @@ class P implements IControllerListener, ITreeListener {
                     //Must traverse backwards because we're deleting as we go.
                     for (var i=branchIds.length-1; i >=0; i--) {
                         var index = branchIds[i];
-                        if(localStorage.getItem("chartType") === "FamilySearch" && index.indexOf(":") !== 8 ||
-                            localStorage.getItem("chartType") === "Gedcom" && index.indexOf("@") !== 0) {
+                        if(
+                            ((localStorage.getItem("chartType") === "FamilySearch") && index.indexOf(":") !== 8) ||
+                            ((localStorage.getItem("chartType") === "Gedcom") && index.indexOf("@") !== 0)
+                        ){
                             branchIds.splice(i,1);
                         }
                     }

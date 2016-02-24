@@ -128,7 +128,8 @@ class ColorManager {
     }
 
     /**
-     * Lightens a hex color code, passing it back out. If the code is missing a leading #, the result also omits the '#'
+     * Lightens a 6 digit hex color code, passing it back out. If the code is missing a leading '#',
+     * the result also omits the '#'.
      * The lightening is capped at the maximum RBG values, or #ffffff
      *
      * @param hex the hex code to lighten
@@ -144,27 +145,35 @@ class ColorManager {
             hex = hex.substr(1,hex.length);
             hexed = true;
         }
-        var Rstr = hex.substr(0,2);
-        var Gstr = hex.substr(2,4);
-        var Bstr = hex.substr(4,6);
 
-        var R = parseInt(Rstr[0]+Rstr[1],16) + amount;
-        var G = parseInt(Gstr[0]+Gstr[1],16) + amount;
-        var B = parseInt(Bstr[0]+Bstr[1],16) + amount;
+        var num = parseInt(hex,16);
+        var r = (num >> 16) + amount;
+        var b = ((num >> 8) & 0x00FF) + amount;
+        var g = (num & 0x0000FF) + amount;
 
-        if(R > 255){R=255;}
-        if(G > 255){G=255;}
-        if(B > 255){B=255;}
+        r = (r > 0xFF) ? 0xFF : r;
+        g = (g > 0xFF) ? 0xFF : g;
+        b = (b > 0xFF) ? 0xFF : b;
 
-        Rstr = R.toString(16);
-        Gstr = G.toString(16);
-        Bstr = B.toString(16);
+        var newColor = g | (b << 8) | (r << 16);
 
-        var out;
+        var out = "";
         if(hexed){
             out = '#'
         }
-        out += Rstr + Gstr + Bstr;
-        return out;
+        return out + newColor.toString(16);
+    }
+
+    static generateRandomColor() :string{
+        /*
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        var color = '#' + Math.floor(Math.random() * 16777216).toString(16);
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+        */
+        return('#' + Math.floor(Math.random() * 16777216).toString(16));
     }
 }

@@ -6,4 +6,6 @@
  */
 class NullSpacer implements  IColorStyler, IStyler{
     applyStyle(boxes: BoxMap): void {}
+
+    getName(): string{return "nullSpacer"}
 }
