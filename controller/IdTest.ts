@@ -4,6 +4,9 @@
  * Created by renae on 9/18/15.
  */
 class IdTest implements  IStyler {
+    getName() : string {
+        return "IdTest";
+    }
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

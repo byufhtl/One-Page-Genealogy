@@ -6,6 +6,11 @@
  * Last updated 2/18/2016
  */
 class ColorSpacer implements  IColorStyler {
+
+    getName() : string {
+        return "ColorSpacer";
+    }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

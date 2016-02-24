@@ -4,6 +4,9 @@
  * Created by curtis on 3/9/15.
  */
 class SimpleGenerationSpacer implements  IStyler {
+    getName() : string {
+        return "SimpleGenerationSpacer";
+    }
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

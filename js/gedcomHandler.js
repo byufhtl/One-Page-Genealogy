@@ -229,7 +229,7 @@ function useData(gedOutput){
         var rootId = $("option:selected", ('#gedcomSelect'))[0].value;
         var generations = $("option:selected", ('#generationsSelect'))[0].value;
 
-        localStorage.setItem("rootID", rootId);
+        localStorage.setItem("rootPID", rootId);
         numGenerations = generations;
 
         var chartSVGElement = cloneRemove(document.getElementById("opg-chart"))

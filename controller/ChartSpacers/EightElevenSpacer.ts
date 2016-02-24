@@ -4,7 +4,13 @@
  * Created by renae on 6/4/15.
  * Last updated 2/24/16.
  */
+
 class EightElevenSpacer implements  IChartStyler {
+
+    getName() : string {
+        return "EightElevenSpacer";
+    }
+
     private initialized:boolean = true;
 
     applyStyle(boxes: BoxMap): void {

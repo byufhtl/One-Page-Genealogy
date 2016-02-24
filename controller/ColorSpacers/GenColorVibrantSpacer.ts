@@ -6,7 +6,13 @@
  * Created by calvin on 1/27/2016
  * Last updated 1/29/2016
  */
+
 class GenColorVibrantSpacer implements  IChartColorStyler {
+
+    getName() : string {
+        return "GenColorVibrantSpacer";
+    }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

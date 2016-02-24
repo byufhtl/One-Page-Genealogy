@@ -5,6 +5,9 @@
  * Last updated 2/24/16.
  */
 class FamilyReunionDescPublicSpacer implements  IChartStyler {
+    getName() : string {
+        return "FamilyReunionDescPublicSpacer";
+    }
     private initialized:boolean = true;
 
     applyStyle(boxes: BoxMap): void {

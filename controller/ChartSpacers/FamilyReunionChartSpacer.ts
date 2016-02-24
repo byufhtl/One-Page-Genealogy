@@ -3,7 +3,13 @@
 /**
  * Created by calvinmcm 2/19/16.
  */
+
 class FamilyReunionChartSpacer implements  IChartStyler {
+
+    getName() : string {
+        return "FamilyReunionChartSpacer";
+    }
+
     private initialized:boolean = true;
 
     applyStyle(boxes: BoxMap): void {

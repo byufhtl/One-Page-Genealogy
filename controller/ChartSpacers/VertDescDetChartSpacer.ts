@@ -4,7 +4,13 @@
 /**
  * Created by renae on 8/12/15.
  */
+
 class VertDescDetChartSpacer implements  IChartStyler {
+
+    getName() : string {
+        return "VertDescDetChartSpacer";
+    }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

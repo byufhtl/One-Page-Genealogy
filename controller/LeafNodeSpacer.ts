@@ -4,6 +4,9 @@
  * Created by phobos2390 on 3/18/15.
  */
 class LeafNodeSpacer implements  IStyler {
+    getName() : string {
+        return "LeafNodeSpacer";
+    }
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

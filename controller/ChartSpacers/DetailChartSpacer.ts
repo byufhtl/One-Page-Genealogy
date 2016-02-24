@@ -3,7 +3,13 @@
 /**
  * Created by renae on 6/10/15.
  */
+
 class DetailChartSpacer implements  IChartStyler {
+
+    getName() : string {
+        return "DetailChartSpacer";
+    }
+
     private initialized:boolean = true;
 
     applyStyle(boxes: BoxMap): void {

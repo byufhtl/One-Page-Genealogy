@@ -5,7 +5,14 @@
  * Created by renae on 10/5/15.
  * Last updated 2/24/2016
  */
+
 class AscColorSpacer implements  IChartColorStyler {
+
+
+    getName() : string {
+        return "AscColorSpacer";
+    }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

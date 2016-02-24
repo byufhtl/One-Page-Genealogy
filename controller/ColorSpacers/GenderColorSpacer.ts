@@ -6,6 +6,10 @@
  * Last updated on 1/29/2016
  */
 class GenderColorSpacer implements  IChartColorStyler {
+    getName() : string {
+        return "GenderColorSpacer";
+    }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

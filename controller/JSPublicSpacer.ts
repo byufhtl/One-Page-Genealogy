@@ -4,6 +4,9 @@
  * Created by renae on 10/2/15.
  */
 class JSPublicSpacer implements  IStyler {
+    getName() : string {
+        return "JSPublicSpacer";
+    }
     private initialized:boolean = true;
 
     applyStyle(boxes: BoxMap): void {

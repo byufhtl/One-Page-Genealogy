@@ -5,4 +5,5 @@
 
 interface IStyler {
     applyStyle(boxes: BoxMap): void;
+    getName(): string;
 }

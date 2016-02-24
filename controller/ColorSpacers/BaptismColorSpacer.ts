@@ -5,7 +5,13 @@
  * Created by renae on 9/9/15.
  * Last updated on 1/29/2016
  */
+
 class BaptismColorSpacer implements  IChartColorStyler {
+
+    getName() : string {
+        return "BaptismColorSpacer";
+    }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

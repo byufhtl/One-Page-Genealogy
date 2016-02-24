@@ -5,10 +5,17 @@
  */
 class CustomColorSpacer implements  IColorStyler {
 
+    getName() : string {
+        return "CustomColorSpacer";
+    }
+
     private customMap: {[s:string]: {}};
 
     constructor() {
         this.customMap = {};
+    }
+    setCustomMap(map:{[s:string]: boolean}){
+        this.customMap = map;
     }
     applyStyle(boxes: BoxMap): void {
         for (var key in this.customMap) {

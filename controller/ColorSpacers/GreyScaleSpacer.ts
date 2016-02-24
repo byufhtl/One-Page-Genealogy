@@ -3,7 +3,14 @@
 /**
  * Created by renae on 7/1/15.
  */
+
 class GreyScaleSpacer implements  IChartColorStyler {
+
+
+    getName() : string {
+        return "GreyScaleSpacer";
+    }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
