@@ -1,11 +1,11 @@
-///<reference path="IColorStyler.ts"/>
-///<reference path="../view/BoxStyleFactory.ts"/>
-///<reference path="../view/ColorManager.ts"/>
+///<reference path="IChartColorStyler.ts"/>
+///<reference path="../../view/BoxStyleFactory.ts"/>
+///<reference path="../../view/ColorManager.ts"/>
 /**
  * Created by renae on 10/14/15.
  * Last updated 2/18/2016.
  */
-class GenColorSpacer implements  IColorStyler {
+class GenColorSpacer implements  IChartColorStyler {
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

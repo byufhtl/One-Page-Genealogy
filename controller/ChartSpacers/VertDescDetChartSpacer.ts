@@ -1,10 +1,10 @@
-///<reference path="IStyler.ts"/>
-///<reference path="../view/BoxStyleFactory.ts"/>
-///<reference path="../sources/FSDescNode.ts"/>
+///<reference path="IChartStyler.ts"/>
+///<reference path="../../view/BoxStyleFactory.ts"/>
+///<reference path="../../sources/FSDescNode.ts"/>
 /**
  * Created by renae on 8/12/15.
  */
-class VertDescDetChartSpacer implements  IStyler {
+class VertDescDetChartSpacer implements  IChartStyler {
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

@@ -1,6 +1,7 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
 ///<reference path="../../IBoxData.ts"/>
+///<reference path="../../ColorManager.ts"/>
 /**
  * Created by renae on 10/2/15.
  */
@@ -30,20 +31,20 @@ class JSMedDetPubBox extends IBoxData {
         rect.setAttribute('ry', "30");
         rect.setAttribute('stroke-width', '5');
 
-        rect.setAttribute('stroke','black')
+        rect.setAttribute('stroke','black');
 
         var rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect2.setAttribute('rx','15')
-        rect2.setAttribute('ry','15')
-        rect2.setAttribute('stroke-width','15')
-        rect2.setAttribute('stroke','#FFFF66')
+        rect2.setAttribute('rx','15');
+        rect2.setAttribute('ry','15');
+        rect2.setAttribute('stroke-width','15');
+        rect2.setAttribute('stroke',ColorManager.yellow());
         rect2.setAttribute('width', String(this.getWidth()-33));
         rect2.setAttribute('height', String(box.getHeight()-34-box.getSpace()));
         //rect2.setAttribute('height', String(box.getHeight()-10));
-        g.appendChild(rect2)
-        rect2.setAttribute('x','15')
-        rect2.setAttribute('y','14')
-        rect2.setAttribute('fill-opacity','.001')
+        g.appendChild(rect2);
+        rect2.setAttribute('x','15');
+        rect2.setAttribute('y','14');
+        rect2.setAttribute('fill-opacity','.001');
 
         g.appendChild(gt);
 
@@ -68,7 +69,8 @@ class JSMedDetPubBox extends IBoxData {
         text.setAttribute('font-size', '35px');
         text.setAttribute("style", this.getFont());
         StringUtils.fitName(text, nameString, 14);
-        StringUtils.centerElement(text, 30, 255);
+        //StringUtils.centerElement(text, 30, 255);
+        text.setAttribute("x", "25");
         text.setAttribute('y','55')
         text.setAttribute("font-weight", "bold");
 
@@ -85,7 +87,7 @@ class JSMedDetPubBox extends IBoxData {
         StringUtils.fitDatePlace2(text3,node.getAttr('birthdate'),node.getAttr('birthplace'),26);
         //StringUtils.fitDate(text3, node.getAttr('birthdate'), node.getAttr('deathdate'), 290);
         //StringUtils.centerElement(text3, 210, 290);
-        StringUtils.centerElement(text3, 30, 255);
+        //StringUtils.centerElement(text3, 30, 255);
 
         var text4 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         gt.appendChild(text4);
@@ -99,7 +101,7 @@ class JSMedDetPubBox extends IBoxData {
         StringUtils.fitDatePlace2(text4,node.getAttr('deathdate'),node.getAttr('deathplace'),26);
         //StringUtils.fitPlace(text4, node.getAttr('birthplace'), 25);
         //text4.textContent = 'B: '+text4.textContent;
-        StringUtils.centerElement(text4, 30, 255);
+       // StringUtils.centerElement(text4, 30, 255);
 
 
         var gender = 'none';
@@ -107,18 +109,18 @@ class JSMedDetPubBox extends IBoxData {
             gender = node.getAttr('gender');
         }
         if(box.getColor()!= null){
-            rect.setAttribute('fill', 'white');;
+            rect.setAttribute('fill', 'white');
             rect2.setAttribute('stroke',box.getColor());
             rect2.setAttribute('fill',box.getColor());
         }
         else if(gender === 'Male') {
-            rect.setAttribute('fill','#FFFFE0');
+            rect.setAttribute('fill',ColorManager.blue());
         }
         else if(gender === 'Female') {
-            rect.setAttribute('fill','#FFFFE0');
+            rect.setAttribute('fill',ColorManager.pink());
         }
         else {
-            rect.setAttribute('fill','#E5E5E5');
+            rect.setAttribute('fill',ColorManager.gray());
         }
 
         //gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+") rotate(-90 0,0)");

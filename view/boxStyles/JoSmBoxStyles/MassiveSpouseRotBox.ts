@@ -31,21 +31,21 @@ class JSMassiveSpRotBox extends IBoxData {
         rect.setAttribute('rx', "40");
         rect.setAttribute('ry', "40");
         rect.setAttribute('stroke-width', '6');
-        rect.setAttribute('stroke', 'black')
+        rect.setAttribute('stroke', 'black');
         rect.setAttribute('fill', ColorManager.lighten(box.getColor(),16));
         var rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect2.setAttribute('rx', '24')
-        rect2.setAttribute('ry', '24')
-        rect2.setAttribute('stroke-width', '20')
-        rect2.setAttribute('stroke', box.getColor())
+        rect2.setAttribute('rx', '24');
+        rect2.setAttribute('ry', '24');
+        rect2.setAttribute('stroke-width', '20');
+        rect2.setAttribute('stroke', box.getColor());
         rect2.setAttribute('width', String(this.getWidth() - 37));
         rect2.setAttribute('height', String(box.getHeight() - 38 - box.getSpace()));
         rect2.setAttribute('fill', box.getColor());
         //rect2.setAttribute('height', String(box.getHeight()-10));
         g.appendChild(rect2)
-        rect2.setAttribute('x', '17')
-        rect2.setAttribute('y', '16')
-        rect2.setAttribute('fill-opacity', '.001')
+        rect2.setAttribute('x', '17');
+        rect2.setAttribute('y', '16');
+        rect2.setAttribute('fill-opacity', '.001');
 
         g.appendChild(gt);
 
@@ -106,8 +106,8 @@ class JSMassiveSpRotBox extends IBoxData {
         StringUtils.fitDatePlace(text4, node.getAttr('deathdate'), node.getAttr('deathplace'), 28);
 
 
-        firstG.setAttribute('transform', 'translate(30,100)')
-        secondG.setAttribute('transform', 'translate(30,100)')
+        firstG.setAttribute('transform', 'translate(30,100)');
+        secondG.setAttribute('transform', 'translate(30,100)');
 
         spousenode = node.getDisplaySpouse();
 
@@ -117,14 +117,14 @@ class JSMassiveSpRotBox extends IBoxData {
 
         if(spousenode != null) {
             if (spousenode.hasAttr('gender')) {
-                secondGGender = spousenode.getAttr('gender')
+                secondGGender = spousenode.getAttr('gender');
                 if (secondGGender == "Male") {
                     firstG.setAttribute('transform', 'translate(800,100)')
                 } else {
                     secondG.setAttribute('transform', 'translate(800,100)')
                 }
             } else if (node.hasAttr('gender')) {
-                firstGGender = node.getAttr('gender')
+                firstGGender = node.getAttr('gender');
                 if (firstGGender == "Male") {
                     secondG.setAttribute('transform', 'translate(800,100)')
                 } else {

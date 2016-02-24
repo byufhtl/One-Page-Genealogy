@@ -1,16 +1,14 @@
-///<reference path="IColorStyler.ts"/>
-///<reference path="../view/BoxStyleFactory.ts"/>
-///<reference path="../view/ColorManager.ts"/>
+///<reference path="IChartColorStyler.ts"/>
+///<reference path="../../view/BoxStyleFactory.ts"/>
 /**
- * Created by renae on 9/9/15.
- * Last updated on 1/29/2016
+ * Created by renae on 7/1/15.
  */
-class GenderColorSpacer implements  IColorStyler {
+class GreyScaleSpacer implements  IChartColorStyler {
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
 
-        root.setColor(null);
+        this.setBasedOnGeneration(null, root, 0);
 
         var queue = [];
         queue.push([rootId,0]);
@@ -28,20 +26,13 @@ class GenderColorSpacer implements  IColorStyler {
                     continue;
                 }
 
-                var gender  = branchBox.getNode().getAttr('gender');
-                if(gender == "Male"){
-                    branchBox.setColor(ColorManager.blue());
-                }
-                else if(gender == "Female"){
-                    branchBox.setColor(ColorManager.femalePink());
-                }
-                else{
-                    branchBox.setColor(ColorManager.gray());
-                }
-
+                this.setBasedOnGeneration(box, branchBox, generation+1);
 
                 queue.push([branchIds[i], generation+1]);
             }
         }
+    }
+    private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
+        childBox.setColor('white');
     }
 }

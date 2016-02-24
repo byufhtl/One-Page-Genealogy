@@ -68,7 +68,7 @@ class JSLargeDetRotBox extends IBoxData {
         text.appendChild(nameTextPath);
         text.setAttribute('font-size', '40px');
         text.setAttribute("style", this.getFont());
-        StringUtils.fitName(text, nameString, 19);
+        StringUtils.fitName(text, nameString, 16);
         StringUtils.centerElement(text, 70, 300);
         text.setAttribute('y','70')
         text.setAttribute("font-weight", "bold");

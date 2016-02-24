@@ -18,6 +18,8 @@ class ColorManager {
         ,   "#ffccff"   // 6) Pink
         ,   "#E5E5E5"   // 7) Gray
         ,   "#2C3E50"   // 8) OPG Blue
+        ,   "#FFFFFF"   // 9) White
+        ,   "#000000"   // 10) Black
     ];
 
     /**
@@ -88,6 +90,20 @@ class ColorManager {
      */
     static OPGblue() : string{
         return this.boxColors[8];
+    }
+
+    /**
+     * @returns {string} a hex-encoded color value for the standard OPG white.
+     */
+    static white() : string{
+        return this.boxColors[9];
+    }
+
+    /**
+     * @returns {string} a hex-encoded color value for the standard OPG black.
+     */
+    static black() : string{
+        return this.boxColors[10];
     }
 
     /**

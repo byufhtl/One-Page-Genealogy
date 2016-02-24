@@ -1,6 +1,7 @@
 ///<reference path="../../IBoxRender.ts"/>
 ///<reference path="../../../util/StringUtils.ts"/>
 ///<reference path="../../IBoxData.ts"/>
+///<reference path="../../ColorManager.ts"/>
 /**
  * Created by renae on 10/2/15.
  */
@@ -30,20 +31,20 @@ class JSLargeDetRotPubBox extends IBoxData {
         rect.setAttribute('ry', "30");
         rect.setAttribute('stroke-width', '5');
 
-        rect.setAttribute('stroke','black')
+        rect.setAttribute('stroke','black');
 
         var rect2 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        rect2.setAttribute('rx','15')
-        rect2.setAttribute('ry','15')
-        rect2.setAttribute('stroke-width','15')
-        rect2.setAttribute('stroke','#FFFF66')
+        rect2.setAttribute('rx','15');
+        rect2.setAttribute('ry','15');
+        rect2.setAttribute('stroke-width','15');
+        rect2.setAttribute('stroke',ColorManager.yellow());
         rect2.setAttribute('width', String(this.getWidth()-33));
         rect2.setAttribute('height', String(box.getHeight()-30-box.getSpace()));
         //rect2.setAttribute('height', String(box.getHeight()-10));
-        g.appendChild(rect2)
-        rect2.setAttribute('x','15')
-        rect2.setAttribute('y','14')
-        rect2.setAttribute('fill-opacity','.001')
+        g.appendChild(rect2);
+        rect2.setAttribute('x','15');
+        rect2.setAttribute('y','14');
+        rect2.setAttribute('fill-opacity','.001');
 
         g.appendChild(gt);
 
@@ -69,7 +70,7 @@ class JSLargeDetRotPubBox extends IBoxData {
         text.setAttribute("style", this.getFont() );
         StringUtils.fitName(text, nameString, 19);
         StringUtils.centerElement(text, 65, 300);
-        text.setAttribute('y','70')
+        text.setAttribute('y','70');
         text.setAttribute("font-weight", "bold");
 
         var text3 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -111,14 +112,14 @@ class JSLargeDetRotPubBox extends IBoxData {
             rect2.setAttribute('fill',box.getColor());
         }
         else if(gender === 'Male') {
-            rect.setAttribute('fill','#FFFFE0');
+            rect.setAttribute('fill',ColorManager.blue());
 
         }
         else if(gender === 'Female') {
-            rect.setAttribute('fill','#FFFFE0');
+            rect.setAttribute('fill',ColorManager.pink());
         }
         else {
-            rect.setAttribute('fill','#E5E5E5');
+            rect.setAttribute('fill',ColorManager.gray());
         }
 
         gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+") rotate(-90 0,0)");

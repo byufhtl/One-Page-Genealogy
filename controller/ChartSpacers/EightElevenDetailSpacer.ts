@@ -1,9 +1,10 @@
-///<reference path="IStyler.ts"/>
-///<reference path="../view/BoxStyleFactory.ts"/>
+///<reference path="IChartStyler.ts"/>
+///<reference path="../../view/BoxStyleFactory.ts"/>
 /**
  * Created by renae on 6/30/15.
+ * Last updated on 2/24/16.
  */
-class EightElevenDetailSpacer implements  IStyler {
+class EightElevenDetailSpacer implements  IChartStyler {
     private initialized:boolean = true;
 
     applyStyle(boxes: BoxMap): void {

@@ -80,7 +80,7 @@ class JSLrgDetRotSpBox extends IBoxData {
             text.setAttribute("style", this.getFont());
             if(node.isMainPerson())
                 text.setAttribute("font-weight", "bold");
-            StringUtils.fitName(text,node.getAttr('name'),18);
+            StringUtils.fitName(text,node.getAttr('name'),16);
             //StringUtils.centerElement(text, 210, 290);
         }
 

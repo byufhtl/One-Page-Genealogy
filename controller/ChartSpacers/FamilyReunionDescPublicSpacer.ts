@@ -1,9 +1,10 @@
-///<reference path="IStyler.ts"/>
-///<reference path="../view/BoxStyleFactory.ts"/>
+///<reference path="IChartStyler.ts"/>
+///<reference path="../../view/BoxStyleFactory.ts"/>
 /**
- * Created by renae on 10/2/15.
+ * Created by calvin on 2/18/16
+ * Last updated 2/24/16.
  */
-class FamilyReunionDescPublicSpacer implements  IStyler {
+class FamilyReunionDescPublicSpacer implements  IChartStyler {
     private initialized:boolean = true;
 
     applyStyle(boxes: BoxMap): void {

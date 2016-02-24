@@ -4,36 +4,38 @@
 ///<reference path="SimpleGenerationSpacer.ts"/>
 ///<reference path="YSpacer.ts"/>
 ///<reference path="../view/IViewManager.ts"/>
-///<reference path="CustomSpacer.ts"/>
-///<reference path="CustomColorSpacer.ts"/>
-///<reference path="CustomTextColorSpacer.ts"/>
+///<reference path="ChartSpacers/CustomSpacer.ts"/>
+///<reference path="ColorSpacers/CustomColorSpacer.ts"/>
+///<reference path="ColorSpacers/CustomTextColorSpacer.ts"/>
 ///<reference path="C.ts"/>
 ///<reference path="LeafNodeSpacer.ts"/>
 ///<reference path="CollapseSpacer.ts"/>
 ///<reference path="TranslateSpacer.ts"/>
 ///<reference path="RotateSpacer.ts"/>
 ///<reference path="GenerationSpacer2.ts"/>
-///<reference path="EightElevenSpacer.ts"/>
-///<reference path="EightElevenDetailSpacer.ts"/>
-///<reference path="DetailChartSpacer.ts"/>
-///<reference path="FamilyReunionChartSpacer.ts"/>
-///<reference path="FamilyReunionDescPublicSpacer.ts"/>
-///<reference path="VertDetChartSpacer.ts"/>
-///<reference path="VertDescDetChartSpacer.ts"/>
-///<reference path="GreyScaleSpacer.ts"/>
-///<reference path="ColorSpacer.ts"/>
-///<reference path="AscColorSpacer.ts"/>
-///<reference path="GenColorSpacer.ts"/>
-///<reference path="GenColorVibrantSpacer.ts"/>
-///<reference path="GenderColorSpacer.ts"/>
-///<reference path="BaptismColorSpacer.ts"/>
+///<reference path="ChartSpacers/CustomSpacer.ts"/>
+///<reference path="ChartSpacers/EightElevenSpacer.ts"/>
+///<reference path="ChartSpacers/EightElevenDetailSpacer.ts"/>
+///<reference path="ChartSpacers/DetailChartSpacer.ts"/>
+///<reference path="ChartSpacers/FamilyReunionChartSpacer.ts"/>
+///<reference path="ChartSpacers/FamilyReunionDescPublicSpacer.ts"/>
+///<reference path="ChartSpacers/VertDetChartSpacer.ts"/>
+///<reference path="ChartSpacers/VertDescDetChartSpacer.ts"/>
+///<reference path="ColorSpacers/GreyScaleSpacer.ts"/>
+///<reference path="ColorSpacers/ColorSpacer.ts"/>
+///<reference path="ColorSpacers/AscColorSpacer.ts"/>
+///<reference path="ColorSpacers/GenColorSpacer.ts"/>
+///<reference path="ColorSpacers/GenColorVibrantSpacer.ts"/>
+///<reference path="ColorSpacers/GenderColorSpacer.ts"/>
+///<reference path="ColorSpacers/BaptismColorSpacer.ts"/>
 ///<reference path="SpacingSpacer.ts"/>
 ///<reference path="JSstyleSpacer.ts"/>
 ///<reference path="JSPublicSpacer.ts"/>
 ///<reference path="IdTest.ts"/>
+///<reference path="StylingPipeline.ts"/>
 /**
  * Created by krr428 on 3/7/15.
- * Last updated 2/19/16.
+ * Last updated 2/24/16.
  */
 
 declare var accessToken;
@@ -42,7 +44,7 @@ declare var numGenerations;
 
 class P implements IControllerListener, ITreeListener {
 
-    private stylingPipeline:IStyler[]; // This changes based on
+    private stylingPipeline:StylingPipeline;
     private transformationPipline:IStyler[];
 
     private collapseSpacer:CollapseSpacer;
@@ -64,23 +66,23 @@ class P implements IControllerListener, ITreeListener {
         this.collapseSpacer = new CollapseSpacer();
         this.translateSpacer = new TranslateSpacer();
 
-        this.stylingPipeline = [];
-        this.stylingPipeline.push(this.collapseSpacer);
+        this.stylingPipeline = new StylingPipeline();
+
+        this.stylingPipeline.setCollapseSpacer(this.collapseSpacer);
+        this.stylingPipeline.setSpacingSpacer(new SpacingSpacer());
+
         if (c.dscOrAsc == "descendancy") {
-            this.stylingPipeline.push(new ColorSpacer());
+            this.stylingPipeline.setChartStyleSpacer(new JSPublicSpacer());
+            this.stylingPipeline.setChartColorStyleSpacer(new ColorSpacer());
         } else {
-            this.stylingPipeline.push(new AscColorSpacer());
+            this.stylingPipeline.setChartStyleSpacer(new VertDetChartSpacer());
+            this.stylingPipeline.setChartColorStyleSpacer(new AscColorSpacer());
         }
-        this.stylingPipeline.push(new SpacingSpacer());
-        if (c.dscOrAsc == "descendancy") {
-            this.stylingPipeline.push(new JSPublicSpacer());
-        } else {
-            this.stylingPipeline.push(new VertDetChartSpacer());
-        }
-        this.stylingPipeline.push(this.customSpacer);
-        this.stylingPipeline.push(this.customColorSpacer);
-        this.stylingPipeline.push(this.customTextColorSpacer);
-        this.stylingPipeline.push(new YSpacer());
+
+        this.stylingPipeline.setCustomChartStyleSpacer(this.customSpacer);
+        this.stylingPipeline.setCustomColorSpacer(this.customColorSpacer);
+        this.stylingPipeline.setCustomTextColorSpacer(this.customTextColorSpacer);
+        this.stylingPipeline.setYSpacer(new YSpacer());
         this.transformationPipline = [];
         this.transformationPipline.push(this.translateSpacer);
     }
@@ -440,10 +442,7 @@ class P implements IControllerListener, ITreeListener {
     }
 
     private runPipeline():void {
-        var i:number;
-        for (i = 0; i < this.stylingPipeline.length; i++) {
-            this.stylingPipeline[i].applyStyle(this.firstBoxMap);
-        }
+        this.stylingPipeline.runPipeline(this.firstBoxMap);
         this.runTranslationPipeline(this.firstBoxMap);
         this.c.refresh(this.secondBoxMap);
     }
@@ -491,16 +490,12 @@ class P implements IControllerListener, ITreeListener {
             default:
                 return false;
         }
-        this.stylingPipeline = [];
-        this.stylingPipeline.push(this.collapseSpacer);
-        this.stylingPipeline.push(new SpacingSpacer());
+        this.stylingPipeline.setSpacingSpacer(new SpacingSpacer());
 
-        this.stylingPipeline.push(style);
+        this.stylingPipeline.setChartStyleSpacer(style);
 
-        this.stylingPipeline.push(this.customSpacer.clear());
-        this.stylingPipeline.push(this.customColorSpacer);
-        this.stylingPipeline.push(this.customTextColorSpacer);
-        this.stylingPipeline.push(new YSpacer());
+        this.stylingPipeline.setCustomChartStyleSpacer(this.customSpacer.clear());
+        this.stylingPipeline.setYSpacer(new YSpacer());
         return true;
     }
 
@@ -538,27 +533,11 @@ class P implements IControllerListener, ITreeListener {
             default:
                 return false;
         }
-        var temp = this.stylingPipeline;
-        this.stylingPipeline = [];
-        /*
-         The first three entries in the styling pipeline are:
-         Collapse Spacer,
-         Spacing Spacer,
-         Style Spacer * There are several of these that may be in place.
+        this.stylingPipeline.setChartColorStyleSpacer(style);
 
-         These Spacers need to be added first.
-         */
-        var i: number;
-        for(i = 0; i < 3; ++i){
-            this.stylingPipeline[i] = temp[i];
-        }
-
-        this.stylingPipeline.push(style);
-
-        this.stylingPipeline.push(this.customSpacer);
-        this.stylingPipeline.push(this.customColorSpacer.clear());
-        this.stylingPipeline.push(this.customTextColorSpacer.clear());
-        this.stylingPipeline.push(new YSpacer());
+        this.stylingPipeline.setCustomColorSpacer(this.customColorSpacer.clear());
+        this.stylingPipeline.setCustomTextColorSpacer(this.customTextColorSpacer.clear());
+        this.stylingPipeline.setYSpacer(new YSpacer());
         return true;
     }
 }

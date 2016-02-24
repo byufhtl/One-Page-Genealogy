@@ -1,6 +1,6 @@
 ///<reference path="IColorStyler.ts"/>
-///<reference path="../view/BoxStyleFactory.ts"/>
-///<reference path="../view/ColorManager.ts"/>
+///<reference path="../../view/BoxStyleFactory.ts"/>
+///<reference path="../../view/ColorManager.ts"/>
 /**
  * Created by renae on 8/5/15.
  * Last updated 2/18/2016
