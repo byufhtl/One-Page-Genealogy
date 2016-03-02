@@ -103,6 +103,8 @@ class OptionManager implements IOptionManager {
         var self = this;
         if(type === 'selectIndividual') {
             var box:IBox = data.box.copy();
+            var colonLoc = box.getNode().getId().indexOf(':');
+            $('#pid').text("Box Style Options - " + box.getNode().getId().substr(0,colonLoc));
             $('#opg-modal').modal('show');
             setTimeout(function(){
                 self.renderTempBox(box);
