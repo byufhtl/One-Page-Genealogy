@@ -84,7 +84,7 @@ function familySearchDownload() {
         $('#fsModal').modal({
             backdrop: 'static',
             keyboard: false
-        })
+        });
         if (FamilySearch.hasAccessToken && !isExpired()) {
             $('#fsSave').html("Submit");
         } else {

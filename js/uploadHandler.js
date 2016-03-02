@@ -87,9 +87,15 @@ function inputChanged(data) {
         console.log('root: ' + rootPID);
         console.log('gen: ' + numGenerations);
         console.log('direction: ' + direction);
+        console.log('chartType: ' + type);
+        //localStorage.setItem("numGenerations", numGenerations);
+        //localStorage.setItem("rootPID", rootPID);
+        //localStorage.setItem("direction", direction);
+        //localStorage.setItem("chartType", type);
+        //localStorage.setItem("load", true);
         c = new C({
             //optionManager: optionManager,
-            //boxes: boxes,
+            boxes: boxes,
             //file: true
             rootId: rootPID,
             generations: numGenerations,

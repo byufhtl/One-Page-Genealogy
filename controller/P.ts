@@ -40,7 +40,7 @@
 
 declare var accessToken;
 declare var numGenerations;
-
+declare var saveAs:any;
 
 class P implements IControllerListener, ITreeListener {
 
@@ -87,26 +87,26 @@ class P implements IControllerListener, ITreeListener {
         this.transformationPipline.push(this.translateSpacer);
     }
 
-    setStylingPipeline(pipeline:IStyler[]){
-        this.stylingPipeline = pipeline;
-        for (var index in pipeline){
-            var styler = pipeline[index];
-            switch(styler.getName()){
-                case ('CustomSpacer'):
-                    this.customSpacer = <CustomSpacer> styler;
-                    break;
-                case ('CustomColorSpacer'):
-                    this.customColorSpacer = <CustomColorSpacer> styler;
-                    break;
-                case ('CustomTextColorSpacer'):
-                    this.customTextColorSpacer = <CustomTextColorSpacer> styler;
-                    break;
-                case ('CollapseSpacer'):
-                    this.collapseSpacer = <CollapseSpacer> styler;
-                    break;
-            }
-        }
-    }
+    //setStylingPipeline(pipeline:IStyler[]){
+    //    this.stylingPipeline = pipeline;
+    //    for (var index in pipeline){
+    //        var styler = pipeline[index];
+    //        switch(styler.getName()){
+    //            case ('CustomSpacer'):
+    //                this.customSpacer = <CustomSpacer> styler;
+    //                break;
+    //            case ('CustomColorSpacer'):
+    //                this.customColorSpacer = <CustomColorSpacer> styler;
+    //                break;
+    //            case ('CustomTextColorSpacer'):
+    //                this.customTextColorSpacer = <CustomTextColorSpacer> styler;
+    //                break;
+    //            case ('CollapseSpacer'):
+    //                this.collapseSpacer = <CollapseSpacer> styler;
+    //                break;
+    //        }
+    //    }
+    //}
 
     setMaps(boxMap: BoxMap){
         //This function should only be used when loading a chart from file
@@ -191,30 +191,39 @@ class P implements IControllerListener, ITreeListener {
                 refresh = true;
             }
             else if (param.type === 'save'){
-                var mappedPipeline = {};
-                for(var index in this.stylingPipeline){
-                    var pipeline = this.stylingPipeline[index];
-                    mappedPipeline[pipeline.getName()] = pipeline;
-                }
-                mappedPipeline['type'] = localStorage.getItem('chartType');
-                mappedPipeline['direction'] = this.c.dscOrAsc;
-                mappedPipeline['root'] = localStorage.getItem('rootPID');
-                mappedPipeline['generations'] = numGenerations;
-
-                var output = JSON.stringify(mappedPipeline);
-                console.log(output);
-                console.log(output.length);
-                var fileName = "pipeline_chart.json";
-                var url = "data:text+json;utf8," + output;
-                var link:any = document.createElement("a");
-                link.download = fileName;
-                link.href = url;
-                link.click();
+                this.save(param.value);
             }
         }
         if (refresh) {
             this.runPipeline();
         }
+    }
+
+    private save(boxes:string){
+        var mappedPipeline = {};
+        for(var index in this.stylingPipeline){
+            var pipeline = this.stylingPipeline[index];
+            mappedPipeline[pipeline.getName()] = pipeline;
+        }
+        mappedPipeline['type'] = localStorage.getItem('chartType');
+        mappedPipeline['direction'] = this.c.dscOrAsc;
+        mappedPipeline['root'] = localStorage.getItem('rootPID');
+        mappedPipeline['generations'] = numGenerations;
+
+        var output = JSON.stringify(mappedPipeline);
+        //console.log(output);
+        //console.log(output.length);
+
+        var fileText = output + "~" + boxes;
+        console.log(fileText.length);
+        var blob = new Blob([fileText], {type: "text/plain;charset=utf-8;",});
+        saveAs(blob, "fancyChart.json");
+        //var fileName = "pipeline_chart.json";
+        //var url = "data:text+json;utf8," + encodeURIComponent(output);
+        //var link:any = document.createElement("a");
+        //link.download = fileName;
+        //link.href = url;
+        //link.click();
     }
 
     private showDuplicates(){

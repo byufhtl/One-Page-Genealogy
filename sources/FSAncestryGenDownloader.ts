@@ -131,7 +131,8 @@ class FSAncestryGenDownloader {
                 childPointers: unprocessedLeafNodes
             });
         }, function(){
-            alert("Error: You don't have access to this person's tree.");
+            //alert("Error: You don't have access to this person's tree.");
+            $('#errorModal').modal('show');
             familySearchDownload();
             defer.reject();
         });

@@ -89,7 +89,7 @@ class C implements IGraphicObjectListener, IOptionListener {
             var skipSource = true;
         }
         else {
-            console.log("Making non-gedcom C");
+            //console.log("Making non-gedcom C");
             rootId = data.rootId;
             generations = data.generations;
             this.source = new FSFullTreeDownloader(rootId, generations, data.dscOrAsc);
@@ -103,9 +103,9 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.tree = new Tree();
         this.p = new P(this);
 
-        if(data.pipeline !== undefined){
-            this.p.setStylingPipeline(data.pipeline);
-        }
+        //if(data.pipeline !== undefined){
+        //    this.p.setStylingPipeline(data.pipeline);
+        //}
 
         this.viewManager = new MainViewManager();
         this.greyscale = false;
@@ -300,14 +300,15 @@ class C implements IGraphicObjectListener, IOptionListener {
             });
         }
         else if (key === 'save'){
-             //var boxes = JSON.stringify(this.boxes);
-             //var fileName = "opg_chart.json";
-             //var url = "data:text+json;utf8," + boxes;
-             //var link:any = document.createElement("a");
-             //link.download = fileName;
-             //link.href = url;
-             //link.click();
-            this.p.handle({type: key});
+            var boxes = JSON.stringify(this.boxes);
+            // var fileName = "opg_chart.json";
+            //console.log(boxes.length);
+            // var url = "data:text+json;utf8," + encodeURIComponent(boxes);
+            // var link:any = document.createElement("a");
+            // link.download = fileName;
+            // link.href = url;
+            // link.click();
+            this.p.handle({type: key, value: boxes});
         }
         else if (key === 'ruler'){
             //have user select dimensions and then display ruler

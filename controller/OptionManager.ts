@@ -98,7 +98,6 @@ class OptionManager implements IOptionManager {
         $('#opg-show-duplicates').click(function(){
             self.listener.handleOption('show-duplicates', null);
         });
-
     }
     handleOptionSetting(type:String, data:any): void {
         var self = this;
