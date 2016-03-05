@@ -58,17 +58,22 @@ class LineManager {
                     this.d += "M " + cx + " " + cy + " ";
                     this.d += "L " + middleX + " " + cy + " ";
 
-                    this.d += "M " + first.getX() + " "+ first.getY() +" ";
-                    this.d += "L " + (middleX) + " " + (first.getY()) + " ";
 
-                    for(var j=0; j<branchIds.length; j++) {
+
+                    for(var j=1; j<branchIds.length-1; j++) {
                         var child = this.toCenterPoint(boxes.getId(branchIds[j]));
                         this.d += "M " + child.getX() + " " + child.getY() + " ";
                         this.d += "L " + middleX + " "+child.getY()+" ";
                     }
 
-                    this.d += "M " + middleX + " " + first.getY() + " ";
+                    this.d += "M " + first.getX() + " "+ first.getY() +" ";
+                    this.d += "L " + (middleX) + " " + (first.getY()) + " ";
+
+                    this.d += "L " + middleX + " " + first.getY() + " ";
                     this.d += "L " + middleX + " " + last.getY() + " ";
+
+                    this.d += "L " + (middleX) + " " + (last.getY()) + " ";
+                    this.d += "L " + last.getX() + " "+ last.getY() +" ";
                 }
             }
 

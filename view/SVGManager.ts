@@ -352,6 +352,7 @@ class SVGManager implements IViewManager {
         var d = this.lineManager.requestLineString(boxes);
 
         this.linePath.setAttribute('stroke','black');
+        this.linePath.setAttribute('fill','none');
         this.linePath.setAttribute('d', d);
     }
     private resetTransformation() {
