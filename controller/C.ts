@@ -209,12 +209,36 @@ class C implements IGraphicObjectListener, IOptionListener {
 
     }
 
+    getBranch(box:IBox, branch:IBox[]): IBox[]{
+        var branchIds = box.getNode().getBranchIds();
+        branch.push(box);
+        if(branchIds.length === 0){
+            return branch;
+        }
+        for(var i=0; i < branchIds.length; i++){
+            branch.concat(this.getBranch(this.boxes.getMap()[branchIds[i]], branch));
+        }
+        return branch;
+    }
+
     translate(pt1:Point, pt2:Point):void {
+        //console.log((pt2.getX() - pt1.getX()) + ', ' + (pt2.getY() - pt1.getY()));
 
-        var dx:number = (pt2.getX() - pt1.getX());
-        var dy:number = (pt2.getY() - pt1.getY());
+        var box:IBox = this.p.handle({type: 'getBoxByPoint', pt: pt1});
+        if (box) {
+            var branch = this.getBranch(box, []);
+            for(var index in branch){
+                var boxToMove = branch[index];
+                boxToMove.setX(boxToMove.getX() - (pt2.getX() - pt1.getX()));
+                boxToMove.setY(boxToMove.getY() - (pt2.getY() - pt1.getY()));
+            }
+            this.viewManager.refresh(this.boxes);
+        }else{
+            var dx:number = (pt2.getX() - pt1.getX());
+            var dy:number = (pt2.getY() - pt1.getY());
 
-        this.viewManager.setTranslation(dx, dy);
+            this.viewManager.setTranslation(dx, dy);
+        }
     }
 
     scale(ds:number, pt:Point):void {
