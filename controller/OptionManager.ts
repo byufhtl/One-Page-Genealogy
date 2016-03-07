@@ -17,6 +17,8 @@ class OptionManager implements IOptionManager {
     private customSize:boolean;
     private customColor:boolean;
 
+    private rotation:number = 0;
+
     constructor() {
         var self = this;
 
@@ -24,9 +26,11 @@ class OptionManager implements IOptionManager {
         this.customColor = false;
 
         $('#opg-rotate-cc').click(function(){
+            self.rotation -= 90;
             self.listener.handleOption('rotate', {value: -Math.PI/2});
         });
         $('#opg-rotate-c').click(function(){
+            self.rotation += 90;
             self.listener.handleOption('rotate', {value: Math.PI/2});
         });
         $('#opg-download').click(function(){
@@ -100,6 +104,7 @@ class OptionManager implements IOptionManager {
             self.listener.handleOption('show-duplicates', null);
         });
     }
+
     handleOptionSetting(type:String, data:any): void {
         var self = this;
         if(type === 'selectIndividual') {
@@ -207,17 +212,34 @@ class OptionManager implements IOptionManager {
         }
         return;
     }
+
     private renderTempBox(box: IBox) {
         var opgModalSvg = $('#opg-modal-svg');
         opgModalSvg.empty();
-        opgModalSvg.height(box.getHeight() + OptionManager.DISPLAY_PADDING*2);
-        opgModalSvg.width(box.getWidth() + OptionManager.DISPLAY_PADDING*2);
+        var transform = [];
+        if(this.rotation % 360 === 0){
+            opgModalSvg.height(box.getHeight() + OptionManager.DISPLAY_PADDING*2);
+            opgModalSvg.width(box.getWidth() + OptionManager.DISPLAY_PADDING*2);
+        }else if(this.rotation % 270 === 0){
+            opgModalSvg.width(box.getHeight() + OptionManager.DISPLAY_PADDING*2);
+            opgModalSvg.height(box.getWidth() + OptionManager.DISPLAY_PADDING*2);
+            transform.push("translate(0," + box.getWidth() +')');
+        }else if(this.rotation % 180 === 0){
+            opgModalSvg.height(box.getHeight() + OptionManager.DISPLAY_PADDING*2);
+            opgModalSvg.width(box.getWidth() + OptionManager.DISPLAY_PADDING*2);
+            transform.push("translate(" + box.getWidth() + ',' + box.getHeight() + ")");
+        }else{
+            opgModalSvg.width(box.getHeight() + OptionManager.DISPLAY_PADDING*2);
+            opgModalSvg.height(box.getWidth() + OptionManager.DISPLAY_PADDING*2);
+            transform.push("translate(" + box.getHeight() + ',0)');
+        }
         var g = BoxStyleFactory.getNewBoxStyle(box.getType()).render(box, opgModalSvg[0]);
-        g.setAttribute("transform", "translate("+OptionManager.DISPLAY_PADDING+", "+OptionManager.DISPLAY_PADDING+")");
-        var jqG = $(g);
+        transform.push("translate("+OptionManager.DISPLAY_PADDING+", "+OptionManager.DISPLAY_PADDING+")");
+        transform.push('rotate('+ this.rotation +')');
 
-
+        g.setAttribute("transform", transform.join(' '));
     }
+
     private handleStyleChange(changeType:string, sizeChange:boolean = true){
         if((this.customColor && !sizeChange) || (this.customSize && sizeChange)){
             console.log("Style Change - Override Protocol");
@@ -228,6 +250,7 @@ class OptionManager implements IOptionManager {
             this.listener.handleOption(changeType, null);
         }
     }
+
     private displayWarning(type : string, sizeBased:boolean){
         console.log('Should show warning modal...');
         var self = this;
@@ -247,6 +270,7 @@ class OptionManager implements IOptionManager {
             warningModal.modal('hide');
         })
     }
+
     setListener(listener: IOptionListener) {
         this.listener = listener;
     }
