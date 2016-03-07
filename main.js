@@ -147,8 +147,20 @@ function familySearchDownload() {
                 var user = response.getUser();
                 if (rootPID === '')
                     rootPID = user.personId;
+
                 //we need to turn off old listeners before we create a new c.
-                $('#opg-download').off('click');
+                //---------------------------------------------------------------------------------------
+                // Why??? it seems to be throwing some things off... such as:
+                // once the opg-download click handler is off, you can't download a chart.
+                // Since I see no good reason to turn off this click handler, I'm commenting out the following line
+                // ~ Jared C. (March 7, 2016)
+                // ps. This code may have become obsolete since we're not creating a new options handler each time.
+                //      It should only be created once. Thus, only one set of handlers.
+                //      Thus, we shouldn't be turning them off.
+                // pps. If there actually still exists a good reason for turning it off, please correct me.
+                // ppps. Please delete this comment block after a reasonable amount of time if everything seems fine.
+                //---------------------------------------------------------------------------------------
+                //$('#opg-download').off('click');
                 $('#fsSave').off('click');
                 $('#fsGenerationsSelect').off('click');
                 $('fsgenerationsRadio').off('click');

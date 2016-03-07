@@ -7,6 +7,7 @@
  * Created by curtis on 3/19/15.
  */
 
+declare function familySearchDownload(): void;
 
 class OptionManager implements IOptionManager {
     private static DISPLAY_PADDING:number = 5;
@@ -134,12 +135,22 @@ class OptionManager implements IOptionManager {
             var opgModalCollapse = $('#opg-modal-collapse');
             var opgModalFSview = $('#FS-view');
             var opgModalVPview = $('#VP-view');
+            var setAsRoot = $('#set-as-root');
             opgModalSelect.off('click');
             opgModalSizeSave.off('click');
             opgModalColorSave.off('click');
             opgModalCollapse.off('click');
             opgModalFSview.off('click');
             opgModalVPview.off('click');
+            setAsRoot.off('click');
+
+            setAsRoot.click(function(){
+                var colonLoc = box.getNode().getId().indexOf(':');
+                var pid = box.getNode().getId().substr(0,colonLoc);
+                $("#opg-modal").modal('hide');
+                $('#pid-search-input').val(pid);
+                familySearchDownload();
+            });
 
             opgModalFSview.click(function(){
                 var pid = box.getNode().getId().substring(0,8);
