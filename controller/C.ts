@@ -37,6 +37,10 @@ class C implements IGraphicObjectListener, IOptionListener {
     private anchorPt:Point;
     private anchorId:string;
 
+    //These 3 variables used in edit-spacing mode for moving branches around
+    private editMode:boolean = false;
+    private grabBranch:boolean = true;
+    private selectedBranch:IBox[] = [];
 
     constructor(data) {
 
@@ -118,6 +122,8 @@ class C implements IGraphicObjectListener, IOptionListener {
 
         this.optionManager = data.optionManager;
         this.optionManager.setListener(this);
+        this.optionManager.setRotation(this.viewManager.getRotation());
+
 
         this.boxes = null;
 
@@ -221,14 +227,27 @@ class C implements IGraphicObjectListener, IOptionListener {
         return branch;
     }
 
-    translate(pt1:Point, pt2:Point):void {
-        //console.log((pt2.getX() - pt1.getX()) + ', ' + (pt2.getY() - pt1.getY()));
-
-        var box:IBox = this.p.handle({type: 'getBoxByPoint', pt: pt1});
+    startDrag(pt: Point):void {
+        var box:IBox = this.p.handle({type: 'getBoxByPoint', pt: pt});
         if (box) {
-            var branch = this.getBranch(box, []);
-            for(var index in branch){
-                var boxToMove = branch[index];
+            if(this.grabBranch) {
+                this.selectedBranch = this.getBranch(box, []);
+            }else{
+                this.selectedBranch = [box];
+            }
+        }else{
+            this.selectedBranch = [];
+        }
+    }
+
+    endDrag(pt: Point):void {
+        this.selectedBranch = [];
+    }
+
+    translate(pt1:Point, pt2:Point):void {
+        if(this.editMode && this.selectedBranch.length > 0){
+            for(var index in this.selectedBranch){
+                var boxToMove = this.selectedBranch[index];
                 boxToMove.setX(boxToMove.getX() - (pt2.getX() - pt1.getX()));
                 boxToMove.setY(boxToMove.getY() - (pt2.getY() - pt1.getY()));
             }
@@ -277,6 +296,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
         else if (key === 'rotate') {
             this.viewManager.rotate(value.value);
+            this.optionManager.setRotation(this.viewManager.getRotation());
         }
         // DON'T GET RID OF THIS COMMENTED CODE!
 
@@ -410,6 +430,15 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
         else if (key === 'show-duplicates') {
             this.p.handle({type: key});
+        }
+        else if (key === 'edit-spacing') {
+            this.editMode = true;
+            $('#edit-spacing-modal').modal({
+                show:true,
+                backdrop: 'static',
+                keyboard:false
+            });
+            $('#edit-spacing-modal').draggable();
         }
         else if (key) {
             if(value == null){

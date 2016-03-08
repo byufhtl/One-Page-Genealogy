@@ -34,4 +34,7 @@ class MainViewManager implements IViewManager {
     setRuler(): any {
         return this.svgManager.setRuler();
     }
+    getRotation(): any {
+        return this.svgManager.getRotation();
+    }
 }

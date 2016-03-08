@@ -30,6 +30,8 @@ FamilySearch.init({
 
 $(document).ready(function () {
 
+    $('#edit-spacing-options').draggable();
+
     $('#downloadModal').modal({
         backdrop: 'static',
         keyboard: false

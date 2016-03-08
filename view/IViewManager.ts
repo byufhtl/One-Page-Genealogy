@@ -12,4 +12,5 @@ interface IViewManager {
     rotate(r: number): void;
     getSVGString(): any;
     setRuler(): any;
+    getRotation(): any;
 }

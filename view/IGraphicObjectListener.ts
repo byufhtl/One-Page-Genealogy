@@ -7,4 +7,6 @@ interface IGraphicObjectListener {
     scale(ds: number, pt: Point): void;
     click(id: string): void;
     clickPt(pt: Point): void;
+    startDrag(pt: Point): void;
+    endDrag(pt: Point): void;
 }

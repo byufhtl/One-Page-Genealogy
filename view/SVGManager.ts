@@ -162,6 +162,16 @@ class SVGManager implements IViewManager {
 
         function startDrag(pt) {
             pt1 = pt;
+
+            self.graphicObject.fireStartDrag(self.viewToWorld(new Point(pt.x, pt.y)));
+
+            //need to do something like the following:
+            // instead of getting the branch every move
+            //if(editMode && grabbingBranch){
+            //    C.getBranch();
+            //}else if(editMode){
+            //    C.getBox(); //which is actually gotten in P
+            //}
         }
         function drag(pt) {
             pt2 = pt1;
@@ -175,6 +185,8 @@ class SVGManager implements IViewManager {
         function endDrag(pt, vx, vy) {
             pt2 = null;
             pt1 = null;
+
+            self.graphicObject.fireEndDrag(self.viewToWorld(new Point(pt.x, pt.y)));
         }
     }
 
@@ -587,5 +599,9 @@ class SVGManager implements IViewManager {
 
 
         return defer.promise();
+    }
+
+    public getRotation(){
+        return this.rotation;
     }
 }

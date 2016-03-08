@@ -23,4 +23,10 @@ class SVGGraphicObject implements IGraphicObject {
     fireScale(ds: number, pt: Point) {
         this.listener.scale(ds, pt);
     }
+    fireStartDrag(pt: Point){
+        this.listener.startDrag(pt);
+    }
+    fireEndDrag(pt : Point){
+        this.listener.endDrag(pt);
+    }
 }

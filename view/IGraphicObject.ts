@@ -8,4 +8,6 @@ interface IGraphicObject {
     fireClick(id: string);
     fireClickPt(pt: Point);
     fireScale(ds: number, pt: Point);
+    fireStartDrag(pt: Point);
+    fireEndDrag(pt: Point);
 }

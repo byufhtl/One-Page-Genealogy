@@ -26,11 +26,9 @@ class OptionManager implements IOptionManager {
         this.customColor = false;
 
         $('#opg-rotate-cc').click(function(){
-            self.rotation -= 90;
             self.listener.handleOption('rotate', {value: -Math.PI/2});
         });
         $('#opg-rotate-c').click(function(){
-            self.rotation += 90;
             self.listener.handleOption('rotate', {value: Math.PI/2});
         });
         $('#opg-download').click(function(){
@@ -102,6 +100,9 @@ class OptionManager implements IOptionManager {
         });
         $('#opg-show-duplicates').click(function(){
             self.listener.handleOption('show-duplicates', null);
+        });
+        $('#opg-edit-spacing').click(function(){
+            self.listener.handleOption('edit-spacing', null);
         });
     }
 
@@ -273,6 +274,10 @@ class OptionManager implements IOptionManager {
 
     setListener(listener: IOptionListener) {
         this.listener = listener;
+    }
+
+    public setRotation(r:number){
+        this.rotation = r * (180/Math.PI);
     }
 
 }
