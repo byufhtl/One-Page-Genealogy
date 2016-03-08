@@ -372,14 +372,15 @@ class SVGManager implements IViewManager {
         var ty: number = this.translationY;
         var transform = [];
 
+        var bbox = this.svgRoot.getBBox();
+
         //These happen in reverse
         transform.push('rotate('+this.rotation * 180 / Math.PI+')');
         transform.push('scale('+this.scale+')');
-        transform.push('translate('+-tx+','+-ty+')');
+        transform.push('translate('+(-tx)+','+(-ty)+')');
 
         this.svgRoot.setAttribute("transform", transform.join(' '));
-        this.mainSvg.setAttribute("width", this.svgRoot.getBBox().width + 200);
-        this.mainSvg.setAttribute("height", this.svgRoot.getBBox().height + 200);
+
     }
     setTranslation(x:number, y:number): void {
         this.translationX += x;
@@ -470,10 +471,13 @@ class SVGManager implements IViewManager {
         var sc = this.scale;
         var ro = this.rotation;
 
+
         this.translationX = -100;
         this.translationY = -100;
         this.scale = 1;
         this.rotation = 0;
+
+
 
         this.realRefresh();
 
@@ -493,13 +497,20 @@ class SVGManager implements IViewManager {
                 var ty = self.translationY;
                 var sc = self.scale;
                 var ro = self.rotation;
-
-                self.translationX = -100;
-                self.translationY = -100;
-                self.scale = 1;
-                self.rotation = 0;
                 self.realRefresh();
+                var bbox = self.svgRoot.getBBox();
 
+                //self.translationX = -100;
+                //self.translationY = -100;
+                //self.scale = 1;
+                //self.rotation = 0;
+                //self.realRefresh();
+                self.translationX = -100 + bbox.x;
+                self.translationY = -100 + bbox.y;
+
+                self.mainSvg.setAttribute("width", bbox.width + 200);
+                self.mainSvg.setAttribute("height", bbox.height + 200);
+                self.realRefresh();
 
                 var data = s.serializeToString(self.mainSvg);
                 //console.log(data);
