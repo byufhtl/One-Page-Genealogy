@@ -46,10 +46,6 @@ class P implements IControllerListener, ITreeListener {
     private stylingPipeline:StylingPipeline;
     private transformationPipline:AbstractStyler[];
 
-    private collapseSpacer:CollapseSpacer;
-    private customSpacer:CustomSpacer;
-    private customColorSpacer:CustomColorSpacer;
-    private customTextColorSpacer: CustomTextColorSpacer;
     private translateSpacer:TranslateSpacer;
     private tree:ITree;
 
@@ -59,16 +55,9 @@ class P implements IControllerListener, ITreeListener {
 
     constructor(private c:C) {
 
-        this.customSpacer = new CustomSpacer();
-        this.customColorSpacer = new CustomColorSpacer();
-        this.customTextColorSpacer = new CustomTextColorSpacer();
-        this.collapseSpacer = new CollapseSpacer();
         this.translateSpacer = new TranslateSpacer();
 
         this.stylingPipeline = new StylingPipeline();
-
-        this.stylingPipeline.setCollapseSpacer(this.collapseSpacer);
-        this.stylingPipeline.setSpacingSpacer(new SpacingSpacer());
 
         if (c.dscOrAsc == "descendancy") {
             this.stylingPipeline.setChartStyleSpacer(new JSPublicSpacer());
@@ -78,10 +67,6 @@ class P implements IControllerListener, ITreeListener {
             this.stylingPipeline.setChartColorStyleSpacer(new AscColorSpacer());
         }
 
-        this.stylingPipeline.setCustomChartStyleSpacer(this.customSpacer);
-        this.stylingPipeline.setCustomColorSpacer(this.customColorSpacer);
-        this.stylingPipeline.setCustomTextColorSpacer(this.customTextColorSpacer);
-        this.stylingPipeline.setYSpacer(new YSpacer());
         this.transformationPipline = [];
         this.transformationPipline.push(this.translateSpacer);
     }
@@ -103,21 +88,20 @@ class P implements IControllerListener, ITreeListener {
                 //console.log("Individual Change...");
                 console.log(this.stylingPipeline);
                 if(param.hasOwnProperty('value')){
-                    this.customSpacer.addCustomStyle(param.id,{
+                    this.stylingPipeline.addCustomSpacerStyle(param.id,{
                         type: param.value
                     });
                 }
                 if(param.hasOwnProperty('color')){
-                    this.customColorSpacer.addCustomStyle(param.id,{
+                    this.stylingPipeline.addCustomColorStyle(param.id,{
                         color: param.color
                     });
-                    this.customTextColorSpacer.addCustomStyle(param.id,{
+                    this.stylingPipeline.addCustomTextColorStyle(param.id,{
                         textcolor: param.textcolor
                     });
                 }
                 console.log("after");
                 console.log(this.stylingPipeline);
-                console.log(this.customColorSpacer);
                 refresh = true;
             }
             else if (param.type === 'changeGeneration') {
@@ -142,11 +126,11 @@ class P implements IControllerListener, ITreeListener {
                 this.vpView(param.id);
             }
             else if (param.type === 'collapse-sub-tree') {
-                this.collapseSpacer.collapseId(param.id, true);
+                this.stylingPipeline.collapseId(param.id, true);
                 refresh = true;
             }
             else if (param.type === 'expand-sub-tree') {
-                this.collapseSpacer.collapseId(param.id, false);
+                this.stylingPipeline.collapseId(param.id, false);
                 refresh = true;
             }
             else if (param.type === 'update-translate') {
@@ -211,7 +195,7 @@ class P implements IControllerListener, ITreeListener {
                 var numDup = parseInt(box.charAt(box.length-1));
                 while(numDup >=0 ) {
                     var id = box.replace(box.charAt(box.length-1),numDup);
-                    this.customColorSpacer.addCustomStyle(id,{
+                    this.stylingPipeline.addCustomColorStyle(id,{
                         color: ColorManager.generateRandomPastel()
                     });
                     numDup--;
@@ -405,15 +389,15 @@ class P implements IControllerListener, ITreeListener {
     private applyToGeneration(gen:number, node:INode, param:any) {
         if (gen === 0 && node.getSpouses().length < 2) {
             if(param.hasOwnProperty('value')){
-                this.customSpacer.addCustomStyle(node.getId(),{
+                this.stylingPipeline.addCustomSpacerStyle(node.getId(),{
                     type: param.value
                 });
             }
             if(param.hasOwnProperty('color')){
-                this.customColorSpacer.addCustomStyle(node.getId(),{
+                this.stylingPipeline.addCustomColorStyle(node.getId(),{
                     color: param.color
                 });
-                this.customTextColorSpacer.addCustomStyle(node.getId(),{
+                this.stylingPipeline.addCustomTextColorStyle(node.getId(),{
                     textcolor: param.textcolor
                 })
             }
@@ -501,12 +485,10 @@ class P implements IControllerListener, ITreeListener {
             default:
                 return false;
         }
-        this.stylingPipeline.setSpacingSpacer(new SpacingSpacer());
 
         this.stylingPipeline.setChartStyleSpacer(style);
-
-        this.stylingPipeline.setCustomChartStyleSpacer(this.customSpacer.clear());
-        this.stylingPipeline.setYSpacer(new YSpacer());
+        this.stylingPipeline.clearChartStyle();
+        this.stylingPipeline.resetYSpacer();
         return true;
     }
 
@@ -546,9 +528,9 @@ class P implements IControllerListener, ITreeListener {
         }
         this.stylingPipeline.setChartColorStyleSpacer(style);
 
-        this.stylingPipeline.setCustomColorSpacer(this.customColorSpacer.clear());
-        this.stylingPipeline.setCustomTextColorSpacer(this.customTextColorSpacer.clear());
-        this.stylingPipeline.setYSpacer(new YSpacer());
+        this.stylingPipeline.clearColorStyle();
+        this.stylingPipeline.clearTextColorStyle();
+        this.stylingPipeline.resetYSpacer();
         return true;
     }
 }

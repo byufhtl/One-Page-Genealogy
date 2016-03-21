@@ -6,6 +6,17 @@
 ///<reference path="SpacingSpacer.ts"/>
 ///<reference path="ChartSpacers/IChartStyler.ts"/>
 ///<reference path="ChartSpacers/CustomSpacer.ts"/>
+///<reference path="ColorSpacers/ColorSpacer.ts"/>
+///<reference path="ColorSpacers/GenColorSpacer.ts"/>
+///<reference path="ColorSpacers/GenColorVibrantSpacer.ts"/>
+///<reference path="ColorSpacers/GenderColorSpacer.ts"/>
+///<reference path="ColorSpacers/GreyScaleSpacer.ts"/>
+///<reference path="ChartSpacers/DetailChartSpacer.ts"/>
+///<reference path="ChartSpacers/EightElevenDetailSpacer.ts"/>
+///<reference path="ChartSpacers/EightElevenSpacer.ts"/>
+///<reference path="ChartSpacers/FamilyReunionChartSpacer.ts"/>
+///<reference path="ChartSpacers/FamilyReunionDescPublicSpacer.ts"/>
+///<reference path="ChartSpacers/VertDescDetChartSpacer.ts"/>
 ///<reference path="ChartSpacers/VertDetChartSpacer.ts"/>
 ///<reference path="ColorSpacers/AscColorSpacer.ts"/>
 ///<reference path="ColorSpacers/CustomColorSpacer.ts"/>
@@ -20,10 +31,10 @@ class StylingPipeline implements IPipeline {
     private collapseSpacer:CollapseSpacer;
     private spacingSpacer:SpacingSpacer;
     private chartStyleSpacer:AbstractStyler;
-    private customChartStyleSpacer:AbstractStyler;
+    private customChartStyleSpacer:CustomSpacer;
     private chartColorStyleSpacer:AbstractStyler;
-    private customColorSpacer:AbstractStyler;
-    private customTextColorSpacer:AbstractStyler;
+    private customColorSpacer:CustomColorSpacer;
+    private customTextColorSpacer:CustomTextColorSpacer;
     private ySpacer:YSpacer;
 
     private addedSpacers:AbstractStyler[];
@@ -36,10 +47,10 @@ class StylingPipeline implements IPipeline {
         this.collapseSpacer.setCustomMap(pipeline.collapseSpacer.customMap);
         //no data in spacingSpacer to deserialize
         this.chartStyleSpacer = this.getStylerByName(pipeline.chartStyleSpacer);
-        this.customChartStyleSpacer = this.getStylerByName(pipeline.customChartStyleSpacer);
-        this.chartColorStyleSpacer = this.getStylerByName(pipeline.chartColorStyleSpacer)
-        this.customColorSpacer = this.getStylerByName(pipeline.customColorSpacer);
-        this.customTextColorSpacer = this.getStylerByName(pipeline.customTextColorSpacer);
+        this.customChartStyleSpacer.setCustomMap(pipeline.customChartStyleSpacer.customMap);
+        this.chartColorStyleSpacer = this.getStylerByName(pipeline.chartColorStyleSpacer);
+        this.customColorSpacer.setCustomMap(pipeline.customColorSpacer.customMap);
+        this.customTextColorSpacer.setCustomMap(pipeline.customTextColorSpacer.customMap);
         this.ySpacer.setHigh(pipeline.ySpacer.high);
         this.ySpacer.setLow(pipeline.ySpacer.low);
         this.addedSpacers = [];
@@ -52,53 +63,32 @@ class StylingPipeline implements IPipeline {
         switch(spacer.className){
             case("AscColorSpacer"):
                 return new AscColorSpacer();
-            case("CustomColorSpacer"):
-                var customColorSpacer = new CustomColorSpacer();
-                customColorSpacer.setCustomMap(spacer.customMap);
-                return customColorSpacer;
-            case("CustomSpacer"):
-                var customSpacer = new CustomSpacer();
-                customSpacer.setCustomMap(spacer.customMap);
-                return customSpacer;
-            case("CustomTextColorSpacer"):
-                var customTextColorSpacer = new CustomTextColorSpacer();
-                customTextColorSpacer.setCustomMap(spacer.customMap);
-                return customTextColorSpacer;
+            case("ColorSpacer"):
+                return new ColorSpacer();
+            case("GenColorSpacer"):
+                return new GenColorSpacer();
+            case("GenColorVibrantSpacer"):
+                return new GenColorVibrantSpacer();
+            case("GenderColorSpacer"):
+                return new GenderColorSpacer();
+            case("GreyScaleSpacer"):
+                return new GreyScaleSpacer();
+            //~~~END COLOR ::: START STYLE~~~
+            case("DetailChartSpacer"):
+                return new DetailChartSpacer();
+            case("EightElevenDetailSpacer"):
+                return new EightElevenDetailSpacer();
+            case("EightElevenSpacer"):
+                return new EightElevenSpacer();
+            case("FamilyReunionChartSpacer"):
+                return new FamilyReunionChartSpacer();
+            case("FamilyReunionDescPublicSpacer"):
+                return new FamilyReunionDescPublicSpacer();
+            case("VertDescDetChartSpacer"):
+                return new VertDescDetChartSpacer();
             case("VertDetChartSpacer"):
                 return new VertDetChartSpacer();
         }
-    }
-
-    setCollapseSpacer(spacer:CollapseSpacer):void {
-        this.collapseSpacer = spacer;
-    }
-
-    setSpacingSpacer(spacer:SpacingSpacer):void {
-        this.spacingSpacer = spacer;
-    }
-
-    setChartStyleSpacer(spacer:AbstractStyler):void {
-        this.chartStyleSpacer = spacer;
-    }
-
-    setCustomChartStyleSpacer(spacer:AbstractStyler):void {
-        this.customChartStyleSpacer = spacer;
-    }
-
-    setChartColorStyleSpacer(spacer:AbstractStyler):void {
-        this.chartColorStyleSpacer = spacer;
-    }
-
-    setCustomColorSpacer(spacer:AbstractStyler):void {
-        this.customColorSpacer = spacer;
-    }
-
-    setCustomTextColorSpacer(spacer:AbstractStyler):void {
-        this.customTextColorSpacer = spacer;
-    }
-
-    setYSpacer(spacer:YSpacer):void {
-        this.ySpacer = spacer;
     }
 
     public add(element:AbstractStyler):void {
@@ -128,11 +118,51 @@ class StylingPipeline implements IPipeline {
         this.collapseSpacer = new CollapseSpacer();
         this.spacingSpacer = new SpacingSpacer();
         this.chartStyleSpacer = new NullSpacer();
-        this.customChartStyleSpacer = new NullSpacer();
+        this.customChartStyleSpacer = new CustomSpacer();
         this.chartColorStyleSpacer = new NullSpacer();
-        this.customColorSpacer = new NullSpacer();
-        this.customTextColorSpacer = new NullSpacer();
+        this.customColorSpacer = new CustomColorSpacer();
+        this.customTextColorSpacer = new CustomTextColorSpacer();
         this.ySpacer = new YSpacer();
         this.addedSpacers = [];
+    }
+
+    addCustomSpacerStyle(id:string, data:{}){
+        this.customChartStyleSpacer.addCustomStyle(id,data);
+    }
+
+    addCustomColorStyle(id:string, data:{}){
+        this.customColorSpacer.addCustomStyle(id,data);
+    }
+
+    addCustomTextColorStyle(id:string, data:{}){
+        this.customTextColorSpacer.addCustomStyle(id,data);
+    }
+
+    collapseId(id:string, collapse:boolean){
+        this.collapseSpacer.collapseId(id, collapse);
+    }
+
+    setChartStyleSpacer(spacer:AbstractStyler):void {
+        this.chartStyleSpacer = spacer;
+    }
+
+    clearChartStyle(){
+        this.customChartStyleSpacer.clear();
+    }
+
+    clearColorStyle(){
+        this.customColorSpacer.clear();
+    }
+
+    clearTextColorStyle(){
+        this.customTextColorSpacer.clear();
+    }
+
+    resetYSpacer(){
+        this.ySpacer = new YSpacer();
+    }
+
+    setChartColorStyleSpacer(spacer:AbstractStyler):void {
+        this.chartColorStyleSpacer = spacer;
     }
 }

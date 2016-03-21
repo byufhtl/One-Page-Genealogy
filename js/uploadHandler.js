@@ -7,6 +7,7 @@ $(document).ready(function() {
 });
 
 var optionManager = null;
+var numGenerations;
 
 function inputChanged(data) {
     var input = data.target.files[0];
@@ -30,14 +31,14 @@ function inputChanged(data) {
         var type = map['type'];
         var direction = map['direction'];
         var root = map['root'];
-        var generations = map['generations'];
+        numGenerations = map['generations'];
         var stylingPipeline = map['stylingPipeline'];
         var boxes = map['boxes'];
 
         //console.log(map);
 
         console.log('root: ' + root);
-        console.log('gen: ' + generations);
+        console.log('gen: ' + numGenerations);
         console.log('direction: ' + direction);
         console.log('chartType: ' + type);
 

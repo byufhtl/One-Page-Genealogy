@@ -54,9 +54,8 @@ class CustomSpacer extends AbstractStyler {
     addCustomStyle(id: string, customStyle: {}) {
         this.customMap[id] = customStyle;
     }
-    clear(): CustomSpacer{
+    clear(): void{
         this.customMap = {};
-        return this;
     }
 
 }

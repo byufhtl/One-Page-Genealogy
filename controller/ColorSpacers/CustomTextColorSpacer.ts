@@ -39,12 +39,11 @@ class CustomTextColorSpacer extends AbstractStyler {
     addCustomStyle(id: string, customStyle: {}) {
         this.customMap[id] = customStyle;
     }
-    clear(): CustomTextColorSpacer{
+    clear(): void{
         for(var id in this.customMap){
             if(this.customMap[id].hasOwnProperty("textcolor")){
                 this.customMap[id]["textcolor"] = "#000000";
             }
         }
-        return this;
     }
 }

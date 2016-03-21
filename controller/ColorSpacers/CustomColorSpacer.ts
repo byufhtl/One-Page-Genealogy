@@ -39,8 +39,7 @@ class CustomColorSpacer extends AbstractStyler {
     addCustomStyle(id: string, customStyle: {}) {
         this.customMap[id] = customStyle;
     }
-    clear(): CustomColorSpacer{
+    clear(): void{
         this.customMap = {};
-        return this;
     }
 }
