@@ -1,14 +1,13 @@
-///<reference path="IChartColorStyler.ts"/>
+///<reference path="../AbstractStyler.ts"/>
 ///<reference path="../../view/BoxStyleFactory.ts"/>
 /**
  * Created by renae on 7/1/15.
  */
 
-class GreyScaleSpacer implements  IChartColorStyler {
+class GreyScaleSpacer extends AbstractStyler{
 
-
-    getName() : string {
-        return "GreyScaleSpacer";
+    constructor(){
+        super("GreyScaleSpacer");
     }
 
     applyStyle(boxes: BoxMap): void {

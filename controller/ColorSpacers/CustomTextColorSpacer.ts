@@ -1,17 +1,17 @@
-///<reference path="IColorStyler.ts"/>
+///<reference path="../AbstractStyler.ts"/>
 /**
  * Created by curtis on 3/9/15.
  * Last updated 2/18/16.
  */
-class CustomTextColorSpacer implements  IColorStyler {
-    getName() : string {
-        return "CustomTextColorSpacer";
-    }
+class CustomTextColorSpacer extends AbstractStyler {
+
     private customMap: {[s:string]: {}};
 
     constructor() {
         this.customMap = {};
+        super("CustomTextColorSpacer");
     }
+
     setCustomMap(map:{[s:string]: boolean}){
         this.customMap = map;
     }

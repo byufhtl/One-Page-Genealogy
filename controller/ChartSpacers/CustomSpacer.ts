@@ -1,23 +1,23 @@
+///<reference path="../AbstractStyler.ts"/>
 ///<reference path="IChartStyler.ts"/>
-// /<reference path="../IStyler.ts"/>
 /**
  * Created by curtis on 3/9/15.
  * Last updated 2/24/2016.
  */
 
-class CustomSpacer implements  IChartStyler {
-    getName() : string {
-        return "CustomSpacer";
-    }
+class CustomSpacer extends AbstractStyler {
 
     private customMap: {[s:string]: {}};
 
     constructor() {
+        super("CustomSpacer");
         this.customMap = {};
     }
+
     setCustomMap(map:{[s:string]: boolean}){
         this.customMap = map;
     }
+
     applyStyle(boxes: BoxMap): void {
         for (var key in this.customMap) {
             if (this.customMap.hasOwnProperty(key)) {
@@ -58,4 +58,5 @@ class CustomSpacer implements  IChartStyler {
         this.customMap = {};
         return this;
     }
+
 }

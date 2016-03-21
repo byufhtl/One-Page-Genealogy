@@ -1,4 +1,4 @@
-///<reference path="IChartColorStyler.ts"/>
+///<reference path="../AbstractStyler.ts"/>
 ///<reference path="../../view/BoxStyleFactory.ts"/>
 ///<reference path="../../view/ColorManager.ts"/>
 
@@ -7,10 +7,11 @@
  * Last updated 1/29/2016
  */
 
-class GenColorVibrantSpacer implements  IChartColorStyler {
+class GenColorVibrantSpacer extends AbstractStyler{
 
-    getName() : string {
-        return "GenColorVibrantSpacer";
+
+    constructor(){
+        super("GenColorVibrantSpacer");
     }
 
     applyStyle(boxes: BoxMap): void {

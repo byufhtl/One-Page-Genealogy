@@ -1,4 +1,4 @@
-///<reference path="IChartColorStyler.ts"/>
+///<reference path="../AbstractStyler.ts"/>
 ///<reference path="../../view/BoxStyleFactory.ts"/>
 ///<reference path="../../view/ColorManager.ts"/>
 /**
@@ -6,10 +6,10 @@
  * Last updated on 1/29/2016
  */
 
-class BaptismColorSpacer implements  IChartColorStyler {
+class BaptismColorSpacer extends AbstractStyler {
 
-    getName() : string {
-        return "BaptismColorSpacer";
+    constructor(){
+        super("BaptismColorSpacer");
     }
 
     applyStyle(boxes: BoxMap): void {

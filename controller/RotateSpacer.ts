@@ -1,16 +1,14 @@
-///<reference path="IStyler.ts"/>
+///<reference path="AbstractStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 /**
  * Created by curtis on 3/27/15.
  */
-class RotateSpacer implements  IStyler {
-    getName() : string {
-        return "RotateSpacer";
-    }
+class RotateSpacer extends AbstractStyler{
 
     constructor() {
-
+        super("RotateSpacer");
     }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

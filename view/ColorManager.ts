@@ -164,16 +164,10 @@ class ColorManager {
         return out + newColor.toString(16);
     }
 
-    static generateRandomColor() :string{
-        /*
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        var color = '#' + Math.floor(Math.random() * 16777216).toString(16);
-        for (var i = 0; i < 6; i++ ) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-        */
-        return('#' + Math.floor(Math.random() * 16777216).toString(16));
+    static generateRandomPastel() :string{
+        var r = (Math.round(Math.random()* 127) + 127).toString(16);
+        var g = (Math.round(Math.random()* 127) + 127).toString(16);
+        var b = (Math.round(Math.random()* 127) + 127).toString(16);
+        return '#' + r + g + b;
     }
 }

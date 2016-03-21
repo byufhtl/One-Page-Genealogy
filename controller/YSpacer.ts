@@ -1,19 +1,17 @@
 ///<reference path="BoxMap.ts"/>
-///<reference path="IStyler.ts"/>
+///<reference path="AbstractStyler.ts"/>
 ///<reference path="../js/jsDeclarations.ts"/>
 
 /**
  * Created by curtis on 3/9/15.
  */
-class YSpacer implements  IStyler {
-    getName() : string {
-        return "YSpacer";
-    }
+class YSpacer extends AbstractStyler{
+
     private high: number;
     private low: number;
 
     constructor() {
-
+        super("YSpacer");
     }
 
     //A little bit of a rough converter to get the data

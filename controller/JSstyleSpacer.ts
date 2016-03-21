@@ -1,13 +1,16 @@
-///<reference path="IStyler.ts"/>
+///<reference path="AbstractStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 /**
  * Created by justinrasband on 9/14/15.
  */
 
-class JSstyleSpacer implements  IStyler {
-    getName() : string {
-        return "JSstyleSpacer";
+class JSstyleSpacer extends AbstractStyler{
+
+
+    constructor(){
+        super("JSstyleSpacer");
     }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

@@ -1,16 +1,13 @@
-///<reference path="IStyler.ts"/>
+///<reference path="AbstractStyler.ts"/>
 /**
  * Created by curtis on 3/25/15.
  */
-class CollapseSpacer implements IStyler {
-
-    getName() : string {
-        return "CollapseSpacer";
-    }
+class CollapseSpacer extends AbstractStyler {
 
     private customMap: {[s:string]: boolean};
 
     constructor() {
+        super("CollapseSpacer");
         this.customMap = {};
     }
 

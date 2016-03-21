@@ -1,16 +1,18 @@
 ///<reference path="IChartStyler.ts"/>
 ///<reference path="../../view/BoxStyleFactory.ts"/>
+///<reference path="../AbstractStyler.ts"/>
+
 /**
  * Created by renae on 6/10/15.
  */
 
-class DetailChartSpacer implements  IChartStyler {
-
-    getName() : string {
-        return "DetailChartSpacer";
-    }
+class DetailChartSpacer extends AbstractStyler {
 
     private initialized:boolean = true;
+
+    constructor(){
+        super("DetailChartSpacer");
+    }
 
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();

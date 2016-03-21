@@ -1,16 +1,15 @@
-///<reference path="IStyler.ts"/>
+///<reference path="AbstractStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 /**
  * Created by curtis on 3/27/15.
  */
-class TranslateSpacer implements  IStyler {
-    getName() : string {
-        return "TranslateSpacer";
-    }
+class TranslateSpacer extends AbstractStyler{
+
     private dx: number;
     private dy: number;
 
     constructor() {
+        super("TranslateSpacer");
         this.dx = 0;
         this.dy = 0;
     }

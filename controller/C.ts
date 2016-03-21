@@ -87,10 +87,9 @@ class C implements IGraphicObjectListener, IOptionListener {
             this.source = new GedcomDownloader(data.rootId, data.generations, gedNodes, data.dscOrAsc);
         }
         else if (data.hasOwnProperty("file")) {
-            this.boxes = data.boxes;
-            this.source = undefined;
+            //this.boxes = data.boxes;
+            this.source = null;
             this.optionManager = data.optionManager;
-            var skipSource = true;
         }
         else {
             //console.log("Making non-gedcom C");
@@ -107,9 +106,9 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.tree = new Tree();
         this.p = new P(this);
 
-        //if(data.pipeline !== undefined){
-        //    this.p.setStylingPipeline(data.pipeline);
-        //}
+        if(data.pipeline !== undefined){
+            this.p.setStylingPipeline(data.pipeline);
+        }
 
         this.viewManager = new MainViewManager();
         this.greyscale = false;
@@ -127,25 +126,24 @@ class C implements IGraphicObjectListener, IOptionListener {
 
         this.boxes = null;
 
-        if(!skipSource) {
+        if(this.source !== null) {
             this.source.setListener(this.tree.getSourceListener());
             this.source.start();
         }else{
             this.boxes =  new BoxMap(data.boxes.rootId);
-            //console.log(data.boxes);
             this.boxes.deserializeMap(data.boxes.map);
-            //.then was here
+
             this.p.setMaps(this.boxes);
             var map = this.boxes.getMap();
 
-            console.log(this.boxes);
+            //console.log(this.boxes);
 
             for(var key in map){
                 if(map.hasOwnProperty(key)){
                     this.tree.getSourceListener().gotNode(map[key].getNode());
                 }
             }
-            //this.p.handleUpdate(this.tree, []);
+            this.p.handleUpdate(this.tree, []);
             this.refresh(this.boxes);
         }
     }
@@ -344,7 +342,8 @@ class C implements IGraphicObjectListener, IOptionListener {
             });
         }
         else if (key === 'save'){
-            var boxes = JSON.stringify(this.boxes);
+            //var boxes = JSON.stringify(this.boxes);
+
             // var fileName = "opg_chart.json";
             //console.log(boxes.length);
             // var url = "data:text+json;utf8," + encodeURIComponent(boxes);
@@ -352,7 +351,7 @@ class C implements IGraphicObjectListener, IOptionListener {
             // link.download = fileName;
             // link.href = url;
             // link.click();
-            this.p.handle({type: key, value: boxes});
+            this.p.handle({type: key, value: this.boxes});
         }
         else if (key === 'ruler'){
             //have user select dimensions and then display ruler

@@ -1,4 +1,3 @@
-///<reference path="IStyler.ts"/>
 ///<reference path="IControllerListener.ts"/>
 ///<reference path="../model/ITreeListener.ts"/>
 ///<reference path="SimpleGenerationSpacer.ts"/>
@@ -45,7 +44,7 @@ declare var saveAs:any;
 class P implements IControllerListener, ITreeListener {
 
     private stylingPipeline:StylingPipeline;
-    private transformationPipline:IStyler[];
+    private transformationPipline:AbstractStyler[];
 
     private collapseSpacer:CollapseSpacer;
     private customSpacer:CustomSpacer;
@@ -87,26 +86,9 @@ class P implements IControllerListener, ITreeListener {
         this.transformationPipline.push(this.translateSpacer);
     }
 
-    //setStylingPipeline(pipeline:IStyler[]){
-    //    this.stylingPipeline = pipeline;
-    //    for (var index in pipeline){
-    //        var styler = pipeline[index];
-    //        switch(styler.getName()){
-    //            case ('CustomSpacer'):
-    //                this.customSpacer = <CustomSpacer> styler;
-    //                break;
-    //            case ('CustomColorSpacer'):
-    //                this.customColorSpacer = <CustomColorSpacer> styler;
-    //                break;
-    //            case ('CustomTextColorSpacer'):
-    //                this.customTextColorSpacer = <CustomTextColorSpacer> styler;
-    //                break;
-    //            case ('CollapseSpacer'):
-    //                this.collapseSpacer = <CollapseSpacer> styler;
-    //                break;
-    //        }
-    //    }
-    //}
+    setStylingPipeline(pipeline:StylingPipeline){
+        this.stylingPipeline.deserialize(pipeline);
+    }
 
     setMaps(boxMap: BoxMap){
         //This function should only be used when loading a chart from file
@@ -119,6 +101,7 @@ class P implements IControllerListener, ITreeListener {
         if (param.type) {
             if (param.type === 'changeIndividual') {
                 //console.log("Individual Change...");
+                console.log(this.stylingPipeline);
                 if(param.hasOwnProperty('value')){
                     this.customSpacer.addCustomStyle(param.id,{
                         type: param.value
@@ -132,6 +115,9 @@ class P implements IControllerListener, ITreeListener {
                         textcolor: param.textcolor
                     });
                 }
+                console.log("after");
+                console.log(this.stylingPipeline);
+                console.log(this.customColorSpacer);
                 refresh = true;
             }
             else if (param.type === 'changeGeneration') {
@@ -200,30 +186,20 @@ class P implements IControllerListener, ITreeListener {
     }
 
     private save(boxes:string){
-        var mappedPipeline = {};
-        for(var index in this.stylingPipeline){
-            var pipeline = this.stylingPipeline[index];
-            mappedPipeline[pipeline.getName()] = pipeline;
-        }
-        mappedPipeline['type'] = localStorage.getItem('chartType');
-        mappedPipeline['direction'] = this.c.dscOrAsc;
-        mappedPipeline['root'] = localStorage.getItem('rootPID');
-        mappedPipeline['generations'] = numGenerations;
+        var toSave = {};
 
-        var output = JSON.stringify(mappedPipeline);
-        //console.log(output);
-        //console.log(output.length);
+        toSave['type'] = localStorage.getItem('chartType');
+        toSave['direction'] = this.c.dscOrAsc;
+        toSave['root'] = localStorage.getItem('rootPID');
+        toSave['generations'] = numGenerations;
+        toSave['stylingPipeline'] = this.stylingPipeline;
+        toSave['boxes'] = boxes;
+        var output = JSON.stringify(toSave);
+        console.log();
 
-        var fileText = output + "~" + boxes;
-        console.log(fileText.length);
-        var blob = new Blob([fileText], {type: "text/plain;charset=utf-8;",});
-        saveAs(blob, "fancyChart.json");
-        //var fileName = "pipeline_chart.json";
-        //var url = "data:text+json;utf8," + encodeURIComponent(output);
-        //var link:any = document.createElement("a");
-        //link.download = fileName;
-        //link.href = url;
-        //link.click();
+        console.log(output.length);
+        var blob = new Blob([output], {type: "text/plain;charset=utf-8;",});
+        saveAs(blob, "OPG_chart.json");
     }
 
     private showDuplicates(){
@@ -233,11 +209,10 @@ class P implements IControllerListener, ITreeListener {
             if(box.charAt(box.length-1) !== "0" && box.charAt(8) === ':'){
                 count++;
                 var numDup = parseInt(box.charAt(box.length-1));
-                var color = ColorManager.generateRandomColor();
                 while(numDup >=0 ) {
                     var id = box.replace(box.charAt(box.length-1),numDup);
                     this.customColorSpacer.addCustomStyle(id,{
-                        color: color
+                        color: ColorManager.generateRandomPastel()
                     });
                     numDup--;
                 }
@@ -500,7 +475,7 @@ class P implements IControllerListener, ITreeListener {
      * @returns {boolean} whether or not the style spacing was edited as a result of the function.
      */
     private changeChartStyle(type:string):boolean {
-        var style: IStyler;
+        var style: AbstractStyler;
         switch(type){
             case 'detail-style':
                 style = new DetailChartSpacer();
@@ -544,7 +519,7 @@ class P implements IControllerListener, ITreeListener {
      * @returns {boolean} whether or not the style spacing was edited as a result of the function.
      */
     private changeColorStyle(type:string):boolean {
-        var style: IStyler;
+        var style: AbstractStyler;
         switch (type){
             case 'to-greyscale':
                 style = new GreyScaleSpacer();

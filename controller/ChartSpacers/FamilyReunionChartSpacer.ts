@@ -1,16 +1,16 @@
-///<reference path="IChartStyler.ts"/>
+///<reference path="../AbstractStyler.ts"/>
 ///<reference path="../../view/BoxStyleFactory.ts"/>
 /**
  * Created by calvinmcm 2/19/16.
  */
 
-class FamilyReunionChartSpacer implements  IChartStyler {
-
-    getName() : string {
-        return "FamilyReunionChartSpacer";
-    }
+class FamilyReunionChartSpacer extends AbstractStyler {
 
     private initialized:boolean = true;
+
+    constructor(){
+        super("FamilyReunionChartSpacer");
+    }
 
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();

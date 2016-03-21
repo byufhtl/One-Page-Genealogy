@@ -1,14 +1,14 @@
-///<reference path="IChartStyler.ts"/>
+///<reference path="../AbstractStyler.ts"/>
 ///<reference path="../../view/BoxStyleFactory.ts"/>
 ///<reference path="../../sources/FSDescNode.ts"/>
 /**
  * Created by renae on 8/12/15.
  */
 
-class VertDescDetChartSpacer implements  IChartStyler {
+class VertDescDetChartSpacer extends  AbstractStyler {
 
-    getName() : string {
-        return "VertDescDetChartSpacer";
+    constructor(){
+        super("VertDescDetChartSpacer");
     }
 
     applyStyle(boxes: BoxMap): void {

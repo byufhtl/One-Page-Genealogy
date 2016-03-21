@@ -1,17 +1,17 @@
-///<reference path="IChartStyler.ts"/>
+///<reference path="../AbstractStyler.ts"/>
 ///<reference path="../../view/BoxStyleFactory.ts"/>
 /**
  * Created by renae on 6/30/15.
  * Last updated on 2/24/16.
  */
 
-class EightElevenDetailSpacer implements  IChartStyler {
-
-    getName() : string {
-        return "EightElevenDetailSpacer";
-    }
+class EightElevenDetailSpacer extends  AbstractStyler {
 
     private initialized:boolean = true;
+
+    constructor(){
+        super("EightElevenDetailSpacer")
+    }
 
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();

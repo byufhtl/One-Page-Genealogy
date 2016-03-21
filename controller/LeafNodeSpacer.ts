@@ -1,12 +1,14 @@
-///<reference path="IStyler.ts"/>
+///<reference path="AbstractStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 /**
  * Created by phobos2390 on 3/18/15.
  */
-class LeafNodeSpacer implements  IStyler {
-    getName() : string {
-        return "LeafNodeSpacer";
+class LeafNodeSpacer extends AbstractStyler{
+
+    constructor(){
+        super("LeafNodeSpacer");
     }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

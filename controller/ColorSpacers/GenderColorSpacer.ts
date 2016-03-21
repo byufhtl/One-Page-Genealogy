@@ -1,13 +1,14 @@
-///<reference path="IChartColorStyler.ts"/>
+///<reference path="../AbstractStyler.ts"/>
 ///<reference path="../../view/BoxStyleFactory.ts"/>
 ///<reference path="../../view/ColorManager.ts"/>
 /**
  * Created by renae on 9/9/15.
  * Last updated on 1/29/2016
  */
-class GenderColorSpacer implements  IChartColorStyler {
-    getName() : string {
-        return "GenderColorSpacer";
+class GenderColorSpacer extends AbstractStyler{
+
+    constructor(){
+        super("GenderColorSpacer");
     }
 
     applyStyle(boxes: BoxMap): void {

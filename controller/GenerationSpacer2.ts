@@ -1,12 +1,14 @@
-///<reference path="IStyler.ts"/>
+///<reference path="AbstractStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 /**
  * Created by curtis on 3/9/15.
  */
-class GenerationSpacer2 implements  IStyler {
-    getName() : string {
-        return "GenerationSpacer2";
+class GenerationSpacer2 extends AbstractStyler{
+
+    constructor(){
+        super("GenerationSpacer2");
     }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

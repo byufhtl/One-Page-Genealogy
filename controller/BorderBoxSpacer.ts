@@ -1,12 +1,15 @@
 ///<reference path="IStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
+///<reference path="AbstractStyler.ts"/>
 /**
  * Created by renae on 8/18/15.
  */
-class BorderBoxSpacer implements  IStyler {
-    getName() : string {
-        return "BorderBoxSpacer";
+class BorderBoxSpacer extends AbstractStyler{
+
+    constructor(){
+        super("BorderBoxSpacer");
     }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

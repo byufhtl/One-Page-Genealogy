@@ -1,14 +1,16 @@
-///<reference path="IChartStyler.ts"/>
+///<reference path="../AbstractStyler.ts"/>
 ///<reference path="../../view/BoxStyleFactory.ts"/>
 /**
  * Created by calvin on 2/18/16
  * Last updated 2/24/16.
  */
-class FamilyReunionDescPublicSpacer implements  IChartStyler {
-    getName() : string {
-        return "FamilyReunionDescPublicSpacer";
-    }
+class FamilyReunionDescPublicSpacer extends  AbstractStyler {
+
     private initialized:boolean = true;
+
+    constructor(){
+        super("FamilyReunionDescPublicSpacer");
+    }
 
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();

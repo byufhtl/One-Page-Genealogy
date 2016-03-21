@@ -1,12 +1,14 @@
-///<reference path="IStyler.ts"/>
+///<reference path="AbstractStyler.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 /**
  * Created by renae on 7/7/15.
  */
-class SpacingSpacer implements  IStyler {
-    getName() : string {
-        return "SpacingSpacer";
+class SpacingSpacer extends AbstractStyler{
+
+    constructor(){
+        super("SpacingSpacer");
     }
+
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);

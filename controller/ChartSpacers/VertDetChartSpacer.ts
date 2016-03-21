@@ -1,16 +1,16 @@
-///<reference path="IChartStyler.ts"/>
+///<reference path="../AbstractStyler.ts"/>
 ///<reference path="../../view/BoxStyleFactory.ts"/>
 /**
  * Created by renae on 7/28/15.
  */
 
-class VertDetChartSpacer implements  IChartStyler {
-
-    getName() : string {
-        return "VertDetChartSpacer";
-    }
+class VertDetChartSpacer extends AbstractStyler {
 
     private initialized:boolean = true;
+
+    constructor(){
+        super("VertDetChartSpacer");
+    }
 
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
