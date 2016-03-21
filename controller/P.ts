@@ -26,6 +26,7 @@
 ///<reference path="ColorSpacers/GenColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenColorVibrantSpacer.ts"/>
 ///<reference path="ColorSpacers/GenderColorSpacer.ts"/>
+///<reference path="ColorSpacers/CountryColorSpacer.ts"/>
 ///<reference path="ColorSpacers/BaptismColorSpacer.ts"/>
 ///<reference path="SpacingSpacer.ts"/>
 ///<reference path="JSstyleSpacer.ts"/>
@@ -522,6 +523,9 @@ class P implements IControllerListener, ITreeListener {
                 break;
             case 'to-gender-color':
                 style = new GenderColorSpacer();
+                break;
+            case 'to-country-color':
+                style = new CountryColorSpacer();
                 break;
             default:
                 return false;

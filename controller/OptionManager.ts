@@ -82,6 +82,9 @@ class OptionManager implements IOptionManager {
         $('#opg-to-gender-color').click(function(){
             self.handleStyleChange('to-gender-color',false);
         });
+        $('#opg-to-country-color').click(function(){
+            self.handleStyleChange('to-country-color', false);
+        });
         $('#opg-show-empty').click(function(){
             var showOption = document.getElementById('opg-show-empty').innerHTML;
             if (showOption === "Show Empty Boxes") {
