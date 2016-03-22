@@ -12,6 +12,8 @@
     <script src="js/familysearch-javascript-sdk.min.js" type="text/javascript"></script>
     <script src="js/spectrum.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/spectrum.css"/>
+    <link rel="stylesheet" href="css/simple-sidebar.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.0/bluebird.min.js"></script>
     <script src="js/FileSaver.min.js"></script>
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
@@ -187,85 +189,6 @@
 
     <script src = "main.js" type="text/javascript"></script>
 
-    <style>
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-        }
-
-        .nav-tabs > li > a{
-            background-color: #dddddd;
-            color: #2c3e50;
-        }
-
-        .nav-tabs > li > a:focus,
-        .nav-tabs > li > a:hover{
-            border-width: 3px;
-            border-color: #2c3e50;
-        }
-
-        .nav-tabs > li.active > a,
-        .nav-tabs > li.active > a:focus,
-        .nav-tabs > li.active > a:hover{
-            background-color: #2c3e50;
-            color: #ffffff;
-            border-width: 3px;
-            border-color: #2c3e50;
-        }
-
-        .tab-pane{
-            border: 3px;
-            border-color: #2c3e50;
-        }
-
-        .padded{
-            padding: 2px;
-        }
-        #opg-chart {
-            width: 100%;
-            height: 94%;
-            margin: 0;
-        }
-
-        .navbar {
-            padding-bottom: 0px;
-            margin-bottom: 0px;
-            border-radius: 0px;
-        }
-
-        #ruler {
-            width: 100%;
-            height: 5%;
-            /*background-color: #d2a779;*/
-        }
-
-        .outer-content {
-            width: 100%;
-            height: calc(100% - 60px);
-        }
-
-        #gedbutton,#fsbutton,#togedbutton,#tofsbutton{
-            margin-bottom: 15px;
-            margin-top: 15px;
-            margin-left: 10px;
-        }
-
-        #gedbutton:hover,#fsbutton:hover {
-            background-color: lightgray;
-        }
-
-        #downloadModal{
-            display:block;
-        }
-        .splash-title{
-            text-align: center;
-            font-size: 400%;
-        }
-
-
-    </style>
-
     <link rel="shortcut icon" href="images/opg_icon.ico">
 </head>
 <body>
@@ -336,14 +259,24 @@
 </nav>
 
 <div class="outer-content">
+        <div class="sidebar-wrapper" id="country-legend">
+            <ul class="sidebar-nav" id="country-color-list">
 
-    <svg id="opg-chart"></svg>
+            </ul>
+        </div><!-- /#sidebar-wrapper -->
+        <svg id="opg-chart"></svg>
 
-    <div class="footer">
-        <a style="float:left" href='https://fhtl.byu.edu'>BYU Family History Technology Lab</a><br>
-        <a style="float:left" href='//cs.byu.edu'><small>Copyright © Brigham Young University, Computer Science Department</small></a>
-    </div>
-</div>
+        <div class="footer">
+            <a class="footer-text" href='https://fhtl.byu.edu'>BYU Family History Technology Lab</a><br>
+            <a class="footer-text" href='//cs.byu.edu'><small>Copyright © Brigham Young University, Computer Science Department</small></a>
+        </div>
+</div><!-- /#outer-content -->
+
+<!--########################################
+#                                          #
+#            BEGIN MODALS                  #
+#                                          #
+#########################################-->
 
 <div class="modal" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModal" aria-hidden="false">
     <div class="modal-dialog">

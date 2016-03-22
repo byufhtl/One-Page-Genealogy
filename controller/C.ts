@@ -422,7 +422,7 @@ class C implements IGraphicObjectListener, IOptionListener {
             this.p.handle({type: key});
         }
         else if (key === 'to-country-color') {
-            this.p.handle({type: key});
+            this.p.handle({type: key, colorMap: value});
         }
         else if (key === 'show-empty'){
             this.p.handle({type: key, recurse: value.recurse});
@@ -453,5 +453,9 @@ class C implements IGraphicObjectListener, IOptionListener {
                 this.p.handle({type: key, id: value['id'], color: value['color'], textcolor: value['textcolor']});
             }
         }
+    }
+
+    public getBoxes():BoxMap{
+        return this.boxes;
     }
 }

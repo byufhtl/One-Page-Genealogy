@@ -6,18 +6,14 @@
  * Created by jared on 3/21/16.
  */
 
-declare var CountryHash;
-
 class CountryColorSpacer extends AbstractStyler {
 
-    constructor() {
+    constructor(colorMap:{}) {
         super("CountryColorSpacer");
+        this.colorMap = colorMap;
     }
 
-    //does not need to be serialized
-    private colorMap = {
-        "" : ColorManager.gray()
-    };
+    private colorMap = {};
 
     applyStyle(boxes:BoxMap):void {
         for(var box in boxes.getMap()){
@@ -25,18 +21,29 @@ class CountryColorSpacer extends AbstractStyler {
                 this.colorNode(boxes.getMap()[box]);
             }
         }
-        console.log(this.colorMap);
     }
 
     private colorNode(box:IBox):void{
-        var country  = box.getNode().getAttr('birthplace') || box.getNode().getAttr('deathplace') || "";
+        var country  = box.getNode().getAttr('birthplace') || box.getNode().getAttr('deathplace') || "Unknown";
         country = country.substr(country.lastIndexOf(",")+1).trim().toLowerCase().replace(/[^ a-z]/g, '').replace(/\s\s+/g, ' ');
-        country = CountryHash.hasOwnProperty(country) ? CountryHash[country] : country;
+        country = CountryHash.hasOwnProperty(country) ? this.toTitleCase(CountryHash[country]) : this.toTitleCase(country);
         if(this.colorMap.hasOwnProperty(country)){
             box.setColor(this.colorMap[country]);
         }else{
-            this.colorMap[country] = ColorManager.generateRandomPastel();
-            box.setColor(this.colorMap[country]);
+            console.log("ERROR: Country not in colorMap");
+            box.setColor(this.colorMap["Unknown"]);
         }
+    }
+
+    private toTitleCase(str:string){
+        return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    }
+
+    public setColorMap(map:{}): void{
+        this.colorMap = map;
+    }
+
+    public getColorMap():{}{
+        return this.colorMap
     }
 }

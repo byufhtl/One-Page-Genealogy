@@ -144,7 +144,7 @@ class P implements IControllerListener, ITreeListener {
             else if(this.changeChartStyle(param.type)){ // This function automatically handles chart spacing.
                 refresh = true;
             }
-            else if(this.changeColorStyle(param.type)){ // This function automatically handles color spacing.
+            else if(this.changeColorStyle(param.type, param.colorMap)){ // This function automatically handles color spacing.
                 refresh = true;
             }
             else if (param.type === 'show-empty') {
@@ -501,7 +501,7 @@ class P implements IControllerListener, ITreeListener {
      *
      * @returns {boolean} whether or not the style spacing was edited as a result of the function.
      */
-    private changeColorStyle(type:string):boolean {
+    private changeColorStyle(type:string, value:{} ):boolean {
         var style: AbstractStyler;
         switch (type){
             case 'to-greyscale':
@@ -525,7 +525,7 @@ class P implements IControllerListener, ITreeListener {
                 style = new GenderColorSpacer();
                 break;
             case 'to-country-color':
-                style = new CountryColorSpacer();
+                style = new CountryColorSpacer(value);
                 break;
             default:
                 return false;

@@ -1,0 +1,85 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.nav-tabs > li > a{
+    background-color: #dddddd;
+    color: #2c3e50;
+}
+
+.nav-tabs > li > a:focus,
+.nav-tabs > li > a:hover{
+    border-width: 3px;
+    border-color: #2c3e50;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover{
+    background-color: #2c3e50;
+    color: #ffffff;
+    border-width: 3px;
+    border-color: #2c3e50;
+}
+
+.tab-pane{
+    border: 3px;
+    border-color: #2c3e50;
+}
+
+.padded{
+    padding: 2px;
+}
+#opg-chart {
+    width: 100%;
+    height: 94%;
+    margin: 0;
+}
+
+.navbar {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    border-radius: 0px;
+}
+
+#ruler {
+    width: 100%;
+    height: 5%;
+    /*background-color: #d2a779;*/
+}
+
+.outer-content {
+    width: 100%;
+    height: calc(100% - 60px);
+}
+
+#gedbutton,#fsbutton,#togedbutton,#tofsbutton{
+    margin-bottom: 15px;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+#gedbutton:hover,#fsbutton:hover {
+    background-color: lightgray;
+}
+
+#downloadModal{
+    display:block;
+}
+.splash-title{
+    text-align: center;
+    font-size: 400%;
+}
+
+.footer {
+    float: right;
+}
+
+.footer-text {
+    float: right;
+    margin-right: 10px;
+}
+
+

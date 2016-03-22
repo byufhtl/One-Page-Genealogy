@@ -1,5 +1,6 @@
 ///<reference path="IOptionManager.ts"/>
 ///<reference path="../model/IBox.ts"/>
+///<reference path="../controller/BoxMap.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 ///<reference path="../js/jsDeclarations.ts"/>
 
@@ -251,7 +252,64 @@ class OptionManager implements IOptionManager {
         }
         else {
             console.log("Style Change - No Override");
-            this.listener.handleOption(changeType, null);
+            if(changeType === 'to-country-color') {
+                //pass the callback
+                var colorMap = this.setCountryColors(this.listener.getBoxes());
+                this.listener.handleOption(changeType, colorMap);
+                this.setupCountryColorLegend(colorMap);
+            }else {
+                this.listener.handleOption(changeType, null);
+            }
+        }
+    }
+
+    private setCountryColors(boxes:BoxMap):{} {
+        var colorMap = {"Unknown" : ColorManager.gray()};
+        for (var id in boxes.getMap()) {
+            if (boxes.getMap().hasOwnProperty(id)) {
+                var box = boxes.getMap()[id];
+                var country = box.getNode().getAttr('birthplace') || box.getNode().getAttr('deathplace') || "Unknown";
+                country = country.substr(country.lastIndexOf(",") + 1).trim().toLowerCase().replace(/[^ a-z]/g, '').replace(/\s\s+/g, ' ');
+                country = CountryHash.hasOwnProperty(country) ? this.toTitleCase(CountryHash[country]) : this.toTitleCase(country);
+                if (!colorMap.hasOwnProperty(country)) {
+                    colorMap[country] = ColorManager.generateRandomPastel();
+                }
+            }
+        }
+        return colorMap;
+    }
+
+    private toTitleCase(str:string){
+        return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    }
+
+    private setupCountryColorLegend(colorMap:{}){
+        $('#country-legend').css('display', 'block');
+        $('#country-color-list').empty();
+        for(var country in colorMap){
+            if(colorMap.hasOwnProperty(country)){
+                var li = document.createElement('li');
+                var div = document.createElement('div');
+                var color_picker = document.createElement("input");
+                color_picker.setAttribute('id', country.replace(/\s+/g, ''));
+                div.setAttribute('style', 'float: right');
+                li.innerText = country.length > 15 ? country.substr(0, 12) + "..." : country;
+                div.appendChild(color_picker);
+                li.appendChild(div);
+                document.getElementById('country-color-list').appendChild(li);
+                var self = this;
+                (function(safeCountry){
+                    $("#" + safeCountry.replace(/\s+/g, '')).spectrum({
+                        color: colorMap[safeCountry],
+                        clickoutFiresChange: true,
+                        change: function(newColor){
+                            colorMap[safeCountry] = newColor.toHexString();
+                            self.listener.handleOption("to-country-color", colorMap);
+                        }
+                    });
+                })(country)
+
+            }
         }
     }
 
