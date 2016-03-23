@@ -221,6 +221,12 @@ function useData(gedOutput){
 
     $('#gedcomModal').show()
 
+    function resetOptions(){
+        document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
+        $('#country-legend').css('display', 'none');
+        $('#ruler-height').val("");
+    }
+
     $('#gedcomSave').click(function(){
         localStorage.setItem("chartType", "Gedcom");
         $('#gedcomModal').hide();
@@ -237,8 +243,7 @@ function useData(gedOutput){
             chartSVGElement.removeChild(chartSVGElement.lastChild);
         }
 
-        document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
-        $('#ruler-height').val("");
+        resetOptions();
 
         if(optionManager === null){
             optionManager = new OptionManager();
