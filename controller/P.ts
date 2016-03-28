@@ -87,7 +87,6 @@ class P implements IControllerListener, ITreeListener {
         if (param.type) {
             if (param.type === 'changeIndividual') {
                 //console.log("Individual Change...");
-                console.log(this.stylingPipeline);
                 if(param.hasOwnProperty('value')){
                     this.stylingPipeline.addCustomSpacerStyle(param.id,{
                         type: param.value
@@ -101,8 +100,6 @@ class P implements IControllerListener, ITreeListener {
                         textcolor: param.textcolor
                     });
                 }
-                console.log("after");
-                console.log(this.stylingPipeline);
                 refresh = true;
             }
             else if (param.type === 'changeGeneration') {
@@ -180,11 +177,10 @@ class P implements IControllerListener, ITreeListener {
         toSave['stylingPipeline'] = this.stylingPipeline;
         toSave['boxes'] = boxes;
         var output = JSON.stringify(toSave);
-        console.log();
 
         console.log(output.length);
         var blob = new Blob([output], {type: "text/plain;charset=utf-8;",});
-        saveAs(blob, "OPG_chart.json");
+        saveAs(blob, "OPG_chart.opg");
     }
 
     private showDuplicates(){
@@ -535,6 +531,7 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.clearColorStyle();
         this.stylingPipeline.clearTextColorStyle();
         this.stylingPipeline.resetYSpacer();
+        $('#country-legend').css('display', 'none');
         return true;
     }
 }
