@@ -55,7 +55,7 @@ html, body {
     height: calc(100% - 60px);
 }
 
-#gedbutton,#fsbutton,#togedbutton,#tofsbutton{
+#gedbutton,#fsbutton,#togedbutton,#tofsbutton, #edit-spacing-switch{
     margin-bottom: 15px;
     margin-top: 15px;
     margin-left: 10px;

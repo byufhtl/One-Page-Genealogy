@@ -435,12 +435,16 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
         else if (key === 'edit-spacing') {
             this.editMode = true;
-            $('#edit-spacing-modal').modal({
-                show:true,
-                backdrop: 'static',
-                keyboard:false
-            });
-            $('#edit-spacing-modal').draggable();
+            $('#edit-spacing-switch').css("display", "block");
+            document.getElementById('opg-edit-spacing').innerHTML = "Done Editing Spacing";
+        }
+        else if (key === 'done-editing-spacing') {
+            this.editMode = false;
+            $('#edit-spacing-switch').css("display", "none");
+            document.getElementById('opg-edit-spacing').innerHTML = "Edit Spacing";
+        }
+        else if (key === 'edit-spacing-switch-changed'){
+            this.grabBranch = value.state;
         }
         else if (key) {
             if(value == null){

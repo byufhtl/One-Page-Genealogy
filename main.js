@@ -30,7 +30,7 @@ FamilySearch.init({
 
 $(document).ready(function () {
 
-    $('#edit-spacing-options').draggable();
+    $("[name='edit-spacing-switch']").bootstrapSwitch();
 
     $('#downloadModal').modal({
         backdrop: 'static',
@@ -131,6 +131,9 @@ function familySearchDownload() {
 
     function resetOptions(){
         document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
+        document.getElementById('opg-edit-spacing').innerHTML = "Edit Spacing";
+        $('#edit-spacing-switch').css("display", "none");
+        $('.BSswitch').bootstrapSwitch('state', true);
         $('#country-legend').css('display', 'none');
         $('#ruler-height').val("");
     }

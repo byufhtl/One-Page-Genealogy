@@ -87,8 +87,7 @@ class OptionManager implements IOptionManager {
             self.handleStyleChange('to-country-color', false);
         });
         $('#opg-show-empty').click(function(){
-            var showOption = document.getElementById('opg-show-empty').innerHTML;
-            if (showOption === "Show Empty Boxes") {
+            if (document.getElementById('opg-show-empty').innerHTML === "Show Empty Boxes") {
                 $('#showEmptyModal').modal('show');
             }else{
                 self.listener.handleOption('hide-empty', null);
@@ -106,8 +105,15 @@ class OptionManager implements IOptionManager {
             self.listener.handleOption('show-duplicates', null);
         });
         $('#opg-edit-spacing').click(function(){
-            self.listener.handleOption('edit-spacing', null);
+            if (document.getElementById("opg-edit-spacing").innerHTML === "Edit Spacing") {
+                self.listener.handleOption('edit-spacing', null);
+            }else{
+                self.listener.handleOption('done-editing-spacing', null);
+            }
         });
+        $("#edit-spacing-switch").on('switchChange.bootstrapSwitch', function(event, state) {
+            self.listener.handleOption('edit-spacing-switch-changed', {state: state});
+        })
     }
 
     handleOptionSetting(type:String, data:any): void {
