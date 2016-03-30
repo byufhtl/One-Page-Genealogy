@@ -522,6 +522,7 @@ class P implements IControllerListener, ITreeListener {
                 break;
             case 'to-country-color':
                 style = new CountryColorSpacer(value);
+                var countryColorSet = true;
                 break;
             default:
                 return false;
@@ -531,7 +532,9 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.clearColorStyle();
         this.stylingPipeline.clearTextColorStyle();
         this.stylingPipeline.resetYSpacer();
-        $('#country-legend').css('display', 'none');
+        if(!countryColorSet) {
+            $('#country-legend').css('display', 'none');
+        }
         return true;
     }
 }
