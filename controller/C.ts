@@ -246,6 +246,10 @@ class C implements IGraphicObjectListener, IOptionListener {
         if(this.editMode && this.selectedBranch.length > 0){
             for(var index in this.selectedBranch){
                 var boxToMove = this.selectedBranch[index];
+                this.p.getStylingPipeline().addCustomSpacerStyle(boxToMove.getNode().getId(), {
+                    'x': boxToMove.getX() - (pt2.getX() - pt1.getX()),
+                    'y': boxToMove.getY() - (pt2.getY() - pt1.getY())
+                });
                 boxToMove.setX(boxToMove.getX() - (pt2.getX() - pt1.getX()));
                 boxToMove.setY(boxToMove.getY() - (pt2.getY() - pt1.getY()));
             }

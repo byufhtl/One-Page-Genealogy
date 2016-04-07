@@ -164,14 +164,6 @@ class SVGManager implements IViewManager {
             pt1 = pt;
 
             self.graphicObject.fireStartDrag(self.viewToWorld(new Point(pt.x, pt.y)));
-
-            //need to do something like the following:
-            // instead of getting the branch every move
-            //if(editMode && grabbingBranch){
-            //    C.getBranch();
-            //}else if(editMode){
-            //    C.getBox(); //which is actually gotten in P
-            //}
         }
         function drag(pt) {
             pt2 = pt1;

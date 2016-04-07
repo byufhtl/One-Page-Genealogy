@@ -75,6 +75,9 @@ class P implements IControllerListener, ITreeListener {
     setStylingPipeline(pipeline:StylingPipeline){
         this.stylingPipeline.deserialize(pipeline);
     }
+    getStylingPipeline() : StylingPipeline {
+        return this.stylingPipeline;
+    }
 
     setMaps(boxMap: BoxMap){
         //This function should only be used when loading a chart from file
