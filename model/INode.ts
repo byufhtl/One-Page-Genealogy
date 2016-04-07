@@ -11,5 +11,6 @@ interface INode {
     isMainPerson():boolean;
     setMarriageDate(d:string);
     setBranchIds(ids:string[]): void;
+    getPerson();
 }
 

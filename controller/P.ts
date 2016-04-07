@@ -170,7 +170,21 @@ class P implements IControllerListener, ITreeListener {
         }
     }
 
-    private save(boxes:string){
+    private strip(boxes:BoxMap) : BoxMap {
+        for(var id in boxes.getMap()){
+            if(boxes.getMap().hasOwnProperty(id)){
+                var person = boxes.getMap()[id].getNode().getPerson();
+                delete person.facts;
+                delete person.gender;
+                delete person.identifiers;
+                delete person.links;
+                delete person.names;
+            }
+        }
+        return boxes;
+    }
+
+    private save(boxes:BoxMap){
         var toSave = {};
 
         toSave['type'] = localStorage.getItem('chartType');
@@ -178,7 +192,7 @@ class P implements IControllerListener, ITreeListener {
         toSave['root'] = localStorage.getItem('rootPID');
         toSave['generations'] = numGenerations;
         toSave['stylingPipeline'] = this.stylingPipeline;
-        toSave['boxes'] = boxes;
+        toSave['boxes'] = this.strip(boxes);
         var output = JSON.stringify(toSave);
 
         console.log(output.length);

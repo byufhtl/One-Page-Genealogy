@@ -50,4 +50,7 @@ class FakeNode implements INode {
     setBranchIds(ids:string[]){
         return null;
     }
+    getPerson(){
+        return null;
+    }
 }

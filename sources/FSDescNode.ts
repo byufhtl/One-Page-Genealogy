@@ -123,4 +123,7 @@ class FSDescNode implements INode {
     setBranchIds(ids:string[]){
         this.branchIds = ids;
     }
+    getPerson(){
+        return this.person;
+    }
 }

@@ -52,4 +52,7 @@ class BuildNode implements INode {
     setBranchIds(is:string[]){
         //do nothing for now.
     }
+    getPerson(){
+        //??
+    }
 }
