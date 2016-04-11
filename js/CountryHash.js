@@ -122,13 +122,17 @@ var CountryHash = {
     '?' : "unknown",
     "united states" : "united states",
     "norway" : "norway",
+
     'channisles': 'channel islands',
     'ch is': 'channel islands',
     'ci': 'channel islands',
+    'c i': 'channel islands',
+    'ch': 'channel islands',
     'cis': 'channel islands',
     'channel isles': 'channel islands',
     'chann isles': 'channel islands',
     'chan islands': 'channel islands',
+
     'gt br': 'great britain'
 
 };

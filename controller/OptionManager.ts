@@ -293,13 +293,14 @@ class OptionManager implements IOptionManager {
         $('#country-legend').css('display', 'block');
         $('#country-color-list').empty();
         for(var country in colorMap){
-            if(colorMap.hasOwnProperty(country)){
+            if(colorMap.hasOwnProperty(country) && country){
                 var li = document.createElement('li');
                 var div = document.createElement('div');
                 var color_picker = document.createElement("input");
                 color_picker.setAttribute('id', country.replace(/\s+/g, ''));
                 div.setAttribute('style', 'float: right');
-                li.innerText = country.length > 15 ? country.substr(0, 12) + "..." : country;
+                //li.innerText = country.length > 15 ? country.substr(0, 12) + "..." : country;
+                li.innerText = country;
                 div.appendChild(color_picker);
                 li.appendChild(div);
                 document.getElementById('country-color-list').appendChild(li);
