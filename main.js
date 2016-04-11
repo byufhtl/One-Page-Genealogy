@@ -26,8 +26,6 @@ FamilySearch.init({
     auto_expire: true
 });
 
-
-
 $(document).ready(function () {
 
     $("[name='edit-spacing-switch']").bootstrapSwitch();
@@ -53,6 +51,42 @@ $(document).ready(function () {
 
     $("#box-color-picker").spectrum({});
     $("#box-text-color-picker").spectrum({});
+
+
+//Stuff for draggable sidebar
+    var dragging = false;
+    $('#dragbar').mousedown(function(e){
+        e.preventDefault();
+        dragging = true;
+        var main = $('#opg-chart');
+        var ghostbar = $('<div>',
+            {id:'ghostbar',
+                css: {
+                    height: main.outerHeight(),
+                    top: main.offset().top,
+                    left: main.offset().left
+                }
+            }).appendTo('body');
+
+        $(document).mousemove(function(e){
+            ghostbar.css("left",e.pageX+2);
+        });
+
+    });
+
+    $(document).mouseup(function(e){
+        if (dragging)
+        {
+            var percentage = (e.pageX / window.innerWidth) * 100;
+            var mainPercentage = 100-percentage;
+
+            $('#country-legend').css("width",percentage + "%");
+            $('#opg-chart').css("width",mainPercentage + "%");
+            $('#ghostbar').remove();
+            $(document).unbind('mousemove');
+            dragging = false;
+        }
+    });
 
 });
 function fsHideFirstModal() {
