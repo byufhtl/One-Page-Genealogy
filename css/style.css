@@ -4,6 +4,16 @@ html, body {
     margin: 0;
 }
 
+canvas {
+    display: block;
+}
+canvas {
+    width: auto;
+    max-width: 100%;
+    height: 500px;
+}
+
+
 .nav-tabs > li > a{
     background-color: #dddddd;
     color: #2c3e50;
