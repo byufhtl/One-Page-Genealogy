@@ -551,6 +551,8 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline.resetYSpacer();
         if(!countryColorSet) {
             $('#country-legend').css('display', 'none');
+            $('#country-legend').css("width","0%");
+            $('#opg-chart').css("width","100%");
         }
         return true;
     }

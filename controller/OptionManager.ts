@@ -291,6 +291,8 @@ class OptionManager implements IOptionManager {
 
     private setupCountryColorLegend(colorMap:{}){
         $('#country-legend').css('display', 'block');
+        $('#country-legend').css("width","15%");
+        $('#opg-chart').css("width","85%");
         $('#country-color-list').empty();
         for(var country in colorMap){
             if(colorMap.hasOwnProperty(country) && country){

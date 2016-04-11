@@ -170,6 +170,8 @@ function familySearchDownload() {
         $('.BSswitch').bootstrapSwitch('state', true);
         $('#country-legend').css('display', 'none');
         $('#ruler-height').val("");
+        $('#country-legend').css("width", "0%");
+        $('#opg-chart').css("width", "100%");
     }
 
     function continueExecution() {
