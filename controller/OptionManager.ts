@@ -301,10 +301,15 @@ class OptionManager implements IOptionManager {
                 var color_picker = document.createElement("input");
                 color_picker.setAttribute('id', country.replace(/\s+/g, ''));
                 div.setAttribute('style', 'float: right');
-                //li.innerText = country.length > 15 ? country.substr(0, 12) + "..." : country;
-                li.innerText = country;
+                //country = country.length > 15 ? country.substr(0, 12) + "..." : country;
+
+                var label = document.createElement("label");
+                label.innerHTML = country;
+                label.setAttribute("for", country.replace(/\s+/g, ''));
+
                 div.appendChild(color_picker);
                 li.appendChild(div);
+                li.appendChild(label);
                 document.getElementById('country-color-list').appendChild(li);
                 var self = this;
                 (function(safeCountry){

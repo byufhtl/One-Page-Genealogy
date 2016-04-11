@@ -133,6 +133,7 @@ var CountryHash = {
     'chann isles': 'channel islands',
     'chan islands': 'channel islands',
 
-    'gt br': 'great britain'
+    'gt br': 'great britain',
+    'g b': 'great britain'
 
 };
