@@ -7,3 +7,4 @@ declare var Hammer: any;
 declare var $: any;
 declare var Promise: any;
 declare var CountryHash;
+declare var CountryList;

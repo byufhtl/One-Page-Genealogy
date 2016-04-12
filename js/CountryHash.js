@@ -1,5 +1,5 @@
 /**
- * Created by jburtonc on 3/21/16.
+ * Created by jared on 3/21/16.
  */
 
 var CountryHash = {
@@ -112,8 +112,21 @@ var CountryHash = {
     'eng': "england",
     'engl': "england",
     'scot': "scotland",
+    'schotland': "scotland",
+    'scottland': "scotland",
     'danmark': "denmark",
     'dnmk' : "denmark",
+    'dnmark': "denmark",
+    'den': "denmark",
+    'nederland': "netherlands",
+    'wls': "wales",
+    'switz': "switzerland",
+    'swtz': "switzerland",
+    'swdn': "sweden",
+    'sxny': "saxony",
+    'sax': "saxony",
+
+
     'british america': "united states",
     'british colonial america' : "united states",
     'colonial america': 'united states',
@@ -123,9 +136,11 @@ var CountryHash = {
     'ocean / off coast of north carolina ?' : "oceans",
     '?' : "unknown",
     'united states' : "united states",
+    'united states of america': "united states",
     'norway' : "norway",
     'of scotland': "scotland",
-
+    'sscotland': "scotland",
+    'neth': "netherlands",
     'channisles': 'channel islands',
     'ch is': 'channel islands',
     'ci': 'channel islands',

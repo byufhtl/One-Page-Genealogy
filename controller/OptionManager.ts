@@ -269,6 +269,19 @@ class OptionManager implements IOptionManager {
         }
     }
 
+    private getCountry(country:string) :string {
+        if(CountryHash.hasOwnProperty(country)){
+            return this.toTitleCase(CountryHash[country]);
+        }
+        var wordsInCountry = country.split(" ");
+        for(var i in wordsInCountry){
+            if(CountryList.indexOf(wordsInCountry[i]) > -1){
+                return this.toTitleCase(CountryList[CountryList.indexOf(wordsInCountry[i])]);
+            }
+        }
+        return "Unknown";
+    }
+
     private setCountryColors(boxes:BoxMap):{} {
         var colorMap = {"Unknown" : ColorManager.gray()};
         for (var id in boxes.getMap()) {
@@ -276,7 +289,7 @@ class OptionManager implements IOptionManager {
                 var box = boxes.getMap()[id];
                 var country = box.getNode().getAttr('birthplace') || box.getNode().getAttr('deathplace') || "Unknown";
                 country = country.substr(country.lastIndexOf(",") + 1).trim().toLowerCase().replace(/[^ a-z]/g, '').replace(/\s\s+/g, ' ');
-                country = CountryHash.hasOwnProperty(country) ? this.toTitleCase(CountryHash[country]) : this.toTitleCase(country);
+                country = this.getCountry(country);
                 if (!colorMap.hasOwnProperty(country)) {
                     colorMap[country] = ColorManager.generateRandomPastel();
                 }
@@ -290,11 +303,13 @@ class OptionManager implements IOptionManager {
     }
 
     private setupCountryColorLegend(colorMap:{}){
+        var sortedKeys = Object.keys(colorMap).sort();
         $('#country-legend').css('display', 'block');
         $('#country-legend').css("width","15%");
         $('#opg-chart').css("width","85%");
         $('#country-color-list').empty();
-        for(var country in colorMap){
+        for(var i in sortedKeys){
+            var country = sortedKeys[i];
             if(colorMap.hasOwnProperty(country) && country){
                 var li = document.createElement('li');
                 var div = document.createElement('div');
