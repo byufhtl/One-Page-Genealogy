@@ -15,7 +15,20 @@ function inputChanged(data) {
 
     var result;
 
+    function resetOptions(){
+        document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
+        document.getElementById('opg-edit-spacing').innerHTML = "Edit Spacing";
+        $('#edit-spacing-switch').css("display", "none");
+        $('.BSswitch').bootstrapSwitch('state', true);
+        $('#country-legend').css('display', 'none');
+        $('#ruler-height').val("");
+        $('#country-legend').css("width", "0%");
+        $('#opg-chart').css("width", "100%");
+    }
+
     function readFile(e){
+        resetOptions();
+        
         result = reader.result;
 
         //var boxes = JSON.parse(result);
@@ -58,6 +71,7 @@ function inputChanged(data) {
             optionManager: optionManager,
             pipeline: stylingPipeline,
         });
+        $("#uploadFile").val(null);
     }
 
     reader.onload = readFile;
