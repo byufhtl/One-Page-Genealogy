@@ -325,6 +325,10 @@ class OptionManager implements IOptionManager {
 
             }
         }
+
+        if(parseInt($("#dragbar").css("height"),10) < parseInt($("#country-color-list").css("height"),10)) {
+            $("#dragbar").css("height", $("#country-color-list").css("height"));
+        }
     }
 
     private displayWarning(type : string, sizeBased:boolean){

@@ -283,7 +283,6 @@ $(function(){
                 }else {
                     // create the canvas element
                     var canvas = document.createElement("canvas");
-                    console.log("Body: " + document.body);
                     document.getElementById("utils").appendChild(canvas);
                     //document.body.appendChild(canvas);
 
