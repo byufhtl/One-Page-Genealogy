@@ -214,6 +214,9 @@ class SVGManager implements IViewManager {
             this.svgLoading = null;
             this.rect = null;
             this.svgPercent = null;
+            $("#opg-chart").css("width", "100%");
+            $("#opg-chart").css("height", "94%");
+            $("#utils").css("display", "none");
         }
         this.drawLine(this.lastBoxes);
         this.drawBoxes(this.lastBoxes);

@@ -28,6 +28,7 @@ function Game(canvas, options) {
  * and initialize the keybindings
  */
 Game.prototype.start = function () {
+    this.pause = false;
     this.keyBindings();
     this.gameLoop();
 };
@@ -261,28 +262,45 @@ $(function(){
 
     var codes = [];
     var key = [107,101,110,97,112,97,108,111,111,122,97];
+    var initialized = false;
+    var game;
     $(document).keypress(function (event) {
-        codes.push(event.keyCode);
-        if (JSON.stringify(codes) == JSON.stringify(key)) {
-            //preventArrows = false;
-            $("#opg-chart").css("display", "none");
-            // create the canvas element
-            var canvas = document.createElement("canvas");
-            console.log("Body: " + document.body);
-            document.getElementById("utils").appendChild(canvas);
-            //document.body.appendChild(canvas);
+        if(event.keyCode === 96){
+            codes.length = 0;
+            $("#opg-chart").css("width", "100%");
+            $("#opg-chart").css("height", "94%");
+            $("#utils").css("display", "none");
+            game.stop();
+        }else{
+            codes.push(event.keyCode);
+            if (JSON.stringify(codes) == JSON.stringify(key)) {
+                $("#utils").css("display", "block");
+                $("#opg-chart").css("width", "50%");
+                $("#opg-chart").css("height", "44%");
 
-            /**
-             * Game initialization
-             * and entity preparation
-             */
-            var game = new Game(canvas);
-            var food = new Food(game);
-            var snake = new Snake(game, food);
+                if(initialized){
+                    game.start();
+                }else {
+                    // create the canvas element
+                    var canvas = document.createElement("canvas");
+                    console.log("Body: " + document.body);
+                    document.getElementById("utils").appendChild(canvas);
+                    //document.body.appendChild(canvas);
 
-            game.addEntity(food);
-            game.addEntity(snake);
-            game.start();
+                    /**
+                     * Game initialization
+                     * and entity preparation
+                     */
+                    game = new Game(canvas);
+                    var food = new Food(game);
+                    var snake = new Snake(game, food);
+
+                    game.addEntity(food);
+                    game.addEntity(snake);
+                    game.start();
+                    initialized = true;
+                }
+            }
         }
     });
 });
