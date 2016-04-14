@@ -88,6 +88,10 @@ class RenderInstructionSchedule{
     // Specific (1-parameter) Controls for getting
     static DEF_FONT_SIZE = "d_f_size";
     static ALT_FONT_SIZE = "a_f_size";
+    static BOX_COLOR = "box_color";
+    static TEXT_COLOR = "txt_color";
+    static BORDER_WIDTH = "bor_width";
+    static ROTATED = "rot";
 
     static NAME_X = "name_x";
     static PICTURE_X = "pic_x";

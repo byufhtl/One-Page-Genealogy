@@ -11,8 +11,6 @@
 class AbstractBox implements IBox {
     private node: INode;
     private spouseNode: INode;
-    private color: string;
-    private text_color: string;
     private x: number;
     private y: number;
     private space: number;
@@ -20,24 +18,26 @@ class AbstractBox implements IBox {
     private h: number;
     private type: string = null;
     private collapsed: boolean;
-    private instrSched :RenderInstructionSchedule;
+    private ris :RenderInstructionSchedule;
 
     constructor(node: INode) {
         this.node = node;
         this.collapsed = false;
-        this.text_color = "#000000";
+        this.ris = new RenderInstructionSchedule(24);
+        this.ris.addInstruction(RenderInstructionSchedule.BOX_COLOR,0xffffff);
+        this.ris.addInstruction(RenderInstructionSchedule.TEXT_COLOR,0x000000);
     }
-    setColor(c:string){
-        this.color = c;
+    setColor(c:string){ // You could refactor to get rid of these functions and just manipulate them through the RIS. You'd have to change all of the color spacers though.
+        this.ris.addInstruction(RenderInstructionSchedule.BOX_COLOR,ColorManager.stringToInt_hex(c));
     }
     getColor():string{
-        return this.color;
+        return ColorManager.intToString_hex(this.ris.getInstruction(RenderInstructionSchedule.BOX_COLOR));
     }
     setTextColor(c:string){
-        this.text_color = c;
+        this.ris.addInstruction(RenderInstructionSchedule.TEXT_COLOR,ColorManager.stringToInt_hex(c));
     }
     getTextColor():string{
-        return this.text_color;
+        return ColorManager.intToString_hex(this.ris.getInstruction(RenderInstructionSchedule.TEXT_COLOR));
     }
     getHeight(): number {
         return this.h + this.space;
@@ -92,10 +92,10 @@ class AbstractBox implements IBox {
 
     }
     getRenderInstructions() :RenderInstructionSchedule{
-        return this.instrSched;
+        return this.ris;
     }
     setRenderInstructions(instr :RenderInstructionSchedule) :void{
-        this.instrSched = instr;
+        this.ris = instr;
     }
     copy(): IBox {
         var b:Box = new AbstractBox(this.getNode());

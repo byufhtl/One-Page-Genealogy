@@ -128,6 +128,25 @@ class ColorManager {
     }
 
     /**
+     * Converts a string representation of a hex color (#000000) into an integer equivalent (0x000000).
+     * @param hex the string to convert
+     * @returns {number} The converted hex value
+     */
+    static stringToInt_hex(hex :string) :number{
+        var symbols = hex.split('#');
+        return parseInt(symbols[1],16);
+    }
+
+    /**
+     * Converts a hex number (0x000000) into a string representation of the same number (#000000).
+     * @param hex the integer to convert.
+     * @returns {string} The converted hex color string.
+     */
+    static intToString_hex(hex :number) :string{
+        return ("#" + hex.toString(16));
+    }
+
+    /**
      * Lightens a 6 digit hex color code, passing it back out. If the code is missing a leading '#',
      * the result also omits the '#'.
      * The lightening is capped at the maximum RBG values, or #ffffff
@@ -164,6 +183,10 @@ class ColorManager {
         return out + newColor.toString(16);
     }
 
+    /**
+     * Pastel - a soft and delicate shade of a color.
+     * @returns {string} A hex string representation of a color.
+     */
     static generateRandomPastel() :string{
         var r = (Math.round(Math.random()* 127) + 127).toString(16);
         var g = (Math.round(Math.random()* 127) + 127).toString(16);

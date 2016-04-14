@@ -17,8 +17,6 @@
  * make box style generation central to a single spot for easy future modification and customization. It also makes for
  * a good place to store static naming variables. Centralization also makes it to that stylers only need be instantiated
  * once, which should not only save space, but will save loads of time in initializing of objects.
- * The only function for the class is stylize(), which will take a box and apply to it the style set as it's type
- * (box.getType()), defaulting to the TINY box style if the registered type does not match any of the presets.
  */
 class StyleManager{
 
@@ -39,6 +37,13 @@ class StyleManager{
     private static MINI_STYLER  = new MiniBoxStyle();
     private static TINY_STYLER  = new TinyBoxStyle();
 
+
+    /**
+     * Takes a box and applies to it the style set as it's type (box.getType()), defaulting to the TINY box style if the
+     * registered type does not match any of the presets.
+     * @param box
+     * @param showMarriage
+     */
     static stylize(box :IBox, showMarriage :boolean) :void{
         switch(box.getType()){
             case StyleManager.ENORMOUS:
