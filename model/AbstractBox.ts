@@ -20,6 +20,7 @@ class AbstractBox implements IBox {
     private h: number;
     private type: string = null;
     private collapsed: boolean;
+    private instrSched :RenderInstructionSchedule;
 
     constructor(node: INode) {
         this.node = node;
@@ -89,6 +90,12 @@ class AbstractBox implements IBox {
         this.setHeight(render.getHeight());
         this.setWidth(render.getWidth());
 
+    }
+    getRenderInstructions() :RenderInstructionSchedule{
+        return this.instrSched;
+    }
+    setRenderInstructions(instr :RenderInstructionSchedule) :void{
+        this.instrSched = instr;
     }
     copy(): IBox {
         var b:Box = new AbstractBox(this.getNode());

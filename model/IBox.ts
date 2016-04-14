@@ -1,5 +1,7 @@
 ///<reference path="INode.ts"/>
 ///<reference path="../util/Point.ts"/>
+///<reference path="../view/boxRenderers/RenderInstructionSchedule.ts"/>
+
 /**
  * Created by krr428 on 3/7/15.
  */
@@ -24,6 +26,8 @@ interface IBox {
     setSpouseNode(sn: INode);
     getType(): string;
     setType(type: string);
+    getRenderInstructions() :RenderInstructionSchedule;
+    setRenderInstructions(instr :RenderInstructionSchedule);
     copy():IBox;
     copyContents(original:IBox): void;
     isCollapsed(): boolean;
