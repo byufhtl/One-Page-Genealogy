@@ -1,10 +1,25 @@
 ///<reference path="../../model/IBox.ts"/>
 ///<reference path="RenderInstructionSchedule.ts"/>
+///<reference path="../BoxStylers/EnrBoxStyle.ts"/>
+///<reference path="../BoxStylers/HugeBoxStyle.ts"/>
+///<reference path="../BoxStylers/LargeBoxStyle.ts"/>
+///<reference path="../BoxStylers/MediumBoxStyle.ts"/>
+///<reference path="../BoxStylers/SmallBoxStyle.ts"/>
+///<reference path="../BoxStylers/MiniBoxStyle.ts"/>
+///<reference path="../BoxStylers/TinyBoxStyle.ts"/>
 
 /**
  * Created by calvinmcm on 4/13/16.
  */
 
+/**
+ * The StyleManager is designed as a separate static class for easy referencing by other classes. It's purpose is to
+ * make box style generation central to a single spot for easy future modification and customization. It also makes for
+ * a good place to store static naming variables. Centralization also makes it to that stylers only need be instantiated
+ * once, which should not only save space, but will save loads of time in initializing of objects.
+ * The only function for the class is stylize(), which will take a box and apply to it the style set as it's type
+ * (box.getType()), defaulting to the TINY box style if the registered type does not match any of the presets.
+ */
 class StyleManager{
 
     static ENORMOUS = "Enormous";
@@ -15,68 +30,41 @@ class StyleManager{
     static MINI     = "Mini";
     static TINY     = "Tiny";
 
+    // Styler options. Creates a static version of the object that can be used by this class only.
+    private static ENR_STYLER   = new EnrBoxStyle();
+    private static HUGE_STYLER  = new HugeBoxStyle();
+    private static LARGE_STYLER  = new LargeBoxStyle();
+    private static MEDIUM_STYLER  = new MediumBoxStyle();
+    private static SMALL_STYLER  = new SmallBoxStyle();
+    private static MINI_STYLER  = new MiniBoxStyle();
+    private static TINY_STYLER  = new TinyBoxStyle();
+
     static stylize(box :IBox, showMarriage :boolean) :void{
         switch(box.getType()){
             case StyleManager.ENORMOUS:
-                StyleManager.s_enr(box,showMarriage);
+                StyleManager.ENR_STYLER.applyStyleTo(box,showMarriage);
                 break;
             case StyleManager.HUGE:
-                StyleManager.s_huge(box,showMarriage);
+                StyleManager.HUGE_STYLER.applyStyleTo(box,showMarriage);
                 break;
             case StyleManager.LARGE:
-                StyleManager.s_lrg(box,showMarriage);
+                StyleManager.LARGE_STYLER.applyStyleTo(box,showMarriage);
                 break;
             case StyleManager.MEDIUM:
-                StyleManager.s_med(box,showMarriage);
+                StyleManager.MEDIUM_STYLER.applyStyleTo(box,showMarriage);
                 break;
             case StyleManager.SMALL:
-                StyleManager.s_sml(box,showMarriage);
+                StyleManager.SMALL_STYLER.applyStyleTo(box,showMarriage);
                 break;
             case StyleManager.MINI:
-                StyleManager.s_mini(box,showMarriage);
+                StyleManager.MINI_STYLER.applyStyleTo(box,showMarriage);
                 break;
             case StyleManager.TINY:
-                StyleManager.s_tiny(box,showMarriage);
+                StyleManager.TINY_STYLER.applyStyleTo(box,showMarriage);
                 break;
+            default:
+                StyleManager.TINY_STYLER.applyStyleTo(box,showMarriage);
         }
-    }
-
-    private static s_enr(box :IBox, showMarriage :boolean) :void{
-
-        // YOU WILL NEED TO ADD PICTURE CHECKS!!!
-
-        var render_sched = new RenderInstructionSchedule(36,27)
-            .addInstruction(RenderInstructionSchedule.PICTURE,5,5)
-            .addInstruction(RenderInstructionSchedule.NAME,105,5)
-            .addInstruction(RenderInstructionSchedule.B_DATE,105,15)
-            .addInstruction(RenderInstructionSchedule.B_PLACE,145,5)
-            .addInstruction(RenderInstructionSchedule.D_DATE,105,25)
-            .addInstruction(RenderInstructionSchedule.D_PLACE,145,25);
-
-        box.setRenderInstructions(render_sched);
-
-        if(box.getSpouseNode() && box.getNode().getDisplaySpouse() && showMarriage){
-            // Married Flavor
-
-        }
-    }
-    private static s_huge(box :IBox, showMarriage :boolean) :void{
-
-    }
-    private static s_lrg(box :IBox, showMarriage :boolean) :void{
-
-    }
-    private static s_sml(box :IBox, showMarriage :boolean) :void{
-
-    }
-    private static s_med(box :IBox, showMarriage :boolean) :void{
-
-    }
-    private static s_mini(box :IBox, showMarriage :boolean) :void{
-
-    }
-    private static s_tiny(box :IBox, showMarriage :boolean) :void{
-
     }
 
 
