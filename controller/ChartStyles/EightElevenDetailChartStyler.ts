@@ -17,27 +17,27 @@ class EightElevenDetailChartStyler extends AbstractChartStyle{
                 StyleManager.stylize(branchBox,true);
                 break;
             case 1:
-                branchBox.setX(parentBox.getX() + 10);
+                branchBox.setX(parentBox.getX() + 20);
                 branchBox.setType(StyleManager.SMALL);
                 StyleManager.stylize(branchBox,true);
                 break;
             case 2:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.SMALL);
                 StyleManager.stylize(branchBox,true);
                 break;
             case 3:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.SMALL);
                 StyleManager.stylize(branchBox,true);
                 break;
             case 4:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.MINI);
                 StyleManager.stylize(branchBox,true);
                 break;
             case 5:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.MINI);
                 StyleManager.stylize(branchBox,true);
                 break;

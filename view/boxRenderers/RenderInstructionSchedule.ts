@@ -68,6 +68,14 @@ class RenderInstructionSchedule{
         return null;
     }
 
+    public toString() :string{
+        var str = '\n\n';
+        for(var n in this.map){             // Find the matching entry in the map
+            str += '[' + n + ',' + this.map[n] + ']\n';
+        }
+        return str;
+    }
+
     // Generic (2-parameter) Controls for setting
     static NAME = "name";
     static PICTURE = "pic";

@@ -13,10 +13,10 @@ class SmallBoxStyle implements IBoxStyler{
     getName(){return StyleManager.SMALL;}
 
     applyStyleTo(box :IBox, showMarriage :boolean){
-        var start_x = 40;
-        var start_y = 5;
-        var s_start_x = 155;
-        var s_start_y = 5;
+        var start_x = 50;
+        var start_y = 21;
+        var s_start_x = 165;
+        var s_start_y = 21;
         var big_font_size = 18;
         var small_font_size = 13;
 
@@ -26,9 +26,12 @@ class SmallBoxStyle implements IBoxStyler{
             .addInstruction(RenderInstructionSchedule.PICTURES_DIM,30,30)
             .addInstruction(RenderInstructionSchedule.NAME,start_x,start_y)
             .addInstruction(RenderInstructionSchedule.B_DATE,start_x,start_y + big_font_size + 5)
-            .addInstruction(RenderInstructionSchedule.B_PLACE,start_x + 35,start_y + big_font_size + 5)
+            .addInstruction(RenderInstructionSchedule.B_PLACE,start_x + 80,start_y + big_font_size + 5)
             .addInstruction(RenderInstructionSchedule.D_DATE,start_x,start_y + big_font_size + small_font_size + 8)
-            .addInstruction(RenderInstructionSchedule.D_PLACE,start_x + 35,start_y + big_font_size + small_font_size + 8); // 145?
+            .addInstruction(RenderInstructionSchedule.D_PLACE,start_x + 80,start_y + big_font_size + small_font_size + 8)
+            .addInstruction(RenderInstructionSchedule.NAME_L,18)
+            .addInstruction(RenderInstructionSchedule.DATE_L,12)
+            .addInstruction(RenderInstructionSchedule.PLACE_L,14);
 
         box.setWidth(250);
 
@@ -40,15 +43,15 @@ class SmallBoxStyle implements IBoxStyler{
                 .addInstruction(RenderInstructionSchedule.S_PICTURE,s_start_x - 35,s_start_y)
                 .addInstruction(RenderInstructionSchedule.S_NAME,s_start_x,s_start_y)
                 .addInstruction(RenderInstructionSchedule.S_B_DATE,s_start_x,s_start_y + big_font_size + 5)
-                .addInstruction(RenderInstructionSchedule.S_B_PLACE,s_start_x + 35,s_start_y + big_font_size + 5)
+                .addInstruction(RenderInstructionSchedule.S_B_PLACE,s_start_x + 80,s_start_y + big_font_size + 5)
                 .addInstruction(RenderInstructionSchedule.S_D_DATE,s_start_x,s_start_y + big_font_size + small_font_size + 8)
-                .addInstruction(RenderInstructionSchedule.S_D_PLACE,s_start_x + 35, s_start_y + big_font_size + small_font_size*2 + 8)
+                .addInstruction(RenderInstructionSchedule.S_D_PLACE,s_start_x + 80, s_start_y + big_font_size + small_font_size*2 + 8)
                 .addInstruction(RenderInstructionSchedule.M_DATE, 75,s_start_y + big_font_size + small_font_size*2 + 8)
                 .addInstruction(RenderInstructionSchedule.M_PLACE, 125,s_start_y + big_font_size + small_font_size*2 + 8);
         }
         else{
             // Single Flavor
-            box.setHeight(75);
+            box.setHeight(78);
         }
 
         box.setRenderInstructions(render_sched);

@@ -113,9 +113,11 @@ class ElementManager implements IElementManager {
         this.elementMap[box.getNode().getId()].move(box, this.elementContainer);
     }
     private removeElement(box: IBox): void {
-        var current: IElement = this.elementMap[box.getNode().getId()];
-        current.remove(this.elementContainer);
-        delete this.elementMap[box.getNode().getId()];
+        if(box.getNode()) {
+            var current:IElement = this.elementMap[box.getNode().getId()];
+            current.remove(this.elementContainer);
+            delete this.elementMap[box.getNode().getId()];
+        }
     }
     setIgnoreBound(ignore: boolean): void {
         this.ignoreBounds = ignore;

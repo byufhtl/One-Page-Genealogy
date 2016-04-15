@@ -143,6 +143,7 @@ class ColorManager {
      * @returns {string} The converted hex color string.
      */
     static intToString_hex(hex :number) :string{
+        if(!hex){return null};
         return ("#" + hex.toString(16));
     }
 
@@ -156,6 +157,7 @@ class ColorManager {
      * @returns {string|any} The new hex code.
      */
     static lighten(hex:string, amount:number=16) : string{
+        if(!hex){return null};
         var incolor = hex;
         var alpha = "";
         if(hex.length !== 6 && hex.length !== 7){

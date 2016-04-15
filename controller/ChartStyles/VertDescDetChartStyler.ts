@@ -24,7 +24,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                 branchBox.getRenderInstructions().addInstruction(RenderInstructionSchedule.BORDER_WIDTH,5);
                 break;
             case 2:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.MEDIUM);
                 StyleManager.stylize(branchBox,true);
                 branchBox.getRenderInstructions()
@@ -32,7 +32,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                     .addInstruction(RenderInstructionSchedule.ROTATED,1);
                 break;
             case 3:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.MEDIUM);
                 StyleManager.stylize(branchBox,true);
                 branchBox.getRenderInstructions()
@@ -40,7 +40,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                     .addInstruction(RenderInstructionSchedule.ROTATED,1);
                 break;
             case 4:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.SMALL);
                 StyleManager.stylize(branchBox,true);
                 branchBox.getRenderInstructions()
@@ -48,7 +48,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                     .addInstruction(RenderInstructionSchedule.ROTATED,1);
                 break;
             case 5:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.SMALL);
                 StyleManager.stylize(branchBox,true);
                 branchBox.getRenderInstructions()
@@ -56,7 +56,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                     .addInstruction(RenderInstructionSchedule.ROTATED,1);
                 break;
             case 6:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.MINI);
                 StyleManager.stylize(branchBox,true);
                 branchBox.getRenderInstructions()
@@ -64,7 +64,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                     .addInstruction(RenderInstructionSchedule.ROTATED,1);
                 break;
             case 7:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.TINY);
                 StyleManager.stylize(branchBox,true);
                 branchBox.getRenderInstructions()
@@ -72,7 +72,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                     .addInstruction(RenderInstructionSchedule.ROTATED,1);
                 break;
             default:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.TINY);
                 StyleManager.stylize(branchBox,true);
                 branchBox.getRenderInstructions()

@@ -40,7 +40,7 @@ class AbstractBox implements IBox {
     }
     getTextColor():string{
         var t_color = this.ris.getInstruction(RenderInstructionSchedule.TEXT_COLOR);
-        return (t_color) ? ColorManager.intToString_hex(t_color) : "#ffffff";
+        return (t_color) ? ColorManager.intToString_hex(t_color) : "#000000";
     }
     getHeight(): number {
         return this.h + this.space;
@@ -111,6 +111,7 @@ class AbstractBox implements IBox {
         b.setX(this.getX());
         b.setY(this.getY());
         b.setCollapsed(this.isCollapsed());
+        b.setRenderInstructions(this.ris);
         return b;
     }
     copyContents(b: IBox): void {
@@ -123,6 +124,7 @@ class AbstractBox implements IBox {
         b.setX(this.getX());
         b.setY(this.getY());
         b.setCollapsed(this.isCollapsed());
+        b.setRenderInstructions(this.ris);
     }
     isCollapsed(): boolean {
         return this.collapsed;

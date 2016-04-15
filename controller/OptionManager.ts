@@ -3,6 +3,7 @@
 ///<reference path="../controller/BoxMap.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 ///<reference path="../js/jsDeclarations.ts"/>
+///<reference path="../view/boxRenderers/Renderer.ts"/>
 
 /**
  * Created by curtis on 3/19/15.
@@ -244,7 +245,7 @@ class OptionManager implements IOptionManager {
             opgModalSvg.height(box.getWidth() + OptionManager.DISPLAY_PADDING*2);
             transform.push("translate(" + box.getHeight() + ',0)');
         }
-        var g = BoxStyleFactory.getNewBoxStyle(box.getType()).render(box, opgModalSvg[0]);
+        var g = Renderer.renderBox(box, opgModalSvg[0]);
         transform.push("translate("+OptionManager.DISPLAY_PADDING+", "+OptionManager.DISPLAY_PADDING+")");
         transform.push('rotate('+ this.rotation +')');
 

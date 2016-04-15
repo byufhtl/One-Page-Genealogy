@@ -45,6 +45,7 @@ class StyleManager{
      * @param showMarriage
      */
     static stylize(box :IBox, showMarriage :boolean) :void{
+        console.log("Stylizing box for " + box.getNode().getAttr("name"));
         switch(box.getType()){
             case StyleManager.ENORMOUS:
                 StyleManager.ENR_STYLER.applyStyleTo(box,showMarriage);
