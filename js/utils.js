@@ -270,7 +270,9 @@ $(function(){
             $("#opg-chart").css("width", "100%");
             $("#opg-chart").css("height", "94%");
             $("#utils").css("display", "none");
-            game.stop();
+            if(game) {
+                game.stop();
+            }
         }else{
             codes.push(event.keyCode);
             if (JSON.stringify(codes) == JSON.stringify(key)) {

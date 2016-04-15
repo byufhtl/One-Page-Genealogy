@@ -46,7 +46,7 @@ class OptionManager implements IOptionManager {
         });
         $('#ruler-hide').click(function() {
             self.listener.handleOption('ruler-hide', null);
-        })
+        });
         $('#opg-detail-style').click(function(){
             self.handleStyleChange('detail-style');
         });

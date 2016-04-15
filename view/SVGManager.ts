@@ -35,6 +35,8 @@ class SVGManager implements IViewManager {
     private rotation: number;
     private scale: number;
 
+    private zoomEnabled: boolean = true;
+
     private elementManager: ElementManager;
     private lineManager: LineManager;
     private refreshTriggered: boolean;
@@ -49,6 +51,10 @@ class SVGManager implements IViewManager {
         //this is dangerous to just kill all listeners.
         $(svg).off();
         $(window).off();
+
+        var self = this;
+        $("#country-legend").mouseenter(function() {self.zoomEnabled = false;});
+        $("#country-legend").mouseleave(function() {self.zoomEnabled = true;});
 
         this.rulerTextContainer = document.createElementNS("http://www.w3.org/2000/svg", "g");
         this.rulerTextContainer.setAttribute('fill', '#d2a779');
@@ -90,7 +96,6 @@ class SVGManager implements IViewManager {
         this.elementManager = new ElementManager(this.svgRoot, this.graphicObject);
         this.lineManager = new LineManager();
 
-        var self = this;
         this.boundingRect = null;
         this.elements = {};
 
@@ -383,7 +388,7 @@ class SVGManager implements IViewManager {
         this.refresh(this.lastBoxes);
     }
     setScale(s: number, pt:Point): void {
-        if((!($("#opg-modal").data('bs.modal') || {}).isShown) &&
+        if(this.zoomEnabled && (!($("#opg-modal").data('bs.modal') || {}).isShown) &&
             (this.scale > .05 || s > 1) && (this.scale < 20 || s < 1)) {
 
             var viewBefore:Point = this.worldToView(pt);
