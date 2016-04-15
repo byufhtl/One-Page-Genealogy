@@ -5,6 +5,7 @@
 ///<reference path="../view/IBoxRender.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 ///<reference path="Box.ts"/>
+///<reference path="../view/boxRenderers/StyleManager.ts"/>
 /**
  * Created by curtis on 3/7/15.
  */
@@ -31,13 +32,15 @@ class AbstractBox implements IBox {
         this.ris.addInstruction(RenderInstructionSchedule.BOX_COLOR,ColorManager.stringToInt_hex(c));
     }
     getColor():string{
-        return ColorManager.intToString_hex(this.ris.getInstruction(RenderInstructionSchedule.BOX_COLOR));
+        var b_color = this.ris.getInstruction(RenderInstructionSchedule.BOX_COLOR);
+        return (b_color) ? ColorManager.intToString_hex(b_color) : "#A0A0A0";
     }
     setTextColor(c:string){
         this.ris.addInstruction(RenderInstructionSchedule.TEXT_COLOR,ColorManager.stringToInt_hex(c));
     }
     getTextColor():string{
-        return ColorManager.intToString_hex(this.ris.getInstruction(RenderInstructionSchedule.TEXT_COLOR));
+        var t_color = this.ris.getInstruction(RenderInstructionSchedule.TEXT_COLOR);
+        return (t_color) ? ColorManager.intToString_hex(t_color) : "#ffffff";
     }
     getHeight(): number {
         return this.h + this.space;
@@ -84,11 +87,11 @@ class AbstractBox implements IBox {
     setType(type: string) {
         this.type = type;
         if(!type){
-            type = "smallestNameBox";
+            type = StyleManager.TINY;
         }
-        var render:IBoxRender = BoxStyleFactory.getNewBoxStyle(type);
-        this.setHeight(render.getHeight());
-        this.setWidth(render.getWidth());
+        //var render:IBoxRender = BoxStyleFactory.getNewBoxStyle(type);
+        //this.setHeight(render.getHeight());
+        //this.setWidth(render.getWidth());
 
     }
     getRenderInstructions() :RenderInstructionSchedule{

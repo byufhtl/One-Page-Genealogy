@@ -1,12 +1,11 @@
 ///<reference path="../model/AbstractBox.ts"/>
+///<reference path="AbstractStyler.ts"/>
 ///<reference path="BoxMap.ts"/>
 ///<reference path="../view/boxRenderers/StyleManager.ts"/>
 /**
  * Created by calvinmcm on 4/13/16.
  */
-abstract class AbstractChartStyle{
-
-    private className: string;
+abstract class AbstractChartStyle extends AbstractStyler{
 
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
@@ -40,11 +39,7 @@ abstract class AbstractChartStyle{
 
     abstract setBasedOnGeneration(box:IBox, branchBox:IBox, generation: number) :void;
 
-    public getName(): string{
-        return this.className;
-    }
-
     constructor(name:string){
-        this.className = name;
+        super(name);
     }
 }

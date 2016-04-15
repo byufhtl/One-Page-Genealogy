@@ -91,7 +91,12 @@ class RenderInstructionSchedule{
     static BOX_COLOR = "box_color";
     static TEXT_COLOR = "txt_color";
     static BORDER_WIDTH = "bor_width";
+    static COLORED_BORDER = "col_border";
     static ROTATED = "rot";
+    static BOLD = "bold";
+    static NAME_L = "name_l";
+    static DATE_L = "date_l";
+    static PLACE_L = "place_l";
 
     static NAME_X = "name_x";
     static PICTURE_X = "pic_x";

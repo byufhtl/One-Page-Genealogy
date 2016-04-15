@@ -21,6 +21,15 @@
 ///<reference path="ColorSpacers/AscColorSpacer.ts"/>
 ///<reference path="ColorSpacers/CustomColorSpacer.ts"/>
 ///<reference path="ColorSpacers/CustomTextColorSpacer.ts"/>
+
+///<reference path="ChartStyles/FamilyReunionChartStyler.ts"/>
+///<reference path="ChartStyles/EightElevenChartStyler.ts"/>
+///<reference path="ChartStyles/EightElevenDetailChartStyler.ts"/>
+///<reference path="ChartStyles/FamilyReunionDescChartStyler.ts"/>
+///<reference path="ChartStyles/DetailChartStyler.ts"/>
+///<reference path="ChartStyles/VertDescDetChartStyler.ts"/>
+///<reference path="ChartStyles/VertDetChartStyler.ts"/>
+
 ///<reference path="YSpacer"/>
 /**
  * Created by calvinmcm on 2/23/16.
@@ -75,19 +84,19 @@ class StylingPipeline implements IPipeline {
                 return new GreyScaleSpacer();
             //~~~END COLOR ::: START STYLE~~~
             case("DetailChartSpacer"):
-                return new DetailChartSpacer();
+                return new DetailChartStyler();
             case("EightElevenDetailSpacer"):
-                return new EightElevenDetailSpacer();
+                return new EightElevenDetailChartStyler();
             case("EightElevenSpacer"):
-                return new EightElevenSpacer();
+                return new EightElevenChartStyler();
             case("FamilyReunionChartSpacer"):
-                return new FamilyReunionChartSpacer();
+                return new FamilyReunionChartStyler();
             case("FamilyReunionDescPublicSpacer"):
-                return new FamilyReunionDescPublicSpacer();
+                return new FamilyReunionDescChartStyler();
             case("VertDescDetChartSpacer"):
-                return new VertDescDetChartSpacer();
+                return new VertDescDetChartStyler();
             case("VertDetChartSpacer"):
-                return new VertDetChartSpacer();
+                return new VertDetChartStyler();
         }
     }
 

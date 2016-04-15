@@ -13,13 +13,15 @@
 ///<reference path="RotateSpacer.ts"/>
 ///<reference path="GenerationSpacer2.ts"/>
 ///<reference path="ChartSpacers/CustomSpacer.ts"/>
-///<reference path="ChartSpacers/EightElevenSpacer.ts"/>
-///<reference path="ChartSpacers/EightElevenDetailSpacer.ts"/>
-///<reference path="ChartSpacers/DetailChartSpacer.ts"/>
-///<reference path="ChartSpacers/FamilyReunionChartSpacer.ts"/>
-///<reference path="ChartSpacers/FamilyReunionDescPublicSpacer.ts"/>
-///<reference path="ChartSpacers/VertDetChartSpacer.ts"/>
-///<reference path="ChartSpacers/VertDescDetChartSpacer.ts"/>
+
+///<reference path="ChartStyles/FamilyReunionChartStyler.ts"/>
+///<reference path="ChartStyles/EightElevenChartStyler.ts"/>
+///<reference path="ChartStyles/EightElevenDetailChartStyler.ts"/>
+///<reference path="ChartStyles/FamilyReunionDescChartStyler.ts"/>
+///<reference path="ChartStyles/DetailChartStyler.ts"/>
+///<reference path="ChartStyles/VertDescDetChartStyler.ts"/>
+///<reference path="ChartStyles/VertDetChartStyler.ts"/>
+
 ///<reference path="ColorSpacers/GreyScaleSpacer.ts"/>
 ///<reference path="ColorSpacers/ColorSpacer.ts"/>
 ///<reference path="ColorSpacers/AscColorSpacer.ts"/>
@@ -61,10 +63,10 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline = new StylingPipeline();
 
         if (c.dscOrAsc == "descendancy") {
-            this.stylingPipeline.setChartStyleSpacer(new JSPublicSpacer());
+            this.stylingPipeline.setChartStyleSpacer(new VertDescDetChartStyler());
             this.stylingPipeline.setChartColorStyleSpacer(new ColorSpacer());
         } else {
-            this.stylingPipeline.setChartStyleSpacer(new VertDetChartSpacer());
+            this.stylingPipeline.setChartStyleSpacer(new VertDetChartStyler());
             this.stylingPipeline.setChartColorStyleSpacer(new AscColorSpacer());
         }
 
@@ -476,25 +478,25 @@ class P implements IControllerListener, ITreeListener {
         var style: AbstractStyler;
         switch(type){
             case 'detail-style':
-                style = new DetailChartSpacer();
+                style = new DetailChartStyler();
                 break;
             case 'reunion-style':
-                style = new FamilyReunionChartSpacer();
+                style = new FamilyReunionChartStyler();
                 break;
             case 'vertical-style':
-                style = new VertDetChartSpacer();
+                style = new VertDetChartStyler();
                 break;
             case 'eight-eleven-style':
-                style = new EightElevenSpacer();
+                style = new EightElevenChartStyler();
                 break;
             case 'eight-eleven-detail-style':
-                style = new EightElevenDetailSpacer();
+                style = new EightElevenDetailChartStyler();
                 break;
             case 'js-public-style':
-                style = new JSPublicSpacer();
+                style = new VertDescDetChartStyler();
                 break;
             case 'js-reunion-public-style':
-                style = new FamilyReunionDescPublicSpacer();
+                style = new FamilyReunionDescChartStyler();
                 break;
             default:
                 return false;

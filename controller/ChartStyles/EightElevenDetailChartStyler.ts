@@ -3,7 +3,7 @@
  * Created by calvinmcm on 4/14/16.
  */
 
-class EightElevenChartStyler extends AbstractChartStyle{
+class EightElevenDetailChartStyler extends AbstractChartStyle{
 
     constructor(){
         super("EightElevenChartStyler");

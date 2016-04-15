@@ -27,14 +27,15 @@ class HugeBoxStyle implements IBoxStyler{
             .addInstruction(RenderInstructionSchedule.B_DATE,start_x,start_y + big_font_size + 10)
             .addInstruction(RenderInstructionSchedule.B_PLACE,start_x + 80,start_y + big_font_size + 10)
             .addInstruction(RenderInstructionSchedule.D_DATE,start_x,start_y + big_font_size + small_font_size + 20)
-            .addInstruction(RenderInstructionSchedule.D_PLACE,start_x + 80,start_y + big_font_size + small_font_size + 20); // 145?
+            .addInstruction(RenderInstructionSchedule.D_PLACE,start_x + 80,start_y + big_font_size + small_font_size + 20)
+            .addInstruction(RenderInstructionSchedule.ROTATED,1);
 
-        box.setHeight(300);
+        box.setWidth(350);
 
         if(box.getSpouseNode() && box.getNode().getDisplaySpouse() && showMarriage){
             // Married Flavor
 
-            box.setWidth(1000);
+            box.setHeight(1000);
             render_sched
                 .addInstruction(RenderInstructionSchedule.S_PICTURE,s_start_x - 80,s_start_y)
                 .addInstruction(RenderInstructionSchedule.S_NAME,s_start_x,s_start_y)
@@ -47,7 +48,7 @@ class HugeBoxStyle implements IBoxStyler{
         }
         else{
             // Single Flavor
-            box.setWidth(750);
+            box.setHeight(750);
         }
 
         box.setRenderInstructions(render_sched);

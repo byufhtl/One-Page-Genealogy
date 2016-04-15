@@ -22,37 +22,37 @@ class DetailChartStyler extends AbstractChartStyle{
                 StyleManager.stylize(branchBox,true);
                 break;
             case 2:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.MEDIUM);
                 StyleManager.stylize(branchBox,true);
                 break;
             case 3:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.SMALL);
                 StyleManager.stylize(branchBox,true);
                 break;
             case 4:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.SMALL);
                 StyleManager.stylize(branchBox,true);
                 break;
             case 5:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.MINI);
                 StyleManager.stylize(branchBox,true);
                 break;
             case 6:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.MINI);
                 StyleManager.stylize(branchBox,true);
                 break;
             case 7:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.MINI);
                 StyleManager.stylize(branchBox,true);
                 break;
             default:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.TINY);
                 StyleManager.stylize(branchBox,true);
         }

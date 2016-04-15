@@ -147,7 +147,7 @@ class ColorManager {
     }
 
     /**
-     * Lightens a 6 digit hex color code, passing it back out. If the code is missing a leading '#',
+     * Lightens a 6 or 8(alpha) digit hex color code, passing it back out. If the code is missing a leading '#',
      * the result also omits the '#'.
      * The lightening is capped at the maximum RBG values, or #ffffff
      *
@@ -156,32 +156,47 @@ class ColorManager {
      * @returns {string|any} The new hex code.
      */
     static lighten(hex:string, amount:number=16) : string{
+        var incolor = hex;
+        var alpha = "";
         if(hex.length !== 6 && hex.length !== 7){
-            return hex;
+            if (hex.length == 8) {
+                alpha = hex[0] + hex[1];
+                hex = hex.substr(2,hex.length);
+            }
+            else if(hex.length == 9){
+
+                alpha = hex[1] + hex[2];
+                hex = hex[0] + hex.substr(3,hex.length);
+            }
+            else {
+                return hex;
+            }
         }
-        var hexed = false;
+        var prepended = false;
         if(hex[0] === '#'){
             hex = hex.substr(1,hex.length);
-            hexed = true;
+            prepended = true;
         }
 
         var num = parseInt(hex,16);
-        var r = (num >> 16) + amount;
-        var b = ((num >> 8) & 0x00FF) + amount;
-        var g = (num & 0x0000FF) + amount;
-
-        r = (r > 0xFF) ? 0xFF : r;
-        g = (g > 0xFF) ? 0xFF : g;
-        b = (b > 0xFF) ? 0xFF : b;
+        var r = ((num >> 16) + amount); // shift, add.
+        r = (r > 0x0000FF) ? 0x0000FF : r; // cap.
+        var b = (((num >> 8) & 0x00FF) + amount);
+        b = (b > 0x0000FF) ? 0x0000FF : b;
+        var g = ((num & 0x0000FF) + amount);
+        g = (g > 0x0000FF) ? 0x0000FF : g;
 
         var newColor = g | (b << 8) | (r << 16);
 
         var out = "";
-        if(hexed){
+        if(prepended){
             out = '#'
         }
-        return out + newColor.toString(16);
+        console.log("\tLightening from " + incolor + " to " + out + + alpha + newColor.toString(16));
+        return out + alpha + newColor.toString(16);
     }
+
+
 
     /**
      * Pastel - a soft and delicate shade of a color.
