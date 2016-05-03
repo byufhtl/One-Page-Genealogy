@@ -22,11 +22,15 @@ class TinyBoxStyle implements IBoxStyler{
         var small_font_size = 9;
 
         // Basic data
-        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size)
-            .addInstruction(RenderInstructionSchedule.BORDER_WIDTH,3)
-            .addInstruction(RenderInstructionSchedule.NAME_L,18)
-            .addInstruction(RenderInstructionSchedule.DATE_L,18)
-            .addInstruction(RenderInstructionSchedule.PLACE_L,18);
+        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size);
+
+        render_sched
+            .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
+            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE,small_font_size)
+            .addInstruction(RenderInstructionSchedule.BORDER_WIDTH,2)
+            .addInstruction(RenderInstructionSchedule.NAME_L,15)
+            .addInstruction(RenderInstructionSchedule.DATE_L,15)
+            .addInstruction(RenderInstructionSchedule.PLACE_L,15);
 
         box.setWidth(200);
 

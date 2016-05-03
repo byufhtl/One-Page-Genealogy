@@ -1,4 +1,5 @@
 ///<reference path="IBoxStyler.ts"/>
+///<reference path="../PictureManager.ts"/>
 /**
  * Created by calvinmcm on 4/14/16.
  */
@@ -13,25 +14,34 @@ class SmallBoxStyle implements IBoxStyler{
     getName(){return StyleManager.SMALL;}
 
     applyStyleTo(box :IBox, showMarriage :boolean){
-        var start_x = 50;
+        var start_x = 70;
         var start_y = 21;
         var s_start_x = 165;
         var s_start_y = 21;
         var big_font_size = 18;
         var small_font_size = 13;
 
+        if(!PictureManager.hasPicture(box.getNode().getId())){
+            start_x -= 35;
+            s_start_x -= 35;
+        }
+
         // Basic data
-        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size)
-            .addInstruction(RenderInstructionSchedule.PICTURE,start_x - 35,start_y)
-            .addInstruction(RenderInstructionSchedule.PICTURES_DIM,30,30)
-            .addInstruction(RenderInstructionSchedule.NAME,start_x,start_y)
-            .addInstruction(RenderInstructionSchedule.B_DATE,start_x,start_y + big_font_size + 5)
-            .addInstruction(RenderInstructionSchedule.B_PLACE,start_x + 80,start_y + big_font_size + 5)
-            .addInstruction(RenderInstructionSchedule.D_DATE,start_x,start_y + big_font_size + small_font_size + 8)
-            .addInstruction(RenderInstructionSchedule.D_PLACE,start_x + 80,start_y + big_font_size + small_font_size + 8)
-            .addInstruction(RenderInstructionSchedule.NAME_L,18)
-            .addInstruction(RenderInstructionSchedule.DATE_L,12)
-            .addInstruction(RenderInstructionSchedule.PLACE_L,14);
+        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size);
+
+        render_sched
+            .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
+            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE,small_font_size)
+            .addInstruction(RenderInstructionSchedule.PICTURE,start_x - 65,start_y-16)
+            .addInstruction(RenderInstructionSchedule.PICTURES_DIM,60,60)
+            .addInstruction(RenderInstructionSchedule.NAME, start_x, start_y)
+            .addInstruction(RenderInstructionSchedule.B_DATE, start_x, start_y + big_font_size + 5)
+            .addInstruction(RenderInstructionSchedule.B_PLACE, start_x + 80, start_y + big_font_size + 5)
+            .addInstruction(RenderInstructionSchedule.D_DATE, start_x, start_y + big_font_size + small_font_size + 8)
+            .addInstruction(RenderInstructionSchedule.D_PLACE, start_x + 80, start_y + big_font_size + small_font_size + 8)
+            .addInstruction(RenderInstructionSchedule.NAME_L, 17)
+            .addInstruction(RenderInstructionSchedule.DATE_L, 12)
+            .addInstruction(RenderInstructionSchedule.PLACE_L, 14);
 
         box.setWidth(250);
 
@@ -39,8 +49,11 @@ class SmallBoxStyle implements IBoxStyler{
             // Married Flavor
 
             box.setHeight(100);
+            if(!PictureManager.hasPicture(box.getNode().getId())) {
+                s_start_x -= 35;
+            }
             render_sched
-                .addInstruction(RenderInstructionSchedule.S_PICTURE,s_start_x - 35,s_start_y)
+                .addInstruction(RenderInstructionSchedule.S_PICTURE,s_start_x - 65,s_start_y - 16)
                 .addInstruction(RenderInstructionSchedule.S_NAME,s_start_x,s_start_y)
                 .addInstruction(RenderInstructionSchedule.S_B_DATE,s_start_x,s_start_y + big_font_size + 5)
                 .addInstruction(RenderInstructionSchedule.S_B_PLACE,s_start_x + 80,s_start_y + big_font_size + 5)

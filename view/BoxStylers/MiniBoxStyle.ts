@@ -24,12 +24,17 @@ class MiniBoxStyle implements IBoxStyler{
         console.log("\t making mini box for " + box.getNode().getAttr("name"));
 
         // Basic data
-        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size)
+        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size);
+
+        render_sched
+            .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
+            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE,small_font_size)
             .addInstruction(RenderInstructionSchedule.NAME,start_x,start_y)
             .addInstruction(RenderInstructionSchedule.B_DATE,start_x,start_y + big_font_size - 2)
             .addInstruction(RenderInstructionSchedule.B_PLACE,start_x + 70,start_y + big_font_size - 2)
             .addInstruction(RenderInstructionSchedule.D_DATE,start_x,start_y + big_font_size + small_font_size - 2)
             .addInstruction(RenderInstructionSchedule.D_PLACE,start_x + 70,start_y + big_font_size + small_font_size - 2)
+            .addInstruction(RenderInstructionSchedule.BORDER_WIDTH,3)
             .addInstruction(RenderInstructionSchedule.NAME_L,18)
             .addInstruction(RenderInstructionSchedule.DATE_L,18)
             .addInstruction(RenderInstructionSchedule.PLACE_L,16);

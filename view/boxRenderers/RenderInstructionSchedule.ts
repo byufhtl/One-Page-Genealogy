@@ -22,8 +22,9 @@ class RenderInstructionSchedule{
      */
     constructor(default_font_size :number, alternative_font_size :number = default_font_size){
         this.map = {};
-        this.addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,default_font_size);
-        this.addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE,alternative_font_size);
+        this.addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE, default_font_size)
+            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE, alternative_font_size)
+            .addInstruction(RenderInstructionSchedule.PICTURE_STATUS, 0);
     }
 
     /**
@@ -96,8 +97,6 @@ class RenderInstructionSchedule{
     // Specific (1-parameter) Controls for getting
     static DEF_FONT_SIZE = "d_f_size";
     static ALT_FONT_SIZE = "a_f_size";
-    static BOX_COLOR = "box_color";
-    static TEXT_COLOR = "txt_color";
     static BORDER_WIDTH = "bor_width";
     static COLORED_BORDER = "col_border";
     static ROTATED = "rot";
@@ -105,6 +104,7 @@ class RenderInstructionSchedule{
     static NAME_L = "name_l";
     static DATE_L = "date_l";
     static PLACE_L = "place_l";
+    static PICTURE_STATUS = "pic_stat"; // used to track the picture status.
 
     static NAME_X = "name_x";
     static PICTURE_X = "pic_x";

@@ -6,41 +6,49 @@
 ///<reference path="../view/BoxStyleFactory.ts"/>
 ///<reference path="Box.ts"/>
 ///<reference path="../view/boxRenderers/StyleManager.ts"/>
+///<reference path="../view/PictureManager.ts"/>
 /**
  * Created by curtis on 3/7/15.
  */
 class AbstractBox implements IBox {
-    private node: INode;
-    private spouseNode: INode;
-    private x: number;
-    private y: number;
-    private space: number;
-    private w: number;
-    private h: number;
-    private type: string = null;
-    private collapsed: boolean;
+    private node :INode;
+    private spouseNode :INode;
+    private x :number;
+    private y :number;
+    private space :number;
+    private w :number;
+    private h :number;
+    private type :string = null;
+    private collapsed :boolean;
     private ris :RenderInstructionSchedule;
+    private picture :boolean;
+    private color :string;
+    private textColor :string;
 
-    constructor(node: INode) {
+    constructor(node :INode) {
         this.node = node;
         this.collapsed = false;
-        this.ris = new RenderInstructionSchedule(24);
-        this.ris.addInstruction(RenderInstructionSchedule.BOX_COLOR,0xffffff);
-        this.ris.addInstruction(RenderInstructionSchedule.TEXT_COLOR,0x000000);
+        this.picture = false;
+        this.ris = new RenderInstructionSchedule(12);
+        this.color = "#FFFFFF";
+        this.textColor = "#000000";
+        // Ensure that the primary image for the given pid is properly loaded for rendering
+        PictureManager.loadPictures(node);
+        if(node.getDisplaySpouse()){
+            PictureManager.loadPictures(node.getDisplaySpouse());
+        }
     }
     setColor(c:string){ // You could refactor to get rid of these functions and just manipulate them through the RIS. You'd have to change all of the color spacers though.
-        this.ris.addInstruction(RenderInstructionSchedule.BOX_COLOR,ColorManager.stringToInt_hex(c));
+        this.color = c;
     }
     getColor():string{
-        var b_color = this.ris.getInstruction(RenderInstructionSchedule.BOX_COLOR);
-        return (b_color) ? ColorManager.intToString_hex(b_color) : "#A0A0A0";
+        return this.color;
     }
     setTextColor(c:string){
-        this.ris.addInstruction(RenderInstructionSchedule.TEXT_COLOR,ColorManager.stringToInt_hex(c));
+        this.textColor = c;
     }
     getTextColor():string{
-        var t_color = this.ris.getInstruction(RenderInstructionSchedule.TEXT_COLOR);
-        return (t_color) ? ColorManager.intToString_hex(t_color) : "#000000";
+        return this.textColor;
     }
     getHeight(): number {
         return this.h + this.space;
@@ -89,10 +97,6 @@ class AbstractBox implements IBox {
         if(!type){
             type = StyleManager.TINY;
         }
-        //var render:IBoxRender = BoxStyleFactory.getNewBoxStyle(type);
-        //this.setHeight(render.getHeight());
-        //this.setWidth(render.getWidth());
-
     }
     getRenderInstructions() :RenderInstructionSchedule{
         return this.ris;
@@ -140,6 +144,7 @@ class AbstractBox implements IBox {
         this.space = 0;
         this.type = null;
         this.collapsed = false;
+        this.picture = false;
     }
     hitTest(pt: Point): boolean {
         if(this.x > pt.getX()) {

@@ -220,7 +220,7 @@ function familySearchDownload() {
                     generations: numGenerations,
                     dscOrAsc: direction,
                     optionManager: optionManager
-                })
+                });
                 localStorage.setItem("rootPID", rootPID);
                 $('#fsModal').hide();
             })

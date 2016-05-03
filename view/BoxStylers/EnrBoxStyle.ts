@@ -20,7 +20,11 @@ class EnrBoxStyle implements IBoxStyler{
         var small_font_size = 40;
 
         // Basic data
-        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size)
+        var render_sched =  new RenderInstructionSchedule(big_font_size,small_font_size);
+
+        render_sched
+            .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
+            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE,small_font_size)
             .addInstruction(RenderInstructionSchedule.PICTURE,start_x - 255,start_y)
             .addInstruction(RenderInstructionSchedule.PICTURES_DIM,250,250)
             .addInstruction(RenderInstructionSchedule.NAME,start_x,start_y)

@@ -22,7 +22,11 @@ class HugeBoxStyle implements IBoxStyler{
         console.log("\t making huge box for " + box.getNode().getAttr("name"));
 
         // Basic data
-        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size)
+        var render_sched =  new RenderInstructionSchedule(big_font_size,small_font_size);
+
+        render_sched
+            .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
+            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE,small_font_size)
             .addInstruction(RenderInstructionSchedule.PICTURE,start_x - 95,start_y)
             .addInstruction(RenderInstructionSchedule.PICTURES_DIM,90,90)
             .addInstruction(RenderInstructionSchedule.NAME,start_x,start_y)

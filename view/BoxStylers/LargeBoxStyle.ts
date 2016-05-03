@@ -20,8 +20,16 @@ class LargeBoxStyle implements IBoxStyler{
         var big_font_size = 40;
         var small_font_size = 28;
 
+        if(!PictureManager.hasPicture(box.getNode().getId())) {
+            s_start_x -= 155;
+        }
+
         // Basic data
-        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size)
+        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size);
+
+        render_sched
+            .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
+            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE,small_font_size)
             .addInstruction(RenderInstructionSchedule.PICTURE,start_x - 155,start_y)
             .addInstruction(RenderInstructionSchedule.PICTURES_DIM,150,150)
             .addInstruction(RenderInstructionSchedule.NAME,start_x,start_y)
@@ -41,6 +49,11 @@ class LargeBoxStyle implements IBoxStyler{
             // Married Flavor
 
             box.setHeight(890);
+
+            if(!PictureManager.hasPicture(box.getNode().getId())) {
+                s_start_x -= 155;
+            }
+
             render_sched
                 .addInstruction(RenderInstructionSchedule.S_PICTURE,s_start_x - 155,s_start_y)
                 .addInstruction(RenderInstructionSchedule.S_NAME,s_start_x,s_start_y)
