@@ -10,6 +10,9 @@ class DetailChartStyler extends AbstractChartStyle{
     }
 
     setBasedOnGeneration(parentBox :IBox, branchBox :IBox, generation :number) :void{
+        if(branchBox.isCollapsed()){
+            branchBox.setCollapsed(false);
+        }
         switch(generation){
             case 0:
                 branchBox.setX(0);
