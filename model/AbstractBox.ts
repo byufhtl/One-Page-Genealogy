@@ -33,9 +33,9 @@ class AbstractBox implements IBox {
         this.color = "#FFFFFF";
         this.textColor = "#000000";
         // Ensure that the primary image for the given pid is properly loaded for rendering
-        PictureManager.loadPictures(node);
+        PictureManager.loadPictures(this,node); // The fact that I can call 'this' from the constructor is a bit sketchy
         if(node.getDisplaySpouse()){
-            PictureManager.loadPictures(node.getDisplaySpouse());
+            PictureManager.loadPictures(this,node.getDisplaySpouse());
         }
     }
     setColor(c:string){ // You could refactor to get rid of these functions and just manipulate them through the RIS. You'd have to change all of the color spacers though.

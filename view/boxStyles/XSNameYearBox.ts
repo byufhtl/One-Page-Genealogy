@@ -84,7 +84,7 @@ class XSNameYearBox extends IBoxData {
         return "xsNameYearBox";
     }
     getHeight(): number {
-        return 11+2;//14;
+        return 13;
     }
     getWidth(): number {
         return 162;

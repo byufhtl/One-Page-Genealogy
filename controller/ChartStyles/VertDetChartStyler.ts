@@ -10,6 +10,7 @@ class VertDetChartStyler extends AbstractChartStyle{
     }
 
     setBasedOnGeneration(parentBox :IBox, branchBox :IBox, generation :number) :void{
+        branchBox.getRenderInstructions().clear();
         if(branchBox.isCollapsed()){
             branchBox.setCollapsed(false);
         }
@@ -30,12 +31,12 @@ class VertDetChartStyler extends AbstractChartStyle{
                 StyleManager.stylize(branchBox,false);
                 break;
             case 3:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth()/2 + 20);
                 branchBox.setType(StyleManager.MEDIUM);
-                StyleManager.stylize(branchBox,false);
+                StyleManager.stylize(branchBox,false,MediumBoxStyle.ROTATED);
                 break;
             case 4:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
+                branchBox.setX(parentBox.getX() + 2*parentBox.getWidth()/3 + 20);
                 branchBox.setType(StyleManager.SMALL);
                 StyleManager.stylize(branchBox,false);
                 break;

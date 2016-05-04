@@ -10,6 +10,7 @@ class FamilyReunionChartStyler extends AbstractChartStyle{
     }
 
     setBasedOnGeneration(parentBox :IBox, branchBox :IBox, generation :number) :void{
+        branchBox.getRenderInstructions().clear();
         if(branchBox.isCollapsed()){
             branchBox.setCollapsed(false);
         }

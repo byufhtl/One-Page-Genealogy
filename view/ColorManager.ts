@@ -9,12 +9,13 @@ class ColorManager {
      * @type {string[]} The hex-encoded string colors.
      */
     private static boxColors: string[] = [
-            "#D9ABFF"   // 0) Purple
-        ,   "#ABE4FF"   // 1) Blue
-        ,   "#DEFFB7"   // 2) Green
-        ,   "#FFFFAF"   // 3) Yellow
+                        //____COLOR_____OLD_VALUE____
+            "#D9ABFF"   // 0) Purple    "#D9ABFF"
+        ,   "#ABE4FF"   // 1) Blue      "#ABE4FF"
+        ,   "#80E883"   // 2) Green     "#DEFFB7"
+        ,   "#FFFFAF"   // 3) Yellow    "#FFFFAF"
         ,   "#FDDCAF"   // 4) Orange
-        ,   "#FFB8AF"   // 5) Red
+        ,   "#FFB8AF"   // 5) Red       "#FFB8AF"
         ,   "#ffccff"   // 6) Pink
         ,   "#E5E5E5"   // 7) Gray
         ,   "#2C3E50"   // 8) OPG Blue

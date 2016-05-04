@@ -13,8 +13,8 @@
 class SmallBoxStyle implements IBoxStyler{
     getName(){return StyleManager.SMALL;}
 
-    applyStyleTo(box :IBox, showMarriage :boolean){
-        var start_x = 70;
+    applyStyleTo(box :IBox, showMarriage :boolean, flavor_key :string = null){
+        var start_x = 65;
         var start_y = 21;
         var s_start_x = 165;
         var s_start_y = 21;
@@ -22,23 +22,23 @@ class SmallBoxStyle implements IBoxStyler{
         var small_font_size = 13;
 
         if(!PictureManager.hasPicture(box.getNode().getId())){
-            start_x -= 35;
-            s_start_x -= 35;
+            start_x -= 60;
+            s_start_x -= 60;
         }
 
         // Basic data
-        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size);
+        var render_sched = box.getRenderInstructions().wipe();
 
         render_sched
             .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
             .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE,small_font_size)
-            .addInstruction(RenderInstructionSchedule.PICTURE,start_x - 65,start_y-16)
-            .addInstruction(RenderInstructionSchedule.PICTURES_DIM,60,60)
+            .addInstruction(RenderInstructionSchedule.PICTURE,start_x - 60,start_y-16)
+            .addInstruction(RenderInstructionSchedule.PICTURES_DIM,55,55)
             .addInstruction(RenderInstructionSchedule.NAME, start_x, start_y)
-            .addInstruction(RenderInstructionSchedule.B_DATE, start_x, start_y + big_font_size + 5)
-            .addInstruction(RenderInstructionSchedule.B_PLACE, start_x + 80, start_y + big_font_size + 5)
-            .addInstruction(RenderInstructionSchedule.D_DATE, start_x, start_y + big_font_size + small_font_size + 8)
-            .addInstruction(RenderInstructionSchedule.D_PLACE, start_x + 80, start_y + big_font_size + small_font_size + 8)
+            .addInstruction(RenderInstructionSchedule.B_DATE, start_x, start_y + big_font_size)
+            .addInstruction(RenderInstructionSchedule.B_PLACE, start_x + 80, start_y + big_font_size)
+            .addInstruction(RenderInstructionSchedule.D_DATE, start_x, start_y + big_font_size + small_font_size + 3)
+            .addInstruction(RenderInstructionSchedule.D_PLACE, start_x + 80, start_y + big_font_size + small_font_size + 3)
             .addInstruction(RenderInstructionSchedule.NAME_L, 17)
             .addInstruction(RenderInstructionSchedule.DATE_L, 12)
             .addInstruction(RenderInstructionSchedule.PLACE_L, 14);
@@ -64,7 +64,7 @@ class SmallBoxStyle implements IBoxStyler{
         }
         else{
             // Single Flavor
-            box.setHeight(78);
+            box.setHeight(73);
         }
 
         box.setRenderInstructions(render_sched);

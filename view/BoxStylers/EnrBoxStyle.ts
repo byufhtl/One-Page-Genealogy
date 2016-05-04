@@ -11,7 +11,7 @@
 class EnrBoxStyle implements IBoxStyler{
     getName(){return StyleManager.ENORMOUS;}
 
-    applyStyleTo(box :IBox, showMarriage :boolean){
+    applyStyleTo(box :IBox, showMarriage :boolean, flavor_key :string = null){
         var start_x = 260;
         var start_y = 60;
         var s_start_x = 910;
@@ -19,8 +19,12 @@ class EnrBoxStyle implements IBoxStyler{
         var big_font_size = 60;
         var small_font_size = 40;
 
+        if(!PictureManager.hasPicture(box.getNode().getId())) {
+            start_x -= 255;
+        }
+
         // Basic data
-        var render_sched =  new RenderInstructionSchedule(big_font_size,small_font_size);
+        var render_sched = box.getRenderInstructions().wipe();
 
         render_sched
             .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
@@ -32,7 +36,7 @@ class EnrBoxStyle implements IBoxStyler{
             .addInstruction(RenderInstructionSchedule.B_PLACE,start_x + 240,start_y + big_font_size + 10)
             .addInstruction(RenderInstructionSchedule.D_DATE,start_x,start_y + big_font_size + small_font_size + 20)
             .addInstruction(RenderInstructionSchedule.D_PLACE,start_x + 240,start_y + big_font_size + small_font_size + 20)
-            .addInstruction(RenderInstructionSchedule.ROTATED,1)
+            .addInstruction(RenderInstructionSchedule.TEXT_ROTATED,1)
             .addInstruction(RenderInstructionSchedule.NAME_L,22)
             .addInstruction(RenderInstructionSchedule.DATE_L,18)
             .addInstruction(RenderInstructionSchedule.PLACE_L,18);

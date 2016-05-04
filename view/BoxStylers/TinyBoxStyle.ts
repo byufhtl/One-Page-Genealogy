@@ -13,44 +13,42 @@
 class TinyBoxStyle implements IBoxStyler{
     getName(){return StyleManager.TINY;}
 
-    applyStyleTo(box :IBox, showMarriage :boolean){
-        var start_x = 5;
-        var start_y = 18;
+    applyStyleTo(box :IBox, showMarriage :boolean, flavor_key :string = null){
+        var start_x = 8;
+        var start_y = 10;
         var s_start_x = 55;
         var s_start_y = 18;
-        var big_font_size = 14;
-        var small_font_size = 9;
+        var big_font_size = 9;
+        var small_font_size = 8;
 
         // Basic data
-        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size);
+        var render_sched = box.getRenderInstructions().wipe();
 
         render_sched
-            .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
-            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE,small_font_size)
-            .addInstruction(RenderInstructionSchedule.BORDER_WIDTH,2)
-            .addInstruction(RenderInstructionSchedule.NAME_L,15)
-            .addInstruction(RenderInstructionSchedule.DATE_L,15)
-            .addInstruction(RenderInstructionSchedule.PLACE_L,15);
+            .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE, big_font_size)
+            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE, small_font_size)
+            .addInstruction(RenderInstructionSchedule.BORDER_WIDTH, 1)
+            .addInstruction(RenderInstructionSchedule.NAME_L, 24);
 
         box.setWidth(200);
 
         if(box.getSpouseNode() && box.getNode().getDisplaySpouse() && showMarriage){
             // Married Flavor
 
-            box.setHeight(50);
+            box.setHeight(30);
             render_sched
-                .addInstruction(RenderInstructionSchedule.NAME,start_x,start_y)
-                .addInstruction(RenderInstructionSchedule.B_DATE,start_x,start_y + big_font_size - 6)
-                .addInstruction(RenderInstructionSchedule.S_NAME,s_start_x,s_start_y)
-                .addInstruction(RenderInstructionSchedule.S_B_DATE,s_start_x,s_start_y + big_font_size - 6);
+                .addInstruction(RenderInstructionSchedule.NAME_L, 16)
+                .addInstruction(RenderInstructionSchedule.NAME, start_x, start_y)
+                .addInstruction(RenderInstructionSchedule.LIFE_SPAN, start_x, start_y + 5 + big_font_size)
+                .addInstruction(RenderInstructionSchedule.S_NAME, s_start_x, s_start_y)
+                .addInstruction(RenderInstructionSchedule.S_LIFE_SPAN, s_start_x, start_y + 5 + big_font_size);
         }
         else{
             // Single Flavor
-            box.setHeight(35);
+            box.setHeight(21);
             render_sched
-                .addInstruction(RenderInstructionSchedule.NAME,start_x,start_y)
-                .addInstruction(RenderInstructionSchedule.B_DATE,start_x + 135,start_y - 5)
-                .addInstruction(RenderInstructionSchedule.D_DATE,start_x + 135,start_y + small_font_size - 4);
+                .addInstruction(RenderInstructionSchedule.NAME, start_x, start_y)
+                .addInstruction(RenderInstructionSchedule.LIFE_SPAN, start_x + 135, start_y );
         }
 
         box.setRenderInstructions(render_sched);

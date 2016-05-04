@@ -11,7 +11,7 @@
 class HugeBoxStyle implements IBoxStyler{
     getName(){return StyleManager.HUGE;}
 
-    applyStyleTo(box :IBox, showMarriage :boolean){
+    applyStyleTo(box :IBox, showMarriage :boolean, flavor_key :string = null){
         var start_x = 100;
         var start_y = 53;
         var s_start_x = 625;
@@ -19,10 +19,12 @@ class HugeBoxStyle implements IBoxStyler{
         var big_font_size = 50;
         var small_font_size = 35;
 
-        console.log("\t making huge box for " + box.getNode().getAttr("name"));
+        if(!PictureManager.hasPicture(box.getNode().getId())) {
+            start_x -= 95;
+        }
 
         // Basic data
-        var render_sched =  new RenderInstructionSchedule(big_font_size,small_font_size);
+        var render_sched = box.getRenderInstructions().wipe();
 
         render_sched
             .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
@@ -37,7 +39,7 @@ class HugeBoxStyle implements IBoxStyler{
             .addInstruction(RenderInstructionSchedule.NAME_L,18)
             .addInstruction(RenderInstructionSchedule.DATE_L,18)
             .addInstruction(RenderInstructionSchedule.PLACE_L,18)
-            .addInstruction(RenderInstructionSchedule.ROTATED,1);
+            .addInstruction(RenderInstructionSchedule.TEXT_ROTATED,1);
 
         box.setWidth(300);
 

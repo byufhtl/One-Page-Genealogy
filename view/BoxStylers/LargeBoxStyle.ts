@@ -12,7 +12,7 @@
 class LargeBoxStyle implements IBoxStyler{
     getName(){return StyleManager.LARGE;}
 
-    applyStyleTo(box :IBox, showMarriage :boolean){
+    applyStyleTo(box :IBox, showMarriage :boolean, flavor_key :string = null){
         var start_x = 160;
         var start_y = 45;
         var s_start_x = 440;
@@ -21,11 +21,11 @@ class LargeBoxStyle implements IBoxStyler{
         var small_font_size = 28;
 
         if(!PictureManager.hasPicture(box.getNode().getId())) {
-            s_start_x -= 155;
+            start_x -= 145;
         }
 
         // Basic data
-        var render_sched = new RenderInstructionSchedule(big_font_size,small_font_size);
+        var render_sched = box.getRenderInstructions().wipe();
 
         render_sched
             .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
@@ -37,7 +37,7 @@ class LargeBoxStyle implements IBoxStyler{
             .addInstruction(RenderInstructionSchedule.B_PLACE,start_x + 140,start_y + big_font_size + 8)
             .addInstruction(RenderInstructionSchedule.D_DATE,start_x,start_y + big_font_size + small_font_size + 16)
             .addInstruction(RenderInstructionSchedule.D_PLACE,start_x + 140,start_y + big_font_size + small_font_size + 16)
-            .addInstruction(RenderInstructionSchedule.ROTATED,1)
+            .addInstruction(RenderInstructionSchedule.TEXT_ROTATED,1)
             .addInstruction(RenderInstructionSchedule.NAME_L,18)
             .addInstruction(RenderInstructionSchedule.DATE_L,16)
             .addInstruction(RenderInstructionSchedule.PLACE_L,16);

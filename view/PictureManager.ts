@@ -1,4 +1,5 @@
-///<reference path="../model/INode.ts"/>
+///<reference path="../model/IBox.ts"/>
+///<reference path="boxRenderers/StyleManager.ts"/>
 
 /**
  * Created by calvinmcm on 5/2/16.
@@ -8,7 +9,7 @@ class PictureManager{
     static map : {[key:string] :string} = {};
     static UPDATE :boolean;
 
-    static loadPictures(node :INode) :void{
+    static loadPictures(box :IBox, node :INode) :void{
         if(node.hasAttr('profilePicturePromise')) {
             node.getAttr('profilePicturePromise').then(function(response) {
                 if(!response) {
@@ -23,6 +24,13 @@ class PictureManager{
 
                 // save the picture to the map
                 PictureManager.map[node.getId()] = response;
+
+                // If an RIS already exists on the box, restylize now that the picture has loaded.
+                var ris = box.getRenderInstructions();
+                if(ris){
+                    var show_marriage = ris.getInstruction(RenderInstructionSchedule.S_NAME);
+                    StyleManager.stylize(box,<boolean>show_marriage);
+                }
 
             }, function() {
                 PictureManager.map[node.getId()] = null;

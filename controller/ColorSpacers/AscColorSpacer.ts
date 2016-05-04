@@ -66,7 +66,7 @@ class AscColorSpacer extends AbstractStyler {
                     childBox.setColor(ColorManager.blue());
                 }
                 else {
-                    childBox.setColor(ColorManager.red());
+                    childBox.setColor(ColorManager.yellow());
                 }
             }
             else if (generation == 2) {
@@ -80,9 +80,9 @@ class AscColorSpacer extends AbstractStyler {
                 else if (child == 1 && gender === 'Male')
                     childBox.setColor(ColorManager.green());
                 else if (child == 0 && gender === 'Female')
-                    childBox.setColor(ColorManager.orange());
-                else if (child == 1 && gender === 'Female')
                     childBox.setColor(ColorManager.red());
+                else if (child == 1 && gender === 'Female')
+                    childBox.setColor(ColorManager.yellow());
             }
             else {
                 childBox.setColor(parentBox.getColor());

@@ -44,32 +44,32 @@ class StyleManager{
      * @param box
      * @param showMarriage
      */
-    static stylize(box :IBox, showMarriage :boolean) :void{
+    static stylize(box :IBox, showMarriage :boolean, flavor_key :string = null) :void{
         console.log("Stylizing box for " + box.getNode().getAttr("name"));
         switch(box.getType()){
             case StyleManager.ENORMOUS:
-                StyleManager.ENR_STYLER.applyStyleTo(box,showMarriage);
+                StyleManager.ENR_STYLER.applyStyleTo(box, showMarriage, flavor_key);
                 break;
             case StyleManager.HUGE:
-                StyleManager.HUGE_STYLER.applyStyleTo(box,showMarriage);
+                StyleManager.HUGE_STYLER.applyStyleTo(box, showMarriage, flavor_key);
                 break;
             case StyleManager.LARGE:
-                StyleManager.LARGE_STYLER.applyStyleTo(box,showMarriage);
+                StyleManager.LARGE_STYLER.applyStyleTo(box, showMarriage, flavor_key);
                 break;
             case StyleManager.MEDIUM:
-                StyleManager.MEDIUM_STYLER.applyStyleTo(box,showMarriage);
+                StyleManager.MEDIUM_STYLER.applyStyleTo(box, showMarriage, flavor_key);
                 break;
             case StyleManager.SMALL:
-                StyleManager.SMALL_STYLER.applyStyleTo(box,showMarriage);
+                StyleManager.SMALL_STYLER.applyStyleTo(box, showMarriage, flavor_key);
                 break;
             case StyleManager.MINI:
-                StyleManager.MINI_STYLER.applyStyleTo(box,showMarriage);
+                StyleManager.MINI_STYLER.applyStyleTo(box, showMarriage, flavor_key);
                 break;
             case StyleManager.TINY:
-                StyleManager.TINY_STYLER.applyStyleTo(box,showMarriage);
+                StyleManager.TINY_STYLER.applyStyleTo(box, showMarriage, flavor_key);
                 break;
             default:
-                StyleManager.TINY_STYLER.applyStyleTo(box,showMarriage);
+                StyleManager.TINY_STYLER.applyStyleTo(box, showMarriage, flavor_key);
         }
     }
 
