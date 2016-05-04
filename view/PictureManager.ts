@@ -48,7 +48,7 @@ class PictureManager{
         return false;
     }
 
-    static getPicture(pid :string, pic_x :string, pic_y :string, pic_w :string, pic_h) :Element{
+    static getPicture(pid :string, pic_x :string, pic_y :string, pic_w :string, pic_h :string) :Element{
         var map = PictureManager.map;
         for(var key in map){
             if(key === pid){

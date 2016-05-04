@@ -1,3 +1,6 @@
+///<reference path="../ColorManager.ts"/>
+///<reference path="Instruction.ts"/>
+
 /**
  * Created by calvinmcm on 4/13/16.
  */
@@ -12,155 +15,396 @@
  */
 class RenderInstructionSchedule{
 
-    private map : {[i:string] :number};
+    private boxInstructions :{[s:string] : any};
+    private textInstructions :{[s:string] : any};
+    private nodeInstructions :{[s:string] : Instruction};
+    private spouseInstructions :{[s:string] : Instruction};
+    private pictureInstructions :{[s:string] : Instruction};
 
-    /**
-     * A default font size is required for rendering. An alternative font size for non-emphasized text may also be
-     * passed, but is optional and is set to be the default font size if no other value is provided.
-     * @param default_font_size
-     * @param alternative_font_size
-     */
-    constructor(default_font_size :number, alternative_font_size :number = default_font_size){
-        this.map = {};
-        this.addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE, default_font_size)
-            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE, alternative_font_size)
-            .addInstruction(RenderInstructionSchedule.PICTURE_STATUS, 0);
+    constructor(){
+        this.clear();
     }
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
+//[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]/                    \[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
+//============================================================]>       SETTERS      <[===========================================================[]()[]>
+//[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]\                    /[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
+
+    // Box, Text, Rotation (6)
+    public setBoxBorder(borderWidth :number) :RenderInstructionSchedule{
+        this.boxInstructions[RenderInstructionSchedule.BORDER_WIDTH] = borderWidth;
+        return this;
+    }
+
+    public setSpouseBox(spouseBox : boolean) :RenderInstructionSchedule{
+        this.boxInstructions[RenderInstructionSchedule.BORDER_WIDTH] = spouseBox;
+        return this;
+    }
+
+    public setColoredBorder(colored :boolean){
+        this.boxInstructions[RenderInstructionSchedule.BORDER_WIDTH] = colored;
+        return this;
+    }
+
+    public setRotation(rotated :boolean){
+        this.boxInstructions[RenderInstructionSchedule.BOX_ROTATED] = rotated;
+        return this;
+    }
+
+    public setDefTextSize(default_size :number) :RenderInstructionSchedule{
+        this.textInstructions["def_size"] = default_size;
+        return this;
+    }
+
+    public setAltTextSize(alt_size :number) :RenderInstructionSchedule{
+        this.textInstructions["alt_size"] = alt_size;
+        return this;
+    }
+
+
+    // Node (8)
+    public setNodeName(i :Instruction) :RenderInstructionSchedule{
+        this.nodeInstructions[RenderInstructionSchedule.NAME] = i;
+        return this;
+    }
+
+    public setNodeBDate(i :Instruction) :RenderInstructionSchedule{
+        this.nodeInstructions[RenderInstructionSchedule.B_DATE] = i;
+        return this;
+    }
+
+    public setNodeDDate(i :Instruction) :RenderInstructionSchedule{
+        this.nodeInstructions[RenderInstructionSchedule.D_DATE] = i;
+        return this;
+    }
+
+    public setNodeBPlace(i :Instruction) :RenderInstructionSchedule{
+        this.nodeInstructions[RenderInstructionSchedule.B_PLACE] = i;
+        return this;
+    }
+
+    public setNodeDPlace(i :Instruction) :RenderInstructionSchedule{
+        this.nodeInstructions[RenderInstructionSchedule.D_PLACE] = i;
+        return this;
+    }
+
+    public setNodeSpan(i :Instruction) :RenderInstructionSchedule{
+        this.nodeInstructions[RenderInstructionSchedule.LIFE_SPAN] =i;
+        return this;
+    }
+
+    public setPicturePlace(i :Instruction) :RenderInstructionSchedule{
+        this.pictureInstructions[RenderInstructionSchedule.PICTURE] = i;
+        return this;
+    }
+
+    public setPictureDim(i :Instruction) :RenderInstructionSchedule{
+        this.pictureInstructions[RenderInstructionSchedule.PICTURE_DIM] = i;
+        return this;
+    }
+
+    // Spouse (8)
+    public setSpouseName(i :Instruction) :RenderInstructionSchedule{
+        this.spouseInstructions[RenderInstructionSchedule.S_NAME] = i;
+        return this;
+    }
+
+    public setSpouseBDate(i :Instruction) :RenderInstructionSchedule{
+        this.spouseInstructions[RenderInstructionSchedule.S_B_DATE] = i;
+        return this;
+    }
+
+    public setSpouseDDate(i :Instruction) :RenderInstructionSchedule{
+        this.spouseInstructions[RenderInstructionSchedule.S_D_DATE] = i;
+        return this;
+    }
+
+    public setSpouseBPlace(i :Instruction) :RenderInstructionSchedule{
+        this.spouseInstructions[RenderInstructionSchedule.S_B_PLACE] = i;
+        return this;
+    }
+
+    public setSpouseDPlace(i :Instruction) :RenderInstructionSchedule{
+        this.spouseInstructions[RenderInstructionSchedule.S_D_PLACE] = i;
+        return this;
+    }
+
+    public setSpouseSpan(i :Instruction) :RenderInstructionSchedule{
+        this.spouseInstructions[RenderInstructionSchedule.S_LIFE_SPAN] =i;
+        return this;
+    }
+
+    public setSpousePicturePlace(i :Instruction) :RenderInstructionSchedule{
+        this.pictureInstructions[RenderInstructionSchedule.S_PICTURE] = i;
+        return this;
+    }
+
+    public setSpousePictureDim(i :Instruction) :RenderInstructionSchedule{
+        this.pictureInstructions[RenderInstructionSchedule.S_PICTURE_DIM] = i;
+        return this;
+    }
+
+    // Marriage (2)
+    public setMarriageDate(i :Instruction) :RenderInstructionSchedule{
+        this.spouseInstructions[RenderInstructionSchedule.M_DATE] = i;
+        return this;
+    }
+
+    public setMarriagePlace(i :Instruction) :RenderInstructionSchedule{
+        this.spouseInstructions[RenderInstructionSchedule.M_PLACE] = i;
+        return this;
+    }
+
+    // Instruction Sets (5)
+    public setBoxInstructions(bi :{[s:string] :any}) :RenderInstructionSchedule{
+        this.boxInstructions = bi;
+        return this;
+    }
+
+    public setTextInstructions(ti :{[s:string] :any}) :RenderInstructionSchedule{
+        this.textInstructions = ti;
+        return this;
+    }
+
+    public setNodeInstructions(ni :{[s:string] :Instruction}) :RenderInstructionSchedule{
+        this.nodeInstructions = ni;
+        return this;
+    }
+
+    public setSpouseInstructions(si :{[s:string] :Instruction}) :RenderInstructionSchedule{
+        this.spouseInstructions = si;
+        return this;
+    }
+
+    public setPictureInstructions(pi :{[s:string] :Instruction}) :RenderInstructionSchedule{
+        this.pictureInstructions = pi;
+        return this;
+    }
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
+//[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]/                    \[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
+//============================================================]>       GETTERS      <[===========================================================[]()[]>
+//[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]\                    /[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
+
+    // Box, Text, Rotation (6)
+    public getBorderWidth() :number{
+        return this.boxInstructions[RenderInstructionSchedule.BORDER_WIDTH];
+    }
+
+    public isSpouseBox() :boolean{
+        return this.boxInstructions[RenderInstructionSchedule.SPOUSE_BOX];
+    }
+
+    public isColoredBorder() :boolean{
+        return this.boxInstructions[RenderInstructionSchedule.COLORED_BORDER];
+    }
+
+    public isRotated() :boolean{
+        return this.boxInstructions[RenderInstructionSchedule.BOX_ROTATED];
+    }
+
+    public getDefTextSize() :number{
+        return this.textInstructions[RenderInstructionSchedule.DEF_FONT_SIZE];
+    }
+
+    public getAltTextSize() :number{
+        return this.textInstructions[RenderInstructionSchedule.ALT_FONT_SIZE];
+    }
+
+    // Node (8)
+    public getNameInstruction() :Instruction{
+        if(RenderInstructionSchedule.NAME in this.nodeInstructions){
+            return this.nodeInstructions[RenderInstructionSchedule.NAME];
+        }
+        return null;
+    }
+
+    public getBDateInstruction() :Instruction{
+        if(RenderInstructionSchedule.B_DATE in this.nodeInstructions){
+            return this.nodeInstructions[RenderInstructionSchedule.B_DATE];
+        }
+        return null;
+    }
+
+    public getDDateInstruction() :Instruction{
+        if(RenderInstructionSchedule.D_DATE in this.nodeInstructions){
+            return this.nodeInstructions[RenderInstructionSchedule.D_DATE];
+        }
+        return null;
+    }
+
+    public getBPlaceInstruction() :Instruction{
+        if(RenderInstructionSchedule.B_PLACE in this.nodeInstructions){
+            return this.nodeInstructions[RenderInstructionSchedule.B_PLACE];
+        }
+        return null;
+    }
+
+    public getDPlaceInstruction() :Instruction{
+        if(RenderInstructionSchedule.D_PLACE in this.nodeInstructions){
+            return this.nodeInstructions[RenderInstructionSchedule.D_PLACE];
+        }
+        return null;
+    }
+
+    public getSpanInstruction() :Instruction{
+        if(RenderInstructionSchedule.LIFE_SPAN in this.nodeInstructions){
+            return this.nodeInstructions[RenderInstructionSchedule.LIFE_SPAN];
+        }
+        return null;
+    }
+
+    public getPicturePlaceInstruction() :Instruction{
+        if(RenderInstructionSchedule.PICTURE in this.pictureInstructions){
+            return this.pictureInstructions[RenderInstructionSchedule.PICTURE];
+        }
+        return null;
+    }
+
+    public getPictureDimInstruction() :Instruction{
+        if(RenderInstructionSchedule.PICTURE_DIM in this.pictureInstructions){
+            return this.pictureInstructions[RenderInstructionSchedule.PICTURE_DIM];
+        }
+        return null;
+    }
+
+    // Spouse (8)
+    public getSpouseNameInstruction() :Instruction{
+        if(RenderInstructionSchedule.S_NAME in this.spouseInstructions){
+            return this.spouseInstructions[RenderInstructionSchedule.S_NAME];
+        }
+        return null;
+    }
+
+    public getSpouseBDateInstruction() :Instruction{
+        if(RenderInstructionSchedule.S_B_DATE in this.spouseInstructions){
+            return this.spouseInstructions[RenderInstructionSchedule.S_B_DATE];
+        }
+        return null;
+    }
+
+    public getSpouseDDateInstruction() :Instruction{
+        if(RenderInstructionSchedule.S_D_DATE in this.spouseInstructions){
+            return this.spouseInstructions[RenderInstructionSchedule.S_D_DATE];
+        }
+        return null;
+    }
+
+    public getSpouseBPlaceInstruction() :Instruction{
+        if(RenderInstructionSchedule.S_B_PLACE in this.spouseInstructions){
+            return this.spouseInstructions[RenderInstructionSchedule.S_B_PLACE];
+        }
+        return null;
+    }
+
+    public getSpouseDPlaceInstruction() :Instruction{
+        if(RenderInstructionSchedule.S_D_PLACE in this.spouseInstructions){
+            return this.spouseInstructions[RenderInstructionSchedule.S_D_PLACE];
+        }
+        return null;
+    }
+
+    public getSpouseSpanInstruction() :Instruction{
+        if(RenderInstructionSchedule.S_LIFE_SPAN in this.spouseInstructions){
+            return this.spouseInstructions[RenderInstructionSchedule.S_LIFE_SPAN];
+        }
+        return null;
+    }
+
+    public getSpousePicturePlaceInstruction() :Instruction{
+        if(RenderInstructionSchedule.S_PICTURE in this.pictureInstructions){
+            return this.pictureInstructions[RenderInstructionSchedule.S_PICTURE];
+        }
+        return null;
+    }
+
+    public getSpousePictureDimInstruction() :Instruction{
+        if(RenderInstructionSchedule.S_PICTURE_DIM in this.pictureInstructions){
+            return this.pictureInstructions[RenderInstructionSchedule.S_PICTURE_DIM];
+        }
+        return null;
+    }
+
+    // Marriage (2)
+    public getMDateInstruction() :Instruction{
+        if(RenderInstructionSchedule.M_DATE in this.spouseInstructions){
+            return this.spouseInstructions[RenderInstructionSchedule.M_DATE];
+        }
+        return null;
+    }
+
+    public getMPlaceInstruction() :Instruction{
+        if(RenderInstructionSchedule.M_PLACE in this.spouseInstructions){
+            return this.spouseInstructions[RenderInstructionSchedule.M_PLACE];
+        }
+        return null;
+    }
+
+    // Instruction Sets (5)
+    public getBoxInstructions() :{[s:string] :any}{
+        return this.boxInstructions;
+    }
+
+    public getTextInstructions() :{[s:string] :any}{
+        return this.textInstructions;
+    }
+
+    public getNodeInstructions() :{[s:string] :Instruction}{
+        return this.nodeInstructions;
+    }
+
+    public getSpouseInstructions() :{[s:string] :Instruction}{
+        return this.spouseInstructions;
+    }
+
+    public getPictureInstructions() :{[s:string] :Instruction}{
+        return this.pictureInstructions;
+    }
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
+//[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]/                    \[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
+//============================================================]>        OTHER       <[===========================================================[]()[]>
+//[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]\                    /[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
+
     /**
-     * Removes everything from the RIS except for the default font size, alt font size, and the picture status.
-     * @returns {RenderInstructionSchedule}
+     * Removes everything from the RIS.
+     * @returns {RenderInstructionSchedule} The blank-slate RIS
      */
     public clear() : RenderInstructionSchedule{
-        var def_font = this.getInstruction(RenderInstructionSchedule.DEF_FONT_SIZE);
-        var alt_font = this.getInstruction(RenderInstructionSchedule.ALT_FONT_SIZE);
-        var pic_stat = this.getInstruction(RenderInstructionSchedule.PICTURE_STATUS);
-        this.map = {};
-        if(def_font !== null) {
-            this.addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE, def_font);
-        }
-        if(alt_font !== null) {
-            this.addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE, alt_font);
-        }
-        if(pic_stat !== null) {
-            this.addInstruction(RenderInstructionSchedule.PICTURE_STATUS, pic_stat);
-        }
+        this.boxInstructions = {};
+        this.textInstructions = {};
+        this.nodeInstructions = {};
+        this.spouseInstructions = {};
+        this.pictureInstructions = {};
         return this;
     }
-
-    /**
-     * The only items remaining in the RIS are:
-     * default font size
-     * alternative font size
-     * picture status
-     * border width (if previously set)
-     * border color (if previously set)
-     * picture rotation (if previously set)
-     * text rotation (if previously set)
-     * box rotation (if previously set)
-     * @returns {RenderInstructionSchedule}
-     */
-    public wipe() :RenderInstructionSchedule{
-        var bor_widt = this.getInstruction(RenderInstructionSchedule.BORDER_WIDTH);
-        var col_bord = this.getInstruction(RenderInstructionSchedule.COLORED_BORDER);
-        var p_rot = this.getInstruction(RenderInstructionSchedule.PICTURE_ROTATED);
-        var t_rot = this.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-        this.clear();
-        if(bor_widt !== null) {
-            this.addInstruction(RenderInstructionSchedule.BORDER_WIDTH, bor_widt);
-        }
-        if(col_bord !== null) {
-            this.addInstruction(RenderInstructionSchedule.COLORED_BORDER, col_bord);
-        }
-        if(p_rot !== null) {
-            this.addInstruction(RenderInstructionSchedule.PICTURE_ROTATED, p_rot);
-        }
-        if(t_rot !== null) {
-            this.addInstruction(RenderInstructionSchedule.TEXT_ROTATED, t_rot);
-        }
-        return this;
-    }
-
-    /**
-     * A clever little way of creating a reduced RIS. Font sizes are picture status are automatically retained, and then only
-     * the elements called for in the argument list (the RIS static constants) are maintained. If no parameters are
-     * supplied, ought to operate simliarly to the clear() function, although it will be a bit slower and it will return
-     * a new RIS rather than overriding the old one.
-     * @param args
-     * @returns {RenderInstructionSchedule}
-     */
-    public getReducedRIS(...args :string[]) :RenderInstructionSchedule{
-        var ris = this.clone().clear();
-        for(var a of args){
-            ris.addInstruction(args[a],this.getInstruction(args[a]));
-        }
-        return ris;
-    }
-
 
     public clone() :RenderInstructionSchedule{
         return <RenderInstructionSchedule>JSON.parse(JSON.stringify(this));
     }
 
-    /**
-     * Adds an instruction to the schedule. This function is implemented in an interesting, but hopefully useful way.
-     * The instruction is a string identifier that the renderer can pick up later. If 1 parameter is included after the
-     * identifier, the identifier will then be associated with that parameter. If 2 parameters are entered, the
-     * identifier will be split into identifier_x and identifier_y, associated with the first and second parameters
-     * respectively. This was done to allow the code on the other end to be abbreviated by entering x,y coordinates
-     * simultaneously through using the generic static identifiers provided by the class, while still allowing single
-     * digit modifiers like font size to be manipulated directly. Also allows for direct parameter manipulation, as well
-     * as custom parameters.
-     * If it's a mess, you can change it as you like. I was just trying to speed things up a bit with some nifty
-     * functions.
-     * @param instr An identifier for the parameters
-     * @param x     The x coordinate for the instruction or default value
-     * @param y     The y coordinate for the instruction (OPTIONAL).
-     * @returns {RenderInstructionSchedule}
-     */
-    public addInstruction(instr :string, x :number, y :number = null) :RenderInstructionSchedule{
-        if(x != null && y != null) {        // If two parameters were included.
-            this.map[instr + "_x"] = x;
-            this.map[instr + "_y"] = y;
-        }
-        else if(x != null || y != null) {   // If only one parameter was included.
-            this.map[instr] = x;
-        }
-        return this;
-    }
 
-    /**
-     * Retrieves an instruction corresponding to the given string, if one exists. If no such identifier can be found,
-     * returns null.
-     * @param instr The instruction identifier used as a key for finding the parameter information.
-     * @returns {any} the value coming out of the map, or null if no value could be found
-     */
-    public getInstruction(instr :string) :any{
-        for(var n in this.map){             // Find the matching entry in the map
-            if(n === instr){
-                return this.map[n];
-            }
-        }
-        return null;
-    }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
+//[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]/                    \[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
+//============================================================]>       STATICS      <[===========================================================[]()[]>
+//[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]\                    /[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
 
-    public toString() :string{
-        var str = '\n\n';
-        for(var n in this.map){             // Find the matching entry in the map
-            str += '[' + n + ',' + this.map[n] + ']\n';
-        }
-        return str;
-    }
-
-    // Generic (2-parameter) Controls for setting
+    // Generic (2-parameter) Controls for node-specific options:
     static NAME = "name";
     static PICTURE = "pic";
-    static PICTURES_DIM = "pics_dim"; // Picture width and height (for both pictures)
+    static PICTURE_DIM = "pic_dim";
+    static S_PICTURE_DIM = "s_pic_dim";
     static B_DATE = "b_d";
     static B_PLACE = "b_p";
     static D_DATE = "d_d";
     static D_PLACE = "d_p";
     static LIFE_SPAN = "life_span";
+    static PICTURE_STATUS = "pic_stat"; // used to track the picture status.
+
     static S_NAME = "s_name";
     static S_PICTURE = "s_pic";
     static S_B_DATE = "s_b_d";
@@ -168,56 +412,19 @@ class RenderInstructionSchedule{
     static S_D_DATE = "s_d_d";
     static S_D_PLACE = "s_d_p";
     static S_LIFE_SPAN = "s_life_span";
+    static S_PICTURE_STATUS = "pic_stat"; // used to track the picture status.
+
     static M_DATE = "m_d";
     static M_PLACE = "m_p";
 
-    // Specific (1-parameter) Controls for getting
+    // Specific (1-parameter) Controls for box-scope options:
     static DEF_FONT_SIZE = "d_f_size";
     static ALT_FONT_SIZE = "a_f_size";
     static BORDER_WIDTH = "bor_width";
-    static COLORED_BORDER = "col_border";
-    static TEXT_ROTATED = "t_rot";
-    static PICTURE_ROTATED = "p_rot";
+    static TEXT_ROTATED = "t_rot"; // Not currently implemented for use.
+    static PICTURE_ROTATED = "p_rot"; // Not currently implemented for use.
     static BOX_ROTATED = "b_rot";
+    static SPOUSE_BOX = "s_box";
+    static COLORED_BORDER = "col_border";
     static BOLD = "bold";
-    static NAME_L = "name_l";
-    static DATE_L = "date_l";
-    static PLACE_L = "place_l";
-    static PICTURE_STATUS = "pic_stat"; // used to track the picture status.
-
-    static NAME_X = "name_x";
-    static PICTURE_X = "pic_x";
-    static PICTURES_DIM_X = "pics_dim_x"; // Picture x dimension (for both pictures)
-    static B_DATE_X = "b_d_x";
-    static B_PLACE_X = "b_p_x";
-    static D_DATE_X = "d_d_x";
-    static D_PLACE_X = "d_p_x";
-    static LIFE_SPAN_X = "life_span_x";
-    static S_NAME_X = "s_name_x";
-    static S_PICTURE_X = "s_pic_x";
-    static S_B_DATE_X = "s_b_d_x";
-    static S_B_PLACE_X = "s_b_p_x";
-    static S_D_DATE_X = "s_d_d_x";
-    static S_D_PLACE_X = "s_d_p_x";
-    static S_LIFE_SPAN_X = "s_life_span_x";
-    static M_DATE_X = "m_d_x";
-    static M_PLACE_X = "m_p_x";
-
-    static NAME_Y = "name_y";
-    static PICTURE_Y = "pic_y";
-    static PICTURES_DIM_Y = "pics_dim_y"; // Picture y dimension (for both pictures)
-    static B_DATE_Y = "b_d_y";
-    static B_PLACE_Y = "b_p_y";
-    static D_DATE_Y = "d_d_y";
-    static D_PLACE_Y = "d_p_y";
-    static LIFE_SPAN_Y = "life_span_y";
-    static S_NAME_Y = "s_name_y";
-    static S_PICTURE_Y = "s_pic_y";
-    static S_B_DATE_Y = "s_b_d_y";
-    static S_B_PLACE_Y = "s_b_p_y";
-    static S_D_DATE_Y = "s_d_d_y";
-    static S_D_PLACE_Y = "s_d_p_y";
-    static S_LIFE_SPAN_Y = "s_life_span_y";
-    static M_DATE_Y = "m_d_y";
-    static M_PLACE_Y = "m_p_y";
 }

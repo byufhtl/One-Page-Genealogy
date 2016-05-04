@@ -53,21 +53,31 @@ class Renderer{
      */
     static renderBox(box :IBox, rootElement :Element) :Element{
 
-        //~~~ SETUP (MANDATORY - REQUIRED ON ALL RIS CONFIGURATIONS) ~~~
+        //~~~ SETUP ~~~
 
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g"); // The overall element
         var gt :Element = document.createElementNS("http://www.w3.org/2000/svg", "g"); // The text container element
 
         var ris = box.getRenderInstructions();
-        var big_font = ris.getInstruction(RenderInstructionSchedule.DEF_FONT_SIZE);
-        var small_font = ris.getInstruction(RenderInstructionSchedule.ALT_FONT_SIZE);
+        var big_font = ris.getDefTextSize();
+        var small_font = ris.getAltTextSize();
 
         if(rootElement) {
             rootElement.appendChild(g);
         }
 
+        // Reject if collapsed
         if(box.isCollapsed()){
             return null;
+        }
+
+        // Create some default text sizes if they have not been previously set.
+
+        if(big_font === null){
+            big_font = 12;
+        }
+        if(small_font === null){
+            small_font = big_font * .75;
         }
 
         //~~~ RECTANGLE SETUP ~~~
@@ -81,20 +91,19 @@ class Renderer{
         rect.setAttribute('height', String(box.getHeight()-8-box.getSpace()));
 
         var edge_curve = (box.getWidth()/20).toString();
-
         rect.setAttribute('rx', edge_curve);
         rect.setAttribute('ry', edge_curve);
 
-        //~~~ BORDERED BOX SETUP (BORDER_WIDTH) ~~~
+        //~~~ BORDERED BOX SETUP ~~~
 
-        var border = ris.getInstruction(RenderInstructionSchedule.BORDER_WIDTH);
+        var border = ris.getBorderWidth();
         border = (border != null)? border : 4;
-        var color_border = ris.getInstruction(RenderInstructionSchedule.COLORED_BORDER);
 
-        if(color_border){ // 0 or it has a dimension
-            rect.setAttribute('fill',ColorManager.lighten(box.getColor(),32));
-            rect.setAttribute('stroke-width',(color_border).toString());
+        // if there is a colored border, draw the box accordingly.
+        if(ris.isColoredBorder()){ // 0 or it has a dimension
+            rect.setAttribute('stroke-width',(border).toString());
             rect.setAttribute('stroke',box.getColor());
+            rect.setAttribute('fill',ColorManager.lighten(box.getColor(),32));
         }
         else{
             rect.setAttribute('stroke-width', border.toString());
@@ -102,10 +111,7 @@ class Renderer{
             rect.setAttribute('fill',box.getColor());
         }
 
-        var text_color = box.getTextColor();
-        if(!text_color){
-            text_color = "#000000";
-        }
+        var text_color = box.getTextColor()!=null ? box.getTextColor() : ColorManager.black();
 
         g.appendChild(gt);
 
@@ -115,79 +121,63 @@ class Renderer{
         //[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        //~~~ PICTURE SETUP (PICTURE_X, PICTURE_Y, PICTURES_DIM_X, PICTURES_DIM_Y) ~~~
+        //~~~ PICTURE SETUP ~~~
 
-        var pic_x = ris.getInstruction(RenderInstructionSchedule.PICTURE_X);
-        var pic_y = ris.getInstruction(RenderInstructionSchedule.PICTURE_Y);
-        if(pic_x != null && pic_y != null) {
-            var pic_loaded = Renderer.renderPicture(box, ris, pic_x, pic_y, node, g);
+        var pic_p = ris.getPicturePlaceInstruction();
+        var pic_d = ris.getPictureDimInstruction();
+        if(pic_p != null && pic_d != null) {
+            var pic_loaded = Renderer.renderPicture(box, node);
             if(pic_loaded){
                 g.appendChild(pic_loaded);
             }
         }
 
-        //~~~ NAME SETUP (NAME_X,NAME_Y,DEF_FONT_SIZE,TEXT_ROTATED) ~~~
+        //~~~ NAME SETUP ~~~
 
         //console.log("\t@NAME_SETUP: " + node.getAttr('name') + ris.toString());
-        var name_x = ris.getInstruction(RenderInstructionSchedule.NAME_X);
-        var name_y = ris.getInstruction(RenderInstructionSchedule.NAME_Y);
+        var name_p = ris.getNameInstruction();
         //console.log(name_x,name_y);
         var name = node.getAttr('name');
-        if(name_x != null && name_y != null && name){ // Check for non-null result
-            var rotated = ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-            var allowed = ris.getInstruction(RenderInstructionSchedule.NAME_L);
-            gt.appendChild(Renderer.renderName(name, name_x, name_y, big_font, text_color, allowed, <boolean>rotated, node.isMainPerson()));
+        if(name_p != null && name){ // Check for non-null result
+            gt.appendChild(Renderer.renderName(name, name_p.getX(), name_p.getY(), big_font, text_color, name_p.getL(), ris.isRotated(), node.isMainPerson()));
         }
 
+        //~~~ BIRTH DATE SETUP ~~~
 
-        var allowed_d = ris.getInstruction(RenderInstructionSchedule.DATE_L);
-        var allowed_p = ris.getInstruction(RenderInstructionSchedule.PLACE_L);
-
-        //~~~ BIRTH DATE SETUP (B_DATE_X, B_DATE_Y, DEF_FONT_SIZE, TEXT_ROTATED) ~~~
-
-        var b_date_x = ris.getInstruction(RenderInstructionSchedule.B_DATE_X);
-        var b_date_y = ris.getInstruction(RenderInstructionSchedule.B_DATE_Y);
+        var b_date_p = ris.getBDateInstruction();
         var b_date = node.getAttr('birthdate');
-        if(b_date_x != null && b_date_y != null && b_date){ // Check for non-null result
-            var rotated = ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-            gt.appendChild(Renderer.renderDate(b_date, b_date_x, b_date_y, small_font, text_color, allowed_d, <boolean>rotated));
+        if(b_date_p != null && b_date){ // Check for non-null result
+            gt.appendChild(Renderer.renderDate(b_date, b_date_p.getX(), b_date_p.getY(), small_font, text_color, b_date_p.getL(), ris.isRotated()));
         }
 
-        //~~~ BIRTH PLACE SETUP (B_PLACE_X, B_PLACE_Y, DEF_FONT_SIZE, TEXT_ROTATED) ~~~
+        //~~~ BIRTH PLACE SETUP ~~~
 
-        var b_place_x = ris.getInstruction(RenderInstructionSchedule.B_PLACE_X);
-        var b_place_y = ris.getInstruction(RenderInstructionSchedule.B_PLACE_Y);
+        var b_place_p = ris.getBPlaceInstruction();
         var b_place = node.getAttr('birthplace');
-        if(b_place_x != null && b_place_y != null && b_place){ // Check for non-null result
-            var rotated = ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-            gt.appendChild(Renderer.renderPlace(b_place, b_place_x, b_place_y, small_font, text_color, allowed_p, <boolean>rotated));
+        if(b_place_p != null && b_place){ // Check for non-null result
+            gt.appendChild(Renderer.renderPlace(b_place, b_place_p.getX(), b_place_p.getY(), small_font, text_color, b_place_p.getL(), ris.isRotated()));
         }
 
-        //~~~ DEATH DATE SETUP (D_DATE_X, D_DATE_Y, DEF_FONT_SIZE, TEXT_ROTATED) ~~~
+        //~~~ DEATH DATE SETUP ~~~
 
-        var d_date_x = ris.getInstruction(RenderInstructionSchedule.D_DATE_X);
-        var d_date_y = ris.getInstruction(RenderInstructionSchedule.D_DATE_Y);
+        var d_date_p = ris.getDDateInstruction();
         var d_date = node.getAttr('deathdate');
-        if(d_date_x != null && d_date_y != null && d_date){ // Check for non-null result
-            var rotated = ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-            gt.appendChild(Renderer.renderDate(d_date, d_date_x, d_date_y, small_font, text_color, allowed_d, <boolean>rotated));
+        if(d_date_p != null && d_date != null && d_date != ""){ // Check for non-null result
+            gt.appendChild(Renderer.renderDate(d_date, d_date_p.getX(), d_date_p.getY(), small_font, text_color, d_date_p.getL(), ris.isRotated()));
         }
 
-        //~~~ DEATH PLACE SETUP (D_PLACE_X, D_PLACE_Y, DEF_FONT_SIZE, TEXT_ROTATED) ~~~
+        //~~~ DEATH PLACE SETUP ~~~
 
-        var d_place_x = ris.getInstruction(RenderInstructionSchedule.D_PLACE_X);
-        var d_place_y = ris.getInstruction(RenderInstructionSchedule.D_PLACE_Y);
+        var d_place_p = ris.getDPlaceInstruction();
         var d_place = node.getAttr('deathplace');
-        if(d_place_x != null && d_place_y != null && d_place){ // Check for non-null result
-            var rotated = ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-            gt.appendChild(Renderer.renderPlace(d_place, d_place_x, d_place_y, small_font, text_color, allowed_p, <boolean>rotated));
+        if(d_place_p != null && d_place != null && d_place != ""){ // Check for non-null result
+            gt.appendChild(Renderer.renderPlace(d_place, d_place_p.getX(), d_place_p.getY(), small_font, text_color, d_place_p.getL(), ris.isRotated()));
         }
 
-        //~~~ LIFE SPAN SETUP (LIFE_SPAN_X, LIFE_SPAN_Y, DEF_FONT_SIZE) ~~~
-        var life_span_x = ris.getInstruction(RenderInstructionSchedule.LIFE_SPAN_X);
-        var life_span_y = ris.getInstruction(RenderInstructionSchedule.LIFE_SPAN_Y);
-        if(life_span_x !== null && life_span_y != null) {
-            var life_span = Renderer.generateTextElement("", life_span_x, life_span_y, small_font, text_color);
+        //~~~ LIFE SPAN SETUP ~~~
+        var life_span_p = ris.getSpanInstruction();
+        if(life_span_p !== null) {
+            var life_span = Renderer.generateTextElement("", life_span_p.getX(), life_span_p.getY(), small_font, text_color);
             StringUtils.fitDate(life_span, b_date, d_date, 14);
             gt.appendChild(life_span);
         }
@@ -201,62 +191,51 @@ class Renderer{
         var s_node = node.getDisplaySpouse();
         if(s_node) {
 
-            //~~~ PICTURE SETUP (PICTURE_X, PICTURE_Y, PICTURES_DIM_X, PICTURES_DIM_Y) ~~~
+            //~~~ PICTURE SETUP ~~~
 
-            //~~~ NAME SETUP (S_NAME_X, S_NAME_Y, DEF_FONT_SIZE, TEXT_ROTATED) ~~~
+            //~~~ NAME SETUP ~~~
 
-            var s_name_x = ris.getInstruction(RenderInstructionSchedule.S_NAME_X);
-            var s_name_y = ris.getInstruction(RenderInstructionSchedule.S_NAME_Y);
+            var s_name_p = ris.getSpouseNameInstruction();
             var s_name = s_node.getAttr('name');
-            if (s_name_x != null && s_name_y != null && s_name) { // Check for non-null result
+            if (s_name_p != null && s_name) { // Check for non-null result
 
 
-                //~~~ NAME SETUP (S_NAME_X, S_NAME_Y, DEF_FONT_SIZE, TEXT_ROTATED) ~~~
+                //~~~ NAME SETUP ~~~
 
-                var rotated = ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-                var allowed = ris.getInstruction(RenderInstructionSchedule.NAME_L);
-                gt.appendChild(Renderer.renderName(s_name, s_name_x, s_name_y, big_font, text_color, allowed, <boolean>rotated, s_node.isMainPerson()));
+                gt.appendChild(Renderer.renderName(s_name, s_name_p.getX(), s_name_p.getY(), big_font, text_color, s_name_p.getL(), ris.isRotated(), s_node.isMainPerson()));
 
 
-                //~~~ BIRTH DATE SETUP (S_B_DATE_X, S_B_DATE_Y, DEF_FONT_SIZE, TEXT_ROTATED) ~~~
+                //~~~ BIRTH DATE SETUP ~~~
 
-                var s_b_date_x = ris.getInstruction(RenderInstructionSchedule.S_B_DATE_X);
-                var s_b_date_y = ris.getInstruction(RenderInstructionSchedule.S_B_DATE_Y);
+                var s_b_date_p = ris.getSpouseBDateInstruction();
                 var s_b_date = s_node.getAttr('birthdate');
-                if (s_b_date_x != null && s_b_date_y != null && s_b_date) { // Check for non-null result
-                    var rotated = ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-                    gt.appendChild(Renderer.renderDate(s_b_date, s_b_date_x, s_b_date_y, small_font, text_color, allowed_d, <boolean>rotated));
+                if (s_b_date_p != null && s_b_date) { // Check for non-null result
+                    gt.appendChild(Renderer.renderDate(s_b_date, s_b_date_p.getX(), s_b_date_p.getY(), small_font, text_color, s_b_date_p.getL(), ris.isRotated()));
                 }
 
-                //~~~ BIRTH PLACE SETUP (S_B_PLACE_X, S_B_PLACE_Y, DEF_FONT_SIZE, TEXT_ROTATED) ~~~
+                //~~~ BIRTH PLACE SETUP ~~~
 
-                var s_b_place_x = ris.getInstruction(RenderInstructionSchedule.S_B_PLACE_X);
-                var s_b_place_y = ris.getInstruction(RenderInstructionSchedule.S_B_PLACE_Y);
+                var s_b_place_p = ris.getSpouseBPlaceInstruction();
                 var s_b_place = s_node.getAttr('birthplace');
-                if (s_b_place_x != null && s_b_place_y != null && s_b_place) { // Check for non-null result
-                    var rotated = ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-                    gt.appendChild(Renderer.renderPlace(s_b_place, s_b_place_x, s_b_place_y, small_font, text_color, allowed_p, <boolean>rotated));
+                if (s_b_place_p != null && s_b_place) { // Check for non-null result
+                    gt.appendChild(Renderer.renderPlace(s_b_place, s_b_place_p.getX(), s_b_place_p.getY(), small_font, text_color, s_b_place_p.getL(), ris.isRotated()));
                 }
 
-                //~~~ DEATH DATE SETUP (S_D_DATE_X, S_D_DATE_Y, DEF_FONT_SIZE, TEXT_ROTATED) ~~~
+                //~~~ DEATH DATE SETUP ~~~
 
-                var s_d_date_x = ris.getInstruction(RenderInstructionSchedule.S_D_DATE_X);
-                var s_d_date_y = ris.getInstruction(RenderInstructionSchedule.S_D_DATE_Y);
+                var s_d_date_p = ris.getSpouseDDateInstruction();
                 var s_d_date = s_node.getAttr('deathdate');
-                if (s_d_date_x != null && s_d_date_y != null && s_d_date) { // Check for non-null result
-                    var rotated = ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-                    gt.appendChild(Renderer.renderDate(s_d_date, s_d_date_x, s_d_date_y, small_font, text_color, allowed_d, <boolean>rotated));
+                if (s_d_date_p != null && s_d_date) { // Check for non-null result
+                    gt.appendChild(Renderer.renderDate(s_d_date, s_d_date_p.getX(), s_d_date_p.getY(), small_font, text_color, s_d_date_p.getL(), ris.isRotated()));
                 }
 
-                //~~~ DEATH PLACE SETUP (S_D_PLACE_X, S_D_PLACE_Y, DEF_FONT_SIZE, TEXT_ROTATED) ~~~
+                //~~~ DEATH PLACE SETUP ~~~
 
-                var s_d_place_x = ris.getInstruction(RenderInstructionSchedule.S_D_PLACE_X);
-                var s_d_place_y = ris.getInstruction(RenderInstructionSchedule.S_D_PLACE_Y);
+                var s_d_place_p = ris.getSpouseDPlaceInstruction();
                 var s_d_place = s_node.getAttr('deathplace');
-                var s_d_place_valid = (s_d_date_x != null && s_d_date_y != null && s_d_date);
+                var s_d_place_valid = (s_d_date_p != null && s_d_date);
                 if (s_d_place_valid) { // Check for non-null result
-                    var rotated = ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-                    gt.appendChild(Renderer.renderPlace(s_d_place, s_d_place_x, s_d_place_y, small_font, text_color, allowed_p, <boolean>rotated));
+                    gt.appendChild(Renderer.renderPlace(s_d_place, s_d_place_p.getX(), s_d_place_p.getY(), small_font, text_color, s_d_place_p.getL(), ris.isRotated()));
                 }
             }
         }
@@ -267,24 +246,20 @@ class Renderer{
         //[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        //~~~ MARRIAGE DATE SETUP (M_DATE_X, M_DATE_Y, DEF_FONT_SIZE, TEXT_ROTATED) ~~~
+        //~~~ MARRIAGE DATE SETUP ~~~
 
-        var m_date_x = ris.getInstruction(RenderInstructionSchedule.M_DATE_X);
-        var m_date_y = ris.getInstruction(RenderInstructionSchedule.M_DATE_Y);
+        var m_date_p = ris.getMDateInstruction();
         var m_date = node.getAttr('marriagedate');
-        if(m_date_x != null && m_date_y != null && m_date){ // Check for non-null result
-            var rotated = ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-            gt.appendChild(Renderer.renderDate(m_date, m_date_x, m_date_y, small_font, text_color, allowed_d, <boolean>rotated));
+        if(m_date_p != null && m_date){ // Check for non-null result
+            gt.appendChild(Renderer.renderDate(m_date, m_date_p.getX(), m_date_p.getY(), small_font, text_color, m_date_p.getL(), ris.isRotated()));
         }
 
-        //~~~ MARRIAGE PLACE SETUP (M_PLACE_X, M_PLACE_Y, DEF_FONT_SIZE, TEXT_ROTATED) ~~~
+        //~~~ MARRIAGE PLACE SETUP ~~~
 
-        var m_place_x = ris.getInstruction(RenderInstructionSchedule.M_PLACE_X);
-        var m_place_y = ris.getInstruction(RenderInstructionSchedule.M_PLACE_Y);
+        var m_place_p = ris.getMPlaceInstruction();
         var m_place = node.getAttr('marriageplace');
-        if(m_place_x != null && m_place_y != null && m_place){ // Check for non-null result
-            var rotated = ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED);
-            gt.appendChild(Renderer.renderPlace(m_place, m_place_x, m_place_y, small_font, text_color, allowed_p, <boolean>rotated));
+        if(m_place_p != null && m_place){ // Check for non-null result
+            gt.appendChild(Renderer.renderPlace(m_place, m_place_p.getX(), m_place_p.getY(), small_font, text_color, m_place_p.getL(), ris.isRotated()));
         }
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -293,7 +268,7 @@ class Renderer{
         //[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        if(<boolean>ris.getInstruction(RenderInstructionSchedule.TEXT_ROTATED)){
+        if(ris.isRotated()){
             gt.setAttribute("transform","translate(0, "+ (box.getHeight()-2)+") rotate(-90 0,0)");
         }
 
@@ -407,35 +382,32 @@ class Renderer{
      * see if the picture for this person (pid matched) is ready to go yet. If it is, it edits the box RIS, then renders
      * the picture and passes the created svg element back. Otherwise returns null.
      * @param box the box whose picture is being sought out and rendered
-     * @param ris the RIS for the box being rendered
-     * @param pic_x the x coordinate of the picture
-     * @param pic_y the y coordinate of the picture
      * @param node the node being rendered
-     * @param g the g element that should contain all of this picture information.
      * @returns {Element} the svg picture element (null if no picture exists or has been loaded into the PictureManager)
      */
-    private static renderPicture(box : IBox, ris : RenderInstructionSchedule, pic_x :string, pic_y :string, node :INode, g :Element) :Element{
-        var pic_w = ris.getInstruction(RenderInstructionSchedule.PICTURES_DIM_X);
-        var pic_h = ris.getInstruction(RenderInstructionSchedule.PICTURES_DIM_Y);
-        if(pic_w && pic_h) {
-            //var edge_curve = (box.getWidth() / 20).toString();
-            //
-            //var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
-            //clippath.setAttribute('id', 'clip-' + node.getId());
-            //g.appendChild(clippath);
-            //var cliprect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-            //cliprect.setAttribute('height', pic_h);
-            //cliprect.setAttribute('width', pic_w);
-            //cliprect.setAttribute('rx', edge_curve);
-            //cliprect.setAttribute('ry', edge_curve);
-            //cliprect.setAttribute('x', pic_x);
-            //cliprect.setAttribute('y', pic_y);
-            //
-            //clippath.appendChild(cliprect);
+    private static renderPicture(box : IBox, node :INode) :Element{
+        var ris = box.getRenderInstructions();
 
-            var svgimg = PictureManager.getPicture(node.getId(), pic_x, pic_y, pic_w, pic_h);
+        var pictureDim = ris.getPictureDimInstruction();
+        var pic_w = pictureDim.getX();
+        var pic_h = pictureDim.getY();
+        var pic_x :number;
+        var pic_y :number;
+
+        // This will desperately need to get revamped for multi-spouse views...
+        if(node.getId() === box.getNode().getId()){
+            pic_x = ris.getPicturePlaceInstruction().getX();
+            pic_y = ris.getPicturePlaceInstruction().getY();
+        }
+        else{
+            pic_x = ris.getSpousePicturePlaceInstruction().getX();
+            pic_y = ris.getSpousePicturePlaceInstruction().getY();
+        }
+        if(pic_w && pic_h) {
+
+            var svgimg = PictureManager.getPicture(node.getId(), pic_x.toString(), pic_y.toString(), pic_w.toString(), pic_h.toString());
             if(svgimg) {
-                if(<boolean>ris.getInstruction(RenderInstructionSchedule.PICTURE_ROTATED)){
+                if(<boolean>ris.isRotated()){
                     svgimg.setAttribute("transform","translate(0, "+ (box.getHeight()-2)+") rotate(-90 0,0)");
                 }
                 return svgimg;
