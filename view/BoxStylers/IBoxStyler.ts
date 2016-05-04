@@ -9,5 +9,5 @@
  */
 interface IBoxStyler{
     getName();
-    applyStyleTo(box :IBox, showMarriage :boolean, flavor_key :string);
+    applyStyleTo(box :IBox, flavor_key :string);
 }

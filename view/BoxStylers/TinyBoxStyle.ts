@@ -13,7 +13,7 @@
 class TinyBoxStyle implements IBoxStyler{
     getName(){return StyleManager.TINY;}
 
-    applyStyleTo(box :IBox, showMarriage :boolean, flavor_key :string = null){
+    applyStyleTo(box :IBox, flavor_key :string){
         var start_x = 8;
         var start_y = 10;
         var s_start_x = 55;
@@ -22,35 +22,39 @@ class TinyBoxStyle implements IBoxStyler{
         var small_font_size = 8;
 
         // Basic data
-        var render_sched = box.getRenderInstructions().wipe();
+        var render_sched = new RenderInstructionSchedule().setFlavorKey(flavor_key);
 
         render_sched
-            .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE, big_font_size)
-            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE, small_font_size)
-            .addInstruction(RenderInstructionSchedule.BORDER_WIDTH, 1)
-            .addInstruction(RenderInstructionSchedule.NAME_L, 24);
+            .setDefTextSize(big_font_size)
+            .setAltTextSize(small_font_size)
+            .setBoxBorder(1);
 
         box.setWidth(200);
 
-        if(box.getSpouseNode() && box.getNode().getDisplaySpouse() && showMarriage){
+        if(flavor_key === TinyBoxStyle.MARRIED){
             // Married Flavor
 
             box.setHeight(30);
             render_sched
-                .addInstruction(RenderInstructionSchedule.NAME_L, 16)
-                .addInstruction(RenderInstructionSchedule.NAME, start_x, start_y)
-                .addInstruction(RenderInstructionSchedule.LIFE_SPAN, start_x, start_y + 5 + big_font_size)
-                .addInstruction(RenderInstructionSchedule.S_NAME, s_start_x, s_start_y)
-                .addInstruction(RenderInstructionSchedule.S_LIFE_SPAN, s_start_x, start_y + 5 + big_font_size);
+                .setNodeName(new Instruction(start_x, start_y, 16))
+                .setNodeSpan(new Instruction(start_x, start_y + 5 + big_font_size, null))
+                .setSpouseName(new Instruction(s_start_x + 105, s_start_y, 16))
+                .setSpouseSpan(new Instruction(s_start_x + 105, s_start_y + 5 + big_font_size, null));
         }
-        else{
+        else if(flavor_key === TinyBoxStyle.SINGLE){
             // Single Flavor
             box.setHeight(21);
             render_sched
-                .addInstruction(RenderInstructionSchedule.NAME, start_x, start_y)
-                .addInstruction(RenderInstructionSchedule.LIFE_SPAN, start_x + 135, start_y );
+                .setNodeName(new Instruction(start_x,start_y,24))
+                .setNodeSpan(new Instruction(start_x + 135, start_y, null));
+        }
+        else{
+            console.log("Bad flavor in tiny box for [" + box.getNode().getAttr("name") + "], [" + flavor_key + "]!");
         }
 
         box.setRenderInstructions(render_sched);
     }
+
+    static SINGLE  = "s";
+    static MARRIED = "m";
 }

@@ -13,46 +13,45 @@
 class MiniBoxStyle implements IBoxStyler{
     getName(){return StyleManager.MINI;}
 
-    applyStyleTo(box :IBox, showMarriage :boolean, flavor_key :string = null){
+    applyStyleTo(box :IBox, flavor_key :string){
         var start_x = 5;
         var start_y = 16;
         var s_start_x = 80;
         var s_start_y = 20;
         var big_font_size = 10;
         var small_font_size = 9;
-
-        console.log("\t making mini box for " + box.getNode().getAttr("name"));
+        var dateLength = 18;
+        var placeLength = 16;
 
         // Basic data
-        var render_sched = box.getRenderInstructions().wipe();
+        var render_sched = new RenderInstructionSchedule().setFlavorKey(flavor_key);
 
         render_sched
-            .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
-            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE,small_font_size)
-            .addInstruction(RenderInstructionSchedule.NAME,start_x,start_y+2)
-            .addInstruction(RenderInstructionSchedule.B_DATE,start_x + 104,start_y - 4)
-            .addInstruction(RenderInstructionSchedule.B_PLACE,start_x + 159,start_y - 4)
-            .addInstruction(RenderInstructionSchedule.D_DATE,start_x + 104,start_y + small_font_size - 3)
-            .addInstruction(RenderInstructionSchedule.D_PLACE,start_x + 159,start_y + small_font_size - 3)
-            .addInstruction(RenderInstructionSchedule.BORDER_WIDTH,2)
-            .addInstruction(RenderInstructionSchedule.NAME_L,18)
-            .addInstruction(RenderInstructionSchedule.DATE_L,18)
-            .addInstruction(RenderInstructionSchedule.PLACE_L,16);
+            .setDefTextSize(big_font_size)
+            .setAltTextSize(small_font_size)
+            .setBoxBorder(2)
+            .setNodeName(new Instruction(start_x, start_y+2, 18))
+            .setNodeBDate(new Instruction(start_x + 104, start_y - 4,dateLength))
+            .setNodeBPlace(new Instruction(start_x + 159, start_y - 4,placeLength))
+            .setNodeDDate(new Instruction(start_x + 104, start_y + small_font_size - 3,dateLength))
+            .setNodeDPlace(new Instruction(start_x + 159, start_y + small_font_size - 3,placeLength));
+
 
         box.setWidth(250);
 
-        if(box.getSpouseNode() && box.getNode().getDisplaySpouse() && showMarriage){
+        if(flavor_key === MiniBoxStyle.MARRIED){
             // Married Flavor
 
             box.setHeight(70);
             render_sched
-                .addInstruction(RenderInstructionSchedule.S_NAME,s_start_x,s_start_y+2)
-                .addInstruction(RenderInstructionSchedule.S_B_DATE,s_start_x,s_start_y + big_font_size - 2)
-                .addInstruction(RenderInstructionSchedule.S_B_PLACE,s_start_x + 70,s_start_y + big_font_size - 2)
-                .addInstruction(RenderInstructionSchedule.S_D_DATE,s_start_x,s_start_y + big_font_size + small_font_size - 2)
-                .addInstruction(RenderInstructionSchedule.S_D_PLACE,s_start_x + 70, s_start_y + big_font_size + small_font_size*2 - 2)
-                .addInstruction(RenderInstructionSchedule.M_DATE, 300,s_start_y + big_font_size + small_font_size*2 - 2)
-                .addInstruction(RenderInstructionSchedule.M_PLACE, 400,s_start_y + big_font_size + small_font_size*2 - 2);
+
+                .setSpouseName(new Instruction(s_start_x, s_start_y+2, 18))
+                .setSpouseBDate(new Instruction(s_start_x + 104, s_start_y - 4,dateLength))
+                .setSpouseBPlace(new Instruction(s_start_x + 159, s_start_y - 4,placeLength))
+                .setSpouseDDate(new Instruction(s_start_x + 104, s_start_y + small_font_size - 3,dateLength))
+                .setSpouseDPlace(new Instruction(s_start_x + 159, s_start_y + small_font_size - 3,placeLength))
+                .setMarriageDate(new Instruction(75, s_start_y + big_font_size + small_font_size*2 -2,dateLength))
+                .setMarriagePlace(new Instruction(175, s_start_y + big_font_size + small_font_size*2 -2,dateLength))
         }
         else{
             // Single Flavor
@@ -62,4 +61,7 @@ class MiniBoxStyle implements IBoxStyler{
 
         box.setRenderInstructions(render_sched);
     }
+
+    static SINGLE  = "s";
+    static MARRIED = "m";
 }

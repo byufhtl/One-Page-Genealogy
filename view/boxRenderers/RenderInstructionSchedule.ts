@@ -31,7 +31,12 @@ class RenderInstructionSchedule{
 //[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]\                    /[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
 
-    // Box, Text, Rotation (6)
+    // Box, Text, Rotation (7)
+    public setFlavorKey(flavor_key :string) :RenderInstructionSchedule{
+        this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY] = flavor_key;
+        return this;
+    }
+
     public setBoxBorder(borderWidth :number) :RenderInstructionSchedule{
         this.boxInstructions[RenderInstructionSchedule.BORDER_WIDTH] = borderWidth;
         return this;
@@ -53,12 +58,12 @@ class RenderInstructionSchedule{
     }
 
     public setDefTextSize(default_size :number) :RenderInstructionSchedule{
-        this.textInstructions["def_size"] = default_size;
+        this.textInstructions[RenderInstructionSchedule.DEF_FONT_SIZE] = default_size;
         return this;
     }
 
     public setAltTextSize(alt_size :number) :RenderInstructionSchedule{
-        this.textInstructions["alt_size"] = alt_size;
+        this.textInstructions[RenderInstructionSchedule.ALT_FONT_SIZE] = alt_size;
         return this;
     }
 
@@ -188,7 +193,12 @@ class RenderInstructionSchedule{
 //[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]\                    /[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
 
-    // Box, Text, Rotation (6)
+    // Box, Text, Rotation (7)
+    public getFlavorKey() :string{
+        console.log("Flavor key requested: " + this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY]);
+        return this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY];
+    }
+
     public getBorderWidth() :number{
         return this.boxInstructions[RenderInstructionSchedule.BORDER_WIDTH];
     }
@@ -427,4 +437,5 @@ class RenderInstructionSchedule{
     static SPOUSE_BOX = "s_box";
     static COLORED_BORDER = "col_border";
     static BOLD = "bold";
+    static FLAVOR_KEY = "flavor_key";
 }

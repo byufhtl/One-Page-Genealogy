@@ -18,47 +18,47 @@ class FamilyReunionChartStyler extends AbstractChartStyle{
             case 0:
                 branchBox.setX(0);
                 branchBox.setType(StyleManager.ENORMOUS);
-                StyleManager.stylize(branchBox,false);
+                StyleManager.stylize(branchBox, EnrBoxStyle.SINGLE);
                 break;
             case 1:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth()+30);
                 branchBox.setType(StyleManager.HUGE);
-                StyleManager.stylize(branchBox,false);
+                StyleManager.stylize(branchBox, HugeBoxStyle.SINGLE);
                 break;
             case 2:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth()/2);
                 branchBox.setType(StyleManager.LARGE);
-                StyleManager.stylize(branchBox,false);
+                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE);
                 break;
             case 3:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 30);
                 branchBox.setType(StyleManager.MEDIUM);
-                StyleManager.stylize(branchBox,false);
+                StyleManager.stylize(branchBox,MediumBoxStyle.SINGLE_LONG);
                 break;
             case 4:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 30);
                 branchBox.setType(StyleManager.SMALL);
-                StyleManager.stylize(branchBox,false);
+                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE);
                 break;
             case 5:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 30);
                 branchBox.setType(StyleManager.SMALL);
-                StyleManager.stylize(branchBox,false);
+                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE);
                 break;
             case 6:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 30);
                 branchBox.setType(StyleManager.MINI);
-                StyleManager.stylize(branchBox,false);
+                StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
                 break;
             case 7:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 30);
                 branchBox.setType(StyleManager.TINY);
-                StyleManager.stylize(branchBox,false);
+                StyleManager.stylize(branchBox, TinyBoxStyle.SINGLE);
                 break;
             default:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 30);
                 branchBox.setType(StyleManager.TINY);
-                StyleManager.stylize(branchBox,false);
+                StyleManager.stylize(branchBox, TinyBoxStyle.SINGLE);
         }
     }
 }

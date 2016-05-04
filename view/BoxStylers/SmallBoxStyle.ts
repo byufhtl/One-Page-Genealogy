@@ -13,13 +13,16 @@
 class SmallBoxStyle implements IBoxStyler{
     getName(){return StyleManager.SMALL;}
 
-    applyStyleTo(box :IBox, showMarriage :boolean, flavor_key :string = null){
+    applyStyleTo(box :IBox, flavor_key :string){
         var start_x = 65;
         var start_y = 21;
         var s_start_x = 165;
         var s_start_y = 21;
         var big_font_size = 18;
         var small_font_size = 13;
+        var nameLength = 17;
+        var dateLength = 12;
+        var placeLength = 14;
 
         if(!PictureManager.hasPicture(box.getNode().getId())){
             start_x -= 60;
@@ -27,25 +30,22 @@ class SmallBoxStyle implements IBoxStyler{
         }
 
         // Basic data
-        var render_sched = box.getRenderInstructions().wipe();
+        var render_sched = new RenderInstructionSchedule().setFlavorKey(flavor_key);
 
         render_sched
-            .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
-            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE,small_font_size)
-            .addInstruction(RenderInstructionSchedule.PICTURE,start_x - 60,start_y-16)
-            .addInstruction(RenderInstructionSchedule.PICTURES_DIM,55,55)
-            .addInstruction(RenderInstructionSchedule.NAME, start_x, start_y)
-            .addInstruction(RenderInstructionSchedule.B_DATE, start_x, start_y + big_font_size)
-            .addInstruction(RenderInstructionSchedule.B_PLACE, start_x + 80, start_y + big_font_size)
-            .addInstruction(RenderInstructionSchedule.D_DATE, start_x, start_y + big_font_size + small_font_size + 3)
-            .addInstruction(RenderInstructionSchedule.D_PLACE, start_x + 80, start_y + big_font_size + small_font_size + 3)
-            .addInstruction(RenderInstructionSchedule.NAME_L, 17)
-            .addInstruction(RenderInstructionSchedule.DATE_L, 12)
-            .addInstruction(RenderInstructionSchedule.PLACE_L, 14);
+            .setDefTextSize(big_font_size)
+            .setAltTextSize(small_font_size)
+            .setPicturePlace(new Instruction(start_x - 60, start_y - 16))
+            .setPictureDim(new Instruction(55,55,null))
+            .setNodeName(new Instruction(start_x, start_y, nameLength))
+            .setNodeBDate(new Instruction(start_x, start_y + big_font_size, dateLength))
+            .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size, placeLength))
+            .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 3, dateLength))
+            .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size + 3, placeLength));
 
         box.setWidth(250);
 
-        if(box.getSpouseNode() && box.getNode().getDisplaySpouse() && showMarriage){
+        if(flavor_key === SmallBoxStyle.MARRIED){
             // Married Flavor
 
             box.setHeight(100);
@@ -53,14 +53,15 @@ class SmallBoxStyle implements IBoxStyler{
                 s_start_x -= 35;
             }
             render_sched
-                .addInstruction(RenderInstructionSchedule.S_PICTURE,s_start_x - 65,s_start_y - 16)
-                .addInstruction(RenderInstructionSchedule.S_NAME,s_start_x,s_start_y)
-                .addInstruction(RenderInstructionSchedule.S_B_DATE,s_start_x,s_start_y + big_font_size + 5)
-                .addInstruction(RenderInstructionSchedule.S_B_PLACE,s_start_x + 80,s_start_y + big_font_size + 5)
-                .addInstruction(RenderInstructionSchedule.S_D_DATE,s_start_x,s_start_y + big_font_size + small_font_size + 8)
-                .addInstruction(RenderInstructionSchedule.S_D_PLACE,s_start_x + 80, s_start_y + big_font_size + small_font_size*2 + 8)
-                .addInstruction(RenderInstructionSchedule.M_DATE, 75,s_start_y + big_font_size + small_font_size*2 + 8)
-                .addInstruction(RenderInstructionSchedule.M_PLACE, 125,s_start_y + big_font_size + small_font_size*2 + 8);
+                .setSpousePicturePlace(new Instruction(s_start_x - 65,s_start_y - 16))
+                .setSpousePictureDim(new Instruction(55,55,null))
+                .setSpouseName(new Instruction(s_start_x, s_start_y, nameLength))
+                .setSpouseBDate(new Instruction(s_start_x, s_start_y + big_font_size + 5, dateLength))
+                .setSpouseBPlace(new Instruction(s_start_x + 80, s_start_y + big_font_size + 5, placeLength))
+                .setSpouseDDate(new Instruction(s_start_x, s_start_y + big_font_size + small_font_size + 8, dateLength))
+                .setSpouseDPlace(new Instruction(s_start_x + 80, s_start_x + big_font_size + small_font_size*2 + 8))
+                .setMarriageDate(new Instruction(75, s_start_y + big_font_size + small_font_size*2 + 8))
+                .setMarriagePlace(new Instruction(125, s_start_y + big_font_size + small_font_size*2 + 8))
         }
         else{
             // Single Flavor
@@ -69,4 +70,7 @@ class SmallBoxStyle implements IBoxStyler{
 
         box.setRenderInstructions(render_sched);
     }
+
+    static SINGLE  = "s";
+    static MARRIED = "m";
 }

@@ -11,51 +11,51 @@
 class HugeBoxStyle implements IBoxStyler{
     getName(){return StyleManager.HUGE;}
 
-    applyStyleTo(box :IBox, showMarriage :boolean, flavor_key :string = null){
+    applyStyleTo(box :IBox, flavor_key :string){
         var start_x = 100;
         var start_y = 53;
         var s_start_x = 625;
         var s_start_y = 53;
         var big_font_size = 50;
         var small_font_size = 35;
+        var nameLength = 18;
+        var dateLength = 18;
+        var placeLength = 18;
 
         if(!PictureManager.hasPicture(box.getNode().getId())) {
             start_x -= 95;
         }
 
         // Basic data
-        var render_sched = box.getRenderInstructions().wipe();
+        var render_sched = new RenderInstructionSchedule().setFlavorKey(flavor_key);
 
         render_sched
-            .addInstruction(RenderInstructionSchedule.DEF_FONT_SIZE,big_font_size)
-            .addInstruction(RenderInstructionSchedule.ALT_FONT_SIZE,small_font_size)
-            .addInstruction(RenderInstructionSchedule.PICTURE,start_x - 95,start_y)
-            .addInstruction(RenderInstructionSchedule.PICTURES_DIM,90,90)
-            .addInstruction(RenderInstructionSchedule.NAME,start_x,start_y)
-            .addInstruction(RenderInstructionSchedule.B_DATE,start_x,start_y + big_font_size + 10)
-            .addInstruction(RenderInstructionSchedule.B_PLACE,start_x + 120,start_y + big_font_size + 10)
-            .addInstruction(RenderInstructionSchedule.D_DATE,start_x,start_y + big_font_size + small_font_size + 20)
-            .addInstruction(RenderInstructionSchedule.D_PLACE,start_x + 120,start_y + big_font_size + small_font_size + 20)
-            .addInstruction(RenderInstructionSchedule.NAME_L,18)
-            .addInstruction(RenderInstructionSchedule.DATE_L,18)
-            .addInstruction(RenderInstructionSchedule.PLACE_L,18)
-            .addInstruction(RenderInstructionSchedule.TEXT_ROTATED,1);
+            .setDefTextSize(big_font_size)
+            .setAltTextSize(small_font_size)
+            .setPicturePlace(new Instruction(start_x - 95, start_y))
+            .setPictureDim(new Instruction(90,90))
+            .setNodeName(new Instruction(start_x, start_y, nameLength))
+            .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 10, dateLength))
+            .setNodeBPlace(new Instruction(start_x + 120,start_y + big_font_size + 10, placeLength))
+            .setNodeDDate(new Instruction(start_x,start_y + big_font_size + small_font_size + 20, dateLength))
+            .setNodeDPlace(new Instruction(start_x + 120,start_y + big_font_size + small_font_size + 20, placeLength))
+            .setRotation(true);
 
         box.setWidth(300);
 
-        if(box.getSpouseNode() && box.getNode().getDisplaySpouse() && showMarriage){
+        if(flavor_key === HugeBoxStyle.MARRIED){
             // Married Flavor
 
             box.setHeight(1000);
-            render_sched
-                .addInstruction(RenderInstructionSchedule.S_PICTURE,s_start_x - 95,s_start_y)
-                .addInstruction(RenderInstructionSchedule.S_NAME,s_start_x,s_start_y)
-                .addInstruction(RenderInstructionSchedule.S_B_DATE,s_start_x,s_start_y + big_font_size + 10)
-                .addInstruction(RenderInstructionSchedule.S_B_PLACE,s_start_x + 120,s_start_y + big_font_size + 10)
-                .addInstruction(RenderInstructionSchedule.S_D_DATE,s_start_x,s_start_y + big_font_size + small_font_size + 20)
-                .addInstruction(RenderInstructionSchedule.S_D_PLACE,s_start_x + 120, s_start_y + big_font_size + small_font_size*2 + 20)
-                .addInstruction(RenderInstructionSchedule.M_DATE, 450,s_start_y + big_font_size + small_font_size*2 + 30)
-                .addInstruction(RenderInstructionSchedule.M_PLACE, 550,s_start_y + big_font_size + small_font_size*2 + 30);
+            //render_sched
+            //    .addInstruction(RenderInstructionSchedule.S_PICTURE,s_start_x - 95,s_start_y)
+            //    .addInstruction(RenderInstructionSchedule.S_NAME,s_start_x,s_start_y)
+            //    .addInstruction(RenderInstructionSchedule.S_B_DATE,s_start_x,s_start_y + big_font_size + 10)
+            //    .addInstruction(RenderInstructionSchedule.S_B_PLACE,s_start_x + 120,s_start_y + big_font_size + 10)
+            //    .addInstruction(RenderInstructionSchedule.S_D_DATE,s_start_x,s_start_y + big_font_size + small_font_size + 20)
+            //    .addInstruction(RenderInstructionSchedule.S_D_PLACE,s_start_x + 120, s_start_y + big_font_size + small_font_size*2 + 20)
+            //    .addInstruction(RenderInstructionSchedule.M_DATE, 450,s_start_y + big_font_size + small_font_size*2 + 30)
+            //    .addInstruction(RenderInstructionSchedule.M_PLACE, 550,s_start_y + big_font_size + small_font_size*2 + 30);
         }
         else{
             // Single Flavor
@@ -64,4 +64,7 @@ class HugeBoxStyle implements IBoxStyler{
 
         box.setRenderInstructions(render_sched);
     }
+
+    static SINGLE  = "s";
+    static MARRIED = "m";
 }

@@ -73,10 +73,10 @@ class Renderer{
 
         // Create some default text sizes if they have not been previously set.
 
-        if(big_font === null){
+        if(big_font === null || big_font == undefined){
             big_font = 12;
         }
-        if(small_font === null){
+        if(small_font === null || small_font == undefined){
             small_font = big_font * .75;
         }
 

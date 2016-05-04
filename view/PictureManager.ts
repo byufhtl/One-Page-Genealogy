@@ -10,7 +10,7 @@ class PictureManager{
     static UPDATE :boolean;
 
     static loadPictures(box :IBox, node :INode) :void{
-        if(node.hasAttr('profilePicturePromise')) {
+        if(!(PictureManager.map[node.getId()] == null) && !(PictureManager.map[node.getId()]) && node.hasAttr('profilePicturePromise')){
             node.getAttr('profilePicturePromise').then(function(response) {
                 if(!response) {
                     PictureManager.map[node.getId()] = null;
@@ -18,6 +18,7 @@ class PictureManager{
                 }
                 else{
                     PictureManager.map[node.getId()] = response;
+                    console.log("Picture for [" + node.getAttr("name") + "] has been loaded.");
                 }
 
                 PictureManager.UPDATE = true;
@@ -28,8 +29,15 @@ class PictureManager{
                 // If an RIS already exists on the box, restylize now that the picture has loaded.
                 var ris = box.getRenderInstructions();
                 if(ris){
-                    var show_marriage = ris.getInstruction(RenderInstructionSchedule.S_NAME);
-                    StyleManager.stylize(box,<boolean>show_marriage);
+                    if(box.getNode().getId() === node.getId()){
+                        console.log("Primary Node Picture Uploaded");
+                        StyleManager.stylize(box, ris.getFlavorKey());
+                    }
+                    else{
+                        if(ris.isSpouseBox()){ // Redo on spouse only if it is indeed a spouse box.
+                            StyleManager.stylize(box, ris.getFlavorKey());
+                        }
+                    }
                 }
 
             }, function() {
