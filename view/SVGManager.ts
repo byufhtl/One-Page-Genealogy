@@ -537,11 +537,11 @@ class SVGManager implements IViewManager {
             var node:INode = box.getNode();
             var branchIds = node.getBranchIds();
 
-            if(BoxStyleFactory.requiresLoad(box.getType())) {
+            //if(BoxStyleFactory.requiresLoad(box.getType())) { // deprecated code?
                 if (node.hasAttr('doneLoading')) {
                     total++;
                 }
-            }
+            //}
 
             if(box.isCollapsed()) {
                 continue;
@@ -566,11 +566,11 @@ class SVGManager implements IViewManager {
             var branchIds = node.getBranchIds();
 
             //if(box.getType() === 'simpleNameBox') {
-            if(BoxStyleFactory.requiresLoad(box.getType())) {
+            //if(BoxStyleFactory.requiresLoad(box.getType())) { // deprecated code?
                 if (node.hasAttr('doneLoading')) {
                     node.getAttr('doneLoading').then(repeatCallBack, repeatCallBack);
                 }
-            }
+            //}
 
 
             if(box.isCollapsed()) {

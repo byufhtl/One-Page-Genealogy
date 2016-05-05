@@ -29,7 +29,7 @@ class TinyBoxStyle implements IBoxStyler{
             .setAltTextSize(small_font_size)
             .setBoxBorder(1);
 
-        box.setWidth(200);
+        box.setWidth(160);
 
         if(flavor_key === TinyBoxStyle.MARRIED){
             // Married Flavor
@@ -38,15 +38,15 @@ class TinyBoxStyle implements IBoxStyler{
             render_sched
                 .setNodeName(new Instruction(start_x, start_y, 16))
                 .setNodeSpan(new Instruction(start_x, start_y + 5 + big_font_size, null))
-                .setSpouseName(new Instruction(s_start_x + 105, s_start_y, 16))
-                .setSpouseSpan(new Instruction(s_start_x + 105, s_start_y + 5 + big_font_size, null));
+                .setSpouseName(new Instruction(s_start_x + 75, s_start_y, 16))
+                .setSpouseSpan(new Instruction(s_start_x + 75, s_start_y + 5 + big_font_size, null));
         }
         else if(flavor_key === TinyBoxStyle.SINGLE){
             // Single Flavor
             box.setHeight(21);
             render_sched
-                .setNodeName(new Instruction(start_x,start_y,24))
-                .setNodeSpan(new Instruction(start_x + 135, start_y, null));
+                .setNodeName(new Instruction(start_x,start_y,17))
+                .setNodeSpan(new Instruction(start_x + 105, start_y, null));
         }
         else{
             console.log("Bad flavor in tiny box for [" + box.getNode().getAttr("name") + "], [" + flavor_key + "]!");

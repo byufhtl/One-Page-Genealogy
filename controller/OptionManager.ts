@@ -63,6 +63,12 @@ class OptionManager implements IOptionManager {
         $('#opg-eight-eleven-detail-style').click(function(){
             self.handleStyleChange('eight-eleven-detail-style');
         });
+        $('#opg-eleven-seventeen-style').click(function(){
+            self.handleStyleChange('eleven-seventeen-style');
+        });
+        $('#opg-extended-style').click(function(){
+            self.handleStyleChange('extended-style');
+        });
         $('#opg-js-public-style').click(function(){
             self.handleStyleChange('js-public-style');
         });

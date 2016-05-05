@@ -13,7 +13,7 @@ class LargeBoxStyle implements IBoxStyler{
     getName(){return StyleManager.LARGE;}
 
     applyStyleTo(box :IBox, flavor_key :string){
-        var start_x = 160;
+        var start_x = 320;
         var start_y = 45;
         var s_start_x = 440;
         var s_start_y = 45;
@@ -42,12 +42,10 @@ class LargeBoxStyle implements IBoxStyler{
             .setNodeDPlace(new Instruction(start_x + 140,start_y + big_font_size + small_font_size + 16, placeLength))
             .setRotation(true);
 
-        box.setWidth(225);
-
-        if(flavor_key === LargeBoxStyle.MARRIED){
+        if(flavor_key === LargeBoxStyle.MARRIED_WIDE){
             // Married Flavor
-
             box.setHeight(890);
+            box.setWidth(225);
 
             if(!PictureManager.hasPicture(box.getNode().getId())) {
                 s_start_x -= 155;
@@ -63,14 +61,52 @@ class LargeBoxStyle implements IBoxStyler{
             //    .addInstruction(RenderInstructionSchedule.M_DATE, 300,s_start_y + big_font_size + small_font_size*2 + 16)
             //    .addInstruction(RenderInstructionSchedule.M_PLACE, 400,s_start_y + big_font_size + small_font_size*2 + 16);
         }
-        else{
+        else if (flavor_key === LargeBoxStyle.SINGLE_WIDE){
             // Single Flavor
             box.setHeight(610);
+            box.setWidth(225);
+
+            if(!PictureManager.hasPicture(box.getNode().getId())) {
+                start_x -= 145;
+            }
+
+            render_sched
+                .setPicturePlace(new Instruction(start_x - 155, start_y))
+                .setPictureDim(new Instruction(150,150))
+                .setNodeName(new Instruction(start_x,start_y, nameLength))
+                .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 8, dateLength))
+                .setNodeBPlace(new Instruction(start_x + 140, start_y + big_font_size + 8, placeLength))
+                .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 16, dateLength))
+                .setNodeDPlace(new Instruction(start_x + 140,start_y + big_font_size + small_font_size + 16, placeLength))
+                .setRotation(true);
+        }
+        else if(flavor_key === LargeBoxStyle.SINGLE_LONG){
+
+            box.setHeight(225);
+            box.setWidth(610);
+
+            box.setY(box.getY() - 305); // Shift the box down.
+            box.setX(box.getX() - 112); // Shift the box over.
+
+            if(!PictureManager.hasPicture(box.getNode().getId())) {
+                start_x -= 145;
+            }
+
+            render_sched
+                .setPicturePlace(new Instruction(start_x - 155, start_y))
+                .setPictureDim(new Instruction(150,150))
+                .setNodeName(new Instruction(start_x,start_y, nameLength))
+                .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 8, dateLength))
+                .setNodeBPlace(new Instruction(start_x + 140, start_y + big_font_size + 8, placeLength))
+                .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 16, dateLength))
+                .setNodeDPlace(new Instruction(start_x + 140,start_y + big_font_size + small_font_size + 16, placeLength))
+                .setRotation(false);
         }
 
         box.setRenderInstructions(render_sched);
     }
 
-    static SINGLE  = "s";
-    static MARRIED = "m";
+    static SINGLE_LONG  = "s_l";
+    static SINGLE_WIDE  = "s_w";
+    static MARRIED_WIDE = "m";
 }

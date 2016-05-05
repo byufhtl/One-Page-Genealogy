@@ -28,7 +28,7 @@ class FamilyReunionChartStyler extends AbstractChartStyle{
             case 2:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth()/2);
                 branchBox.setType(StyleManager.LARGE);
-                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE);
+                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_WIDE);
                 break;
             case 3:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 30);

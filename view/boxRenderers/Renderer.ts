@@ -90,7 +90,8 @@ class Renderer{
         rect.setAttribute('width', String(box.getWidth()));
         rect.setAttribute('height', String(box.getHeight()-8-box.getSpace()));
 
-        var edge_curve = (box.getWidth()/20).toString();
+        var longest = (box.getWidth() > box.getHeight()) ? box.getWidth() : box.getHeight();
+        var edge_curve = (longest/20).toString();
         rect.setAttribute('rx', edge_curve);
         rect.setAttribute('ry', edge_curve);
 
@@ -140,6 +141,9 @@ class Renderer{
         var name = node.getAttr('name');
         if(name_p != null && name){ // Check for non-null result
             gt.appendChild(Renderer.renderName(name, name_p.getX(), name_p.getY(), big_font, text_color, name_p.getL(), ris.isRotated(), node.isMainPerson()));
+        }
+        else{
+            console.log("No Name Instructions for [" + name + "]");
         }
 
         //~~~ BIRTH DATE SETUP ~~~

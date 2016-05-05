@@ -68,14 +68,13 @@ class MediumBoxStyle implements IBoxStyler{
         }
         else if(flavor_key === MediumBoxStyle.SINGLE_WIDE){
 
-            box.setHeight(180);
+            box.setHeight(330);
             box.setWidth(100);
             box.setY(box.getY() - 180); // Shift the box down.
             box.setX(box.getX() - 50); // Shift the box over.
 
-            var temp = start_x;
-            start_x = start_y;
-            start_y = temp;
+            start_x = 30;
+            start_y = 92;
 
             if (!PictureManager.hasPicture(box.getNode().getId())) {
                 start_y -= 65;
@@ -85,11 +84,17 @@ class MediumBoxStyle implements IBoxStyler{
                 .setPicturePlace(new Instruction(start_x - 20, start_y - 80))
                 .setPictureDim(new Instruction(75, 75))
                 .setRotation(true)
-                .setSpouseName(new Instruction(start_x, start_y, nameLength))
-                .setSpouseBDate(new Instruction(start_x + big_font_size - 6, start_y, dateLength))
-                .setSpouseBPlace(new Instruction(start_x + big_font_size - 6, start_y + 80, placeLength))
-                .setSpouseDDate(new Instruction(start_x + big_font_size + small_font_size - 2, start_y, dateLength))
-                .setSpouseDPlace(new Instruction(start_x + big_font_size + small_font_size - 2, start_y + 80, placeLength));
+
+                .setNodeName(new Instruction(start_x, start_y, nameLength))
+                .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
+                .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
+                .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
+                .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength));
+                //.setNodeName(new Instruction(start_x, start_y, nameLength))
+                //.setNodeBDate(new Instruction(start_x + big_font_size, start_y, dateLength))
+                //.setNodeBPlace(new Instruction(start_x + big_font_size, start_y + 80, placeLength))
+                //.setNodeDDate(new Instruction(start_x + big_font_size + small_font_size - 2, start_y, dateLength))
+                //.setNodeDPlace(new Instruction(start_x + big_font_size + small_font_size - 2, start_y + 80, placeLength));
 
         }
         else if(flavor_key === MediumBoxStyle.SINGLE_LONG){

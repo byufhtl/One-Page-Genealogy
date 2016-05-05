@@ -21,6 +21,8 @@
 ///<reference path="ChartStyles/DetailChartStyler.ts"/>
 ///<reference path="ChartStyles/VertDescDetChartStyler.ts"/>
 ///<reference path="ChartStyles/VertDetChartStyler.ts"/>
+///<reference path="ChartStyles/ElevenSeventeenChartStyler.ts"/>
+///<reference path="ChartStyles/ExtendedChartStyler.ts"/>
 
 ///<reference path="ColorSpacers/GreyScaleSpacer.ts"/>
 ///<reference path="ColorSpacers/ColorSpacer.ts"/>
@@ -491,6 +493,12 @@ class P implements IControllerListener, ITreeListener {
                 break;
             case 'eight-eleven-detail-style':
                 style = new EightElevenDetailChartStyler();
+                break;
+            case 'eleven-seventeen-style':
+                style = new ElevenSeventeenChartStyler();
+                break;
+            case 'extended-style':
+                style = new ExtendedChartStyler();
                 break;
             case 'js-public-style':
                 style = new VertDescDetChartStyler();
