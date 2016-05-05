@@ -51,32 +51,32 @@ class Renderer{
      * @param rootElement the element that will ultimately need to contain that svg element set
      * @returns {Element} The element being created
      */
-    static renderBox(box :IBox, rootElement :Element) :Element{
+    static renderBox(box :IBox, rootElement :Element) :Element {
 
         //~~~ SETUP ~~~
 
         var g:Element = document.createElementNS("http://www.w3.org/2000/svg", "g"); // The overall element
-        var gt :Element = document.createElementNS("http://www.w3.org/2000/svg", "g"); // The text container element
+        var gt:Element = document.createElementNS("http://www.w3.org/2000/svg", "g"); // The text container element
 
         var ris = box.getRenderInstructions();
         var big_font = ris.getDefTextSize();
         var small_font = ris.getAltTextSize();
 
-        if(rootElement) {
+        if (rootElement) {
             rootElement.appendChild(g);
         }
 
         // Reject if collapsed
-        if(box.isCollapsed()){
+        if (box.isCollapsed()) {
             return null;
         }
 
         // Create some default text sizes if they have not been previously set.
 
-        if(big_font === null || big_font == undefined){
+        if (big_font === null || big_font == undefined) {
             big_font = 12;
         }
-        if(small_font === null || small_font == undefined){
+        if (small_font === null || small_font == undefined) {
             small_font = big_font * .75;
         }
 
@@ -85,13 +85,17 @@ class Renderer{
 
         g.appendChild(rect);
         var node = box.getNode();
-        gt.setAttribute("style","font-family: 'Roboto Slab' ");
+        gt.setAttribute("style", "font-family: 'Roboto Slab' ");
 
         rect.setAttribute('width', String(box.getWidth()));
-        rect.setAttribute('height', String(box.getHeight()-8-box.getSpace()));
+        rect.setAttribute('height', String(box.getHeight() - 8 - box.getSpace()));
 
-        var longest = (box.getWidth() > box.getHeight()) ? box.getWidth() : box.getHeight();
-        var edge_curve = (longest/20).toString();
+        var edge_curve :string = ris.getCornerRounding().toString();
+        if (edge_curve == null || edge_curve == undefined) {
+            var longest = (box.getWidth() > box.getHeight()) ? box.getWidth() : box.getHeight();
+            edge_curve = (longest / 20).toString();
+        }
+
         rect.setAttribute('rx', edge_curve);
         rect.setAttribute('ry', edge_curve);
 
@@ -100,18 +104,25 @@ class Renderer{
         var border = ris.getBorderWidth();
         border = (border != null)? border : 4;
 
-        // if there is a colored border, draw the box accordingly.
+        // if there should be an automatic pastel colored border, draw the box accordingly.
         if(ris.isColoredBorder()){ // 0 or it has a dimension
-            rect.setAttribute('stroke-width',(border).toString());
-            rect.setAttribute('stroke',box.getColor());
-            rect.setAttribute('fill',ColorManager.lighten(box.getColor(),32));
+            rect.setAttribute('stroke-width', (border).toString());
+            rect.setAttribute('stroke', box.getColor());
+            rect.setAttribute('fill', ColorManager.lighten(box.getColor(),32));
         }
         else{
             rect.setAttribute('stroke-width', border.toString());
             rect.setAttribute('stroke', 'black');
-            rect.setAttribute('fill',box.getColor());
+            rect.setAttribute('fill', box.getColor());
         }
 
+        // if the RIS specifies a border color, this border color can trump all others.
+        var imposedBorderColor = ris.getBorderColor();
+        if(imposedBorderColor){
+            rect.setAttribute('stroke', imposedBorderColor);
+        }
+
+        // set up the text color based on the box and defaulting to black.
         var text_color = box.getTextColor()!=null ? box.getTextColor() : ColorManager.black();
 
         g.appendChild(gt);

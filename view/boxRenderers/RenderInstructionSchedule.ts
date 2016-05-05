@@ -31,7 +31,7 @@ class RenderInstructionSchedule{
 //[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]\                    /[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
 
-    // Box, Text, Rotation (7)
+    // Box, Text, Rotation (8)
     public setFlavorKey(flavor_key :string) :RenderInstructionSchedule{
         this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY] = flavor_key;
         return this;
@@ -44,6 +44,16 @@ class RenderInstructionSchedule{
 
     public setSpouseBox(spouseBox : boolean) :RenderInstructionSchedule{
         this.boxInstructions[RenderInstructionSchedule.BORDER_WIDTH] = spouseBox;
+        return this;
+    }
+
+    public setBorderColor(color :string) :RenderInstructionSchedule{
+        this.boxInstructions[RenderInstructionSchedule.BORDER_COLOR] = color;
+        return this;
+    }
+
+    public setCornerRounding(round_amount :number) :RenderInstructionSchedule{
+        this.boxInstructions[RenderInstructionSchedule.CORNER_ROUNDING] = round_amount;
         return this;
     }
 
@@ -193,7 +203,7 @@ class RenderInstructionSchedule{
 //[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]\                    /[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
 
-    // Box, Text, Rotation (7)
+    // Box, Text, Rotation (8)
     public getFlavorKey() :string{
         console.log("Flavor key requested: " + this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY]);
         return this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY];
@@ -208,7 +218,15 @@ class RenderInstructionSchedule{
     }
 
     public isColoredBorder() :boolean{
-        return this.boxInstructions[RenderInstructionSchedule.COLORED_BORDER];
+        return this.boxInstructions[RenderInstructionSchedule.AUTO_PASTEL_BORDER_MODE];
+    }
+
+    public getBorderColor() :string{
+        return this.boxInstructions[RenderInstructionSchedule.BORDER_COLOR];
+    }
+
+    public getCornerRounding() :number{
+        return this.boxInstructions[RenderInstructionSchedule.CORNER_ROUNDING];
     }
 
     public isRotated() :boolean{
@@ -435,7 +453,9 @@ class RenderInstructionSchedule{
     static PICTURE_ROTATED = "p_rot"; // Not currently implemented for use.
     static BOX_ROTATED = "b_rot";
     static SPOUSE_BOX = "s_box";
-    static COLORED_BORDER = "col_border";
+    static AUTO_PASTEL_BORDER_MODE = "auto_pastel_border";
     static BOLD = "bold";
     static FLAVOR_KEY = "flavor_key";
+    static CORNER_ROUNDING = "rounding";
+    static BORDER_COLOR = "border_color"
 }

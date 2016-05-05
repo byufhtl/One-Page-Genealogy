@@ -102,11 +102,36 @@ class LargeBoxStyle implements IBoxStyler{
                 .setNodeDPlace(new Instruction(start_x + 140,start_y + big_font_size + small_font_size + 16, placeLength))
                 .setRotation(false);
         }
+        else if(flavor_key === LargeBoxStyle.SINGLE_BALL){
+
+            box.setHeight(524);
+            box.setWidth(524);
+
+            box.setY(box.getY() - 262); // Shift the box down.
+            box.setX(box.getX() - 262); // Shift the box over.
+
+            if(!PictureManager.hasPicture(box.getNode().getId())) {
+                start_x -= 145;
+            }
+
+            render_sched
+                //.setPicturePlace(new Instruction(start_x - 155, start_y))
+                //.setPictureDim(new Instruction(150,150))
+                .setNodeName(new Instruction(start_x + 45, start_y + 190, nameLength))
+                .setNodeBDate(new Instruction(start_x + 45, start_y + big_font_size + 198, dateLength))
+                .setNodeBPlace(new Instruction(start_x + 185, start_y + big_font_size + 198, placeLength))
+                .setNodeDDate(new Instruction(start_x + 45, start_y + big_font_size + small_font_size + 206, dateLength))
+                .setNodeDPlace(new Instruction(start_x + 185,start_y + big_font_size + small_font_size + 206, placeLength))
+                .setBoxBorder(7)
+                .setCornerRounding(305)
+                .setRotation(true);
+        }
 
         box.setRenderInstructions(render_sched);
     }
 
     static SINGLE_LONG  = "s_l";
     static SINGLE_WIDE  = "s_w";
+    static SINGLE_BALL  = "s_b";
     static MARRIED_WIDE = "m";
 }

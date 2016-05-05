@@ -30,14 +30,14 @@ class MiniBoxStyle implements IBoxStyler{
             .setDefTextSize(big_font_size)
             .setAltTextSize(small_font_size)
             .setBoxBorder(2)
-            .setNodeName(new Instruction(start_x, start_y+2, 18))
-            .setNodeBDate(new Instruction(start_x + 104, start_y - 4,dateLength))
-            .setNodeBPlace(new Instruction(start_x + 159, start_y - 4,placeLength))
-            .setNodeDDate(new Instruction(start_x + 104, start_y + small_font_size - 3,dateLength))
-            .setNodeDPlace(new Instruction(start_x + 159, start_y + small_font_size - 3,placeLength));
+            .setNodeName(new Instruction(start_x, start_y+2, 17))
+            .setNodeBDate(new Instruction(start_x + 107, start_y - 4,dateLength))
+            .setNodeBPlace(new Instruction(start_x + 162, start_y - 4,placeLength))
+            .setNodeDDate(new Instruction(start_x + 107, start_y + small_font_size - 3,dateLength))
+            .setNodeDPlace(new Instruction(start_x + 162, start_y + small_font_size - 3,placeLength));
 
 
-        box.setWidth(250);
+        box.setWidth(255);
 
         if(flavor_key === MiniBoxStyle.MARRIED){
             // Married Flavor

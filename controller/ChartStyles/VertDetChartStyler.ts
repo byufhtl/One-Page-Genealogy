@@ -18,7 +18,7 @@ class VertDetChartStyler extends AbstractChartStyle{
             case 0:
                 branchBox.setX(0);
                 branchBox.setType(StyleManager.LARGE);
-                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_WIDE);
+                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_BALL);
                 break;
             case 1:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth()/2);
