@@ -12,7 +12,7 @@ class HugeBoxStyle implements IBoxStyler{
     getName(){return StyleManager.HUGE;}
 
     applyStyleTo(box :IBox, flavor_key :string){
-        var start_x = 100;
+        var start_x = 5;
         var start_y = 53;
         var s_start_x = 625;
         var s_start_y = 53;
@@ -22,32 +22,33 @@ class HugeBoxStyle implements IBoxStyler{
         var dateLength = 18;
         var placeLength = 18;
 
-        if(!PictureManager.hasPicture(box.getNode().getId())) {
-            start_x -= 95;
-        }
 
         // Basic data
         var render_sched = new RenderInstructionSchedule().setFlavorKey(flavor_key);
 
         render_sched
             .setDefTextSize(big_font_size)
-            .setAltTextSize(small_font_size)
-            .setPicturePlace(new Instruction(start_x - 95, start_y))
-            .setPictureDim(new Instruction(90,90))
-            .setNodeName(new Instruction(start_x, start_y, nameLength))
-            .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 10, dateLength))
-            .setNodeBPlace(new Instruction(start_x + 120,start_y + big_font_size + 10, placeLength))
-            .setNodeDDate(new Instruction(start_x,start_y + big_font_size + small_font_size + 20, dateLength))
-            .setNodeDPlace(new Instruction(start_x + 120,start_y + big_font_size + small_font_size + 20, placeLength))
-            .setRotation(true);
-
-        box.setWidth(300);
+            .setAltTextSize(small_font_size);
 
         if(flavor_key === HugeBoxStyle.MARRIED){
             // Married Flavor
 
             box.setHeight(1000);
+            box.setWidth(300);
+
+            if(!(box.getNode().getAttr("profilePicturePromise"))) {
+                start_x -= 275;
+            }
+
             //render_sched
+            //    .setPicturePlace(new Instruction(start_x - 95, start_y))
+            //    .setPictureDim(new Instruction(90,90))
+            //    .setNodeName(new Instruction(start_x, start_y, nameLength))
+            //    .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 10, dateLength))
+            //    .setNodeBPlace(new Instruction(start_x + 120,start_y + big_font_size + 10, placeLength))
+            //    .setNodeDDate(new Instruction(start_x,start_y + big_font_size + small_font_size + 20, dateLength))
+            //    .setNodeDPlace(new Instruction(start_x + 120,start_y + big_font_size + small_font_size + 20, placeLength))
+            //    .setRotation(true);
             //    .addInstruction(RenderInstructionSchedule.S_PICTURE,s_start_x - 95,s_start_y)
             //    .addInstruction(RenderInstructionSchedule.S_NAME,s_start_x,s_start_y)
             //    .addInstruction(RenderInstructionSchedule.S_B_DATE,s_start_x,s_start_y + big_font_size + 10)
@@ -59,7 +60,25 @@ class HugeBoxStyle implements IBoxStyler{
         }
         else{
             // Single Flavor
-            box.setHeight(750);
+            box.setHeight(830);
+            box.setWidth(300);
+
+            start_x = 5;
+            start_y = 53;
+
+            if(box.getNode().getAttr("profilePicturePromise")) {
+                start_x += 275;
+            }
+
+            render_sched
+                .setPicturePlace(new Instruction(start_x - 275, start_y))
+                .setPictureDim(new Instruction(270,270))
+                .setNodeName(new Instruction(start_x, start_y, nameLength))
+                .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 10, dateLength))
+                .setNodeBPlace(new Instruction(start_x + 222,start_y + big_font_size + 10, placeLength))
+                .setNodeDDate(new Instruction(start_x,start_y + big_font_size + small_font_size + 20, dateLength))
+                .setNodeDPlace(new Instruction(start_x + 222,start_y + big_font_size + small_font_size + 20, placeLength))
+                .setRotation(true);
         }
 
         box.setRenderInstructions(render_sched);

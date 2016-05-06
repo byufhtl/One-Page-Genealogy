@@ -24,6 +24,7 @@
 ///<reference path="ChartStyles/VertDetAccentChartStyler.ts"/>
 ///<reference path="ChartStyles/VertDetChartStyler.ts"/>
 ///<reference path="ChartStyles/BubbleChartStyler.ts"/>
+///<reference path="ChartStyles/VariableDepthChartStyler.ts"/>
 ///<reference path="ChartStyles/ElevenSeventeenChartStyler.ts"/>
 ///<reference path="ChartStyles/ExtendedChartStyler.ts"/>
 
@@ -31,6 +32,8 @@
 ///<reference path="ColorSpacers/ColorSpacer.ts"/>
 ///<reference path="ColorSpacers/AscColorSpacer.ts"/>
 ///<reference path="ColorSpacers/AscBlackoutColorSpacer.ts"/>
+///<reference path="ColorSpacers/AscBoldColorSpacer.ts"/>
+///<reference path="ColorSpacers/AscGreyscaleColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenColorVibrantSpacer.ts"/>
 ///<reference path="ColorSpacers/GenWoodSpacer.ts"/>
@@ -500,6 +503,9 @@ class P implements IControllerListener, ITreeListener {
             case 'bubble-style':
                 style = new BubbleChartStyler();
                 break;
+            case 'var-depth-style':
+                style = new VariableDepthChartStyler();
+                break;
             case 'eight-eleven-style':
                 style = new EightElevenChartStyler();
                 break;
@@ -558,8 +564,22 @@ class P implements IControllerListener, ITreeListener {
                     style = new AscBlackoutColorSpacer();
                 }
                 break;
-            case 'to-generation-color':
-                style = new GenColorSpacer();
+            case 'to-branch-color-bold':
+                if(this.c.dscOrAsc == "descendancy") {
+                    style = new ColorSpacer();
+                }
+                else{
+                    style = new AscBoldColorSpacer();
+                }
+                break;
+            case 'to-branch-color-gray':
+                style = new AscGreyscaleColorSpacer();
+                break;
+            case 'to-generation-color-warm':
+                style = new GenColorSpacer(GenColorSpacer.WARM);
+                break;
+            case 'to-generation-color-cold':
+                style = new GenColorSpacer(GenColorSpacer.COLD);
                 break;
             case 'to-generation-color-vibrant':
                 style = new GenColorVibrantSpacer();

@@ -56,20 +56,20 @@ class ElevenSeventeenChartStyler extends AbstractChartStyle{
             case 0:
                 branchBox.setX(0);
                 branchBox.setType(StyleManager.LARGE);
-                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_LONG);
+                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_WIDE);
                 break;
             case 1:
-                branchBox.setX(parentBox.getX() + 220);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth());
                 branchBox.setType(StyleManager.MEDIUM);
                 StyleManager.stylize(branchBox, MediumBoxStyle.SINGLE_WIDE);
                 break;
             case 2:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() / 2 + 20);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() /*/ 2*/ + 20);
                 branchBox.setType(StyleManager.SMALL);
                 StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
                 break;
             case 3:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() / 2 + 20);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() /*/ 2*/ + 20);
                 branchBox.setType(StyleManager.SMALL);
                 StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
                 break;
@@ -80,8 +80,8 @@ class ElevenSeventeenChartStyler extends AbstractChartStyle{
                 break;
             case 5:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
-                branchBox.setType(StyleManager.MINI);
-                StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
+                branchBox.setType(StyleManager.SMALL);
+                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
                 break;
             default:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);

@@ -52,7 +52,7 @@ class GenderColorSpacer extends AbstractStyler{
             box.setColor(ColorManager.pink());
         }
         else{
-            box.setColor(ColorManager.gray());
+            box.setColor(ColorManager.lightgray());
         }
     }
 }

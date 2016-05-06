@@ -21,19 +21,19 @@ class FamilyReunionChartStyler extends AbstractChartStyle{
                 StyleManager.stylize(branchBox, EnrBoxStyle.SINGLE);
                 break;
             case 1:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth()+30);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 30);
                 branchBox.setType(StyleManager.HUGE);
                 StyleManager.stylize(branchBox, HugeBoxStyle.SINGLE);
                 break;
             case 2:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth()/2);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.LARGE);
                 StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_WIDE);
                 break;
             case 3:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 30);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 48);
                 branchBox.setType(StyleManager.MEDIUM);
-                StyleManager.stylize(branchBox,MediumBoxStyle.SINGLE_LONG);
+                StyleManager.stylize(branchBox,MediumBoxStyle.SINGLE_WIDE);
                 break;
             case 4:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 30);

@@ -12,7 +12,7 @@ class EnrBoxStyle implements IBoxStyler{
     getName(){return StyleManager.ENORMOUS;}
 
     applyStyleTo(box :IBox, flavor_key :string){
-        var start_x = 260;
+        var start_x = 25;
         var start_y = 60;
         var s_start_x = 910;
         var s_start_y = 60;
@@ -22,32 +22,33 @@ class EnrBoxStyle implements IBoxStyler{
         var dateLength = 18;
         var placeLength = 18;
 
-        if(!PictureManager.hasPicture(box.getNode().getId())) {
-            start_x -= 255;
-        }
 
         // Basic data
         var render_sched = new RenderInstructionSchedule().setFlavorKey(flavor_key);
 
         render_sched
             .setDefTextSize(big_font_size)
-            .setAltTextSize(small_font_size)
-            .setPicturePlace(new Instruction(start_x - 255, start_y))
-            .setPictureDim(new Instruction(250,250))
-            .setNodeName(new Instruction(start_x, start_y, nameLength))
-            .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 10, dateLength))
-            .setNodeBPlace(new Instruction(start_x + 240, start_y + big_font_size + 10, placeLength))
-            .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 20, dateLength))
-            .setNodeDPlace(new Instruction(start_x + 240, start_y + big_font_size + small_font_size + 20, placeLength))
-            .setRotation(true);
-
-        box.setWidth(350);
+            .setAltTextSize(small_font_size);
 
         if(flavor_key === EnrBoxStyle.MARRIED){
             // Married Flavor
 
             box.setHeight(2400);
+            box.setWidth(350);
+
+            if(!(box.getNode().getAttr("profilePicturePromise"))) {
+                start_x -= 255;
+            }
+
             //render_sched
+            //    .setPicturePlace(new Instruction(start_x - 255, start_y))
+            //    .setPictureDim(new Instruction(250,250))
+            //    .setNodeName(new Instruction(start_x, start_y, nameLength))
+            //    .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 10, dateLength))
+            //    .setNodeBPlace(new Instruction(start_x + 240, start_y + big_font_size + 10, placeLength))
+            //    .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 20, dateLength))
+            //    .setNodeDPlace(new Instruction(start_x + 240, start_y + big_font_size + small_font_size + 20, placeLength))
+            //    .setRotation(true)
             //    .addInstruction(RenderInstructionSchedule.S_PICTURE, s_start_x - 255, s_start_y)
             //    .addInstruction(RenderInstructionSchedule.S_NAME, s_start_x, 5)
             //    .addInstruction(RenderInstructionSchedule.S_B_DATE, s_start_x, start_y + big_font_size + 10)
@@ -60,6 +61,21 @@ class EnrBoxStyle implements IBoxStyler{
         else{
             // Single Flavor
             box.setHeight(1200);
+            box.setWidth(350);
+
+            if(box.getNode().getAttr("profilePicturePromise")) {
+                start_x += 255;
+            }
+
+            render_sched
+                .setPicturePlace(new Instruction(start_x, start_y))
+                .setPictureDim(new Instruction(250,250))
+                .setNodeName(new Instruction(start_x, start_y, nameLength))
+                .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 10, dateLength))
+                .setNodeBPlace(new Instruction(start_x + 240, start_y + big_font_size + 10, placeLength))
+                .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 20, dateLength))
+                .setNodeDPlace(new Instruction(start_x + 240, start_y + big_font_size + small_font_size + 20, placeLength))
+                .setRotation(true);
         }
 
         box.setRenderInstructions(render_sched);

@@ -53,7 +53,7 @@ class GenWoodSpacer extends AbstractStyler{
     private setBasedOnGeneration(childBox: IBox, generation: number) {
         switch(generation%3){
             case 0:
-                childBox.setColor(ColorManager.gray());
+                childBox.setColor(ColorManager.lightgray());
                 break;
             case 1:
                 childBox.setColor(ColorManager.lightbrown());

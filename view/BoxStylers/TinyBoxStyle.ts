@@ -49,7 +49,9 @@ class TinyBoxStyle implements IBoxStyler{
                 .setNodeSpan(new Instruction(start_x + 105, start_y, null));
         }
         else{
-            console.log("Bad flavor in tiny box for [" + box.getNode().getAttr("name") + "], [" + flavor_key + "]!");
+            //console.log("Bad flavor in tiny box for [" + box.getNode().getAttr("name") + "], [" + flavor_key + "]!");
+            render_sched
+                .setNodeName(new Instruction(start_x,start_y,17));
         }
 
         box.setRenderInstructions(render_sched);

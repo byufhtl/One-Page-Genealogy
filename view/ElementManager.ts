@@ -84,7 +84,7 @@ class ElementManager implements IElementManager {
             return true;
         }
 
-        return PictureManager.UPDATE;
+        return false;
     }
     private needsMove(box: IBox): boolean {
         var element: IElement = this.elementMap[box.getNode().getId()];

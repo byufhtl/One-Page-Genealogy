@@ -13,7 +13,7 @@ class LargeBoxStyle implements IBoxStyler{
     getName(){return StyleManager.LARGE;}
 
     applyStyleTo(box :IBox, flavor_key :string){
-        var start_x = 320;
+        var start_x = 15;
         var start_y = 45;
         var s_start_x = 440;
         var s_start_y = 45;
@@ -23,7 +23,7 @@ class LargeBoxStyle implements IBoxStyler{
         var dateLength = 16;
         var placeLength = 16;
 
-        if(!PictureManager.hasPicture(box.getNode().getId())) {
+        if(!(box.getNode().getAttr("profilePicturePromise"))) {
             start_x -= 145;
         }
 
@@ -32,26 +32,26 @@ class LargeBoxStyle implements IBoxStyler{
 
         render_sched
             .setDefTextSize(big_font_size)
-            .setAltTextSize(small_font_size)
-            .setPicturePlace(new Instruction(start_x - 155, start_y))
-            .setPictureDim(new Instruction(150,150))
-            .setNodeName(new Instruction(start_x,start_y, nameLength))
-            .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 8, dateLength))
-            .setNodeBPlace(new Instruction(start_x + 140, start_y + big_font_size + 8, placeLength))
-            .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 16, dateLength))
-            .setNodeDPlace(new Instruction(start_x + 140,start_y + big_font_size + small_font_size + 16, placeLength))
-            .setRotation(true);
+            .setAltTextSize(small_font_size);
 
         if(flavor_key === LargeBoxStyle.MARRIED_WIDE){
             // Married Flavor
             box.setHeight(890);
             box.setWidth(225);
 
-            if(!PictureManager.hasPicture(box.getNode().getId())) {
+            if(!(box.getNode().getAttr("profilePicturePromise"))) {
                 s_start_x -= 155;
             }
 
             //render_sched
+            //    .setPicturePlace(new Instruction(start_x - 155, start_y))
+            //    .setPictureDim(new Instruction(150,150))
+            //    .setNodeName(new Instruction(start_x,start_y, nameLength))
+            //    .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 8, dateLength))
+            //    .setNodeBPlace(new Instruction(start_x + 140, start_y + big_font_size + 8, placeLength))
+            //    .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 16, dateLength))
+            //    .setNodeDPlace(new Instruction(start_x + 140,start_y + big_font_size + small_font_size + 16, placeLength))
+            //    .setRotation(true);
             //    .addInstruction(RenderInstructionSchedule.S_PICTURE,s_start_x - 155,s_start_y)
             //    .addInstruction(RenderInstructionSchedule.S_NAME,s_start_x,s_start_y)
             //    .addInstruction(RenderInstructionSchedule.S_B_DATE,s_start_x,s_start_y + big_font_size + 8)
@@ -66,8 +66,11 @@ class LargeBoxStyle implements IBoxStyler{
             box.setHeight(610);
             box.setWidth(225);
 
-            if(!PictureManager.hasPicture(box.getNode().getId())) {
-                start_x -= 145;
+            var start_x = 15;
+            var start_y = 45;
+
+            if(box.getNode().getAttr("profilePicturePromise")) {
+                start_x += 150;
             }
 
             render_sched
@@ -75,9 +78,9 @@ class LargeBoxStyle implements IBoxStyler{
                 .setPictureDim(new Instruction(150,150))
                 .setNodeName(new Instruction(start_x,start_y, nameLength))
                 .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 8, dateLength))
-                .setNodeBPlace(new Instruction(start_x + 140, start_y + big_font_size + 8, placeLength))
+                .setNodeBPlace(new Instruction(start_x + 148, start_y + big_font_size + 8, placeLength))
                 .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 16, dateLength))
-                .setNodeDPlace(new Instruction(start_x + 140,start_y + big_font_size + small_font_size + 16, placeLength))
+                .setNodeDPlace(new Instruction(start_x + 148,start_y + big_font_size + small_font_size + 16, placeLength))
                 .setRotation(true);
         }
         else if(flavor_key === LargeBoxStyle.SINGLE_LONG){
@@ -88,8 +91,8 @@ class LargeBoxStyle implements IBoxStyler{
             box.setY(box.getY() - 305); // Shift the box down.
             box.setX(box.getX() - 112); // Shift the box over.
 
-            if(!PictureManager.hasPicture(box.getNode().getId())) {
-                start_x -= 145;
+            if(box.getNode().getAttr("profilePicturePromise")) {
+                start_x += 145;
             }
 
             render_sched
@@ -110,8 +113,8 @@ class LargeBoxStyle implements IBoxStyler{
             box.setY(box.getY() - 262); // Shift the box down.
             box.setX(box.getX() - 262); // Shift the box over.
 
-            if(!PictureManager.hasPicture(box.getNode().getId())) {
-                start_x -= 145;
+            if(box.getNode().getAttr("profilePicturePromise")) {
+                start_x += 145;
             }
 
             render_sched

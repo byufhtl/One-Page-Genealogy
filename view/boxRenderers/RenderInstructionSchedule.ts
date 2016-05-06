@@ -78,7 +78,7 @@ class RenderInstructionSchedule{
     }
 
 
-    // Node (8)
+    // Node (9)
     public setNodeName(i :Instruction) :RenderInstructionSchedule{
         this.nodeInstructions[RenderInstructionSchedule.NAME] = i;
         return this;
@@ -119,7 +119,12 @@ class RenderInstructionSchedule{
         return this;
     }
 
-    // Spouse (8)
+    public setPictureLoaded(loaded :boolean) :RenderInstructionSchedule{
+        this.boxInstructions[RenderInstructionSchedule.PICTURE_LOADED] = loaded;
+        return this;
+    }
+
+    // Spouse (9)
     public setSpouseName(i :Instruction) :RenderInstructionSchedule{
         this.spouseInstructions[RenderInstructionSchedule.S_NAME] = i;
         return this;
@@ -157,6 +162,11 @@ class RenderInstructionSchedule{
 
     public setSpousePictureDim(i :Instruction) :RenderInstructionSchedule{
         this.pictureInstructions[RenderInstructionSchedule.S_PICTURE_DIM] = i;
+        return this;
+    }
+
+    public setSpousePictureLoaded(loaded :boolean) :RenderInstructionSchedule{
+        this.boxInstructions[RenderInstructionSchedule.S_PICTURE_LOADED] = loaded;
         return this;
     }
 
@@ -205,8 +215,13 @@ class RenderInstructionSchedule{
 
     // Box, Text, Rotation (8)
     public getFlavorKey() :string{
-        console.log("Flavor key requested: " + this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY]);
-        return this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY];
+        if(!this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY]) {
+            console.log("Flavor key will fail: " + this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY]);
+            return null;
+        }
+        else {
+            return this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY];
+        }
     }
 
     public getBorderWidth() :number{
@@ -241,7 +256,7 @@ class RenderInstructionSchedule{
         return this.textInstructions[RenderInstructionSchedule.ALT_FONT_SIZE];
     }
 
-    // Node (8)
+    // Node (9)
     public getNameInstruction() :Instruction{
         if(RenderInstructionSchedule.NAME in this.nodeInstructions){
             return this.nodeInstructions[RenderInstructionSchedule.NAME];
@@ -298,7 +313,17 @@ class RenderInstructionSchedule{
         return null;
     }
 
-    // Spouse (8)
+    /**
+     * @returns {boolean} true if the toggle has been set to true, false otherwise.
+     */
+    public getPictureLoaded() :boolean{
+        if(this.boxInstructions[RenderInstructionSchedule.PICTURE_LOADED]){
+            return true;
+        }
+        return false;
+    }
+
+    // Spouse (9)
     public getSpouseNameInstruction() :Instruction{
         if(RenderInstructionSchedule.S_NAME in this.spouseInstructions){
             return this.spouseInstructions[RenderInstructionSchedule.S_NAME];
@@ -353,6 +378,13 @@ class RenderInstructionSchedule{
             return this.pictureInstructions[RenderInstructionSchedule.S_PICTURE_DIM];
         }
         return null;
+    }
+
+    /**
+     * @returns {boolean} true if the toggle has been set to true, false otherwise.
+     */
+    public getSpousePictureLoaded() :boolean{
+        return <boolean>this.boxInstructions[RenderInstructionSchedule.S_PICTURE_LOADED];
     }
 
     // Marriage (2)
@@ -431,7 +463,7 @@ class RenderInstructionSchedule{
     static D_DATE = "d_d";
     static D_PLACE = "d_p";
     static LIFE_SPAN = "life_span";
-    static PICTURE_STATUS = "pic_stat"; // used to track the picture status.
+    static PICTURE_LOADED = "pic_stat"; // used to track the picture status.
 
     static S_NAME = "s_name";
     static S_PICTURE = "s_pic";
@@ -440,7 +472,7 @@ class RenderInstructionSchedule{
     static S_D_DATE = "s_d_d";
     static S_D_PLACE = "s_d_p";
     static S_LIFE_SPAN = "s_life_span";
-    static S_PICTURE_STATUS = "pic_stat"; // used to track the picture status.
+    static S_PICTURE_LOADED = "pic_stat"; // used to track the picture status.
 
     static M_DATE = "m_d";
     static M_PLACE = "m_p";

@@ -12,7 +12,7 @@ class MediumBoxStyle implements IBoxStyler{
     getName(){return StyleManager.MEDIUM;}
 
     applyStyleTo(box :IBox, flavor_key :string){
-        var start_x = 85;
+        var start_x = 5;
         var start_y = 29;
         var s_start_x = 80;
         var s_start_y = 219;
@@ -42,7 +42,7 @@ class MediumBoxStyle implements IBoxStyler{
             box.setHeight(325);
             box.setWidth(360);
 
-            if(!PictureManager.hasPicture(box.getNode().getId())) {
+            if(!(box.getNode().getAttr("profilePicturePromise"))) {
                 start_x -= 65;
                 s_start_x -= 65;
             }
@@ -68,42 +68,39 @@ class MediumBoxStyle implements IBoxStyler{
         }
         else if(flavor_key === MediumBoxStyle.SINGLE_WIDE){
 
+            //console.log("MED::SINGLE_WIDE on [" + box.getNode().getAttr("name").toString() + "] @ pre-render with key [" + box.getRenderInstructions().getFlavorKey() + "]");
+
             box.setHeight(380);
             box.setWidth(130);
             box.setY(box.getY() - 190); // Shift the box down.
             box.setX(box.getX() - 65); // Shift the box over.
 
-            start_x = 25;
-            start_y = 94;
+            start_x = 93;
+            start_y = 29;
 
-            if (!PictureManager.hasPicture(box.getNode().getId())) {
-                start_y -= 65;
+            if (!(box.getNode().getAttr("profilePicturePromise"))) {
+                start_x -= 80;
             }
 
             render_sched
-                .setPicturePlace(new Instruction(start_x - 20, start_y - 80))
+                .setPicturePlace(new Instruction(start_x - 80, start_y - 20))
                 .setPictureDim(new Instruction(75, 75))
-                .setRotation(true)
-
                 .setNodeName(new Instruction(start_x, start_y, nameLength))
                 .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
                 .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
                 .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
-                .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength));
-                //.setNodeName(new Instruction(start_x, start_y, nameLength))
-                //.setNodeBDate(new Instruction(start_x + big_font_size, start_y, dateLength))
-                //.setNodeBPlace(new Instruction(start_x + big_font_size, start_y + 80, placeLength))
-                //.setNodeDDate(new Instruction(start_x + big_font_size + small_font_size - 2, start_y, dateLength))
-                //.setNodeDPlace(new Instruction(start_x + big_font_size + small_font_size - 2, start_y + 80, placeLength));
+                .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength))
+                .setRotation(true);
 
+            //console.log(JSON.stringify(render_sched.getNameInstruction()) + " on [" + box.getNode().getAttr("name").toString() + "] @ post-render");
         }
         else if(flavor_key === MediumBoxStyle.SINGLE_LONG){
 
             box.setHeight(130);
             box.setWidth(380);
 
-            if (!PictureManager.hasPicture(box.getNode().getId())) {
-                start_x -= 65;
+            if (box.getNode().getAttr("profilePicturePromise")) {
+                start_x += 80;
             }
 
             render_sched
@@ -124,8 +121,8 @@ class MediumBoxStyle implements IBoxStyler{
             start_y = 150;
             nameLength = 15;
 
-            if (!PictureManager.hasPicture(box.getNode().getId())) {
-                start_x -= 65;
+            if (box.getNode().getAttr("profilePicturePromise")) {
+                start_x += 80;
             }
 
             render_sched
@@ -141,7 +138,9 @@ class MediumBoxStyle implements IBoxStyler{
                 .setRotation(true);
         }
         else{
-
+            console.log("Bad flavor in medium box for [" + box.getNode().getAttr("name") + "], [" + flavor_key + "]!");
+            render_sched
+                .setNodeName(new Instruction(start_x,start_y,17));
         }
 
 

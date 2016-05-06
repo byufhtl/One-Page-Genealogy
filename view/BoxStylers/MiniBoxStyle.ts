@@ -88,7 +88,7 @@ class MiniBoxStyle implements IBoxStyler{
         else{
 
         }
-        console.log(render_sched.toString());
+        //console.log(render_sched.toString());
 
         box.setRenderInstructions(render_sched);
     }

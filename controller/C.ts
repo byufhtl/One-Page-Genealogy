@@ -404,6 +404,9 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'bubble-style') {
             this.p.handle({type: key});
         }
+        else if (key === 'var-depth-style') {
+            this.p.handle({type: key});
+        }
         else if (key === 'eight-eleven-style') {
             this.p.handle({type: key});
         }
@@ -431,7 +434,16 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'to-branch-color-blackout') {
             this.p.handle({type: key});
         }
-        else if (key === 'to-generation-color') {
+        else if (key === 'to-branch-color-bold') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'to-branch-color-gray') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'to-generation-color-warm') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'to-generation-color-cold') {
             this.p.handle({type: key});
         }
         else if (key === 'to-generation-color-vibrant') {

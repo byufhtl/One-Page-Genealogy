@@ -12,17 +12,19 @@ class ColorManager {
                         //____COLOR_____OLD_VALUE____
             "#D9ABFF"   // 0) Purple    "#D9ABFF"
         ,   "#ABE4FF"   // 1) Blue      "#ABE4FF"
-        ,   "#80E883"   // 2) Green     "#DEFFB7"
+        ,   "#9DED9F"   // 2) Green     "#DEFFB7"
         ,   "#FFFFAF"   // 3) Yellow    "#FFFFAF"
         ,   "#FDDCAF"   // 4) Orange
         ,   "#FFB8AF"   // 5) Red       "#FFB8AF"
         ,   "#ffccff"   // 6) Pink
-        ,   "#E5E5E5"   // 7) Gray
+        ,   "#E5E5E5"   // 7) Light Gray
         ,   "#C89A8A"   // 8) Light Brown
         ,   "#A597A1"   // 9) Dark Brown
         ,   "#2C3E50"   // 10) OPG Blue
         ,   "#FFFFFF"   // 11) White
         ,   "#000000"   // 12) Black
+        ,   "#BABABA"   // 13) Medium Gray
+        ,   "#636363"   // 14) Dark Gray
     ];
 
     /**
@@ -82,9 +84,9 @@ class ColorManager {
     }
 
     /**
-     * @returns {string} a hex-encoded color value for the standard OPG gray
+     * @returns {string} a hex-encoded color value for the standard OPG lightgray
      */
-    static gray() : string{
+    static lightgray() : string{
         return this.boxColors[7];
     }
 
@@ -121,6 +123,20 @@ class ColorManager {
      */
     static black() : string{
         return this.boxColors[12];
+    }
+
+    /**
+     * @returns {string} a hex-encoded color value for the standard OPG medium lightgray
+     */
+    static mediumgray() : string{
+        return this.boxColors[13];
+    }
+
+    /**
+     * @returns {string} a hex-encoded color value for the standard OPG dark lightgray
+     */
+    static darkgray() : string{
+        return this.boxColors[14];
     }
 
     /**

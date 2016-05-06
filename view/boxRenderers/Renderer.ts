@@ -1,7 +1,6 @@
 ///<reference path="../../model/IBox.ts"/>
 ///<reference path="../ColorManager.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
-///<reference path="../PictureManager.ts"/>
 ///<reference path="StyleManager.ts"/>
 /**
  * Created by calvinmcm on 4/14/16.
@@ -63,9 +62,9 @@ class Renderer{
         var small_font = ris.getAltTextSize();
 
         // Reject if collapsed
-        if (box.isCollapsed()) {
-            return g;
-        }
+        //if (box.isCollapsed()) {
+        //    return g;
+        //}
 
         if (rootElement) {
             rootElement.appendChild(g);
@@ -151,10 +150,7 @@ class Renderer{
         var pic_p = ris.getPicturePlaceInstruction();
         var pic_d = ris.getPictureDimInstruction();
         if(pic_p != null && pic_d != null) {
-            var pic_loaded = Renderer.renderPicture(box, node);
-            if(pic_loaded){
-                g.appendChild(pic_loaded);
-            }
+            Renderer.renderPicture(box, node,g);
         }
 
         //~~~ NAME SETUP ~~~
@@ -163,11 +159,23 @@ class Renderer{
         var name_p = ris.getNameInstruction();
         //console.log(name_x,name_y);
         var name = node.getAttr('name');
-        if(name_p != null && name){ // Check for non-null result
+        if(name_p != null && name_p != undefined && name){ // Check for non-null result
             gt.appendChild(Renderer.renderName(name, name_p.getX(), name_p.getY(), big_font, text_color, name_p.getL(), ris.isRotated(), node.isMainPerson()));
         }
         else{
-            console.log("No Name Instructions for [" + name + "]");
+            if(name_p == null) {
+                // if for some reason there was some failure in obtaining the name rendering information, restylize and queue a recursive re-rendering.
+                // this will, of course, break if there is actually no name rendering information in the box style.
+                //console.log("No Name Instructions for [" + name + "]");
+                //StyleManager.stylize(box, box.getRenderInstructions().getFlavorKey());
+                //return Renderer.renderBox(box, rootElement);
+                console.log("null name instruction on [" + node.getAttr("name") + "]");
+            }
+            if(name_p == undefined){
+                console.log("undef name instruction on [" + node.getAttr("name") + "]");
+            }
+            //console.log("name instruction on [" + node.getAttr("name") + "] = [" + name_p + "]");
+            //console.log("FLAVOR_KEY() on [" + node.getAttr("name") + "] = [" + ris.getFlavorKey() + "]");
         }
 
         //~~~ BIRTH DATE SETUP ~~~
@@ -413,7 +421,7 @@ class Renderer{
      * @param node the node being rendered
      * @returns {Element} the svg picture element (null if no picture exists or has been loaded into the PictureManager)
      */
-    private static renderPicture(box : IBox, node :INode) :Element{
+    private static renderPicture(box : IBox, node :INode, g :Element) :Element{
         var ris = box.getRenderInstructions();
 
         var pictureDim = ris.getPictureDimInstruction();
@@ -433,12 +441,69 @@ class Renderer{
         }
         if(pic_w && pic_h) {
 
-            var svgimg = PictureManager.getPicture(node.getId(), pic_x.toString(), pic_y.toString(), pic_w.toString(), pic_h.toString());
-            if(svgimg) {
-                if(<boolean>ris.isRotated()){
-                    svgimg.setAttribute("transform","translate(0, "+ (box.getHeight()-2)+") rotate(-90 0,0)");
-                }
-                return svgimg;
+            var longer = (pic_w > pic_h) ? pic_w : pic_h;
+            var cornerRounding = (longer/5).toString();
+
+            var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+            clippath.setAttribute('id', 'clip-'+node.getId());
+            g.appendChild(clippath);
+            var cliprect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            cliprect.setAttribute('width', pic_w.toString());
+            cliprect.setAttribute('height', pic_h.toString());
+            cliprect.setAttribute('rx', cornerRounding);
+            cliprect.setAttribute('ry', cornerRounding);
+            cliprect.setAttribute('x', pic_x.toString());
+            cliprect.setAttribute('y', pic_y.toString());
+
+            clippath.appendChild(cliprect);
+
+            if(node.hasAttr('profilePicturePromise')) {
+                box.getRenderInstructions().setPictureLoaded(true);
+                var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
+                cliprect.setAttribute('width', pic_w.toString());
+                cliprect.setAttribute('height', pic_h.toString());
+                svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.svg');
+                cliprect.setAttribute('x', pic_x.toString());
+                cliprect.setAttribute('y', pic_y.toString());
+                svgimg.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
+                g.appendChild(svgimg);
+                node.getAttr('profilePicturePromise').then(function(response) {
+                    if(!response) {
+                        g.removeChild(svgimg);
+                        box.getRenderInstructions().setPictureLoaded(false);
+                        return;
+                    }
+
+                    //console.log("Rendering picture...");
+
+                    var svgimg2 = document.createElementNS('http://www.w3.org/2000/svg','image');
+                    svgimg2.setAttribute('width', pic_w.toString());
+                    svgimg2.setAttribute('height', pic_h.toString());
+                    svgimg2.setAttribute('x', pic_x.toString());
+                    svgimg2.setAttribute('y', pic_y.toString());
+                    svgimg2.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
+
+                    function listener() {
+                        g.removeChild(svgimg);
+                        svgimg2.removeEventListener('load', listener);
+                    }
+                    svgimg2.addEventListener('load', listener);
+                    svgimg2.setAttributeNS('http://www.w3.org/1999/xlink','href',response);
+                    g.appendChild(svgimg2);
+
+                    //console.log("Picture Manager: " + PictureManager.toString());
+
+                    if(box.getRenderInstructions().isRotated()){
+                        svgimg2.setAttribute("transform","translate(0, "+ (box.getHeight()-2)+") rotate(-90 0,0)");
+                    }
+
+                }, function() {
+                    g.removeChild(svgimg);
+                    box.getRenderInstructions().setPictureLoaded(false);
+                });
+            }
+            else{
+                box.getRenderInstructions().setPictureLoaded(false);
             }
 
         }

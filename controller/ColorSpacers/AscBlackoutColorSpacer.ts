@@ -13,7 +13,7 @@ class AscBlackoutColorSpacer extends AbstractStyler {
     }
 
     applyStyle(boxes: BoxMap): void {
-        $("#opg-chart").css('fill','black');
+        $("#opg-chart > g").css('fill','black');
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
 
@@ -54,7 +54,7 @@ class AscBlackoutColorSpacer extends AbstractStyler {
     }
     private setBasedOnBranch(parentBox: IBox, childBox: IBox, generation: number, child: number, numSiblings: number){
         if(!childBox.getNode().hasAttr('name')){
-            childBox.setColor(ColorManager.gray());
+            childBox.setColor(ColorManager.lightgray());
         }else {
             if (generation == 0) {
                 /*if(childBox.getNode().getBranchIds().length>2)

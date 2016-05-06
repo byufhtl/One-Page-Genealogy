@@ -6,10 +6,10 @@
  * Last updated 2/24/2016
  */
 
-class AscColorSpacer extends AbstractStyler {
+class AscBoldColorSpacer extends AbstractStyler {
 
     constructor(){
-        super("AscColorSpacer");
+        super("AscBoldColorSpacer");
     }
 
     applyStyle(boxes: BoxMap): void {
@@ -42,17 +42,21 @@ class AscColorSpacer extends AbstractStyler {
             }
         }
     }
-    private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
-        if(generation == 0) {
-            childBox.setColor(ColorManager.blue());
-        }
-        else {
-            var newColor:number = (parseInt(parentBox.getColor().split("#")[1],16));
-            newColor = newColor-20;
-            var newHex = "#"+newColor.toString(16);
-            childBox.setColor(newHex);
-        }
-    }
+
+    // DEPRECATED CODE =================================================================================================
+    //private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
+    //    if(generation == 0) {
+    //        childBox.setColor(ColorManager.blue());
+    //    }
+    //    else {
+    //        var newColor:number = (parseInt(parentBox.getColor().split("#")[1],16));
+    //        newColor = newColor-20;
+    //        var newHex = "#"+newColor.toString(16);
+    //        childBox.setColor(newHex);
+    //    }
+    //}
+    // END DEPRECATED CODE =============================================================================================
+
     private setBasedOnBranch(parentBox: IBox, childBox: IBox, generation: number, child: number, numSiblings: number){
         if(!childBox.getNode().hasAttr('name')){
             childBox.setColor(ColorManager.lightgray());
@@ -61,14 +65,14 @@ class AscColorSpacer extends AbstractStyler {
                 /*if(childBox.getNode().getBranchIds().length>2)
                  childBox.setColor('#d5bde9');//blue
                  else*/
-                childBox.setColor(ColorManager.purple());
+                childBox.setColor(ColorManager.lighten(ColorManager.purple(),-32));
             }
             else if (generation == 1) {
                 if (child == 0) {
-                    childBox.setColor(ColorManager.blue());
+                    childBox.setColor(ColorManager.lighten(ColorManager.blue(),-32));
                 }
                 else {
-                    childBox.setColor(ColorManager.yellow());
+                    childBox.setColor(ColorManager.lighten(ColorManager.yellow(),-32));
                 }
             }
             else if (generation == 2) {
@@ -78,13 +82,13 @@ class AscColorSpacer extends AbstractStyler {
                 }
 
                 if (child == 0 && gender === 'Male')
-                    childBox.setColor(ColorManager.blue());
+                    childBox.setColor(ColorManager.lighten(ColorManager.blue(),-32));
                 else if (child == 1 && gender === 'Male')
-                    childBox.setColor(ColorManager.green());
+                    childBox.setColor(ColorManager.lighten(ColorManager.green(),-32));
                 else if (child == 0 && gender === 'Female')
-                    childBox.setColor(ColorManager.red());
+                    childBox.setColor(ColorManager.lighten(ColorManager.red(),-32));
                 else if (child == 1 && gender === 'Female')
-                    childBox.setColor(ColorManager.yellow());
+                    childBox.setColor(ColorManager.lighten(ColorManager.yellow(),-32));
             }
             else {
                 childBox.setColor(parentBox.getColor());

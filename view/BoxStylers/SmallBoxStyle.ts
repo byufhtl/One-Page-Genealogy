@@ -1,5 +1,4 @@
 ///<reference path="IBoxStyler.ts"/>
-///<reference path="../PictureManager.ts"/>
 /**
  * Created by calvinmcm on 4/14/16.
  */
@@ -14,7 +13,7 @@ class SmallBoxStyle implements IBoxStyler{
     getName(){return StyleManager.SMALL;}
 
     applyStyleTo(box :IBox, flavor_key :string){
-        var start_x = 65;
+        var start_x = 5;
         var start_y = 21;
         var s_start_x = 165;
         var s_start_y = 21;
@@ -37,7 +36,7 @@ class SmallBoxStyle implements IBoxStyler{
             box.setHeight(100);
             box.setWidth(250);
 
-            if(!PictureManager.hasPicture(box.getNode().getId())) {
+            if(!(box.getNode().getAttr("profilePicturePromise")) ) {
                 start_x -= 60;
                 s_start_x -= 95;
             }
@@ -65,8 +64,8 @@ class SmallBoxStyle implements IBoxStyler{
             box.setWidth(250);
 
 
-            if(!PictureManager.hasPicture(box.getNode().getId())){
-                start_x -= 60;
+            if(box.getNode().getAttr("profilePicturePromise")){
+                start_x += 60;
             }
 
             render_sched
@@ -83,14 +82,15 @@ class SmallBoxStyle implements IBoxStyler{
             box.setHeight(105);
             box.setWidth(190);
 
+            render_sched
+                .setNodeName(new Instruction(start_x, start_y, nameLength));
 
-            if(!PictureManager.hasPicture(box.getNode().getId())){
-                start_x -= 60;
+            if(box.getNode().getAttr("profilePicturePromise")){
+                start_x += 60;
             }
 
             render_sched
-                .setNodeName(new Instruction(start_x, start_y, nameLength))
-                .setPicturePlace(new Instruction(start_x - 60, start_y - 14 + big_font_size)) // picture under name
+                .setPicturePlace(new Instruction(start_x - 60, start_y - 9 + big_font_size)) // picture under name
                 .setPictureDim(new Instruction(55,55,null))
                 .setNodeBDate(new Instruction(start_x, start_y + big_font_size, dateLength))
                 .setNodeBPlace(new Instruction(start_x, start_y + big_font_size + small_font_size +2, placeLength))
@@ -105,7 +105,7 @@ class SmallBoxStyle implements IBoxStyler{
             start_x = 74;
             start_y = 20;
 
-            if(!PictureManager.hasPicture(box.getNode().getId())){
+            if(!(box.getNode().getAttr("profilePicturePromise")) ){
                 start_x -= 60;
             }
 
@@ -127,7 +127,7 @@ class SmallBoxStyle implements IBoxStyler{
             start_x = 85;
             start_y = 95;
 
-            if(!PictureManager.hasPicture(box.getNode().getId())){
+            if(!(box.getNode().getAttr("profilePicturePromise")) ){
                 start_x -= 60;
             }
 

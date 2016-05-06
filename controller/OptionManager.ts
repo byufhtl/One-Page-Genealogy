@@ -59,8 +59,12 @@ class OptionManager implements IOptionManager {
         });
         $('#opg-vertical-style-accent').click(function(){
             self.handleStyleChange('vertical-style-accent');
-        });$('#opg-bubble-style').click(function(){
+        });
+        $('#opg-bubble-style').click(function(){
             self.handleStyleChange('bubble-style');
+        });
+        $('#opg-var-depth-style').click(function(){
+            self.handleStyleChange('var-depth-style');
         });
         $('#opg-eight-eleven-style').click(function(){
             self.handleStyleChange('eight-eleven-style');
@@ -89,8 +93,17 @@ class OptionManager implements IOptionManager {
         $('#opg-to-branch-color-blackout').click(function(){
             self.handleStyleChange('to-branch-color-blackout',false);
         });
-        $('#opg-to-generation-color').click(function(){
-            self.handleStyleChange('to-generation-color',false);
+        $('#opg-to-branch-color-bold').click(function(){
+            self.handleStyleChange('to-branch-color-bold',false);
+        });
+        $('#opg-to-branch-color-gray').click(function(){
+            self.handleStyleChange('to-branch-color-gray',false);
+        });
+        $('#opg-to-generation-color-warm').click(function(){
+            self.handleStyleChange('to-generation-color-warm',false);
+        });
+        $('#opg-to-generation-color-cold').click(function(){
+            self.handleStyleChange('to-generation-color-cold',false);
         });
         $('#opg-to-generation-color-vibrant').click(function(){
             self.handleStyleChange('to-generation-color-vibrant',false);
@@ -301,7 +314,7 @@ class OptionManager implements IOptionManager {
     }
 
     private setCountryColors(boxes:BoxMap):{} {
-        var colorMap = {"Unknown" : ColorManager.gray()};
+        var colorMap = {"Unknown" : ColorManager.lightgray()};
         for (var id in boxes.getMap()) {
             if (boxes.getMap().hasOwnProperty(id)) {
                 var box = boxes.getMap()[id];

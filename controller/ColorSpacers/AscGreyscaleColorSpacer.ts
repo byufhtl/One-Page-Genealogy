@@ -6,10 +6,10 @@
  * Last updated 2/24/2016
  */
 
-class AscColorSpacer extends AbstractStyler {
+class AscGreyscaleColorSpacer extends AbstractStyler {
 
     constructor(){
-        super("AscColorSpacer");
+        super("AscGreyscaleColorSpacer");
     }
 
     applyStyle(boxes: BoxMap): void {
@@ -55,20 +55,26 @@ class AscColorSpacer extends AbstractStyler {
     }
     private setBasedOnBranch(parentBox: IBox, childBox: IBox, generation: number, child: number, numSiblings: number){
         if(!childBox.getNode().hasAttr('name')){
-            childBox.setColor(ColorManager.lightgray());
+            childBox.setColor(ColorManager.mediumgray());
         }else {
             if (generation == 0) {
                 /*if(childBox.getNode().getBranchIds().length>2)
                  childBox.setColor('#d5bde9');//blue
                  else*/
-                childBox.setColor(ColorManager.purple());
+                var gender = <string>childBox.getNode().getAttr('gender');
+                if(gender === 'Male'){
+                    childBox.setColor(ColorManager.mediumgray());
+                }
+                else{
+                    childBox.setColor(ColorManager.white());
+                }
             }
             else if (generation == 1) {
                 if (child == 0) {
-                    childBox.setColor(ColorManager.blue());
+                    childBox.setColor(ColorManager.mediumgray());
                 }
                 else {
-                    childBox.setColor(ColorManager.yellow());
+                    childBox.setColor(ColorManager.white());
                 }
             }
             else if (generation == 2) {
@@ -78,13 +84,13 @@ class AscColorSpacer extends AbstractStyler {
                 }
 
                 if (child == 0 && gender === 'Male')
-                    childBox.setColor(ColorManager.blue());
+                    childBox.setColor(ColorManager.mediumgray());
                 else if (child == 1 && gender === 'Male')
-                    childBox.setColor(ColorManager.green());
+                    childBox.setColor(ColorManager.white());
                 else if (child == 0 && gender === 'Female')
-                    childBox.setColor(ColorManager.red());
+                    childBox.setColor(ColorManager.mediumgray());
                 else if (child == 1 && gender === 'Female')
-                    childBox.setColor(ColorManager.yellow());
+                    childBox.setColor(ColorManager.white());
             }
             else {
                 childBox.setColor(parentBox.getColor());
