@@ -401,6 +401,9 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'vertical-style-accent') {
             this.p.handle({type: key});
         }
+        else if (key === 'bubble-style') {
+            this.p.handle({type: key});
+        }
         else if (key === 'eight-eleven-style') {
             this.p.handle({type: key});
         }

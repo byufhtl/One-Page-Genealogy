@@ -28,22 +28,21 @@ class MiniBoxStyle implements IBoxStyler{
 
         render_sched
             .setDefTextSize(big_font_size)
-            .setAltTextSize(small_font_size)
-            .setBoxBorder(2)
-            .setNodeName(new Instruction(start_x, start_y+2, 17))
-            .setNodeBDate(new Instruction(start_x + 107, start_y - 4,dateLength))
-            .setNodeBPlace(new Instruction(start_x + 162, start_y - 4,placeLength))
-            .setNodeDDate(new Instruction(start_x + 107, start_y + small_font_size - 3,dateLength))
-            .setNodeDPlace(new Instruction(start_x + 162, start_y + small_font_size - 3,placeLength));
-
-
-        box.setWidth(255);
+            .setAltTextSize(small_font_size);
 
         if(flavor_key === MiniBoxStyle.MARRIED){
             // Married Flavor
 
             box.setHeight(70);
+            box.setWidth(255);
+
             render_sched
+                .setBoxBorder(2)
+                .setNodeName(new Instruction(start_x, start_y+2, 17))
+                .setNodeBDate(new Instruction(start_x + 107, start_y - 4,dateLength))
+                .setNodeBPlace(new Instruction(start_x + 162, start_y - 4,placeLength))
+                .setNodeDDate(new Instruction(start_x + 107, start_y + small_font_size - 3,dateLength))
+                .setNodeDPlace(new Instruction(start_x + 162, start_y + small_font_size - 3,placeLength))
 
                 .setSpouseName(new Instruction(s_start_x, s_start_y+2, 18))
                 .setSpouseBDate(new Instruction(s_start_x + 104, s_start_y - 4,dateLength))
@@ -53,15 +52,48 @@ class MiniBoxStyle implements IBoxStyler{
                 .setMarriageDate(new Instruction(75, s_start_y + big_font_size + small_font_size*2 -2,dateLength))
                 .setMarriagePlace(new Instruction(175, s_start_y + big_font_size + small_font_size*2 -2,dateLength))
         }
-        else{
+        else if(flavor_key === MiniBoxStyle.SINGLE){
             // Single Flavor
             box.setHeight(34);
+            box.setWidth(255);
+
+            render_sched
+                .setBoxBorder(2)
+                .setNodeName(new Instruction(start_x, start_y+2, 17))
+                .setNodeBDate(new Instruction(start_x + 107, start_y - 4,dateLength))
+                .setNodeBPlace(new Instruction(start_x + 162, start_y - 4,placeLength))
+                .setNodeDDate(new Instruction(start_x + 107, start_y + small_font_size - 3,dateLength))
+                .setNodeDPlace(new Instruction(start_x + 162, start_y + small_font_size - 3,placeLength));
+        }
+        else if(flavor_key === MiniBoxStyle.SINGLE_BUBBLE){
+            // Single Flavor - Bubble
+            box.setHeight(105);
+            box.setWidth(105);
+
+            start_x = 20;
+            start_y = 38;
+            dateLength = 14;
+            placeLength = 14;
+
+            render_sched
+                .setNodeName(new Instruction(start_x, start_y+2, 15))
+                .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 2,dateLength))
+                .setNodeBPlace(new Instruction(start_x, start_y + big_font_size + small_font_size + 1,placeLength))
+                .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size*2 + 1,dateLength))
+                .setNodeDPlace(new Instruction(start_x, start_y + big_font_size + small_font_size*3 + 1,placeLength))
+                .setBoxBorder(4)
+                .setCornerRounding(52)
+                .setRotation(true);
+        }
+        else{
+
         }
         console.log(render_sched.toString());
 
         box.setRenderInstructions(render_sched);
     }
 
-    static SINGLE  = "s";
-    static MARRIED = "m";
+    static SINGLE        = "s";
+    static SINGLE_BUBBLE = "s_b";
+    static MARRIED       = "m";
 }

@@ -122,6 +122,7 @@ class MediumBoxStyle implements IBoxStyler{
 
             start_x = 122;
             start_y = 150;
+            nameLength = 15;
 
             if (!PictureManager.hasPicture(box.getNode().getId())) {
                 start_x -= 65;

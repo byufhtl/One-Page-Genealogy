@@ -22,6 +22,8 @@
 ///<reference path="ChartStyles/VertDescDetChartStyler.ts"/>
 ///<reference path="ChartStyles/VertDetChartStyler.ts"/>
 ///<reference path="ChartStyles/VertDetAccentChartStyler.ts"/>
+///<reference path="ChartStyles/VertDetChartStyler.ts"/>
+///<reference path="ChartStyles/BubbleChartStyler.ts"/>
 ///<reference path="ChartStyles/ElevenSeventeenChartStyler.ts"/>
 ///<reference path="ChartStyles/ExtendedChartStyler.ts"/>
 
@@ -494,6 +496,9 @@ class P implements IControllerListener, ITreeListener {
                 break;
             case 'vertical-style-accent':
                 style = new VertDetAccentChartStyler();
+                break;
+            case 'bubble-style':
+                style = new BubbleChartStyler();
                 break;
             case 'eight-eleven-style':
                 style = new EightElevenChartStyler();

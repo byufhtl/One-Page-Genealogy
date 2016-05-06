@@ -3,10 +3,10 @@
  * Created by calvinmcm on 4/14/16.
  */
 
-class VertDetChartStyler extends AbstractChartStyle{
+class BubbleChartStyler extends AbstractChartStyle{
 
     constructor(){
-        super("VertDetChartStyler");
+        super("BubbleChartStyler");
     }
 
     setBasedOnGeneration(parentBox :IBox, branchBox :IBox, generation :number) :void{
@@ -18,47 +18,47 @@ class VertDetChartStyler extends AbstractChartStyle{
             case 0:
                 branchBox.setX(0);
                 branchBox.setType(StyleManager.LARGE);
-                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_WIDE);
+                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_BUBBLE);
                 break;
             case 1:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth()/2);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth());
                 branchBox.setType(StyleManager.LARGE);
-                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_WIDE);
+                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_BUBBLE);
                 break;
             case 2:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 80);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth());
                 branchBox.setType(StyleManager.LARGE);
-                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_WIDE);
+                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_BUBBLE);
                 break;
             case 3:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 80);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth()/2);
                 branchBox.setType(StyleManager.MEDIUM);
-                StyleManager.stylize(branchBox, MediumBoxStyle.SINGLE_WIDE);
+                StyleManager.stylize(branchBox, MediumBoxStyle.SINGLE_BUBBLE);
                 break;
             case 4:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
-                branchBox.setType(StyleManager.SMALL);
-                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_WIDE);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth()/2);
+                branchBox.setType(StyleManager.MEDIUM);
+                StyleManager.stylize(branchBox, MediumBoxStyle.SINGLE_BUBBLE);
                 break;
             case 5:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.SMALL);
-                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_WIDE);
+                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_BUBBLE);
                 break;
             case 6:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
-                branchBox.setType(StyleManager.SMALL);
-                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                branchBox.setType(StyleManager.MINI);
+                StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE_BUBBLE);
                 break;
             case 7:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
-                branchBox.setType(StyleManager.SMALL);
-                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
+                branchBox.setType(StyleManager.MINI);
+                StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE_BUBBLE);
                 break;
             default:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.MINI);
-                StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
+                StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE_BUBBLE);
         }
     }
 }

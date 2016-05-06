@@ -59,6 +59,8 @@ class OptionManager implements IOptionManager {
         });
         $('#opg-vertical-style-accent').click(function(){
             self.handleStyleChange('vertical-style-accent');
+        });$('#opg-bubble-style').click(function(){
+            self.handleStyleChange('bubble-style');
         });
         $('#opg-eight-eleven-style').click(function(){
             self.handleStyleChange('eight-eleven-style');
