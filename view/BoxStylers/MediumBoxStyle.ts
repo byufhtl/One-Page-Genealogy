@@ -68,13 +68,13 @@ class MediumBoxStyle implements IBoxStyler{
         }
         else if(flavor_key === MediumBoxStyle.SINGLE_WIDE){
 
-            box.setHeight(330);
-            box.setWidth(100);
-            box.setY(box.getY() - 180); // Shift the box down.
-            box.setX(box.getX() - 50); // Shift the box over.
+            box.setHeight(380);
+            box.setWidth(130);
+            box.setY(box.getY() - 190); // Shift the box down.
+            box.setX(box.getX() - 65); // Shift the box over.
 
-            start_x = 30;
-            start_y = 92;
+            start_x = 25;
+            start_y = 94;
 
             if (!PictureManager.hasPicture(box.getNode().getId())) {
                 start_y -= 65;
@@ -99,8 +99,29 @@ class MediumBoxStyle implements IBoxStyler{
         }
         else if(flavor_key === MediumBoxStyle.SINGLE_LONG){
 
-            box.setHeight(100);
-            box.setWidth(360);
+            box.setHeight(130);
+            box.setWidth(380);
+
+            if (!PictureManager.hasPicture(box.getNode().getId())) {
+                start_x -= 65;
+            }
+
+            render_sched
+                .setPicturePlace(new Instruction(start_x - 80, start_y - 20, placeLength))
+                .setPictureDim(new Instruction(75, 75))
+                .setNodeName(new Instruction(start_x, start_y, nameLength))
+                .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
+                .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
+                .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
+                .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength));
+        }
+        else if(flavor_key === MediumBoxStyle.SINGLE_BUBBLE){
+
+            box.setHeight(310);
+            box.setWidth(310);
+
+            start_x = 122;
+            start_y = 150;
 
             if (!PictureManager.hasPicture(box.getNode().getId())) {
                 start_x -= 65;
@@ -114,6 +135,9 @@ class MediumBoxStyle implements IBoxStyler{
                 .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
                 .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
                 .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength))
+                .setBoxBorder(6)
+                .setCornerRounding(190)
+                .setRotation(true);
         }
         else{
 
@@ -123,8 +147,9 @@ class MediumBoxStyle implements IBoxStyler{
         box.setRenderInstructions(render_sched);
     }
 
-    static SINGLE_LONG = "s_l";
-    static SINGLE_WIDE = "s_w";
-    static MARRIED_LONG = "m_l";
-    static MARRIED_WIDE = "m_w";
+    static SINGLE_LONG   = "s_l";
+    static SINGLE_WIDE   = "s_w";
+    static SINGLE_BUBBLE = "s_b";
+    static MARRIED_LONG  = "m_l";
+    static MARRIED_WIDE  = "m_w";
 }

@@ -80,6 +80,9 @@ class ElementManager implements IElementManager {
         if(box.isCollapsed() !== lastBox.isCollapsed()) {
             return true;
         }
+        if(box.getRenderInstructions() !== lastBox.getRenderInstructions()) {
+            return true;
+        }
 
         return PictureManager.UPDATE;
     }

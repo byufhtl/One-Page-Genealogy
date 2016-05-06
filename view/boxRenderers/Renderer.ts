@@ -62,13 +62,13 @@ class Renderer{
         var big_font = ris.getDefTextSize();
         var small_font = ris.getAltTextSize();
 
-        if (rootElement) {
-            rootElement.appendChild(g);
-        }
-
         // Reject if collapsed
         if (box.isCollapsed()) {
-            return null;
+            return g;
+        }
+
+        if (rootElement) {
+            rootElement.appendChild(g);
         }
 
         // Create some default text sizes if they have not been previously set.

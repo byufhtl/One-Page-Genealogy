@@ -33,12 +33,12 @@ class DetailChartStyler extends AbstractChartStyle{
             case 3:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.SMALL);
-                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE);
+                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
                 break;
             case 4:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 branchBox.setType(StyleManager.SMALL);
-                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE);
+                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
                 break;
             case 5:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);

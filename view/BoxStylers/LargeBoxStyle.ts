@@ -119,9 +119,9 @@ class LargeBoxStyle implements IBoxStyler{
                 //.setPictureDim(new Instruction(150,150))
                 .setNodeName(new Instruction(start_x + 45, start_y + 190, nameLength))
                 .setNodeBDate(new Instruction(start_x + 45, start_y + big_font_size + 198, dateLength))
-                .setNodeBPlace(new Instruction(start_x + 185, start_y + big_font_size + 198, placeLength))
+                .setNodeBPlace(new Instruction(start_x + 190, start_y + big_font_size + 198, placeLength))
                 .setNodeDDate(new Instruction(start_x + 45, start_y + big_font_size + small_font_size + 206, dateLength))
-                .setNodeDPlace(new Instruction(start_x + 185,start_y + big_font_size + small_font_size + 206, placeLength))
+                .setNodeDPlace(new Instruction(start_x + 190,start_y + big_font_size + small_font_size + 206, placeLength))
                 .setBoxBorder(7)
                 .setCornerRounding(305)
                 .setRotation(true);
