@@ -18,9 +18,11 @@ class ColorManager {
         ,   "#FFB8AF"   // 5) Red       "#FFB8AF"
         ,   "#ffccff"   // 6) Pink
         ,   "#E5E5E5"   // 7) Gray
-        ,   "#2C3E50"   // 8) OPG Blue
-        ,   "#FFFFFF"   // 9) White
-        ,   "#000000"   // 10) Black
+        ,   "#C89A8A"   // 8) Light Brown
+        ,   "#A597A1"   // 9) Dark Brown
+        ,   "#2C3E50"   // 10) OPG Blue
+        ,   "#FFFFFF"   // 11) White
+        ,   "#000000"   // 12) Black
     ];
 
     /**
@@ -87,24 +89,38 @@ class ColorManager {
     }
 
     /**
+     * @returns {string} a hex-encoded color value for the standard OPG light brown
+     */
+    static lightbrown() : string{
+        return this.boxColors[8];
+    }
+
+    /**
+     * @returns {string} a hex-encoded color value for the standard OPG dark brown
+     */
+    static darkbrown() : string{
+        return this.boxColors[9];
+    }
+
+    /**
      * @returns {string} a hex-encoded color value for the standard OPG theme blue.
      */
     static OPGblue() : string{
-        return this.boxColors[8];
+        return this.boxColors[10];
     }
 
     /**
      * @returns {string} a hex-encoded color value for the standard OPG white.
      */
     static white() : string{
-        return this.boxColors[9];
+        return this.boxColors[11];
     }
 
     /**
      * @returns {string} a hex-encoded color value for the standard OPG black.
      */
     static black() : string{
-        return this.boxColors[10];
+        return this.boxColors[12];
     }
 
     /**

@@ -15,6 +15,7 @@ class GreyScaleSpacer extends AbstractStyler{
         var root = boxes.getId(rootId);
 
         this.setBasedOnGeneration(null, root, 0);
+        root.setTextColor(ColorManager.black());
 
         var queue = [];
         queue.push([rootId,0]);
@@ -33,6 +34,7 @@ class GreyScaleSpacer extends AbstractStyler{
                 }
 
                 this.setBasedOnGeneration(box, branchBox, generation+1);
+                branchBox.setTextColor(ColorManager.black());
 
                 queue.push([branchIds[i], generation+1]);
             }
@@ -40,5 +42,6 @@ class GreyScaleSpacer extends AbstractStyler{
     }
     private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
         childBox.setColor('white');
+        childBox.getRenderInstructions().setBorderColor(null);
     }
 }

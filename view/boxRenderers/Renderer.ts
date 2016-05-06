@@ -90,10 +90,16 @@ class Renderer{
         rect.setAttribute('width', String(box.getWidth()));
         rect.setAttribute('height', String(box.getHeight() - 8 - box.getSpace()));
 
-        var edge_curve :string = ris.getCornerRounding().toString();
-        if (edge_curve == null || edge_curve == undefined) {
+        // set up the rounding on the boxes based on the RIS, defaulting to 5% of the longer of the two sides.
+        var rounding = ris.getCornerRounding();
+        var edge_curve :string;
+
+        if (rounding == null || rounding == undefined) {
             var longest = (box.getWidth() > box.getHeight()) ? box.getWidth() : box.getHeight();
             edge_curve = (longest / 20).toString();
+        }
+        else{
+            edge_curve = rounding.toString();
         }
 
         rect.setAttribute('rx', edge_curve);
@@ -123,7 +129,14 @@ class Renderer{
         }
 
         // set up the text color based on the box and defaulting to black.
-        var text_color = box.getTextColor()!=null ? box.getTextColor() : ColorManager.black();
+        var text_color :string;
+        if(box.getTextColor()!=null){
+            text_color = box.getTextColor();
+        }
+        else{
+            text_color = ColorManager.black();
+            console.log("No specified text color for [" + node.getAttr("name") + "]");
+        }
 
         g.appendChild(gt);
 

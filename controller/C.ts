@@ -398,6 +398,9 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'vertical-style') {
             this.p.handle({type: key});
         }
+        else if (key === 'vertical-style-accent') {
+            this.p.handle({type: key});
+        }
         else if (key === 'eight-eleven-style') {
             this.p.handle({type: key});
         }
@@ -422,10 +425,16 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'to-branch-color') {
             this.p.handle({type: key});
         }
+        else if (key === 'to-branch-color-blackout') {
+            this.p.handle({type: key});
+        }
         else if (key === 'to-generation-color') {
             this.p.handle({type: key});
         }
         else if (key === 'to-generation-color-vibrant') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'to-generation-wood') {
             this.p.handle({type: key});
         }
         else if (key === 'to-gender-color') {

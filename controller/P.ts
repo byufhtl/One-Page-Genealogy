@@ -21,17 +21,21 @@
 ///<reference path="ChartStyles/DetailChartStyler.ts"/>
 ///<reference path="ChartStyles/VertDescDetChartStyler.ts"/>
 ///<reference path="ChartStyles/VertDetChartStyler.ts"/>
+///<reference path="ChartStyles/VertDetAccentChartStyler.ts"/>
 ///<reference path="ChartStyles/ElevenSeventeenChartStyler.ts"/>
 ///<reference path="ChartStyles/ExtendedChartStyler.ts"/>
 
 ///<reference path="ColorSpacers/GreyScaleSpacer.ts"/>
 ///<reference path="ColorSpacers/ColorSpacer.ts"/>
 ///<reference path="ColorSpacers/AscColorSpacer.ts"/>
+///<reference path="ColorSpacers/AscBlackoutColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenColorVibrantSpacer.ts"/>
+///<reference path="ColorSpacers/GenWoodSpacer.ts"/>
 ///<reference path="ColorSpacers/GenderColorSpacer.ts"/>
 ///<reference path="ColorSpacers/CountryColorSpacer.ts"/>
 ///<reference path="ColorSpacers/BaptismColorSpacer.ts"/>
+
 ///<reference path="SpacingSpacer.ts"/>
 ///<reference path="JSstyleSpacer.ts"/>
 ///<reference path="JSPublicSpacer.ts"/>
@@ -488,6 +492,9 @@ class P implements IControllerListener, ITreeListener {
             case 'vertical-style':
                 style = new VertDetChartStyler();
                 break;
+            case 'vertical-style-accent':
+                style = new VertDetAccentChartStyler();
+                break;
             case 'eight-eleven-style':
                 style = new EightElevenChartStyler();
                 break;
@@ -538,11 +545,23 @@ class P implements IControllerListener, ITreeListener {
                     style = new AscColorSpacer();
                 }
                 break;
+            case 'to-branch-color-blackout':
+                if(this.c.dscOrAsc == "descendancy") {
+                    style = new ColorSpacer();
+                }
+                else{
+                    style = new AscBlackoutColorSpacer();
+                }
+                break;
             case 'to-generation-color':
                 style = new GenColorSpacer();
                 break;
             case 'to-generation-color-vibrant':
                 style = new GenColorVibrantSpacer();
+                break;
+            case 'to-generation-wood':
+                console.log("Wood color implemented");
+                style = new GenWoodSpacer();
                 break;
             case 'to-gender-color':
                 style = new GenderColorSpacer();

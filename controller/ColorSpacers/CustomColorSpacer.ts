@@ -31,6 +31,7 @@ class CustomColorSpacer extends AbstractStyler {
                     }
                     if(map.hasOwnProperty('color')) {
                         box.setColor(map['color']);
+                        box.setTextColor(ColorManager.black());
                     }
                 }
             }

@@ -102,7 +102,7 @@ class LargeBoxStyle implements IBoxStyler{
                 .setNodeDPlace(new Instruction(start_x + 140,start_y + big_font_size + small_font_size + 16, placeLength))
                 .setRotation(false);
         }
-        else if(flavor_key === LargeBoxStyle.SINGLE_BALL){
+        else if(flavor_key === LargeBoxStyle.SINGLE_BUBBLE){
 
             box.setHeight(524);
             box.setWidth(524);
@@ -130,8 +130,8 @@ class LargeBoxStyle implements IBoxStyler{
         box.setRenderInstructions(render_sched);
     }
 
-    static SINGLE_LONG  = "s_l";
-    static SINGLE_WIDE  = "s_w";
-    static SINGLE_BALL  = "s_b";
-    static MARRIED_WIDE = "m";
+    static SINGLE_LONG   = "s_l";
+    static SINGLE_WIDE   = "s_w";
+    static SINGLE_BUBBLE = "s_b";
+    static MARRIED_WIDE  = "m";
 }

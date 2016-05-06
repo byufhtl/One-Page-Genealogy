@@ -3,10 +3,10 @@
  * Created by calvinmcm on 4/14/16.
  */
 
-class VertDetChartStyler extends AbstractChartStyle{
+class VertDetAccentChartStyler extends AbstractChartStyle{
 
     constructor(){
-        super("VertDetChartStyler");
+        super("VertDetAccentChartStyler");
     }
 
     setBasedOnGeneration(parentBox :IBox, branchBox :IBox, generation :number) :void{
@@ -18,10 +18,10 @@ class VertDetChartStyler extends AbstractChartStyle{
             case 0:
                 branchBox.setX(0);
                 branchBox.setType(StyleManager.LARGE);
-                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_WIDE);
+                StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_BUBBLE);
                 break;
             case 1:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth()/2);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth()/2 + 15);
                 branchBox.setType(StyleManager.LARGE);
                 StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_WIDE);
                 break;

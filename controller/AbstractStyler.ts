@@ -14,6 +14,7 @@ abstract class AbstractStyler {
     }
 
     constructor(name:string){
+        $("#opg-chart").css('fill','white');
         this.className = name;
     }
 }

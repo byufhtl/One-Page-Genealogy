@@ -57,6 +57,9 @@ class OptionManager implements IOptionManager {
         $('#opg-vertical-style').click(function(){
             self.handleStyleChange('vertical-style');
         });
+        $('#opg-vertical-style-accent').click(function(){
+            self.handleStyleChange('vertical-style-accent');
+        });
         $('#opg-eight-eleven-style').click(function(){
             self.handleStyleChange('eight-eleven-style');
         });
@@ -81,11 +84,17 @@ class OptionManager implements IOptionManager {
         $('#opg-to-branch-color').click(function(){
             self.handleStyleChange('to-branch-color',false);
         });
+        $('#opg-to-branch-color-blackout').click(function(){
+            self.handleStyleChange('to-branch-color-blackout',false);
+        });
         $('#opg-to-generation-color').click(function(){
             self.handleStyleChange('to-generation-color',false);
         });
         $('#opg-to-generation-color-vibrant').click(function(){
             self.handleStyleChange('to-generation-color-vibrant',false);
+        });
+        $('#opg-to-generation-wood').click(function(){
+            self.handleStyleChange('to-generation-wood',false);
         });
         $('#opg-to-gender-color').click(function(){
             self.handleStyleChange('to-gender-color',false);

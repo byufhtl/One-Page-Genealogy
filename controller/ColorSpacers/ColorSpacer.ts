@@ -27,6 +27,7 @@ class ColorSpacer extends AbstractStyler {
 
         //this.setBasedOnGeneration(null, root, 0);
         this.setBasedOnBranch(null, root, 0,0,1,genZeroMult,genOneMult);
+        root.setTextColor(ColorManager.black());
 
         var queue = [];
         queue.push([rootId,0]);
@@ -53,6 +54,7 @@ class ColorSpacer extends AbstractStyler {
 
                     queue.push([branchIds[i], generation + 1]);
                 }
+                branchBox.setTextColor(ColorManager.black());
 
 
                 //this.setBasedOnGeneration(box, branchBox, generation+1);

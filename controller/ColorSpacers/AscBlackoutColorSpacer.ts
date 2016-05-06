@@ -6,18 +6,18 @@
  * Last updated 2/24/2016
  */
 
-class AscColorSpacer extends AbstractStyler {
+class AscBlackoutColorSpacer extends AbstractStyler {
 
     constructor(){
-        super("AscColorSpacer");
+        super("AscBlackoutColorSpacer");
     }
 
     applyStyle(boxes: BoxMap): void {
+        $("#opg-chart").css('fill','black');
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
 
         this.setBasedOnBranch(null, root, 0,0,1);
-        root.setTextColor(ColorManager.black());
 
         var queue = [];
         queue.push([rootId,0]);
@@ -36,7 +36,6 @@ class AscColorSpacer extends AbstractStyler {
                 }
 
                 this.setBasedOnBranch(box,branchBox,generation+1,i,branchIds.length);
-                branchBox.setTextColor(ColorManager.black());
 
                 queue.push([branchIds[i], generation+1]);
             }
@@ -61,14 +60,20 @@ class AscColorSpacer extends AbstractStyler {
                 /*if(childBox.getNode().getBranchIds().length>2)
                  childBox.setColor('#d5bde9');//blue
                  else*/
-                childBox.setColor(ColorManager.purple());
+                childBox.setColor(ColorManager.black());
+                childBox.setTextColor(ColorManager.purple());
+                childBox.getRenderInstructions().setBorderColor(ColorManager.purple());
             }
             else if (generation == 1) {
                 if (child == 0) {
-                    childBox.setColor(ColorManager.blue());
+                    childBox.setColor(ColorManager.black());
+                    childBox.setTextColor(ColorManager.blue());
+                    childBox.getRenderInstructions().setBorderColor(ColorManager.blue());
                 }
                 else {
-                    childBox.setColor(ColorManager.yellow());
+                    childBox.setColor(ColorManager.black());
+                    childBox.setTextColor(ColorManager.yellow());
+                    childBox.getRenderInstructions().setBorderColor(ColorManager.yellow());
                 }
             }
             else if (generation == 2) {
@@ -77,17 +82,31 @@ class AscColorSpacer extends AbstractStyler {
                     gender = parentBox.getNode().getAttr('gender');
                 }
 
-                if (child == 0 && gender === 'Male')
-                    childBox.setColor(ColorManager.blue());
-                else if (child == 1 && gender === 'Male')
-                    childBox.setColor(ColorManager.green());
-                else if (child == 0 && gender === 'Female')
-                    childBox.setColor(ColorManager.red());
-                else if (child == 1 && gender === 'Female')
-                    childBox.setColor(ColorManager.yellow());
+                if (child == 0 && gender === 'Male') {
+                    childBox.setColor(ColorManager.black());
+                    childBox.setTextColor(ColorManager.blue());
+                    childBox.getRenderInstructions().setBorderColor(ColorManager.blue());
+                }
+                else if (child == 1 && gender === 'Male') {
+                    childBox.setColor(ColorManager.black());
+                    childBox.setTextColor(ColorManager.green());
+                    childBox.getRenderInstructions().setBorderColor(ColorManager.green());
+                }
+                else if (child == 0 && gender === 'Female') {
+                    childBox.setColor(ColorManager.black());
+                    childBox.setTextColor(ColorManager.red());
+                    childBox.getRenderInstructions().setBorderColor(ColorManager.red());
+                }
+                else if (child == 1 && gender === 'Female') {
+                    childBox.setColor(ColorManager.black());
+                    childBox.setTextColor(ColorManager.yellow());
+                    childBox.getRenderInstructions().setBorderColor(ColorManager.yellow());
+                }
             }
             else {
-                childBox.setColor(parentBox.getColor());
+                childBox.setColor(ColorManager.black());
+                childBox.setTextColor(parentBox.getTextColor());
+                childBox.getRenderInstructions().setBorderColor(parentBox.getTextColor());
             }
         }
     }

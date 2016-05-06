@@ -1,22 +1,24 @@
 ///<reference path="../AbstractStyler.ts"/>
 ///<reference path="../../view/BoxStyleFactory.ts"/>
 ///<reference path="../../view/ColorManager.ts"/>
+
 /**
- * Created by renae on 9/9/15.
- * Last updated on 1/29/2016
+ * Created by calvin on 1/27/2016
+ * Last updated 1/29/2016
  */
 
-class BaptismColorSpacer extends AbstractStyler {
+class GenWoodSpacer extends AbstractStyler{
+
 
     constructor(){
-        super("BaptismColorSpacer");
+        super("GenWoodSpacer");
     }
 
     applyStyle(boxes: BoxMap): void {
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
 
-        root.setColor(null);
+        this.setBasedOnGeneration(root, 0);
         root.setTextColor(ColorManager.black());
 
         var queue = [];
@@ -34,29 +36,30 @@ class BaptismColorSpacer extends AbstractStyler {
                 if(!branchBox) {
                     continue;
                 }
+                if(box.getNode().getSpouses().length>1){
+                    this.setBasedOnGeneration(branchBox, generation);
 
-                var node2 = branchBox.getNode();
-
-                if(node2.hasAttr("baptism")){
-                    branchBox.setColor(ColorManager.blue());
+                    queue.push([branchIds[i], generation]);
                 }
-                else{
-                    var birthdate = new Date(node2.getAttr("birthdate"));
-                    var deathdate = new Date(node2.getAttr("deathdate"));
-                    var birthyear = birthdate.getFullYear();
-                    var deathyear = deathdate.getFullYear();
+                else {
+                    this.setBasedOnGeneration(branchBox, generation + 1);
 
-                    if(deathyear - birthyear > 8 ){
-                        branchBox.setColor(ColorManager.red());
-                    }
-                    else{
-                        branchBox.setColor(ColorManager.yellow());
-                    }
+                    queue.push([branchIds[i], generation + 1]);
                 }
                 branchBox.setTextColor(ColorManager.black());
-
-                queue.push([branchIds[i], generation+1]);
             }
+        }
+    }
+    private setBasedOnGeneration(childBox: IBox, generation: number) {
+        switch(generation%3){
+            case 0:
+                childBox.setColor(ColorManager.gray());
+                break;
+            case 1:
+                childBox.setColor(ColorManager.lightbrown());
+                break;
+            default:
+                childBox.setColor(ColorManager.darkbrown());
         }
     }
 }
