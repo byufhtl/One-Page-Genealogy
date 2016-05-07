@@ -24,11 +24,12 @@ class EnrBoxStyle implements IBoxStyler{
 
 
         // Basic data
-        var render_sched = new RenderInstructionSchedule().setFlavorKey(flavor_key);
-
-        render_sched
+        var render_sched = new RenderInstructionSchedule()
+            .setFlavorKey(flavor_key)
             .setDefTextSize(big_font_size)
-            .setAltTextSize(small_font_size);
+            .setAltTextSize(small_font_size)
+            .setHasPicture(box.getRenderInstructions().getHasPicture())
+            .setSpouseHasPicture(box.getRenderInstructions().getSpouseHasPicture());
 
         if(flavor_key === EnrBoxStyle.MARRIED){
             // Married Flavor
@@ -36,8 +37,8 @@ class EnrBoxStyle implements IBoxStyler{
             box.setHeight(2400);
             box.setWidth(350);
 
-            if(!(box.getNode().getAttr("profilePicturePromise"))) {
-                start_x -= 255;
+            if(render_sched.getHasPicture()) {
+                start_x += 255;
             }
 
             //render_sched
@@ -63,7 +64,7 @@ class EnrBoxStyle implements IBoxStyler{
             box.setHeight(1200);
             box.setWidth(350);
 
-            if(box.getNode().getAttr("profilePicturePromise")) {
+            if(render_sched.getHasPicture()) {
                 start_x += 255;
             }
 

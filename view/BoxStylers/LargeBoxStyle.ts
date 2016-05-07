@@ -28,19 +28,20 @@ class LargeBoxStyle implements IBoxStyler{
         }
 
         // Basic data
-        var render_sched = new RenderInstructionSchedule().setFlavorKey(flavor_key);
-
-        render_sched
+        var render_sched = new RenderInstructionSchedule()
+            .setFlavorKey(flavor_key)
             .setDefTextSize(big_font_size)
-            .setAltTextSize(small_font_size);
+            .setAltTextSize(small_font_size)
+            .setHasPicture(box.getRenderInstructions().getHasPicture())
+            .setSpouseHasPicture(box.getRenderInstructions().getSpouseHasPicture());
 
         if(flavor_key === LargeBoxStyle.MARRIED_WIDE){
             // Married Flavor
             box.setHeight(890);
             box.setWidth(225);
 
-            if(!(box.getNode().getAttr("profilePicturePromise"))) {
-                s_start_x -= 155;
+            if(render_sched.getHasPicture()) {
+                s_start_x += 155;
             }
 
             //render_sched
@@ -69,7 +70,7 @@ class LargeBoxStyle implements IBoxStyler{
             var start_x = 15;
             var start_y = 45;
 
-            if(box.getNode().getAttr("profilePicturePromise")) {
+            if(render_sched.getHasPicture()) {
                 start_x += 150;
             }
 
@@ -91,7 +92,7 @@ class LargeBoxStyle implements IBoxStyler{
             box.setY(box.getY() - 305); // Shift the box down.
             box.setX(box.getX() - 112); // Shift the box over.
 
-            if(box.getNode().getAttr("profilePicturePromise")) {
+            if(render_sched.getHasPicture()) {
                 start_x += 145;
             }
 
@@ -113,7 +114,7 @@ class LargeBoxStyle implements IBoxStyler{
             box.setY(box.getY() - 262); // Shift the box down.
             box.setX(box.getX() - 262); // Shift the box over.
 
-            if(box.getNode().getAttr("profilePicturePromise")) {
+            if(render_sched.getHasPicture()) {
                 start_x += 145;
             }
 

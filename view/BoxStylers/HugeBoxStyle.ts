@@ -24,11 +24,12 @@ class HugeBoxStyle implements IBoxStyler{
 
 
         // Basic data
-        var render_sched = new RenderInstructionSchedule().setFlavorKey(flavor_key);
-
-        render_sched
+        var render_sched = new RenderInstructionSchedule()
+            .setFlavorKey(flavor_key)
             .setDefTextSize(big_font_size)
-            .setAltTextSize(small_font_size);
+            .setAltTextSize(small_font_size)
+            .setHasPicture(box.getRenderInstructions().getHasPicture())
+            .setSpouseHasPicture(box.getRenderInstructions().getSpouseHasPicture());
 
         if(flavor_key === HugeBoxStyle.MARRIED){
             // Married Flavor
@@ -36,8 +37,8 @@ class HugeBoxStyle implements IBoxStyler{
             box.setHeight(1000);
             box.setWidth(300);
 
-            if(!(box.getNode().getAttr("profilePicturePromise"))) {
-                start_x -= 275;
+            if(render_sched.getHasPicture()) {
+                start_x += 275;
             }
 
             //render_sched
@@ -66,7 +67,7 @@ class HugeBoxStyle implements IBoxStyler{
             start_x = 5;
             start_y = 53;
 
-            if(box.getNode().getAttr("profilePicturePromise")) {
+            if(render_sched.getHasPicture()) {
                 start_x += 275;
             }
 

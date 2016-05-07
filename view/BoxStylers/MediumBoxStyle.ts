@@ -29,7 +29,9 @@ class MediumBoxStyle implements IBoxStyler{
             .setBoxInstructions(box.getRenderInstructions().getBoxInstructions())
             .setTextInstructions(box.getRenderInstructions().getTextInstructions())
             .setDefTextSize(big_font_size)
-            .setAltTextSize(small_font_size);
+            .setAltTextSize(small_font_size)
+            .setHasPicture(box.getRenderInstructions().getHasPicture())
+            .setSpouseHasPicture(box.getRenderInstructions().getSpouseHasPicture());
 
         if(flavor_key === MediumBoxStyle.MARRIED_WIDE){
 
@@ -42,9 +44,9 @@ class MediumBoxStyle implements IBoxStyler{
             box.setHeight(325);
             box.setWidth(360);
 
-            if(!(box.getNode().getAttr("profilePicturePromise"))) {
-                start_x -= 65;
-                s_start_x -= 65;
+            if(render_sched.getHasPicture()) {
+                start_x += 65;
+                s_start_x += 65;
             }
 
             //render_sched
@@ -75,11 +77,11 @@ class MediumBoxStyle implements IBoxStyler{
             box.setY(box.getY() - 190); // Shift the box down.
             box.setX(box.getX() - 65); // Shift the box over.
 
-            start_x = 93;
+            start_x = 24;
             start_y = 29;
 
-            if (!(box.getNode().getAttr("profilePicturePromise"))) {
-                start_x -= 80;
+            if (render_sched.getHasPicture()) {
+                start_x += 80;
             }
 
             render_sched
@@ -99,7 +101,7 @@ class MediumBoxStyle implements IBoxStyler{
             box.setHeight(130);
             box.setWidth(380);
 
-            if (box.getNode().getAttr("profilePicturePromise")) {
+            if (render_sched.getHasPicture()) {
                 start_x += 80;
             }
 
@@ -117,17 +119,13 @@ class MediumBoxStyle implements IBoxStyler{
             box.setHeight(310);
             box.setWidth(310);
 
-            start_x = 122;
+            start_x = 42;
             start_y = 150;
             nameLength = 15;
 
-            if (box.getNode().getAttr("profilePicturePromise")) {
-                start_x += 80;
-            }
-
             render_sched
-                .setPicturePlace(new Instruction(start_x - 80, start_y - 20, placeLength))
-                .setPictureDim(new Instruction(75, 75))
+                .setPicturePlace(new Instruction(start_x + 68, start_y + big_font_size + small_font_size*2, placeLength))
+                .setPictureDim(new Instruction(90, 90))
                 .setNodeName(new Instruction(start_x, start_y, nameLength))
                 .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
                 .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))

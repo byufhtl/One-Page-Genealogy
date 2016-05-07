@@ -24,11 +24,16 @@ class SmallBoxStyle implements IBoxStyler{
         var placeLength = 14;
 
         // Basic data
-        var render_sched = new RenderInstructionSchedule().setFlavorKey(flavor_key);
-
-        render_sched
+        var render_sched = new RenderInstructionSchedule()
+            .setFlavorKey(flavor_key)
             .setDefTextSize(big_font_size)
-            .setAltTextSize(small_font_size);
+            .setAltTextSize(small_font_size)
+            .setHasPicture(box.getRenderInstructions().getHasPicture())
+            .setSpouseHasPicture(box.getRenderInstructions().getSpouseHasPicture());
+
+        if(box.getRenderInstructions().getHasPicture() == undefined){
+            console.log(box.getRenderInstructions().toString() + "::ERROR!!!");
+        }
 
         if(flavor_key === SmallBoxStyle.MARRIED){
             // Married Flavor
@@ -36,9 +41,9 @@ class SmallBoxStyle implements IBoxStyler{
             box.setHeight(100);
             box.setWidth(250);
 
-            if(!(box.getNode().getAttr("profilePicturePromise")) ) {
-                start_x -= 60;
-                s_start_x -= 95;
+            if(render_sched.getHasPicture()) {
+                start_x += 60;
+                s_start_x += 95;
             }
             render_sched
                 .setPicturePlace(new Instruction(start_x - 60, start_y - 16))
@@ -63,8 +68,11 @@ class SmallBoxStyle implements IBoxStyler{
             box.setHeight(73);
             box.setWidth(250);
 
+            nameLength = 16;
+            dateLength = 12;
+            placeLength = 12;
 
-            if(box.getNode().getAttr("profilePicturePromise")){
+            if(render_sched.getHasPicture()){
                 start_x += 60;
             }
 
@@ -85,7 +93,7 @@ class SmallBoxStyle implements IBoxStyler{
             render_sched
                 .setNodeName(new Instruction(start_x, start_y, nameLength));
 
-            if(box.getNode().getAttr("profilePicturePromise")){
+            if(render_sched.getHasPicture()){
                 start_x += 60;
             }
 
@@ -102,11 +110,15 @@ class SmallBoxStyle implements IBoxStyler{
             box.setHeight(250);
             box.setWidth(70);
 
-            start_x = 74;
-            start_y = 20;
+            start_x = 12;
+            //start_y = 20;
 
-            if(!(box.getNode().getAttr("profilePicturePromise")) ){
-                start_x -= 60;
+            nameLength = 16;
+            dateLength = 12;
+            placeLength = 12;
+
+            if(render_sched.getHasPicture()){
+                start_x += 60;
             }
 
             render_sched
@@ -124,15 +136,11 @@ class SmallBoxStyle implements IBoxStyler{
             box.setHeight(212);
             box.setWidth(212);
 
-            start_x = 85;
+            start_x = 25;
             start_y = 95;
 
-            if(!(box.getNode().getAttr("profilePicturePromise")) ){
-                start_x -= 60;
-            }
-
             render_sched
-                .setPicturePlace(new Instruction(start_x - 60, start_y - 16))
+                .setPicturePlace(new Instruction(start_x + 61, start_y + big_font_size + small_font_size*2))
                 .setPictureDim(new Instruction(55,55,null))
                 .setNodeName(new Instruction(start_x, start_y, nameLength))
                 .setNodeBDate(new Instruction(start_x, start_y + big_font_size, dateLength))

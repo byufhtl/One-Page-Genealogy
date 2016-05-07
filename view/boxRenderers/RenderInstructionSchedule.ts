@@ -22,7 +22,11 @@ class RenderInstructionSchedule{
     private pictureInstructions :{[s:string] : Instruction};
 
     constructor(){
-        this.clear();
+        this.boxInstructions = {};
+        this.textInstructions = {};
+        this.nodeInstructions = {};
+        this.spouseInstructions = {};
+        this.pictureInstructions = {};
     }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
@@ -119,8 +123,8 @@ class RenderInstructionSchedule{
         return this;
     }
 
-    public setPictureLoaded(loaded :boolean) :RenderInstructionSchedule{
-        this.boxInstructions[RenderInstructionSchedule.PICTURE_LOADED] = loaded;
+    public setHasPicture(loaded :boolean) :RenderInstructionSchedule{
+        this.boxInstructions[RenderInstructionSchedule.HAS_PICTURE] = loaded;
         return this;
     }
 
@@ -165,8 +169,8 @@ class RenderInstructionSchedule{
         return this;
     }
 
-    public setSpousePictureLoaded(loaded :boolean) :RenderInstructionSchedule{
-        this.boxInstructions[RenderInstructionSchedule.S_PICTURE_LOADED] = loaded;
+    public setSpouseHasPicture(loaded :boolean) :RenderInstructionSchedule{
+        this.boxInstructions[RenderInstructionSchedule.S_HAS_PICTURE] = loaded;
         return this;
     }
 
@@ -316,11 +320,8 @@ class RenderInstructionSchedule{
     /**
      * @returns {boolean} true if the toggle has been set to true, false otherwise.
      */
-    public getPictureLoaded() :boolean{
-        if(this.boxInstructions[RenderInstructionSchedule.PICTURE_LOADED]){
-            return true;
-        }
-        return false;
+    public getHasPicture() :boolean{
+        return <boolean>this.boxInstructions[RenderInstructionSchedule.HAS_PICTURE];
     }
 
     // Spouse (9)
@@ -383,8 +384,8 @@ class RenderInstructionSchedule{
     /**
      * @returns {boolean} true if the toggle has been set to true, false otherwise.
      */
-    public getSpousePictureLoaded() :boolean{
-        return <boolean>this.boxInstructions[RenderInstructionSchedule.S_PICTURE_LOADED];
+    public getSpouseHasPicture() :boolean{
+        return <boolean>this.boxInstructions[RenderInstructionSchedule.S_HAS_PICTURE];
     }
 
     // Marriage (2)
@@ -430,15 +431,19 @@ class RenderInstructionSchedule{
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
 
     /**
-     * Removes everything from the RIS.
+     * Removes everything from the RIS EXCEPT for the status of the pictures.
      * @returns {RenderInstructionSchedule} The blank-slate RIS
      */
     public clear() : RenderInstructionSchedule{
+        var has_pic = this.boxInstructions[RenderInstructionSchedule.HAS_PICTURE];
+        var s_has_pic = this.boxInstructions[RenderInstructionSchedule.S_HAS_PICTURE];
         this.boxInstructions = {};
         this.textInstructions = {};
         this.nodeInstructions = {};
         this.spouseInstructions = {};
         this.pictureInstructions = {};
+        this.boxInstructions[RenderInstructionSchedule.HAS_PICTURE] = has_pic;
+        this.boxInstructions[RenderInstructionSchedule.S_HAS_PICTURE] = s_has_pic;
         return this;
     }
 
@@ -446,6 +451,9 @@ class RenderInstructionSchedule{
         return <RenderInstructionSchedule>JSON.parse(JSON.stringify(this));
     }
 
+    public toString() :string{
+        return JSON.stringify(this);
+    }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
 //[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]/                    \[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
@@ -463,7 +471,7 @@ class RenderInstructionSchedule{
     static D_DATE = "d_d";
     static D_PLACE = "d_p";
     static LIFE_SPAN = "life_span";
-    static PICTURE_LOADED = "pic_stat"; // used to track the picture status.
+    static HAS_PICTURE = "has_pic"; // used to track the picture status.
 
     static S_NAME = "s_name";
     static S_PICTURE = "s_pic";
@@ -472,7 +480,7 @@ class RenderInstructionSchedule{
     static S_D_DATE = "s_d_d";
     static S_D_PLACE = "s_d_p";
     static S_LIFE_SPAN = "s_life_span";
-    static S_PICTURE_LOADED = "pic_stat"; // used to track the picture status.
+    static S_HAS_PICTURE = "s_has_pic"; // used to track the picture status.
 
     static M_DATE = "m_d";
     static M_PLACE = "m_p";

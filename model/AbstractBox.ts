@@ -28,7 +28,12 @@ class AbstractBox implements IBox {
         this.node = node;
         this.collapsed = false;
         this.picture = false;
-        this.ris = new RenderInstructionSchedule();
+        this.ris = new RenderInstructionSchedule()
+            .setHasPicture(node.hasAttr("profilePicturePromise"));
+        if(node.getDisplaySpouse()) {
+            this.ris.setSpouseHasPicture(node.getDisplaySpouse().hasAttr("profilePicturePromise"));
+        }
+
         this.color = "#FFFFFF";
         this.textColor = "#000000";
     }

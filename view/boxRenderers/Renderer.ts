@@ -457,8 +457,7 @@ class Renderer{
 
             clippath.appendChild(cliprect);
 
-            if(node.hasAttr('profilePicturePromise')) {
-                box.getRenderInstructions().setPictureLoaded(true);
+            if(box.getRenderInstructions().getHasPicture()) { // node.hasAttr('profilePicturePromise')
                 var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
                 cliprect.setAttribute('width', pic_w.toString());
                 cliprect.setAttribute('height', pic_h.toString());
@@ -467,10 +466,12 @@ class Renderer{
                 cliprect.setAttribute('y', pic_y.toString());
                 svgimg.setAttribute('clip-path', 'url(#clip-'+node.getId()+')');
                 g.appendChild(svgimg);
+
                 node.getAttr('profilePicturePromise').then(function(response) {
                     if(!response) {
                         g.removeChild(svgimg);
-                        box.getRenderInstructions().setPictureLoaded(false);
+                        box.getRenderInstructions().setHasPicture(false);
+                        StyleManager.stylize(box,box.getRenderInstructions().getFlavorKey());
                         return;
                     }
 
@@ -499,11 +500,9 @@ class Renderer{
 
                 }, function() {
                     g.removeChild(svgimg);
-                    box.getRenderInstructions().setPictureLoaded(false);
+                    box.getRenderInstructions().setHasPicture(false);
+                    StyleManager.stylize(box,box.getRenderInstructions().getFlavorKey());
                 });
-            }
-            else{
-                box.getRenderInstructions().setPictureLoaded(false);
             }
 
         }
