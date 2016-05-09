@@ -254,8 +254,10 @@ class StringUtils {
                 before = after;
                 after = StringUtils.removeChar(after, '.');
                 after = StringUtils.removeChar(after, '?');
+                after = StringUtils.removeChar(after, '(');
+                after = StringUtils.removeChar(after, ')');
 
-            } while (after.toLowerCase() != before.toLowerCase()) //fixed point algorithm
+            } while (after.toLowerCase() != before.toLowerCase()); //fixed point algorithm
 
             names[i] = after.trim();
         }
@@ -322,9 +324,14 @@ class StringUtils {
     //If the middle name is one single letter already it is left alone
     //-------------------------------
     private static abbrMidName(names){
+
         if(names.length > 2){
-            if(names[1].length > 1)
+            if(names[1].charAt(0) == '"' || names[1].charAt(0) == "'"){ // removes nicknames entirely.
+                names[1] = "";
+            }
+            else if(names[1].length > 1){
                 names[1] = names[1].charAt(0) + ".";
+            }
         }
         for(var i = 2; i < names.length-1; i++){ //remove all other middle names
             names[i] = "";//null;
@@ -427,7 +434,7 @@ class StringUtils {
             }
         }
         place = StringUtils.fitToBoxesOneThroughFour(place,width);
-        textObj.textContent = place;
+        textObj.textContent = place.substr(0,width);
         return;
     }
 
@@ -473,6 +480,9 @@ class StringUtils {
             }
         }
         place = StringUtils.fitToBoxesOneThroughFour(place,width);
+        if(place.length > width){
+            place = place.substr(0,width-3) + "...";
+        }
         textObj.textContent = place;
         return;
     }

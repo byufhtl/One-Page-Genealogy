@@ -22,8 +22,6 @@ class VariableDepthChartStyler extends AbstractChartStyle{
         }
         var level = (generation*10/maxGenerations);
 
-        console.log("GENS:" + level.toString() + "/ " + maxGenerations.toString());
-
         if(generation == 0){
             branchBox.setX(0);
             branchBox.setType(StyleManager.HUGE);

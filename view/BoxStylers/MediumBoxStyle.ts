@@ -12,22 +12,21 @@ class MediumBoxStyle implements IBoxStyler{
     getName(){return StyleManager.MEDIUM;}
 
     applyStyleTo(box :IBox, flavor_key :string){
-        var start_x = 5;
+        var start_x = 8;
         var start_y = 29;
         var s_start_x = 80;
         var s_start_y = 219;
         var big_font_size = 28;
         var small_font_size = 14;
-        var nameLength = 17;
+        var nameLength = 16;
         var dateLength = 18;
         var placeLength = 18;
 
         // Basic data
-        var render_sched :RenderInstructionSchedule = new RenderInstructionSchedule().setFlavorKey(flavor_key);
-
-        render_sched
+        var render_sched :RenderInstructionSchedule = new RenderInstructionSchedule()
             .setBoxInstructions(box.getRenderInstructions().getBoxInstructions())
             .setTextInstructions(box.getRenderInstructions().getTextInstructions())
+            .setFlavorKey(flavor_key)
             .setDefTextSize(big_font_size)
             .setAltTextSize(small_font_size)
             .setHasPicture(box.getRenderInstructions().getHasPicture())
@@ -77,11 +76,11 @@ class MediumBoxStyle implements IBoxStyler{
             box.setY(box.getY() - 190); // Shift the box down.
             box.setX(box.getX() - 65); // Shift the box over.
 
-            start_x = 24;
+            start_x = 22;
             start_y = 29;
 
             if (render_sched.getHasPicture()) {
-                start_x += 80;
+                start_x += 72;
             }
 
             render_sched
@@ -102,7 +101,7 @@ class MediumBoxStyle implements IBoxStyler{
             box.setWidth(380);
 
             if (render_sched.getHasPicture()) {
-                start_x += 80;
+                start_x += 72;
             }
 
             render_sched
@@ -140,7 +139,6 @@ class MediumBoxStyle implements IBoxStyler{
             render_sched
                 .setNodeName(new Instruction(start_x,start_y,17));
         }
-
 
         box.setRenderInstructions(render_sched);
     }

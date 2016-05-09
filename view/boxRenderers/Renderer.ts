@@ -471,6 +471,9 @@ class Renderer{
                     if(!response) {
                         g.removeChild(svgimg);
                         box.getRenderInstructions().setHasPicture(false);
+                        if(box.getRenderInstructions().getFlavorKey() == null){
+                            console.log("key null in pic renderer(@1) for " + node.getAttr('name'));
+                        }
                         StyleManager.stylize(box,box.getRenderInstructions().getFlavorKey());
                         return;
                     }
@@ -501,11 +504,88 @@ class Renderer{
                 }, function() {
                     g.removeChild(svgimg);
                     box.getRenderInstructions().setHasPicture(false);
+                    if(box.getRenderInstructions().getFlavorKey() == null){
+                        console.log("key null in pic renderer(@2) for " + node.getAttr('name'));
+                    }
                     StyleManager.stylize(box,box.getRenderInstructions().getFlavorKey());
                 });
             }
 
         }
         return null;
+    }
+
+    /**
+     * Renders an svg portrait of an individual at the specified size.
+     * @param node the person whose portrait you want to render
+     * @param width the portrait's intended width
+     * @param height the portrait's intended height
+     * @param g the Element to which the portrait ought to be appended as a child element
+     */
+    public static renderPortrait(node :INode, width :number, height :number, g :Element) :void{
+        if(width && height) {
+
+            var longer = (width > height) ? width : height;
+            var cornerRounding = (longer/5).toString();
+
+            var clippath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+            clippath.setAttribute('id', 'clip-portrait-'+node.getId());
+            g.appendChild(clippath);
+            var cliprect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            cliprect.setAttribute('width',width.toString());
+            cliprect.setAttribute('height', height.toString());
+            cliprect.setAttribute('rx', cornerRounding);
+            cliprect.setAttribute('ry', cornerRounding);
+            cliprect.setAttribute('x', '0');
+            cliprect.setAttribute('y', '0');
+
+            clippath.appendChild(cliprect);
+
+            if(node.hasAttr('profilePicturePromise')) { // node.hasAttr('profilePicturePromise')
+                var svgimg = document.createElementNS('http://www.w3.org/2000/svg','image');
+                cliprect.setAttribute('width', width.toString());
+                cliprect.setAttribute('height', height.toString());
+                svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.svg');
+                cliprect.setAttribute('x', '0');
+                cliprect.setAttribute('y', '0');
+                svgimg.setAttribute('clip-path', 'url(#clip-portrait-'+node.getId()+')');
+                g.appendChild(svgimg);
+
+                node.getAttr('profilePicturePromise').then(function(response) {
+                    if(!response) {
+                        g.removeChild(svgimg);
+                        return;
+                    }
+
+                    //console.log("Rendering portrait...");
+
+                    var border = longer/30;
+
+                    var svgimg2 = document.createElementNS('http://www.w3.org/2000/svg','image');
+                    svgimg2.setAttribute('width', width.toString());
+                    svgimg2.setAttribute('height', height.toString());
+                    svgimg2.setAttribute('x', '0');
+                    svgimg2.setAttribute('y', '0');
+                    svgimg2.setAttribute('clip-path', 'url(#clip-portrait-'+node.getId()+')');
+
+
+                    var b_rect :Element = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                    b_rect.setAttribute('stroke-width', border.toString());
+                    b_rect.setAttribute('stroke', 'black');
+                    b_rect.setAttribute('fill', 'none');
+
+                    function listener() {
+                        g.removeChild(svgimg);
+                        svgimg2.removeEventListener('load', listener);
+                    }
+                    svgimg2.addEventListener('load', listener);
+                    svgimg2.setAttributeNS('http://www.w3.org/1999/xlink','href',response);
+                    g.appendChild(svgimg2);
+                }, function() {
+                    g.removeChild(svgimg);
+                });
+            }
+
+        }
     }
 }

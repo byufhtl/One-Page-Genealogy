@@ -55,7 +55,7 @@
     <script src="controller/ColorSpacers/AscBoldColorSpacer.js" type="text/javascript"></script>
     <script src="controller/ColorSpacers/GenColorSpacer.js" type="text/javascript"></script>
     <script src="controller/ColorSpacers/GenColorVibrantSpacer.js" type="text/javascript"></script>
-    <script src="controller/ColorSpacers/GenWoodSpacer.js" type="text/javascript"></script>
+    <script src="controller/ColorSpacers/GenWoodColorSpacer.js" type="text/javascript"></script>
     <script src="controller/ColorSpacers/GenderColorSpacer.js" type="text/javascript"></script>
     <script src="controller/ColorSpacers/CountryColorSpacer.js" type="text/javascript"></script>
     <script src="controller/ColorSpacers/BaptismColorSpacer.js" type="text/javascript"></script>
@@ -367,121 +367,46 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div class="modal fade" id="opg-modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<div class="modal fade wide" id="opg-modal">
+    <div class="modal-dialog wide" id="modal-dialog-box">
+        <div class="modal-content wide">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="pid">Box Style Options</h4>
+                <h4 class="modal-title" id="pid">Personal Information: </h4>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="row" id="tab-content-box">
+                    <div class="row" id="opg-svg-content-box">
                         <div class="col-sm-12">
                             <svg id="opg-modal-svg">
 
                             </svg>
                         </div>
-                        <ul class="nav nav-tabs" style="margin-bottom:20px">
-                            <li class="active"><a data-toggle="tab" href="div[name='size_and_orientation_pane'">Size/Orientation</a> </li>
-                            <li ><a data-toggle="tab" href="div[name='color_pane'">Colors</a> </li>
-                        </ul>
-                        <div class="tab-content" style="border-color: #2c3e50; border-width: 3px">
-                            <div name="size_and_orientation_pane" class="tab-pane fade in active">
-                                <div class="col-sm-12">
-                                    <select id="opg-modal-select" class="padded">
-                                        <option value="largePictureBox">(XL) Picture, Vertical Alignment</option>
-                                        <option value="largePictureBox2">(XL) Picture</option>
-                                        <option value="largePicRotBox">(XL) Picture, Rotated</option>
-                                        <option value="largePictureDetailBox2">(XL) Picture, Detail</option>
-                                        <option value="largePicDetRotBox">(XL) Picture, Detail, Rotated</option>
-                                        <option value="midLargePictureBox">(L) Picture</option>
-                                        <option value="midLargePicRotBox">(L) Picture, Rotated</option>
-                                        <option value="mediumPictureBox">(M) Picture</option>
-                                        <option value="medPicRotBox">(M) Picture, Rotated</option>
-                                        <option value="mediumPictureDetailBox">(M) Picture, Detail</option>
-                                        <option value="medPicDetRotBox">(M) Picture, Detail, Rotated</option>
-                                        <option value="medSmPictureDetailBox">(M) Picture, Detail</option>
-                                        <option value="medSmPicDetRotBox">(M) Picture, Detail, Rotated</option>
-                                        <option value="smallPictureBox2">(M) Picture, Vertical Alignment</option>
-                                        <option value="smallDetailBox">(S) Detail</option>
-                                        <option value="smallNameBox">(S) Name</option>
-                                        <option value="smallPictureBox">(S) Picture</option>
-                                        <option value="smallPicRotBox">(S) Picture, Rotated</option>
-                                        <option value="smallPictureDetailBox">(S) Picture, Detail</option>
-                                        <option value="smallPicDetRotBox">(S) Picture, Detail, Rotated</option>
-                                        <option value="smallPictureDetailBox2">(S)  Picture, Detail, Short</option>
-                                        <option value="xsDetailBox">(XS) Detail</option>
-                                        <option value="xsNameBox">(XS) Name</option>
-                                        <option value="xsNameYearBox">(XS) Name, Year</option>
-                                        <option value="smallestNameBox">(XXS) Name</option>
-                                        <option value="JSMassiveSpouseRotBox">Bordered (XXL) Rotated, Detail, Spouse</option>
-                                        <option value="JSLrgDetRotSpPubBox">Bordered (L) Rotated, Detail, Spouse</option>
-                                        <option value="JSLargeDetRotPubBox">Bordered (L) Rotated, Detail </option>
-                                        <option value="JSMedDetPubBox">Bordered (M) Detail</option>
-                                        <option value="JSSmallDetPubBox">Bordered (S) Detail</option>
-                                        <option value="JSSmallDetSpPubBox">Bordered (S) Detail, Spouse</option>
-                                        <option value="JSSmallerDetPubBox">Bordered (XS) Detail</option>
-                                        <option value="JSSmallerDetSpPubBox">Bordered (XS) - Detail, Spouse</option>
-                                        <option value="JSSmallestDetPubBox">Bordered (XXS) - Detail</option>
-                                        <option value="JSSmallestDetSpPubBox">Bordered (XXS) - Detail, Spouse</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <br/>
-                                    <span>Apply Change To: </span>
-                                    <form role="form">
-                                        <div class="radio">
-                                            <label><input type="radio" name="opg-change-who" value='changeIndividual' checked>Individual</label>
-                                        </div>
-                                        <div class="radio">
-                                            <label><input type="radio" name="opg-change-who" value='changeGeneration'>Generation</label>
-                                        </div>
-                                        <div class="radio">
-                                            <label><input type="radio" name="opg-change-who" value='changeAll'>Entire Chart</label>
-                                        </div>
-                                    </form>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <button type="button" class="btn btn-primary" id="opg-modal-save-size">Save Changes</button>
-                                </div>
-                            </div>
-
-                            <div name="color_pane" class="tab-pane fade">
-                                <div class="col-sm-12 padded">
-                                    <span>Box Color:</span>
-                                    <input type="text" id="box-color-picker"/>
-                                </div>
-                                <!--<div class="col-sm-12 padded">
-                                    <span>Text Color:</span>
-                                    <input type="text" id="box-text-color-picker"/>
-                                </div>-->
-                                <div class="col-sm-12">
-                                    <br/>
-                                    <span>Apply Change To: </span>
-                                    <form role="form">
-                                        <div class="radio">
-                                            <label><input type="radio" name="opg-change-who-color" value='changeIndividual' checked>Individual</label>
-                                        </div>
-                                        <div class="radio">
-                                            <label><input type="radio" name="opg-change-who-color" value='changeGeneration'>Generation</label>
-                                        </div>
-                                        <div class="radio">
-                                            <label><input type="radio" name="opg-change-who-color" value='changeAll'>Entire Chart</label>
-                                        </div>
-                                    </form>
-                                </div>
-
-                                <div class="col-sm-12">
-                                    <button type="button" class="btn btn-primary" id="opg-modal-save-color">Save Changes</button>
-                                </div>
-                            </div>
+                        <div>
+                            <hr>
                         </div>
-
-
-
+                        <div class="col-sm-9">
+                            <div id="name" style="font-size: 32px;">NAME</div>
+                        </div>
+                        <div class="col-sm-3 right">
+                            <svg id="opg-modal-portrait"></svg>
+                        </div>
+                        <hr>
+                        <div class="col-sm-1 right-justified">
+                            Birth:
+                        </div>
+                        <div class="col-sm-11 left-justified">
+                            <div id="bdate">BDATE</div>
+                            <div id="bplace">BPLACE</div>
+                        </div>
+                        <div class="col-sm-1 right-justified">
+                            Death:
+                        </div>
+                        <div class="col-sm-11 left-justified">
+                            <div id="ddate">DDATE</div>
+                            <div id="dplace">DPLACE</div>
+                        </div>
+                        <hr>
                     </div>
                 </div>
             </div>

@@ -59,7 +59,7 @@ class MiniBoxStyle implements IBoxStyler{
 
             render_sched
                 .setBoxBorder(2)
-                .setNodeName(new Instruction(start_x, start_y+2, 17))
+                .setNodeName(new Instruction(start_x, start_y+2, 16))
                 .setNodeBDate(new Instruction(start_x + 107, start_y - 4,dateLength))
                 .setNodeBPlace(new Instruction(start_x + 162, start_y - 4,placeLength))
                 .setNodeDDate(new Instruction(start_x + 107, start_y + small_font_size - 3,dateLength))

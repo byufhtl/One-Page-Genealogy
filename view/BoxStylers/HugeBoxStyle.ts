@@ -68,17 +68,17 @@ class HugeBoxStyle implements IBoxStyler{
             start_y = 53;
 
             if(render_sched.getHasPicture()) {
-                start_x += 275;
+                start_x += 280;
             }
 
             render_sched
-                .setPicturePlace(new Instruction(start_x - 275, start_y))
+                .setPicturePlace(new Instruction(start_x - 275, start_y - 50))
                 .setPictureDim(new Instruction(270,270))
                 .setNodeName(new Instruction(start_x, start_y, nameLength))
                 .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 10, dateLength))
-                .setNodeBPlace(new Instruction(start_x + 222,start_y + big_font_size + 10, placeLength))
+                .setNodeBPlace(new Instruction(start_x + 230,start_y + big_font_size + 10, placeLength))
                 .setNodeDDate(new Instruction(start_x,start_y + big_font_size + small_font_size + 20, dateLength))
-                .setNodeDPlace(new Instruction(start_x + 222,start_y + big_font_size + small_font_size + 20, placeLength))
+                .setNodeDPlace(new Instruction(start_x + 230,start_y + big_font_size + small_font_size + 20, placeLength))
                 .setRotation(true);
         }
 

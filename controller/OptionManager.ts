@@ -152,10 +152,20 @@ class OptionManager implements IOptionManager {
         if(type === 'selectIndividual') {
             var box:IBox = data.box.copy();
             var colonLoc = box.getNode().getId().indexOf(':');
-            $('#pid').text("Box Style Options - " + box.getNode().getId().substr(0,colonLoc));
+            $('#pid').text("Personal Information for " + box.getNode().getId().substr(0,colonLoc));
+            $('#name').text(box.getNode().getAttr("name"));
+            $('#bdate').text(box.getNode().getAttr("birthdate"));
+            $('#bplace').text(box.getNode().getAttr("birthplace"));
+            $('#ddate').text(box.getNode().getAttr("deathdate"));
+            $('#dplace').text(box.getNode().getAttr("deathplace"));
             $('#opg-modal').modal('show');
             setTimeout(function(){
                 self.renderTempBox(box);
+                self.renderTempPortriat(box.getNode(),130,130);
+                var longer = (box.getHeight() > box.getWidth()) ? box.getHeight() : box.getWidth();
+                if(longer > 1000 ){
+                    $('modal-dialog-box').css('width',(longer+50).toString());
+                }
             },0);
 
             $('#box-color-picker').spectrum({
@@ -208,25 +218,6 @@ class OptionManager implements IOptionManager {
                 var pid:string = box.getNode().getId().substring(0,8);
                 self.listener.handleOption('VP-view', {id: pid});
             });
-
-            $('#opg-modal-select option[value='+box.getType()+']').prop('selected', true);
-            opgModalSelect.change(function() {
-                var optionSelected = $("option:selected", this);
-                box.setType(this.value);
-                self.renderTempBox(box);
-            });
-            opgModalSizeSave.click(function() {
-                $('#opg-modal').modal('hide');
-                var changeWho = $('input[name=opg-change-who]:checked').val();
-                self.listener.handleOption(changeWho, {type: box.getType(), id: box.getNode().getId()});
-                this.customSize = true;
-            });
-            opgModalColorSave.click(function() {
-                $('#opg-modal').modal('hide');
-                var changeWho = $('input[name=opg-change-who-color]:checked').val();
-                self.listener.handleOption(changeWho, {id: box.getNode().getId(), color: box.getColor(), textcolor: box.getTextColor()});
-                this.customColor = true;
-            });
             if(box.isCollapsed()) {
                 opgModalCollapse.html('Expand');
                 opgModalCollapse.click(function() {
@@ -241,8 +232,6 @@ class OptionManager implements IOptionManager {
                     self.listener.handleOption("collapse-sub-tree", {id: box.getNode().getId(), box: box})
                 });
             }
-
-
         }
         if(type === 'selectStyle') {
             $('#opg-modal').modal('show');
@@ -282,13 +271,17 @@ class OptionManager implements IOptionManager {
         g.setAttribute("transform", transform.join(' '));
     }
 
+    private renderTempPortriat(node :INode, width :number, height : number){
+        var opgModalPortraitSVG = $('#opg-modal-portrait');
+        opgModalPortraitSVG.empty();
+        Renderer.renderPortrait(node, width, height, opgModalPortraitSVG[0]);
+    }
+
     private handleStyleChange(changeType:string, sizeChange:boolean = true){
         if((this.customColor && !sizeChange) || (this.customSize && sizeChange)){
-            console.log("Style Change - Override Protocol");
             this.displayWarning(changeType,sizeChange);
         }
         else {
-            console.log("Style Change - No Override");
             if(changeType === 'to-country-color') {
                 //pass the callback
                 var colorMap = this.setCountryColors(this.listener.getBoxes());

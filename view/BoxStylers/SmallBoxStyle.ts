@@ -31,10 +31,6 @@ class SmallBoxStyle implements IBoxStyler{
             .setHasPicture(box.getRenderInstructions().getHasPicture())
             .setSpouseHasPicture(box.getRenderInstructions().getSpouseHasPicture());
 
-        if(box.getRenderInstructions().getHasPicture() == undefined){
-            console.log(box.getRenderInstructions().toString() + "::ERROR!!!");
-        }
-
         if(flavor_key === SmallBoxStyle.MARRIED){
             // Married Flavor
 

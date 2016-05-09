@@ -7,11 +7,11 @@
  * Last updated 1/29/2016
  */
 
-class GenWoodSpacer extends AbstractStyler{
+class GenWoodColorSpacer extends AbstractStyler{
 
 
     constructor(){
-        super("GenWoodSpacer");
+        super("GenWoodColorSpacer");
     }
 
     applyStyle(boxes: BoxMap): void {

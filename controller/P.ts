@@ -36,7 +36,7 @@
 ///<reference path="ColorSpacers/AscGreyscaleColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenColorVibrantSpacer.ts"/>
-///<reference path="ColorSpacers/GenWoodSpacer.ts"/>
+///<reference path="ColorSpacers/GenWoodColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenderColorSpacer.ts"/>
 ///<reference path="ColorSpacers/CountryColorSpacer.ts"/>
 ///<reference path="ColorSpacers/BaptismColorSpacer.ts"/>
@@ -585,8 +585,7 @@ class P implements IControllerListener, ITreeListener {
                 style = new GenColorVibrantSpacer();
                 break;
             case 'to-generation-wood':
-                console.log("Wood color implemented");
-                style = new GenWoodSpacer();
+                style = new GenWoodColorSpacer();
                 break;
             case 'to-gender-color':
                 style = new GenderColorSpacer();

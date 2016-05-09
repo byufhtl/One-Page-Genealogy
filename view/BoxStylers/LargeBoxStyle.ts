@@ -18,7 +18,7 @@ class LargeBoxStyle implements IBoxStyler{
         var s_start_x = 440;
         var s_start_y = 45;
         var big_font_size = 40;
-        var small_font_size = 28;
+        var small_font_size = 22;
         var nameLength = 18;
         var dateLength = 16;
         var placeLength = 16;
@@ -65,7 +65,7 @@ class LargeBoxStyle implements IBoxStyler{
         else if (flavor_key === LargeBoxStyle.SINGLE_WIDE){
             // Single Flavor
             box.setHeight(610);
-            box.setWidth(225);
+            box.setWidth(185);
 
             var start_x = 15;
             var start_y = 45;
@@ -75,18 +75,18 @@ class LargeBoxStyle implements IBoxStyler{
             }
 
             render_sched
-                .setPicturePlace(new Instruction(start_x - 155, start_y))
+                .setPicturePlace(new Instruction(start_x - 155, start_y - 40))
                 .setPictureDim(new Instruction(150,150))
                 .setNodeName(new Instruction(start_x,start_y, nameLength))
                 .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 8, dateLength))
-                .setNodeBPlace(new Instruction(start_x + 148, start_y + big_font_size + 8, placeLength))
+                .setNodeBPlace(new Instruction(start_x + 160, start_y + big_font_size + 8, placeLength))
                 .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 16, dateLength))
-                .setNodeDPlace(new Instruction(start_x + 148,start_y + big_font_size + small_font_size + 16, placeLength))
+                .setNodeDPlace(new Instruction(start_x + 160,start_y + big_font_size + small_font_size + 16, placeLength))
                 .setRotation(true);
         }
         else if(flavor_key === LargeBoxStyle.SINGLE_LONG){
 
-            box.setHeight(225);
+            box.setHeight(185);
             box.setWidth(610);
 
             box.setY(box.getY() - 305); // Shift the box down.
@@ -111,21 +111,17 @@ class LargeBoxStyle implements IBoxStyler{
             box.setHeight(524);
             box.setWidth(524);
 
-            box.setY(box.getY() - 262); // Shift the box down.
-            box.setX(box.getX() - 262); // Shift the box over.
-
-            if(render_sched.getHasPicture()) {
-                start_x += 145;
-            }
+            start_x = 25;
+            start_y = 55;
 
             render_sched
-                //.setPicturePlace(new Instruction(start_x - 155, start_y))
-                //.setPictureDim(new Instruction(150,150))
+                .setPicturePlace(new Instruction(start_x + 162, start_y + big_font_size + small_font_size * 2 + 200))
+                .setPictureDim(new Instruction(150,150))
                 .setNodeName(new Instruction(start_x + 45, start_y + 190, nameLength))
                 .setNodeBDate(new Instruction(start_x + 45, start_y + big_font_size + 198, dateLength))
-                .setNodeBPlace(new Instruction(start_x + 190, start_y + big_font_size + 198, placeLength))
+                .setNodeBPlace(new Instruction(start_x + 210, start_y + big_font_size + 198, placeLength))
                 .setNodeDDate(new Instruction(start_x + 45, start_y + big_font_size + small_font_size + 206, dateLength))
-                .setNodeDPlace(new Instruction(start_x + 190,start_y + big_font_size + small_font_size + 206, placeLength))
+                .setNodeDPlace(new Instruction(start_x + 210, start_y + big_font_size + small_font_size + 206, placeLength))
                 .setBoxBorder(7)
                 .setCornerRounding(305)
                 .setRotation(true);
