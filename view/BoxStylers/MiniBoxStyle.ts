@@ -15,7 +15,7 @@ class MiniBoxStyle implements IBoxStyler{
 
     applyStyleTo(box :IBox, flavor_key :string){
         var start_x = 5;
-        var start_y = 16;
+        var start_y = 13;
         var s_start_x = 80;
         var s_start_y = 20;
         var big_font_size = 10;
@@ -54,7 +54,7 @@ class MiniBoxStyle implements IBoxStyler{
         }
         else if(flavor_key === MiniBoxStyle.SINGLE){
             // Single Flavor
-            box.setHeight(34);
+            box.setHeight(28);
             box.setWidth(255);
 
             render_sched

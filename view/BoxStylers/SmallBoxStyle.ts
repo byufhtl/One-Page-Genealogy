@@ -140,7 +140,7 @@ class SmallBoxStyle implements IBoxStyler{
             start_y = 95;
 
             render_sched
-                .setPicturePlace(new Instruction(start_x + 61, start_y + big_font_size + small_font_size*2))
+                .setPicturePlace(new Instruction(start_x + 57, start_y + big_font_size + small_font_size*2))
                 .setPictureDim(new Instruction(55,55,null))
                 .setNodeName(new Instruction(start_x, start_y, nameLength))
                 .setNodeBDate(new Instruction(start_x, start_y + big_font_size, dateLength))

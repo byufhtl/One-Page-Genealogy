@@ -37,7 +37,7 @@ class EightElevenDetailChartStyler extends AbstractChartStyle{
 
                 queue.push([branchIds[i], generation+1]);
 
-                if(this.initialized && generation === 4){//>4) {
+                if(this.initialized && generation === 5){//>4) {
                     box.setCollapsed(true);
                 }
             }
@@ -60,27 +60,29 @@ class EightElevenDetailChartStyler extends AbstractChartStyle{
                 StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
                 break;
             case 2:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth()/5);
                 branchBox.setType(StyleManager.SMALL);
                 StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
                 break;
             case 3:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
-                branchBox.setType(StyleManager.SMALL);
-                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth()/5 + 15);
+                branchBox.setType(StyleManager.MINI);
+                StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
                 break;
             case 4:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
+                branchBox.setX(parentBox.getX() + 4*parentBox.getWidth()/5);
                 branchBox.setType(StyleManager.MINI);
-                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
+                StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
                 break;
             case 5:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 18);
                 branchBox.setType(StyleManager.MINI);
-                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
+                StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
                 break;
             default:
-                branchBox.setCollapsed(true);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
+                branchBox.setType(StyleManager.TINY);
+                StyleManager.stylize(branchBox, TinyBoxStyle.SINGLE);
         }
     }
 }

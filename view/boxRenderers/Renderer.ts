@@ -87,7 +87,7 @@ class Renderer{
         gt.setAttribute("style", "font-family: 'Roboto Slab' ");
 
         rect.setAttribute('width', String(box.getWidth()));
-        rect.setAttribute('height', String(box.getHeight() - 8 - box.getSpace()));
+        rect.setAttribute('height', String(box.getHeight() - 6 - box.getSpace()));
 
         // set up the rounding on the boxes based on the RIS, defaulting to 5% of the longer of the two sides.
         var rounding = ris.getCornerRounding();
@@ -169,7 +169,7 @@ class Renderer{
                 //console.log("No Name Instructions for [" + name + "]");
                 //StyleManager.stylize(box, box.getRenderInstructions().getFlavorKey());
                 //return Renderer.renderBox(box, rootElement);
-                console.log("null name instruction on [" + node.getAttr("name") + "]");
+                console.log("null name instruction on [" + node.getAttr("name") + "]" + ris.toString());
             }
             if(name_p == undefined){
                 console.log("undef name instruction on [" + node.getAttr("name") + "]");
