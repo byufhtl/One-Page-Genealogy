@@ -35,13 +35,13 @@ class RenderInstructionSchedule{
 //[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]\                    /[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
 
-    // Box, Text, Rotation (8)
+    // Box, Text, Rotation (10)
     public setFlavorKey(flavor_key :string) :RenderInstructionSchedule{
         this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY] = flavor_key;
         return this;
     }
 
-    public setBoxBorder(borderWidth :number) :RenderInstructionSchedule{
+    public setBorderWidth(borderWidth :number) :RenderInstructionSchedule{
         this.boxInstructions[RenderInstructionSchedule.BORDER_WIDTH] = borderWidth;
         return this;
     }
@@ -81,6 +81,10 @@ class RenderInstructionSchedule{
         return this;
     }
 
+    public setBoldID(bold_id :string) :RenderInstructionSchedule{
+        this.boxInstructions[RenderInstructionSchedule.BOLD] = bold_id;
+        return this;
+    }
 
     // Node (9)
     public setNodeName(i :Instruction) :RenderInstructionSchedule{
@@ -217,7 +221,7 @@ class RenderInstructionSchedule{
 //[o]=[o]==[o]=[o]=[o]=[o][o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=]\                    /[[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o]=[o][]||[]>
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[]||[]>
 
-    // Box, Text, Rotation (8)
+    // Box, Text, Rotation (10)
     public getFlavorKey() :string{
         if(!this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY]) {
             console.log("Flavor key will fail: " + this.boxInstructions[RenderInstructionSchedule.FLAVOR_KEY]);
@@ -258,6 +262,12 @@ class RenderInstructionSchedule{
 
     public getAltTextSize() :number{
         return this.textInstructions[RenderInstructionSchedule.ALT_FONT_SIZE];
+    }
+
+    public getBoldID() :string{
+        var id = this.boxInstructions[RenderInstructionSchedule.BOLD];
+        if(!id){return null;}
+        return id;
     }
 
     // Node (9)
@@ -481,6 +491,7 @@ class RenderInstructionSchedule{
     static S_D_PLACE = "s_d_p";
     static S_LIFE_SPAN = "s_life_span";
     static S_HAS_PICTURE = "s_has_pic"; // used to track the picture status.
+    static MULTIPLE_SPOUSES = "multi_spouse"; // Changes the way that the computer makes use of the RIS information.
 
     static M_DATE = "m_d";
     static M_PLACE = "m_p";

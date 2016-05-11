@@ -47,6 +47,7 @@ class VertDescDetChartSpacer extends  AbstractStyler {
             }
         }
     }
+
     private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
         if(generation == 0) {
             var bx = 0;

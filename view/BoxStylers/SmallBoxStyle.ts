@@ -31,35 +31,76 @@ class SmallBoxStyle implements IBoxStyler{
             .setHasPicture(box.getRenderInstructions().getHasPicture())
             .setSpouseHasPicture(box.getRenderInstructions().getSpouseHasPicture());
 
-        if(flavor_key === SmallBoxStyle.MARRIED){
+        //~~~ Married Flavors ~~~
+
+        if(flavor_key === SmallBoxStyle.MARRIED_WIDE){
             // Married Flavor
 
-            box.setHeight(100);
-            box.setWidth(250);
+            //console.log("Married Wide applied to " + box.getNode().getAttr("name"));
+            box.setHeight(250);
+            box.setWidth(160);
 
-            if(render_sched.getHasPicture()) {
-                start_x += 60;
-                s_start_x += 95;
+            if(box.getNode().getSpouses().length == 0){
+                flavor_key = SmallBoxStyle.SINGLE_WIDE;
+                render_sched.setFlavorKey(flavor_key);
             }
-            render_sched
-                .setPicturePlace(new Instruction(start_x - 60, start_y - 16))
-                .setPictureDim(new Instruction(55,55,null))
-                .setNodeName(new Instruction(start_x, start_y, nameLength))
-                .setNodeBDate(new Instruction(start_x, start_y + big_font_size, dateLength))
-                .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size, placeLength))
-                .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 3, dateLength))
-                .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size + 3, placeLength))
-                .setSpousePicturePlace(new Instruction(s_start_x - 65,s_start_y - 16))
-                .setSpousePictureDim(new Instruction(55,55,null))
-                .setSpouseName(new Instruction(s_start_x, s_start_y, nameLength))
-                .setSpouseBDate(new Instruction(s_start_x, s_start_y + big_font_size + 5, dateLength))
-                .setSpouseBPlace(new Instruction(s_start_x + 80, s_start_y + big_font_size + 5, placeLength))
-                .setSpouseDDate(new Instruction(s_start_x, s_start_y + big_font_size + small_font_size + 8, dateLength))
-                .setSpouseDPlace(new Instruction(s_start_x + 80, s_start_x + big_font_size + small_font_size*2 + 8))
-                .setMarriageDate(new Instruction(75, s_start_y + big_font_size + small_font_size*2 + 8))
-                .setMarriagePlace(new Instruction(125, s_start_y + big_font_size + small_font_size*2 + 8))
+            else {
+                /*
+                 Set height/width up to be different if there are multiple spouses? Or do you want to try to handle this
+                 from the chart styler? You'll have to figure it out, but I think that the chart styler would be the
+                 more cohesive method of making all of the boxes level.
+                */
+
+                start_x = 10;
+                s_start_x = 10;
+
+                // Put the man on top for consistency (Not sexist, just because there are likely to be fewer plural men)
+                if(box.getNode().getAttr('gender') === "Male"){
+
+                    start_y = 21;
+                    s_start_y = 85;
+                }
+                else{
+                    start_y = 85;
+                    s_start_y = 21;
+                }
+
+                // Handle the Picture
+                if (render_sched.getHasPicture()) {
+                    start_x += 60;
+                    s_start_x += 60;
+                    render_sched
+                        .setPicturePlace(new Instruction(start_x - 60, start_y - 16))
+                        .setPictureDim(new Instruction(55, 55, null))
+                        .setSpousePicturePlace(new Instruction(start_x - 60, start_y - 16))
+                        .setSpousePictureDim(new Instruction(55, 55, null));
+                }
+
+                // Begin the setup
+                render_sched
+                    .setNodeName(new Instruction(start_x, start_y, nameLength))
+                    .setNodeBDate(new Instruction(start_x, start_y + big_font_size, dateLength))
+                    .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size, placeLength))
+                    .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 3, dateLength))
+                    .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size + 3, placeLength))
+
+                    .setSpouseName(new Instruction(s_start_x, s_start_y, nameLength))
+                    .setSpouseBDate(new Instruction(s_start_x, s_start_y + big_font_size, dateLength))
+                    .setSpouseBPlace(new Instruction(s_start_x + 80, s_start_y + big_font_size, placeLength))
+                    .setSpouseDDate(new Instruction(s_start_x, s_start_y + big_font_size + small_font_size + 3, dateLength))
+                    .setSpouseDPlace(new Instruction(s_start_x + 80, s_start_x + big_font_size + small_font_size + 3 + 8))
+
+                    .setMarriageDate(new Instruction(75, 141))
+                    .setMarriagePlace(new Instruction(125, 141))
+
+                    .setBoldID(box.getNode().getId())
+                    .setRotation(true);
+            }
         }
-        else if(flavor_key === SmallBoxStyle.SINGLE_LONG){
+
+        //~~~ Single Flavors ~~~
+
+        if(flavor_key === SmallBoxStyle.SINGLE_LONG){
             // Single Flavor - long
             box.setHeight(73);
             box.setWidth(250);
@@ -103,6 +144,8 @@ class SmallBoxStyle implements IBoxStyler{
         }
         else if(flavor_key === SmallBoxStyle.SINGLE_WIDE){
             // Single Flavor - wide
+
+            //console.log("Single Wide applied to " + box.getNode().getAttr("name"));
             box.setHeight(250);
             box.setWidth(70);
 
@@ -143,7 +186,7 @@ class SmallBoxStyle implements IBoxStyler{
                 .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size, placeLength))
                 .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 3, dateLength))
                 .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size + 3, placeLength))
-                .setBoxBorder(5)
+                .setBorderWidth(5)
                 .setCornerRounding(106)
                 .setRotation(true);
         }
@@ -158,5 +201,5 @@ class SmallBoxStyle implements IBoxStyler{
     static SINGLE_LONG_FAT  = "s_l_f";
     static SINGLE_WIDE      = "s_w";
     static SINGLE_BUBBLE    = "s_b";
-    static MARRIED          = "m";
+    static MARRIED_WIDE     = "m_w";
 }

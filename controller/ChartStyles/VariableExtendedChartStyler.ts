@@ -19,6 +19,7 @@ class ExtendedChartStyler extends AbstractChartStyle{
         }
 
         // BUILD A BIGGER-CHART VERSION OF THE VARIABLE DEPTH CHART STYLE
+
         switch(generation){
             case 0:
                 branchBox.setX(0);

@@ -24,8 +24,8 @@ class MediumBoxStyle implements IBoxStyler{
 
         // Basic data
         var render_sched :RenderInstructionSchedule = new RenderInstructionSchedule()
-            .setBoxInstructions(box.getRenderInstructions().getBoxInstructions())
-            .setTextInstructions(box.getRenderInstructions().getTextInstructions())
+            //.setBoxInstructions(box.getRenderInstructions().getBoxInstructions())
+            //.setTextInstructions(box.getRenderInstructions().getTextInstructions())
             .setFlavorKey(flavor_key)
             .setDefTextSize(big_font_size)
             .setAltTextSize(small_font_size)
@@ -73,19 +73,18 @@ class MediumBoxStyle implements IBoxStyler{
 
             box.setHeight(380);
             box.setWidth(130);
-            box.setY(box.getY() - 190); // Shift the box down.
-            box.setX(box.getX() - 65); // Shift the box over.
 
             start_x = 22;
             start_y = 29;
 
             if (render_sched.getHasPicture()) {
                 start_x += 72;
+                render_sched
+                    .setPicturePlace(new Instruction(start_x - 80, start_y - 20))
+                    .setPictureDim(new Instruction(75, 75));
             }
 
             render_sched
-                .setPicturePlace(new Instruction(start_x - 80, start_y - 20))
-                .setPictureDim(new Instruction(75, 75))
                 .setNodeName(new Instruction(start_x, start_y, nameLength))
                 .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
                 .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
@@ -130,7 +129,7 @@ class MediumBoxStyle implements IBoxStyler{
                 .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
                 .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
                 .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength))
-                .setBoxBorder(6)
+                .setBorderWidth(6)
                 .setCornerRounding(190)
                 .setRotation(true);
         }

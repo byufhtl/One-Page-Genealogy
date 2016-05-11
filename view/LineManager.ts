@@ -87,6 +87,7 @@ class LineManager {
         }
         return this.d;
     }
+
     private toCenterPoint(box:IBox):any {
         return {
             getX: function() {
@@ -101,6 +102,7 @@ class LineManager {
     setBounds(x: number, y: number, w: number, h: number): void {
         this.bounds = {x: x, y:y, w:w, h:h};
     }
+
     private shouldDrawLine(parent: IBox, firstChild: IBox, lastChild: IBox): boolean {
         var parentResult = this.testBounds(parent);
         var firstResult = this.testBounds(firstChild);
@@ -111,6 +113,7 @@ class LineManager {
 
         return !result;
     }
+
     //private allFailSameTest(dictionaries):boolean {
     //    var masterDictionary = {};
     //    for(var i=0; i<dictionaries.length; i++) {
@@ -131,6 +134,7 @@ class LineManager {
     //    }
     //    return false;
     //}
+
     private failedSameTest(parentResult, firstResult, lastResult) {
         if(parentResult['top'] && firstResult['top'] && lastResult['top']) {
             return true;
@@ -146,9 +150,11 @@ class LineManager {
         }
         return false;
     }
+
     setIgnoreBound(ignore: boolean): void {
         this.ignoreBounds = ignore;
     }
+
     private testBounds(box: IBox): any {
         if(this.ignoreBounds) {
             return {};

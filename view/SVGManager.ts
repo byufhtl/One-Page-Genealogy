@@ -207,7 +207,7 @@ class SVGManager implements IViewManager {
     private realRefresh(): void {
         //TODO: check for rootNode existence or null
         //if none exists, show the loading gif
-        if(this.lastBoxes.getRoot() !== null && this.svgLoading){
+        if(this.lastBoxes && this.lastBoxes.getRoot() !== null && this.svgLoading){
             this.svgRoot.removeChild(this.svgLoading);
             this.svgRoot.removeChild(this.rect);
             this.svgRoot.removeChild(this.svgPercent);

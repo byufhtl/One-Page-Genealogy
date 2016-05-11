@@ -122,7 +122,7 @@ class LargeBoxStyle implements IBoxStyler{
                 .setNodeBPlace(new Instruction(start_x + 210, start_y + big_font_size + 198, placeLength))
                 .setNodeDDate(new Instruction(start_x + 45, start_y + big_font_size + small_font_size + 206, dateLength))
                 .setNodeDPlace(new Instruction(start_x + 210, start_y + big_font_size + small_font_size + 206, placeLength))
-                .setBoxBorder(7)
+                .setBorderWidth(7)
                 .setCornerRounding(305)
                 .setRotation(true);
         }

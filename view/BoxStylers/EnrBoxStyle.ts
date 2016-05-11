@@ -66,11 +66,12 @@ class EnrBoxStyle implements IBoxStyler{
 
             if(render_sched.getHasPicture()) {
                 start_x += 255;
+                render_sched
+                    .setPicturePlace(new Instruction(start_x - 255, start_y))
+                    .setPictureDim(new Instruction(250,250));
             }
 
             render_sched
-                .setPicturePlace(new Instruction(start_x, start_y))
-                .setPictureDim(new Instruction(250,250))
                 .setNodeName(new Instruction(start_x, start_y, nameLength))
                 .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 10, dateLength))
                 .setNodeBPlace(new Instruction(start_x + 240, start_y + big_font_size + 10, placeLength))

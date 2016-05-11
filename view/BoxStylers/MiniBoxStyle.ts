@@ -37,7 +37,7 @@ class MiniBoxStyle implements IBoxStyler{
             box.setWidth(255);
 
             render_sched
-                .setBoxBorder(2)
+                .setBorderWidth(2)
                 .setNodeName(new Instruction(start_x, start_y+2, 17))
                 .setNodeBDate(new Instruction(start_x + 107, start_y - 4,dateLength))
                 .setNodeBPlace(new Instruction(start_x + 162, start_y - 4,placeLength))
@@ -58,7 +58,7 @@ class MiniBoxStyle implements IBoxStyler{
             box.setWidth(255);
 
             render_sched
-                .setBoxBorder(2)
+                .setBorderWidth(2)
                 .setNodeName(new Instruction(start_x, start_y+2, 16))
                 .setNodeBDate(new Instruction(start_x + 107, start_y - 4,dateLength))
                 .setNodeBPlace(new Instruction(start_x + 162, start_y - 4,placeLength))
@@ -81,7 +81,7 @@ class MiniBoxStyle implements IBoxStyler{
                 .setNodeBPlace(new Instruction(start_x, start_y + big_font_size + small_font_size + 1,placeLength))
                 .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size*2 + 1,dateLength))
                 .setNodeDPlace(new Instruction(start_x, start_y + big_font_size + small_font_size*3 + 1,placeLength))
-                .setBoxBorder(4)
+                .setBorderWidth(4)
                 .setCornerRounding(52)
                 .setRotation(true);
         }

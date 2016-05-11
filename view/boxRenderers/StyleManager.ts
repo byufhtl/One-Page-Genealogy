@@ -7,6 +7,7 @@
 ///<reference path="../BoxStylers/SmallBoxStyle.ts"/>
 ///<reference path="../BoxStylers/MiniBoxStyle.ts"/>
 ///<reference path="../BoxStylers/TinyBoxStyle.ts"/>
+///<reference path="../BoxStylers/NullBoxStyle.ts"/>
 
 /**
  * Created by calvinmcm on 4/13/16.
@@ -27,6 +28,7 @@ class StyleManager{
     static SMALL    = "Small";
     static MINI     = "Mini";
     static TINY     = "Tiny";
+    static NULL     = "Null";
 
     // Styler options. Creates a static version of the object that can be used by this class only.
     private static ENR_STYLER   = new EnrBoxStyle();
@@ -36,6 +38,7 @@ class StyleManager{
     private static SMALL_STYLER  = new SmallBoxStyle();
     private static MINI_STYLER  = new MiniBoxStyle();
     private static TINY_STYLER  = new TinyBoxStyle();
+    private static NULL_STYLER = new NullBoxStyle();
 
 
     /**
@@ -67,6 +70,9 @@ class StyleManager{
                 break;
             case StyleManager.TINY:
                 StyleManager.TINY_STYLER.applyStyleTo(box, flavor_key);
+                break;
+            case StyleManager.NULL:
+                StyleManager.NULL_STYLER.applyStyleTo(box, NullBoxStyle.NULL);
                 break;
             default:
                 StyleManager.TINY_STYLER.applyStyleTo(box, flavor_key);

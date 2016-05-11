@@ -214,6 +214,7 @@ class C implements IGraphicObjectListener, IOptionListener {
     }
 
     getBranch(box:IBox, branch:IBox[]): IBox[]{
+        if(!box){return null;}
         var branchIds = box.getNode().getBranchIds();
         branch.push(box);
         if(branchIds.length === 0){

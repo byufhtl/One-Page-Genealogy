@@ -196,6 +196,7 @@
     <script src="view/BoxStylers/SmallBoxStyle.js" type="text/javascript"></script>
     <script src="view/BoxStylers/MiniBoxStyle.js" type="text/javascript"></script>
     <script src="view/BoxStylers/TinyBoxStyle.js" type="text/javascript"></script>
+    <script src="view/BoxStylers/NullBoxStyle.js" type="text/javascript"></script>
 
     <script src="view/boxRenderers/RenderInstructionSchedule.js" type="text/javascript"></script>
     <script src="view/boxRenderers/StyleManager.js" type="text/javascript"></script>
@@ -259,35 +260,35 @@
 
                 <li><a id="opg-ruler" title="Show Ruler" href="#"><img style="width:16px;height:16px;"src="images/ruler.png"></a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Styles <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="label label-warning">new</span> Styles <span class="caret"></span></a>
+                    <ul class="dropdown-menu" style="max-width: 500px;" role="menu">
                         <li><a id="opg-detail-style" href="#">Full Detail Style</a></li>
                         <li><a id="opg-reunion-style" href="#">Family Reunion Style</a></li>
-                        <li><a id="opg-extended-style" href="#">Extended Family Reunion Style (13+ Generations)</a></li>
+                        <li><span class="label label-warning">new</span><a id="opg-extended-style" href="#">Extended Family Reunion Style (13+ Generations)</a></li>
                         <li><a id="opg-vertical-style" href="#">Vertical Detail Style (Default)</a></li>
-                        <li><a id="opg-vertical-style-accent" href="#">Vertical Detail Accent Style</a></li>
-                        <li><a id="opg-bubble-style" href="#">Bubble Style</a></li>
-                        <li><a id="opg-var-depth-style" href="#">Variable Depth Style</a></li>
+                        <li><span class="label label-warning">new</span><a id="opg-vertical-style-accent" href="#">Vertical Detail Accent Style</a></li>
+                        <li><span class="label label-warning">new</span><a id="opg-bubble-style" href="#">Bubble Style</a></li>
+                        <li><span class="label label-warning">new</span><a id="opg-var-depth-style" href="#">Variable Depth Style</a></li>
                         <li><a id="opg-eight-eleven-style" href="#">8 1/2 x 11 Style</a></li>
                         <li><a id="opg-eight-eleven-detail-style" href="#">8 1/2 x 11 Detail Style</a></li>
-                        <li><a id="opg-eleven-seventeen-style" href="#">11 x 17 Style</a></li>
+                        <li><span class="label label-warning">new</span><a id="opg-eleven-seventeen-style" href="#">11 x 17 Style</a></li>
                         <li class="divider">Descendency View Only</li>
                         <li><a id="opg-js-public-style" href="#">Descendancy with Border Style</a></li>
                         <li><a id="opg-js-reunion-public-style" href="#">Family Reunion Descendancy with Border Style</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Colors <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="label label-warning">new</span> Colors <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a id="opg-to-branch-color" href="#">Color by Branch - Pastel (Default)</a></li>
-                        <li><a id="opg-to-branch-color-blackout" href="#">Color by Branch - Blackout (For Black Paper)</a></li>
-                        <li><a id="opg-to-branch-color-bold" href="#">Color by Branch - Bold</a></li>
-                        <li><a id="opg-to-branch-color-gray" href="#">Color by Branch - Greyscale</a></li>
+                        <li><span class="label label-warning">new</span><a id="opg-to-branch-color-blackout" href="#">Color by Branch - Blackout (For Black Paper)</a></li>
+                        <li><span class="label label-warning">new</span><a id="opg-to-branch-color-bold" href="#">Color by Branch - Bold</a></li>
+                        <li><span class="label label-warning">new</span><a id="opg-to-branch-color-gray" href="#">Color by Branch - Greyscale</a></li>
                         <li class="divider"></li>
-                        <li><a id="opg-to-generation-color-warm" href="#">Color by Generation - Warm</a></li>
-                        <li><a id="opg-to-generation-color-cold" href="#">Color by Generation - Cold</a></li>
+                        <li><span class="label label-warning">new</span><a id="opg-to-generation-color-warm" href="#">Color by Generation - Warm</a></li>
+                        <li><span class="label label-warning">new</span><a id="opg-to-generation-color-cold" href="#">Color by Generation - Cold</a></li>
                         <li><a id="opg-to-generation-color-vibrant" href="#">Color by Generation - Vibrant</a></li>
-                        <li><a id="opg-to-generation-wood" href="#">Color by Generation - Wood</a></li>
+                        <li><span class="label label-warning">new</span><a id="opg-to-generation-wood" href="#">Color by Generation - Wood</a></li>
                         <li class="divider"></li>
                         <li><a id="opg-to-gender-color" href="#">Color by Gender</a></li>
                         <li><a id="opg-to-country-color" href="#">Color by Country</a></li>
@@ -352,6 +353,8 @@
             </div>
             <div class="modal-body" align="center">
                 <h3 style="text-align: center">All of your Genealogy on one page.</h3>
+                <h2><span class="label label-warning">NEW FEATURES!</span></h2>
+                <br>
                 <h4 style="text-align: center">Select Type of Download</h4>
                 <input id = "togedbutton" type="button" class="btn btn-primary" value="Read Gedcom File" onclick="$('#downloadModal').hide(); $('#myInput').click();" /></li>
                 <input id = "tofsbutton" type="button" class="btn btn-primary" value="FamilySearch"/>
@@ -533,6 +536,11 @@
                 <div class="input-group input-group-sm" style="display:inline-block">
                     <input type="text" class="form-control" onChange="handleWidth(this.value)" id="ruler-width" size="7">
                 </div>
+            </div>
+            <hr>
+            <div>
+                <p>These dimensions should be how long you want the chart to be. You can then exand the ruler to be
+                about an inch to get a feel for how your chart would look at that size.</p>
             </div>
             <div class="modal-footer">
                 <button style="float:left" type="button" class="btn btn-primary" id="ruler-hide">Hide Ruler</button>

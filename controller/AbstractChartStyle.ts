@@ -37,7 +37,7 @@ abstract class AbstractChartStyle extends AbstractStyler{
         }
     }
 
-    abstract setBasedOnGeneration(box:IBox, branchBox:IBox, generation: number) :void;
+    protected abstract setBasedOnGeneration(box:IBox, branchBox:IBox, generation: number) :void;
 
     constructor(name:string){
         super(name);

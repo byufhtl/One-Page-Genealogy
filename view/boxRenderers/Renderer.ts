@@ -61,17 +61,18 @@ class Renderer{
         var big_font = ris.getDefTextSize();
         var small_font = ris.getAltTextSize();
 
-        // Reject if collapsed
-        //if (box.isCollapsed()) {
-        //    return g;
-        //}
-
         if (rootElement) {
             rootElement.appendChild(g);
         }
 
-        // Create some default text sizes if they have not been previously set.
+        // build in a quick anti-nullbox case to prevent it from really rendering.
+        if(ris.getFlavorKey() === NullBoxStyle.NULL){
+            console.log("Null Box Being Rendered.");
+            g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
+            return g;
+        }
 
+        // Create some default text sizes if they have not been previously set.
         if (big_font === null || big_font == undefined) {
             big_font = 12;
         }
@@ -87,14 +88,17 @@ class Renderer{
         gt.setAttribute("style", "font-family: 'Roboto Slab' ");
 
         rect.setAttribute('width', String(box.getWidth()));
-        rect.setAttribute('height', String(box.getHeight() - 6 - box.getSpace()));
+        var h = box.getHeight() - 6 - box.getSpace();
+        h = (h > 0)? h : 0;
+        if(h === 0){console.log("Bad DIM: " + box.getWidth() + "," + box.getHeight() + " : " + ris.getFlavorKey());}
+        rect.setAttribute('height', String(h));
 
         // set up the rounding on the boxes based on the RIS, defaulting to 5% of the longer of the two sides.
         var rounding = ris.getCornerRounding();
         var edge_curve :string;
 
         if (rounding == null || rounding == undefined) {
-            var longest = (box.getWidth() > box.getHeight()) ? box.getWidth() : box.getHeight();
+            var longest = (box.getWidth() > h) ? box.getWidth() : h;
             edge_curve = (longest / 20).toString();
         }
         else{
@@ -287,7 +291,9 @@ class Renderer{
         var m_date_p = ris.getMDateInstruction();
         var m_date = node.getAttr('marriagedate');
         if(m_date_p != null && m_date){ // Check for non-null result
-            gt.appendChild(Renderer.renderDate(m_date, m_date_p.getX(), m_date_p.getY(), small_font, text_color, m_date_p.getL(), ris.isRotated()));
+            var marr_date = Renderer.renderDate(m_date, m_date_p.getX(), m_date_p.getY(), small_font, text_color, m_date_p.getL(), ris.isRotated());
+            marr_date.textContent = "M: " + marr_date.textContent;
+            gt.appendChild(marr_date);
         }
 
         //~~~ MARRIAGE PLACE SETUP ~~~
@@ -321,6 +327,9 @@ class Renderer{
         if(graphic && box) {
             graphic.setAttribute("transform", "translate(" + (box.getX() + 2) + ", " +
                 (box.getY() + 1 + Math.round(box.getSpace() / 2)) + ")");
+        }
+        else{
+            console.log("Movement failed with box " + box + " and " + graphic);
         }
     }
 
@@ -386,11 +395,11 @@ class Renderer{
      * @returns {Element}
      */
     private static renderDate(date :string, x :number, y :number, font_size :number, font_color :string, allowed_len :number, rotated :boolean) :Element{
+        var text = Renderer.generateTextElement("", x, y, font_size, font_color);
         if(date && date != '') {
-            var text = Renderer.generateTextElement("", x, y, font_size, font_color);
             StringUtils.fitDatePlace(text, date, "", allowed_len);
-            return text;
         }
+        return text;
     }
 
     /**
@@ -405,11 +414,11 @@ class Renderer{
      * @returns {Element}
      */
     private static renderPlace(place :string, x :number, y :number, font_size :number, font_color :string, allowed_len :number, rotated :boolean) :Element{
+        var text = Renderer.generateTextElement("", x, y, font_size, font_color);
         if(place && place != '') {
-            var text = Renderer.generateTextElement("", x, y, font_size, font_color);
             StringUtils.fitPlaceJS(text, place, allowed_len);
-            return text;
         }
+        return text;
     }
 
     /**

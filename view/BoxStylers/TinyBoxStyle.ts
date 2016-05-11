@@ -27,7 +27,7 @@ class TinyBoxStyle implements IBoxStyler{
         render_sched
             .setDefTextSize(big_font_size)
             .setAltTextSize(small_font_size)
-            .setBoxBorder(1);
+            .setBorderWidth(1);
 
         box.setWidth(160);
 
