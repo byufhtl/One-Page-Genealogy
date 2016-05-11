@@ -41,7 +41,7 @@ class SmallBoxStyle implements IBoxStyler{
             box.setWidth(160);
 
             if(box.getNode().getSpouses().length == 0){
-                flavor_key = SmallBoxStyle.SINGLE_WIDE;
+                flavor_key = SmallBoxStyle.SINGLE_LONG_FAT;
                 render_sched.setFlavorKey(flavor_key);
             }
             else {
@@ -125,18 +125,21 @@ class SmallBoxStyle implements IBoxStyler{
         else if(flavor_key === SmallBoxStyle.SINGLE_LONG_FAT){
             // Single Flavor - long
             box.setHeight(105);
-            box.setWidth(190);
+            box.setWidth(160);
+
+            nameLength = 13;
 
             render_sched
                 .setNodeName(new Instruction(start_x, start_y, nameLength));
 
             if(render_sched.getHasPicture()){
                 start_x += 60;
+                render_sched
+                    .setPicturePlace(new Instruction(start_x - 60, start_y - 9 + big_font_size)) // picture under name
+                    .setPictureDim(new Instruction(55,55,null));
             }
 
             render_sched
-                .setPicturePlace(new Instruction(start_x - 60, start_y - 9 + big_font_size)) // picture under name
-                .setPictureDim(new Instruction(55,55,null))
                 .setNodeBDate(new Instruction(start_x, start_y + big_font_size, dateLength))
                 .setNodeBPlace(new Instruction(start_x, start_y + big_font_size + small_font_size +2, placeLength))
                 .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size*2 + 7, dateLength))

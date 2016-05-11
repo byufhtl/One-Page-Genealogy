@@ -58,8 +58,6 @@ class LineManager {
                     this.d += "M " + cx + " " + cy + " ";
                     this.d += "L " + middleX + " " + cy + " ";
 
-
-
                     for(var j=1; j<branchIds.length-1; j++) {
                         var child = this.toCenterPoint(boxes.getId(branchIds[j]));
                         this.d += "M " + child.getX() + " " + child.getY() + " ";

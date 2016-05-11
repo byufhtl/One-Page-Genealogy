@@ -78,7 +78,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            }
     //            else{
     //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
     //            }
     //            childBox.setX(bx);
     //            //// Default - there were plural wives, so only move down a little bit.
@@ -87,7 +87,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            //bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
     //            //childBox.setX(bx);
     //            //this.setChildStyle(childBox, numSpouses,
-    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG, // Single Information
+    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
     //            //    StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
     //            break;
     //        case 2:
@@ -103,7 +103,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            }
     //            else{
     //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
     //            }
     //            childBox.setX(bx);
     //            //// Default - there were plural wives, so only move down a little bit.
@@ -112,7 +112,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            //bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
     //            //childBox.setX(bx);
     //            //this.setChildStyle(childBox, numSpouses,
-    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG, // Single Information
+    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
     //            //    StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
     //            break;
     //        case 3:
@@ -128,7 +128,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            }
     //            else{
     //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
     //            }
     //            childBox.setX(bx);
     //            //// Default - there were plural wives, so only move down a little bit.
@@ -137,7 +137,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            //bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
     //            //childBox.setX(bx);
     //            //this.setChildStyle(childBox, numSpouses,
-    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG, // Single Information
+    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
     //            //    StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
     //            break;
     //        case 4:
@@ -153,7 +153,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            }
     //            else{
     //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
     //            }
     //            childBox.setX(bx);
     //            //// Default - there were plural wives, so only move down a little bit.
@@ -162,7 +162,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            //bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
     //            //childBox.setX(bx);
     //            //this.setChildStyle(childBox, numSpouses,
-    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG, // Single Information
+    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
     //            //    StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
     //            break;
     //        case 5:
@@ -178,7 +178,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            }
     //            else{
     //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
     //            }
     //            childBox.setX(bx);
     //            //// Default - there were plural wives, so only move down a little bit.
@@ -187,7 +187,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            //bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
     //            //childBox.setX(bx);
     //            //this.setChildStyle(childBox, numSpouses,
-    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG, // Single Information
+    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
     //            //    StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
     //            break;
     //        case 6:
@@ -197,7 +197,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
     //            childBox.setX(bx);
     //            this.setChildStyle(childBox, numSpouses,
-    //                StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG, // Single Information
+    //                StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
     //                StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
     //            break;
     //        case 7:
@@ -207,7 +207,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
     //            childBox.setX(bx);
     //            this.setChildStyle(childBox, numSpouses,
-    //                StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG, // Single Information
+    //                StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
     //                StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
     //            break;*/
     //        default:
@@ -217,7 +217,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
     //            bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
     //            childBox.setX(bx);
     //            this.setChildStyle(childBox, numSpouses,
-    //                StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG, // Single Information
+    //                StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
     //                StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
     //    }
     //}
@@ -272,7 +272,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
         var p = (root.getNode().getSpouses().length > 1 ? 1 : 0);
-        this.setBasedOnPseudoGeneration(null, root, p);
+        this.setBasedOnGeneration(null, root, p);
 
         var queue = [];
         queue.push([rootId,p,]);
@@ -293,7 +293,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                     counter++;
                 }
 
-                this.setBasedOnPseudoGeneration(box, branchBox, counter);
+                this.setBasedOnGeneration(box, branchBox, counter);
                 queue.push([branchIds[i], ++counter]);
 
                 branchBox.getRenderInstructions().setColoredBorder(true);
@@ -306,10 +306,9 @@ class VertDescDetChartStyler extends AbstractChartStyle{
      * @param parentBox
      * @param childBox
      * @param generation
-     * @param marker
      * @returns {number}
      */
-    private setBasedOnPseudoGeneration(parentBox :IBox, childBox :IBox, generation :number) :void{
+    protected setBasedOnGeneration(parentBox :IBox, childBox :IBox, generation :number) :void{
         console.log("\tUsing VDDCS PSEUDO");
 
         if(parentBox) {
@@ -342,7 +341,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                 }
                 else{
                     childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
                 }
                 childBox.setX(0);
                 break;
@@ -353,7 +352,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                 }
                 else{
                     childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
             case 2:
@@ -363,7 +362,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                 }
                 else{
                     childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
             case 3:
@@ -373,7 +372,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                 }
                 else{
                     childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
             case 4:
@@ -383,7 +382,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                 }
                 else{
                     childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
             case 5:
@@ -393,7 +392,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                 }
                 else{
                     childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
             case 6:
@@ -403,7 +402,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                 }
                 else{
                     childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
             case 7:
@@ -413,7 +412,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                 }
                 else{
                     childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
             default:
@@ -423,7 +422,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                 }
                 else{
                     childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG);
+                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
                 }
         }
         return;
