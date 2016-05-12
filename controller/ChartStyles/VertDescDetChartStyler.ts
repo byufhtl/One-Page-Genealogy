@@ -9,232 +9,6 @@ class VertDescDetChartStyler extends AbstractChartStyle{
         super("VertDescDetChartStyler");
     }
 
-    //applyStyle2(boxes: BoxMap): void {
-    //    // console.log("Using VDDCS");
-    //    var rootId: string = boxes.getRoot();
-    //    var root = boxes.getId(rootId);
-    //    this.setBasedOnGeneration(null, root, 0);
-    //
-    //    var queue = [];
-    //    queue.push([rootId,0]);
-    //
-    //    while(queue.length > 0) {
-    //        var data = queue.shift();
-    //        var box:IBox = boxes.getId(data[0]);
-    //        var generation: number= data[1];
-    //        var node:INode = box.getNode();
-    //        var branchIds = node.getBranchIds();
-    //
-    //        for(var i:number=0; i<branchIds.length; i++) {
-    //            var branchBox:IBox = boxes.getId(branchIds[i]);
-    //            if(!branchBox) {
-    //                continue;
-    //            }
-    //            if(box.getNode().getSpouses().length>1){
-    //
-    //                branchBox.setX(box.getX() + box.getWidth() + 20);
-    //                branchBox.setType(NullBoxStyle.NULL);
-    //                StyleManager.stylize(branchBox, NullBoxStyle.NULL);
-    //
-    //                //this.setBasedOnGeneration(box, branchBox, generation);
-    //
-    //                queue.push([branchIds[i], generation]);
-    //            }
-    //            else {
-    //                this.setBasedOnGeneration(box, branchBox, generation + 1);
-    //
-    //                queue.push([branchIds[i], generation + 1]);
-    //            }
-    //        }
-    //    }
-    //}
-    //
-    //protected setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number) {
-    //
-    //    var numSpouses :number = childBox.getNode().getSpouses().length;
-    //
-    //    if(parentBox != undefined && parentBox != null) {
-    //        console.log(parentBox.getX() + parentBox.getWidth());
-    //    }
-    //
-    //
-    //    switch(generation) {
-    //        case 0: // must be polygamous and hidden
-    //            var bx :number = 0;
-    //            childBox.setX(bx);
-    //            childBox.setType(StyleManager.NULL);
-    //            StyleManager.stylize(childBox, NullBoxStyle.NULL);
-    //            break;
-    //        /*case 1: // The real head of the tree
-    //            var bx = 0;
-    //            if(numSpouses > 1){
-    //                bx = 250;
-    //                childBox.setType(StyleManager.NULL);
-    //                StyleManager.stylize(childBox, NullBoxStyle.NULL);
-    //            }
-    //            else if(numSpouses == 1){
-    //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
-    //            }
-    //            else{
-    //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
-    //            }
-    //            childBox.setX(bx);
-    //            //// Default - there were plural wives, so only move down a little bit.
-    //            //var bx = parentBox.getX() + parentBox.getWidth()+ 10;
-    //            //// If there were not plural wives, move the box down by the parent's width.
-    //            //bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
-    //            //childBox.setX(bx);
-    //            //this.setChildStyle(childBox, numSpouses,
-    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
-    //            //    StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
-    //            break;
-    //        case 2:
-    //            var bx = parentBox.getX() + parentBox.getWidth() + 10;
-    //            if(numSpouses > 1){
-    //                bx = parentBox.getX() + 25;
-    //                childBox.setType(StyleManager.NULL);
-    //                StyleManager.stylize(childBox, NullBoxStyle.NULL);
-    //            }
-    //            else if(numSpouses == 1){
-    //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
-    //            }
-    //            else{
-    //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
-    //            }
-    //            childBox.setX(bx);
-    //            //// Default - there were plural wives, so only move down a little bit.
-    //            //var bx = parentBox.getX() + parentBox.getWidth()+ 10;
-    //            //// If there were not plural wives, move the box down by the parent's width.
-    //            //bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
-    //            //childBox.setX(bx);
-    //            //this.setChildStyle(childBox, numSpouses,
-    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
-    //            //    StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
-    //            break;
-    //        case 3:
-    //            var bx = parentBox.getX() + parentBox.getWidth() + 10;
-    //            if(numSpouses > 1){
-    //                bx = bx + 250;
-    //                childBox.setType(StyleManager.NULL);
-    //                StyleManager.stylize(childBox, NullBoxStyle.NULL);
-    //            }
-    //            else if(numSpouses == 1){
-    //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
-    //            }
-    //            else{
-    //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
-    //            }
-    //            childBox.setX(bx);
-    //            //// Default - there were plural wives, so only move down a little bit.
-    //            //var bx = parentBox.getX() + parentBox.getWidth()+ 10;
-    //            //// If there were not plural wives, move the box down by the parent's width.
-    //            //bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
-    //            //childBox.setX(bx);
-    //            //this.setChildStyle(childBox, numSpouses,
-    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
-    //            //    StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
-    //            break;
-    //        case 4:
-    //            var bx = parentBox.getX() + parentBox.getWidth() + 10;
-    //            if(numSpouses > 1){
-    //                bx = bx + 250;
-    //                childBox.setType(StyleManager.NULL);
-    //                StyleManager.stylize(childBox, NullBoxStyle.NULL);
-    //            }
-    //            else if(numSpouses == 1){
-    //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
-    //            }
-    //            else{
-    //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
-    //            }
-    //            childBox.setX(bx);
-    //            //// Default - there were plural wives, so only move down a little bit.
-    //            //var bx = parentBox.getX() + parentBox.getWidth()+ 10;
-    //            //// If there were not plural wives, move the box down by the parent's width.
-    //            //bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
-    //            //childBox.setX(bx);
-    //            //this.setChildStyle(childBox, numSpouses,
-    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
-    //            //    StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
-    //            break;
-    //        case 5:
-    //            var bx = parentBox.getX() + parentBox.getWidth() + 10;
-    //            if(numSpouses > 1){
-    //                bx = bx + 250;
-    //                childBox.setType(StyleManager.NULL);
-    //                StyleManager.stylize(childBox, NullBoxStyle.NULL);
-    //            }
-    //            else if(numSpouses == 1){
-    //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
-    //            }
-    //            else{
-    //                childBox.setType(StyleManager.SMALL);
-    //                StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
-    //            }
-    //            childBox.setX(bx);
-    //            //// Default - there were plural wives, so only move down a little bit.
-    //            //var bx = parentBox.getX() + parentBox.getWidth()+ 10;
-    //            //// If there were not plural wives, move the box down by the parent's width.
-    //            //bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
-    //            //childBox.setX(bx);
-    //            //this.setChildStyle(childBox, numSpouses,
-    //            //    StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
-    //            //    StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
-    //            break;
-    //        case 6:
-    //            // Default - there were plural wives, so only move down a little bit.
-    //            var bx = parentBox.getX() + parentBox.getWidth()+ 10;
-    //            // If there were not plural wives, move the box down by the parent's width.
-    //            bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
-    //            childBox.setX(bx);
-    //            this.setChildStyle(childBox, numSpouses,
-    //                StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
-    //                StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
-    //            break;
-    //        case 7:
-    //            // Default - there were plural wives, so only move down a little bit.
-    //            var bx = parentBox.getX() + parentBox.getWidth()+ 10;
-    //            // If there were not plural wives, move the box down by the parent's width.
-    //            bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
-    //            childBox.setX(bx);
-    //            this.setChildStyle(childBox, numSpouses,
-    //                StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
-    //                StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
-    //            break;*/
-    //        default:
-    //            // Default - there were plural wives, so only move down a little bit.
-    //            var bx = parentBox.getX() + parentBox.getWidth()+ 10;
-    //            // If there were not plural wives, move the box down by the parent's width.
-    //            bx += (parentBox.getNode().getSpouses().length > 1) ? bx + 8 : bx;
-    //            childBox.setX(bx);
-    //            this.setChildStyle(childBox, numSpouses,
-    //                StyleManager.SMALL, SmallBoxStyle.SINGLE_LONG_FAT, // Single Information
-    //                StyleManager.SMALL, SmallBoxStyle.MARRIED_WIDE); // Married Information
-    //    }
-    //}
-    //
-    //private setChildStyle(box :IBox, nSpouses :number, t_0 :string, s_0 :string, t_1 :string = t_0, s_1 :string = s_0){
-    //    if (nSpouses == 0) {
-    //        box.setType(t_0);
-    //        StyleManager.stylize(box,s_0);
-    //        box.setSpouseNode(null);
-    //    }
-    //    else {
-    //        box.setType(t_1);
-    //        StyleManager.stylize(box,s_1);
-    //        box.setSpouseNode(box.getNode().getDisplaySpouse());
-    //    }
-    //}
-
     /**
      * This is a function for descendancy trees that allows for easier rendering of multiple marriages. The idea is that
      * a counter is used to track the generational analysis where odd numbered 'generations' are null boxes that function
@@ -269,51 +43,65 @@ class VertDescDetChartStyler extends AbstractChartStyle{
      */
     applyStyle(boxes: BoxMap): void {
         console.log("Using VDDCS 2");
+        console.log("Using VDDCS PSEUDO");
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
         var p = (root.getNode().getSpouses().length > 1 ? 1 : 0);
         this.setBasedOnGeneration(null, root, p);
 
         var queue = [];
-        queue.push([rootId,p,]);
+        queue.push([rootId,p+1]);
 
         while(queue.length > 0) {
             var data = queue.shift();
             var box:IBox = boxes.getId(data[0]);
-            var counter: number= data[1];
+            var counter: number; // a pseudo-generational placeholder
             var node:INode = box.getNode();
             var branchIds = node.getBranchIds();
 
             for(var i:number=0; i<branchIds.length; i++) {
+                var begin = JSON.parse(JSON.stringify(data[1]));
+                counter = data[1];
+                var gen :number = counter;
                 var branchBox:IBox = boxes.getId(branchIds[i]);
                 if(!branchBox) {
+                    //console.log("non-existent branch box detected as [" + branchBox + "] - child of " + box.getNode().getAttr("name"));
                     continue;
                 }
-                if(box.getNode().getSpouses().length <= 1 && (counter%2 == 1)){
-                    counter++;
+                if((counter%2 == 1) && branchBox.getNode().getSpouses().length <= 1){
+                    gen = ++counter;
                 }
 
                 this.setBasedOnGeneration(box, branchBox, counter);
                 queue.push([branchIds[i], ++counter]);
 
                 branchBox.getRenderInstructions().setColoredBorder(true);
+                /*
+                 This next line toggles on a measurer print out. The first number is the one they get from their
+                 parent, and is the first number in the algorithm described above. The second number is their
+                 pseudo-generation that can be used to determine if the node has multiple marriages. This is the
+                 number that is passed in for processing. The third number is the number stored to for inheritance
+                 by the next generation.
+                 You can toggle it on or off if you are trying to check tree metrics for descendancy charts.
+                 */
+                //console.log("\t\t", branchBox.getNode().getAttr("name"), data[1] + "/" + gen + "/" + counter, begin === data[1], branchBox.getNode().getSpouses().length <= 1);
             }
         }
     }
 
     /**
-     * Even Generations are renderable. Odd generations are placeholders
+     * Even-numbered generations are renderable. Odd-numbered generations are placeholders
      * @param parentBox
      * @param childBox
      * @param generation
      * @returns {number}
      */
     protected setBasedOnGeneration(parentBox :IBox, childBox :IBox, generation :number) :void{
-        console.log("\tUsing VDDCS PSEUDO");
 
+
+        // Performs the styling adjustments for boxes while accounting for the possibility of null boxes.
         if(parentBox) {
-
-            if(childBox.getNode().getSpouses().length > 1){ // If plural box, drop 20
+            if(childBox.getNode().getSpouses().length > 1){ // If plural box, drop 20 and make it a null (invisible) box.
                 childBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
                 childBox.setType(StyleManager.NULL);
                 StyleManager.stylize(childBox, NullBoxStyle.NULL);
@@ -321,68 +109,73 @@ class VertDescDetChartStyler extends AbstractChartStyle{
             }
             else if(parentBox.getNode().getSpouses().length > 1){ // If descendant of plural box, drop an additional 10
                 childBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                //console.log(childBox.getNode().getAttr("name") + " has pseudo-generation " + generation + " and final generation " + (generation/2).toString());
             }
             else{ // if single box and descended from single box, drop a full 30.
                 childBox.setX(parentBox.getX() + parentBox.getWidth() + 30);
+                //console.log(childBox.getNode().getAttr("name") + " has pseudo-generation " + generation + " and final generation " + (generation/2).toString());
             }
         }
         else{
             childBox.setX(0);
             console.assert(generation === 0);
+            //console.log(childBox.getNode().getAttr("name") + " has pseudo-generation " + generation + " and final generation " + (generation/2).toString());
         }
 
         var numSpouses = childBox.getNode().getSpouses().length;
 
-        switch(generation/2){
+        // Performs the styling for each generation. Know the algorithm behind the generations before you make major edits.
+        // Just changing the styles for the generation shouldn't give you any trouble.
+        var generation_real = generation/2;
+        switch(generation_real){
             case 0:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.LARGE);
+                    StyleManager.stylize(childBox, LargeBoxStyle.MARRIED_WIDE_BROAD);
                 }
                 else{
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.LARGE);
+                    StyleManager.stylize(childBox, LargeBoxStyle.SINGLE_WIDE);
                 }
-                childBox.setX(0);
                 break;
             case 1:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.LARGE);
+                    StyleManager.stylize(childBox, LargeBoxStyle.MARRIED_WIDE_BROAD);
                 }
                 else{
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.LARGE);
+                    StyleManager.stylize(childBox, LargeBoxStyle.SINGLE_WIDE);
                 }
                 break;
             case 2:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.LARGE);
+                    StyleManager.stylize(childBox, LargeBoxStyle.MARRIED_WIDE);
                 }
                 else{
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.LARGE);
+                    StyleManager.stylize(childBox, LargeBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
             case 3:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.MEDIUM);
+                    StyleManager.stylize(childBox, MediumBoxStyle.MARRIED_WIDE);
                 }
                 else{
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.MEDIUM);
+                    StyleManager.stylize(childBox, MediumBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
             case 4:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.MEDIUM);
+                    StyleManager.stylize(childBox, MediumBoxStyle.MARRIED_WIDE);
                 }
                 else{
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.MEDIUM);
+                    StyleManager.stylize(childBox, MediumBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
             case 5:

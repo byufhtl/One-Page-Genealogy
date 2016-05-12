@@ -16,7 +16,7 @@
         height: 100%;
         margin: 0;
     }
-    #page-wrap,#page-wrap-support,#page-wrap-release {
+    .page-wrap {
         position: relative;
         width: 10%;
         float: left;
@@ -137,6 +137,7 @@
 </nav>
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#guide">Getting Started</a></li>
+    <li><a data-toggle="tab" href="#inventory">Features</a></li>
     <li><a data-toggle="tab" href="#support">FAQ's/Support</a></li>
     <li><a data-toggle="tab" href="#release">What's New</a></li>
     <li><a data-toggle="tab" href="#contact">Contact Us</a></li>
@@ -144,7 +145,7 @@
 <div class="tab-content">
     <div id="guide" class="tab-pane fade in active">
         <div class="help-content">
-            <div id="page-wrap">
+            <div id="page-wrap" class="page-wrap">
                 <div id="help-sidebar">
                     <hr>
                     <h4>Content</h4>
@@ -318,8 +319,148 @@
             </div>
         </div>
     </div>
+    <div id="inventory" class="tab-pane fade">
+        <div id="page-wrap-inventory" class="page-wrap">
+            <div id="inventory-sidebar" class="sidebar">
+                <hr>
+                <h4>Topics</h4>
+                <hr>
+                <h5><a href="#chart-styles">Chart Styles</a></h5>
+                <h6><a href="#ascendancy-explanation"><i>Ascendancy Styles</i></a></h6>
+                <h6><a href="#descendancy-explanation"><i>Descendancy Styles</i></a></h6>
+                <hr>
+                <h5><a href="#color-schemes">Color Schemes</a></h5>
+                <h6><a href="#branch-schemes"><i>Branch Schemes</i></a></h6>
+                <h6><a href="#generation-schemes"><i>Generation Schemes</i></a></h6>
+                <hr>
+                <h5><a href="#other-schemes">Other Schemes</a></h5>
+                <hr>
+            </div>
+        </div>
+        <div id="inventory-list" class="list">
+            <h3>Features</h3>
+            <p>Here are the details for the tools that we offer you in One Page Genealogy</p>
+            <hr>
+            <div id="chart-styles">
+                <h3>Chart Styles</h3>
+                <br>
+                <h4 id="ascendancy-explanation"><b>Ascendancy Chart Styles</b></h4>
+                <p>These are designed for looking at ancestry.</p>
+                <ul>
+                    <li>
+                        <h4>Full Detail Style</h4>
+                        <p>A good chart style for most things. Most of its boxes are oriented for compact spacing, and contain as much information as possible.</p>
+                    </li>
+                    <li>
+                        <h4>Family Reunion Style</h4>
+                        <p>This style is designed for wall charts to display for family gatherings. It features larger boxes than most other styles, and can handle many generations.</p>
+                    </li>
+                    <li>
+                        <h4>Extended Family Reunion Style</h4>
+                        <p>This style has been specifically designed to look good on charts with 13 or more generations.</p>
+                    </li>
+                    <li>
+                        <h4>Vertical Detail Style</h4>
+                        <p>This style is designed for easy reading on a landscape-oriented chart. More of it's boxes are oriented similar to the viewer's perspective.</p>
+                    </li>
+                    <li>
+                        <h4>Vertical Detail Accent Style</h4>
+                        <p>This style is almost the same as the Vertical Detail Style, but showcases a special bubble box style all new to One Page Genealogy</p>
+                    </li>
+                    <li>
+                        <h4>Bubble Style</h4>
+                        <p>This fun new style features nothing but our new bubble box styles. Although not as compact as other styles, this is definitely a fun style to play with.</p>
+                    </li>
+                    <li>
+                        <h4>Variable Depth Style</h4>
+                        <p>Ever wanted a chart style that is consistent regardless of how many generations you download? This is it. The chart style adjusts to leave early generations big and gradually shrinks as it goes, fitting itself to your chart.</p>
+                    </li>
+                    <li>
+                        <h4>8 1/2 x 11 Style</h4>
+                        <p>This chart is built for charts that would fit on a regular piece of paper. It fits 6 generations.</p>
+                    </li>
+                    <li>
+                        <h4>8 1/2 x 11 Detail Style</h4>
+                        <p>Also build for a normal page, this chart uses a more compact style to fit in some extra details. Fits 6 generations.</p>
+                    </li>
+                    <li>
+                        <h4>11 x 17 Style</h4>
+                        <p>This chart has been specifically designed to print off an Ascendancy Chart on a 11 x 17 in. piece of paper. Features 7 generation charts.</p>
+                    </li>
+                </ul>
+                <h4 id="descendancy-explanation"><b>Descendancy Chart Styles</b></h4>
+                <p>These are designed for looking at an individual's descendants.</p>
+                <ul>
+                    <li>
+                        <h4>Descendancy Style</h4>
+                        <p>This is the premier style for descendancy charts. It looks great on most charts.</p>
+                    </li>
+                    <li>
+                        <h4>Family Reunion Descendancy Style</h4>
+                        <p>This style is for creating wall charts for family reunions to show common descent.</p>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+            <div id="color-schemes">
+                <h3>Color Schemes</h3>
+                <br>
+                <h4 id="branch-schemes"><b>Branch Schemes</b></h4>
+                <ul>
+                    <li>
+                        <h4>Color by Branch - Pastel (Default)</h4>
+                        <p>A solid color scheme that helps distinguish branches in standard genealogical colors.</p>
+                    </li>
+                    <li>
+                        <h4>Color by Branch - Bold</h4>
+                        <p>A new flavor of branch coloring featuring bolder variants of the standard colors.</p>
+                    </li>
+                    <li>
+                        <h4>Color by Branch - Greyscale</h4>
+                        <p>A greyscale branch coloring system.</p>
+                    </li>
+                </ul>
+                <h4 id="generation-schemes"><b>Generation Schemes</b></h4>
+                <ul>
+                    <li>
+                        <h4>Color by Generation - Warm</h4>
+                        <p>A rotational color-by-generation scheme that uses red, orange, yellow, and purple as its colors.</p>
+                    </li>
+                    <li>
+                        <h4>Color by Generation - Cold</h4>
+                        <p>A new rendition of the old monochrome style. Uses blue, green, light blue, and light green.</p>
+                    </li>
+                    <li>
+                        <h4>Color by Generation - Vibrant</h4>
+                        <p>A simple color scheme that uses all sorts of different colors.</p>
+                    </li>
+                    <li>
+                        <h4>Color by Generation - Wood</h4>
+                        <p>A slightly-stronger-than-sepia color scheme focusing on pleasant tans and browns that are appealing and easy on the eye.</p>
+                    </li>
+                </ul>
+                <h4 id="other-schemes"><b>Other Schemes</b></h4>
+                <ul>
+                    <li>
+                        <h4>Color by Gender</h4>
+                        <p>Men are blue. Women are pink. Gray is unknown...</p>
+                    </li>
+                    <li>
+                        <h4>Color by Country</h4>
+                        <p>Color codes your ancestors based on nationality.</p>
+                        <p>The original colors are generated at random, but can be changed from the sidebar that pops up.</p>
+                        <p>Use on Ascendancy Charts for best results.</p>
+                    </li>
+                    <li>
+                        <h4>Greyscale</h4>
+                        <p>It doesn't get simpler than black and white.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div id="support" class="tab-pane fade">
-        <div id="page-wrap-support">
+        <div id="page-wrap-support" class="page-wrap">
             <div id="support-sidebar" class="sidebar">
                 <hr>
                 <h4>Topics</h4>
@@ -373,13 +514,14 @@
         </div>
     </div>
     <div id="release" class="tab-pane fade">
-        <div id="page-wrap-release">
+        <div id="page-wrap-release" class="page-wrap">
             <div id="release-sidebar" class="sidebar">
                 <hr>
                 <h4>Topics</h4>
                 <h5><span class="label label-warning label-as-badge">NEW</span><a href="#opg_2.0"><b>One Page Genealogy 2.0</b></a></h5>
                 <h5><a href="#new_infrastructure">New Infrastructure</a></h5>
                 <h5><a href="#new_help_menu">New Help Menu</a></h5>
+                <h5><a href="#new_helper">New Detail Viewer</a></h5>
                 <h5><a href="#new_charts">New Chart Styles</a></h5>
                 <h5><a href="#new_color_schemes">New Color Schemes</a></h5>
                 <hr>
@@ -397,6 +539,8 @@
             <p>Although this means that OPG is meaner and leaner than ever, significant changes have been made to the OPG structure. Files saved from OPG 1.0 cannot be loaded anymore.</p>
             <h3 id="new_help_menu">New Help Menu</h3>
             <p>We hope that the new view will help you find what you are looking for with greater ease.</p>
+            <h3 id="new_helper">New Detail Viewer</h3>
+            <p>When you click on a person's box, you can now see a version of the box accompanied by all of the information on the person.</p>
             <h3 id="new_charts">New Chart Styles</h3>
             <p>We're happy to announce the following new chart styles:</p>
             <ul>

@@ -300,6 +300,7 @@ class SVGManager implements IViewManager {
     }
 
     private drawBoxes(boxes: BoxMap): void {
+        if(!boxes){return;}
         var self = this;
         var rootId: string = boxes.getRoot();
         var queue: string[] = [];

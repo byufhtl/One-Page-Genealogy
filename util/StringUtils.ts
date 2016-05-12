@@ -127,6 +127,8 @@ class StringUtils {
         var longName = name;
         textObj.textContent = longName;
         if(longName.length < width){//textObj.getSubStringLength(0, longName.length)<width) {
+            // Process the full name to strip all-caps names before plugging it back in.
+            textObj.textContent = StringUtils.toNameString(StringUtils.capitalizeFirstLetter(longName.split(" ")));
             return;
         }
 

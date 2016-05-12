@@ -4,17 +4,18 @@
 ///<reference path="StyleManager.ts"/>
 /**
  * Created by calvinmcm on 4/14/16.
+ *
  * The Renderer handles box rendering for all box styles. The IBox passed in as the first parameter to renderBox() will
  * be processed for rendering and the created svg components will be appended as children to the root Element passed in
  * as the second parameter to said function.
  * Certain details such as the box's height, width, and color are stored directly on the box (See Abstract Box). Most of
  * the text and other element placing is controlled by the RIS(RenderInstructionSchedule) attached to the box. For exact
  * details, please review the functionality contained in the RIS.
- * Picture rendering is dependent upon the functionality of the PictureManager. The images will not be inserted until
- * the pictures have been duly loaded.
  * Several private helper functions are used to render common elements such as names, dates, places, and pictures.
  * This class has been generated as a static class, as there is no real need for instantiation, allowing for a more
  * streamlined call for rendering from anywhere within the OPG framework.
+ *
+ * This is my first time through the algorithms, so if it's a bit rough-shod, give me a break. Thanks. -Calvin
  */
 
 class Renderer{
@@ -115,6 +116,7 @@ class Renderer{
 
         // if there should be an automatic pastel colored border, draw the box accordingly.
         if(ris.isColoredBorder()){ // 0 or it has a dimension
+            console.log("Lightenening Box for " + box.getNode().getAttr("name"));
             rect.setAttribute('stroke-width', (border).toString());
             rect.setAttribute('stroke', box.getColor());
             rect.setAttribute('fill', ColorManager.lighten(box.getColor(),32));
@@ -187,7 +189,9 @@ class Renderer{
         var b_date_p = ris.getBDateInstruction();
         var b_date = node.getAttr('birthdate');
         if(b_date_p != null && b_date){ // Check for non-null result
-            gt.appendChild(Renderer.renderDate(b_date, b_date_p.getX(), b_date_p.getY(), small_font, text_color, b_date_p.getL(), ris.isRotated()));
+            var b_d :Element = Renderer.renderDate(b_date, b_date_p.getX(), b_date_p.getY(), small_font, text_color, b_date_p.getL(), ris.isRotated());
+            b_d.textContent = "B: " + b_d.textContent;
+            gt.appendChild(b_d);
         }
 
         //~~~ BIRTH PLACE SETUP ~~~
@@ -203,7 +207,9 @@ class Renderer{
         var d_date_p = ris.getDDateInstruction();
         var d_date = node.getAttr('deathdate');
         if(d_date_p != null && d_date != null && d_date != ""){ // Check for non-null result
-            gt.appendChild(Renderer.renderDate(d_date, d_date_p.getX(), d_date_p.getY(), small_font, text_color, d_date_p.getL(), ris.isRotated()));
+            var d_d :Element = Renderer.renderDate(d_date, d_date_p.getX(), d_date_p.getY(), small_font, text_color, d_date_p.getL(), ris.isRotated());
+            d_d.textContent = "D: " + d_d.textContent;
+            gt.appendChild(d_d);
         }
 
         //~~~ DEATH PLACE SETUP ~~~
@@ -231,14 +237,19 @@ class Renderer{
         var s_node = node.getDisplaySpouse();
         if(s_node) {
 
-            //~~~ PICTURE SETUP ~~~
-
             //~~~ NAME SETUP ~~~
 
             var s_name_p = ris.getSpouseNameInstruction();
             var s_name = s_node.getAttr('name');
             if (s_name_p != null && s_name) { // Check for non-null result
 
+                //~~~ PICTURE SETUP ~~~
+
+                var s_pic_p = ris.getSpousePicturePlaceInstruction();
+                var s_pic_d = ris.getSpousePictureDimInstruction();
+                if(s_pic_p != null && s_pic_d != null) {
+                    Renderer.renderPicture(box, node.getDisplaySpouse() ,g);
+                }
 
                 //~~~ NAME SETUP ~~~
 
@@ -250,7 +261,9 @@ class Renderer{
                 var s_b_date_p = ris.getSpouseBDateInstruction();
                 var s_b_date = s_node.getAttr('birthdate');
                 if (s_b_date_p != null && s_b_date) { // Check for non-null result
-                    gt.appendChild(Renderer.renderDate(s_b_date, s_b_date_p.getX(), s_b_date_p.getY(), small_font, text_color, s_b_date_p.getL(), ris.isRotated()));
+                    var s_b_d :Element = Renderer.renderDate(s_b_date, s_b_date_p.getX(), s_b_date_p.getY(), small_font, text_color, s_b_date_p.getL(), ris.isRotated());
+                    s_b_d.textContent = "B: " + s_b_d.textContent;
+                    gt.appendChild(s_b_d);
                 }
 
                 //~~~ BIRTH PLACE SETUP ~~~
@@ -266,7 +279,9 @@ class Renderer{
                 var s_d_date_p = ris.getSpouseDDateInstruction();
                 var s_d_date = s_node.getAttr('deathdate');
                 if (s_d_date_p != null && s_d_date) { // Check for non-null result
-                    gt.appendChild(Renderer.renderDate(s_d_date, s_d_date_p.getX(), s_d_date_p.getY(), small_font, text_color, s_d_date_p.getL(), ris.isRotated()));
+                    var s_d_d :Element = Renderer.renderDate(s_d_date, s_d_date_p.getX(), s_d_date_p.getY(), small_font, text_color, s_d_date_p.getL(), ris.isRotated());
+                    s_d_d.textContent = "D: " + s_d_d.textContent;
+                    gt.appendChild(s_d_d);
                 }
 
                 //~~~ DEATH PLACE SETUP ~~~
@@ -433,7 +448,15 @@ class Renderer{
     private static renderPicture(box : IBox, node :INode, g :Element) :Element{
         var ris = box.getRenderInstructions();
 
-        var pictureDim = ris.getPictureDimInstruction();
+        var pictureDim :Instruction;
+
+        if(box.getNode().getId() !== node.getId()){ // If spouse node, grab the spouse's picture.
+            pictureDim = ris.getSpousePictureDimInstruction();
+        }
+        else{ // otherwise grab the primary picture.
+            pictureDim = ris.getPictureDimInstruction();
+        }
+
         var pic_w = pictureDim.getX();
         var pic_h = pictureDim.getY();
         var pic_x :number;

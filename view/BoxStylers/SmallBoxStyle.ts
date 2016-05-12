@@ -56,7 +56,6 @@ class SmallBoxStyle implements IBoxStyler{
 
                 // Put the man on top for consistency (Not sexist, just because there are likely to be fewer plural men)
                 if(box.getNode().getAttr('gender') === "Male"){
-
                     start_y = 21;
                     s_start_y = 85;
                 }
@@ -66,14 +65,19 @@ class SmallBoxStyle implements IBoxStyler{
                 }
 
                 // Handle the Picture
-                if (render_sched.getHasPicture()) {
+                if (render_sched.getHasPicture() || render_sched.getSpouseHasPicture()) {
                     start_x += 60;
                     s_start_x += 60;
-                    render_sched
-                        .setPicturePlace(new Instruction(start_x - 60, start_y - 16))
-                        .setPictureDim(new Instruction(55, 55, null))
-                        .setSpousePicturePlace(new Instruction(start_x - 60, start_y - 16))
-                        .setSpousePictureDim(new Instruction(55, 55, null));
+                    if(render_sched.getHasPicture()) {
+                        render_sched
+                            .setPicturePlace(new Instruction(start_x - 60, start_y - 16))
+                            .setPictureDim(new Instruction(55, 55, null));
+                    }
+                    else {
+                        render_sched
+                            .setSpousePicturePlace(new Instruction(start_x - 60, start_y - 16))
+                            .setSpousePictureDim(new Instruction(55, 55, null));
+                    }
                 }
 
                 // Begin the setup
