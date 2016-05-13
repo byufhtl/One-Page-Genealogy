@@ -101,8 +101,8 @@ class VertDescDetChartStyler extends AbstractChartStyle{
 
         // Performs the styling adjustments for boxes while accounting for the possibility of null boxes.
         if(parentBox) {
-            if(childBox.getNode().getSpouses().length > 1){ // If plural box, drop 20 and make it a null (invisible) box.
-                childBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
+            if(childBox.getNode().getSpouses().length > 1){ // If plural box, drop 19 (The null box is 1 pixel wide, for a total of 20 pixels) and make it a null (invisible) box.
+                childBox.setX(parentBox.getX() + parentBox.getWidth() + 19);
                 childBox.setType(StyleManager.NULL);
                 StyleManager.stylize(childBox, NullBoxStyle.NULL);
                 return;
@@ -150,72 +150,72 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                 break;
             case 2:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.LARGE);
-                    StyleManager.stylize(childBox, LargeBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.MEDIUM);
+                    StyleManager.stylize(childBox, MediumBoxStyle.MARRIED_WIDE);
                 }
                 else{
-                    childBox.setType(StyleManager.LARGE);
-                    StyleManager.stylize(childBox, LargeBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.MEDIUM);
+                    StyleManager.stylize(childBox, MediumBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
             case 3:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.MEDIUM);
-                    StyleManager.stylize(childBox, MediumBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.SMALL);
+                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
                 }
                 else{
-                    childBox.setType(StyleManager.MEDIUM);
-                    StyleManager.stylize(childBox, MediumBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.SMALL);
+                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
             case 4:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.MEDIUM);
-                    StyleManager.stylize(childBox, MediumBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.MINI);
+                    StyleManager.stylize(childBox, MiniBoxStyle.MARRIED);
                 }
                 else{
-                    childBox.setType(StyleManager.MEDIUM);
-                    StyleManager.stylize(childBox, MediumBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.MINI);
+                    StyleManager.stylize(childBox, MiniBoxStyle.SINGLE);
                 }
                 break;
             case 5:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.MINI);
+                    StyleManager.stylize(childBox, MiniBoxStyle.MARRIED);
                 }
                 else{
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.MINI);
+                    StyleManager.stylize(childBox, MiniBoxStyle.SINGLE);
                 }
                 break;
             case 6:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.TINY);
+                    StyleManager.stylize(childBox, TinyBoxStyle.MARRIED);
                 }
                 else{
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.TINY);
+                    StyleManager.stylize(childBox, TinyBoxStyle.SINGLE);
                 }
                 break;
             case 7:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.TINY);
+                    StyleManager.stylize(childBox, TinyBoxStyle.MARRIED);
                 }
                 else{
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.TINY);
+                    StyleManager.stylize(childBox, TinyBoxStyle.SINGLE);
                 }
                 break;
             default:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.TINY);
+                    StyleManager.stylize(childBox, TinyBoxStyle.MARRIED);
                 }
                 else{
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.TINY);
+                    StyleManager.stylize(childBox, TinyBoxStyle.SINGLE);
                 }
         }
         return;

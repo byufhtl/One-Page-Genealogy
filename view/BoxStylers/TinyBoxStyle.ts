@@ -15,9 +15,9 @@ class TinyBoxStyle implements IBoxStyler{
 
     applyStyleTo(box :IBox, flavor_key :string){
         var start_x = 8;
-        var start_y = 10;
-        var s_start_x = 55;
-        var s_start_y = 18;
+        var start_y = 11;
+        var s_start_x = 8;
+        var s_start_y = 23;
         var big_font_size = 9;
         var small_font_size = 8;
 
@@ -33,20 +33,25 @@ class TinyBoxStyle implements IBoxStyler{
 
         if(flavor_key === TinyBoxStyle.MARRIED){
             // Married Flavor
-
-            box.setHeight(30);
-            render_sched
-                .setNodeName(new Instruction(start_x, start_y, 16))
-                .setNodeSpan(new Instruction(start_x, start_y + 5 + big_font_size, null))
-                .setSpouseName(new Instruction(s_start_x + 75, s_start_y, 16))
-                .setSpouseSpan(new Instruction(s_start_x + 75, s_start_y + 5 + big_font_size, null));
+            if(box.getNode().getSpouses().length === 0){
+                flavor_key = TinyBoxStyle.SINGLE;
+            }
+            else {
+                box.setHeight(34);
+                render_sched
+                    .setNodeName(new Instruction(start_x, start_y, 17))
+                    .setNodeSpan(new Instruction(start_x + 100, start_y, null))
+                    .setSpouseName(new Instruction(s_start_x, s_start_y, 17))
+                    .setSpouseSpan(new Instruction(s_start_x + 100, s_start_y, null));
+            }
         }
-        else if(flavor_key === TinyBoxStyle.SINGLE){
+        // No else to allow for emergency overflow from married flavors.
+        if(flavor_key === TinyBoxStyle.SINGLE){
             // Single Flavor
             box.setHeight(21);
             render_sched
                 .setNodeName(new Instruction(start_x,start_y,17))
-                .setNodeSpan(new Instruction(start_x + 105, start_y, null));
+                .setNodeSpan(new Instruction(start_x + 100, start_y, null));
         }
         else{
             //console.log("Bad flavor in tiny box for [" + box.getNode().getAttr("name") + "], [" + flavor_key + "]!");

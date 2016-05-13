@@ -68,7 +68,6 @@ class Renderer{
 
         // build in a quick anti-nullbox case to prevent it from really rendering.
         if(ris.getFlavorKey() === NullBoxStyle.NULL){
-            console.log("Null Box Being Rendered.");
             g.setAttribute("transform","translate("+box.getX()+", "+box.getY()+")");
             return g;
         }

@@ -122,9 +122,9 @@ class SmallBoxStyle implements IBoxStyler{
                 .setPictureDim(new Instruction(55,55,null))
                 .setNodeName(new Instruction(start_x, start_y, nameLength))
                 .setNodeBDate(new Instruction(start_x, start_y + big_font_size, dateLength))
-                .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size, placeLength))
+                .setNodeBPlace(new Instruction(start_x + 85, start_y + big_font_size, placeLength))
                 .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 3, dateLength))
-                .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size + 3, placeLength));
+                .setNodeDPlace(new Instruction(start_x + 85, start_y + big_font_size + small_font_size + 3, placeLength));
         }
         else if(flavor_key === SmallBoxStyle.SINGLE_LONG_FAT){
             // Single Flavor - long

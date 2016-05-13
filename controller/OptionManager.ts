@@ -152,16 +152,78 @@ class OptionManager implements IOptionManager {
         if(type === 'selectIndividual') {
             var box:IBox = data.box.copy();
             var colonLoc = box.getNode().getId().indexOf(':');
-            $('#pid').text("Personal Information for " + box.getNode().getId().substr(0,colonLoc));
-            $('#name').text(box.getNode().getAttr("name"));
-            $('#bdate').text(box.getNode().getAttr("birthdate"));
-            $('#bplace').text(box.getNode().getAttr("birthplace"));
-            $('#ddate').text(box.getNode().getAttr("deathdate"));
-            $('#dplace').text(box.getNode().getAttr("deathplace"));
+
+            var primary = $('#primary-node-information');
+            var secondary = $('#secondary-node-information');
+
+            primary.empty();
+            secondary.empty();
+
+            primary.append('<div id="p-data-col" class="col-sm-9"></div>');
+
+            var prim_data = $('#p-data-col');
+
+            prim_data.append('<div class="row"><div id="name" style="font-size: 32px;"></div></div>');
+            prim_data.append('<div id="p-b-d-row" class="row"><div class="col-sm-2 right-justified">Birth:</div></div>');
+            $('#p-b-d-row').append('<div class="col-sm-10 left-justified"><div id="bdate" class="row"></div><div id="bplace" class="row"></div></div>');
+            prim_data.append('<div id="p-d-d-row" class="row"><div class="col-sm-2 right-justified">Death:</div>');
+            $('#p-d-d-row').append('<div class="col-sm-10 left-justified"><div id="ddate" class="row"></div><div id="dplace" class="row"></div></div></div>');
+
+            primary.append('<div class="col-sm-3 right"><svg id="opg-modal-portrait"></svg></div>');
+
+
+
+            // Render a bit differently for spouse boxes than for regular boxes
+            if(box.getRenderInstructions().getSpouseNameInstruction()){
+
+                var primaryNode   = (box.getNode().getAttr('gender') === 'Male') ? box.getNode() : box.getNode().getDisplaySpouse();
+                var secondaryNode = (box.getNode().getAttr('gender') === 'Female') ? box.getNode() : box.getNode().getDisplaySpouse();
+
+                secondary.append('<div id="s-data-col" class="col-sm-9"></div>');
+
+                var second_data = $('#s-data-col');
+
+                second_data.append('<div class="row"><div id="s-name" style="font-size: 32px;"></div></div>');
+                second_data.append('<div id="s-b-d-row" class="row"><div class="col-sm-2 right-justified">Birth:</div></div>');
+                $('#s-b-d-row').append('<div class="col-sm-10 left-justified"><div id="s-bdate" class="row"></div><div id="s-bplace" class="row"></div></div>');
+                second_data.append('<div id="s-d-d-row" class="row"><div class="col-sm-2 right-justified">Death:</div>');
+                $('#s-d-d-row').append('<div class="col-sm-10 left-justified"><div id="s-ddate" class="row"></div><div id="s-dplace" class="row"></div></div></div>');
+
+                secondary.append('<div class="col-sm-3 right"><svg id="s-opg-modal-portrait"></svg></div>');
+
+                $('#pid').text("Personal Information for " + primaryNode.getId().substr(0,colonLoc) + " and " + secondaryNode.getId().substr(0,colonLoc));
+                $('#name').text(primaryNode.getAttr("name"));
+                $('#bdate').text(primaryNode.getAttr("birthdate"));
+                $('#bplace').text(primaryNode.getAttr("birthplace"));
+                $('#ddate').text(primaryNode.getAttr("deathdate"));
+                $('#dplace').text(primaryNode.getAttr("deathplace"));
+
+                $('#s-name').text(secondaryNode.getAttr("name"));
+                $('#s-bdate').text(secondaryNode.getAttr("birthdate"));
+                $('#s-bplace').text(secondaryNode.getAttr("birthplace"));
+                $('#s-ddate').text(secondaryNode.getAttr("deathdate"));
+                $('#s-dplace').text(secondaryNode.getAttr("deathplace"));
+            }
+            else{
+
+                $('#pid').text("Personal Information for " + box.getNode().getId().substr(0,colonLoc));
+                $('#name').text(box.getNode().getAttr("name"));
+                $('#bdate').text(box.getNode().getAttr("birthdate"));
+                $('#bplace').text(box.getNode().getAttr("birthplace"));
+                $('#ddate').text(box.getNode().getAttr("deathdate"));
+                $('#dplace').text(box.getNode().getAttr("deathplace"));
+            }
             $('#opg-modal').modal('show');
+
             setTimeout(function(){
                 self.renderTempBox(box);
-                self.renderTempPortriat(box.getNode(),130,130);
+                if(box.getRenderInstructions().getSpouseNameInstruction() && box.getRenderInstructions().getSpousePictureDimInstruction()){
+                    self.renderTempPortriat(primaryNode, $('#opg-modal-portrait')[0], 130, 130);
+                    self.renderTempPortriat(secondaryNode, $('#s-opg-modal-portrait')[0], 130, 130);
+                }
+                else {
+                    self.renderTempPortriat(box.getNode(), $('#opg-modal-portrait')[0], 130, 130);
+                }
                 var longer = (box.getHeight() > box.getWidth()) ? box.getHeight() : box.getWidth();
                 if(longer > 1000 ){
                     $('modal-dialog-box').css('width',(longer+50).toString());
@@ -271,10 +333,14 @@ class OptionManager implements IOptionManager {
         g.setAttribute("transform", transform.join(' '));
     }
 
-    private renderTempPortriat(node :INode, width :number, height : number){
-        var opgModalPortraitSVG = $('#opg-modal-portrait');
-        opgModalPortraitSVG.empty();
-        Renderer.renderPortrait(node, width, height, opgModalPortraitSVG[0]);
+    /**
+     * Clears out the g element passed in and then puts the portrait into it.
+     */
+    private renderTempPortriat(node :INode, g :Element, width :number, height : number){
+        while(g.lastChild){
+            g.removeChild(g.lastChild);
+        }
+        Renderer.renderPortrait(node, width, height, g);
     }
 
     private handleStyleChange(changeType:string, sizeChange:boolean = true){
