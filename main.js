@@ -80,8 +80,8 @@ $(document).ready(function () {
             var percentage = (e.pageX / window.innerWidth) * 100;
             var mainPercentage = 100-percentage;
 
-            $('#country-legend').css("width",percentage + "%");
-            $('#opg-chart').css("width",mainPercentage + "%");
+            $('#country-legend').animate({"width": percentage + "%"}, "fast");
+            //$('#opg-chart').css("width",mainPercentage + "%");
             $('#ghostbar').remove();
             $(document).unbind('mousemove');
             dragging = false;
@@ -170,7 +170,7 @@ function familySearchDownload() {
         $('.BSswitch').bootstrapSwitch('state', true);
         $('#country-legend').css('display', 'none');
         $('#ruler-height').val("");
-        $('#country-legend').css("width", "0%");
+        $('#country-legend').animate({"width": "0%"}, "fast");
         $('#opg-chart').css("width", "100%");
     }
 

@@ -428,8 +428,8 @@ class OptionManager implements IOptionManager {
     private setupCountryColorLegend(colorMap:{}){
         var sortedKeys = Object.keys(colorMap).sort();
         $('#country-legend').css('display', 'block');
-        $('#country-legend').css("width","15%");
-        $('#opg-chart').css("width","85%");
+        $('#country-legend').animate({"width":"15%"}, "fast");
+        //$('#opg-chart').css("width","85%"); // A good idea, but messes up the clicking in the SVG because of the resulting offset.
         $('#country-color-list').empty();
         for(var i in sortedKeys){
             var country = sortedKeys[i];

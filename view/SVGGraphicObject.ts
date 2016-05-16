@@ -12,6 +12,8 @@ class SVGGraphicObject implements IGraphicObject {
         this.listener = listener;
     }
     fireTranslate(pt1: Point, pt2: Point) {
+        //var offset = parseInt($("#country-legend").width(),10);
+        //pt = new Point(pt.getX()-offset, pt.getY());
         this.listener.translate(pt1, pt2);
     }
     fireClick(id: string) {
@@ -21,12 +23,18 @@ class SVGGraphicObject implements IGraphicObject {
         this.listener.clickPt(pt);
     }
     fireScale(ds: number, pt: Point) {
+        //var offset = parseInt($("#country-legend").width(),10);
+        //pt = new Point(pt.getX()+offset, pt.getY());
         this.listener.scale(ds, pt);
     }
     fireStartDrag(pt: Point){
+        //var offset = parseInt($("#country-legend").width(),10);
+        //pt = new Point(pt.getX()+offset, pt.getY());
         this.listener.startDrag(pt);
     }
     fireEndDrag(pt : Point){
+        //var offset = parseInt($("#country-legend").width(),10);
+        //pt = new Point(pt.getX()+offset, pt.getY());
         this.listener.endDrag(pt);
     }
 }

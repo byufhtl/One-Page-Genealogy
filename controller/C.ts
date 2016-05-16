@@ -46,7 +46,7 @@ class C implements IGraphicObjectListener, IOptionListener {
 
         //console.log(data);
         var rootId:string = data.rootId;
-        this.dscOrAsc = data.dscOrAsc
+        this.dscOrAsc = data.dscOrAsc;
         this.source = null;
         var generations:number = data.generations;
         if (data.hasOwnProperty("gedData")) {
@@ -78,8 +78,7 @@ class C implements IGraphicObjectListener, IOptionListener {
                 if (branchIds == null) {
                     branchIds = [];
                 }
-                var individual = new GedcomNode(key, attemptGed[key], branchIds);
-                gedNodes[key] = individual;
+                gedNodes[key] = new GedcomNode(key, attemptGed[key], branchIds);
             }
             //console.log(gedNodes)
             //this.source = new GedcomDownloader(attemptGed["latestIndi"], 20, gedNodes);//"oldestIndi" for dsc, "latestIndi" for asc
@@ -178,8 +177,6 @@ class C implements IGraphicObjectListener, IOptionListener {
             for (var i = 0; i < attemptGed[key].familyChild.length; i++) {
                 var famAttempt = attemptGed[key].familyChild[i];
                 if (attemptGed[key].ascBranchIds.hasOwnProperty(famAttempt)) {
-                    var depth = 0;
-                    var famAttemptDepth = 0;
                     if (attemptGed[key].ascBranchIds[famAttempt].length > biggest) {
                         bestFam = famAttempt;
                         biggest = attemptGed[key].ascBranchIds[famAttempt].length;
