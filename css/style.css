@@ -7,12 +7,26 @@ html, body {
 canvas {
     display: block;
 }
+
 canvas {
     width: auto;
     width: 500px;
     height: 500px;
 }
 
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+.wide{
+    min-width: 900px;
+}
 
 .nav-tabs > li > a{
     background-color: #dddddd;
@@ -39,14 +53,23 @@ canvas {
     border-color: #2c3e50;
 }
 
-.padded{
+.padded {
     padding: 2px;
 }
-#opg-chart {
+
+#opg-chart,#opg-modal-portrait {
     width: 85%;
     float: right;
     height: 94%;
     margin: 0;
+}
+
+.right-justified {
+    text-align: right;
+}
+
+.left-justified {
+    text-align: left;
 }
 
 .navbar {

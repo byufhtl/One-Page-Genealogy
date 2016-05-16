@@ -17,6 +17,7 @@ class GenderColorSpacer extends AbstractStyler{
 
         // Set root color.
         this.colorNode(root);
+        root.setTextColor(ColorManager.black());
 
         var queue = [];
         queue.push([rootId,0]);
@@ -35,6 +36,7 @@ class GenderColorSpacer extends AbstractStyler{
                 }
 
                 this.colorNode(branchBox);
+                branchBox.setTextColor(ColorManager.black());
 
                 queue.push([branchIds[i], generation+1]);
             }
@@ -50,7 +52,7 @@ class GenderColorSpacer extends AbstractStyler{
             box.setColor(ColorManager.pink());
         }
         else{
-            box.setColor(ColorManager.gray());
+            box.setColor(ColorManager.lightgray());
         }
     }
 }

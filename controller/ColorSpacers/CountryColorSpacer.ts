@@ -47,6 +47,7 @@ class CountryColorSpacer extends AbstractStyler {
             console.log("ERROR: Country not in colorMap");
             box.setColor(this.colorMap["Unknown"]);
         }
+        box.setTextColor(ColorManager.black());
     }
 
     private toTitleCase(str:string){

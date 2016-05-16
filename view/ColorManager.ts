@@ -9,17 +9,22 @@ class ColorManager {
      * @type {string[]} The hex-encoded string colors.
      */
     private static boxColors: string[] = [
-            "#D9ABFF"   // 0) Purple
-        ,   "#ABE4FF"   // 1) Blue
-        ,   "#DEFFB7"   // 2) Green
-        ,   "#FFFFAF"   // 3) Yellow
+                        //____COLOR_____OLD_VALUE____
+            "#D9ABFF"   // 0) Purple    "#D9ABFF"
+        ,   "#ABE4FF"   // 1) Blue      "#ABE4FF"
+        ,   "#9DED9F"   // 2) Green     "#DEFFB7"
+        ,   "#FFFFAF"   // 3) Yellow    "#FFFFAF"
         ,   "#FDDCAF"   // 4) Orange
-        ,   "#FFB8AF"   // 5) Red
+        ,   "#FFB8AF"   // 5) Red       "#FFB8AF"
         ,   "#ffccff"   // 6) Pink
-        ,   "#E5E5E5"   // 7) Gray
-        ,   "#2C3E50"   // 8) OPG Blue
-        ,   "#FFFFFF"   // 9) White
-        ,   "#000000"   // 10) Black
+        ,   "#E5E5E5"   // 7) Light Gray
+        ,   "#C89A8A"   // 8) Light Brown
+        ,   "#A597A1"   // 9) Dark Brown
+        ,   "#2C3E50"   // 10) OPG Blue
+        ,   "#FFFFFF"   // 11) White
+        ,   "#000000"   // 12) Black
+        ,   "#BABABA"   // 13) Medium Gray
+        ,   "#636363"   // 14) Dark Gray
     ];
 
     /**
@@ -79,31 +84,59 @@ class ColorManager {
     }
 
     /**
-     * @returns {string} a hex-encoded color value for the standard OPG gray
+     * @returns {string} a hex-encoded color value for the standard OPG lightgray
      */
-    static gray() : string{
+    static lightgray() : string{
         return this.boxColors[7];
+    }
+
+    /**
+     * @returns {string} a hex-encoded color value for the standard OPG light brown
+     */
+    static lightbrown() : string{
+        return this.boxColors[8];
+    }
+
+    /**
+     * @returns {string} a hex-encoded color value for the standard OPG dark brown
+     */
+    static darkbrown() : string{
+        return this.boxColors[9];
     }
 
     /**
      * @returns {string} a hex-encoded color value for the standard OPG theme blue.
      */
     static OPGblue() : string{
-        return this.boxColors[8];
+        return this.boxColors[10];
     }
 
     /**
      * @returns {string} a hex-encoded color value for the standard OPG white.
      */
     static white() : string{
-        return this.boxColors[9];
+        return this.boxColors[11];
     }
 
     /**
      * @returns {string} a hex-encoded color value for the standard OPG black.
      */
     static black() : string{
-        return this.boxColors[10];
+        return this.boxColors[12];
+    }
+
+    /**
+     * @returns {string} a hex-encoded color value for the standard OPG medium lightgray
+     */
+    static mediumgray() : string{
+        return this.boxColors[13];
+    }
+
+    /**
+     * @returns {string} a hex-encoded color value for the standard OPG dark lightgray
+     */
+    static darkgray() : string{
+        return this.boxColors[14];
     }
 
     /**
@@ -128,7 +161,27 @@ class ColorManager {
     }
 
     /**
-     * Lightens a 6 digit hex color code, passing it back out. If the code is missing a leading '#',
+     * Converts a string representation of a hex color (#000000) into an integer equivalent (0x000000).
+     * @param hex the string to convert
+     * @returns {number} The converted hex value
+     */
+    static stringToInt_hex(hex :string) :number{
+        var symbols = hex.split('#');
+        return parseInt(symbols[1],16);
+    }
+
+    /**
+     * Converts a hex number (0x000000) into a string representation of the same number (#000000).
+     * @param hex the integer to convert.
+     * @returns {string} The converted hex color string.
+     */
+    static intToString_hex(hex :number) :string{
+        if(!hex){return null};
+        return ("#" + hex.toString(16));
+    }
+
+    /**
+     * Lightens a 6 or 8(alpha) digit hex color code, passing it back out. If the code is missing a leading '#',
      * the result also omits the '#'.
      * The lightening is capped at the maximum RBG values, or #ffffff
      *
@@ -137,33 +190,52 @@ class ColorManager {
      * @returns {string|any} The new hex code.
      */
     static lighten(hex:string, amount:number=16) : string{
+        if(!hex){return null};
+        var incolor = hex;
+        var alpha = "";
         if(hex.length !== 6 && hex.length !== 7){
-            return hex;
+            if (hex.length == 8) {
+                alpha = hex[0] + hex[1];
+                hex = hex.substr(2,hex.length);
+            }
+            else if(hex.length == 9){
+
+                alpha = hex[1] + hex[2];
+                hex = hex[0] + hex.substr(3,hex.length);
+            }
+            else {
+                return hex;
+            }
         }
-        var hexed = false;
+        var prepended = false;
         if(hex[0] === '#'){
             hex = hex.substr(1,hex.length);
-            hexed = true;
+            prepended = true;
         }
 
         var num = parseInt(hex,16);
-        var r = (num >> 16) + amount;
-        var b = ((num >> 8) & 0x00FF) + amount;
-        var g = (num & 0x0000FF) + amount;
-
-        r = (r > 0xFF) ? 0xFF : r;
-        g = (g > 0xFF) ? 0xFF : g;
-        b = (b > 0xFF) ? 0xFF : b;
+        var r = ((num >> 16) + amount); // shift, add.
+        r = (r > 0x0000FF) ? 0x0000FF : r; // cap.
+        var b = (((num >> 8) & 0x00FF) + amount);
+        b = (b > 0x0000FF) ? 0x0000FF : b;
+        var g = ((num & 0x0000FF) + amount);
+        g = (g > 0x0000FF) ? 0x0000FF : g;
 
         var newColor = g | (b << 8) | (r << 16);
 
         var out = "";
-        if(hexed){
+        if(prepended){
             out = '#'
         }
-        return out + newColor.toString(16);
+        return out + alpha + newColor.toString(16);
     }
 
+
+
+    /**
+     * Pastel - a soft and delicate shade of a color.
+     * @returns {string} A hex string representation of a color.
+     */
     static generateRandomPastel() :string{
         var r = (Math.round(Math.random()* 127) + 127).toString(16);
         var g = (Math.round(Math.random()* 127) + 127).toString(16);

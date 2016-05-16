@@ -16,7 +16,7 @@
         height: 100%;
         margin: 0;
     }
-    #page-wrap {
+    .page-wrap {
         position: relative;
         width: 10%;
         float: left;
@@ -28,6 +28,18 @@
         position: fixed;
     }
     #help-list {
+        padding: 1em;
+        margin: 0;
+        width:90%;
+        float: right;
+    }
+    .sidebar{
+        padding: 1em;
+        width: 10%;
+        margin: 0;
+        position: fixed;
+    }
+    .list{
         padding: 1em;
         margin: 0;
         width:90%;
@@ -61,7 +73,45 @@
         text-align: right;
         float:right;
     }
+    .tab-content {
+        padding:10px;
+        border:1px solid #ddd;
+        border-bottom:0px;
+    }
+    .nav-tabs {
+        border-bottom: 0px;
+        border-top: 1px solid #ddd;
+    }
+    .nav-tabs > li {
+        margin-bottom:0;
+        margin-top:-1px;
+    }
 
+    .nav-tabs > li > a {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        line-height: 20px;
+        border: 1px solid transparent;
+        -moz-border-radius:0px;
+        -webkit-border-radius:0px;
+        border-radius:0px;
+        -moz-border-radius-bottomright: 5px;
+        -webkit-border-bottom-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        -moz-border-radius-bottomleft: 5px;
+        -webkit-border-bottom-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+    .nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
+        color: #555555;
+        cursor: default;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-top-color: transparent;
+    }
+    .label-as-badge {
+        border-radius: 1em;
+    }
 
 </style>
 </head>
@@ -75,7 +125,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">One Page Genealogy</a>
+            <a class="navbar-brand" href="#">One Page Genealogy - User Guide and Support</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -85,164 +135,472 @@
         </div>
     </div>
 </nav>
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#guide">Getting Started</a></li>
+    <li><a data-toggle="tab" href="#inventory">Features</a></li>
+    <li><a data-toggle="tab" href="#support">FAQ's/Support</a></li>
+    <li><a data-toggle="tab" href="#release">What's New</a></li>
+    <li><a data-toggle="tab" href="#contact">Contact Us</a></li>
+</ul>
+<div class="tab-content">
+    <div id="guide" class="tab-pane fade in active">
+        <div class="help-content">
+            <div id="page-wrap" class="page-wrap">
+                <div id="help-sidebar">
+                    <hr>
+                    <h4>Content</h4>
+                    <h5><a href="#start">Getting Started</a></h5>
+                    <h5><a href="#create">Create Your Chart</a></h5>
+                    <h5><a href="#explore">Explore Your Chart</a></h5>
+                    <h5><a href="#edit">Edit Your Chart</a></h5>
+                    <h5><a href="#rule">Using the Ruler</a></h5>
+                    <h5><a href="#save">Save/Upload</a></h5>
+                    <h5><a href="#print">Print/Download</a></h5>
+                    <hr>
+                </div>
+            </div>
+            <div id="help-list">
+                <div id="start">
+                    <h3>Getting Started</h3>
+                    <p>One Page Genealogy is the perfect site to create a compact tree chart of your family with a
+                        few quick clicks.</p>
+                    <hr>
+                </div>
+                <div id="create">
+                    <h3>Create Your Chart</h3>
+                    <p>You can create a chart from two basic sources: a Gedcom file or FamilySearch.</p>
+                    <p>Note: You can always click the "Gedcom" or "FamilySearch" buttons at the top of the page
+                        to restart the chart creation process.</p>
+                    <h4>From a Gedcom</h4>
+                    <ul>
+                        <li><p>Once you have logged in, click "Read Gedcom File" if you want to create
+                        a chart from a Gedcom file you have on your computer.</p></li>
+                        <li><p>Select your Gedcom file using the window that pops up and click open.</p></li>
+                        <li><p>Choose id of the person who will be at the beginning of the chart.</p></li>
+                        <li><p>Choose the type of chart you want and how many generations back you want the chart to go.</p>
+                            <ul>
+                                <li>Ascendancy: creates a tree with each generation being the parents of the last generation.</li>
+                                <li>Descendancy: creates a tree with each generation being the children of the
+                                    last generation by spouse.</li>
+                            </ul>
+                        </li>
+                        <li>Click "Save Chart" to create the chart. It may take a few minutes for the chart to appear.</li>
+                    </ul>
+                    <h4>From FamilySearch</h4>
+                    <ul>
+                        <li><p>Click "FamilySearch" if you want to create a chart from data found
+                            on FamilySearch.</p></li>
+                        <li><p>Enter the FamilySearch id (XXXX-XXX) of the person who will be at the beginning of the chart
+                            or leave it empty to start with yourself.</p></li>
+                        <li><p>Choose the type of chart you want (Descendancy of Ascendancy) and how many generations you want displayed in the chart.</p>
+                            <ul>
+                                <li>Ascendancy: creates a tree with each generation being the parents of the previous generation.</li>
+                                <li>Descendancy: creates a tree with each generation being the children of the
+                                    previous generation by spouse.</li>
+                            </ul>
+                        </li>
+                        <li>If you have not already authenticated with FamilySearch:
+                            <ul>
+                                <li>You will be prompted to do so through FamilySearch login.</li>
+                                <li>This is necessary because all the data for your tree is pulled straight from FamilySearch.</li>
+                           </ul>
+                        </li>
+                        <li>If you've previously authenticated with FamilySearch through One Page Genealogy, simply press "Submit" to generate your chart.</li>
+                        <li>Because of the large amount of data, may take a few minutes for the chart to appear.</li>
+                        <li>Expect longer loading times for larger numbers of generations.</li>
+                        </li>
+                    </ul>
+                </div>
+                <div id="explore">
+                    <h3>Explore Your Chart</h3>
+                    <p>Now you have your chart on the page, but maybe it's a bit too big to see all of it.</p>
+                    <ul>
+                        <li><p>Zoom in and out: scroll middle mouse button.</p></li>
+                        <li><p>Pan around: left click and drag the chart.</p></li>
+                        <li><p>Click the arrows at the top of the screen to rotate your chart clockwise or counter-clockwise.</p></li>
+                        <li><p>Click the download button to download your chart as a PDF file.</p></li>
+                        <li><p>Click the ruler button to show a ruler along the top of your chart that can be used to help you size your chart.</p></li>
+                    </ul>
+                </div>
+                <div id="edit">
+                    <h3>Edit Your Chart</h3>
+                    <p>There are a few things you can do to edit how your chart looks.</p>
+                    <h4>Changing Chart Style</h4>
+                    <ul>
+                        <li><p>Click "Styles" at the top right of the page and then choose the style you want.</p>
+                            <ul>
+                                <li><p>All of these options will change the style of every box in the chart.</p></li>
+                                <li><p>The upper options focus on ascendancy charts, while the lower options are configured for descendency charts.</p></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4>Changing Chart Color</h4>
+                    <ul>
+                        <li><p>Click "Colors" at the top right of the page and then choose the style you want.</p>
+                            <ul>
+                                <li><p>All of these options will change the style of every box in the chart.</p></li>
+                                <li><p>These options won't change the shape or size of the box, but will change the color.</p></li>
+                                <li><p>In bordered boxes, the color you choose will be on the border, while the interior
+                                color will be just a few shades lighter.</p></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4>Changing Chart Options</h4>
+                    <ul>
+                        <li><p>Click "Options" at the top right of the page and then choose the style you want.</p>
+                            <ul>
+                                <li><p>These options add useful features to your chart.</p></li>
+                                <li><p>Showing/Hiding empty boxes will put in grey boxes where you are missing people in your tree.</p></li>
+                                <li><p>Highlighting duplicates changes the color on boxes that likely correspond to the same individual
+                                to make copies easier to spot. These color changes can be overriden manually, or by selecting a chart
+                                color style.</p></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4>Customize Box Styles</h4>
+                    <p>Clicking on a box will allow you to edit the style used by the box. There are two types of changes that may be made.</p>
+                    <h5><i>Changing Styles</i></h5>
+                    <ul>
+                        <li><p>Click the box you wish to edit.</p></li>
+                        <li><p>Use the drop down menu to preview any of the box styles.</p></li>
+                        <li><p>Select if you want to just change the box you clicked ("Individual"), everyone
+                        in that generation ("Generation"), or everyone in the entire chart ("Entire Chart").</p></li>
+                        <!--
+                        <li><p>Click "Collapse" if you don't want ancestors/descendants of that individual to be shown.
+                        <i>Clicking this can reduce the size of your chart.</i></p></li>
+                        -->
+                        <li><p>Click "Save Changes" to have the changes made to your chart or "Cancel" to leave the menu
+                        without changing anything. ONLY STYLE CHANGES will be saved.</p></li>
+                    </ul>
+                    <h5><i>Changing Colors</i></h5>
+                    <ul>
+                        <li><p>Click the box you wish to edit.</p></li>
+                        <li><p>Use the Color Selector to preview the color of the box.</p></li>
+                        <li><p>Select if you want to just change the box you clicked ("Individual"), everyone
+                            in that generation ("Generation"), or everyone in the entire chart ("Entire Chart").</p></li>
+                        <!--
+                        <li><p>Click "Collapse" if you don't want ancestors/descendants of that individual to be shown.
+                        <i>Clicking this can reduce the size of your chart.</i></p></li>
+                        -->
+                        <li><p>Click "Save Changes" to have the changes made to your chart or "Cancel" to leave the menu
+                            without changing anything. <b>ONLY COLOR CHANGES will be saved.</b></p></li>
+                    </ul>
+                    <h5><i>Other Tools</i></h5>
+                    <ul>
+                        <li><p>In the box style editor, there are a few other useful options.</p></li>
+                        <li><p>Click "Collapse" if you don't want ancestors/descendants of that individual to be shown.
+                        <i>Clicking this can reduce the size of your chart.</i></p></li>
+                        <li><p>Click "Save Changes" to have the changes made to your chart or "Cancel" to leave the menu
+                            without changing anything.</p></li>
+                    </ul>
+                </div>
+                <div id="rule">
+                    <h3>How to Use the Ruler</h3>
+                    <p>One Page Genealogy features a ruling feature accessible by clicking the ruler icon on the top bar.</p>
+                    <ul>
+                        <li><p>To begin, press the ruler button. A smaller window will appear that will allow you to choose your print dimensions.</p></li>
+                        <li><p>The initial dimensions are the dimensions on your chart as is. You can change those, however, to be whatever you want.</p></li>
+                        <li><p>The dimensions that you input indicate that OPG should treat your chart as if it were W x H big.</p></li>
+                        <li><p>After entering your dimensions and pressing 'save,' the ruler will scale with your chart to show you how many inches long your chart is.</p></li>
+                        <li><p>by zooming your chart in and out until the ruler's inch is roughly the same size as an actual inch, you can get a feel for how big your chart is probably going to be.</p></li>
+                    </ul>
+                </div>
+                <div id="save">
+                    <h3>How to Save and Upload Your Chart</h3>
+                    <p>To save your chart, simply press the save button (floppy disk icon) on the top bar and choose where you want to save it.</p>
+                    <p>To upload your chart, simply press the upload button (open file folder icon) on the top bar and find the .opg file you would like to upload. Then press the 'open' button.</p>
+                </div>
+                <div id="print">
+                    <h3>How to Print or save as a PDF</h3>
+                    <p>Simply press the download button (downward point arrow icon) at the top right to save your chart as a PDF.</p>
+                    <p>You can then take the downloaded PDF to a nearby print service center.</p>
+                </div>
 
-<div class="help-content">
-    <div id="page-wrap">
-        <div id="help-sidebar">
-            <h4>Content</h4>
-            <h5><a href="#start">Getting Started</a></h5>
-            <h5><a href="#create">Create Your Chart</a></h5>
-            <h5><a href="#explore">Explore Your Chart</a></h5>
-            <h5><a href="#edit">Edit Your Chart</a></h5>
-            <h5><a href="#print">Print/Download</a></h5>
-            <h5><a href="#contact">Contact</a></h5>
+            </div>
         </div>
     </div>
-    <div id="help-list">
-        <div id="start">
-            <h3>Getting Started</h3>
-            <p>One Page Genealogy is the perfect site to create a compact tree chart of your family with a
-                few quick clicks.</p>
+    <div id="inventory" class="tab-pane fade">
+        <div id="page-wrap-inventory" class="page-wrap">
+            <div id="inventory-sidebar" class="sidebar">
+                <hr>
+                <h4>Topics</h4>
+                <hr>
+                <h5><a href="#chart-styles">Chart Styles</a></h5>
+                <h6><a href="#ascendancy-explanation"><i>Ascendancy Styles</i></a></h6>
+                <h6><a href="#descendancy-explanation"><i>Descendancy Styles</i></a></h6>
+                <hr>
+                <h5><a href="#color-schemes">Color Schemes</a></h5>
+                <h6><a href="#branch-schemes"><i>Branch Schemes</i></a></h6>
+                <h6><a href="#generation-schemes"><i>Generation Schemes</i></a></h6>
+                <hr>
+                <h5><a href="#other-schemes">Other Schemes</a></h5>
+                <hr>
+            </div>
         </div>
-        <div id="create">
-            <h3>Create Your Chart</h3>
-            <p>You can create a chart from two basic sources: a Gedcom file or FamilySearch.</p>
-            <p>Note: You can always click the "Gedcom" or "FamilySearch" buttons at the top of the page
-                to restart the chart creation process.</p>
-            <h4>From a Gedcom</h4>
+        <div id="inventory-list" class="list">
+            <h3>Features</h3>
+            <p>Here are the details for the tools that we offer you in One Page Genealogy</p>
+            <hr>
+            <div id="chart-styles">
+                <h3>Chart Styles</h3>
+                <br>
+                <h4 id="ascendancy-explanation"><b>Ascendancy Chart Styles</b></h4>
+                <p>These are designed for looking at ancestry.</p>
+                <ul>
+                    <li>
+                        <h4>Full Detail Style</h4>
+                        <p>A good chart style for most things. Most of its boxes are oriented for compact spacing, and contain as much information as possible.</p>
+                    </li>
+                    <li>
+                        <h4>Family Reunion Style</h4>
+                        <p>This style is designed for wall charts to display for family gatherings. It features larger boxes than most other styles, and can handle many generations.</p>
+                    </li>
+                    <li>
+                        <h4>Extended Family Reunion Style</h4>
+                        <p>This style has been specifically designed to look good on charts with 13 or more generations.</p>
+                    </li>
+                    <li>
+                        <h4>Vertical Detail Style</h4>
+                        <p>This style is designed for easy reading on a landscape-oriented chart. More of it's boxes are oriented similar to the viewer's perspective.</p>
+                    </li>
+                    <li>
+                        <h4>Vertical Detail Accent Style</h4>
+                        <p>This style is almost the same as the Vertical Detail Style, but showcases a special bubble box style all new to One Page Genealogy</p>
+                    </li>
+                    <li>
+                        <h4>Bubble Style</h4>
+                        <p>This fun new style features nothing but our new bubble box styles. Although not as compact as other styles, this is definitely a fun style to play with.</p>
+                    </li>
+                    <li>
+                        <h4>Variable Depth Style</h4>
+                        <p>Ever wanted a chart style that is consistent regardless of how many generations you download? This is it. The chart style adjusts to leave early generations big and gradually shrinks as it goes, fitting itself to your chart.</p>
+                    </li>
+                    <li>
+                        <h4>8 1/2 x 11 Style</h4>
+                        <p>This chart is built for charts that would fit on a regular piece of paper. It fits 6 generations.</p>
+                    </li>
+                    <li>
+                        <h4>8 1/2 x 11 Detail Style</h4>
+                        <p>Also build for a normal page, this chart uses a more compact style to fit in some extra details. Fits 6 generations.</p>
+                    </li>
+                    <li>
+                        <h4>11 x 17 Style</h4>
+                        <p>This chart has been specifically designed to print off an Ascendancy Chart on a 11 x 17 in. piece of paper. Features 7 generation charts.</p>
+                    </li>
+                </ul>
+                <h4 id="descendancy-explanation"><b>Descendancy Chart Styles</b></h4>
+                <p>These are designed for looking at an individual's descendants.</p>
+                <ul>
+                    <li>
+                        <h4>Vertical Descendancy Style</h4>
+                        <p>This is the premier style for descendancy charts. It looks great on most charts.</p>
+                    </li>
+                    <li>
+                        <h4>Family Reunion Descendancy Style</h4>
+                        <p>This style is for creating wall charts for family reunions to show common descent.</p>
+                    </li>
+                    <li>
+                        <h4>Variable Depth Descendancy Style</h4>
+                        <p>This style is for creating charts with many generations, scaling the box sizes to fit your chart's needs.</p>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+            <div id="color-schemes">
+                <h3>Color Schemes</h3>
+                <br>
+                <h4 id="branch-schemes"><b>Branch Schemes</b></h4>
+                <ul>
+                    <li>
+                        <h4>Color by Branch - Pastel (Default)</h4>
+                        <p>A solid color scheme that helps distinguish branches in standard genealogical colors.</p>
+                    </li>
+                    <li>
+                        <h4>Color by Branch - Bold</h4>
+                        <p>A new flavor of branch coloring featuring bolder variants of the standard colors.</p>
+                    </li>
+                    <li>
+                        <h4>Color by Branch - Greyscale</h4>
+                        <p>A greyscale branch coloring system.</p>
+                    </li>
+                </ul>
+                <h4 id="generation-schemes"><b>Generation Schemes</b></h4>
+                <ul>
+                    <li>
+                        <h4>Color by Generation - Warm</h4>
+                        <p>A rotational color-by-generation scheme that uses red, orange, yellow, and purple as its colors.</p>
+                    </li>
+                    <li>
+                        <h4>Color by Generation - Cold</h4>
+                        <p>A new rendition of the old monochrome style. Uses blue, green, light blue, and light green.</p>
+                    </li>
+                    <li>
+                        <h4>Color by Generation - Vibrant</h4>
+                        <p>A simple color scheme that uses all sorts of different colors.</p>
+                    </li>
+                    <li>
+                        <h4>Color by Generation - Wood</h4>
+                        <p>A slightly-stronger-than-sepia color scheme focusing on pleasant tans and browns that are appealing and easy on the eye.</p>
+                    </li>
+                </ul>
+                <h4 id="other-schemes"><b>Other Schemes</b></h4>
+                <ul>
+                    <li>
+                        <h4>Color by Gender</h4>
+                        <p>Men are blue. Women are pink. Gray is unknown...</p>
+                    </li>
+                    <li>
+                        <h4>Color by Country</h4>
+                        <p>Color codes your ancestors based on nationality.</p>
+                        <p>The original colors are generated at random, but can be changed from the sidebar that pops up.</p>
+                        <p>Use on Ascendancy Charts for best results.</p>
+                    </li>
+                    <li>
+                        <h4>Greyscale</h4>
+                        <p>It doesn't get simpler than black and white.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="support" class="tab-pane fade">
+        <div id="page-wrap-support" class="page-wrap">
+            <div id="support-sidebar" class="sidebar">
+                <hr>
+                <h4>Topics</h4>
+                <h5><a href="#chart_wrong">My Chart is Wrong</a></h5>
+                <h5><a href="#long_load">Long Load Time</a></h5>
+                <h5><a href="#lag_issues">Lag Issues</a></h5>
+                <hr>
+            </div>
+        </div>
+        <div id="support-list" class="list">
+            <h3>FAQ's/Support</h3>
+            <p>We're still building this page, so if you've had a problem and it isn't listed here, please let us know so we can add it to the list. Thank you for your help!</p>
+            <hr>
+            <div id="chart_wrong">
+                <h3>My Chart is Wrong</h3>
+                <p>One Page Genealogy obtains its information from FamilySearch/Gedcom files.</p>
+                <p>If your chart is different than you think it should be, check FamilySearch or your loaded Gedcom and make sure that the data is correct there.</p>
+                <h4>Different Spouses</h4>
+                <p>By default, One Page Genealogy uses the preferred spouse indicated on FamilySearch or the first listed spouse on Gedcoms files.</p>
+                <h4>Different Names</h4>
+                <p>By default, One Page Genealogy uses the primary name from both FamilySearch and Gedcoms files. Changing the file will allow you to get the correct information</p>
+            </div>
+            <div id="long_load">
+                <h3>My Chart Takes a Long Time to Load</h3>
+                <p>One Page Genealogy has to download its information from FamilySearch. The larger your chart, the more we have to download.</p>
+                <p>To speed up your loading time, you can do one or more of the following:</p>
+                <ul>
+                    <li>
+                        <h5>Use Fewer Generations</h5>
+                        <p>Each generation is exponentially larger than the last. If you don't need that last generation, try loading fewer generations.</p>
+                        <p>By default, we download 8 generations, but you can adjust that number both up and down. 8 generations (255 people for a full ascendancy chart!), but should only take a couple of seconds.</p>
+                        <p>If you are trying to download more than 11 generations, it may take some time, so be patient. A full 20 generation chart might take a few minutes.</p>
+                        <p>Descendancy charts may take longer per generation to load than Ascendancy charts since it requires looking into multiple marriages.</p>
+                    </li>
+                    <li>
+                        <h5>Check Your Internet Connection</h5>
+                        <ul>
+                            <li><p>If nothing ever seems to load at all after a few minutes, your internet connection might be blocked or significantly slowed.</p></li>
+                            <li><p>Online games, video streaming services, and advertisments tend to hog your Internet connection and can significantly slow OPG</p></li>
+                            <li><p>If your internet connection appears to be in order and there is still nothing loading, please feel free to contact us.</p></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="lag_issues">
+                <h3>My Chart Experiences Lag When I Drag it Around or Zoom In/Out</h3>
+                <p>One Page Genealogy uses Scalable Vector Graphics (SVG) to create your chart. These tend to be nice and fast, but there are some limits.</p>
+                <p>Most charts should move fairly fluidly, but will become a little bit harder to move depending on how many boxes you have on screen.</p>
+                <p>If you have 11+ Generations on screen, it is likely that you will start to experience some lag. Try zooming in to reduce the number of boxes on screen, since rendering all of those boxes that slows your computer down.</p>
+            </div>
+        </div>
+    </div>
+    <div id="release" class="tab-pane fade">
+        <div id="page-wrap-release" class="page-wrap">
+            <div id="release-sidebar" class="sidebar">
+                <hr>
+                <h4>Topics</h4>
+                <h5><span class="label label-warning label-as-badge">NEW</span><a href="#opg_2.0"><b>One Page Genealogy 2.0</b></a></h5>
+                <h5><a href="#new_infrastructure">New Infrastructure</a></h5>
+                <h5><a href="#new_help_menu">New Help Menu</a></h5>
+                <h5><a href="#new_helper">New Detail Viewer</a></h5>
+                <h5><a href="#new_charts">New Chart Styles</a></h5>
+                <h5><a href="#new_color_schemes">New Color Schemes</a></h5>
+                <hr>
+            </div>
+        </div>
+        <div id="release-list" class="list">
+            <h3>What's New?</h3>
+            <p>This is where you can find out about updates and newly released features in One Page Genealogy</p>
+            <hr>
+            <h3 id="opg_2.0"><span class="label label-warning">NEW</span> One Page Genealogy 2.0</h3>
+            <p>We're excited to announce the release of One Page Genealogy 2.0!</p>
+            <p>This new release has made some pretty significant changes, so read through these carefully!</p>
+            <h3 id="new_infrastructure">New Infrastructure</h3>
+            <p>The underlying structure of OPG has changed!</p>
+            <p>Although this means that OPG is meaner and leaner than ever, significant changes have been made to the OPG structure. Files saved from OPG 1.0 cannot be loaded anymore.</p>
+            <h3 id="new_help_menu">New Help Menu</h3>
+            <p>We hope that the new view will help you find what you are looking for with greater ease.</p>
+            <h3 id="new_helper">New Detail Viewer</h3>
+            <p>When you click on a person's box, you can now see a version of the box accompanied by all of the information on the person.</p>
+            <h3 id="new_charts">New Chart Styles</h3>
+            <p>We're happy to announce the following new chart styles:</p>
             <ul>
-                <li><p>Once you have logged in, click "Read Gedcom File" if you want to create
-                a chart from a Gedcom file you have on your computer.</p></li>
-                <li><p>Select your Gedcom file using the window that pops up and click open.</p></li>
-                <li><p>Choose id of the person who will be at the beginning of the chart.</p></li>
-                <li><p>Choose the type of chart you want and how many generations back you want the chart to go.</p>
-                    <ul>
-                        <li>Ascendancy: creates a tree with each generation being the parents of the last generation.</li>
-                        <li>Descendancy: creates a tree with each generation being the children of the
-                            last generation by spouse.</li>
-                    </ul>
+                <li>
+                    <h4>Extended Family Reunion Style</h4>
+                    <p>This style has been specifically designed to look good on charts with 13 or more generations.</p>
                 </li>
-                <li>Click "Save Chart" to create the chart. It may take a few minutes for the chart to appear.</li>
+                <li>
+                    <h4>Vertical Detail Accent Style</h4>
+                    <p>This style is almost the same as the Vertical Detail Style, but showcases a special bubble box style all new to One Page Genealogy</p>
+                </li>
+                <li>
+                    <h4>Bubble Style</h4>
+                    <p>This fun new style features nothing but our new bubble box styles. Although not as compact as other styles, this is definitely a fun style to play with.</p>
+                </li>
+                <li>
+                    <h4>Variable Depth Style</h4>
+                    <p>Ever wanted a chart style that is consistent regardless of how many generations you download? This is it. The chart style adjusts to leave early generations big and gradually shrinks as it goes, fitting itself to your chart.</p>
+                </li>
+                <li>
+                    <h4>11 x 17 Style</h4>
+                    <p>This chart has been specifically designed to print off an Ascendancy Chart on a 11 x 17 in. piece of paper. Features 7 generation charts.</p>
+                </li>
             </ul>
-            <h4>From FamilySearch</h4>
+            <h3 id="new_color_schemes">New Color Schemes</h3>
+            <p>The following new color schemes have been added to One Page Genealogy</p>
             <ul>
-                <li><p>Click "FamilySearch" if you want to create a chart from data found
-                    on FamilySearch.</p></li>
-                <li><p>Enter the FamilySearch id (XXXX-XXX) of the person who will be at the beginning of the chart
-                    or leave it empty to start with yourself.</p></li>
-                <li><p>Choose the type of chart you want (Descendancy of Ascendancy) and how many generations you want displayed in the chart.</p>
-                    <ul>
-                        <li>Ascendancy: creates a tree with each generation being the parents of the previous generation.</li>
-                        <li>Descendancy: creates a tree with each generation being the children of the
-                            previous generation by spouse.</li>
-                    </ul>
+                <li>
+                    <h4>Color by Branch - Bold</h4>
+                    <p>A new flavor of branch coloring featuring bolder variants of the standard colors.</p>
                 </li>
-                <li>If you have not already authenticated with FamilySearch:
-                    <ul>
-                        <li>You will be prompted to do so through FamilySearch login.</li>
-                        <li>This is necessary because all the data for your tree is pulled straight from FamilySearch.</li>
-                   </ul>
+                <li>
+                    <h4>Color by Branch - Greyscale</h4>
+                    <p>A greyscale branch coloring system.</p>
                 </li>
-                <li>If you've previously authenticated with FamilySearch through One Page Genealogy, simply press "Submit" to generate your chart.</li>
-                <li>Because of the large amount of data, may take a few minutes for the chart to appear.</li>
-                <li>Expect longer loading times for larger numbers of generations.</li>
+                <li>
+                    <h4>Color by Generation - Warm</h4>
+                    <p>A rotational color-by-generation scheme that uses red, orange, yellow, and purple as its colors.</p>
+                </li>
+                <li>
+                    <h4>Color by Generation - Cold</h4>
+                    <p>A new rendition of the old monochrome style. Uses blue, green, light blue, and light green.</p>
+                </li>
+                <li>
+                    <h4>Color by Generation - Wood</h4>
+                    <p>A slightly-stronger-than-sepia color scheme focusing on pleasant tans and browns that are appealing and easy on the eye.</p>
                 </li>
             </ul>
         </div>
-        <div id="explore">
-            <h3>Explore Your Chart</h3>
-            <p>Now you have your chart on the page, but maybe it's a bit too big to see all of it.</p>
-            <ul>
-                <li><p>Zoom in and out: scroll middle mouse button.</p></li>
-                <li><p>Pan around: left click and drag the chart.</p></li>
-                <li><p>Click the arrows at the top of the screen to rotate your chart clockwise or counter-clockwise.</p></li>
-                <li><p>Click the download button to download your chart as a PDF file.</p></li>
-                <li><p>Click the ruler button to show a ruler along the top of your chart that can be used to help you size your chart.</p></li>
-            </ul>
-        </div>
-        <div id="edit">
-            <h3>Edit Your Chart</h3>
-            <p>There are a few things you can do to edit how your chart looks.</p>
-            <h4>Changing Chart Style</h4>
-            <ul>
-                <li><p>Click "Styles" at the top right of the page and then choose the style you want.</p>
-                    <ul>
-                        <li><p>All of these options will change the style of every box in the chart.</p></li>
-                        <li><p>The upper options focus on ascendancy charts, while the lower options are configured for descendency charts.</p></li>
-                    </ul>
-                </li>
-            </ul>
-            <h4>Changing Chart Color</h4>
-            <ul>
-                <li><p>Click "Colors" at the top right of the page and then choose the style you want.</p>
-                    <ul>
-                        <li><p>All of these options will change the style of every box in the chart.</p></li>
-                        <li><p>These options won't change the shape or size of the box, but will change the color.</p></li>
-                        <li><p>In bordered boxes, the color you choose will be on the border, while the interior
-                        color will be just a few shades lighter.</p></li>
-                    </ul>
-                </li>
-            </ul>
-            <h4>Changing Chart Options</h4>
-            <ul>
-                <li><p>Click "Options" at the top right of the page and then choose the style you want.</p>
-                    <ul>
-                        <li><p>These options add useful features to your chart.</p></li>
-                        <li><p>Showing/Hiding empty boxes will put in grey boxes where you are missing people in your tree.</p></li>
-                        <li><p>Highlighting duplicates changes the color on boxes that likely correspond to the same individual
-                        to make copies easier to spot. These color changes can be overriden manually, or by selecting a chart
-                        color style.</p></li>
-                    </ul>
-                </li>
-            </ul>
-            <h4>Customize Box Styles</h4>
-            <p>Clicking on a box will allow you to edit the style used by the box. There are two types of changes that may be made.</p>
-            <h5><i>Changing Styles</i></h5>
-            <ul>
-                <li><p>Click the box you wish to edit.</p></li>
-                <li><p>Use the drop down menu to preview any of the box styles.</p></li>
-                <li><p>Select if you want to just change the box you clicked ("Individual"), everyone
-                in that generation ("Generation"), or everyone in the entire chart ("Entire Chart").</p></li>
-                <!--
-                <li><p>Click "Collapse" if you don't want ancestors/descendants of that individual to be shown.
-                <i>Clicking this can reduce the size of your chart.</i></p></li>
-                -->
-                <li><p>Click "Save Changes" to have the changes made to your chart or "Cancel" to leave the menu
-                without changing anything. ONLY STYLE CHANGES will be saved.</p></li>
-            </ul>
-            <h5><i>Changing Colors</i></h5>
-            <ul>
-                <li><p>Click the box you wish to edit.</p></li>
-                <li><p>Use the Color Selector to preview the color of the box.</p></li>
-                <li><p>Select if you want to just change the box you clicked ("Individual"), everyone
-                    in that generation ("Generation"), or everyone in the entire chart ("Entire Chart").</p></li>
-                <!--
-                <li><p>Click "Collapse" if you don't want ancestors/descendants of that individual to be shown.
-                <i>Clicking this can reduce the size of your chart.</i></p></li>
-                -->
-                <li><p>Click "Save Changes" to have the changes made to your chart or "Cancel" to leave the menu
-                    without changing anything. <b>ONLY COLOR CHANGES will be saved.</b></p></li>
-            </ul>
-            <h5><i>Other Tools</i></h5>
-            <ul>
-                <li><p>In the box style editor, there are a few other useful options.</p></li>
-                <li><p>Click "Collapse" if you don't want ancestors/descendants of that individual to be shown.
-                <i>Clicking this can reduce the size of your chart.</i></p></li>
-                <li><p>Click "Save Changes" to have the changes made to your chart or "Cancel" to leave the menu
-                    without changing anything.</p></li>
-            </ul>
-        </div>
-        <div id="print">
-            <h3>How to Print or save as a PDF</h3>
-            <p>Simply press the download button (downward point arrow icon) at the top right to save your chart as a PDF.</p>
-            <p>You can then take the downloaded PDF to a nearby print service center.</p>
-
-        </div>
-        <div id="contact">
-            <h3>Contact</h3>
-            <p>We would love to hear from you!</p>
-            <p>If you have questions or feedback, email us at <a href="mailto:fhtlab@gmail.com">fhtlab@gmail.com</a></p>
-        </div>
+    </div>
+    <div id="contact" class="tab-pane fade list">
+        <h3>Contact Us</h3>
+        <p>We would love to hear from you!</p>
+        <hr>
+        <p>If you have questions or feedback, email us at <a href="mailto:fhtlab@gmail.com">fhtlab@gmail.com</a></p>
+        <p>If you have a question that you feel would be especially useful for the FAQ's/Support page, please include "FAQ" in the title of your email.</p>
     </div>
 </div>
 <div class="help-footer">

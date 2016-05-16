@@ -17,6 +17,7 @@ class BaptismColorSpacer extends AbstractStyler {
         var root = boxes.getId(rootId);
 
         root.setColor(null);
+        root.setTextColor(ColorManager.black());
 
         var queue = [];
         queue.push([rootId,0]);
@@ -52,6 +53,7 @@ class BaptismColorSpacer extends AbstractStyler {
                         branchBox.setColor(ColorManager.yellow());
                     }
                 }
+                branchBox.setTextColor(ColorManager.black());
 
                 queue.push([branchIds[i], generation+1]);
             }

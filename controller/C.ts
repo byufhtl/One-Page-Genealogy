@@ -214,6 +214,7 @@ class C implements IGraphicObjectListener, IOptionListener {
     }
 
     getBranch(box:IBox, branch:IBox[]): IBox[]{
+        if(!box){return null;}
         var branchIds = box.getNode().getBranchIds();
         branch.push(box);
         if(branchIds.length === 0){
@@ -389,6 +390,7 @@ class C implements IGraphicObjectListener, IOptionListener {
             $('#rulerModal').modal('hide');
             $('#ruler').css('display', 'none');
         }
+        //~~~ Chart Styles ~~~
         else if (key === 'detail-style') {
             this.p.handle({type: key});
         }
@@ -398,10 +400,25 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'vertical-style') {
             this.p.handle({type: key});
         }
+        else if (key === 'vertical-style-accent') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'bubble-style') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'var-depth-style') {
+            this.p.handle({type: key});
+        }
         else if (key === 'eight-eleven-style') {
             this.p.handle({type: key});
         }
         else if (key === 'eight-eleven-detail-style') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'eleven-seventeen-style') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'extended-style') {
             this.p.handle({type: key});
         }
         else if (key === 'js-public-style') {
@@ -410,16 +427,35 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'js-reunion-public-style') {
             this.p.handle({type: key});
         }
+        else if (key === 'js-var-depth-style') {
+            this.p.handle({type: key});
+        }
+        //~~~ Color Schemes ~~~
         else if (key === 'to-greyscale') {
             this.p.handle({type: key});
         }
         else if (key === 'to-branch-color') {
             this.p.handle({type: key});
         }
-        else if (key === 'to-generation-color') {
+        else if (key === 'to-branch-color-blackout') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'to-branch-color-bold') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'to-branch-color-gray') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'to-generation-color-warm') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'to-generation-color-cold') {
             this.p.handle({type: key});
         }
         else if (key === 'to-generation-color-vibrant') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'to-generation-wood') {
             this.p.handle({type: key});
         }
         else if (key === 'to-gender-color') {
@@ -428,6 +464,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'to-country-color') {
             this.p.handle({type: key, colorMap: value});
         }
+        //~~~ Other ~~~
         else if (key === 'show-empty'){
             this.p.handle({type: key, recurse: value.recurse});
         }

@@ -13,21 +13,35 @@
 ///<reference path="RotateSpacer.ts"/>
 ///<reference path="GenerationSpacer2.ts"/>
 ///<reference path="ChartSpacers/CustomSpacer.ts"/>
-///<reference path="ChartSpacers/EightElevenSpacer.ts"/>
-///<reference path="ChartSpacers/EightElevenDetailSpacer.ts"/>
-///<reference path="ChartSpacers/DetailChartSpacer.ts"/>
-///<reference path="ChartSpacers/FamilyReunionChartSpacer.ts"/>
-///<reference path="ChartSpacers/FamilyReunionDescPublicSpacer.ts"/>
-///<reference path="ChartSpacers/VertDetChartSpacer.ts"/>
-///<reference path="ChartSpacers/VertDescDetChartSpacer.ts"/>
+
+///<reference path="ChartStyles/FamilyReunionChartStyler.ts"/>
+///<reference path="ChartStyles/EightElevenChartStyler.ts"/>
+///<reference path="ChartStyles/EightElevenDetailChartStyler.ts"/>
+///<reference path="ChartStyles/FamilyReunionDescChartStyler.ts"/>
+///<reference path="ChartStyles/VariableDepthDescChartStyler.ts"/>
+///<reference path="ChartStyles/DetailChartStyler.ts"/>
+///<reference path="ChartStyles/VertDescDetChartStyler.ts"/>
+///<reference path="ChartStyles/VertDetChartStyler.ts"/>
+///<reference path="ChartStyles/VertDetAccentChartStyler.ts"/>
+///<reference path="ChartStyles/VertDetChartStyler.ts"/>
+///<reference path="ChartStyles/BubbleChartStyler.ts"/>
+///<reference path="ChartStyles/VariableDepthChartStyler.ts"/>
+///<reference path="ChartStyles/ElevenSeventeenChartStyler.ts"/>
+///<reference path="ChartStyles/ExtendedChartStyler.ts"/>
+
 ///<reference path="ColorSpacers/GreyScaleSpacer.ts"/>
 ///<reference path="ColorSpacers/ColorSpacer.ts"/>
 ///<reference path="ColorSpacers/AscColorSpacer.ts"/>
+///<reference path="ColorSpacers/AscBlackoutColorSpacer.ts"/>
+///<reference path="ColorSpacers/AscBoldColorSpacer.ts"/>
+///<reference path="ColorSpacers/AscGreyscaleColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenColorVibrantSpacer.ts"/>
+///<reference path="ColorSpacers/GenWoodColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenderColorSpacer.ts"/>
 ///<reference path="ColorSpacers/CountryColorSpacer.ts"/>
 ///<reference path="ColorSpacers/BaptismColorSpacer.ts"/>
+
 ///<reference path="SpacingSpacer.ts"/>
 ///<reference path="JSstyleSpacer.ts"/>
 ///<reference path="JSPublicSpacer.ts"/>
@@ -61,10 +75,10 @@ class P implements IControllerListener, ITreeListener {
         this.stylingPipeline = new StylingPipeline();
 
         if (c.dscOrAsc == "descendancy") {
-            this.stylingPipeline.setChartStyleSpacer(new JSPublicSpacer());
+            this.stylingPipeline.setChartStyleSpacer(new VertDescDetChartStyler());
             this.stylingPipeline.setChartColorStyleSpacer(new ColorSpacer());
         } else {
-            this.stylingPipeline.setChartStyleSpacer(new VertDetChartSpacer());
+            this.stylingPipeline.setChartStyleSpacer(new VertDetChartStyler());
             this.stylingPipeline.setChartColorStyleSpacer(new AscColorSpacer());
         }
 
@@ -475,25 +489,43 @@ class P implements IControllerListener, ITreeListener {
         var style: AbstractStyler;
         switch(type){
             case 'detail-style':
-                style = new DetailChartSpacer();
+                style = new DetailChartStyler();
                 break;
             case 'reunion-style':
-                style = new FamilyReunionChartSpacer();
+                style = new FamilyReunionChartStyler();
                 break;
             case 'vertical-style':
-                style = new VertDetChartSpacer();
+                style = new VertDetChartStyler();
+                break;
+            case 'vertical-style-accent':
+                style = new VertDetAccentChartStyler();
+                break;
+            case 'bubble-style':
+                style = new BubbleChartStyler();
+                break;
+            case 'var-depth-style':
+                style = new VariableDepthChartStyler();
                 break;
             case 'eight-eleven-style':
-                style = new EightElevenSpacer();
+                style = new EightElevenChartStyler();
                 break;
             case 'eight-eleven-detail-style':
-                style = new EightElevenDetailSpacer();
+                style = new EightElevenDetailChartStyler();
+                break;
+            case 'eleven-seventeen-style':
+                style = new ElevenSeventeenChartStyler();
+                break;
+            case 'extended-style':
+                style = new ExtendedChartStyler();
                 break;
             case 'js-public-style':
-                style = new JSPublicSpacer();
+                style = new VertDescDetChartStyler();
                 break;
             case 'js-reunion-public-style':
-                style = new FamilyReunionDescPublicSpacer();
+                style = new FamilyReunionDescChartStyler();
+                break;
+            case 'js-var-depth-style':
+                style = new VariableDepthDescChartStyler();
                 break;
             default:
                 return false;
@@ -527,11 +559,36 @@ class P implements IControllerListener, ITreeListener {
                     style = new AscColorSpacer();
                 }
                 break;
-            case 'to-generation-color':
-                style = new GenColorSpacer();
+            case 'to-branch-color-blackout':
+                if(this.c.dscOrAsc == "descendancy") {
+                    style = new ColorSpacer();
+                }
+                else{
+                    style = new AscBlackoutColorSpacer();
+                }
+                break;
+            case 'to-branch-color-bold':
+                if(this.c.dscOrAsc == "descendancy") {
+                    style = new ColorSpacer();
+                }
+                else{
+                    style = new AscBoldColorSpacer();
+                }
+                break;
+            case 'to-branch-color-gray':
+                style = new AscGreyscaleColorSpacer();
+                break;
+            case 'to-generation-color-warm':
+                style = new GenColorSpacer(GenColorSpacer.WARM);
+                break;
+            case 'to-generation-color-cold':
+                style = new GenColorSpacer(GenColorSpacer.COLD);
                 break;
             case 'to-generation-color-vibrant':
                 style = new GenColorVibrantSpacer();
+                break;
+            case 'to-generation-wood':
+                style = new GenWoodColorSpacer();
                 break;
             case 'to-gender-color':
                 style = new GenderColorSpacer();

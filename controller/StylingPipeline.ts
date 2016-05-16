@@ -6,21 +6,33 @@
 ///<reference path="SpacingSpacer.ts"/>
 ///<reference path="ChartSpacers/IChartStyler.ts"/>
 ///<reference path="ChartSpacers/CustomSpacer.ts"/>
+
+///<reference path="ColorSpacers/AscColorSpacer.ts"/>
+///<reference path="ColorSpacers/AscBlackoutColorSpacer.ts"/>
+///<reference path="ColorSpacers/AscBoldColorSpacer.ts"/>
+///<reference path="ColorSpacers/AscGreyscaleColorSpacer.ts"/>
+///<reference path="ColorSpacers/CustomColorSpacer.ts"/>
+///<reference path="ColorSpacers/CustomTextColorSpacer.ts"/>
 ///<reference path="ColorSpacers/ColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenColorVibrantSpacer.ts"/>
+///<reference path="ColorSpacers/GenWoodColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GenderColorSpacer.ts"/>
 ///<reference path="ColorSpacers/GreyScaleSpacer.ts"/>
-///<reference path="ChartSpacers/DetailChartSpacer.ts"/>
-///<reference path="ChartSpacers/EightElevenDetailSpacer.ts"/>
-///<reference path="ChartSpacers/EightElevenSpacer.ts"/>
-///<reference path="ChartSpacers/FamilyReunionChartSpacer.ts"/>
-///<reference path="ChartSpacers/FamilyReunionDescPublicSpacer.ts"/>
-///<reference path="ChartSpacers/VertDescDetChartSpacer.ts"/>
-///<reference path="ChartSpacers/VertDetChartSpacer.ts"/>
-///<reference path="ColorSpacers/AscColorSpacer.ts"/>
-///<reference path="ColorSpacers/CustomColorSpacer.ts"/>
-///<reference path="ColorSpacers/CustomTextColorSpacer.ts"/>
+
+///<reference path="ChartStyles/FamilyReunionChartStyler.ts"/>
+///<reference path="ChartStyles/EightElevenChartStyler.ts"/>
+///<reference path="ChartStyles/EightElevenDetailChartStyler.ts"/>
+///<reference path="ChartStyles/FamilyReunionDescChartStyler.ts"/>
+///<reference path="ChartStyles/DetailChartStyler.ts"/>
+///<reference path="ChartStyles/VertDescDetChartStyler.ts"/>
+///<reference path="ChartStyles/VertDetChartStyler.ts"/>
+///<reference path="ChartStyles/VertDetAccentChartStyler.ts"/>
+///<reference path="ChartStyles/BubbleChartStyler.ts"/>
+///<reference path="ChartStyles/VariableDepthChartStyler.ts"/>
+///<reference path="ChartStyles/ElevenSeventeenChartStyler.ts"/>
+///<reference path="ChartStyles/ExtendedChartStyler.ts"/>
+
 ///<reference path="YSpacer"/>
 /**
  * Created by calvinmcm on 2/23/16.
@@ -63,31 +75,51 @@ class StylingPipeline implements IPipeline {
         switch(spacer.className){
             case("AscColorSpacer"):
                 return new AscColorSpacer();
+            case("AscBlackoutColorSpacer"):
+                return new AscBlackoutColorSpacer();
+            case("AscBoldColorSpacer"):
+                return new AscBoldColorSpacer();
+            case("AscGreyscaleColorSpacer"):
+                return new AscGreyscaleColorSpacer();
             case("ColorSpacer"):
                 return new ColorSpacer();
             case("GenColorSpacer"):
                 return new GenColorSpacer();
             case("GenColorVibrantSpacer"):
                 return new GenColorVibrantSpacer();
+            case("GenWoodColorSpacer"):
+                return new GenWoodColorSpacer();
             case("GenderColorSpacer"):
                 return new GenderColorSpacer();
             case("GreyScaleSpacer"):
                 return new GreyScaleSpacer();
             //~~~END COLOR ::: START STYLE~~~
-            case("DetailChartSpacer"):
-                return new DetailChartSpacer();
-            case("EightElevenDetailSpacer"):
-                return new EightElevenDetailSpacer();
-            case("EightElevenSpacer"):
-                return new EightElevenSpacer();
-            case("FamilyReunionChartSpacer"):
-                return new FamilyReunionChartSpacer();
-            case("FamilyReunionDescPublicSpacer"):
-                return new FamilyReunionDescPublicSpacer();
-            case("VertDescDetChartSpacer"):
-                return new VertDescDetChartSpacer();
-            case("VertDetChartSpacer"):
-                return new VertDetChartSpacer();
+            case("BubbleChartStyler"):
+                return new BubbleChartStyler();
+            case("ElevenSeventeenChartSStyler"):
+                return new ElevenSeventeenChartStyler();
+            case("ExtendedChartSStyler"):
+                return new ExtendedChartStyler();
+            case("VariableDepthChartSStyler"):
+                return new VariableDepthChartStyler();
+            case("DetailChartSStyler"):
+                return new DetailChartStyler();
+            case("EightElevenDetailSStyler"):
+                return new EightElevenDetailChartStyler();
+            case("EightElevenSStyler"):
+                return new EightElevenChartStyler();
+            case("FamilyReunionChartSStyler"):
+                return new FamilyReunionChartStyler();
+            case("FamilyReunionDescPublicSStyler"):
+                return new FamilyReunionDescChartStyler();
+            case("VertDescDetChartSStyler"):
+                return new VertDescDetChartStyler();
+            case("VertDetChartStyler"):
+                return new VertDetChartStyler();
+            case("VertDetAccentChartStyler"):
+                return new VertDetAccentChartStyler();
+            default:
+                console.log("Cannot load style [" + spacer.className + "]");
         }
     }
 

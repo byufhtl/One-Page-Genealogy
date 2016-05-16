@@ -45,6 +45,12 @@ class YSpacer extends AbstractStyler{
         }
 
     }
+
+    /**
+     * Generates a two dimensional map. id => anonymous => properties
+     * @param boxes
+     * @returns {Array}
+     */
     private createMap(boxes: BoxMap): any {
         var rootId: string = boxes.getRoot();
         var map = [];
@@ -59,6 +65,7 @@ class YSpacer extends AbstractStyler{
             var branchIds = node.getBranchIds();
 
             var id = node.getId();
+
             map[id]['x'] = box.getX();
             map[id]['width'] = box.getWidth();
             map[id]['height'] = box.getHeight();

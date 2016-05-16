@@ -14,6 +14,7 @@ class LineManager {
     }
     requestLineString(boxes: BoxMap): string {
         this.d = "";
+        if(!boxes){return this.d;}
         var rootId: string = boxes.getRoot();
         var queue: string[] = [];
         queue.push(rootId);
@@ -49,16 +50,26 @@ class LineManager {
                 if(this.shouldDrawLine(box, firstBox, lastBox)) {
                     var first = this.toCenterPoint(boxes.getId(branchIds[0]));
                     var last = this.toCenterPoint(boxes.getId(branchIds[branchIds.length - 1]));
-                    if(firstBox.getNode().getId() == lastBox.getNode().getId())
+                    if(firstBox.getNode().getId() == lastBox.getNode().getId()) {
                         last = this.toCenterPoint(box);
+                    }
                     //var middleX = (first.getX() + cx)/2;
                     var firstBox: IBox= boxes.getId(branchIds[0]);
                     var middleX = first.getX()-firstBox.getWidth()/2 - 5;
 
+                    // test for lower x's in the middle boxes.
+                    for(var i = 1; i < branchIds.length; ++i){
+                        var middle_box :IBox = boxes.getId(branchIds[i]);
+                        var middle = this.toCenterPoint(middle_box);
+                        var mid = middle.getX() - middle_box.getWidth()/2 - 5;
+                        if(mid < middleX){
+                            //console.log("Cheaper x found: " + middleX.toString() + " => " + mid.toString());
+                            middleX = mid;
+                        }
+                    }
+
                     this.d += "M " + cx + " " + cy + " ";
                     this.d += "L " + middleX + " " + cy + " ";
-
-
 
                     for(var j=1; j<branchIds.length-1; j++) {
                         var child = this.toCenterPoint(boxes.getId(branchIds[j]));
@@ -87,6 +98,7 @@ class LineManager {
         }
         return this.d;
     }
+
     private toCenterPoint(box:IBox):any {
         return {
             getX: function() {
@@ -101,6 +113,7 @@ class LineManager {
     setBounds(x: number, y: number, w: number, h: number): void {
         this.bounds = {x: x, y:y, w:w, h:h};
     }
+
     private shouldDrawLine(parent: IBox, firstChild: IBox, lastChild: IBox): boolean {
         var parentResult = this.testBounds(parent);
         var firstResult = this.testBounds(firstChild);
@@ -111,6 +124,7 @@ class LineManager {
 
         return !result;
     }
+
     //private allFailSameTest(dictionaries):boolean {
     //    var masterDictionary = {};
     //    for(var i=0; i<dictionaries.length; i++) {
@@ -131,6 +145,7 @@ class LineManager {
     //    }
     //    return false;
     //}
+
     private failedSameTest(parentResult, firstResult, lastResult) {
         if(parentResult['top'] && firstResult['top'] && lastResult['top']) {
             return true;
@@ -146,9 +161,11 @@ class LineManager {
         }
         return false;
     }
+
     setIgnoreBound(ignore: boolean): void {
         this.ignoreBounds = ignore;
     }
+
     private testBounds(box: IBox): any {
         if(this.ignoreBounds) {
             return {};

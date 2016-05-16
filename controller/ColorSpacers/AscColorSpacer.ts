@@ -17,6 +17,7 @@ class AscColorSpacer extends AbstractStyler {
         var root = boxes.getId(rootId);
 
         this.setBasedOnBranch(null, root, 0,0,1);
+        root.setTextColor(ColorManager.black());
 
         var queue = [];
         queue.push([rootId,0]);
@@ -35,6 +36,7 @@ class AscColorSpacer extends AbstractStyler {
                 }
 
                 this.setBasedOnBranch(box,branchBox,generation+1,i,branchIds.length);
+                branchBox.setTextColor(ColorManager.black());
 
                 queue.push([branchIds[i], generation+1]);
             }
@@ -53,7 +55,7 @@ class AscColorSpacer extends AbstractStyler {
     }
     private setBasedOnBranch(parentBox: IBox, childBox: IBox, generation: number, child: number, numSiblings: number){
         if(!childBox.getNode().hasAttr('name')){
-            childBox.setColor(ColorManager.gray());
+            childBox.setColor(ColorManager.lightgray());
         }else {
             if (generation == 0) {
                 /*if(childBox.getNode().getBranchIds().length>2)
@@ -66,7 +68,7 @@ class AscColorSpacer extends AbstractStyler {
                     childBox.setColor(ColorManager.blue());
                 }
                 else {
-                    childBox.setColor(ColorManager.red());
+                    childBox.setColor(ColorManager.yellow());
                 }
             }
             else if (generation == 2) {
@@ -80,9 +82,9 @@ class AscColorSpacer extends AbstractStyler {
                 else if (child == 1 && gender === 'Male')
                     childBox.setColor(ColorManager.green());
                 else if (child == 0 && gender === 'Female')
-                    childBox.setColor(ColorManager.orange());
-                else if (child == 1 && gender === 'Female')
                     childBox.setColor(ColorManager.red());
+                else if (child == 1 && gender === 'Female')
+                    childBox.setColor(ColorManager.yellow());
             }
             else {
                 childBox.setColor(parentBox.getColor());

@@ -113,14 +113,14 @@ class SmallerDetSpBox extends IBoxData {
         var secondGGender = null;
 
         if(spousenode.hasAttr('gender')){
-            secondGGender = spousenode.getAttr('gender')
+            secondGGender = spousenode.getAttr('gender');
             if(secondGGender== "Male"){
                 firstG.setAttribute('transform','translate(10,45)')
             }else{
                 secondG.setAttribute('transform','translate(10,45)')
             }
         }else if(node.hasAttr('gender')){
-            firstGGender = node.getAttr('gender')
+            firstGGender = node.getAttr('gender');
             if(firstGGender == "Male"){
                 secondG.setAttribute('transform','translate(10,45)')
             }else{

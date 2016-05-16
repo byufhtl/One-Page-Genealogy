@@ -119,7 +119,7 @@ class JSLargeDetRotPubBox extends IBoxData {
             rect.setAttribute('fill',ColorManager.pink());
         }
         else {
-            rect.setAttribute('fill',ColorManager.gray());
+            rect.setAttribute('fill',ColorManager.lightgray());
         }
 
         gt.setAttribute("transform","translate(0, "+ (this.getHeight()-2)+") rotate(-90 0,0)");

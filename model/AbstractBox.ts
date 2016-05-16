@@ -5,38 +5,49 @@
 ///<reference path="../view/IBoxRender.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 ///<reference path="Box.ts"/>
+///<reference path="../view/boxRenderers/StyleManager.ts"/>
 /**
  * Created by curtis on 3/7/15.
  */
 class AbstractBox implements IBox {
-    private node: INode;
-    private spouseNode: INode;
-    private color: string;
-    private text_color: string;
-    private x: number;
-    private y: number;
-    private space: number;
-    private w: number;
-    private h: number;
-    private type: string = null;
-    private collapsed: boolean;
+    private node :INode;
+    private spouseNode :INode;
+    private x :number;
+    private y :number;
+    private space :number;
+    private w :number;
+    private h :number;
+    private type :string = null;
+    private collapsed :boolean;
+    private ris :RenderInstructionSchedule;
+    private picture :boolean;
+    private color :string;
+    private textColor :string;
 
-    constructor(node: INode) {
+    constructor(node :INode) {
         this.node = node;
         this.collapsed = false;
-        this.text_color = "#000000";
+        this.picture = false;
+        this.ris = new RenderInstructionSchedule()
+            .setHasPicture(node.hasAttr("profilePicturePromise"));
+        if(node.getDisplaySpouse()) {
+            this.ris.setSpouseHasPicture(node.getDisplaySpouse().hasAttr("profilePicturePromise"));
+        }
+
+        this.color = "#FFFFFF";
+        this.textColor = "#000000";
     }
-    setColor(c:string){
+    setColor(c:string){ // You could refactor to get rid of these functions and just manipulate them through the RIS. You'd have to change all of the color spacers though.
         this.color = c;
     }
     getColor():string{
         return this.color;
     }
     setTextColor(c:string){
-        this.text_color = c;
+        this.textColor = c;
     }
     getTextColor():string{
-        return this.text_color;
+        return this.textColor;
     }
     getHeight(): number {
         return this.h + this.space;
@@ -83,12 +94,14 @@ class AbstractBox implements IBox {
     setType(type: string) {
         this.type = type;
         if(!type){
-            type = "smallestNameBox";
+            type = StyleManager.TINY;
         }
-        var render:IBoxRender = BoxStyleFactory.getNewBoxStyle(type);
-        this.setHeight(render.getHeight());
-        this.setWidth(render.getWidth());
-
+    }
+    getRenderInstructions() :RenderInstructionSchedule{
+        return this.ris;
+    }
+    setRenderInstructions(instr :RenderInstructionSchedule) :void{
+        this.ris = instr;
     }
     copy(): IBox {
         var b:Box = new AbstractBox(this.getNode());
@@ -101,6 +114,7 @@ class AbstractBox implements IBox {
         b.setX(this.getX());
         b.setY(this.getY());
         b.setCollapsed(this.isCollapsed());
+        b.setRenderInstructions(this.ris);
         return b;
     }
     copyContents(b: IBox): void {
@@ -113,6 +127,7 @@ class AbstractBox implements IBox {
         b.setX(this.getX());
         b.setY(this.getY());
         b.setCollapsed(this.isCollapsed());
+        b.setRenderInstructions(this.ris);
     }
     isCollapsed(): boolean {
         return this.collapsed;
@@ -128,6 +143,7 @@ class AbstractBox implements IBox {
         this.space = 0;
         this.type = null;
         this.collapsed = false;
+        this.picture = false;
     }
     hitTest(pt: Point): boolean {
         if(this.x > pt.getX()) {

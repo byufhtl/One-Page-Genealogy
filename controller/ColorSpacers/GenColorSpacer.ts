@@ -8,9 +8,11 @@
 
 class GenColorSpacer extends AbstractStyler {
 
+    private flavor :string;
 
-    constructor(){
+    constructor(flavor :string = GenColorSpacer.COLD){
         super("GenColorSpacer");
+        this.flavor = flavor;
     }
 
     applyStyle(boxes: BoxMap): void {
@@ -18,7 +20,8 @@ class GenColorSpacer extends AbstractStyler {
         var root = boxes.getId(rootId);
 
         //this.setBasedOnGeneration(null, root, 0);
-        this.setBasedOnGeneration(null, root, 0,false);
+        this.setBasedOnGeneration(null, root, 0,false, this.flavor);
+        root.setTextColor(ColorManager.black());
 
         var queue = [];
         queue.push([rootId,0]);
@@ -36,15 +39,16 @@ class GenColorSpacer extends AbstractStyler {
                     continue;
                 }
                 if(box.getNode().getSpouses().length>1){
-                    this.setBasedOnGeneration(box, branchBox, generation, true);
+                    this.setBasedOnGeneration(box, branchBox, generation, true, this.flavor);
 
                     queue.push([branchIds[i], generation]);
                 }
                 else {
-                    this.setBasedOnGeneration(box, branchBox, generation + 1,false);
+                    this.setBasedOnGeneration(box, branchBox, generation + 1, false, this.flavor);
 
                     queue.push([branchIds[i], generation + 1]);
                 }
+                branchBox.setTextColor(ColorManager.black());
 
 
                 //this.setBasedOnGeneration(box, branchBox, generation+1);
@@ -54,22 +58,47 @@ class GenColorSpacer extends AbstractStyler {
             }
         }
     }
-    private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number,repeat: boolean) {
-        if(generation == 0) {
-            childBox.setColor(ColorManager.blue());
 
+    private setBasedOnGeneration(parentBox: IBox, childBox: IBox, generation: number, repeat: boolean, flavor :string) {
+        if(!repeat) {
+            switch(flavor) {
+                case GenColorSpacer.WARM:
+                    switch(generation % 4){
+                        case 0 :
+                            childBox.setColor(ColorManager.red());
+                            break;
+                        case 1 :
+                            childBox.setColor(ColorManager.orange());
+                            break;
+                        case 2 :
+                            childBox.setColor(ColorManager.purple());
+                            break;
+                        default:
+                            childBox.setColor(ColorManager.yellow());
+                    }
+                    break;
+                default:
+                    switch(generation % 4){
+                    case 0 :
+                        childBox.setColor(ColorManager.blue());
+                        break;
+                    case 1 :
+                        childBox.setColor(ColorManager.green());
+                        break;
+                    case 2 :
+                        childBox.setColor(ColorManager.lighten(ColorManager.blue(), 48));
+                        break;
+                    default:
+                        childBox.setColor(ColorManager.lighten(ColorManager.green(), 48));
+                    }
+            }
         }
-        else if(!repeat && generation <= 10) {
-            var newColor:number = (parseInt(parentBox.getColor().split("#")[1],16));//.toString();
-            newColor = newColor-64;
-            var newHex = "#"+newColor.toString(16);
-            childBox.setColor(newHex);
-        }
-        else
+        else {
             childBox.setColor(parentBox.getColor());
+        }
     }
 
- private setBasedOnBranch2(parentBox: IBox, childBox: IBox, generation: number, child: number){
+    private setBasedOnBranch2(parentBox: IBox, childBox: IBox, generation: number, child: number){
         //#a9ffaf green  #aefbc2(green)
         //#ffffaf yellow 13092607(blue)
         //#fddcaf orange #deffb7(a yellow green)
@@ -130,6 +159,7 @@ class GenColorSpacer extends AbstractStyler {
         }
         console.log(childBox.getNode().getId()+" "+childBox.getColor());
     }
+
     private modifyColor(hex:string,type:string, amount: number): string{
         var r:number = parseInt( hex[0]+hex[1],16);
         var g:number = parseInt(hex[2]+hex[3],16);
@@ -187,4 +217,7 @@ class GenColorSpacer extends AbstractStyler {
         console.log("("+red+","+green+","+blue+")");
         return '#'+red+green+blue;
     }
+
+    static COLD = "cold";
+    static WARM = "warm";
 }
