@@ -1,226 +1,248 @@
-///<reference path="IBoxStyler.ts"/>
+///<reference path="../../model/IBox.ts"/>
+///<reference path="../boxRenderers/RenderInstructionSchedule.ts"/>
 /**
- * Created by calvinmcm on 4/14/10.
- */
-
-/**
+ * Created by calvinmcm on 4/14/16.
+ * Last Updated 5/13/16
+ *
+ *
  * The Medium Box Style is a good-sized box suitable for various roles in most charts. The box has a standard height of 300
  * pixels, and a width of 1000/740 pixels for married/single flavors respectively. The style has two flavors: Married,
  * and Single. It includes all available information without restrictions.
  */
-class MediumBoxStyle implements IBoxStyler{
-    getName(){return StyleManager.MEDIUM;}
+class MediumBoxStyle{
 
-    applyStyleTo(box :IBox, flavor_key :string){
-        var start_x = 8;
-        var start_y = 29;
-        var s_start_x = 80;
-        var s_start_y = 219;
+    public static applyStyleTo(box :IBox, flavor_key :string, deep :boolean = true) :void{
+        var big_font_size = 28;
+        var small_font_size = 14;
+
+        //~~~ Setup ~~~
+
+        var render_sched :RenderInstructionSchedule;
+        if(deep){
+            render_sched = new RenderInstructionSchedule()
+                .setFlavorKey(flavor_key)
+                .setDefTextSize(big_font_size)
+                .setAltTextSize(small_font_size)
+                .setHasPicture(box.getRenderInstructions().getHasPicture())
+                .setSpouseHasPicture(box.getRenderInstructions().getSpouseHasPicture());
+        }
+        else{
+            render_sched = box.getRenderInstructions();
+        }
+
+        var styled :boolean = false;
+
+        //~~~ Married Flavors ~~~
+
+        if(render_sched.getFlavorKey() === MediumBoxStyle.MARRIED_WIDE){
+            MediumBoxStyle.applyMarriedWideFlavor(box, render_sched);
+            styled = true;
+        }
+
+        //~~~ Single Flavors ~~~
+
+        if(render_sched.getFlavorKey() === MediumBoxStyle.SINGLE_WIDE){
+            MediumBoxStyle.applySingleWideFlavor(box, render_sched);
+            styled = true;
+        }
+        else if(render_sched.getFlavorKey() === MediumBoxStyle.SINGLE_LONG){
+            MediumBoxStyle.applySingleLongFlavor(box, render_sched);
+            styled = true;
+        }
+        else if(render_sched.getFlavorKey() === MediumBoxStyle.SINGLE_LONG_FAT){
+            MediumBoxStyle.applySingleLongFatFlavor(box, render_sched);
+            styled = true;
+        }
+        else if(render_sched.getFlavorKey() === MediumBoxStyle.SINGLE_BUBBLE){
+            MediumBoxStyle.applySingleBubbleFlavor(box, render_sched);
+            styled = true;
+        }
+
+        if(!styled){
+            MediumBoxStyle.applyStyleTo(box, MediumBoxStyle.SINGLE_LONG, deep);
+        }
+
+        box.setRenderInstructions(render_sched);
+    }
+
+    private static applyMarriedWideFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
+
+        if(box.getNode().getSpouses().length == 0){
+            render_sched.setFlavorKey(MediumBoxStyle.SINGLE_LONG_FAT);
+            return;
+        }
+
+        box.setHeight(340);
+        box.setWidth(235);
+
+        var start_x = 22;
+        var s_start_x = 22;
+        var s_start_y :number;
+        var start_y :number;
         var big_font_size = 28;
         var small_font_size = 14;
         var nameLength = 16;
         var dateLength = 18;
         var placeLength = 18;
 
-        // Basic data
-        var render_sched :RenderInstructionSchedule = new RenderInstructionSchedule()
-            //.setBoxInstructions(box.getRenderInstructions().getBoxInstructions())
-            //.setTextInstructions(box.getRenderInstructions().getTextInstructions())
-            .setFlavorKey(flavor_key)
-            .setDefTextSize(big_font_size)
-            .setAltTextSize(small_font_size)
-            .setHasPicture(box.getRenderInstructions().getHasPicture())
-            .setSpouseHasPicture(box.getRenderInstructions().getSpouseHasPicture());
+        if (box.getNode().getAttr('gender') === "Male") {
+            start_y = 29;
+            s_start_y = 140;
+        }
+        else {
+            start_y = 140;
+            s_start_y = 29;
+        }
 
-        if(flavor_key === MediumBoxStyle.MARRIED_WIDE){
+        render_sched
+            .setNodeName(new Instruction(start_x, start_y, nameLength))
+            .setSpouseName(new Instruction(s_start_x, s_start_y, nameLength));
 
-            if(box.getNode().getSpouses().length == 0){
-                flavor_key = MediumBoxStyle.SINGLE_LONG_FAT;
-                render_sched.setFlavorKey(flavor_key);
+        if (render_sched.getHasPicture() || render_sched.getSpouseHasPicture()) {
+            start_x += 72;
+            s_start_x += 72;
+            if (render_sched.getHasPicture()) {
+                render_sched
+                    .setPicturePlace(new Instruction(start_x - 80, start_y + 7))
+                    .setPictureDim(new Instruction(75, 75, null));
             }
             else {
-                box.setHeight(340);
-                box.setWidth(235);
-
-                start_x = 22;
-                s_start_x = 22;
-
-                if (box.getNode().getAttr('gender') === "Male") {
-                    start_y = 29;
-                    s_start_y = 140;
-                }
-                else {
-                    start_y = 140;
-                    s_start_y = 29;
-                }
-
                 render_sched
-                    .setNodeName(new Instruction(start_x, start_y, nameLength))
-                    .setSpouseName(new Instruction(s_start_x, s_start_y, nameLength));
-
-                if (render_sched.getHasPicture() || render_sched.getSpouseHasPicture()) {
-                    start_x += 72;
-                    s_start_x += 72;
-                    if (render_sched.getHasPicture()) {
-                        render_sched
-                            .setPicturePlace(new Instruction(start_x - 80, start_y + 7))
-                            .setPictureDim(new Instruction(75, 75, null));
-                    }
-                    else {
-                        render_sched
-                            .setSpousePicturePlace(new Instruction(start_x - 80, start_y + 7))
-                            .setSpousePictureDim(new Instruction(75, 75, null));
-                    }
-                }
-
-                render_sched
-                    .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 10, dateLength))
-                    .setNodeBPlace(new Instruction(start_x, start_y + big_font_size - 10 + small_font_size, placeLength))
-                    .setNodeDDate(new Instruction(start_x, start_y + big_font_size - 10 + small_font_size*2 + 3, dateLength))
-                    .setNodeDPlace(new Instruction(start_x, start_y + big_font_size - 10 + small_font_size*3 + 3, placeLength))
-
-                    .setSpouseBDate(new Instruction(s_start_x, s_start_y + big_font_size - 10, dateLength))
-                    .setSpouseBPlace(new Instruction(s_start_x, s_start_y + big_font_size - 10 + small_font_size, placeLength))
-                    .setSpouseDDate(new Instruction(s_start_x, s_start_y + big_font_size - 10 + small_font_size*2 + 3, dateLength))
-                    .setSpouseDPlace(new Instruction(s_start_x, s_start_x + big_font_size - 10 + small_font_size*3 + 3 + 8))
-
-                    .setMarriageDate(new Instruction(125, 221))
-                    .setMarriagePlace(new Instruction(180, 221))
-
-                    .setBoldID(box.getNode().getId())
-                    .setRotation(true);
+                    .setSpousePicturePlace(new Instruction(start_x - 80, start_y + 7))
+                    .setSpousePictureDim(new Instruction(75, 75, null));
             }
         }
-        //if(flavor_key === MediumBoxStyle.MARRIED_LONG){
-        //
-        //    box.setHeight(325);
-        //    box.setWidth(360);
-        //
-        //    if(render_sched.getHasPicture()) {
-        //        start_x += 65;
-        //        s_start_x += 65;
-        //    }
-        //
-        //    //render_sched
-        //    //    .addInstruction(RenderInstructionSchedule.PICTURE,start_x - 65,start_y-20)
-        //    //    .addInstruction(RenderInstructionSchedule.PICTURES_DIM,70,70)
-        //    //    .addInstruction(RenderInstructionSchedule.NAME,start_x,start_y)
-        //    //    .addInstruction(RenderInstructionSchedule.B_DATE,start_x,start_y + big_font_size + 6)
-        //    //    .addInstruction(RenderInstructionSchedule.B_PLACE,start_x + 105,start_y + big_font_size + 6)
-        //    //    .addInstruction(RenderInstructionSchedule.D_DATE,start_x,start_y + big_font_size + small_font_size + 10)
-        //    //    .addInstruction(RenderInstructionSchedule.D_PLACE,start_x + 105,start_y + big_font_size + small_font_size + 10)
-        //    //    .addInstruction(RenderInstructionSchedule.S_PICTURE,s_start_x - 65,s_start_y)
-        //    //    .addInstruction(RenderInstructionSchedule.S_NAME,s_start_x,s_start_y)
-        //    //    .addInstruction(RenderInstructionSchedule.S_B_DATE,s_start_x,s_start_y + big_font_size + 6)
-        //    //    .addInstruction(RenderInstructionSchedule.S_B_PLACE,s_start_x + 105,s_start_y + big_font_size + 6)
-        //    //    .addInstruction(RenderInstructionSchedule.S_D_DATE,s_start_x,s_start_y + big_font_size + small_font_size + 10)
-        //    //    .addInstruction(RenderInstructionSchedule.S_D_PLACE,s_start_x + 105, s_start_y + big_font_size + small_font_size*2 + 10)
-        //    //    .addInstruction(RenderInstructionSchedule.M_DATE, 140,s_start_y + big_font_size + small_font_size*2 + 10)
-        //    //    .addInstruction(RenderInstructionSchedule.M_PLACE, 200,s_start_y + big_font_size + small_font_size*2 + 10)
-        //    //    .addInstruction(RenderInstructionSchedule.TEXT_ROTATED,1);
-        //
-        //}
-        //else
-        if(flavor_key === MediumBoxStyle.SINGLE_WIDE){
 
-            //console.log("MED::SINGLE_WIDE on [" + box.getNode().getAttr("name").toString() + "] @ pre-render with key [" + box.getRenderInstructions().getFlavorKey() + "]");
+        render_sched
+            .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 10, dateLength))
+            .setNodeBPlace(new Instruction(start_x, start_y + big_font_size - 10 + small_font_size, placeLength))
+            .setNodeDDate(new Instruction(start_x, start_y + big_font_size - 10 + small_font_size*2 + 3, dateLength))
+            .setNodeDPlace(new Instruction(start_x, start_y + big_font_size - 10 + small_font_size*3 + 3, placeLength))
 
-            box.setHeight(380);
-            box.setWidth(130);
+            .setSpouseBDate(new Instruction(s_start_x, s_start_y + big_font_size - 10, dateLength))
+            .setSpouseBPlace(new Instruction(s_start_x, s_start_y + big_font_size - 10 + small_font_size, placeLength))
+            .setSpouseDDate(new Instruction(s_start_x, s_start_y + big_font_size - 10 + small_font_size*2 + 3, dateLength))
+            .setSpouseDPlace(new Instruction(s_start_x, s_start_x + big_font_size - 10 + small_font_size*3 + 3 + 8))
 
-            start_x = 22;
-            start_y = 29;
+            .setMarriageDate(new Instruction(s_start_x, 221))
+            .setMarriagePlace(new Instruction(s_start_x + 55, 221))
 
-            if (render_sched.getHasPicture()) {
-                start_x += 72;
-                render_sched
-                    .setPicturePlace(new Instruction(start_x - 80, start_y - 20))
-                    .setPictureDim(new Instruction(75, 75));
-            }
+            .setBoldID(box.getNode().getId())
+            .setRotation(true);
 
-            render_sched
-                .setNodeName(new Instruction(start_x, start_y, nameLength))
-                .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
-                .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
-                .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
-                .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength))
-                .setRotation(true);
-
-            //console.log(JSON.stringify(render_sched.getNameInstruction()) + " on [" + box.getNode().getAttr("name").toString() + "] @ post-render");
-        }
-        else if(flavor_key === MediumBoxStyle.SINGLE_LONG){
-
-            box.setHeight(130);
-            box.setWidth(380);
-
-            if (render_sched.getHasPicture()) {
-                start_x += 72;
-            }
-
-            render_sched
-                .setPicturePlace(new Instruction(start_x - 80, start_y - 20, placeLength))
-                .setPictureDim(new Instruction(75, 75))
-                .setNodeName(new Instruction(start_x, start_y, nameLength))
-                .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
-                .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
-                .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
-                .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength));
-        }
-        else if(flavor_key === MediumBoxStyle.SINGLE_LONG_FAT){
-
-            box.setHeight(115);
-            box.setWidth(235);
-
-            nameLength = 12;
-            dateLength = 11;
-            placeLength = 14;
-
-            render_sched
-                .setNodeName(new Instruction(start_x, start_y, nameLength));
-
-            if (render_sched.getHasPicture()) {
-                render_sched
-                    .setPicturePlace(new Instruction(start_x, start_y + 5, placeLength))
-                    .setPictureDim(new Instruction(75, 70));
-                start_x += 80;
-            }
-
-            render_sched
-                .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
-                .setNodeBPlace(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, placeLength))
-                .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size*2 - 2, dateLength))
-                .setNodeDPlace(new Instruction(start_x, start_y + big_font_size + small_font_size*3 - 2, placeLength));
-        }
-        else if(flavor_key === MediumBoxStyle.SINGLE_BUBBLE){
-
-            box.setHeight(310);
-            box.setWidth(310);
-
-            start_x = 42;
-            start_y = 150;
-            nameLength = 15;
-
-            render_sched
-                .setPicturePlace(new Instruction(start_x + 68, start_y + big_font_size + small_font_size*2, placeLength))
-                .setPictureDim(new Instruction(90, 90))
-                .setNodeName(new Instruction(start_x, start_y, nameLength))
-                .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
-                .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
-                .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
-                .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength))
-                .setBorderWidth(6)
-                .setCornerRounding(190)
-                .setRotation(true);
-        }
-
-
-        box.setRenderInstructions(render_sched);
     }
 
+    private static applySingleWideFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
+        var start_x = 22;
+        var start_y = 29;
+        var big_font_size = 28;
+        var small_font_size = 14;
+        var nameLength = 16;
+        var dateLength = 18;
+        var placeLength = 18;
+
+        box.setHeight(380);
+        box.setWidth(130);
+
+        if (render_sched.getHasPicture()) {
+            start_x += 72;
+            render_sched
+                .setPicturePlace(new Instruction(start_x - 80, start_y - 20))
+                .setPictureDim(new Instruction(75, 75));
+        }
+
+        render_sched
+            .setNodeName(new Instruction(start_x, start_y, nameLength))
+            .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
+            .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
+            .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
+            .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength))
+            .setRotation(true);
+    }
+
+    private static applySingleLongFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
+        var start_x = 8;
+        var start_y = 29;
+        var big_font_size = 28;
+        var small_font_size = 14;
+        var nameLength = 16;
+        var dateLength = 18;
+        var placeLength = 18;
+
+        box.setHeight(130);
+        box.setWidth(380);
+
+        if (render_sched.getHasPicture()) {
+            start_x += 72;
+        }
+
+        render_sched
+            .setPicturePlace(new Instruction(start_x - 80, start_y - 20, placeLength))
+            .setPictureDim(new Instruction(75, 75))
+            .setNodeName(new Instruction(start_x, start_y, nameLength))
+            .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
+            .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
+            .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
+            .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength));
+    }
+
+    private static applySingleLongFatFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
+        var start_x = 8;
+        var start_y = 29;
+        var big_font_size = 28;
+        var small_font_size = 14;
+        var nameLength = 12;
+        var dateLength = 11;
+        var placeLength = 14;
+
+        box.setHeight(115);
+        box.setWidth(235);
+
+        render_sched
+            .setNodeName(new Instruction(start_x, start_y, nameLength));
+
+        if (render_sched.getHasPicture()) {
+            render_sched
+                .setPicturePlace(new Instruction(start_x, start_y + 5, placeLength))
+                .setPictureDim(new Instruction(75, 70));
+            start_x += 80;
+        }
+
+        render_sched
+            .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
+            .setNodeBPlace(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, placeLength))
+            .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size*2 - 2, dateLength))
+            .setNodeDPlace(new Instruction(start_x, start_y + big_font_size + small_font_size*3 - 2, placeLength));
+    }
+
+    private static applySingleBubbleFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
+        var start_x = 42;
+        var start_y = 150;
+        var big_font_size = 28;
+        var small_font_size = 14;
+        var nameLength = 15;
+        var dateLength = 18;
+        var placeLength = 18;
+
+        box.setHeight(310);
+        box.setWidth(310);
+
+        render_sched
+            .setPicturePlace(new Instruction(start_x + 68, start_y + big_font_size + small_font_size*2, placeLength))
+            .setPictureDim(new Instruction(90, 90))
+            .setNodeName(new Instruction(start_x, start_y, nameLength))
+            .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
+            .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
+            .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
+            .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength))
+            .setBorderWidth(6)
+            .setCornerRounding(190)
+            .setRotation(true);
+    }
+
+    static MARRIED_WIDE     = "m_w";
+    static SINGLE_WIDE      = "s_w";
     static SINGLE_LONG      = "s_l";
     static SINGLE_LONG_FAT  = "s_l_f";
-    static SINGLE_WIDE      = "s_w";
     static SINGLE_BUBBLE    = "s_b";
-    static MARRIED_LONG     = "m_l";
-    static MARRIED_WIDE     = "m_w";
 }

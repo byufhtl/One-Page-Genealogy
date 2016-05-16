@@ -142,9 +142,34 @@ class OptionManager implements IOptionManager {
                 self.listener.handleOption('done-editing-spacing', null);
             }
         });
-        $("#edit-spacing-switch").on('switchChange.bootstrapSwitch', function(event, state) {
+        $('#edit-spacing-switch').on('switchChange.bootstrapSwitch', function(event, state) {
             self.listener.handleOption('edit-spacing-switch-changed', {state: state});
-        })
+        });
+        $('#style-dropdown').click(function(){
+            var style_menu = $('#style-menu');
+            var direction = $('input[name=FSascOrDsc]:checked').val();
+            var dropdown = $('#style-dropdown');
+            if(direction !== dropdown.val()) {
+                style_menu.empty();
+                if (direction === "ascendancy") {
+                    style_menu.append('<li><a id="opg-detail-style" href="#">Full Detail Style</a></li>');
+                    style_menu.append('<li><a id="opg-reunion-style" href="#">Family Reunion Style</a></li>');
+                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-extended-style" href="#">Extended Family Reunion Style (13+ Generations)</a></li>');
+                    style_menu.append('<li><a id="opg-vertical-style" href="#">Vertical Detail Style (Default)</a></li>');
+                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-vertical-style-accent" href="#">Vertical Detail Accent Style</a></li>');
+                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-bubble-style" href="#">Bubble Style</a></li>');
+                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-var-depth-style" href="#">Variable Depth Style</a></li>');
+                    style_menu.append('<li><a id="opg-eight-eleven-style" href="#">8 1/2 x 11 Style</a></li>');
+                    style_menu.append('<li><a id="opg-eight-eleven-detail-style" href="#">8 1/2 x 11 Detail Style</a></li>');
+                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-eleven-seventeen-style" href="#">11 x 17 Style</a></li>');
+                }
+                else {
+                    style_menu.append('<li><a id="opg-js-public-style" href="#">Descendancy Style</a></li>');
+                    style_menu.append('<li><a id="opg-js-reunion-public-style" href="#">Family Reunion Descendancy Style</a></li>');
+                }
+                dropdown.val(direction);
+            }
+        });
     }
 
     handleOptionSetting(type:String, data:any): void {

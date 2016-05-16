@@ -43,8 +43,6 @@ class FamilyReunionDescChartStyler extends AbstractChartStyle{
      * @param boxes
      */
     applyStyle(boxes: BoxMap): void {
-        console.log("Using VDDCS 2");
-        console.log("Using VDDCS PSEUDO");
         var rootId: string = boxes.getRoot();
         var root = boxes.getId(rootId);
         var p = (root.getNode().getSpouses().length > 1 ? 1 : 0);
@@ -66,7 +64,6 @@ class FamilyReunionDescChartStyler extends AbstractChartStyle{
                 var gen :number = counter;
                 var branchBox:IBox = boxes.getId(branchIds[i]);
                 if(!branchBox) {
-                    //console.log("non-existent branch box detected as [" + branchBox + "] - child of " + box.getNode().getAttr("name"));
                     continue;
                 }
                 if((counter%2 == 1) && branchBox.getNode().getSpouses().length <= 1){
@@ -111,17 +108,14 @@ class FamilyReunionDescChartStyler extends AbstractChartStyle{
             }
             else if(parentBox.getNode().getSpouses().length > 1){ // If descendant of plural box, drop an additional 10
                 childBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
-                //console.log(childBox.getNode().getAttr("name") + " has pseudo-generation " + generation + " and final generation " + (generation/2).toString());
             }
             else{ // if single box and descended from single box, drop a full 30.
                 childBox.setX(parentBox.getX() + parentBox.getWidth() + 30);
-                //console.log(childBox.getNode().getAttr("name") + " has pseudo-generation " + generation + " and final generation " + (generation/2).toString());
             }
         }
         else{
             childBox.setX(0);
             console.assert(generation === 0);
-            //console.log(childBox.getNode().getAttr("name") + " has pseudo-generation " + generation + " and final generation " + (generation/2).toString());
         }
 
         var numSpouses = childBox.getNode().getSpouses().length;
@@ -131,37 +125,26 @@ class FamilyReunionDescChartStyler extends AbstractChartStyle{
         var generation_real = generation/2;
         switch(generation_real){
             case 0:
+                childBox.setType(StyleManager.ENORMOUS);
                 if(numSpouses) {
-                    childBox.setType(StyleManager.LARGE);
-                    StyleManager.stylize(childBox, LargeBoxStyle.MARRIED_WIDE);
+                    StyleManager.stylize(childBox, EnrBoxStyle.MARRIED);
                 }
                 else{
-                    childBox.setType(StyleManager.LARGE);
-                    StyleManager.stylize(childBox, LargeBoxStyle.SINGLE_LONG_FAT);
+                    StyleManager.stylize(childBox, EnrBoxStyle.SINGLE);
                 }
                 break;
             case 1:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.LARGE);
-                    StyleManager.stylize(childBox, LargeBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.HUGE);
+                    StyleManager.stylize(childBox, HugeBoxStyle.MARRIED);
                 }
                 else{
-                    childBox.setType(StyleManager.LARGE);
-                    StyleManager.stylize(childBox, LargeBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.HUGE);
+                    StyleManager.stylize(childBox, HugeBoxStyle.SINGLE);
                 }
                 break;
             case 2:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.MEDIUM);
-                    StyleManager.stylize(childBox, MediumBoxStyle.MARRIED_WIDE);
-                }
-                else{
-                    childBox.setType(StyleManager.MEDIUM);
-                    StyleManager.stylize(childBox, MediumBoxStyle.SINGLE_LONG_FAT);
-                }
-                break;
-            case 3:
-                if(numSpouses) {
                     childBox.setType(StyleManager.LARGE);
                     StyleManager.stylize(childBox, LargeBoxStyle.MARRIED_WIDE);
                 }
@@ -170,7 +153,7 @@ class FamilyReunionDescChartStyler extends AbstractChartStyle{
                     StyleManager.stylize(childBox, LargeBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
-            case 4:
+            case 3:
                 if(numSpouses) {
                     childBox.setType(StyleManager.MEDIUM);
                     StyleManager.stylize(childBox, MediumBoxStyle.MARRIED_WIDE);
@@ -180,7 +163,7 @@ class FamilyReunionDescChartStyler extends AbstractChartStyle{
                     StyleManager.stylize(childBox, MediumBoxStyle.SINGLE_LONG_FAT);
                 }
                 break;
-            case 5:
+            case 4:
                 if(numSpouses) {
                     childBox.setType(StyleManager.SMALL);
                     StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
@@ -188,36 +171,46 @@ class FamilyReunionDescChartStyler extends AbstractChartStyle{
                 else{
                     childBox.setType(StyleManager.SMALL);
                     StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                }
+                break;
+            case 5:
+                if(numSpouses) {
+                    childBox.setType(StyleManager.MINI);
+                    StyleManager.stylize(childBox, MiniBoxStyle.MARRIED);
+                }
+                else{
+                    childBox.setType(StyleManager.MINI);
+                    StyleManager.stylize(childBox, MiniBoxStyle.SINGLE);
                 }
                 break;
             case 6:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.MINI);
+                    StyleManager.stylize(childBox, MiniBoxStyle.MARRIED);
                 }
                 else{
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.MINI);
+                    StyleManager.stylize(childBox, MiniBoxStyle.SINGLE);
                 }
                 break;
             case 7:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.TINY);
+                    StyleManager.stylize(childBox, TinyBoxStyle.MARRIED);
                 }
                 else{
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.TINY);
+                    StyleManager.stylize(childBox, TinyBoxStyle.SINGLE);
                 }
                 break;
             default:
                 if(numSpouses) {
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.MARRIED_WIDE);
+                    childBox.setType(StyleManager.TINY);
+                    StyleManager.stylize(childBox, TinyBoxStyle.MARRIED);
                 }
                 else{
-                    childBox.setType(StyleManager.SMALL);
-                    StyleManager.stylize(childBox, SmallBoxStyle.SINGLE_LONG_FAT);
+                    childBox.setType(StyleManager.TINY);
+                    StyleManager.stylize(childBox, TinyBoxStyle.SINGLE);
                 }
         }
         return;

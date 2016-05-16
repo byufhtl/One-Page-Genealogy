@@ -259,9 +259,10 @@
                 <li><a id="opg-open" title="Open" href="#"><i class="fa fa-folder-open" onclick="$('#uploadFile').click();"></i></a></li>
 
                 <li><a id="opg-ruler" title="Show Ruler" href="#"><img style="width:16px;height:16px;"src="images/ruler.png"></a></li>
-                <li class="dropdown">
+                <li id="style-dropdown" class="dropdown" value="ascendancy">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="label label-warning">new</span> Styles <span class="caret"></span></a>
-                    <ul class="dropdown-menu" style="max-width: 500px;" role="menu">
+                    <ul id="style-menu" class="dropdown-menu" style="max-width: 500px;" role="menu">
+                        <!--These options are written over in the OptionManager so that only the styles that you can use in that view are visible to the user.-->
                         <li><a id="opg-detail-style" href="#">Full Detail Style</a></li>
                         <li><a id="opg-reunion-style" href="#">Family Reunion Style</a></li>
                         <li><span class="label label-warning">new</span><a id="opg-extended-style" href="#">Extended Family Reunion Style (13+ Generations)</a></li>
@@ -385,7 +386,7 @@
 
                             </svg>
                         </div>
-                        <div>
+                        <div style="margin-left: 9px;">
                             <hr>
                             <div id="primary-node-information" class="row">
                                 <!--The information for the first person in a box will go here.-->

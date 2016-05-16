@@ -1,25 +1,22 @@
-///<reference path="IBoxStyler.ts"/>
+///<reference path="../../model/IBox.ts"/>
+///<reference path="../boxRenderers/RenderInstructionSchedule.ts"/>
 /**
  * Created by calvinmcm on 5/10/16.
- */
-
-/**
+ * Last Updated 5/13/16.
+ *
+ *
  * The Null Box Style is a placeholder box that does very little other than create a place where a branch will appear to
  * suddenly branch although no node exists.
  */
-class NullBoxStyle implements IBoxStyler{
-    getName(){return StyleManager.NULL;}
+class NullBoxStyle{
 
-    applyStyleTo(box :IBox, flavor_key :string){
+    public static applyStyleTo(box :IBox) :void{
 
-        // Basic data
+        //~~~ Setup ~~~
+
         box.setWidth(1);
         box.setHeight(1);
-        var render_sched = new RenderInstructionSchedule().setFlavorKey(flavor_key);
-
-        //console.log(render_sched.toString());
-
-        box.setRenderInstructions(render_sched);
+        box.setRenderInstructions(new RenderInstructionSchedule().setFlavorKey(this.NULL));
     }
 
     static NULL = "null_box";

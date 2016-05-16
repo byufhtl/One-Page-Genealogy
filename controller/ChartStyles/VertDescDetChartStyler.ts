@@ -137,6 +137,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                     childBox.setType(StyleManager.LARGE);
                     StyleManager.stylize(childBox, LargeBoxStyle.SINGLE_WIDE);
                 }
+                childBox.getRenderInstructions().setBorderWidth(6);
                 break;
             case 1:
                 if(numSpouses) {
@@ -147,6 +148,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                     childBox.setType(StyleManager.LARGE);
                     StyleManager.stylize(childBox, LargeBoxStyle.SINGLE_WIDE);
                 }
+                childBox.getRenderInstructions().setBorderWidth(6);
                 break;
             case 2:
                 if(numSpouses) {
@@ -157,6 +159,7 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                     childBox.setType(StyleManager.MEDIUM);
                     StyleManager.stylize(childBox, MediumBoxStyle.SINGLE_LONG_FAT);
                 }
+                childBox.getRenderInstructions().setBorderWidth(5);
                 break;
             case 3:
                 if(numSpouses) {
@@ -218,6 +221,8 @@ class VertDescDetChartStyler extends AbstractChartStyle{
                     StyleManager.stylize(childBox, TinyBoxStyle.SINGLE);
                 }
         }
+        childBox.getRenderInstructions().setColoredBorder(true);
+        console.log("ColoredBorder SET::TRUE");
         return;
     }
 

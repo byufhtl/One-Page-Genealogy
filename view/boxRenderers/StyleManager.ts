@@ -30,54 +30,78 @@ class StyleManager{
     static TINY     = "Tiny";
     static NULL     = "Null";
 
-    // Styler options. Creates a static version of the object that can be used by this class only.
-    private static ENR_STYLER   = new EnrBoxStyle();
-    private static HUGE_STYLER  = new HugeBoxStyle();
-    private static LARGE_STYLER  = new LargeBoxStyle();
-    private static MEDIUM_STYLER  = new MediumBoxStyle();
-    private static SMALL_STYLER  = new SmallBoxStyle();
-    private static MINI_STYLER  = new MiniBoxStyle();
-    private static TINY_STYLER  = new TinyBoxStyle();
-    private static NULL_STYLER = new NullBoxStyle();
-
-
     /**
      * Takes a box and applies to it the style set as it's type (box.getType()), defaulting to the TINY box style if the
      * registered type does not match any of the presets.
-     * @param box
-     * @param showMarriage
+     * @param box the box to stylize
+     * @param flavor_key The box flavor to use.
      */
     static stylize(box :IBox, flavor_key :string = null) :void{
-        //console.log("Stylizing box for " + box.getNode().getAttr("name"));
         switch(box.getType()){
             case StyleManager.ENORMOUS:
-                StyleManager.ENR_STYLER.applyStyleTo(box, flavor_key);
+                EnrBoxStyle.applyStyleTo(box, flavor_key);
                 break;
             case StyleManager.HUGE:
-                StyleManager.HUGE_STYLER.applyStyleTo(box, flavor_key);
+                HugeBoxStyle.applyStyleTo(box, flavor_key);
                 break;
             case StyleManager.LARGE:
-                StyleManager.LARGE_STYLER.applyStyleTo(box, flavor_key);
+                LargeBoxStyle.applyStyleTo(box, flavor_key);
                 break;
             case StyleManager.MEDIUM:
-                StyleManager.MEDIUM_STYLER.applyStyleTo(box, flavor_key);
+                MediumBoxStyle.applyStyleTo(box, flavor_key);
                 break;
             case StyleManager.SMALL:
-                StyleManager.SMALL_STYLER.applyStyleTo(box, flavor_key);
+                SmallBoxStyle.applyStyleTo(box, flavor_key);
                 break;
             case StyleManager.MINI:
-                StyleManager.MINI_STYLER.applyStyleTo(box, flavor_key);
+                MiniBoxStyle.applyStyleTo(box, flavor_key);
                 break;
             case StyleManager.TINY:
-                StyleManager.TINY_STYLER.applyStyleTo(box, flavor_key);
+                TinyBoxStyle.applyStyleTo(box, flavor_key);
                 break;
             case StyleManager.NULL:
-                StyleManager.NULL_STYLER.applyStyleTo(box, NullBoxStyle.NULL);
+                NullBoxStyle.applyStyleTo(box);
                 break;
             default:
-                StyleManager.TINY_STYLER.applyStyleTo(box, flavor_key);
+                TinyBoxStyle.applyStyleTo(box, flavor_key);
         }
     }
 
+    /**
+     * Takes a box and applies to it the style set as it's type (box.getType()), defaulting to the TINY box style if the
+     * registered type does not match any of the presets. Designed for boxes that just need minor cosmetic adjustments.
+     * @param box
+     * @param flavor_key
+     */
+    static restylize(box :IBox, flavor_key :string = null) :void{
+        switch(box.getType()){
+            case StyleManager.ENORMOUS:
+                EnrBoxStyle.applyStyleTo(box, flavor_key, false);
+                break;
+            case StyleManager.HUGE:
+                HugeBoxStyle.applyStyleTo(box, flavor_key, false);
+                break;
+            case StyleManager.LARGE:
+                LargeBoxStyle.applyStyleTo(box, flavor_key, false);
+                break;
+            case StyleManager.MEDIUM:
+                MediumBoxStyle.applyStyleTo(box, flavor_key, false);
+                break;
+            case StyleManager.SMALL:
+                SmallBoxStyle.applyStyleTo(box, flavor_key, false);
+                break;
+            case StyleManager.MINI:
+                MiniBoxStyle.applyStyleTo(box, flavor_key, false);
+                break;
+            case StyleManager.TINY:
+                TinyBoxStyle.applyStyleTo(box, flavor_key, false);
+                break;
+            case StyleManager.NULL:
+                NullBoxStyle.applyStyleTo(box);
+                break;
+            default:
+                TinyBoxStyle.applyStyleTo(box, flavor_key, false);
+        }
+    }
 
 }

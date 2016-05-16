@@ -505,7 +505,7 @@ class Renderer{
                         if(box.getRenderInstructions().getFlavorKey() == null){
                             console.log("key null in pic renderer(@1) for " + node.getAttr('name'));
                         }
-                        StyleManager.stylize(box,box.getRenderInstructions().getFlavorKey());
+                        StyleManager.restylize(box,box.getRenderInstructions().getFlavorKey());
                         return;
                     }
 
@@ -526,8 +526,6 @@ class Renderer{
                     svgimg2.setAttributeNS('http://www.w3.org/1999/xlink','href',response);
                     g.appendChild(svgimg2);
 
-                    //console.log("Picture Manager: " + PictureManager.toString());
-
                     if(box.getRenderInstructions().isRotated()){
                         svgimg2.setAttribute("transform","translate(0, "+ (box.getHeight()-2)+") rotate(-90 0,0)");
                     }
@@ -538,7 +536,7 @@ class Renderer{
                     if(box.getRenderInstructions().getFlavorKey() == null){
                         console.log("key null in pic renderer(@2) for " + node.getAttr('name'));
                     }
-                    StyleManager.stylize(box,box.getRenderInstructions().getFlavorKey());
+                    StyleManager.restylize(box,box.getRenderInstructions().getFlavorKey());
                 });
             }
 
