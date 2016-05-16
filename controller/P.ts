@@ -209,7 +209,6 @@ class P implements IControllerListener, ITreeListener {
         toSave['boxes'] = this.strip(boxes);
         var output = JSON.stringify(toSave);
 
-        console.log(output.length);
         var blob = new Blob([output], {type: "text/plain;charset=utf-8;",});
         saveAs(blob, "OPG_chart.opg");
     }
