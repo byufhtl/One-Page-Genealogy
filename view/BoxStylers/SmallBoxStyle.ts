@@ -71,7 +71,7 @@ class SmallBoxStyle{
         var small_font_size = 13;
         var nameLength = 16;
         var dateLength = 12;
-        var placeLength = 14;
+        var placeLength = 13;
 
         box.setHeight(250);
         box.setWidth(160);
@@ -154,9 +154,9 @@ class SmallBoxStyle{
             .setPictureDim(new Instruction(55,55,null))
             .setNodeName(new Instruction(start_x, start_y, nameLength))
             .setNodeBDate(new Instruction(start_x, start_y + big_font_size, dateLength))
-            .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size, placeLength))
+            .setNodeBPlace(new Instruction(start_x + 87, start_y + big_font_size, placeLength))
             .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 3, dateLength))
-            .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size + 3, placeLength))
+            .setNodeDPlace(new Instruction(start_x + 87, start_y + big_font_size + small_font_size + 3, placeLength))
             .setRotation(true);
     }
 
@@ -182,9 +182,9 @@ class SmallBoxStyle{
             .setPictureDim(new Instruction(55,55,null))
             .setNodeName(new Instruction(start_x, start_y, nameLength))
             .setNodeBDate(new Instruction(start_x, start_y + big_font_size, dateLength))
-            .setNodeBPlace(new Instruction(start_x + 85, start_y + big_font_size, placeLength))
+            .setNodeBPlace(new Instruction(start_x + 87, start_y + big_font_size, placeLength))
             .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 3, dateLength))
-            .setNodeDPlace(new Instruction(start_x + 85, start_y + big_font_size + small_font_size + 3, placeLength));
+            .setNodeDPlace(new Instruction(start_x + 87, start_y + big_font_size + small_font_size + 3, placeLength));
     }
 
     private static applySingleLongFatFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
@@ -197,7 +197,7 @@ class SmallBoxStyle{
         var small_font_size = 13;
         var nameLength = 13;
         var dateLength = 12;
-        var placeLength = 14;
+        var placeLength = 13;
 
         render_sched
             .setNodeName(new Instruction(start_x, start_y, nameLength));

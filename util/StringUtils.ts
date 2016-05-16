@@ -234,6 +234,7 @@ class StringUtils {
     //-------------------------------
     private static capitalizeFirstLetter(names){
         for(var i = 0; i < names.length; i++){
+            if(names[i].match(/(I|V|X)+/i)){continue;}// Lets things like III or IV get through.
             var temp = names[i].substring(0,1); //first character
             var temp2 = names[i].substring(1); //rest of the name
             temp = temp.toUpperCase();
@@ -690,15 +691,23 @@ class StringUtils {
             if(place.length <= width)
             return place;
 
+            var temp = place;
+            var temp2 = places;
+
             //8) Remove everything besides the last 2 positions
-            places = StringUtils.removePlacesBelow2(places);
-            place = StringUtils.toPlaceString(places);
+            if(places.length > 2) {
+                places = StringUtils.removePlacesBelow2(places);
+                place = StringUtils.toPlaceString(places);
+            }
+
             if(place.length <= width)
                 return place;
 
             //9) Remove everything besides the last position
-            places = StringUtils.removePlacesBelowLast(places);
-            place = StringUtils.toPlaceString(places);
+            if(places.length > 1) {
+                places = StringUtils.removePlacesBelowLast(places);
+                place = StringUtils.toPlaceString(places);
+            }
 
         }
         return place;
@@ -926,8 +935,9 @@ class StringUtils {
         for (var i = 1; i < oldString.length; i++) {
             var check = oldString.substring(i, i + 1);
             var lower = check.toLowerCase();
-            if(lower != 'a' && lower != 'e' && lower != 'i' && lower != 'o' && lower != 'u')
+            if("aeiouyàáâãäåæèéêëìíîïðòóôõöøùúûüýÿ".indexOf(lower) === -1){
                 result = result.concat(check);
+            }
         }
 
         return result;
@@ -1145,19 +1155,19 @@ class StringUtils {
         var startIndex =-1;
         if(places.length >= 3){
             for(var i = places.length - 2; i >= 0; i--){
-                if(places[i] != null && places[i] != ""){
+                if(places[i] !== null && places[i] !== ""){
                     startIndex = i; //gets the first non-null place
                     break;
                 }
             }
 
-            if(startIndex != -1){
+            if(startIndex !== -1){
                 for(var i = 0; i < startIndex; i++){
                     places[i] = "";//null;
                 }
             }
-            return places;
         }
+        return places;
     }
 
     //-------------------------------
@@ -1178,8 +1188,8 @@ class StringUtils {
                     places[i] = "";//null;
                 }
             }
-            return places;
         }
+        return places;
     }
 
     private static abbreviateCountry(places){

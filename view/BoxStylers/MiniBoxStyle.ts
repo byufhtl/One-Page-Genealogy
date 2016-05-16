@@ -77,15 +77,15 @@ class MiniBoxStyle{
             .setBorderWidth(2)
             .setNodeName(new Instruction(start_x, start_y + 2, 17))
             .setNodeBDate(new Instruction(start_x + 107, start_y - 4, dateLength))
-            .setNodeBPlace(new Instruction(start_x + 168, start_y - 4, placeLength))
+            .setNodeBPlace(new Instruction(start_x + 169, start_y - 4, placeLength))
             .setNodeDDate(new Instruction(start_x + 107, start_y + small_font_size - 3, dateLength))
-            .setNodeDPlace(new Instruction(start_x + 168, start_y + small_font_size - 3, placeLength))
+            .setNodeDPlace(new Instruction(start_x + 169, start_y + small_font_size - 3, placeLength))
 
             .setSpouseName(new Instruction(s_start_x, s_start_y + 2, 18))
             .setSpouseBDate(new Instruction(s_start_x + 107, s_start_y - 4, dateLength))
-            .setSpouseBPlace(new Instruction(s_start_x + 168, s_start_y - 4, placeLength))
+            .setSpouseBPlace(new Instruction(s_start_x + 169, s_start_y - 4, placeLength))
             .setSpouseDDate(new Instruction(s_start_x + 107, s_start_y + small_font_size - 3, dateLength))
-            .setSpouseDPlace(new Instruction(s_start_x + 168, s_start_y + small_font_size - 3, placeLength))
+            .setSpouseDPlace(new Instruction(s_start_x + 169, s_start_y + small_font_size - 3, placeLength))
 
             .setMarriageDate(new Instruction(75, s_start_y + 17, dateLength))
             .setMarriagePlace(new Instruction(175, s_start_y + 17, dateLength))
@@ -105,9 +105,9 @@ class MiniBoxStyle{
             .setBorderWidth(2)
             .setNodeName(new Instruction(start_x, start_y+2, 16))
             .setNodeBDate(new Instruction(start_x + 107, start_y - 4,dateLength))
-            .setNodeBPlace(new Instruction(start_x + 162, start_y - 4,placeLength))
+            .setNodeBPlace(new Instruction(start_x + 169, start_y - 4,placeLength))
             .setNodeDDate(new Instruction(start_x + 107, start_y + small_font_size - 3,dateLength))
-            .setNodeDPlace(new Instruction(start_x + 162, start_y + small_font_size - 3,placeLength));
+            .setNodeDPlace(new Instruction(start_x + 169, start_y + small_font_size - 3,placeLength));
     }
 
     private static applySingleBubbleFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{

@@ -464,6 +464,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'to-country-color') {
             this.p.handle({type: key, colorMap: value});
         }
+        //~~~ Other ~~~
         else if (key === 'show-empty'){
             this.p.handle({type: key, recurse: value.recurse});
         }

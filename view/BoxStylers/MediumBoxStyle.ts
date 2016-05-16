@@ -154,9 +154,9 @@ class MediumBoxStyle{
         render_sched
             .setNodeName(new Instruction(start_x, start_y, nameLength))
             .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
-            .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
+            .setNodeBPlace(new Instruction(start_x + 93, start_y + big_font_size - 6, placeLength))
             .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
-            .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength))
+            .setNodeDPlace(new Instruction(start_x + 93, start_y + big_font_size + small_font_size - 2, placeLength))
             .setRotation(true);
     }
 
@@ -181,9 +181,9 @@ class MediumBoxStyle{
             .setPictureDim(new Instruction(75, 75))
             .setNodeName(new Instruction(start_x, start_y, nameLength))
             .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
-            .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
+            .setNodeBPlace(new Instruction(start_x + 93, start_y + big_font_size - 6, placeLength))
             .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
-            .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength));
+            .setNodeDPlace(new Instruction(start_x + 93, start_y + big_font_size + small_font_size - 2, placeLength));
     }
 
     private static applySingleLongFatFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
