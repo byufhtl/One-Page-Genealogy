@@ -47,43 +47,9 @@ class OptionManager implements IOptionManager {
         });
         $('#ruler-hide').click(function() {
             self.listener.handleOption('ruler-hide', null);
-        })
-        $('#opg-detail-style').click(function(){
-            self.handleStyleChange('detail-style');
         });
-        $('#opg-reunion-style').click(function(){
-            self.handleStyleChange('reunion-style');
-        });
-        $('#opg-vertical-style').click(function(){
-            self.handleStyleChange('vertical-style');
-        });
-        $('#opg-vertical-style-accent').click(function(){
-            self.handleStyleChange('vertical-style-accent');
-        });
-        $('#opg-bubble-style').click(function(){
-            self.handleStyleChange('bubble-style');
-        });
-        $('#opg-var-depth-style').click(function(){
-            self.handleStyleChange('var-depth-style');
-        });
-        $('#opg-eight-eleven-style').click(function(){
-            self.handleStyleChange('eight-eleven-style');
-        });
-        $('#opg-eight-eleven-detail-style').click(function(){
-            self.handleStyleChange('eight-eleven-detail-style');
-        });
-        $('#opg-eleven-seventeen-style').click(function(){
-            self.handleStyleChange('eleven-seventeen-style');
-        });
-        $('#opg-extended-style').click(function(){
-            self.handleStyleChange('extended-style');
-        });
-        $('#opg-js-public-style').click(function(){
-            self.handleStyleChange('js-public-style');
-        });
-        $('#opg-js-reunion-public-style').click(function(){
-            self.handleStyleChange('js-reunion-public-style');
-        });
+        //~~~ Chart Styles ~~~
+        //~~~ Color Schemes ~~~
         $('#opg-to-greyscale').click(function(){
             self.handleStyleChange('to-greyscale',false);
         });
@@ -154,7 +120,7 @@ class OptionManager implements IOptionManager {
                 if (direction === "ascendancy") {
                     style_menu.append('<li><a id="opg-detail-style" href="#">Full Detail Style</a></li>');
                     style_menu.append('<li><a id="opg-reunion-style" href="#">Family Reunion Style</a></li>');
-                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-extended-style" href="#">Extended Family Reunion Style (13+ Generations)</a></li>');
+                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-extended-style" href="#">Extended Style (13+ Generations)</a></li>');
                     style_menu.append('<li><a id="opg-vertical-style" href="#">Vertical Detail Style (Default)</a></li>');
                     style_menu.append('<li><span class="label label-warning">new</span><a id="opg-vertical-style-accent" href="#">Vertical Detail Accent Style</a></li>');
                     style_menu.append('<li><span class="label label-warning">new</span><a id="opg-bubble-style" href="#">Bubble Style</a></li>');
@@ -162,10 +128,52 @@ class OptionManager implements IOptionManager {
                     style_menu.append('<li><a id="opg-eight-eleven-style" href="#">8 1/2 x 11 Style</a></li>');
                     style_menu.append('<li><a id="opg-eight-eleven-detail-style" href="#">8 1/2 x 11 Detail Style</a></li>');
                     style_menu.append('<li><span class="label label-warning">new</span><a id="opg-eleven-seventeen-style" href="#">11 x 17 Style</a></li>');
+
+                    $('#opg-detail-style').click(function(){
+                        self.handleStyleChange('detail-style');
+                    });
+                    $('#opg-reunion-style').click(function(){
+                        self.handleStyleChange('reunion-style');
+                    });
+                    $('#opg-vertical-style').click(function(){
+                        self.handleStyleChange('vertical-style');
+                    });
+                    $('#opg-vertical-style-accent').click(function(){
+                        self.handleStyleChange('vertical-style-accent');
+                    });
+                    $('#opg-bubble-style').click(function(){
+                        self.handleStyleChange('bubble-style');
+                    });
+                    $('#opg-var-depth-style').click(function(){
+                        self.handleStyleChange('var-depth-style');
+                    });
+                    $('#opg-eight-eleven-style').click(function(){
+                        self.handleStyleChange('eight-eleven-style');
+                    });
+                    $('#opg-eight-eleven-detail-style').click(function(){
+                        self.handleStyleChange('eight-eleven-detail-style');
+                    });
+                    $('#opg-eleven-seventeen-style').click(function(){
+                        self.handleStyleChange('eleven-seventeen-style');
+                    });
+                    $('#opg-extended-style').click(function(){
+                        self.handleStyleChange('extended-style');
+                    });
                 }
                 else {
-                    style_menu.append('<li><a id="opg-js-public-style" href="#">Descendancy Style</a></li>');
+                    style_menu.append('<li><a id="opg-js-public-style" href="#">Vertical Descendancy Style</a></li>');
                     style_menu.append('<li><a id="opg-js-reunion-public-style" href="#">Family Reunion Descendancy Style</a></li>');
+                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-js-var-depth-style" href="#">Variable Depth Descendancy Style (13+ Generations)</a></li>');
+
+                    $('#opg-js-public-style').click(function(){
+                        self.handleStyleChange('js-public-style');
+                    });
+                    $('#opg-js-reunion-public-style').click(function(){
+                        self.handleStyleChange('js-reunion-public-style');
+                    });
+                    $('#opg-js-var-depth-style').click(function(){
+                        self.handleStyleChange('js-var-depth-style');
+                    });
                 }
                 dropdown.val(direction);
             }

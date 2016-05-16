@@ -18,6 +18,7 @@
 ///<reference path="ChartStyles/EightElevenChartStyler.ts"/>
 ///<reference path="ChartStyles/EightElevenDetailChartStyler.ts"/>
 ///<reference path="ChartStyles/FamilyReunionDescChartStyler.ts"/>
+///<reference path="ChartStyles/VariableDepthDescChartStyler.ts"/>
 ///<reference path="ChartStyles/DetailChartStyler.ts"/>
 ///<reference path="ChartStyles/VertDescDetChartStyler.ts"/>
 ///<reference path="ChartStyles/VertDetChartStyler.ts"/>
@@ -523,6 +524,9 @@ class P implements IControllerListener, ITreeListener {
                 break;
             case 'js-reunion-public-style':
                 style = new FamilyReunionDescChartStyler();
+                break;
+            case 'js-var-depth-style':
+                style = new VariableDepthDescChartStyler();
                 break;
             default:
                 return false;

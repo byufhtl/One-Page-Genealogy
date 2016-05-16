@@ -62,7 +62,7 @@ class RenderInstructionSchedule{
     }
 
     public setColoredBorder(colored :boolean){
-        this.boxInstructions[RenderInstructionSchedule.BORDER_WIDTH] = colored;
+        this.boxInstructions[RenderInstructionSchedule.COLORED_BORDER_MODE] = colored;
         return this;
     }
 
@@ -241,7 +241,7 @@ class RenderInstructionSchedule{
     }
 
     public isColoredBorder() :boolean{
-        return this.boxInstructions[RenderInstructionSchedule.AUTO_PASTEL_BORDER_MODE];
+        return this.boxInstructions[RenderInstructionSchedule.COLORED_BORDER_MODE];
     }
 
     public getBorderColor() :string{
@@ -504,9 +504,9 @@ class RenderInstructionSchedule{
     static PICTURE_ROTATED = "p_rot"; // Not currently implemented for use.
     static BOX_ROTATED = "b_rot";
     static SPOUSE_BOX = "s_box";
-    static AUTO_PASTEL_BORDER_MODE = "auto_pastel_border";
+    static COLORED_BORDER_MODE = "auto_pastel_border";
     static BOLD = "bold";
     static FLAVOR_KEY = "flavor_key";
     static CORNER_ROUNDING = "rounding";
-    static BORDER_COLOR = "border_color"
+    static BORDER_COLOR = "border_color";
 }

@@ -69,7 +69,7 @@ class SmallBoxStyle{
     private static applyMarriedWideFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
         var big_font_size = 18;
         var small_font_size = 13;
-        var nameLength = 17;
+        var nameLength = 16;
         var dateLength = 12;
         var placeLength = 14;
 
@@ -215,7 +215,7 @@ class SmallBoxStyle{
             .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size*2 + 7, dateLength))
             .setNodeDPlace(new Instruction(start_x, start_y + big_font_size + small_font_size*3 + 9, placeLength));
     }
-
+/**/
     private static applySingleBubbleFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
         box.setHeight(212);
         box.setWidth(212);

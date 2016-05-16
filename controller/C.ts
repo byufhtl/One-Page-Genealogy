@@ -390,6 +390,7 @@ class C implements IGraphicObjectListener, IOptionListener {
             $('#rulerModal').modal('hide');
             $('#ruler').css('display', 'none');
         }
+        //~~~ Chart Styles ~~~
         else if (key === 'detail-style') {
             this.p.handle({type: key});
         }
@@ -426,6 +427,10 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'js-reunion-public-style') {
             this.p.handle({type: key});
         }
+        else if (key === 'js-var-depth-style') {
+            this.p.handle({type: key});
+        }
+        //~~~ Color Schemes ~~~
         else if (key === 'to-greyscale') {
             this.p.handle({type: key});
         }

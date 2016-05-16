@@ -213,6 +213,7 @@ class FamilyReunionDescChartStyler extends AbstractChartStyle{
                     StyleManager.stylize(childBox, TinyBoxStyle.SINGLE);
                 }
         }
+        childBox.getRenderInstructions().setColoredBorder(true);
         return;
     }
 }

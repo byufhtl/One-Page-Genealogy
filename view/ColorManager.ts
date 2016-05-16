@@ -227,7 +227,6 @@ class ColorManager {
         if(prepended){
             out = '#'
         }
-        console.log("\tLightening from " + incolor + " to " + out + + alpha + newColor.toString(16));
         return out + alpha + newColor.toString(16);
     }
 

@@ -115,7 +115,6 @@ class Renderer{
 
         // if there should be an automatic pastel colored border, draw the box accordingly.
         if(ris.isColoredBorder()){ // 0 or it has a dimension
-            console.log("Lightenening Box for " + box.getNode().getAttr("name"));
             rect.setAttribute('stroke-width', (border).toString());
             rect.setAttribute('stroke', box.getColor());
             rect.setAttribute('fill', ColorManager.lighten(box.getColor(),32));
