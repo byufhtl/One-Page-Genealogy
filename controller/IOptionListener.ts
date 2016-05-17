@@ -5,4 +5,5 @@
 interface IOptionListener {
     handleOption(key:string, value:any):void;
     getBoxes():BoxMap;
+    refresh(boxes: BoxMap):void;
 }

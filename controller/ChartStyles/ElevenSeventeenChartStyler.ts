@@ -6,9 +6,11 @@
 class ElevenSeventeenChartStyler extends AbstractChartStyle{
 
     private initialized :boolean = true;
+    private collapseArray :string[];
 
     constructor(){
         super("ElevenSeventeenChartStyler");
+        this.collapseArray = [];
     }
 
     applyStyle(boxes: BoxMap): void {
@@ -34,8 +36,9 @@ class ElevenSeventeenChartStyler extends AbstractChartStyle{
                 }
 
 
-                if(generation === 6){//>4) {
+                if(generation === 6 && !box.isCollapsed()){//>4) {
                     box.setCollapsed(true);
+                    this.collapseArray.push(node.getId());
                 }
                 else {
                     this.setBasedOnGeneration(box, branchBox, generation + 1);
@@ -47,11 +50,15 @@ class ElevenSeventeenChartStyler extends AbstractChartStyle{
         this.initialized = false;
     }
 
+    clearStyle(boxes: BoxMap): void{
+        for(var key of this.collapseArray){
+            boxes.getId(key).setCollapsed(false);
+        }
+    }
+
     setBasedOnGeneration(parentBox :IBox, branchBox :IBox, generation :number) :void{
         branchBox.getRenderInstructions().clear();
-        if(branchBox.isCollapsed()){
-            branchBox.setCollapsed(false);
-        }
+
         switch(generation) {
             case 0:
                 branchBox.setX(0);

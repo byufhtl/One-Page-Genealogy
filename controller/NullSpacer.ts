@@ -1,10 +1,10 @@
-///<reference path="AbstractStyler.ts"/>
+///<reference path="AbstractChartStyle.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
 ///<reference path="ColorSpacers/IColorStyler.ts"/>
 /**
  * Created by calvinmcm on 2/23/16.
  */
-class NullSpacer extends AbstractStyler{
+class NullSpacer extends AbstractChartStyle{
 
     constructor(){
         super("nullSpacer");
@@ -12,4 +12,5 @@ class NullSpacer extends AbstractStyler{
 
     applyStyle(boxes: BoxMap): void {}
 
+    setBasedOnGeneration(box:IBox, branchBox:IBox, generation: number) :void {}
 }

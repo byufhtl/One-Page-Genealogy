@@ -13,4 +13,5 @@ interface ITree {
     setListener(listener: ITreeListener): void;  // The tree fires this when it is changed.
     asBoxMap(): BoxMap;  // Converts itself to a box map.
     getTreeMap(): {};
+    addCustomNode(node: INode): void;
 }

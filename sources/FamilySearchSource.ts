@@ -19,9 +19,11 @@ class FamilySearchSource implements ISource {
             }
         });
     }
+
     start(): void {
         this.initDownload(this.rootId, this.nextUniqueId(this.rootId), 0);
     }
+
     private nextUniqueId(id: string): string {
         if(!this.counter.hasOwnProperty(id)) {
             this.counter[id] = 0;
@@ -30,6 +32,7 @@ class FamilySearchSource implements ISource {
 
         return id+":"+String(count);
     }
+
     private initDownload(downloadId: string, uniqueId: string, depth: number) {
         if(depth > this.generations) {
             return;
@@ -52,12 +55,15 @@ class FamilySearchSource implements ISource {
             console.log("Download failed...");
         });
     }
+
     setListener(listener: ISourceListener): void {
         this.listener = listener;
     }
+
     pause(): void {
 
     }
+
     play(): void {
 
     }

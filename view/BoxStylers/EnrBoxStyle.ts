@@ -140,9 +140,9 @@ class EnrBoxStyle{
         render_sched
             .setNodeName(new Instruction(start_x, start_y, nameLength))
             .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 10, dateLength))
-            .setNodeBPlace(new Instruction(start_x + 240, start_y + big_font_size + 10, placeLength))
+            .setNodeBPlace(new Instruction(start_x + 260, start_y + big_font_size + 10, placeLength))
             .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 20, dateLength))
-            .setNodeDPlace(new Instruction(start_x + 240, start_y + big_font_size + small_font_size + 20, placeLength))
+            .setNodeDPlace(new Instruction(start_x + 260, start_y + big_font_size + small_font_size + 20, placeLength))
             .setRotation(true);
     }
 

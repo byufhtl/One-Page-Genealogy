@@ -105,7 +105,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.tree = new Tree();
         this.p = new P(this);
 
-        if(data.pipeline !== undefined){
+        if (data.pipeline !== undefined) {
             this.p.setStylingPipeline(data.pipeline);
         }
 
@@ -125,11 +125,11 @@ class C implements IGraphicObjectListener, IOptionListener {
 
         this.boxes = null;
 
-        if(this.source !== null) {
+        if (this.source !== null) {
             this.source.setListener(this.tree.getSourceListener());
             this.source.start();
-        }else{
-            this.boxes =  new BoxMap(data.boxes.rootId);
+        } else {
+            this.boxes = new BoxMap(data.boxes.rootId);
             this.boxes.deserializeMap(data.boxes.map);
 
             this.p.setMaps(this.boxes);
@@ -137,8 +137,8 @@ class C implements IGraphicObjectListener, IOptionListener {
 
             //console.log(this.boxes);
 
-            for(var key in map){
-                if(map.hasOwnProperty(key)){
+            for (var key in map) {
+                if (map.hasOwnProperty(key)) {
                     this.tree.getSourceListener().gotNode(map[key].getNode());
                 }
             }
@@ -191,7 +191,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         this.viewManager = viewManager;
     }
 
-    refresh(boxes:BoxMap):void {
+    refresh(boxes:BoxMap = this.boxes):void {
         //console.log(boxes);
         this.boxes = boxes;
         if (!this.anchorId) {
@@ -210,39 +210,41 @@ class C implements IGraphicObjectListener, IOptionListener {
 
     }
 
-    getBranch(box:IBox, branch:IBox[]): IBox[]{
-        if(!box){return null;}
+    getBranch(box:IBox, branch:IBox[]):IBox[] {
+        if (!box) {
+            return null;
+        }
         var branchIds = box.getNode().getBranchIds();
         branch.push(box);
-        if(branchIds.length === 0){
+        if (branchIds.length === 0) {
             return branch;
         }
-        for(var i=0; i < branchIds.length; i++){
+        for (var i = 0; i < branchIds.length; i++) {
             branch.concat(this.getBranch(this.boxes.getMap()[branchIds[i]], branch));
         }
         return branch;
     }
 
-    startDrag(pt: Point):void {
+    startDrag(pt:Point):void {
         var box:IBox = this.p.handle({type: 'getBoxByPoint', pt: pt});
         if (box) {
-            if(this.grabBranch) {
+            if (this.grabBranch) {
                 this.selectedBranch = this.getBranch(box, []);
-            }else{
+            } else {
                 this.selectedBranch = [box];
             }
-        }else{
+        } else {
             this.selectedBranch = [];
         }
     }
 
-    endDrag(pt: Point):void {
+    endDrag(pt:Point):void {
         this.selectedBranch = [];
     }
 
     translate(pt1:Point, pt2:Point):void {
-        if(this.editMode && this.selectedBranch.length > 0){
-            for(var index in this.selectedBranch){
+        if (this.editMode && this.selectedBranch.length > 0) {
+            for (var index in this.selectedBranch) {
                 var boxToMove = this.selectedBranch[index];
                 this.p.getStylingPipeline().addCustomSpacerStyle(boxToMove.getNode().getId(), {
                     'x': boxToMove.getX() - (pt2.getX() - pt1.getX()),
@@ -252,7 +254,7 @@ class C implements IGraphicObjectListener, IOptionListener {
                 boxToMove.setY(boxToMove.getY() - (pt2.getY() - pt1.getY()));
             }
             this.viewManager.refresh(this.boxes);
-        }else{
+        } else {
             var dx:number = (pt2.getX() - pt1.getX());
             var dy:number = (pt2.getY() - pt1.getY());
 
@@ -343,7 +345,7 @@ class C implements IGraphicObjectListener, IOptionListener {
                 })).appendTo('body').submit();
             });
         }
-        else if (key === 'save'){
+        else if (key === 'save') {
             //var boxes = JSON.stringify(this.boxes);
 
             // var fileName = "opg_chart.json";
@@ -355,35 +357,35 @@ class C implements IGraphicObjectListener, IOptionListener {
             // link.click();
             this.p.handle({type: key, value: this.boxes});
         }
-        else if (key === 'ruler'){
+        else if (key === 'ruler') {
             //have user select dimensions and then display ruler
-            if($('#ruler-height').val() === "") {
+            if ($('#ruler-height').val() === "") {
                 this.viewManager.getSVGString().then(function (s) {
                     //console.log(s);
                     var wIndex = s.indexOf('width="') + 7;
                     var hIndex = s.indexOf('height="') + 8;
                     var width = s.slice(wIndex, s.indexOf('"', wIndex));
                     var height = s.slice(hIndex, s.indexOf('"', hIndex));
-                    $('#ruler-ratio').val(width/height);
+                    $('#ruler-ratio').val(width / height);
                     $('#ruler-original-height').val(height);
                     $('#ruler-height').val((height / 72).toFixed(1));
                     $('#ruler-width').val((width / 72).toFixed(1));
                     $('#rulerModal').modal('show');
                 })
-            }else{
+            } else {
                 $('#rulerModal').modal('show');
             }
         }
-        else if (key === 'ruler-save'){
-            if($('#ruler-height').val() <= 0){
+        else if (key === 'ruler-save') {
+            if ($('#ruler-height').val() <= 0) {
                 alert("Please enter a dimension greater than zero.")
-            }else {
+            } else {
                 $('#rulerModal').modal('hide');
                 $('#ruler').css('display', 'block');
                 this.viewManager.setRuler();
             }
         }
-        else if (key === 'ruler-hide'){
+        else if (key === 'ruler-hide') {
             $('#rulerModal').modal('hide');
             $('#ruler').css('display', 'none');
         }
@@ -462,10 +464,10 @@ class C implements IGraphicObjectListener, IOptionListener {
             this.p.handle({type: key, colorMap: value});
         }
         //~~~ Other ~~~
-        else if (key === 'show-empty'){
+        else if (key === 'show-empty') {
             this.p.handle({type: key, recurse: value.recurse});
         }
-        else if (key === 'hide-empty'){
+        else if (key === 'hide-empty') {
             this.p.handle({type: key});
         }
         else if (key === 'show-duplicates') {
@@ -481,11 +483,17 @@ class C implements IGraphicObjectListener, IOptionListener {
             $('#edit-spacing-switch').css("display", "none");
             document.getElementById('opg-edit-spacing').innerHTML = "Edit Spacing";
         }
-        else if (key === 'edit-spacing-switch-changed'){
+        else if (key === 'edit-spacing-switch-changed') {
             this.grabBranch = value.state;
         }
+        else if (key === 'VP-view') {
+            this.p.handle({type: key, id: value['id']});
+        }
+        else if (key === 'add-custom-node') {
+            this.tree.addCustomNode(value['node']);
+        }
         else if (key) {
-            if(value == null){
+            if (value == null) {
                 console.log("Null Value. Key = " + key);
             }
             if (value.hasOwnProperty('type')) {
@@ -497,7 +505,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
     }
 
-    public getBoxes():BoxMap{
+    public getBoxes():BoxMap {
         return this.boxes;
     }
 }

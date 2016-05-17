@@ -42,7 +42,7 @@ class StylingPipeline implements IPipeline {
 
     private collapseSpacer:CollapseSpacer;
     private spacingSpacer:SpacingSpacer;
-    private chartStyleSpacer:AbstractStyler;
+    private chartStyleSpacer:AbstractChartStyle;
     private customChartStyleSpacer:CustomSpacer;
     private chartColorStyleSpacer:AbstractStyler;
     private customColorSpacer:CustomColorSpacer;
@@ -50,6 +50,7 @@ class StylingPipeline implements IPipeline {
     private ySpacer:YSpacer;
 
     private addedSpacers:AbstractStyler[];
+    private resetAll :boolean = false;
 
     constructor() {
         this.clearPipeline();
@@ -58,7 +59,7 @@ class StylingPipeline implements IPipeline {
     public deserialize(pipeline):void {
         this.collapseSpacer.setCustomMap(pipeline.collapseSpacer.customMap);
         //no data in spacingSpacer to deserialize
-        this.chartStyleSpacer = this.getStylerByName(pipeline.chartStyleSpacer);
+        this.chartStyleSpacer = this.getChartStylerByName(pipeline.chartStyleSpacer);
         this.customChartStyleSpacer.setCustomMap(pipeline.customChartStyleSpacer.customMap);
         this.chartColorStyleSpacer = this.getStylerByName(pipeline.chartColorStyleSpacer);
         this.customColorSpacer.setCustomMap(pipeline.customColorSpacer.customMap);
@@ -93,7 +94,13 @@ class StylingPipeline implements IPipeline {
                 return new GenderColorSpacer();
             case("GreyScaleSpacer"):
                 return new GreyScaleSpacer();
-            //~~~END COLOR ::: START STYLE~~~
+            default:
+                console.log("Cannot load style [" + spacer.className + "]");
+        }
+    }
+
+    getChartStylerByName(spacer: any): AbstractChartStyle{
+        switch(spacer){
             case("BubbleChartStyler"):
                 return new BubbleChartStyler();
             case("ElevenSeventeenChartSStyler"):
@@ -129,16 +136,27 @@ class StylingPipeline implements IPipeline {
 
     public runPipeline(boxes:BoxMap):void {
         // Apply Chart Spacing Styles
-        this.collapseSpacer.applyStyle(boxes);
-        this.spacingSpacer.applyStyle(boxes);
-        this.chartStyleSpacer.applyStyle(boxes);
+        //console.log("Pipeline run: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
+        var map = boxes.getMap();
+        for(var key in map){
+            map[key].setCollapsed(false);
+        }
         this.customChartStyleSpacer.applyStyle(boxes);
+        //console.log("Pipeline run2.1: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
+        this.collapseSpacer.applyStyle(boxes);
+        //console.log("Pipeline run2.2: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
+        this.chartStyleSpacer.applyStyle(boxes);
+        //console.log("Pipeline run2.3: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
+        this.spacingSpacer.applyStyle(boxes);
+        //console.log("Pipeline run3: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
 
         // Apply Chart Color Styles
         this.chartColorStyleSpacer.applyStyle(boxes);
         this.customColorSpacer.applyStyle(boxes);
         this.customTextColorSpacer.applyStyle(boxes);
+        //console.log("Pipeline run4: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
         this.ySpacer.applyStyle(boxes);
+        //console.log("Pipeline run5: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
 
         // Apply Additional Styles
         for (var spacer in this.addedSpacers) {
@@ -174,8 +192,17 @@ class StylingPipeline implements IPipeline {
         this.collapseSpacer.collapseId(id, collapse);
     }
 
-    setChartStyleSpacer(spacer:AbstractStyler):void {
+    setChartStyleSpacer(spacer:AbstractChartStyle):void {
+        this.resetAll = true;
         this.chartStyleSpacer = spacer;
+    }
+
+    setReset(value :boolean) :void{
+        this.resetAll = value;
+    }
+
+    clearReset() :void{
+        this.resetAll = false;
     }
 
     clearChartStyle(){

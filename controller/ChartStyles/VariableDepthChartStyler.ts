@@ -13,13 +13,10 @@ class VariableDepthChartStyler extends AbstractChartStyle{
     }
 
     setBasedOnGeneration(parentBox :IBox, branchBox :IBox, generation :number) :void{
+        branchBox.getRenderInstructions().clear();
 
         var maxGenerations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
 
-        branchBox.getRenderInstructions().clear();
-        if(branchBox.isCollapsed()){
-            branchBox.setCollapsed(false);
-        }
         var level = (generation*10/maxGenerations);
 
         if(generation == 0){

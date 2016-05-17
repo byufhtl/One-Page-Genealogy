@@ -161,7 +161,7 @@ class MediumBoxStyle{
     }
 
     private static applySingleLongFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
-        var start_x = 8;
+        var start_x = 14;
         var start_y = 29;
         var big_font_size = 28;
         var small_font_size = 14;
@@ -181,9 +181,9 @@ class MediumBoxStyle{
             .setPictureDim(new Instruction(75, 75))
             .setNodeName(new Instruction(start_x, start_y, nameLength))
             .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
-            .setNodeBPlace(new Instruction(start_x + 93, start_y + big_font_size - 6, placeLength))
+            .setNodeBPlace(new Instruction(start_x + 99, start_y + big_font_size - 6, placeLength))
             .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
-            .setNodeDPlace(new Instruction(start_x + 93, start_y + big_font_size + small_font_size - 2, placeLength));
+            .setNodeDPlace(new Instruction(start_x + 99, start_y + big_font_size + small_font_size - 2, placeLength));
     }
 
     private static applySingleLongFatFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
@@ -232,9 +232,9 @@ class MediumBoxStyle{
             .setPictureDim(new Instruction(90, 90))
             .setNodeName(new Instruction(start_x, start_y, nameLength))
             .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 6, dateLength))
-            .setNodeBPlace(new Instruction(start_x + 80, start_y + big_font_size - 6, placeLength))
+            .setNodeBPlace(new Instruction(start_x + 98, start_y + big_font_size - 6, placeLength))
             .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size - 2, dateLength))
-            .setNodeDPlace(new Instruction(start_x + 80, start_y + big_font_size + small_font_size - 2, placeLength))
+            .setNodeDPlace(new Instruction(start_x + 98, start_y + big_font_size + small_font_size - 2, placeLength))
             .setBorderWidth(6)
             .setCornerRounding(190)
             .setRotation(true);

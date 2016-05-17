@@ -3,20 +3,16 @@
  * Created by calvinmcm on 4/14/16.
  */
 
-class ExtendedChartStyler extends AbstractChartStyle{
+class VariableExtendedChartStyler extends AbstractChartStyle{
 
     constructor(){
-        super("ExtendedChartStyler");
+        super("VariableExtendedChartStyler");
     }
 
     setBasedOnGeneration(parentBox :IBox, branchBox :IBox, generation :number) :void{
         branchBox.getRenderInstructions().clear();
 
         var maxGenerations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
-
-        if(branchBox.isCollapsed()){
-            branchBox.setCollapsed(false);
-        }
 
         // BUILD A BIGGER-CHART VERSION OF THE VARIABLE DEPTH CHART STYLE
 

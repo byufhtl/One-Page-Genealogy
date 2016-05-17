@@ -13,7 +13,7 @@ class FSDownloader {
         this.cache = {};
         this.pending = {};
         FamilySearch.init({
-            app_key: "NQ3Q-PBD8-LL9N-RCLZ-MZCZ-X7P8-7SMX-RD6N",
+            app_key: "NQ3Q-PBD8-LL9N-RCLZ-MZCZ-X7P8-7SMX-RD6N", //<-rf product key //"a02j000000AiDyvAAF",//
             environment: 'production',
             auth_callback: 'http://localhost:8000/auth/login/return/',
             http_function: $.ajax,

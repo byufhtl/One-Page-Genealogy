@@ -160,4 +160,7 @@ class AbstractBox implements IBox {
         }
         return true;
     }
+    toString() :string{
+        return JSON.stringify(this);
+    }
 }

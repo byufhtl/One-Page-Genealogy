@@ -111,10 +111,10 @@ class MiniBoxStyle{
     }
 
     private static applySingleBubbleFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
-        box.setHeight(105);
+        box.setHeight(110);
         box.setWidth(105);
 
-        var start_x = 20;
+        var start_x = 17;
         var start_y = 38;
         var big_font_size = 10;
         var small_font_size = 9;
@@ -122,7 +122,7 @@ class MiniBoxStyle{
         var placeLength = 14;
 
         render_sched
-            .setNodeName(new Instruction(start_x, start_y+2, 15))
+            .setNodeName(new Instruction(start_x, start_y+2, 13))
             .setNodeBDate(new Instruction(start_x, start_y + big_font_size + 2,dateLength))
             .setNodeBPlace(new Instruction(start_x, start_y + big_font_size + small_font_size + 1,placeLength))
             .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size*2 + 1,dateLength))

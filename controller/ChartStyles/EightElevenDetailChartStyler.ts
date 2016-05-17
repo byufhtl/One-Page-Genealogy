@@ -6,9 +6,10 @@
 class EightElevenDetailChartStyler extends AbstractChartStyle{
 
     private initialized :boolean = true;
-
+    private collapseArray :string[];
     constructor(){
         super("EightElevenDetailChartStyler");
+        this.collapseArray = [];
     }
 
     applyStyle(boxes: BoxMap): void {
@@ -37,17 +38,25 @@ class EightElevenDetailChartStyler extends AbstractChartStyle{
 
                 queue.push([branchIds[i], generation+1]);
 
-                if(this.initialized && generation === 5){//>4) {
+                if(this.initialized && generation === 5 && !box.isCollapsed()){//>4) {
                     box.setCollapsed(true);
+                    this.collapseArray.push(node.getId());
                 }
             }
         }
         this.initialized = false;
     }
 
+    clearStyle(boxes: BoxMap): void{
+        for(var key of this.collapseArray){
+            boxes.getId(key).setCollapsed(false);
+        }
+    }
+
 
     setBasedOnGeneration(parentBox :IBox, branchBox :IBox, generation :number) :void{
         branchBox.getRenderInstructions().clear();
+
         switch(generation){
             case 0:
                 branchBox.setX(0);

@@ -11,9 +11,7 @@ class BubbleChartStyler extends AbstractChartStyle{
 
     setBasedOnGeneration(parentBox :IBox, branchBox :IBox, generation :number) :void{
         branchBox.getRenderInstructions().clear();
-        if(branchBox.isCollapsed()){
-            branchBox.setCollapsed(false);
-        }
+
         switch(generation){
             case 0:
                 branchBox.setX(0);
@@ -21,12 +19,12 @@ class BubbleChartStyler extends AbstractChartStyle{
                 StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_BUBBLE);
                 break;
             case 1:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth());
+                branchBox.setX(parentBox.getX() + parentBox.getWidth()/2);
                 branchBox.setType(StyleManager.LARGE);
                 StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_BUBBLE);
                 break;
             case 2:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth());
+                branchBox.setX(parentBox.getX() + parentBox.getWidth()/2);
                 branchBox.setType(StyleManager.LARGE);
                 StyleManager.stylize(branchBox, LargeBoxStyle.SINGLE_BUBBLE);
                 break;

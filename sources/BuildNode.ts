@@ -43,6 +43,9 @@ class BuildNode implements INode {
     getDisplaySpouse(): INode {
         return this.data['displaySpouse'];
     }
+    setDisplaySpouse(node :INode){
+        this.data['displaySpouse'] = node;
+    }
     isMainPerson(): boolean{
         return this.data['isMain'];
     }

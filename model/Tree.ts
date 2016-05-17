@@ -57,9 +57,11 @@ class Tree implements ITree {
             }
         }
     }
+
     getSourceListener(): ISourceListener {
         return this.sourceListener;
     }
+
     getId(id: string): INode {
         var node = this.treeMap[id];
         if(node){
@@ -67,12 +69,15 @@ class Tree implements ITree {
         }
         return null;
     }
+
     getRoot(): INode {
         return this.root;
     }
+
     setListener(listener: ITreeListener): void {
         this.treeListener = listener;
     }
+
     asBoxMap(): BoxMap {
 
         for (var key in this.treeMap) {
@@ -83,7 +88,17 @@ class Tree implements ITree {
         }
         return this.boxes;
     }
+
     getTreeMap(): {} {
         return this.treeMap;
+    }
+
+    addCustomNode(node :INode){
+        this.treeMap[node.getId()] = node;
+        var box = new Box(node);
+        box.getRenderInstructions().setHasPicture(false).setSpouseHasPicture(false);
+        this.boxes.setId(node.getId(), box);
+        this.updates.push(new Command('add-node', node));
+        console.log("Node " + node.getId() + " (" + node.getAttr('name') + ") created and added...");
     }
 }

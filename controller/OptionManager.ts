@@ -4,6 +4,7 @@
 ///<reference path="../view/BoxStyleFactory.ts"/>
 ///<reference path="../js/jsDeclarations.ts"/>
 ///<reference path="../view/boxRenderers/Renderer.ts"/>
+///<reference path="../sources/BuildNode.ts"/>
 
 /**
  * Created by curtis on 3/19/15.
@@ -21,11 +22,14 @@ class OptionManager implements IOptionManager {
 
     private rotation:number = 0;
 
+    private customNodeIndex :number;
+
     constructor() {
         var self = this;
 
         this.customSize = false;
         this.customColor = false;
+        this.customNodeIndex = 1111; // Has to be at least three digits long to create a valid PID.
 
         $('#opg-rotate-cc').click(function(){
             self.listener.handleOption('rotate', {value: -Math.PI/2});
@@ -48,7 +52,6 @@ class OptionManager implements IOptionManager {
         $('#ruler-hide').click(function() {
             self.listener.handleOption('ruler-hide', null);
         });
-        //~~~ Chart Styles ~~~
         //~~~ Color Schemes ~~~
         $('#opg-to-greyscale').click(function(){
             self.handleStyleChange('to-greyscale',false);
@@ -120,14 +123,14 @@ class OptionManager implements IOptionManager {
                 if (direction === "ascendancy") {
                     style_menu.append('<li><a id="opg-detail-style" href="#">Full Detail Style</a></li>');
                     style_menu.append('<li><a id="opg-reunion-style" href="#">Family Reunion Style</a></li>');
-                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-extended-style" href="#">Extended Style (13+ Generations)</a></li>');
+                    style_menu.append('<li><a id="opg-extended-style" href="#"><span class="label label-warning">new</span> Extended Style (13+ Generations)</a></li>');
                     style_menu.append('<li><a id="opg-vertical-style" href="#">Vertical Detail Style (Default)</a></li>');
-                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-vertical-style-accent" href="#">Vertical Detail Accent Style</a></li>');
-                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-bubble-style" href="#">Bubble Style</a></li>');
-                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-var-depth-style" href="#">Variable Depth Style</a></li>');
+                    style_menu.append('<li><a id="opg-vertical-style-accent" href="#"><span class="label label-warning">new</span> Vertical Detail Accent Style</a></li>');
+                    style_menu.append('<li><a id="opg-bubble-style" href="#"><span class="label label-warning">new</span> Bubble Style</a></li>');
+                    style_menu.append('<li><a id="opg-var-depth-style" href="#"><span class="label label-warning">new</span> Variable Depth Style</a></li>');
                     style_menu.append('<li><a id="opg-eight-eleven-style" href="#">8 1/2 x 11 Style</a></li>');
                     style_menu.append('<li><a id="opg-eight-eleven-detail-style" href="#">8 1/2 x 11 Detail Style</a></li>');
-                    style_menu.append('<li><span class="label label-warning">new</span><a id="opg-eleven-seventeen-style" href="#">11 x 17 Style</a></li>');
+                    style_menu.append('<li><a id="opg-eleven-seventeen-style" href="#"><span class="label label-warning">new</span> 11 x 17 Style</a></li>');
 
                     $('#opg-detail-style').click(function(){
                         self.handleStyleChange('detail-style');
@@ -285,9 +288,12 @@ class OptionManager implements IOptionManager {
             var opgModalSizeSave = $('#opg-modal-save-size');
             var opgModalColorSave = $('#opg-modal-save-color');
             var opgModalCollapse = $('#opg-modal-collapse');
+            var opgModalCreateChild = $('#opg-modal-add-child');
             var opgModalFSview = $('#FS-view');
             var opgModalVPview = $('#VP-view');
             var setAsRoot = $('#set-as-root');
+            var childModalFSView = $('#FS-view-from-create');
+            var createChildButton = $('#create-child-button');
             opgModalSelect.off('click');
             opgModalSizeSave.off('click');
             opgModalColorSave.off('click');
@@ -306,13 +312,84 @@ class OptionManager implements IOptionManager {
 
             opgModalFSview.click(function(){
                 var pid = box.getNode().getId().substring(0,8);
-                window.open("https://familysearch.org/tree/#view=ancestor&person="+pid, '_blank');
+                if(!pid.match(/@OPG.+/i)) {
+                    window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
+                }
             });
 
             opgModalVPview.click(function(){
                 var pid:string = box.getNode().getId().substring(0,8);
-                self.listener.handleOption('VP-view', {id: pid});
+                if(!pid.match(/@OPG.+/i)) {
+                    self.listener.handleOption('VP-view', {id: pid});
+                }
             });
+
+            opgModalCreateChild.click(function(){
+                console.log("Child maker button hit");
+                $("#opg-modal").modal('hide');
+                $('#child-maker-title').text("Create Child for " + box.getNode().getAttr('name'));
+                $("#child-maker-modal").modal('show');
+            });
+
+            createChildButton.click(() => {
+                var name_data = $('#creator-name').val();
+                var childMakerModal = $('#child-maker-modal');
+                if(!name_data){
+                    console.log("Attempted to make child with no name for " + box.getNode().getAttr('name'));
+                    childMakerModal.modal('hide');
+                    return;
+                }
+                var customChildPID = "@OPG-" + (self.customNodeIndex++).toString();
+
+                var bdate_data = $('#creator-bdate').val();
+                var bplace_data = $('#creator-bplace').val();
+                var ddate_data = $('#creator-ddate').val();
+                var dplace_data = $('#creator-dplace').val();
+
+                var s_name_data = $('#creator-s-name').val();
+                var s_bdate_data = $('#creator-s-bdate').val();
+                var s_bplace_data = $('#creator-s-bplace').val();
+                var s_ddate_data = $('#creator-s-ddate').val();
+                var s_dplace_data = $('#creator-s-dplace').val();
+
+                var m_date = $('#creator-mdate').val();
+                var m_place = $('#creator-mplace').val();
+
+                var node_data = {name: name_data, birthdate: bdate_data, birthplace: bplace_data, deathdate: ddate_data, deathplace: dplace_data, marriagedate: m_date, marriageplace: m_place, displaySpouse: null, isMain: true};
+                var customNode = new BuildNode(customChildPID,node_data);
+
+                if(s_name_data, s_bdate_data, s_bplace_data, s_ddate_data, s_dplace_data){
+                    var spouse_data = {name: s_name_data, birthdate: s_bdate_data, birthplace: s_bplace_data, deathdate: s_ddate_data, deathplace: s_dplace_data, marriagedate: m_date, marriageplace: m_place, displaySpouse: null, isMain: false};
+                    var customSpouseNode = new BuildNode("@OPG-" + (self.customNodeIndex++).toString(),spouse_data);
+                    customNode.setDisplaySpouse(customSpouseNode);
+                    customSpouseNode.setDisplaySpouse(customNode);
+                }
+
+                self.listener.handleOption("add-custom-node",{node: customNode});
+
+                box.getNode().getBranchIds().push(customChildPID);
+
+                var customBox = new AbstractBox(customNode);
+                customBox.getRenderInstructions().setHasPicture(false).setSpouseHasPicture(false);
+                self.listener.getBoxes().setId(customChildPID,customBox);
+
+                for(var key of box.getNode().getBranchIds()){
+                    if(key === customChildPID){
+                        console.log("Child node " + customChildPID + " confirmed to have entered node stream.");
+                    }
+                }
+
+                self.listener.refresh();
+                childMakerModal.modal('hide');
+            });
+
+            childModalFSView.click(function(){
+                var pid = box.getNode().getId().substring(0,8);
+                if(!pid.match(/@OPG.+/i)) {
+                    window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
+                }
+            });
+
             if(box.isCollapsed()) {
                 opgModalCollapse.html('Expand');
                 opgModalCollapse.click(function() {

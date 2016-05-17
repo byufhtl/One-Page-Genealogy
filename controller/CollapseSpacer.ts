@@ -22,7 +22,6 @@ class CollapseSpacer extends AbstractStyler {
                 if(!box) {
                     continue;
                 }
-
                 box.setCollapsed(this.customMap[key]);
 
                 //var queue: string[] = [];

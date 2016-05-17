@@ -1,11 +1,11 @@
-///<reference path="../AbstractStyler.ts"/>
+///<reference path="../AbstractChartStyle.ts"/>
 ///<reference path="IChartStyler.ts"/>
 /**
  * Created by curtis on 3/9/15.
- * Last updated 2/24/2016.
+ * Last updated 5/17/2016.
  */
 
-class CustomSpacer extends AbstractStyler {
+class CustomSpacer extends AbstractChartStyle {
 
     private customMap: {[s:string]: {}};
 
@@ -33,11 +33,11 @@ class CustomSpacer extends AbstractStyler {
                         box.setY(map['y']);
                     }
                     if(map.hasOwnProperty('type')) {
-                        if(box.getType() != 'nullBox') {
+                        if(box.getType() != StyleManager.NULL) {
                             //console.log(box.getNode().getSpouses().length + " " + map['type']);
-                            if (box.getNode().getSpouses().length == 0 && map['type'] == "JSLrgDetRotSpPubBox") {
+                            if (box.getNode().getSpouses().length == 0 && map['type'] == StyleManager.ENORMOUS) {
                                 //console.log("Fixed!!");
-                                box.setType("JSMedDetPubBox");
+                                box.setType(StyleManager.MEDIUM);
                             }
                             else{
                                 box.setType(map['type']);
@@ -58,4 +58,5 @@ class CustomSpacer extends AbstractStyler {
         this.customMap = {};
     }
 
+    protected setBasedOnGeneration(box:IBox, branchBox:IBox, generation: number) :void {}
 }
