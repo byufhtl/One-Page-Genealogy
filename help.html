@@ -112,6 +112,10 @@
     .label-as-badge {
         border-radius: 1em;
     }
+    .opgBlue{
+        background-color: #2c3e50;
+        color: #ffffff;
+    }
 
 </style>
 </head>
@@ -135,7 +139,7 @@
         </div>
     </div>
 </nav>
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs opgBlue">
     <li class="active"><a data-toggle="tab" href="#guide">Getting Started</a></li>
     <li><a data-toggle="tab" href="#inventory">Features</a></li>
     <li><a data-toggle="tab" href="#support">FAQ's/Support</a></li>
@@ -146,13 +150,19 @@
     <div id="guide" class="tab-pane fade in active">
         <div class="help-content">
             <div id="page-wrap" class="page-wrap">
-                <div id="help-sidebar">
+                <div class="opgBlue" id="help-sidebar">
                     <hr>
                     <h4>Content</h4>
                     <h5><a href="#start">Getting Started</a></h5>
                     <h5><a href="#create">Create Your Chart</a></h5>
+                    <h6><a href="#create-from-gedcom"><i>- From Gedcom</i></a></h6>
+                    <h6><a href="#create-from-fs"><i>- From FamilySearch</i></a></h6>
                     <h5><a href="#explore">Explore Your Chart</a></h5>
+                    <h5><a href="#detail-view">Detail View</a></h5>
                     <h5><a href="#edit">Edit Your Chart</a></h5>
+                    <h6><a href="#edit-style"><i>- Chart Style</i></a></h6>
+                    <h6><a href="#edit-color"><i>- Color Scheme</i></a></h6>
+                    <h6><a href="#edit-options"><i>- Chart Options</i></a></h6>
                     <h5><a href="#rule">Using the Ruler</a></h5>
                     <h5><a href="#save">Save/Upload</a></h5>
                     <h5><a href="#print">Print/Download</a></h5>
@@ -171,7 +181,7 @@
                     <p>You can create a chart from two basic sources: a Gedcom file or FamilySearch.</p>
                     <p>Note: You can always click the "Gedcom" or "FamilySearch" buttons at the top of the page
                         to restart the chart creation process.</p>
-                    <h4>From a Gedcom</h4>
+                    <h4 id="create-from-gedcom"><b>From a Gedcom</b></h4>
                     <ul>
                         <li><p>Once you have logged in, click "Read Gedcom File" if you want to create
                         a chart from a Gedcom file you have on your computer.</p></li>
@@ -186,7 +196,7 @@
                         </li>
                         <li>Click "Save Chart" to create the chart. It may take a few minutes for the chart to appear.</li>
                     </ul>
-                    <h4>From FamilySearch</h4>
+                    <h4 id="create-from-fs"><b>From FamilySearch</b></h4>
                     <ul>
                         <li><p>Click "FamilySearch" if you want to create a chart from data found
                             on FamilySearch.</p></li>
@@ -211,6 +221,7 @@
                         </li>
                     </ul>
                 </div>
+                <hr>
                 <div id="explore">
                     <h3>Explore Your Chart</h3>
                     <p>Now you have your chart on the page, but maybe it's a bit too big to see all of it.</p>
@@ -222,10 +233,33 @@
                         <li><p>Click the ruler button to show a ruler along the top of your chart that can be used to help you size your chart.</p></li>
                     </ul>
                 </div>
+                <hr>
+                <div id="detail-view">
+                    <h3>How to Use the Detail Viewer Window</h3>
+                    <p>Clicking on a box will bring up the detail viewer window.</p>
+                    <ul>
+                        <li><p>The first thing you'll see is a window showing what the box looks like at full size. This can be handy if you are zoomed out.</p></li>
+                        <li><p>Aside from a close up of the box, the information for the people in the box is also displayed in its full format - including pictures where possible.</p></li>
+                        <li><p>Identification codes can be found at the top of the window.</p></li>
+                        <li>
+                            <p>There are also a few handy buttons on this page:</p>
+                            <ul>
+                                <li><p>Click "View on FamilySearch" to view the person on FamilySearch if possible.</p></li>
+                                <li><p>Click "View on Virtual Pedigree" to view the person on Virtual Pedigree if possible.</p></li>
+                                <li><p>Click "Set as Root" to redo your chart with this person as the primary box.</p></li>
+                                <li><p>Click "Collapse" if you don't want ancestors/descendants of that individual to be shown.
+                                    <i>Clicking this can reduce the size of your chart.</i></p></li>
+                                <li><p>Click "Expand" on a previously collapsed box to undo collapsing it.</p></li>
+                                <li><p>Click "Add Child" to add a custom beneath this one in the tree. See the features tab for more information.</p></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <hr>
                 <div id="edit">
                     <h3>Edit Your Chart</h3>
                     <p>There are a few things you can do to edit how your chart looks.</p>
-                    <!--<h4>Changing Chart Style</h4>
+                    <h4 id="edit-style"><b>Changing Chart Style</b></h4>
                     <ul>
                         <li><p>Click "Styles" at the top right of the page and then choose the style you want.</p>
                             <ul>
@@ -234,7 +268,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <h4>Changing Chart Color</h4>
+                    <h4 id="edit-color"><b>Changing Chart Color</b></h4>
                     <ul>
                         <li><p>Click "Colors" at the top right of the page and then choose the style you want.</p>
                             <ul>
@@ -245,7 +279,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <h4>Changing Chart Options</h4>-->
+                    <h4 id="edit-options"><b>Changing Chart Options</b></h4>
                     <ul>
                         <li><p>Click "Options" at the top right of the page and then choose the style you want.</p>
                             <ul>
@@ -257,7 +291,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <h4>Customize Box Styles</h4>
+                    <!--<h4>Customize Box Styles</h4>
                     <p>Clicking on a box will allow you to edit the style used by the box. There are two types of changes that may be made.</p>
                     <h5><i>Changing Styles</i></h5>
                     <ul>
@@ -268,7 +302,7 @@
                         <!--
                         <li><p>Click "Collapse" if you don't want ancestors/descendants of that individual to be shown.
                         <i>Clicking this can reduce the size of your chart.</i></p></li>
-                        -->
+                        -- >
                         <li><p>Click "Save Changes" to have the changes made to your chart or "Cancel" to leave the menu
                         without changing anything. ONLY STYLE CHANGES will be saved.</p></li>
                     </ul>
@@ -281,19 +315,12 @@
                         <!--
                         <li><p>Click "Collapse" if you don't want ancestors/descendants of that individual to be shown.
                         <i>Clicking this can reduce the size of your chart.</i></p></li>
-                        -->
+                        -- >
                         <li><p>Click "Save Changes" to have the changes made to your chart or "Cancel" to leave the menu
                             without changing anything. <b>ONLY COLOR CHANGES will be saved.</b></p></li>
-                    </ul>
-                    <h5><i>Other Tools</i></h5>
-                    <ul>
-                        <li><p>In the box style editor, there are a few other useful options.</p></li>
-                        <li><p>Click "Collapse" if you don't want ancestors/descendants of that individual to be shown.
-                        <i>Clicking this can reduce the size of your chart.</i></p></li>
-                        <li><p>Click "Save Changes" to have the changes made to your chart or "Cancel" to leave the menu
-                            without changing anything.</p></li>
-                    </ul>
+                    </ul>-->
                 </div>
+                <hr>
                 <div id="rule">
                     <h3>How to Use the Ruler</h3>
                     <p>One Page Genealogy features a ruling feature accessible by clicking the ruler icon on the top bar.</p>
@@ -305,35 +332,33 @@
                         <li><p>by zooming your chart in and out until the ruler's inch is roughly the same size as an actual inch, you can get a feel for how big your chart is probably going to be.</p></li>
                     </ul>
                 </div>
+                <hr>
                 <div id="save">
                     <h3>How to Save and Upload Your Chart</h3>
                     <p>To save your chart, simply press the save button (floppy disk icon) on the top bar and choose where you want to save it. One Page Genealogy charts have a <i>.opg</i> extension on them for easy finding.</p>
                     <p>To upload your chart, simply press the upload button (open file folder icon) on the top bar and find the .opg file you would like to upload. Then press the 'open' button.</p>
                 </div>
+                <hr>
                 <div id="print">
                     <h3>How to Print or save as a PDF</h3>
                     <p>Simply press the download button (downward point arrow icon) at the top right to save your chart as a PDF.</p>
                     <p>You can then take the downloaded PDF to a nearby print service center.</p>
                 </div>
-
             </div>
         </div>
     </div>
     <div id="inventory" class="tab-pane fade">
         <div id="page-wrap-inventory" class="page-wrap">
-            <div id="inventory-sidebar" class="sidebar">
+            <div id="inventory-sidebar" class="sidebar opgBlue">
                 <hr>
                 <h4>Topics</h4>
-                <hr>
                 <h5><a href="#chart-styles">Chart Styles</a></h5>
-                <h6><a href="#ascendancy-explanation"><i>Ascendancy Styles</i></a></h6>
-                <h6><a href="#descendancy-explanation"><i>Descendancy Styles</i></a></h6>
-                <hr>
+                <h6><a href="#ascendancy-explanation"><i>- Ascendancy Styles</i></a></h6>
+                <h6><a href="#descendancy-explanation"><i>- Descendancy Styles</i></a></h6>
                 <h5><a href="#color-schemes">Color Schemes</a></h5>
-                <h6><a href="#branch-schemes"><i>Branch Schemes</i></a></h6>
-                <h6><a href="#generation-schemes"><i>Generation Schemes</i></a></h6>
-                <h6><a href="#other-schemes">Other Schemes</a></h6>
-                <hr>
+                <h6><a href="#branch-schemes"><i>- Branch Schemes</i></a></h6>
+                <h6><a href="#generation-schemes"><i>- Generation Schemes</i></a></h6>
+                <h6><a href="#other-schemes"><i>- Other Schemes</i></a></h6>
                 <h5><a href="#creating-children">Creating Children</a></h5>
                 <hr>
             </div>
@@ -461,7 +486,10 @@
                         <p>It doesn't get simpler than black and white.</p>
                     </li>
                 </ul>
-                <h4 id="creating-children"><b>Creating Children</b> <span class="label label-warning">NEW</span></h4>
+            </div>
+            <hr>
+            <div id="creating-children">
+                <h3>Creating Children <span class="label label-warning">NEW</span></h3>
                 <p>This feature allows you to add 'children' to the tree, meaning that you add somebody to the generation beneath whatever box you are adding from. It is designed to help fill in generations for descendancy charts where some people that would otherwise be on the chart are still be living.</p>
                 <p>Due to FamilySearch's privacy policy, One Page Genealogy cannot show information for living people. However, you can create the boxes for these people manually to help you create the tree that you want. This enables users to create the nodes for the people they want without creating multiple private copies of those people in FamilySearch, and is ideal for filling in the lower generations in descendancy-style charts that may include living persons. It is encouraged that you use this feature for living people. This feature is discouraged as a means of adding information for deceased people, as the information is not saved to FamilySearch. Please use FamilySearch to add information about deceased persons. If you are still unsure about when to use this feature, please review the following guidelines and warnings:
                 <ul>
@@ -481,7 +509,7 @@
     </div>
     <div id="support" class="tab-pane fade">
         <div id="page-wrap-support" class="page-wrap">
-            <div id="support-sidebar" class="sidebar">
+            <div id="support-sidebar" class="sidebar opgBlue">
                 <hr>
                 <h4>Topics</h4>
                 <h5><a href="#chart_wrong">My Chart is Wrong</a></h5>
@@ -529,16 +557,16 @@
                 <h3>My Chart Experiences Lag When I Drag it Around or Zoom In/Out</h3>
                 <p>One Page Genealogy uses Scalable Vector Graphics (SVG) to create your chart. These tend to be nice and fast, but there are some limits.</p>
                 <p>Most charts should move fairly fluidly, but will become a little bit harder to move depending on how many boxes you have on screen.</p>
-                <p>If you have 11+ Generations on screen, it is likely that you will start to experience some lag. Try zooming in to reduce the number of boxes on screen, since rendering all of those boxes that slows your computer down.</p>
+                <p>If you have 11+ Generations on screen, it is likely that you will start to experience some lag. Try zooming in to reduce the number of boxes on screen, since rendering all of those boxes slows your computer down.</p>
             </div>
         </div>
     </div>
     <div id="release" class="tab-pane fade">
         <div id="page-wrap-release" class="page-wrap">
-            <div id="release-sidebar" class="sidebar">
+            <div id="release-sidebar" class="sidebar opgBlue">
                 <hr>
                 <h4>Topics</h4>
-                <h5><span class="label label-warning label-as-badge">NEW</span><a href="#opg_2.0"><b>One Page Genealogy 2.0</b></a></h5>
+                <h5><h6 style="display: inline;"><span class="label label-warning">NEW</span></h6><a href="#opg_2.0"><b> One Page Genealogy 2.0</b></a></h5>
                 <h5><a href="#new_infrastructure">New Infrastructure</a></h5>
                 <h5><a href="#new_help_menu">New Help Menu</a></h5>
                 <h5><a href="#new_helper">New Detail Viewer</a></h5>
