@@ -100,5 +100,6 @@ class Tree implements ITree {
         this.boxes.setId(node.getId(), box);
         this.updates.push(new Command('add-node', node));
         console.log("Node " + node.getId() + " (" + node.getAttr('name') + ") created and added...");
+        this.treeListener.handleUpdate(this,this.updates);
     }
 }

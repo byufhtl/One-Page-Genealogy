@@ -302,29 +302,31 @@ class OptionManager implements IOptionManager {
             opgModalVPview.off('click');
             setAsRoot.off('click');
 
-            setAsRoot.click(function(){
+            setAsRoot.click(() => {
                 var colonLoc = box.getNode().getId().indexOf(':');
                 var pid = box.getNode().getId().substr(0,colonLoc);
-                $("#opg-modal").modal('hide');
-                $('#pid-search-input').val(pid);
-                familySearchDownload();
+                if(!pid.match(/@OPG.+/i)) {
+                    $("#opg-modal").modal('hide');
+                    $('#pid-search-input').val(pid);
+                    familySearchDownload();
+                }
             });
 
-            opgModalFSview.click(function(){
+            opgModalFSview.click(() => {
                 var pid = box.getNode().getId().substring(0,8);
                 if(!pid.match(/@OPG.+/i)) {
                     window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
                 }
             });
 
-            opgModalVPview.click(function(){
+            opgModalVPview.click(() => {
                 var pid:string = box.getNode().getId().substring(0,8);
                 if(!pid.match(/@OPG.+/i)) {
                     self.listener.handleOption('VP-view', {id: pid});
                 }
             });
 
-            opgModalCreateChild.click(function(){
+            opgModalCreateChild.click(() => {
                 console.log("Child maker button hit");
                 $("#opg-modal").modal('hide');
                 $('#child-maker-title').text("Create Child for " + box.getNode().getAttr('name'));
@@ -339,6 +341,9 @@ class OptionManager implements IOptionManager {
                     childMakerModal.modal('hide');
                     return;
                 }
+
+                //~~~ Generate Data ~~~
+
                 var customChildPID = "@OPG-" + (self.customNodeIndex++).toString();
 
                 var bdate_data = $('#creator-bdate').val();
@@ -355,6 +360,8 @@ class OptionManager implements IOptionManager {
                 var m_date = $('#creator-mdate').val();
                 var m_place = $('#creator-mplace').val();
 
+                //~~~ Create Nodes ~~~
+
                 var node_data = {name: name_data, birthdate: bdate_data, birthplace: bplace_data, deathdate: ddate_data, deathplace: dplace_data, marriagedate: m_date, marriageplace: m_place, displaySpouse: null, isMain: true};
                 var customNode = new BuildNode(customChildPID,node_data);
 
@@ -364,14 +371,19 @@ class OptionManager implements IOptionManager {
                     customNode.setDisplaySpouse(customSpouseNode);
                     customSpouseNode.setDisplaySpouse(customNode);
                 }
-
-                self.listener.handleOption("add-custom-node",{node: customNode});
-
                 box.getNode().getBranchIds().push(customChildPID);
 
                 var customBox = new AbstractBox(customNode);
-                customBox.getRenderInstructions().setHasPicture(false).setSpouseHasPicture(false);
+
+                customBox.setType(box.getType());
+
+                customBox.getRenderInstructions()
+                    .setHasPicture(false)
+                    .setSpouseHasPicture(false)
+                    .setFlavorKey(box.getRenderInstructions().getFlavorKey());
                 self.listener.getBoxes().setId(customChildPID,customBox);
+
+                self.listener.handleOption("add-custom-node",{node: customNode});
 
                 for(var key of box.getNode().getBranchIds()){
                     if(key === customChildPID){
@@ -379,7 +391,7 @@ class OptionManager implements IOptionManager {
                     }
                 }
 
-                self.listener.refresh();
+                self.listener.refresh(self.listener.getBoxes());
                 childMakerModal.modal('hide');
             });
 

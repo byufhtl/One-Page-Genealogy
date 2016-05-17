@@ -136,27 +136,21 @@ class StylingPipeline implements IPipeline {
 
     public runPipeline(boxes:BoxMap):void {
         // Apply Chart Spacing Styles
-        //console.log("Pipeline run: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
+        console.log("Pipeline run");
         var map = boxes.getMap();
         for(var key in map){
             map[key].setCollapsed(false);
         }
         this.customChartStyleSpacer.applyStyle(boxes);
-        //console.log("Pipeline run2.1: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
         this.collapseSpacer.applyStyle(boxes);
-        //console.log("Pipeline run2.2: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
         this.chartStyleSpacer.applyStyle(boxes);
-        //console.log("Pipeline run2.3: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
         this.spacingSpacer.applyStyle(boxes);
-        //console.log("Pipeline run3: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
 
         // Apply Chart Color Styles
         this.chartColorStyleSpacer.applyStyle(boxes);
         this.customColorSpacer.applyStyle(boxes);
         this.customTextColorSpacer.applyStyle(boxes);
-        //console.log("Pipeline run4: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
         this.ySpacer.applyStyle(boxes);
-        //console.log("Pipeline run5: " + boxes.getId("KWJ6-TK8:0").isCollapsed());
 
         // Apply Additional Styles
         for (var spacer in this.addedSpacers) {

@@ -486,7 +486,7 @@ class P implements IControllerListener, ITreeListener {
      * @returns {boolean} whether or not the style spacing was edited as a result of the function.
      */
     private changeChartStyle(type:string):boolean {
-        var style: AbstractStyler;
+        var style: AbstractChartStyle;
         switch(type){
             case 'detail-style':
                 style = new DetailChartStyler();

@@ -63,6 +63,7 @@ class StyleManager{
                 NullBoxStyle.applyStyleTo(box);
                 break;
             default:
+                console.log("Default Style being employed.","Bad Type:" + box.getType());
                 TinyBoxStyle.applyStyleTo(box, flavor_key);
         }
     }
