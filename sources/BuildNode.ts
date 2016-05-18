@@ -20,6 +20,10 @@ class BuildNode implements INode {
     hasAttr(key: string): boolean {
         return this.getAndHasAttribute(false, key);
     }
+    setAttr(name: string, value: any): INode{
+        this.data[name] = value;
+        return this;
+    }
     private getAndHasAttribute(get, attr) {
 
         var val = this.data[attr];

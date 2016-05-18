@@ -490,7 +490,10 @@ class C implements IGraphicObjectListener, IOptionListener {
             this.p.handle({type: key, id: value['id']});
         }
         else if (key === 'add-custom-node') {
-            this.tree.addCustomNode(value['node']);
+            this.tree.addCustomNode(value['node'],value['box']);
+        }
+        else if (key === 'remove-custom-node') {
+            this.tree.removeCustomNode(value['node'],value['box']);
         }
         else if (key) {
             if (value == null) {

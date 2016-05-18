@@ -456,7 +456,16 @@ class P implements IControllerListener, ITreeListener {
 
                 this.firstBoxMap.setId(node.getId(), new AbstractBox(node));
                 this.secondBoxMap.setId(node.getId(), new AbstractBox(node));
-            } else {
+            }
+            else if(command.getType() === "remove-node"){
+                var node: INode = command.getValue();
+
+                if(this.firstBoxMap && this.secondBoxMap) {
+                    this.firstBoxMap.removeId(node.getId());
+                    this.secondBoxMap.removeId(node.getId());
+                }
+            }
+            else{
                 console.log("Error: Unknown Command");
             }
         }

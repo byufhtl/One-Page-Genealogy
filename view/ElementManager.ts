@@ -74,6 +74,9 @@ class ElementManager implements IElementManager {
         if(box.getColor() !== lastBox.getColor()) {
             return true;
         }
+        if(box.getNeedsUpdate()){
+            return true;
+        }
         if(box.getType() !== lastBox.getType()) {
             return true;
         }

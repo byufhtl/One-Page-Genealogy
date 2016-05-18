@@ -1,16 +1,19 @@
 /**
  * Created by justinrasband on 8/24/15.
- */
-/**
- * Created by justinrasband on 8/6/15.
- */
-/**
- * Created by justinrasband on 7/21/15.
+ * Last Update by calvinmcmc on 5/18/16.
  */
 ///<reference path="../model/INode.ts"/>
 ///<reference path="../js/jsDeclarations.ts"/>
-var GedcomNode = (function () {
-    function GedcomNode(id, person, branchIds) {
+class GedcomNode implements INode {
+
+    private id;
+    private person;
+    private branchIds;
+    private urlPromise;
+    private displaySpouse;
+    private isMain: boolean;
+
+    constructor(id, person, branchIds) {
         this.id = id;
         this.person = person;
         this.branchIds = branchIds;
@@ -20,16 +23,25 @@ var GedcomNode = (function () {
         //this.spouses = []
         //this.doneLoadingDefer = $.Deferred();
     }
-    GedcomNode.prototype.getId = function () {
+
+    getId() {
         return this.id;
     };
-    GedcomNode.prototype.getAttr = function (key) {
+
+    getAttr(key) {
         return this.getAndHasAttribute(true, key);
     };
-    GedcomNode.prototype.hasAttr = function (key) {
+
+    hasAttr(key) {
         return this.getAndHasAttribute(false, key);
     };
-    GedcomNode.prototype.getAndHasAttribute = function (get, attr) {
+
+    setAttr(name, value) {
+        // This feature is not currently extended to this type of node.
+        return this;
+    };
+
+    getAndHasAttribute(get, attr) {
         var val = null;
         if (this.person) {
             switch (attr) {
@@ -126,24 +138,24 @@ var GedcomNode = (function () {
                     }
                     break;
                 case "marriagedate":
-                    if(this.displaySpouse == null){
+                    if (this.displaySpouse == null) {
                         val = null
-                    }else if (!this.person.hasOwnProperty("marriageFacts")){
+                    } else if (!this.person.hasOwnProperty("marriageFacts")) {
                         val = null
-                    }else{
+                    } else {
 
-                        var displaySpousePid = this.displaySpouse.person.pid
-                        if(this.person.marriageFacts[displaySpousePid].hasOwnProperty("marriageDate")){
-                            var marriageFacts = this.person.marriageFacts[displaySpousePid]
+                        var displaySpousePid = this.displaySpouse.person.pid;
+                        if (this.person.marriageFacts[displaySpousePid].hasOwnProperty("marriageDate")) {
+                            var marriageFacts = this.person.marriageFacts[displaySpousePid];
                             val = marriageFacts["marriageDate"]
-                        }else{
+                        } else {
                             val = null
                         }
 
                     }
                     break;
                 case "baptism":
-                    if(this.person.hasOwnProperty("baptized")){
+                    if (this.person.hasOwnProperty("baptized")) {
                         val = this.person.baptized;
                     }
 
@@ -158,39 +170,49 @@ var GedcomNode = (function () {
             return null;
         return false;
     };
-    GedcomNode.prototype.setBranchIds = function (branches) {
+
+    setBranchIds(branches) {
         this.branchIds = branches
     };
-    GedcomNode.prototype.getBranchIds = function () {
+
+    getBranchIds() {
         return this.branchIds;
     };
-    GedcomNode.prototype.getSpouses = function () {
-        if(this.person.hasOwnProperty('spouses')){
+
+    getSpouses() {
+        if (this.person.hasOwnProperty('spouses')) {
             return this.person.spouses
-        }else{
+        } else {
             return []
         }
         //return this.person.spouses;
     };
-    GedcomNode.prototype.getDisplaySpouse = function(){
+
+    getDisplaySpouse() {
         return this.displaySpouse
     };
-    GedcomNode.prototype.setDisplaySpouse = function(displaySpouse){
+
+    setDisplaySpouse(displaySpouse) {
         this.displaySpouse = displaySpouse
     };
-    GedcomNode.prototype.setAsMain = function (){
+
+    setAsMain() {
         this.isMain = true;
     }
-    GedcomNode.prototype.isMainPerson = function(){
-        if(this.displaySpouse != null){
+
+    getPerson(){
+        return this.person;
+    }
+
+    isMainPerson() {
+        if (this.displaySpouse != null) {
             var spouse = this.displaySpouse;
 
-            var personSpouses = this.person.spouses.length
-            var spouseSpouses = spouse.person.spouses.length
-            if(spouseSpouses > 1){
-                this.isMain = false
+            var spouseSpouses = spouse.person.spouses.length;
+            if (spouseSpouses > 1) {
+                this.isMain = false;
                 this.displaySpouse.isMain = true
-            }else{
+            } else {
                 this.displaySpouse.isMain = false
             }
 
@@ -199,7 +221,7 @@ var GedcomNode = (function () {
 
         return this.isMain
     }
-    GedcomNode.prototype.setMarriageDate = function(){}
-    return GedcomNode;
-})();
-//# sourceMappingURL=GedcomNode.js.map
+
+    setMarriageDate() {
+    }
+}

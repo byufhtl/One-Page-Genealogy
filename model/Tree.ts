@@ -93,13 +93,23 @@ class Tree implements ITree {
         return this.treeMap;
     }
 
-    addCustomNode(node :INode){
+    addCustomNode(node: INode, box: IBox){
         this.treeMap[node.getId()] = node;
-        var box = new Box(node);
-        box.getRenderInstructions().setHasPicture(false).setSpouseHasPicture(false);
+        if(box == undefined || box == null) {
+            box = new Box(node);
+        }
         this.boxes.setId(node.getId(), box);
         this.updates.push(new Command('add-node', node));
-        console.log("Node " + node.getId() + " (" + node.getAttr('name') + ") created and added...");
+        this.treeListener.handleUpdate(this,this.updates);
+    }
+
+    removeCustomNode(node: INode, box: IBox){
+        delete this.treeMap[node.getId()];
+        if(box == undefined || box == null) {
+            this.boxes.removeId(node.getId());
+        }
+        this.updates.push(new Command('remove-node', node));
+        console.log("Node " + node.getId() + " (" + node.getAttr('name') + ") deleted and removed...");
         this.treeListener.handleUpdate(this,this.updates);
     }
 }

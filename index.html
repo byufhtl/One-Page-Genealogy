@@ -328,7 +328,7 @@
         </ul>
         <hr>
     </div>
-    <div class="footer">
+    <div class="footer" style="background-color: #2c3e50;  width: 100%; text-align: center;">
         <a class="footer-text" href='https://fhtl.byu.edu'>BYU Family History Technology Lab</a><br>
         <a class="footer-text" href='//cs.byu.edu'><small>Copyright © Brigham Young University, Computer Science Department</small></a>
     </div>
@@ -347,7 +347,7 @@
 <div class="modal" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModal" aria-hidden="false">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header opg-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h1 class="modal-title splash-title">Welcome to</h1>
                 <h1 class="modal-title splash-title">One Page Genealogy</h1>
@@ -363,7 +363,7 @@
                 <p>Visit our other apps at <a id="fhtlab-link" target="_blank" href="https://fhtl.byu.edu/">fhtl.byu.edu</a></p>
 
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer opg-blue" style="border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
                 <h6>BYU Family History Technology Lab</h6>
                 <p style="font-size: 60%">Copyright © Brigham Young University,</p>
                 <p style="font-size: 60%">Computer Science Department</p>
@@ -380,14 +380,14 @@
 <div class="modal fade wide" id="opg-modal">
     <div class="modal-dialog wide" id="modal-dialog-box">
         <div class="modal-content wide">
-            <div class="modal-header">
+            <div class="modal-header opg-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="pid">Personal Information: </h4>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row" id="opg-svg-content-box">
-                        <div class="col-sm-12" style="max-width: 1000px; max-height: 400px; overflow: scroll; overflow: auto;">
+                        <div class="col-sm-12" style="max-width: 1000px; max-height: 400px; overflow: auto;">
                             <svg id="opg-modal-svg">
 
                             </svg>
@@ -404,24 +404,35 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <div class="container-fluid" style="margin-bottom: 10px">
-                    <div class="col-sm-4">
-                        <button type="button" class="btn btn-primary" style="float: left;" id="FS-view">View on FamilySearch</button>
-                    </div>
-                    <div class="col-sm-4 col-sm-offset-4">
-                        <button type="button" class="btn btn-primary" id="set-as-root" style="float: right;">Set As Root</button>
+            <div class="modal-footer opg-blue" style="border-bottom-right-radius: 5px; border-bottom-left-radius: 5px">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-footer" style="float: left;;" id="FS-view">View on FamilySearch</button>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-footer" style="float: left;" id="VP-view">View on Virtual Pedigree</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-footer" id="set-as-root" style="float: right;">Set As Root</button>
+                        </div>
                     </div>
                 </div>
-                <div class="container-fluid">
-                    <div class="col-sm-5">
-                        <button type="button" class="btn btn-primary" style="float: left;" id="VP-view">View on Virtual Pedigree</button>
-                    </div>
-                    <div class="col-sm-2" id="">
-                        <button type="button" class="btn btn-info" id="opg-modal-add-child" style="margin: auto">Add Child</button>
-                    </div>
-                    <div class="col-sm-5">
-                        <button type="button" class="btn btn-primary" id="opg-modal-collapse" style="float: right;">Collapse</button>
+                <hr>
+                <div class="container-fluid" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-footer" id="opg-modal-add-private" style="float: left;">Add Private Node</button>
+                        </div>
+                        <div class="col-sm-3" id="opg-modal-private-edit-div">
+
+                        </div>
+                        <div class="col-sm-3" id="opg-modal-private-remove-div">
+
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-footer" id="opg-modal-collapse" style="float: right;">Collapse</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -436,7 +447,7 @@
 <div class="modal fade" id="gedcomModal" tabindex="-1" role="dialog" aria-labelledby="gedcomModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header opg-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">GedcomOptions</h4>
             </div>
@@ -460,9 +471,9 @@
                 <select id = "generationsSelect">
                 </select>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer opg-blue" style="border-bottom-right-radius: 5px; border-bottom-left-radius: 5px">
                 <p style="float: left;">Gedcom reading possible thanks to <a target="_blank" href = "http://www.macwright.org/2015/01/05/parse-gedcom.html">Tom MacWright</a></p>
-                <button type="button" class="btn btn-primary" id="gedcomSave">Save changes</button>
+                <button type="button" class="btn btn-footer" id="gedcomSave">Save changes</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -476,7 +487,7 @@
 <div class="modal fade" id="fsModal" tabindex="-1" role="dialog" aria-labelledby="fsModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header opg-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">FamilySearch Options</h4>
             </div>
@@ -521,8 +532,8 @@
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="fsSave"></button>
+            <div class="modal-footer opg-blue" style="border-bottom-right-radius: 5px; border-bottom-left-radius: 5px">
+                <button type="button" class="btn btn-footer" id="fsSave"></button>
 
             </div>
         </div><!-- /.modal-content -->
@@ -536,8 +547,8 @@
 <div class="modal fade" id="rulerModal" tabindex="-1" role="dialog" aria-labelledby="rulerModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="modal-header opg-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
+                <button type="button" class="close btn-footer" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Ruler Options</h4>
             </div>
             <div class="modal-body">
@@ -555,12 +566,12 @@
             </div>
             <hr>
             <div>
-                <p>These dimensions should be how long you want the chart to be. You can then exand the ruler to be
+                <p style="margin-left: 5px; margin-right: 5px;">These dimensions should be how long you want the chart to be. You can then exand the ruler to be
                 about an inch to get a feel for how your chart would look at that size.</p>
             </div>
-            <div class="modal-footer">
-                <button style="float:left" type="button" class="btn btn-primary" id="ruler-hide">Hide Ruler</button>
-                <button type="button" class="btn btn-primary" id="ruler-save">Save</button>
+            <div class="modal-footer opg-blue" style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
+                <button style="float:left" type="button" class="btn btn-footer" id="ruler-hide">Hide Ruler</button>
+                <button type="button" class="btn btn-footer" id="ruler-save">Save</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -574,8 +585,8 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="modal-header opg-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
+                <button type="button" class="close btn-footer" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Show Empty Boxes</h4>
             </div>
             <div class="modal-body">
@@ -593,8 +604,8 @@
 <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="modal-header opg-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
+                <button type="button" class="close btn-footer" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Something went wrong!</h4>
             </div>
             <div class="modal-body">
@@ -612,7 +623,7 @@
 <div class="modal fade" id="child-maker-modal" tabindex="-1" role="dialog" aria-labelledby="childCreatorModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header opg-blue" style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="child-maker-title">Create Child</h4>
             </div>
@@ -696,7 +707,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer opg-blue" style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
                 <div>
                     <div class="label label-warning" style="float: left;">WARNING</div>
                     <div>
@@ -705,11 +716,11 @@
                         <p style="text-align: center">For more information, please see the Features section in the <a id="opg-help-from-create" target="_blank" href="help.html">help guide.</a></p>
                     </div>
                 </div>
-                <div style="float: left">
-                    <button type="button" class="btn btn-primary" style="float: left;" id="FS-view-from-create">View Parent on FamilySearch</button>
+                <div style="float: left" id="create-bottom-button-plug-left">
+
                 </div>
-                <div style="float: right">
-                    <button type="button" class="btn btn-primary" id="create-child-button">Create</button>
+                <div style="float: right" id="create-bottom-button-plug-right">
+
                 </div>
             </div>
         </div><!-- /.modal-content -->

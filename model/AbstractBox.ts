@@ -23,6 +23,7 @@ class AbstractBox implements IBox {
     private picture :boolean;
     private color :string;
     private textColor :string;
+    private needsUpdate :boolean;
 
     constructor(node :INode) {
         this.node = node;
@@ -115,6 +116,7 @@ class AbstractBox implements IBox {
         b.setY(this.getY());
         b.setCollapsed(this.isCollapsed());
         b.setRenderInstructions(this.ris);
+
         return b;
     }
     copyContents(b: IBox): void {
@@ -129,11 +131,17 @@ class AbstractBox implements IBox {
         b.setCollapsed(this.isCollapsed());
         b.setRenderInstructions(this.ris);
     }
+    setCollapsed(collapsed: boolean) {
+        this.collapsed = collapsed;
+    }
     isCollapsed(): boolean {
         return this.collapsed;
     }
-    setCollapsed(collapsed: boolean) {
-        this.collapsed = collapsed;
+    setNeedsUpdate(need: boolean){
+        this.needsUpdate = need;
+    }
+    getNeedsUpdate(): boolean{
+        return this.needsUpdate;
     }
     clear(): void {
         this.x = 0;

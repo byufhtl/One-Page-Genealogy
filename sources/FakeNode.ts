@@ -23,6 +23,10 @@ class FakeNode implements INode {
         return false;
     }
 
+    setAttr(name: string, value: any): INode{
+        return this;
+    }
+
     getBranchIds(): string[] {
         return this.branchIds;
     }

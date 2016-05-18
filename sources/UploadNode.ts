@@ -29,17 +29,21 @@ class UploadNode implements INode {
     hasAttr(key: string): boolean {
         return this.getAndHasAttribute(false, key);
     }
+    setAttr(name: string, value: any): INode {
+        // This feature does not exist on this type of node for now.
+        return this;
+    }
     private getAndHasAttribute(get, attr) {
         var val = null;
 
         if(this.person) {
             switch (attr) {
                 case "surname":
-                    var names = this.person.display.name.split(' ')
+                    var names = this.person.display.name.split(' ');
                     val = names[names.length -1];
                     break;
                 case "givenname":
-                    var names = this.person.display.name.split(' ')
+                    var names = this.person.display.name.split(' ');
                     val = names[0];
                     break;
                 case "name":

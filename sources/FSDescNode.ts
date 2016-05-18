@@ -4,6 +4,7 @@
 
 /**
  * Created by curtis on 3/16/15.
+ * Last Updated by calvinmcm 5/18/16.
  */
 class FSDescNode implements INode {
     private urlPromise;
@@ -23,6 +24,10 @@ class FSDescNode implements INode {
     }
     hasAttr(key: string): boolean {
         return this.getAndHasAttribute(false, key);
+    }
+    setAttr(name: string, value: any): INode{
+        // At present, this feature is not offered on this particular type of node.
+        return this;
     }
     private getAndHasAttribute(get, attr) {
         var val = null;
@@ -96,13 +101,15 @@ class FSDescNode implements INode {
                     break;
             }
             if(val !== null && val !== undefined){
-                if(get)
+                if(get) {
                     return val;
+                }
                 return true
             }
         }
-        if(get)
+        if(get) {
             return null;
+        }
         return false;
     }
     getBranchIds(): string[] {

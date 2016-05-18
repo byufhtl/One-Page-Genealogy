@@ -195,6 +195,20 @@ class OptionManager implements IOptionManager {
             primary.empty();
             secondary.empty();
 
+            //~~~ Append Private Node Editing buttons as appropriate~~~
+
+            var private_edit = $('#opg-modal-private-edit-div');
+            var private_remove = $('#opg-modal-private-remove-div');
+            private_edit.empty();
+            private_remove.empty();
+
+            if(box.getNode().getId().match(/@OPG.+/i)){
+                private_edit.append('<button type="button" class="btn btn-footer" id="opg-modal-edit-private" style="float: left;">Edit Node</button>');
+                private_remove.append('<button type="button" class="btn btn-footer" id="opg-modal-remove-private" style="float: left;">Remove Node</button>');
+            }
+
+            //~~~ Append the place for names and information ~~~
+
             primary.append('<div id="p-data-col" class="col-sm-9"></div>');
 
             var prim_data = $('#p-data-col');
@@ -207,11 +221,10 @@ class OptionManager implements IOptionManager {
 
             primary.append('<div class="col-sm-3 right"><svg id="opg-modal-portrait"></svg></div>');
 
-
-
             // Render a bit differently for spouse boxes than for regular boxes
             if(box.getRenderInstructions().getSpouseNameInstruction()){
 
+                //~~~ Append the spouse Elements into the modal window as necessary ~~~
                 var primaryNode   = (box.getNode().getAttr('gender') === 'Male') ? box.getNode() : box.getNode().getDisplaySpouse();
                 var secondaryNode = (box.getNode().getAttr('gender') === 'Female') ? box.getNode() : box.getNode().getDisplaySpouse();
 
@@ -227,7 +240,23 @@ class OptionManager implements IOptionManager {
 
                 secondary.append('<div class="col-sm-3 right"><svg id="s-opg-modal-portrait"></svg></div>');
 
-                $('#pid').text("Personal Information for " + primaryNode.getId().substr(0,colonLoc) + " and " + secondaryNode.getId().substr(0,colonLoc));
+                //~~~ Setup the Ids ~~~
+                var p_id = primaryNode.getId().substr(0,colonLoc);
+                if(primaryNode.getId().match(/@OPG.+/i)){
+                    p_id = "Private Node";
+                }
+                else if (!p_id || p_id == ''){
+                    p_id = primaryNode.getAttr('name') + " (No ID found)";
+                }
+                var s_id = primaryNode.getId().substr(0,colonLoc);
+                if(secondaryNode.getId().match(/@OPG.+/i)){
+                    s_id = "Private Node";
+                }
+                else if (!s_id || s_id == ''){
+                    s_id = primaryNode.getAttr('name') + " (No ID found)";
+                }
+
+                $('#pid').text("Personal Information for " + p_id + " and " + s_id);
                 $('#name').text(primaryNode.getAttr("name"));
                 $('#bdate').text(primaryNode.getAttr("birthdate"));
                 $('#bplace').text(primaryNode.getAttr("birthplace"));
@@ -242,7 +271,16 @@ class OptionManager implements IOptionManager {
             }
             else{
 
-                $('#pid').text("Personal Information for " + box.getNode().getId().substr(0,colonLoc));
+                var id = box.getNode().getId().substr(0,colonLoc);
+                if(!id || id == ""){
+                    if(box.getNode().getId().match(/@OPG.+/i)){
+                        id = "Private Node";
+                    }
+                    else {
+                        id = box.getNode().getAttr('name') + " (No ID found)";
+                    }
+                }
+                $('#pid').text("Personal Information for " + id);
                 $('#name').text(box.getNode().getAttr("name"));
                 $('#bdate').text(box.getNode().getAttr("birthdate"));
                 $('#bplace').text(box.getNode().getAttr("birthplace"));
@@ -284,138 +322,7 @@ class OptionManager implements IOptionManager {
                 }
             });
 
-            var opgModalSelect = $('#opg-modal-select');
-            var opgModalSizeSave = $('#opg-modal-save-size');
-            var opgModalColorSave = $('#opg-modal-save-color');
-            var opgModalCollapse = $('#opg-modal-collapse');
-            var opgModalCreateChild = $('#opg-modal-add-child');
-            var opgModalFSview = $('#FS-view');
-            var opgModalVPview = $('#VP-view');
-            var setAsRoot = $('#set-as-root');
-            var childModalFSView = $('#FS-view-from-create');
-            var createChildButton = $('#create-child-button');
-            opgModalSelect.off('click');
-            opgModalSizeSave.off('click');
-            opgModalColorSave.off('click');
-            opgModalCollapse.off('click');
-            opgModalFSview.off('click');
-            opgModalVPview.off('click');
-            setAsRoot.off('click');
-
-            setAsRoot.click(() => {
-                var colonLoc = box.getNode().getId().indexOf(':');
-                var pid = box.getNode().getId().substr(0,colonLoc);
-                if(!pid.match(/@OPG.+/i)) {
-                    $("#opg-modal").modal('hide');
-                    $('#pid-search-input').val(pid);
-                    familySearchDownload();
-                }
-            });
-
-            opgModalFSview.click(() => {
-                var pid = box.getNode().getId().substring(0,8);
-                if(!pid.match(/@OPG.+/i)) {
-                    window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
-                }
-            });
-
-            opgModalVPview.click(() => {
-                var pid:string = box.getNode().getId().substring(0,8);
-                if(!pid.match(/@OPG.+/i)) {
-                    self.listener.handleOption('VP-view', {id: pid});
-                }
-            });
-
-            opgModalCreateChild.click(() => {
-                console.log("Child maker button hit");
-                $("#opg-modal").modal('hide');
-                $('#child-maker-title').text("Create Child for " + box.getNode().getAttr('name'));
-                $("#child-maker-modal").modal('show');
-            });
-
-            createChildButton.click(() => {
-                var name_data = $('#creator-name').val();
-                var childMakerModal = $('#child-maker-modal');
-                if(!name_data){
-                    console.log("Attempted to make child with no name for " + box.getNode().getAttr('name'));
-                    childMakerModal.modal('hide');
-                    return;
-                }
-
-                //~~~ Generate Data ~~~
-
-                var customChildPID = "@OPG-" + (self.customNodeIndex++).toString();
-
-                var bdate_data = $('#creator-bdate').val();
-                var bplace_data = $('#creator-bplace').val();
-                var ddate_data = $('#creator-ddate').val();
-                var dplace_data = $('#creator-dplace').val();
-
-                var s_name_data = $('#creator-s-name').val();
-                var s_bdate_data = $('#creator-s-bdate').val();
-                var s_bplace_data = $('#creator-s-bplace').val();
-                var s_ddate_data = $('#creator-s-ddate').val();
-                var s_dplace_data = $('#creator-s-dplace').val();
-
-                var m_date = $('#creator-mdate').val();
-                var m_place = $('#creator-mplace').val();
-
-                //~~~ Create Nodes ~~~
-
-                var node_data = {name: name_data, birthdate: bdate_data, birthplace: bplace_data, deathdate: ddate_data, deathplace: dplace_data, marriagedate: m_date, marriageplace: m_place, displaySpouse: null, isMain: true};
-                var customNode = new BuildNode(customChildPID,node_data);
-
-                if(s_name_data, s_bdate_data, s_bplace_data, s_ddate_data, s_dplace_data){
-                    var spouse_data = {name: s_name_data, birthdate: s_bdate_data, birthplace: s_bplace_data, deathdate: s_ddate_data, deathplace: s_dplace_data, marriagedate: m_date, marriageplace: m_place, displaySpouse: null, isMain: false};
-                    var customSpouseNode = new BuildNode("@OPG-" + (self.customNodeIndex++).toString(),spouse_data);
-                    customNode.setDisplaySpouse(customSpouseNode);
-                    customSpouseNode.setDisplaySpouse(customNode);
-                }
-                box.getNode().getBranchIds().push(customChildPID);
-
-                var customBox = new AbstractBox(customNode);
-
-                customBox.setType(box.getType());
-
-                customBox.getRenderInstructions()
-                    .setHasPicture(false)
-                    .setSpouseHasPicture(false)
-                    .setFlavorKey(box.getRenderInstructions().getFlavorKey());
-                self.listener.getBoxes().setId(customChildPID,customBox);
-
-                self.listener.handleOption("add-custom-node",{node: customNode});
-
-                for(var key of box.getNode().getBranchIds()){
-                    if(key === customChildPID){
-                        console.log("Child node " + customChildPID + " confirmed to have entered node stream.");
-                    }
-                }
-
-                self.listener.refresh(self.listener.getBoxes());
-                childMakerModal.modal('hide');
-            });
-
-            childModalFSView.click(function(){
-                var pid = box.getNode().getId().substring(0,8);
-                if(!pid.match(/@OPG.+/i)) {
-                    window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
-                }
-            });
-
-            if(box.isCollapsed()) {
-                opgModalCollapse.html('Expand');
-                opgModalCollapse.click(function() {
-                    $('#opg-modal').modal('hide');
-                    self.listener.handleOption("expand-sub-tree", {id: box.getNode().getId(), box: box})
-                });
-            }
-            else {
-                opgModalCollapse.html('Collapse');
-                opgModalCollapse.click(function() {
-                    $('#opg-modal').modal('hide');
-                    self.listener.handleOption("collapse-sub-tree", {id: box.getNode().getId(), box: box})
-                });
-            }
+            this.handleButtonInit(box);
         }
         if(type === 'selectStyle') {
             $('#opg-modal').modal('show');
@@ -479,6 +386,330 @@ class OptionManager implements IOptionManager {
                 this.listener.handleOption(changeType, null);
             }
         }
+    }
+
+    private handleButtonInit(box: IBox){
+
+        var self = this;
+
+        var opgModalSelect = $('#opg-modal-select');
+        var opgModalSizeSave = $('#opg-modal-save-size');
+        var opgModalColorSave = $('#opg-modal-save-color');
+        var opgModalCollapse = $('#opg-modal-collapse');
+        var opgModalFSview = $('#FS-view');
+        var opgModalVPview = $('#VP-view');
+        var setAsRoot = $('#set-as-root');
+
+        // Must deactivate old responses or you will get duplicates.
+        opgModalSelect.off('click');
+        opgModalSizeSave.off('click');
+        opgModalColorSave.off('click');
+        opgModalCollapse.off('click');
+        opgModalFSview.off('click');
+        opgModalVPview.off('click');
+        setAsRoot.off('click');
+
+        setAsRoot.click(() => {
+            var colonLoc = box.getNode().getId().indexOf(':');
+            var pid = box.getNode().getId().substr(0,colonLoc);
+            if(pid != null && pid != "" && !pid.match(/@OPG.+/i)) {
+                $("#opg-modal").modal('hide');
+                $('#pid-search-input').val(pid);
+                familySearchDownload();
+            }
+        });
+
+        opgModalFSview.click(() => {
+            var pid = box.getNode().getId().substring(0,8);
+            if(!pid.match(/@OPG.+/i)) {
+                window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
+            }
+        });
+
+        opgModalVPview.click(() => {
+            var pid:string = box.getNode().getId().substring(0,8);
+            if(!pid.match(/@OPG.+/i)) {
+                self.listener.handleOption('VP-view', {id: pid});
+            }
+        });
+
+        this.initCreateCreator(box);
+
+
+        // The editor pane for private nodes
+        if(box.getNode().getId().match(/@OPG.+/i)) {
+            this.initCreateEditor(box);
+
+            this.initCreateRemover(box);
+        }
+
+        if(box.isCollapsed()) {
+            opgModalCollapse.html('Expand');
+            opgModalCollapse.click(function() {
+                $('#opg-modal').modal('hide');
+                self.listener.handleOption("expand-sub-tree", {id: box.getNode().getId(), box: box})
+            });
+        }
+        else {
+            opgModalCollapse.html('Collapse');
+            opgModalCollapse.click(function() {
+                $('#opg-modal').modal('hide');
+                self.listener.handleOption("collapse-sub-tree", {id: box.getNode().getId(), box: box})
+            });
+        }
+    }
+
+    private initCreateCreator(box: IBox){
+        // Sets up the creator pane
+        let self = this;
+        var opgModalCreatePrivateNode = $('#opg-modal-add-private');
+        opgModalCreatePrivateNode.off('click');
+
+        opgModalCreatePrivateNode.click(() => {
+            $("#opg-modal").modal('hide');
+            $('#child-maker-title').text("Create Child for " + box.getNode().getAttr('name'));
+
+            //~~~ Clear Old Values ~~~
+
+            $('#creator-name').val("");
+            $('#creator-bdate').val("");
+            $('#creator-bplace').val("");
+            $('#creator-ddate').val("");
+            $('#creator-dplace').val("");
+
+            $('#creator-s-name').val("");
+            $('#creator-s-bdate').val("");
+            $('#creator-s-bplace').val("");
+            $('#creator-s-ddate').val("");
+            $('#creator-s-dplace').val("");
+
+            $('#creator-mdate').val("");
+            $('#creator-mplace').val("");
+
+            //~~~ Button Configuration ~~~
+
+            // FS Button
+            let button_plug_l = $('#create-bottom-button-plug-left');
+            button_plug_l.empty();
+            button_plug_l.append('<button type="button" class="btn btn-footer" style="float: left;" id="FS-view-from-create">View Parent on FamilySearch</button>');
+
+            var privateNodeModalFSView = $('#FS-view-from-create');
+            privateNodeModalFSView.off('click');
+
+            privateNodeModalFSView.click(function(){
+                var pid = box.getNode().getId().substring(0,8);
+                if(!pid.match(/@OPG.+/i)) {
+                    window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
+                }
+            });
+
+            // Create Button
+            let button_plug_r = $('#create-bottom-button-plug-right');
+            button_plug_r.empty();
+            button_plug_r.append('<button type="button" class="btn btn-footer" id="create-private-button">Create</button>');
+
+            var createPrivateNodeButton = $('#create-private-button');
+            createPrivateNodeButton.off('click');
+
+            createPrivateNodeButton.click(() => {
+                console.log("creator invoked");
+                var name_data = $('#creator-name').val();
+                var childMakerModal = $('#child-maker-modal');
+                if(!name_data){
+                    console.log("Attempted to make child with no name for " + box.getNode().getAttr('name'));
+                    childMakerModal.modal('hide');
+                    return;
+                }
+
+                //~~~ Generate Data ~~~
+
+                var customChildPID = "@OPG-" + (self.customNodeIndex++).toString();
+
+                var bdate_data = $('#creator-bdate').val();
+                var bplace_data = $('#creator-bplace').val();
+                var ddate_data = $('#creator-ddate').val();
+                var dplace_data = $('#creator-dplace').val();
+
+                var s_name_data = $('#creator-s-name').val();
+                var s_bdate_data = $('#creator-s-bdate').val();
+                var s_bplace_data = $('#creator-s-bplace').val();
+                var s_ddate_data = $('#creator-s-ddate').val();
+                var s_dplace_data = $('#creator-s-dplace').val();
+
+                var m_date = $('#creator-mdate').val();
+                var m_place = $('#creator-mplace').val();
+
+                //~~~ Create Nodes ~~~
+
+                var node_data = {name: name_data, birthdate: bdate_data, birthplace: bplace_data, deathdate: ddate_data, deathplace: dplace_data, marriagedate: m_date, marriageplace: m_place, displaySpouse: null, isMain: true};
+                var customNode = new BuildNode(customChildPID,node_data);
+
+                var has_spouse = s_name_data || s_bdate_data || s_bplace_data || s_ddate_data || s_dplace_data;
+
+                if(has_spouse){
+                    var spouse_data = {name: s_name_data, birthdate: s_bdate_data, birthplace: s_bplace_data, deathdate: s_ddate_data, deathplace: s_dplace_data, marriagedate: m_date, marriageplace: m_place, displaySpouse: null, isMain: false};
+                    var customSpouseNode = new BuildNode("@OPG-" + (self.customNodeIndex++).toString(),spouse_data);
+                    customNode.setDisplaySpouse(customSpouseNode);
+                    customSpouseNode.setDisplaySpouse(customNode);
+                }
+                box.getNode().getBranchIds().push(customChildPID);
+
+                var customBox = new AbstractBox(customNode);
+
+                customBox.setType(box.getType());
+
+                customBox.getRenderInstructions()
+                    .setHasPicture(false)
+                    .setSpouseHasPicture(false)
+                    .setFlavorKey(box.getRenderInstructions().getFlavorKey());
+                self.listener.getBoxes().setId(customChildPID,customBox);
+
+                self.listener.handleOption("add-custom-node",{node: customNode, box :customBox});
+                if(has_spouse) {
+                    self.listener.handleOption("add-custom-node", {node: customSpouseNode, box:null});
+                }
+
+                for(var key of box.getNode().getBranchIds()){
+                    if(key === customChildPID){
+                        console.log("Child node " + customChildPID + " confirmed to have entered node stream.");
+                    }
+                }
+
+                self.listener.refresh(self.listener.getBoxes());
+                childMakerModal.modal('hide');
+            });
+
+            $("#child-maker-modal").modal('show');
+        });
+    }
+
+    private initCreateEditor(box: IBox){
+
+        var opgModalEditPrivateNode = $('#opg-modal-edit-private');
+        opgModalEditPrivateNode.off('click');
+
+        opgModalEditPrivateNode.click(() => {
+            $("#opg-modal").modal('hide');
+            let node:INode = box.getNode();
+
+            $('#child-maker-title').text("Edit details for " + node.getAttr('name'));
+
+            //~~~ Fill in values ~~~
+
+            // Get the info from the node and put it into the chart.
+            let name_line = $('#creator-name');
+            let bdate_line = $('#creator-bdate');
+            let bplace_line = $('#creator-bplace');
+            let ddate_line = $('#creator-ddate');
+            let dplace_line = $('#creator-dplace');
+
+            name_line.val(node.getAttr('name'));
+            bdate_line.val(node.getAttr('birthdate'));
+            bplace_line.val(node.getAttr('birthplace'));
+            ddate_line.val(node.getAttr('deathdate'));
+            dplace_line.val(node.getAttr('deathplace'));
+
+            // Do the same for the spouse, if one exists...
+            let s_name:string = "";
+            let s_bd:string = "";
+            let s_bp:string = "";
+            let s_dd:string = "";
+            let s_dp:string = "";
+
+            if (node.getDisplaySpouse()) {
+                s_name = node.getDisplaySpouse().getAttr('name');
+                s_bd = node.getDisplaySpouse().getAttr('birthdate');
+                s_bp = node.getDisplaySpouse().getAttr('birthplace');
+                s_dd = node.getDisplaySpouse().getAttr('deathdate');
+                s_dp = node.getDisplaySpouse().getAttr('deathplace');
+            }
+
+            let s_name_line = $('#creator-s-name');
+            let s_bdate_line = $('#creator-s-bdate');
+            let s_bplace_line = $('#creator-s-bplace');
+            let s_ddate_line = $('#creator-s-ddate');
+            let s_dplace_line = $('#creator-s-dplace');
+
+            s_name_line.val(s_name);
+            s_bdate_line.val(s_bd);
+            s_bplace_line.val(s_bp);
+            s_ddate_line.val(s_dd);
+            s_dplace_line.val(s_dp);
+
+            // Grab the marriage data.
+            let mdate_line = $('#creator-mdate');
+            let mplace_line = $('#creator-mplace');
+
+            mdate_line.val(node.getAttr('marriagedate'));
+            mplace_line.val(node.getAttr('marriageplace'));
+
+            //~~~ Add the Buttons ~~~
+
+            let button_plug_l = $('#create-bottom-button-plug-left');
+            button_plug_l.empty();
+            button_plug_l.append('<button type="button" class="btn btn-footer" id="create-close-edits-button">Close</button>');
+            $('#create-close-edits-button').click(() => {
+                $("#child-maker-modal").modal('hide');
+            });
+
+            let button_plug_r = $('#create-bottom-button-plug-right');
+            button_plug_r.empty();
+            button_plug_r.append('<button type="button" class="btn btn-success" id="create-save-edits-button">Save</button>');
+
+            let button = $('#create-save-edits-button');
+            button.off('click');
+
+            //~~~ Configure the reset data ~~~
+            button.click(() => {
+                box.getNode()
+                    .setAttr("name", name_line.val())
+                    .setAttr("birthdate", bdate_line.val())
+                    .setAttr("birthplace", bplace_line.val())
+                    .setAttr("deathdate", ddate_line.val())
+                    .setAttr("deathplace", dplace_line.val())
+                    .setAttr("marriagedate", mdate_line.val())
+                    .setAttr("marriageplace", mplace_line.val());
+
+                let has_spouse:boolean = (s_name_line.val() != "" || s_bdate_line.val() != "" ||
+                s_bplace_line.val() != "" || s_ddate_line.val() != "" ||
+                s_dplace_line.val() != "");
+
+                if (has_spouse) {
+                    box.getNode().getDisplaySpouse()
+                        .setAttr("name", s_name_line.val())
+                        .setAttr("birthdate", s_bdate_line.val())
+                        .setAttr("birthplace", s_bplace_line.val())
+                        .setAttr("deathdate", s_ddate_line.val())
+                        .setAttr("deathplace", s_dplace_line.val())
+                        .setAttr("marriagedate", mdate_line.val())
+                        .setAttr("marriageplace", mplace_line.val());
+                }
+                else {
+                    box.getNode().setAttr('displaySpouse', null);
+                    box.setSpouseNode(null);
+                }
+
+                //This is actually correct because of lambda expression (arrow) function declaration.
+                this.listener.refresh(this.listener.getBoxes());
+
+                box.setNeedsUpdate(true);
+                StyleManager.restylize(box,box.getRenderInstructions().getFlavorKey());
+            });
+
+            $("#child-maker-modal").modal('show');
+        });
+    }
+
+    private initCreateRemover(box: IBox){
+        var opgModalRemovePrivateNode = $('#opg-modal-remove-private');
+        opgModalRemovePrivateNode.off('click');
+
+        opgModalRemovePrivateNode.click(() => {
+            $('#child-maker-modal').modal('hide');
+            this.listener.getBoxes().removeId(box.getNode().getId());
+            this.listener.handleOption("remove-custom-node",{node:box.getNode(), box:box});
+            this.listener.refresh(this.listener.getBoxes());
+        });
     }
 
     private getCountry(country:string) :string {

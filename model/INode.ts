@@ -5,6 +5,7 @@ interface INode {
     getId(): string;
     getAttr(key: string): any;
     hasAttr(key: string): boolean;
+    setAttr(name: string, value: any): INode;
     getBranchIds(): string[];
     getSpouses():any[];
     getDisplaySpouse():INode;

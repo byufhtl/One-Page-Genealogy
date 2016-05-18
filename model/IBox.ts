@@ -32,6 +32,8 @@ interface IBox {
     copyContents(original:IBox): void;
     isCollapsed(): boolean;
     setCollapsed(collapsed: boolean);
+    setNeedsUpdate(need: boolean);
+    getNeedsUpdate(): boolean;
     hitTest(pt: Point): boolean;
     clear():void;
 }
