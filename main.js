@@ -45,8 +45,11 @@ $(document).ready(function () {
 
     //$("#fsModal").show();
     //window.location = 'login';
-    $("#fsbutton").click(familySearchDownload)
-    $("#tofsbutton").click(fsHideFirstModal)
+    $("#fsbutton").click(function(){
+        $('#relative-tree-downloader').hide();
+        familySearchDownload();
+    });
+    $("#tofsbutton").click(fsHideFirstModal);
     //$("#logoutbutton").click(logout)
 
     $("#box-color-picker").spectrum({});
@@ -91,6 +94,7 @@ $(document).ready(function () {
 });
 function fsHideFirstModal() {
     $('#downloadModal').hide();
+    $('#relative-tree-downloader').hide(); // Prep it for first use with hidden PID search
     familySearchDownload();
 }
 
@@ -121,12 +125,30 @@ function familySearchDownload() {
             backdrop: 'static',
             keyboard: false
         });
+
+        $('#fsDwldClose').click(function(){
+            $('#fsModal').modal('hide');
+        });
+
         if (FamilySearch.hasAccessToken && !isExpired()) {
             $('#fsSave').html("Submit");
         } else {
             $('#fsSave').html("Login with FamilySearch");
         }
+
+
+        $('#treeRt-user').click(function(){
+            var pane = $('#relative-tree-downloader');
+            pane.hide(400);
+            $('#pid-search-input').val("");
+        });
+        $('#treeRt-other').click(function(){
+            var pane = $('#relative-tree-downloader');
+            pane.show(400);
+        });
+
         $('#fsModal').show();
+
         $('#fsSave').click(function () {
             rootPID = document.getElementById("pid-search-input").value;
             numGenerations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
@@ -215,6 +237,7 @@ function familySearchDownload() {
                 if(optionManager === null){
                     optionManager = new OptionManager();
                 }
+                optionManager.setDirection(direction);
                 c = new C({
                     rootId: rootPID,
                     generations: numGenerations,

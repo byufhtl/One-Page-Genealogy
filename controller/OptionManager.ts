@@ -24,9 +24,11 @@ class OptionManager implements IOptionManager {
 
     private customNodeIndex :number;
 
+    private direction: string;
+
     constructor() {
         var self = this;
-
+        this.direction = "Ascendancy";
         this.customSize = false;
         this.customColor = false;
         this.customNodeIndex = 1111; // Has to be at least three digits long to create a valid PID.
@@ -52,7 +54,9 @@ class OptionManager implements IOptionManager {
         $('#ruler-hide').click(function() {
             self.listener.handleOption('ruler-hide', null);
         });
+
         //~~~ Color Schemes ~~~
+
         $('#opg-to-greyscale').click(function(){
             self.handleStyleChange('to-greyscale',false);
         });
@@ -86,6 +90,9 @@ class OptionManager implements IOptionManager {
         $('#opg-to-country-color').click(function(){
             self.handleStyleChange('to-country-color', false);
         });
+
+        //~~~ Other ~~~
+
         $('#opg-show-empty').click(function(){
             if (document.getElementById('opg-show-empty').innerHTML === "Show Empty Boxes") {
                 $('#showEmptyModal').modal('show');
@@ -120,7 +127,7 @@ class OptionManager implements IOptionManager {
             var dropdown = $('#style-dropdown');
             if(direction !== dropdown.val()) {
                 style_menu.empty();
-                if (direction === "ascendancy") {
+                if (this.direction === "ascendancy") {
                     style_menu.append('<li><a id="opg-detail-style" href="#">Full Detail Style</a></li>');
                     style_menu.append('<li><a id="opg-reunion-style" href="#">Family Reunion Style</a></li>');
                     style_menu.append('<li><a id="opg-extended-style" href="#"><span class="label label-warning">new</span> Extended Style (13+ Generations)</a></li>');
@@ -194,6 +201,16 @@ class OptionManager implements IOptionManager {
 
             primary.empty();
             secondary.empty();
+
+            //~~~ Change the add button to display parent/child status
+
+            let private_add = $('#opg-modal-add-private');
+            if(this.direction === "Ascendancy"){
+                private_add.text("Add Parent");
+            }
+            else{
+                private_add.text("Add Child");
+            }
 
             //~~~ Append Private Node Editing buttons as appropriate~~~
 
@@ -417,6 +434,8 @@ class OptionManager implements IOptionManager {
             if(pid != null && pid != "" && !pid.match(/@OPG.+/i)) {
                 $("#opg-modal").modal('hide');
                 $('#pid-search-input').val(pid);
+                $('#treeRt-other').prop('selected',true);
+                $('#relative-tree-downloader').show();
                 familySearchDownload();
             }
         });
@@ -870,4 +889,7 @@ class OptionManager implements IOptionManager {
         this.rotation = r * (180/Math.PI);
     }
 
+    public setDirection(dir :string): void{
+        this.direction = dir;
+    }
 }

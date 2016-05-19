@@ -359,7 +359,7 @@
                 <hr>
                 <p>Click <a id="opg-helpModal" target="_blank" href="help.html">here</a> for the site guide/help page.</p>
                 <p>Visit our other apps at <a id="fhtlab-link" target="_blank" href="https://fhtl.byu.edu/">fhtl.byu.edu</a></p>
-                <h4 style="margin: auto"><span class="label label-warning">New Features are marked with orange tags</span></h4>
+                <h4 style="margin: auto"><span class="label label-warning">New features are marked with orange tags</span></h4>
             </div>
             <div class="modal-footer opg-blue" style="border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
                 <h6>BYU Family History Technology Lab</h6>
@@ -490,17 +490,26 @@
                 <h4 class="modal-title">FamilySearch Options</h4>
             </div>
             <div class="modal-body">
-                <h4>Enter starting person ID from FamilySearch</h4>
-                <p>This ID is in the format XXXX-XXX as found in FamilySearch</p>
-                <p>(No entry will select you as the start of the chart)</p>
-                <div class="input-group input-group-sm" style="float: left;">
-                    <input type="text" class="form-control" placeholder="XXXX-XXX" id="pid-search-input" maxlength="8" size="13">
-                    <!--<span class="input-group-btn">
-                        <button class="btn btn-default" type="button" id="vp-pid-search">Search</button>
-                    </span>-->
+                <div id="tree-root-selector-div">
+                    <label id="tree-select label">Select Download Type:</label>
+                    <div>
+                        <label><input type="radio" name="TreeRTSelect" value="user" id="treeRt-user" checked>Download my tree</label>
+                    </div>
+                    <div>
+                        <label><input type="radio" name="TreeRTSelect" value="other" id="treeRt-other">Download tree by PID</label>
+                    </div>
                 </div>
-                <label for="pid-search-input" style="padding-left: 10px"> (optional)</label>
-                <br/><br/>
+                <div id="relative-tree-downloader">
+                    <hr>
+                    <h4>Enter starting person ID from FamilySearch</h4>
+                    <p>This ID is in the format XXXX-XXX as found in FamilySearch</p>
+                    <p>(No entry will select you as the start of the chart)</p>
+                    <div class="input-group input-group-sm" id="pid-field-holder" style="float: left;">
+                        <input type="text" class="form-control" placeholder="XXXX-XXX" id="pid-search-input" maxlength="8" size="13">
+                    </div>
+                    <br/><br/>
+                </div>
+                <hr>
                 <h4>Select Number of Generations</h4>
                 <p>Note: Expect longer loading times for larger numbers of generations.</p>
                 <select id = "fsGenerationsSelect">
@@ -521,6 +530,7 @@
                         }
                     </script>
                 </select>
+                <hr>
                 <form role="form">
                     <div class="radio" >
                         <label><input type="radio" name="FSascOrDsc" value='descendancy'>Descendancy</label>
@@ -531,7 +541,14 @@
                 </form>
             </div>
             <div class="modal-footer opg-blue" style="border-bottom-right-radius: 5px; border-bottom-left-radius: 5px">
-                <button type="button" class="btn btn-footer" id="fsSave"></button>
+                <div class="container-fluid" style="padding: 0;">
+                    <div class="col-sm-6" style="float: left; padding-left: 0;">
+                        <button type="button" class="btn btn-footer" id="fsDwldClose" style="float: left;">Close</button>
+                    </div>
+                    <div class="col-sm-6" style="float: right; padding-right: 0;">
+                        <button type="button" class="btn btn-footer" id="fsSave"></button>
+                    </div>
+                </div>
 
             </div>
         </div><!-- /.modal-content -->
