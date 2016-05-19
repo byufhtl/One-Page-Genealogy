@@ -349,19 +349,17 @@
         <div class="modal-content">
             <div class="modal-header opg-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h1 class="modal-title splash-title">Welcome to</h1>
                 <h1 class="modal-title splash-title">One Page Genealogy</h1>
+                <h3 style="text-align: center">All of your genealogy on one page</h3>
             </div>
             <div class="modal-body" align="center">
-                <h3 style="text-align: center">All of your Genealogy on one page.</h3>
-                <h2><span class="label label-warning">NEW FEATURES!</span></h2>
-                <br>
-                <h4 style="text-align: center">Select Type of Download</h4>
+                <h4 style="text-align: center">Select Data Source:</h4>
                 <input id = "togedbutton" type="button" class="btn btn-primary" value="Read Gedcom File" onclick="$('#downloadModal').hide(); $('#myInput').click();" /></li>
                 <input id = "tofsbutton" type="button" class="btn btn-primary" value="FamilySearch"/>
+                <hr>
                 <p>Click <a id="opg-helpModal" target="_blank" href="help.html">here</a> for the site guide/help page.</p>
                 <p>Visit our other apps at <a id="fhtlab-link" target="_blank" href="https://fhtl.byu.edu/">fhtl.byu.edu</a></p>
-
+                <h4 style="margin: auto"><span class="label label-warning">New Features are marked with orange tags</span></h4>
             </div>
             <div class="modal-footer opg-blue" style="border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
                 <h6>BYU Family History Technology Lab</h6>
@@ -632,7 +630,7 @@
                     <div class="row">
                         <div class="col-sm-4">Name: </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="First [Middle] Last" id="creator-name" size="13" style="float: right;">
+                            <input type="text" class="form-control" placeholder="First Middle Last" id="creator-name" size="13" style="float: right;">
                         </div>
                     </div>
                     <div class="row">
@@ -660,9 +658,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label class="radio-inline"><input type="radio" name="gender-radio" value="Male" id="male-radio" checked="checked">Male</label>
-                        <label class="radio-inline"><input type="radio" name="gender-radio" value="Female" id="female-radio">Female</label>
-                        <label class="radio-inline"><input type="radio" name="gender-radio" value="Unknown" id="unknown-radio">Unknown</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="gender-radio" value="Male" id="male-radio" style="position: relative;" checked="checked">Male
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="gender-radio" value="Female" id="female-radio" style="position: relative;">Female
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="gender-radio" value="Unknown" id="unknown-radio" style="position: relative;">Unknown
+                        </label>
                     </div>
                     <hr>
                     <p>Spouse Information (leave blank if there is no spouse):</p>
@@ -697,9 +701,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label class="radio-inline"><input type="radio" name="s-gender-radio" value="Male" id="s-male-radio" disabled>Male</label>
-                        <label class="radio-inline"><input type="radio" name="s-gender-radio" value="Female" id="s-female-radio"  checked="checked" disabled>Female</label>
-                        <label class="radio-inline"><input type="radio" name="s-gender-radio" value="Unknown" id="s-unknown-radio"  checked="checked" disabled>Unknown</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="s-gender-radio" value="Male" id="s-male-radio" style="position: relative;" disabled>Male
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="s-gender-radio" value="Female" id="s-female-radio"  checked="checked" style="position: relative;" disabled>Female
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="s-gender-radio" value="Unknown" id="s-unknown-radio"  checked="checked" style="position: relative;" disabled>Unknown
+                        </label>
                     </div>
                     <hr>
                     <p>Marriage Information (leave blank if there is no marriage):</p>

@@ -54,6 +54,8 @@ class SVGManager implements IViewManager {
         var self = this;
         $("#country-legend").mouseenter(function() {self.zoomEnabled = false;});
         $("#country-legend").mouseleave(function() {self.zoomEnabled = true;});
+        $("div.modal").mouseenter(function() {self.zoomEnabled = false;});
+        $("div.modal").mouseleave(function() {self.zoomEnabled = true;});
 
         this.rulerTextContainer = document.createElementNS("http://www.w3.org/2000/svg", "g");
         this.rulerTextContainer.setAttribute('fill', '#d2a779');
