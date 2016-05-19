@@ -37,6 +37,7 @@ class AbstractBox implements IBox {
 
         this.color = "#FFFFFF";
         this.textColor = "#000000";
+        this.needsUpdate = false;
     }
     setColor(c:string){ // You could refactor to get rid of these functions and just manipulate them through the RIS. You'd have to change all of the color spacers though.
         this.color = c;
@@ -115,6 +116,7 @@ class AbstractBox implements IBox {
         b.setX(this.getX());
         b.setY(this.getY());
         b.setCollapsed(this.isCollapsed());
+        b.setNeedsUpdate(this.needsUpdate);
         b.setRenderInstructions(this.ris);
 
         return b;
@@ -129,6 +131,7 @@ class AbstractBox implements IBox {
         b.setX(this.getX());
         b.setY(this.getY());
         b.setCollapsed(this.isCollapsed());
+        b.setNeedsUpdate(this.needsUpdate);
         b.setRenderInstructions(this.ris);
     }
     setCollapsed(collapsed: boolean) {

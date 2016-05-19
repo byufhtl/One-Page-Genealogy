@@ -34,7 +34,7 @@ class ElementManager implements IElementManager {
             return;
         }
 
-        if(this.needsMake(box)) {
+        if(this.needsMake(box)) { // If the ID doesn't have an entry in the elementMap yet.
             this.make(box);
         }
         else {
@@ -75,6 +75,10 @@ class ElementManager implements IElementManager {
             return true;
         }
         if(box.getNeedsUpdate()){
+            box.setNeedsUpdate(false);
+            return true;
+        }
+        if(box.getNode().getAttr('name') !== lastBox.getNode().getAttr('name')){
             return true;
         }
         if(box.getType() !== lastBox.getType()) {

@@ -15,4 +15,5 @@ interface ITree {
     getTreeMap(): {};
     addCustomNode(node: INode, box: IBox): void;
     removeCustomNode(node: INode, box: IBox): void;
+    updateCustomNode(node: INode, box: IBox): void;
 }

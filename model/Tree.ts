@@ -112,4 +112,9 @@ class Tree implements ITree {
         console.log("Node " + node.getId() + " (" + node.getAttr('name') + ") deleted and removed...");
         this.treeListener.handleUpdate(this,this.updates);
     }
+
+    updateCustomNode(node: INode, box: IBox){
+        this.updates.push(new Command('update-node', node));
+        this.treeListener.handleUpdate(this,this.updates);
+    }
 }

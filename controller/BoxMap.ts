@@ -97,6 +97,13 @@ class BoxMap {
     }
     removeId(id: string) {
         delete this.map[id];
+        for(var key in this.map){
+            var branchIds = this.map[key].getNode().getBranchIds();
+            var index = branchIds.indexOf(id);
+            if(index != -1){
+                branchIds.splice(index,1);
+            }
+        }
     }
     copy(): BoxMap {
         var newMap: BoxMap = new BoxMap(this.rootId);

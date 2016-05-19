@@ -444,8 +444,10 @@ class P implements IControllerListener, ITreeListener {
 
     handleUpdate(tree:ITree, updates:ICommand[]):void {
         this.tree = tree;
-        for (var i = 0; i < updates.length; i++) {
-            var command:ICommand = updates[i];
+        //for (var i = 0; i < updates.length; i++) {
+            //var command:ICommand = updates[i];
+        while(updates.length !== 0){
+            var command: ICommand = updates.shift();
             if (command.getType() === "add-node") {
                 var node:INode = command.getValue();
 
@@ -464,6 +466,9 @@ class P implements IControllerListener, ITreeListener {
                     this.firstBoxMap.removeId(node.getId());
                     this.secondBoxMap.removeId(node.getId());
                 }
+            }
+            else if(command.getType() === "update-node"){
+                // Really I'm just doing this to kick the pipeline.
             }
             else{
                 console.log("Error: Unknown Command");
@@ -541,7 +546,7 @@ class P implements IControllerListener, ITreeListener {
         }
 
         this.stylingPipeline.setChartStyleSpacer(style);
-        this.stylingPipeline.clearChartStyle();
+        this.stylingPipeline.clearCustomChartStyle();
         this.stylingPipeline.resetYSpacer();
         return true;
     }

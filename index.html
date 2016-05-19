@@ -628,55 +628,60 @@
                 <h4 class="modal-title" id="child-maker-title">Create Child</h4>
             </div>
             <div class="modal-body">
-                <div class="container-fluid">
+                <div class="container-fluid" id="creator-form" style="max-height: 400px; overflow: auto;">
                     <div class="row">
                         <div class="col-sm-4">Name: </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="Adam Mann I" id="creator-name" size="13" style="float: right;">
+                            <input type="text" class="form-control" placeholder="First [Middle] Last" id="creator-name" size="13" style="float: right;">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">Birth Date: </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="4000 B.C." id="creator-bdate" size="13" style="float: right;">
+                            <input type="text" class="form-control" placeholder="1 January 2016" id="creator-bdate" size="13" style="float: right;">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">Birth Place: </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="Garden of Eden, Earth" id="creator-bplace" size="13">
+                            <input type="text" class="form-control" placeholder="City County State Country" id="creator-bplace" size="13">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">Death Date: </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="3070 B.C." id="creator-ddate" size="13">
+                            <input type="text" class="form-control" placeholder="" id="creator-ddate" size="13">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">Death Place: </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="East of Eden, Earth" id="creator-dplace" size="13">
+                            <input type="text" class="form-control" placeholder="" id="creator-dplace" size="13">
                         </div>
+                    </div>
+                    <div class="row">
+                        <label class="radio-inline"><input type="radio" name="gender-radio" value="Male" id="male-radio" checked="checked">Male</label>
+                        <label class="radio-inline"><input type="radio" name="gender-radio" value="Female" id="female-radio">Female</label>
+                        <label class="radio-inline"><input type="radio" name="gender-radio" value="Unknown" id="unknown-radio">Unknown</label>
                     </div>
                     <hr>
                     <p>Spouse Information (leave blank if there is no spouse):</p>
                     <div class="row">
                         <div class="col-sm-4">Spouse Name: </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="Eve Mann" id="creator-s-name" size="13" style="float: right;">
+                            <input type="text" class="form-control" placeholder="" id="creator-s-name" size="13" style="float: right;">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">Birth Date: </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="4000 B.C." id="creator-s-bdate" size="13" style="float: right;">
+                            <input type="text" class="form-control" placeholder="" id="creator-s-bdate" size="13" style="float: right;">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">Birth Place: </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="Garden of Eden, Earth" id="creator-s-bplace" size="13">
+                            <input type="text" class="form-control" placeholder="" id="creator-s-bplace" size="13">
                         </div>
                     </div>
                     <div class="row">
@@ -688,21 +693,26 @@
                     <div class="row">
                         <div class="col-sm-4">Death Place: </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="East of Eden, Earth" id="creator-s-dplace" size="13">
+                            <input type="text" class="form-control" placeholder="" id="creator-s-dplace" size="13">
                         </div>
+                    </div>
+                    <div class="row">
+                        <label class="radio-inline"><input type="radio" name="s-gender-radio" value="Male" id="s-male-radio" disabled>Male</label>
+                        <label class="radio-inline"><input type="radio" name="s-gender-radio" value="Female" id="s-female-radio"  checked="checked" disabled>Female</label>
+                        <label class="radio-inline"><input type="radio" name="s-gender-radio" value="Unknown" id="s-unknown-radio"  checked="checked" disabled>Unknown</label>
                     </div>
                     <hr>
                     <p>Marriage Information (leave blank if there is no marriage):</p>
                     <div class="row">
                         <div class="col-sm-4">Marriage Date: </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="4000 B.C." id="creator-mdate" size="13">
+                            <input type="text" class="form-control" placeholder="" id="creator-mdate" size="13">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">Marriage Place: </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="Garden of Eden, Earth" id="creator-mplace" size="13">
+                            <input type="text" class="form-control" placeholder="" id="creator-mplace" size="13">
                         </div>
                     </div>
                 </div>

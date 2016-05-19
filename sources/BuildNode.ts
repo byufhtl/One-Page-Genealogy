@@ -4,12 +4,16 @@
 
 /**
  * Created by curtis on 3/16/15.
+ * Last Updated by calvinmcm on 5/18/2016.
  */
 class BuildNode implements INode {
+
+    private branchIds: string[];
 
     constructor(private id: string, private data: any) {
         this.data = data;
         this.id = id;
+        this.branchIds = [];
     }
     getId(): string {
         return this.id;
@@ -39,7 +43,7 @@ class BuildNode implements INode {
         return false;
     }
     getBranchIds(): string[] {
-        return [];
+        return this.branchIds;
     }
     getSpouses(): any[] {
         return [];
@@ -56,8 +60,8 @@ class BuildNode implements INode {
     setMarriageDate(d:string){
         //this.marriagedate = d;
     }
-    setBranchIds(is:string[]){
-        //do nothing for now.
+    setBranchIds(ids:string[]){
+        this.branchIds = ids;
     }
     getPerson(){
         //??

@@ -18,7 +18,6 @@ class SVGManager implements IViewManager {
     private svgLoading;
     private svgPercent;
     private rect;
-    private renders:{[s:string]:IBoxRender;};
     private boundingRect;
     private graphicObject: SVGGraphicObject;
     private ruler;

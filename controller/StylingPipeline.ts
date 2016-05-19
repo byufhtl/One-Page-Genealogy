@@ -136,7 +136,7 @@ class StylingPipeline implements IPipeline {
 
     public runPipeline(boxes:BoxMap):void {
         // Apply Chart Spacing Styles
-        console.log("Pipeline run");
+
         var map = boxes.getMap();
         for(var key in map){
             map[key].setCollapsed(false);
@@ -153,7 +153,7 @@ class StylingPipeline implements IPipeline {
         this.ySpacer.applyStyle(boxes);
 
         // Apply Additional Styles
-        for (var spacer in this.addedSpacers) {
+        for (var spacer of this.addedSpacers) {
             spacer.applyStyle(boxes);
         }
     }
@@ -199,7 +199,7 @@ class StylingPipeline implements IPipeline {
         this.resetAll = false;
     }
 
-    clearChartStyle(){
+    clearCustomChartStyle(){
         this.customChartStyleSpacer.clear();
     }
 

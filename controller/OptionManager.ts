@@ -204,7 +204,9 @@ class OptionManager implements IOptionManager {
 
             if(box.getNode().getId().match(/@OPG.+/i)){
                 private_edit.append('<button type="button" class="btn btn-footer" id="opg-modal-edit-private" style="float: left;">Edit Node</button>');
-                private_remove.append('<button type="button" class="btn btn-footer" id="opg-modal-remove-private" style="float: left;">Remove Node</button>');
+                if(box.getNode().getBranchIds().length === 0) {
+                    private_remove.append('<button type="button" class="btn btn-footer" id="opg-modal-remove-private" style="float: left;">Remove Node</button>');
+                }
             }
 
             //~~~ Append the place for names and information ~~~
@@ -486,7 +488,35 @@ class OptionManager implements IOptionManager {
             $('#creator-mdate').val("");
             $('#creator-mplace').val("");
 
+
             //~~~ Button Configuration ~~~
+
+            // Radio Button Exclusion Setup
+            let male_button = $('#male-radio');
+            male_button.off('click');
+            male_button.prop("checked",true); // set male default
+            $('#s-female-radio').prop("checked",true); // set female default
+            male_button.click(() => {
+                //male_button.prop("checked",true);
+                $('#s-female-radio').prop("checked",true);
+                //female_button.prop("checked",false);
+            });
+
+            let female_button = $('#female-radio');
+            female_button.off('click');
+            female_button.click(() => {
+                //female_button.prop("checked",true);
+                $('#s-male-radio').prop("checked",true);
+                //male_button.prop("checked",false);
+            });
+
+            let unknown_button = $('#unknown-radio');
+            unknown_button.off('click');
+            unknown_button.click(() => {
+                //unknown_button.prop("checked",true);
+                $('#s-unknown-radio').prop("checked",true);
+                //male_button.prop("checked",false);
+            });
 
             // FS Button
             let button_plug_l = $('#create-bottom-button-plug-left');
@@ -512,7 +542,6 @@ class OptionManager implements IOptionManager {
             createPrivateNodeButton.off('click');
 
             createPrivateNodeButton.click(() => {
-                console.log("creator invoked");
                 var name_data = $('#creator-name').val();
                 var childMakerModal = $('#child-maker-modal');
                 if(!name_data){
@@ -529,25 +558,33 @@ class OptionManager implements IOptionManager {
                 var bplace_data = $('#creator-bplace').val();
                 var ddate_data = $('#creator-ddate').val();
                 var dplace_data = $('#creator-dplace').val();
+                var gender_data = $('input[name=gender-radio]:checked').val();
 
                 var s_name_data = $('#creator-s-name').val();
                 var s_bdate_data = $('#creator-s-bdate').val();
                 var s_bplace_data = $('#creator-s-bplace').val();
                 var s_ddate_data = $('#creator-s-ddate').val();
                 var s_dplace_data = $('#creator-s-dplace').val();
+                var s_gender_data = $('input[name=s-gender-radio]:checked').val();
 
                 var m_date = $('#creator-mdate').val();
                 var m_place = $('#creator-mplace').val();
 
                 //~~~ Create Nodes ~~~
 
-                var node_data = {name: name_data, birthdate: bdate_data, birthplace: bplace_data, deathdate: ddate_data, deathplace: dplace_data, marriagedate: m_date, marriageplace: m_place, displaySpouse: null, isMain: true};
+                var node_data = {name: name_data, birthdate: bdate_data, birthplace: bplace_data, deathdate: ddate_data,
+                                deathplace: dplace_data, marriagedate: m_date, marriageplace: m_place,
+                                displaySpouse: null, gender:gender_data, isMain: true};
+
                 var customNode = new BuildNode(customChildPID,node_data);
 
                 var has_spouse = s_name_data || s_bdate_data || s_bplace_data || s_ddate_data || s_dplace_data;
 
                 if(has_spouse){
-                    var spouse_data = {name: s_name_data, birthdate: s_bdate_data, birthplace: s_bplace_data, deathdate: s_ddate_data, deathplace: s_dplace_data, marriagedate: m_date, marriageplace: m_place, displaySpouse: null, isMain: false};
+                    var spouse_data = {name: s_name_data, birthdate: s_bdate_data, birthplace: s_bplace_data,
+                                        deathdate: s_ddate_data, deathplace: s_dplace_data, marriagedate: m_date,
+                                        marriageplace: m_place, displaySpouse: null, gender:s_gender_data, isMain: false};
+
                     var customSpouseNode = new BuildNode("@OPG-" + (self.customNodeIndex++).toString(),spouse_data);
                     customNode.setDisplaySpouse(customSpouseNode);
                     customSpouseNode.setDisplaySpouse(customNode);
@@ -567,12 +604,6 @@ class OptionManager implements IOptionManager {
                 self.listener.handleOption("add-custom-node",{node: customNode, box :customBox});
                 if(has_spouse) {
                     self.listener.handleOption("add-custom-node", {node: customSpouseNode, box:null});
-                }
-
-                for(var key of box.getNode().getBranchIds()){
-                    if(key === customChildPID){
-                        console.log("Child node " + customChildPID + " confirmed to have entered node stream.");
-                    }
                 }
 
                 self.listener.refresh(self.listener.getBoxes());
@@ -661,18 +692,28 @@ class OptionManager implements IOptionManager {
 
             //~~~ Configure the reset data ~~~
             button.click(() => {
+
+                // Grab the updated gender information.
+                let gender_data = $('input[name=gender-radio]:checked');
+                let s_gender_data = $('input[name=s-gender-radio]:checked');
+
+                //~~~ Grab the new data fields ~~~
+
                 box.getNode()
                     .setAttr("name", name_line.val())
                     .setAttr("birthdate", bdate_line.val())
                     .setAttr("birthplace", bplace_line.val())
                     .setAttr("deathdate", ddate_line.val())
                     .setAttr("deathplace", dplace_line.val())
+                    .setAttr("gender", gender_data.val())
                     .setAttr("marriagedate", mdate_line.val())
                     .setAttr("marriageplace", mplace_line.val());
 
                 let has_spouse:boolean = (s_name_line.val() != "" || s_bdate_line.val() != "" ||
                 s_bplace_line.val() != "" || s_ddate_line.val() != "" ||
                 s_dplace_line.val() != "");
+
+                //~~~ Grab the spouse's new data or nullify the spouse.
 
                 if (has_spouse) {
                     box.getNode().getDisplaySpouse()
@@ -681,6 +722,7 @@ class OptionManager implements IOptionManager {
                         .setAttr("birthplace", s_bplace_line.val())
                         .setAttr("deathdate", s_ddate_line.val())
                         .setAttr("deathplace", s_dplace_line.val())
+                        .setAttr("gender", s_gender_data.val())
                         .setAttr("marriagedate", mdate_line.val())
                         .setAttr("marriageplace", mplace_line.val());
                 }
@@ -689,11 +731,22 @@ class OptionManager implements IOptionManager {
                     box.setSpouseNode(null);
                 }
 
-                //This is actually correct because of lambda expression (arrow) function declaration.
-                this.listener.refresh(this.listener.getBoxes());
 
                 box.setNeedsUpdate(true);
-                StyleManager.restylize(box,box.getRenderInstructions().getFlavorKey());
+                //StyleManager.restylize(box,box.getRenderInstructions().getFlavorKey());
+
+                //~~~ Run the Styling Pipeline ~~~
+                //This is actually correct because of lambda expression (arrow) function declaration.
+                this.listener.handleOption("update-custom-node",{node: box.getNode(), box :box});
+                if(has_spouse) {
+                    this.listener.handleOption("update-custom-node", {node: box.getNode().getDisplaySpouse(), box:null});
+                }
+
+                //~~~ Refresh to redraw everything ~~~
+
+                this.listener.refresh(this.listener.getBoxes());
+
+                $("#child-maker-modal").modal('hide');
             });
 
             $("#child-maker-modal").modal('show');
