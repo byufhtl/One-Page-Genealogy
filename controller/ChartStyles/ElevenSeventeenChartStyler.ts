@@ -36,7 +36,7 @@ class ElevenSeventeenChartStyler extends AbstractChartStyle{
                 }
 
 
-                if(generation === 6 && !box.isCollapsed()){//>4) {
+                if(generation === 7 && !box.isCollapsed()){//>4) {
                     box.setCollapsed(true);
                     this.collapseArray.push(node.getId());
                 }
@@ -63,20 +63,20 @@ class ElevenSeventeenChartStyler extends AbstractChartStyle{
             case 0:
                 branchBox.setX(0);
                 branchBox.setType(StyleManager.MEDIUM);
-                StyleManager.stylize(branchBox, MediumBoxStyle.SINGLE_WIDE);
+                StyleManager.stylize(branchBox, MediumBoxStyle.SINGLE_LONG);
                 break;
             case 1:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth());
-                branchBox.setType(StyleManager.MEDIUM);
-                StyleManager.stylize(branchBox, MediumBoxStyle.SINGLE_WIDE);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth()/8);
+                branchBox.setType(StyleManager.SMALL);
+                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
                 break;
             case 2:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth()/4 + 25);
                 branchBox.setType(StyleManager.SMALL);
                 StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG);
                 break;
             case 3:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth()/3 + 20);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth()/4 + 20);
                 branchBox.setType(StyleManager.MINI);
                 StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
                 break;
@@ -86,14 +86,19 @@ class ElevenSeventeenChartStyler extends AbstractChartStyle{
                 StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
                 break;
             case 5:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth()/3 + 20);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth()/5 + 20);
                 branchBox.setType(StyleManager.MINI);
                 StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
                 break;
             case 6:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
-                branchBox.setType(StyleManager.MINI);
-                StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setType(StyleManager.TINY);
+                StyleManager.stylize(branchBox, TinyBoxStyle.SINGLE_FAT);
+                break;
+            case 7:
+                branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);
+                branchBox.setType(StyleManager.TINY);
+                StyleManager.stylize(branchBox, TinyBoxStyle.SINGLE);
                 break;
             default:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);

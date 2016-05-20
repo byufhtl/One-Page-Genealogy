@@ -69,7 +69,7 @@ function inputChanged(data) {
             generations: numGenerations,
             dscOrAsc: direction,
             optionManager: optionManager,
-            pipeline: stylingPipeline,
+            pipeline: stylingPipeline
         });
         $("#uploadFile").val(null);
     }

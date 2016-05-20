@@ -14,8 +14,36 @@ class UploadNode implements INode {
     private urlPromise;
     private doneLoadingDefer;
     private marriagedate:string;
-    constructor(private id: string, private person, private branchIds: string[],private spouses: any[],
-                private displaySpouse: FSDescNode, private isMain:boolean) {
+    private id:string;
+    private person;
+    private branchIds: string[];
+    private spouses: any[];
+    private displaySpouse: INode;
+    private isMain: boolean;
+
+    // Whereas the information in the person objects is primitive (and therby immutable), mutable versions are needed.
+    private mutableName: string;
+    private mutableGender: string;
+    private mutableBirthdate: string;
+    private mutableBirthplace: string;
+    private mutableDeathdate: string;
+    private mutableDeathplace: string;
+
+    constructor(id: string, person, branchIds: string[], spouses: any[], displaySpouse: INode, isMain:boolean) {
+        this.id = id;
+        this.person = person;
+        this.branchIds = branchIds;
+        this.spouses = spouses;
+        this.displaySpouse = displaySpouse;
+        this.isMain = isMain;
+
+        this.mutableName = person.display.name;
+        this.mutableGender = person.display.gender;
+        this.mutableBirthdate = person.display.birthdate;
+        this.mutableBirthplace = person.display.birthplace;
+        this.mutableDeathdate = person.display.deathdate;
+        this.mutableDeathplace = person.display.deathplace;
+
         this.urlPromise = null;
         this.doneLoadingDefer = $.Deferred();
         this.marriagedate = "";
@@ -30,7 +58,29 @@ class UploadNode implements INode {
         return this.getAndHasAttribute(false, key);
     }
     setAttr(name: string, value: any): INode {
-        // This feature does not exist on this type of node for now.
+        switch(name){
+            case 'name':
+                this.mutableName = value;
+                break;
+            case 'gender':
+                this.mutableGender = value;
+                break;
+            case 'birthdate':
+                this.mutableBirthdate = value;
+                break;
+            case 'birthplace':
+                this.mutableBirthplace = value;
+                break;
+            case 'deathdate':
+                this.mutableDeathdate = value;
+                break;
+            case 'deathplace':
+                this.mutableDeathplace = value;
+                break;
+            case 'marriagedate':
+                this.marriagedate = value;
+                break;
+        }
         return this;
     }
     private getAndHasAttribute(get, attr) {
@@ -39,18 +89,18 @@ class UploadNode implements INode {
         if(this.person) {
             switch (attr) {
                 case "surname":
-                    var names = this.person.display.name.split(' ');
+                    var names = this.mutableName.split(' ');
                     val = names[names.length -1];
                     break;
                 case "givenname":
-                    var names = this.person.display.name.split(' ');
+                    var names = this.mutableName.split(' ');
                     val = names[0];
                     break;
                 case "name":
-                    val = this.person.display.name;
+                    val = this.mutableName;
                     break;
                 case "gender":
-                    val = this.person.display.gender;
+                    val = this.mutableGender;
                     break;
                 case "living":
                     val = this.person.living;
@@ -59,16 +109,16 @@ class UploadNode implements INode {
                     val = this.person.display.lifespan;
                     break;
                 case "birthdate":
-                    val = this.person.display.birthDate;
+                    val = this.mutableBirthdate;
                     break;
                 case "birthplace":
-                    val = this.person.display.birthPlace;
+                    val = this.mutableBirthplace;
                     break;
                 case "deathdate":
-                    val = this.person.display.deathDate;
+                    val = this.mutableDeathdate;
                     break;
                 case "deathplace":
-                    val = this.person.display.deathPlace;
+                    val = this.mutableDeathplace;
                     break;
                 case "marriagedate":
                     val = this.marriagedate;
@@ -121,8 +171,11 @@ class UploadNode implements INode {
     getSpouses(): any[] {
         return this.spouses;
     }
-    getDisplaySpouse(): FSDescNode {
+    getDisplaySpouse(): INode {
         return this.displaySpouse;
+    }
+    setDisplaySpouse(node: INode){
+        this.displaySpouse = node;
     }
     isMainPerson(): boolean{
         return this.isMain;

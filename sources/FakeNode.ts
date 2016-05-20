@@ -43,6 +43,10 @@ class FakeNode implements INode {
         return null;
     }
 
+    setDisplaySpouse(node: INode){
+        // Does nothing
+    }
+
     isMainPerson(): boolean{
         return true;
     }

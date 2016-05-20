@@ -12,6 +12,7 @@
 ///<reference path="TranslateSpacer.ts"/>
 ///<reference path="RotateSpacer.ts"/>
 ///<reference path="GenerationSpacer2.ts"/>
+///<reference path="PrivatePersonUtils.ts"/>
 ///<reference path="ChartSpacers/CustomSpacer.ts"/>
 
 ///<reference path="ChartStyles/FamilyReunionChartStyler.ts"/>
@@ -188,11 +189,13 @@ class P implements IControllerListener, ITreeListener {
         for(var id in boxes.getMap()){
             if(boxes.getMap().hasOwnProperty(id)){
                 var person = boxes.getMap()[id].getNode().getPerson();
-                delete person.facts;
-                delete person.gender;
-                delete person.identifiers;
-                delete person.links;
-                delete person.names;
+                if(person) {
+                    delete person.facts;
+                    delete person.gender;
+                    delete person.identifiers;
+                    delete person.links;
+                    delete person.names;
+                }
             }
         }
         return boxes;
@@ -276,9 +279,9 @@ class P implements IControllerListener, ITreeListener {
 
         var countID = 0;
         //Use Child Map for each person to determine empty boxes
-        for (var box in this.firstBoxMap.getMap()) {
+        for (var boxId in this.firstBoxMap.getMap()) {
             var list = [];
-            var currentPID = box;
+            var currentPID = boxId;
             list.push(currentPID);
             while (childMap[currentPID] != null) {
                 list.push(childMap[currentPID]);
@@ -288,27 +291,29 @@ class P implements IControllerListener, ITreeListener {
             //If it needs empty Boxes and is allowed empty boxes, then add them
             if (list.length > 1 &&
                 list.length < numGenerations &&
-                this.firstBoxMap.getId(box).getNode().getBranchIds().length === 0) {
+                this.firstBoxMap.getId(boxId).getNode().getBranchIds().length === 0) {
 
-                countID = this.addBlanks(recurse, box, countID, numGenerations, list.length);
-                //countID += 2;
+                countID = this.addBlanks(recurse, boxId, countID, numGenerations, list.length);
             }
         }
-        //console.log(this.tree.getTreeMap());
     }
 
-    private addBlanks(recurse:boolean, box:string, countID:number, numGen:number, listLen:number):number {
+    private addBlanks(recurse:boolean, boxId:string, countID:number, numGen:number, listLen:number):number {
         //Create two new empty nodes and add them to the maps:
-        var node0:FSDescNode = new FSDescNode(String(countID), null, [], [], null, true);
-        var node1:FSDescNode = new FSDescNode(String(countID + 1), null, [], [], null, true);
+        var node0:INode = new BuildNode(PrivatePersonUtils.generateCustomKey(countID, "FAKE"),
+            {name:" ", gender:"Unknown", birthdate:"", birthplace:"", deathdate:"", deathplace:"", marriagedate:"",
+            marriageplace:"", displaySpouse: null, isMain: true});
+        var node1:INode = new BuildNode(PrivatePersonUtils.generateCustomKey(countID + 1, "FAKE"),
+            {name:" ", gender:"Unknown", birthdate:"", birthplace:"", deathdate:"", deathplace:"", marriagedate:"",
+            marriageplace:"", displaySpouse: null, isMain: true});
         this.firstBoxMap.setId(node0.getId(), new AbstractBox(node0));
         this.secondBoxMap.setId(node0.getId(), new AbstractBox(node0));
         this.firstBoxMap.setId(node1.getId(), new AbstractBox(node1));
         this.secondBoxMap.setId(node1.getId(), new AbstractBox(node1));
 
         //connect the empty nodes in the correct place:
-        //console.log(box + ": (" + String(countID) + "," + String(countID + 1) + ")");
-        this.firstBoxMap.getId(box).getNode().setBranchIds([String(countID), String(countID + 1)]);
+        //console.log(boxId + ": (" + String(countID) + "," + String(countID + 1) + ")");
+        this.firstBoxMap.getId(boxId).getNode().setBranchIds([node0.getId(), node1.getId()]);
 
         listLen++;
         var newCount = -1;
@@ -316,8 +321,8 @@ class P implements IControllerListener, ITreeListener {
         //This if-statement makes it recursive - adding empty boxes to fill the chart.
         //Without this if-statement, it will just add the first empty boxes.
         if (recurse && listLen < numGen) {
-            newCount = this.addBlanks(recurse, String(countID), countID + 2, numGen, listLen);
-            newCount = this.addBlanks(recurse, String(countID + 1), newCount, numGen, listLen);
+            newCount = this.addBlanks(recurse, node0.getId(), countID + 2, numGen, listLen);
+            newCount = this.addBlanks(recurse, node1.getId(), newCount, numGen, listLen);
         }
 
         if (newCount === -1) {
@@ -327,7 +332,6 @@ class P implements IControllerListener, ITreeListener {
     }
 
     private vpView(paramId:string):any {
-        //console.log(this.tree.getTreeMap());
         var childMap:{[key: string]: string} = {};
         var treeMap = this.tree.getTreeMap();
         for (var key in treeMap) {
@@ -556,7 +560,7 @@ class P implements IControllerListener, ITreeListener {
      * spacer. Fails and returns false if the supplied type does not match a style spacer.
      *
      * @param type A key word that may map to a particular style spacer.
-     *
+     * @param value What the color style is being changed to (Color-by-Country only).
      * @returns {boolean} whether or not the style spacing was edited as a result of the function.
      */
     private changeColorStyle(type:string, value:{} ):boolean {

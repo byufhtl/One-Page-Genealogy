@@ -5,6 +5,7 @@
 ///<reference path="../js/jsDeclarations.ts"/>
 ///<reference path="../view/boxRenderers/Renderer.ts"/>
 ///<reference path="../sources/BuildNode.ts"/>
+///<reference path="PrivatePersonUtils.ts"/>
 
 /**
  * Created by curtis on 3/19/15.
@@ -28,7 +29,7 @@ class OptionManager implements IOptionManager {
 
     constructor() {
         var self = this;
-        this.direction = "Ascendancy";
+        this.direction = "ascendancy";
         this.customSize = false;
         this.customColor = false;
         this.customNodeIndex = 1111; // Has to be at least three digits long to create a valid PID.
@@ -93,25 +94,49 @@ class OptionManager implements IOptionManager {
 
         //~~~ Other ~~~
 
-        $('#opg-show-empty').click(function(){
-            if (document.getElementById('opg-show-empty').innerHTML === "Show Empty Boxes") {
-                $('#showEmptyModal').modal('show');
-            }else{
-                self.listener.handleOption('hide-empty', null);
-            }
+        $('#male-radio').click(() => {
+            //male_button.prop("checked",true);
+            $('#s-female-radio').prop("checked",true);
+            //female_button.prop("checked",false);
         });
-        $('#modal-show-empty').click(function(){
+        $('#female-radio').click(() => {
+            //female_button.prop("checked",true);
+            $('#s-male-radio').prop("checked",true);
+            //male_button.prop("checked",false);
+        });
+        $('#unknown-radio').click(() => {
+            //unknown_button.prop("checked",true);
+            $('#s-unknown-radio').prop("checked",true);
+            //male_button.prop("checked",false);
+        });
+
+        $('#modal-show-empty').click(() => {
             $('#showEmptyModal').modal('hide');
             self.listener.handleOption('show-empty', {recurse: true});
         });
-        $('#modal-show-fruit').click(function(){
+        $('#modal-show-fruit').click(() => {
             $('#showEmptyModal').modal('hide');
             self.listener.handleOption('show-empty', {recurse: false});
         });
-        $('#opg-show-duplicates').click(function(){
+
+        $('#opg-show-empty').click(() => {
+            if (document.getElementById('opg-show-empty').innerHTML === "Show Empty Boxes") {
+                if(this.direction == "ascendancy"){
+                    $('#showEmptyModal').modal('show');
+                }
+                else{
+                    $('#modal-show-fruit').click();
+                }
+                //$('#showEmptyModal').modal('show');
+            }
+            else{
+                self.listener.handleOption('hide-empty', null);
+            }
+        });
+        $('#opg-show-duplicates').click(() => {
             self.listener.handleOption('show-duplicates', null);
         });
-        $('#opg-edit-spacing').click(function(){
+        $('#opg-edit-spacing').click(() => {
             if (document.getElementById("opg-edit-spacing").innerHTML === "Edit Spacing") {
                 self.listener.handleOption('edit-spacing', null);
             }else{
@@ -121,13 +146,13 @@ class OptionManager implements IOptionManager {
         $('#edit-spacing-switch').on('switchChange.bootstrapSwitch', function(event, state) {
             self.listener.handleOption('edit-spacing-switch-changed', {state: state});
         });
-        $('#style-dropdown').click(function(){
+        $('#style-dropdown').click(() => {
             var style_menu = $('#style-menu');
             var direction = $('input[name=FSascOrDsc]:checked').val();
             var dropdown = $('#style-dropdown');
             if(direction !== dropdown.val()) {
                 style_menu.empty();
-                if (this.direction === "ascendancy") {
+                if (this.direction == "ascendancy") {
                     style_menu.append('<li><a id="opg-detail-style" href="#">Full Detail Style</a></li>');
                     style_menu.append('<li><a id="opg-reunion-style" href="#">Family Reunion Style</a></li>');
                     style_menu.append('<li><a id="opg-extended-style" href="#"><span class="label label-warning">new</span> Extended Style (13+ Generations)</a></li>');
@@ -170,7 +195,7 @@ class OptionManager implements IOptionManager {
                         self.handleStyleChange('extended-style');
                     });
                 }
-                else {
+                else if (this.direction == "descendancy"){
                     style_menu.append('<li><a id="opg-js-public-style" href="#">Vertical Descendancy Style</a></li>');
                     style_menu.append('<li><a id="opg-js-reunion-public-style" href="#">Family Reunion Descendancy Style</a></li>');
                     style_menu.append('<li><span class="label label-warning">new</span><a id="opg-js-var-depth-style" href="#">Variable Depth Descendancy Style (13+ Generations)</a></li>');
@@ -184,6 +209,9 @@ class OptionManager implements IOptionManager {
                     $('#opg-js-var-depth-style').click(function(){
                         self.handleStyleChange('js-var-depth-style');
                     });
+                }
+                else{
+                    console.log("Bad Direction: [" + this.direction+"]!");
                 }
                 dropdown.val(direction);
             }
@@ -205,7 +233,7 @@ class OptionManager implements IOptionManager {
             //~~~ Change the add button to display parent/child status
 
             let private_add = $('#opg-modal-add-private');
-            if(this.direction === "Ascendancy"){
+            if(this.direction === "ascendancy"){
                 private_add.text("Add Parent");
             }
             else{
@@ -454,15 +482,8 @@ class OptionManager implements IOptionManager {
             }
         });
 
-        this.initCreateCreator(box);
-
-
-        // The editor pane for private nodes
-        if(box.getNode().getId().match(/@OPG.+/i)) {
-            this.initCreateEditor(box);
-
-            this.initCreateRemover(box);
-        }
+        // Inits the buttons on the detail modal relative to private persons.
+        PrivatePersonUtils.initDetailModalButtons(box,this.listener);
 
         if(box.isCollapsed()) {
             opgModalCollapse.html('Expand');
@@ -478,310 +499,6 @@ class OptionManager implements IOptionManager {
                 self.listener.handleOption("collapse-sub-tree", {id: box.getNode().getId(), box: box})
             });
         }
-    }
-
-    private initCreateCreator(box: IBox){
-        // Sets up the creator pane
-        let self = this;
-        var opgModalCreatePrivateNode = $('#opg-modal-add-private');
-        opgModalCreatePrivateNode.off('click');
-
-        opgModalCreatePrivateNode.click(() => {
-            $("#opg-modal").modal('hide');
-            $('#child-maker-title').text("Create Child for " + box.getNode().getAttr('name'));
-
-            //~~~ Clear Old Values ~~~
-
-            $('#creator-name').val("");
-            $('#creator-bdate').val("");
-            $('#creator-bplace').val("");
-            $('#creator-ddate').val("");
-            $('#creator-dplace').val("");
-
-            $('#creator-s-name').val("");
-            $('#creator-s-bdate').val("");
-            $('#creator-s-bplace').val("");
-            $('#creator-s-ddate').val("");
-            $('#creator-s-dplace').val("");
-
-            $('#creator-mdate').val("");
-            $('#creator-mplace').val("");
-
-
-            //~~~ Button Configuration ~~~
-
-            // Radio Button Exclusion Setup
-            let male_button = $('#male-radio');
-            male_button.off('click');
-            male_button.prop("checked",true); // set male default
-            $('#s-female-radio').prop("checked",true); // set female default
-            male_button.click(() => {
-                //male_button.prop("checked",true);
-                $('#s-female-radio').prop("checked",true);
-                //female_button.prop("checked",false);
-            });
-
-            let female_button = $('#female-radio');
-            female_button.off('click');
-            female_button.click(() => {
-                //female_button.prop("checked",true);
-                $('#s-male-radio').prop("checked",true);
-                //male_button.prop("checked",false);
-            });
-
-            let unknown_button = $('#unknown-radio');
-            unknown_button.off('click');
-            unknown_button.click(() => {
-                //unknown_button.prop("checked",true);
-                $('#s-unknown-radio').prop("checked",true);
-                //male_button.prop("checked",false);
-            });
-
-            // FS Button
-            let button_plug_l = $('#create-bottom-button-plug-left');
-            button_plug_l.empty();
-            button_plug_l.append('<button type="button" class="btn btn-footer" style="float: left;" id="FS-view-from-create">View Parent on FamilySearch</button>');
-
-            var privateNodeModalFSView = $('#FS-view-from-create');
-            privateNodeModalFSView.off('click');
-
-            privateNodeModalFSView.click(function(){
-                var pid = box.getNode().getId().substring(0,8);
-                if(!pid.match(/@OPG.+/i)) {
-                    window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
-                }
-            });
-
-            // Create Button
-            let button_plug_r = $('#create-bottom-button-plug-right');
-            button_plug_r.empty();
-            button_plug_r.append('<button type="button" class="btn btn-footer" id="create-private-button">Create</button>');
-
-            var createPrivateNodeButton = $('#create-private-button');
-            createPrivateNodeButton.off('click');
-
-            createPrivateNodeButton.click(() => {
-                var name_data = $('#creator-name').val();
-                var childMakerModal = $('#child-maker-modal');
-                if(!name_data){
-                    console.log("Attempted to make child with no name for " + box.getNode().getAttr('name'));
-                    childMakerModal.modal('hide');
-                    return;
-                }
-
-                //~~~ Generate Data ~~~
-
-                var customChildPID = "@OPG-" + (self.customNodeIndex++).toString();
-
-                var bdate_data = $('#creator-bdate').val();
-                var bplace_data = $('#creator-bplace').val();
-                var ddate_data = $('#creator-ddate').val();
-                var dplace_data = $('#creator-dplace').val();
-                var gender_data = $('input[name=gender-radio]:checked').val();
-
-                var s_name_data = $('#creator-s-name').val();
-                var s_bdate_data = $('#creator-s-bdate').val();
-                var s_bplace_data = $('#creator-s-bplace').val();
-                var s_ddate_data = $('#creator-s-ddate').val();
-                var s_dplace_data = $('#creator-s-dplace').val();
-                var s_gender_data = $('input[name=s-gender-radio]:checked').val();
-
-                var m_date = $('#creator-mdate').val();
-                var m_place = $('#creator-mplace').val();
-
-                //~~~ Create Nodes ~~~
-
-                var node_data = {name: name_data, birthdate: bdate_data, birthplace: bplace_data, deathdate: ddate_data,
-                                deathplace: dplace_data, marriagedate: m_date, marriageplace: m_place,
-                                displaySpouse: null, gender:gender_data, isMain: true};
-
-                var customNode = new BuildNode(customChildPID,node_data);
-
-                var has_spouse = s_name_data || s_bdate_data || s_bplace_data || s_ddate_data || s_dplace_data;
-
-                if(has_spouse){
-                    var spouse_data = {name: s_name_data, birthdate: s_bdate_data, birthplace: s_bplace_data,
-                                        deathdate: s_ddate_data, deathplace: s_dplace_data, marriagedate: m_date,
-                                        marriageplace: m_place, displaySpouse: null, gender:s_gender_data, isMain: false};
-
-                    var customSpouseNode = new BuildNode("@OPG-" + (self.customNodeIndex++).toString(),spouse_data);
-                    customNode.setDisplaySpouse(customSpouseNode);
-                    customSpouseNode.setDisplaySpouse(customNode);
-                }
-                box.getNode().getBranchIds().push(customChildPID);
-
-                var customBox = new AbstractBox(customNode);
-
-                customBox.setType(box.getType());
-
-                customBox.getRenderInstructions()
-                    .setHasPicture(false)
-                    .setSpouseHasPicture(false)
-                    .setFlavorKey(box.getRenderInstructions().getFlavorKey());
-                self.listener.getBoxes().setId(customChildPID,customBox);
-
-                self.listener.handleOption("add-custom-node",{node: customNode, box :customBox});
-                if(has_spouse) {
-                    self.listener.handleOption("add-custom-node", {node: customSpouseNode, box:null});
-                }
-
-                self.listener.refresh(self.listener.getBoxes());
-                childMakerModal.modal('hide');
-            });
-
-            $("#child-maker-modal").modal('show');
-        });
-    }
-
-    private initCreateEditor(box: IBox){
-
-        var opgModalEditPrivateNode = $('#opg-modal-edit-private');
-        opgModalEditPrivateNode.off('click');
-
-        opgModalEditPrivateNode.click(() => {
-            $("#opg-modal").modal('hide');
-            let node:INode = box.getNode();
-
-            $('#child-maker-title').text("Edit details for " + node.getAttr('name'));
-
-            //~~~ Fill in values ~~~
-
-            // Get the info from the node and put it into the chart.
-            let name_line = $('#creator-name');
-            let bdate_line = $('#creator-bdate');
-            let bplace_line = $('#creator-bplace');
-            let ddate_line = $('#creator-ddate');
-            let dplace_line = $('#creator-dplace');
-
-            name_line.val(node.getAttr('name'));
-            bdate_line.val(node.getAttr('birthdate'));
-            bplace_line.val(node.getAttr('birthplace'));
-            ddate_line.val(node.getAttr('deathdate'));
-            dplace_line.val(node.getAttr('deathplace'));
-
-            // Do the same for the spouse, if one exists...
-            let s_name:string = "";
-            let s_bd:string = "";
-            let s_bp:string = "";
-            let s_dd:string = "";
-            let s_dp:string = "";
-
-            if (node.getDisplaySpouse()) {
-                s_name = node.getDisplaySpouse().getAttr('name');
-                s_bd = node.getDisplaySpouse().getAttr('birthdate');
-                s_bp = node.getDisplaySpouse().getAttr('birthplace');
-                s_dd = node.getDisplaySpouse().getAttr('deathdate');
-                s_dp = node.getDisplaySpouse().getAttr('deathplace');
-            }
-
-            let s_name_line = $('#creator-s-name');
-            let s_bdate_line = $('#creator-s-bdate');
-            let s_bplace_line = $('#creator-s-bplace');
-            let s_ddate_line = $('#creator-s-ddate');
-            let s_dplace_line = $('#creator-s-dplace');
-
-            s_name_line.val(s_name);
-            s_bdate_line.val(s_bd);
-            s_bplace_line.val(s_bp);
-            s_ddate_line.val(s_dd);
-            s_dplace_line.val(s_dp);
-
-            // Grab the marriage data.
-            let mdate_line = $('#creator-mdate');
-            let mplace_line = $('#creator-mplace');
-
-            mdate_line.val(node.getAttr('marriagedate'));
-            mplace_line.val(node.getAttr('marriageplace'));
-
-            //~~~ Add the Buttons ~~~
-
-            let button_plug_l = $('#create-bottom-button-plug-left');
-            button_plug_l.empty();
-            button_plug_l.append('<button type="button" class="btn btn-footer" id="create-close-edits-button">Close</button>');
-            $('#create-close-edits-button').click(() => {
-                $("#child-maker-modal").modal('hide');
-            });
-
-            let button_plug_r = $('#create-bottom-button-plug-right');
-            button_plug_r.empty();
-            button_plug_r.append('<button type="button" class="btn btn-success" id="create-save-edits-button">Save</button>');
-
-            let button = $('#create-save-edits-button');
-            button.off('click');
-
-            //~~~ Configure the reset data ~~~
-            button.click(() => {
-
-                // Grab the updated gender information.
-                let gender_data = $('input[name=gender-radio]:checked');
-                let s_gender_data = $('input[name=s-gender-radio]:checked');
-
-                //~~~ Grab the new data fields ~~~
-
-                box.getNode()
-                    .setAttr("name", name_line.val())
-                    .setAttr("birthdate", bdate_line.val())
-                    .setAttr("birthplace", bplace_line.val())
-                    .setAttr("deathdate", ddate_line.val())
-                    .setAttr("deathplace", dplace_line.val())
-                    .setAttr("gender", gender_data.val())
-                    .setAttr("marriagedate", mdate_line.val())
-                    .setAttr("marriageplace", mplace_line.val());
-
-                let has_spouse:boolean = (s_name_line.val() != "" || s_bdate_line.val() != "" ||
-                s_bplace_line.val() != "" || s_ddate_line.val() != "" ||
-                s_dplace_line.val() != "");
-
-                //~~~ Grab the spouse's new data or nullify the spouse.
-
-                if (has_spouse) {
-                    box.getNode().getDisplaySpouse()
-                        .setAttr("name", s_name_line.val())
-                        .setAttr("birthdate", s_bdate_line.val())
-                        .setAttr("birthplace", s_bplace_line.val())
-                        .setAttr("deathdate", s_ddate_line.val())
-                        .setAttr("deathplace", s_dplace_line.val())
-                        .setAttr("gender", s_gender_data.val())
-                        .setAttr("marriagedate", mdate_line.val())
-                        .setAttr("marriageplace", mplace_line.val());
-                }
-                else {
-                    box.getNode().setAttr('displaySpouse', null);
-                    box.setSpouseNode(null);
-                }
-
-
-                box.setNeedsUpdate(true);
-                //StyleManager.restylize(box,box.getRenderInstructions().getFlavorKey());
-
-                //~~~ Run the Styling Pipeline ~~~
-                //This is actually correct because of lambda expression (arrow) function declaration.
-                this.listener.handleOption("update-custom-node",{node: box.getNode(), box :box});
-                if(has_spouse) {
-                    this.listener.handleOption("update-custom-node", {node: box.getNode().getDisplaySpouse(), box:null});
-                }
-
-                //~~~ Refresh to redraw everything ~~~
-
-                this.listener.refresh(this.listener.getBoxes());
-
-                $("#child-maker-modal").modal('hide');
-            });
-
-            $("#child-maker-modal").modal('show');
-        });
-    }
-
-    private initCreateRemover(box: IBox){
-        var opgModalRemovePrivateNode = $('#opg-modal-remove-private');
-        opgModalRemovePrivateNode.off('click');
-
-        opgModalRemovePrivateNode.click(() => {
-            $('#child-maker-modal').modal('hide');
-            this.listener.getBoxes().removeId(box.getNode().getId());
-            this.listener.handleOption("remove-custom-node",{node:box.getNode(), box:box});
-            this.listener.refresh(this.listener.getBoxes());
-        });
     }
 
     private getCountry(country:string) :string {

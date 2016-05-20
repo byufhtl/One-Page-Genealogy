@@ -8,62 +8,76 @@
  */
 class BuildNode implements INode {
 
-    private branchIds: string[];
+    private branchIds:string[];
+    private person;
 
-    constructor(private id: string, private data: any) {
-        this.data = data;
+    constructor(private id:string, data:any) {
+        this.person = {living: true, display: data};
         this.id = id;
         this.branchIds = [];
     }
-    getId(): string {
+
+    getId():string {
         return this.id;
     }
-    getAttr(key: string): any {
+
+    getAttr(key:string):any {
         return this.getAndHasAttribute(true, key);
     }
-    hasAttr(key: string): boolean {
+
+    hasAttr(key:string):boolean {
         return this.getAndHasAttribute(false, key);
     }
-    setAttr(name: string, value: any): INode{
-        this.data[name] = value;
+
+    setAttr(name:string, value:any):INode {
+        this.person.display[name] = value;
         return this;
     }
+
     private getAndHasAttribute(get, attr) {
 
-        var val = this.data[attr];
+        var val = this.person.display[attr];
 
-        if(val !== null && val !== undefined){
-            if(get)
+        if (val !== null && val !== undefined) {
+            if (get)
                 return val;
             return true
         }
 
-        if(get)
+        if (get)
             return null;
         return false;
     }
-    getBranchIds(): string[] {
+
+    getBranchIds():string[] {
         return this.branchIds;
     }
-    getSpouses(): any[] {
+
+    getSpouses():any[] {
         return [];
     }
-    getDisplaySpouse(): INode {
-        return this.data['displaySpouse'];
+
+    getDisplaySpouse():INode {
+        return this.person.displaySpouse;
     }
-    setDisplaySpouse(node :INode){
-        this.data['displaySpouse'] = node;
+
+    setDisplaySpouse(node:INode) {
+        this.person.display.displaySpouse = node;
     }
-    isMainPerson(): boolean{
-        return this.data['isMain'];
+
+    isMainPerson():boolean {
+        return this.person.display.isMain;
     }
-    setMarriageDate(d:string){
-        //this.marriagedate = d;
+
+    setMarriageDate(d:string) {
+        this.person.display["marriagedate"] = d;
     }
-    setBranchIds(ids:string[]){
+
+    setBranchIds(ids:string[]) {
         this.branchIds = ids;
     }
-    getPerson(){
-        //??
+
+    getPerson() {
+        return this.person;
     }
 }

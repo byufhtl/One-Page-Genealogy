@@ -13,6 +13,7 @@ if (window.location.href.indexOf("fstoken") > -1) {
     token = JSON.parse(atob(jwt.split('.')[1]));
     var accessToken = token['fs_access_token'];
 }
+
 FamilySearch.init({
 
     app_key: "NQ3Q-PBD8-LL9N-RCLZ-MZCZ-X7P8-7SMX-RD6N", //<-rf product key //"a02j000000AiDyvAAF",//
@@ -201,9 +202,9 @@ function familySearchDownload() {
 
             FamilySearch.getCurrentUser().then(function (response) {
                 localStorage.setItem("chartType", "FamilySearch");
-                var old_element = document.getElementById("opg-chart")
+                var old_element = document.getElementById("opg-chart");
                 var new_element = old_element.cloneNode(true);
-                old_element.parentNode.replaceChild(new_element, old_element)
+                old_element.parentNode.replaceChild(new_element, old_element);
                 while (new_element.lastChild) {
                     new_element.removeChild(new_element.lastChild);
                 }

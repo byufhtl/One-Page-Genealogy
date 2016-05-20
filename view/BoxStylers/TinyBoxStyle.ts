@@ -14,8 +14,8 @@
 class TinyBoxStyle{
 
     public static applyStyleTo(box :IBox, flavor_key :string, deep :boolean = true) :void{
-        var big_font_size = 9;
-        var small_font_size = 8;
+        var big_font_size = 7;
+        var small_font_size = 6;
 
         //~~~ Setup ~~~
 
@@ -48,6 +48,10 @@ class TinyBoxStyle{
             TinyBoxStyle.applySingleFlavor(box, render_sched);
             styled = true;
         }
+        else if(render_sched.getFlavorKey() === TinyBoxStyle.SINGLE_FAT){
+            TinyBoxStyle.applySingleFatFlavor(box, render_sched);
+            styled = true;
+        }
 
         if(!styled){
             //console.log("No suitable tiny box flavor was found for " + box.getNode().getAttr('name') + " with key " + render_sched.getFlavorKey());
@@ -65,31 +69,44 @@ class TinyBoxStyle{
             return;
         }
 
-        box.setWidth(160);
+        box.setWidth(145);
         box.setHeight(34);
 
         var start_x = 8;
-        var start_y = 11;
+        var start_y = 7;
         var s_start_x = 8;
-        var s_start_y = 23;
+        var s_start_y = 15;
 
         render_sched
             .setNodeName(new Instruction(start_x, start_y, 17))
-            .setNodeSpan(new Instruction(start_x + 100, start_y, null))
+            .setNodeSpan(new Instruction(start_x + 90, start_y, null))
             .setSpouseName(new Instruction(s_start_x, s_start_y, 17))
-            .setSpouseSpan(new Instruction(s_start_x + 100, s_start_y, null));
+            .setSpouseSpan(new Instruction(s_start_x + 90, s_start_y, null));
     }
 
     private static applySingleFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
         var start_x = 8;
-        var start_y = 11;
-        box.setWidth(160);
-        box.setHeight(21);
+        var start_y = 6;
+        box.setWidth(145);
+        box.setHeight(13);
         render_sched
             .setNodeName(new Instruction(start_x,start_y,17))
-            .setNodeSpan(new Instruction(start_x + 100, start_y, null));
+            .setNodeSpan(new Instruction(start_x + 90, start_y, null));
     }
 
-    static MARRIED = "m";
-    static SINGLE  = "s";
+    private static applySingleFatFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
+        var start_x = 8;
+        var start_y = 6;
+        var dateLength = 14;
+        box.setWidth(145);
+        box.setHeight(20);
+        render_sched
+            .setNodeName(new Instruction(start_x, start_y + 5, 17))
+            .setNodeBDate(new Instruction(start_x + 90, start_y, dateLength))
+            .setNodeDDate(new Instruction(start_x + 90, start_y + 8, dateLength));
+    }
+
+    static MARRIED      = "m";
+    static SINGLE       = "s";
+    static SINGLE_FAT   = "s_f";
 }

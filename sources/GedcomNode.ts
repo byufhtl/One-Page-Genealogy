@@ -36,8 +36,30 @@ class GedcomNode implements INode {
         return this.getAndHasAttribute(false, key);
     };
 
-    setAttr(name, value) {
-        // This feature is not currently extended to this type of node.
+    setAttr(name: string, value) {
+        switch(name){
+            case "name":
+                this.person.name = value;
+                break;
+            case "gender":
+                this.person.gender = value;
+                break;
+            case "birthdate":
+                this.person.birthdate = value;
+                break;
+            case "birthplace":
+                this.person.birthplace = value;
+                break;
+            case "deathdate":
+                this.person.deathdate = value;
+                break;
+            case "deathplace":
+                this.person.deathplace = value;
+                break;
+            case "marriagedate":
+                this.person.marriagedate = value;
+                break;
+        }
         return this;
     };
 

@@ -9,6 +9,7 @@ interface INode {
     getBranchIds(): string[];
     getSpouses():any[];
     getDisplaySpouse():INode;
+    setDisplaySpouse(node: INode);
     isMainPerson():boolean;
     setMarriageDate(d:string);
     setBranchIds(ids:string[]): void;

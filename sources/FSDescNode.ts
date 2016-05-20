@@ -10,12 +10,43 @@ class FSDescNode implements INode {
     private urlPromise;
     private doneLoadingDefer;
     private marriagedate:string;
-    constructor(private id: string, private person, private branchIds: string[],private spouses: any[],
-                private displaySpouse: FSDescNode, private isMain:boolean) {
+    private id:string;
+    private person;
+    private branchIds: string[];
+    private spouses: any[];
+    private displaySpouse: INode;
+    private isMain: boolean;
+
+    // Whereas the information in the person objects is primitive (and therby immutable), mutable versions are needed.
+    private mutableName: string;
+    private mutableGender: string;
+    private mutableBirthdate: string;
+    private mutableBirthplace: string;
+    private mutableDeathdate: string;
+    private mutableDeathplace: string;
+
+    constructor(id: string, person, branchIds: string[], spouses: any[], displaySpouse: INode, isMain:boolean) {
+        this.id = id;
+        this.person = person;
+        this.branchIds = branchIds;
+        this.spouses = spouses;
+        this.displaySpouse = displaySpouse;
+        this.isMain = isMain;
+
+        if(person) {
+            this.mutableName = person.display.name;
+            this.mutableGender = person.display.gender;
+            this.mutableBirthdate = person.display.birthdate;
+            this.mutableBirthplace = person.display.birthplace;
+            this.mutableDeathdate = person.display.deathdate;
+            this.mutableDeathplace = person.display.deathplace;
+        }
+
         this.urlPromise = null;
         this.doneLoadingDefer = $.Deferred();
         this.marriagedate = "";
     }
+
     getId(): string {
         return this.id;
     }
@@ -26,7 +57,29 @@ class FSDescNode implements INode {
         return this.getAndHasAttribute(false, key);
     }
     setAttr(name: string, value: any): INode{
-        // At present, this feature is not offered on this particular type of node.
+        switch(name){
+            case 'name':
+                this.mutableName = value;
+                break;
+            case 'gender':
+                this.mutableGender = value;
+                break;
+            case 'birthdate':
+                this.mutableBirthdate = value;
+                break;
+            case 'birthplace':
+                this.mutableBirthplace = value;
+                break;
+            case 'deathdate':
+                this.mutableDeathdate = value;
+                break;
+            case 'deathplace':
+                this.mutableDeathplace = value;
+                break;
+            case 'marriagedate':
+                this.marriagedate = value;
+                break;
+        }
         return this;
     }
     private getAndHasAttribute(get, attr) {
@@ -41,10 +94,10 @@ class FSDescNode implements INode {
                     val = this.person.$getGivenName();
                     break;
                 case "name":
-                    val = this.person.$getDisplayName();
+                    val = this.mutableName;
                     break;
                 case "gender":
-                    val = this.person.$getDisplayGender();
+                    val = this.mutableGender;
                     break;
                 case "living":
                     val = this.person.$isliving();
@@ -53,16 +106,16 @@ class FSDescNode implements INode {
                     val = this.person.$getDisplayLifeSpan();
                     break;
                 case "birthdate":
-                    val = this.person.$getDisplayBirthDate();
+                    val = this.mutableBirthdate;
                     break;
                 case "birthplace":
-                    val = this.person.$getDisplayBirthPlace();
+                    val = this.mutableBirthplace;
                     break;
                 case "deathdate":
-                    val = this.person.$getDisplayDeathDate();
+                    val = this.mutableDeathdate;
                     break;
                 case "deathplace":
-                    val = this.person.$getDisplayDeathPlace();
+                    val = this.mutableDeathplace;
                     break;
                 case "marriagedate":
                     val = this.marriagedate;
@@ -118,8 +171,11 @@ class FSDescNode implements INode {
     getSpouses(): any[] {
         return this.spouses;
     }
-    getDisplaySpouse(): FSDescNode {
+    getDisplaySpouse(): INode {
         return this.displaySpouse;
+    }
+    setDisplaySpouse(node: INode){
+        this.displaySpouse = node;
     }
     isMainPerson(): boolean{
         return this.isMain;
