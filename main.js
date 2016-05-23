@@ -46,16 +46,37 @@ $(document).ready(function () {
 
     //$("#fsModal").show();
     //window.location = 'login';
-    $("#fsbutton").click(function(){
+    /*$("#fsbutton").click(function(){
         $('#relative-tree-downloader').hide();
         familySearchDownload();
+    });*/
+    $('#download-modal-close').hide();
+    $("#redownload").click(function(){
+        $('#downloadModal').show();
+        $('#download-modal-close').show();
     });
-    $("#tofsbutton").click(fsHideFirstModal);
+    $("#tofsbutton-user").click(fsHideFirstModalUser);
+    $("#tofsbutton").click(fsHideFirstModalOther);
+    $("#togedbutton").click(function(){
+        $('#myInput').click();
+        $('#downloadModal').hide();
+    });
+    $('#myTreeCard').click(fsHideFirstModalUser);
+    $('#otherTreeCard').click(fsHideFirstModalOther);
+    $('#gedcomCard').click(function(){
+        $('#myInput').click();
+        $('#downloadModal').hide();
+    });
     //$("#logoutbutton").click(logout)
+    $("#download-modal-help").click(function(){
+       window.open('help.html');
+    });
+    $("#download-modal-fhtl").click(function(){
+        window.open('https://fhtl.byu.edu');
+    });
 
     $("#box-color-picker").spectrum({});
     $("#box-text-color-picker").spectrum({});
-
 
 //Stuff for draggable sidebar
     var dragging = false;
@@ -93,10 +114,22 @@ $(document).ready(function () {
     });
 
 });
+
 function fsHideFirstModal() {
     $('#downloadModal').hide();
-    $('#relative-tree-downloader').hide(); // Prep it for first use with hidden PID search
+    $('#fsModal').modal('show');
     familySearchDownload();
+}
+
+function fsHideFirstModalUser() {
+    $('#relative-tree-downloader').hide();
+    $('#pid-search-input').val("");
+    fsHideFirstModal();
+}
+
+function fsHideFirstModalOther(){
+    $('#relative-tree-downloader').show();
+    fsHideFirstModal();
 }
 
 function isExpired(){
@@ -127,8 +160,9 @@ function familySearchDownload() {
             keyboard: false
         });
 
-        $('#fsDwldClose').click(function(){
+        $('#fsDwldBack').click(function(){
             $('#fsModal').modal('hide');
+            $('#downloadModal').modal('show');
         });
 
         if (FamilySearch.hasAccessToken && !isExpired()) {
@@ -137,18 +171,6 @@ function familySearchDownload() {
             $('#fsSave').html("Login with FamilySearch");
         }
 
-
-        $('#treeRt-user').click(function(){
-            var pane = $('#relative-tree-downloader');
-            pane.hide(400);
-            $('#pid-search-input').val("");
-        });
-        $('#treeRt-other').click(function(){
-            var pane = $('#relative-tree-downloader');
-            pane.show(400);
-        });
-
-        $('#fsModal').show();
 
         $('#fsSave').click(function () {
             rootPID = document.getElementById("pid-search-input").value;
@@ -246,7 +268,7 @@ function familySearchDownload() {
                     optionManager: optionManager
                 });
                 localStorage.setItem("rootPID", rootPID);
-                $('#fsModal').hide();
+                $('#fsModal').modal("hide");
             })
         })
     }

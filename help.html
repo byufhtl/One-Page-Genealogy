@@ -156,8 +156,9 @@
                         <hr>
                         <h5><a href="#start">Getting Started</a></h5>
                         <h5><a href="#create">Create Your Chart</a></h5>
+                        <h6><a href="#create-from-fs-user"><i>- From FamilySearch: My Tree</i></a></h6>
+                        <h6><a href="#create-from-fs-other"><i>- From FamilySearch: Other Tree</i></a></h6>
                         <h6><a href="#create-from-gedcom"><i>- From Gedcom</i></a></h6>
-                        <h6><a href="#create-from-fs"><i>- From FamilySearch</i></a></h6>
                         <h5><a href="#explore">Explore Your Chart</a></h5>
                         <h5><a href="#detail-view">Detail View</a></h5>
                         <h5><a href="#edit">Edit Your Chart</a></h5>
@@ -179,16 +180,61 @@
                     </div>
                     <div id="create">
                         <h3>Create Your Chart</h3>
-                        <p>You can create a chart from two basic sources: a Gedcom file or FamilySearch.</p>
-                        <p>Note: You can always click the "Gedcom" or "FamilySearch" buttons at the top of the page
+                        <p>One Page Genealogy allows you to create three different types of charts.</p>
+                        <p>Note: You can always click the "Download New File" button at the top of the page
                             to restart the chart creation process.</p>
+                        <h4 id="create-from-fs-user"><b>My Tree</b></h4>
+                        <ul>
+                            <li><p>This option will automatically put you in as the root of the tree.</p></li>
+                            <li><p>Select how many generations you want to show by selecting a number from the dropdown menu.<p></li>
+                            <li>Select which direction you would like your tree to go:
+                                <ul>
+                                    <li>Ascendancy: creates a tree with each generation being the parents of the last generation.</li>
+                                    <li>Descendancy: creates a tree with each generation being the children of the
+                                        last generation by spouse.</li>
+                                </ul>
+                            </li>
+                            <li>If you have not already authenticated with FamilySearch:
+                                <ul>
+                                    <li>You will be prompted to do so through FamilySearch login.</li>
+                                    <li>This is necessary because all the data for your tree is pulled straight from FamilySearch.</li>
+                                </ul>
+                            </li>
+                            <li>If you've previously authenticated with FamilySearch through One Page Genealogy, simply press "Submit" to generate your chart.</li>
+                            <li>Because of the large amount of data, may take a few minutes for the chart to appear.</li>
+                            <li>Expect longer loading times for larger numbers of generations.</li>
+                        </ul>
+                        <h4 id="create-from-fs-other"><b>Other Tree</b></h4>
+                        <ul>
+                            <li><p>Enter the FamilySearch id (XXXX-XXX) of the person who will be at the beginning of the chart
+                            or leave it empty to start with yourself.</p>
+                            </li>
+                            <li><p>Select how many generations you want to show by selecting a number from the dropdown menu.<p></li>
+                            <li>Select which direction you would like your tree to go:
+                                <ul>
+                                    <li>Ascendancy: creates a tree with each generation being the parents of the last generation.</li>
+                                    <li>Descendancy: creates a tree with each generation being the children of the
+                                        last generation by spouse.</li>
+                                </ul>
+                            </li>
+                            <li>If you have not already authenticated with FamilySearch:
+                                <ul>
+                                    <li>You will be prompted to do so through FamilySearch login.</li>
+                                    <li>This is necessary because all the data for your tree is pulled straight from FamilySearch.</li>
+                                </ul>
+                            </li>
+                            <li>If you've previously authenticated with FamilySearch through One Page Genealogy, simply press "Submit" to generate your chart.</li>
+                            <li>Because of the large amount of data, may take a few minutes for the chart to appear.</li>
+                            <li>Expect longer loading times for larger numbers of generations.</li>
+                        </ul>
                         <h4 id="create-from-gedcom"><b>From a Gedcom</b></h4>
                         <ul>
                             <li><p>Once you have logged in, click "Read Gedcom File" if you want to create
                             a chart from a Gedcom file you have on your computer.</p></li>
                             <li><p>Select your Gedcom file using the window that pops up and click open.</p></li>
                             <li><p>Choose id of the person who will be at the beginning of the chart.</p></li>
-                            <li><p>Choose the type of chart you want and how many generations back you want the chart to go.</p>
+                            <li><p>Select how many generations you want to show by selecting a number from the dropdown menu.<p></li>
+                            <li>Select which direction you would like your tree to go:
                                 <ul>
                                     <li>Ascendancy: creates a tree with each generation being the parents of the last generation.</li>
                                     <li>Descendancy: creates a tree with each generation being the children of the
@@ -196,30 +242,6 @@
                                 </ul>
                             </li>
                             <li>Click "Save Chart" to create the chart. It may take a few minutes for the chart to appear.</li>
-                        </ul>
-                        <h4 id="create-from-fs"><b>From FamilySearch</b></h4>
-                        <ul>
-                            <li><p>Click "FamilySearch" if you want to create a chart from data found
-                                on FamilySearch.</p></li>
-                            <li><p>Enter the FamilySearch id (XXXX-XXX) of the person who will be at the beginning of the chart
-                                or leave it empty to start with yourself.</p></li>
-                            <li><p>Choose the type of chart you want (Descendancy of Ascendancy) and how many generations you want displayed in the chart.</p>
-                                <ul>
-                                    <li>Ascendancy: creates a tree with each generation being the parents of the previous generation.</li>
-                                    <li>Descendancy: creates a tree with each generation being the children of the
-                                        previous generation by spouse.</li>
-                                </ul>
-                            </li>
-                            <li>If you have not already authenticated with FamilySearch:
-                                <ul>
-                                    <li>You will be prompted to do so through FamilySearch login.</li>
-                                    <li>This is necessary because all the data for your tree is pulled straight from FamilySearch.</li>
-                               </ul>
-                            </li>
-                            <li>If you've previously authenticated with FamilySearch through One Page Genealogy, simply press "Submit" to generate your chart.</li>
-                            <li>Because of the large amount of data, may take a few minutes for the chart to appear.</li>
-                            <li>Expect longer loading times for larger numbers of generations.</li>
-                            </li>
                         </ul>
                     </div>
                     <hr>
@@ -694,7 +716,7 @@
         </div>
     </div>
 </div>
-<div class="help-footer opg-blue" style="padding: 0; margin: 0;">
+<div class="help-footer opg-blue" style="height: 5%; padding: 0; margin: 0;">
     <h6 style="padding: 0; padding-bottom: 4px; margin: 0; margin-right: 7px;">BYU Family History Technology Lab</h6>
     <p style="padding: 0; margin: 0; margin-right: 7px; font-size: 60%;">Copyright © Brigham Young University</p>
     <p style="padding: 0; margin: 0; margin-right: 7px; font-size: 60%;">Computer Science Department</p>

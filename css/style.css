@@ -73,9 +73,9 @@ hr {
 }
 
 .navbar {
-    padding-bottom: 0px;
-    margin-bottom: 0px;
-    border-radius: 0px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-radius: 0;
 }
 
 #ruler {
@@ -170,6 +170,8 @@ hr {
 .opg-blue{
     background-color: #2c3e50;
     color: #ffffff;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .btn-footer{
@@ -182,6 +184,50 @@ hr {
     color: #2c3e50;
 }
 
+.btn-square{
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    background-color: #2c3e50;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+}
 
+.opg-card:hover .btn-square{
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    background-color: #1F2B38;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+}
 
+.opg-card{
+    border: 4px solid #2c3e50;
+    border-radius: 10px;
+    height: 250px;
+    padding: 1px;
+    margin:1px;
+}
 
+.opg-card:hover{
+    border: 4px solid #1F2B38;
+    border-radius: 12px;
+    height: 250px;
+    padding: 1px;
+    margin:1px;
+}
+
+.label-card{
+    color: #2c3e50;
+}
+
+.modal_close{
+    background-color: #1F2B38;
+    color: white;
+}
+
+.modal-close:hover{
+    background-color: white;
+    color: #1F2B38;
+}
