@@ -124,7 +124,9 @@ class PrivatePersonUtils{
 
             c.handleOption("add-custom-node",{node: primary_node, box :customBox});
             if(secondary_node) {
+                console.log("queing spouse...");
                 c.handleOption("add-custom-node", {node: secondary_node, box:null});
+                c.getBoxes().setId(secondary_node.getId(),customBox);
             }
 
             c.refresh(c.getBoxes());
@@ -295,8 +297,16 @@ class PrivatePersonUtils{
         opgModalRemovePrivateNode.off('click');
 
         opgModalRemovePrivateNode.click(() => {
+            let node = box.getNode();
             c.getBoxes().removeId(box.getNode().getId());
-            c.handleOption("remove-custom-node",{node:box.getNode(), box:box});
+            c.handleOption("remove-custom-node",{node:node, box:box});
+            // splice out all references to this node in their spouse.
+            for(var spouse of node.getSpouses()){
+                let spouses = c.getBoxes().getId(spouse).getNode().getSpouses();
+                while(spouses.indexOf(node.getId()) !== -1){
+                    spouses.splice(spouses.indexOf(node.getId()),1);
+                }
+            }
             c.refresh(c.getBoxes());
             $('#opg-modal').modal('hide');
         });
@@ -331,7 +341,9 @@ class PrivatePersonUtils{
         var m_date = $('#creator-mdate').val();
         var m_place = $('#creator-mplace').val();
 
-        var has_spouse = s_name_data || s_bdate_data || s_bplace_data || s_ddate_data || s_dplace_data;
+        var has_spouse = <boolean>(s_name_data || s_bdate_data || s_bplace_data || s_ddate_data || s_dplace_data);
+
+        console.log("Spouse creator:",has_spouse,s_name_data,s_bdate_data);
 
         if(has_spouse){
             var spouse_data = {name: s_name_data, birthdate: s_bdate_data, birthplace: s_bplace_data,
@@ -340,15 +352,18 @@ class PrivatePersonUtils{
 
             var customSpouseNode = new BuildNode("@OPG-" + (this.customNodeIndex++).toString(),spouse_data);
             node.setDisplaySpouse(customSpouseNode);
+            node.getPerson().display.displaySpouse = customSpouseNode;
+            let spouses = node.getSpouses();
+            if(spouses.indexOf(customSpouseNode.getId()) == -1){
+                spouses.push(customSpouseNode.getId());
+            }
             customSpouseNode.setDisplaySpouse(node);
+            customSpouseNode.getPerson().display.displaySpouse = node;
+            customSpouseNode.getSpouses().push(node.getId());
             return customSpouseNode;
         }
 
         return null;
-    }
-
-    private static removeSpouse(primary: INode, toRemove: INode, c: IOptionListener): void{
-
     }
 
     /**

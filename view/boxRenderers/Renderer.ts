@@ -2,6 +2,7 @@
 ///<reference path="../ColorManager.ts"/>
 ///<reference path="../../util/StringUtils.ts"/>
 ///<reference path="StyleManager.ts"/>
+///<reference path="../../controller/PrivatePersonUtils.ts"/>
 /**
  * Created by calvinmcm on 4/14/16.
  *
@@ -164,7 +165,8 @@ class Renderer{
         //console.log(name_x,name_y);
         var name = node.getAttr('name');
         if(name_p != null && name_p != undefined && name){ // Check for non-null result
-            gt.appendChild(Renderer.renderName(name, name_p.getX(), name_p.getY(), big_font, text_color, name_p.getL(), ris.isRotated(), node.isMainPerson()));
+            gt.appendChild(Renderer.renderName(name, name_p.getX(), name_p.getY(), big_font, text_color, name_p.getL(),
+                ris.isRotated(), node.isMainPerson()));
         }
         else{
             if(name_p == null) {
@@ -187,7 +189,8 @@ class Renderer{
         var b_date_p = ris.getBDateInstruction();
         var b_date = node.getAttr('birthdate');
         if(b_date_p != null && b_date){ // Check for non-null result
-            var b_d :Element = Renderer.renderDate(b_date, b_date_p.getX(), b_date_p.getY(), small_font, text_color, b_date_p.getL(), ris.isRotated());
+            var b_d :Element = Renderer.renderDate(b_date, b_date_p.getX(), b_date_p.getY(), small_font, text_color,
+                b_date_p.getL(), ris.isRotated());
             b_d.textContent = "B: " + b_d.textContent;
             gt.appendChild(b_d);
         }
@@ -197,7 +200,8 @@ class Renderer{
         var b_place_p = ris.getBPlaceInstruction();
         var b_place = node.getAttr('birthplace');
         if(b_place_p != null && b_place){ // Check for non-null result
-            gt.appendChild(Renderer.renderPlace(b_place, b_place_p.getX(), b_place_p.getY(), small_font, text_color, b_place_p.getL(), ris.isRotated()));
+            gt.appendChild(Renderer.renderPlace(b_place, b_place_p.getX(), b_place_p.getY(), small_font, text_color,
+                b_place_p.getL(), ris.isRotated()));
         }
 
         //~~~ DEATH DATE SETUP ~~~
@@ -205,7 +209,8 @@ class Renderer{
         var d_date_p = ris.getDDateInstruction();
         var d_date = node.getAttr('deathdate');
         if(d_date_p != null && d_date != null && d_date != ""){ // Check for non-null result
-            var d_d :Element = Renderer.renderDate(d_date, d_date_p.getX(), d_date_p.getY(), small_font, text_color, d_date_p.getL(), ris.isRotated());
+            var d_d :Element = Renderer.renderDate(d_date, d_date_p.getX(), d_date_p.getY(), small_font, text_color,
+                d_date_p.getL(), ris.isRotated());
             d_d.textContent = "D: " + d_d.textContent;
             gt.appendChild(d_d);
         }
@@ -215,7 +220,8 @@ class Renderer{
         var d_place_p = ris.getDPlaceInstruction();
         var d_place = node.getAttr('deathplace');
         if(d_place_p != null && d_place != null && d_place != ""){ // Check for non-null result
-            gt.appendChild(Renderer.renderPlace(d_place, d_place_p.getX(), d_place_p.getY(), small_font, text_color, d_place_p.getL(), ris.isRotated()));
+            gt.appendChild(Renderer.renderPlace(d_place, d_place_p.getX(), d_place_p.getY(), small_font, text_color,
+                d_place_p.getL(), ris.isRotated()));
         }
 
         //~~~ LIFE SPAN SETUP ~~~
@@ -251,7 +257,8 @@ class Renderer{
 
                 //~~~ NAME SETUP ~~~
 
-                gt.appendChild(Renderer.renderName(s_name, s_name_p.getX(), s_name_p.getY(), big_font, text_color, s_name_p.getL(), ris.isRotated(), s_node.isMainPerson()));
+                gt.appendChild(Renderer.renderName(s_name, s_name_p.getX(), s_name_p.getY(), big_font, text_color,
+                    s_name_p.getL(), ris.isRotated(), s_node.isMainPerson()));
 
 
                 //~~~ BIRTH DATE SETUP ~~~
@@ -259,7 +266,8 @@ class Renderer{
                 var s_b_date_p = ris.getSpouseBDateInstruction();
                 var s_b_date = s_node.getAttr('birthdate');
                 if (s_b_date_p != null && s_b_date) { // Check for non-null result
-                    var s_b_d :Element = Renderer.renderDate(s_b_date, s_b_date_p.getX(), s_b_date_p.getY(), small_font, text_color, s_b_date_p.getL(), ris.isRotated());
+                    var s_b_d :Element = Renderer.renderDate(s_b_date, s_b_date_p.getX(), s_b_date_p.getY(), small_font,
+                        text_color, s_b_date_p.getL(), ris.isRotated());
                     s_b_d.textContent = "B: " + s_b_d.textContent;
                     gt.appendChild(s_b_d);
                 }
@@ -269,7 +277,8 @@ class Renderer{
                 var s_b_place_p = ris.getSpouseBPlaceInstruction();
                 var s_b_place = s_node.getAttr('birthplace');
                 if (s_b_place_p != null && s_b_place) { // Check for non-null result
-                    gt.appendChild(Renderer.renderPlace(s_b_place, s_b_place_p.getX(), s_b_place_p.getY(), small_font, text_color, s_b_place_p.getL(), ris.isRotated()));
+                    gt.appendChild(Renderer.renderPlace(s_b_place, s_b_place_p.getX(), s_b_place_p.getY(), small_font,
+                        text_color, s_b_place_p.getL(), ris.isRotated()));
                 }
 
                 //~~~ DEATH DATE SETUP ~~~
@@ -277,7 +286,8 @@ class Renderer{
                 var s_d_date_p = ris.getSpouseDDateInstruction();
                 var s_d_date = s_node.getAttr('deathdate');
                 if (s_d_date_p != null && s_d_date) { // Check for non-null result
-                    var s_d_d :Element = Renderer.renderDate(s_d_date, s_d_date_p.getX(), s_d_date_p.getY(), small_font, text_color, s_d_date_p.getL(), ris.isRotated());
+                    var s_d_d :Element = Renderer.renderDate(s_d_date, s_d_date_p.getX(), s_d_date_p.getY(), small_font,
+                        text_color, s_d_date_p.getL(), ris.isRotated());
                     s_d_d.textContent = "D: " + s_d_d.textContent;
                     gt.appendChild(s_d_d);
                 }
@@ -288,10 +298,14 @@ class Renderer{
                 var s_d_place = s_node.getAttr('deathplace');
                 var s_d_place_valid = (s_d_date_p != null && s_d_date);
                 if (s_d_place_valid) { // Check for non-null result
-                    gt.appendChild(Renderer.renderPlace(s_d_place, s_d_place_p.getX(), s_d_place_p.getY(), small_font, text_color, s_d_place_p.getL(), ris.isRotated()));
+                    gt.appendChild(Renderer.renderPlace(s_d_place, s_d_place_p.getX(), s_d_place_p.getY(), small_font,
+                        text_color, s_d_place_p.getL(), ris.isRotated()));
                 }
             }
         }
+        //else if(PrivatePersonUtils.isCustomId(node.getId())){
+        //    console.log(node.getAttr('name') + " yielded no spouse:" + s_node);
+        //}
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]=[]
@@ -304,7 +318,8 @@ class Renderer{
         var m_date_p = ris.getMDateInstruction();
         var m_date = node.getAttr('marriagedate');
         if(m_date_p != null && m_date){ // Check for non-null result
-            var marr_date = Renderer.renderDate(m_date, m_date_p.getX(), m_date_p.getY(), small_font, text_color, m_date_p.getL(), ris.isRotated());
+            var marr_date = Renderer.renderDate(m_date, m_date_p.getX(), m_date_p.getY(), small_font, text_color,
+                m_date_p.getL(), ris.isRotated());
             marr_date.textContent = "M: " + marr_date.textContent;
             gt.appendChild(marr_date);
         }
@@ -314,7 +329,8 @@ class Renderer{
         var m_place_p = ris.getMPlaceInstruction();
         var m_place = node.getAttr('marriageplace');
         if(m_place_p != null && m_place){ // Check for non-null result
-            gt.appendChild(Renderer.renderPlace(m_place, m_place_p.getX(), m_place_p.getY(), small_font, text_color, m_place_p.getL(), ris.isRotated()));
+            gt.appendChild(Renderer.renderPlace(m_place, m_place_p.getX(), m_place_p.getY(), small_font, text_color,
+                m_place_p.getL(), ris.isRotated()));
         }
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -15,6 +15,7 @@ class BuildNode implements INode {
         this.person = {living: true, display: data};
         this.id = id;
         this.branchIds = [];
+        this.person.display.spouses = [];
     }
 
     getId():string {
@@ -54,11 +55,11 @@ class BuildNode implements INode {
     }
 
     getSpouses():any[] {
-        return [];
+        return this.person.display.spouses;
     }
 
     getDisplaySpouse():INode {
-        return this.person.displaySpouse;
+        return this.person.display.displaySpouse;
     }
 
     setDisplaySpouse(node:INode) {

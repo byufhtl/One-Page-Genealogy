@@ -94,27 +94,34 @@ class Tree implements ITree {
     }
 
     addCustomNode(node: INode, box: IBox){
-        this.treeMap[node.getId()] = node;
-        if(box == undefined || box == null) {
-            box = new Box(node);
+        if(node) {
+            console.log("Creating node in tree for " + node.getAttr('name'));
+            this.treeMap[node.getId()] = node;
+            if (box == undefined || box == null) {
+                box = new Box(node);
+            }
+            this.boxes.setId(node.getId(), box);
+            this.updates.push(new Command('add-node', node));
+            this.treeListener.handleUpdate(this, this.updates);
         }
-        this.boxes.setId(node.getId(), box);
-        this.updates.push(new Command('add-node', node));
-        this.treeListener.handleUpdate(this,this.updates);
     }
 
     removeCustomNode(node: INode, box: IBox){
-        delete this.treeMap[node.getId()];
-        if(box == undefined || box == null) {
-            this.boxes.removeId(node.getId());
+        if(node) {
+            delete this.treeMap[node.getId()];
+            if (box == undefined || box == null) {
+                this.boxes.removeId(node.getId());
+            }
+            this.updates.push(new Command('remove-node', node));
+            console.log("Node " + node.getId() + " (" + node.getAttr('name') + ") deleted and removed...");
+            this.treeListener.handleUpdate(this, this.updates);
         }
-        this.updates.push(new Command('remove-node', node));
-        console.log("Node " + node.getId() + " (" + node.getAttr('name') + ") deleted and removed...");
-        this.treeListener.handleUpdate(this,this.updates);
     }
 
     updateCustomNode(node: INode, box: IBox){
-        this.updates.push(new Command('update-node', node));
-        this.treeListener.handleUpdate(this,this.updates);
+        if(node) {
+            this.updates.push(new Command('update-node', node));
+            this.treeListener.handleUpdate(this, this.updates);
+        }
     }
 }
