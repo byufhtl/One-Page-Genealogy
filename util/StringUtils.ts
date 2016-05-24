@@ -243,18 +243,11 @@ class StringUtils {
             temp = temp.concat(temp2);
 
             // Handles Scottish/Irish names like MacGiver, McAlister, etc.
-            if(temp.length > 3 && temp[0] === 'M'){
-                console.log("M name: " + temp);
-                if(temp[1] === 'c'){
-                    console.log("Mc name: " + temp);
-                    temp = temp.substring(0,2) + temp.charAt(2).toUpperCase() + temp.slice(3);
-                    console.log("Mc name: " + temp);
-                }
-                if(temp.length > 4 && temp[1] === 'a' && temp[2] === 'c'){
-                    console.log("Mac name: " + temp);
-                    temp = temp.substring(0,3) + temp.charAt(3).toUpperCase() + temp.slice(4);
-                    console.log("Mac name: " + temp);
-                }
+            if(temp.match(/Mc..+/i)){ //Regex
+                temp = temp.substring(0,2) + temp.charAt(2).toUpperCase() + temp.slice(3);
+            }
+            if(temp.match(/Mac..+/i)){ //Regex
+                temp = temp.substring(0,3) + temp.charAt(3).toUpperCase() + temp.slice(4);
             }
 
             names[i] = temp;
