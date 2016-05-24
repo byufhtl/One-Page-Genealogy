@@ -20,10 +20,12 @@ class PrivatePersonUtils{
         this.initEditButton(box, c);
 
         let opgModalRemovePlug = $('#opg-modal-private-remove-div');
-        if(box.getNode().getId().match(/@OPG.+/i)){
-            opgModalRemovePlug.empty();
-            opgModalRemovePlug.append('<button type="button" class="btn btn-footer" id="opg-modal-remove-private" style="float: left;">Remove Node</button>');
-            this.initRemoveButton(box, c);
+        opgModalRemovePlug.empty();
+        if(this.isCustomId(box.getNode().getId())){
+            if(box.getNode().getBranchIds().length == 0) {
+                opgModalRemovePlug.append('<button type="button" class="btn btn-footer" id="opg-modal-remove-private" style="float: left;">Remove Node</button>');
+                this.initRemoveButton(box, c);
+            }
         }
     }
 
@@ -378,7 +380,8 @@ class PrivatePersonUtils{
     }
 
     static isCustomId(id: string): boolean{
-        return(id.match(/@OPG.+/i).length == 0);
+        let matches = id.match(/@OPG.+/i);
+        return((matches && matches.length > 0));
     }
 
     static getCustomSubKey(id: string): string{

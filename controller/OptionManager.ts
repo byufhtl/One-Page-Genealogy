@@ -458,13 +458,20 @@ class OptionManager implements IOptionManager {
 
         setAsRoot.click(() => {
             var colonLoc = box.getNode().getId().indexOf(':');
-            var pid = box.getNode().getId().substr(0,colonLoc);
-            if(pid != null && pid != "" && !pid.match(/@OPG.+/i)) {
+            var pid = box.getNode().getId().substr(0, colonLoc);
+
+            if (pid != null && pid != ""){
                 $("#opg-modal").modal('hide');
-                $('#pid-search-input').val(pid);
-                $('#treeRt-other').prop('selected',true);
-                $('#relative-tree-downloader').show();
-                familySearchDownload();
+                console.log("Setting as root: " + pid);
+                if(pid.match(RegExp("@[^@]+@"))){
+                    $('#myInput').click();
+                }
+                else if(!pid.match(/@OPG.+/i)) {
+                    $('#pid-search-input').val(pid);
+                    $('#treeRt-other').prop('selected', true);
+                    $('#relative-tree-downloader').show();
+                    familySearchDownload();
+                }
             }
         });
 

@@ -50,8 +50,8 @@ class ExtendedChartStyler extends AbstractChartStyle{
                 break;
             case 7:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);
-                branchBox.setType(StyleManager.MEDIUM);
-                StyleManager.stylize(branchBox, MediumBoxStyle.SINGLE_LONG);
+                branchBox.setType(StyleManager.SMALL);
+                StyleManager.stylize(branchBox, SmallBoxStyle.SINGLE_LONG_FAT);
                 break;
             case 8:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 20);

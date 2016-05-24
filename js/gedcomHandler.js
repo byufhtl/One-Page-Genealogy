@@ -19,7 +19,7 @@ function inputChange(data) {
     var gedString = "";
 
     function readFile(e){
-        gedString = reader.result
+        gedString = reader.result;
         if (gedString.charCodeAt(0) == 65279) gedString = gedString.substring(1);
         var output = gedcom.parse(gedString);
         useData(output)
@@ -28,19 +28,19 @@ function inputChange(data) {
 
     reader.onload = readFile;
     reader.readAsText(gedInput);
-};
+}
 
 function useData(gedOutput){
 
-    var jReader = new JSONREADER(gedOutput)
-    indiMap = null
-    indiMap = jReader.getIndividuals()
+    var jReader = new JSONREADER(gedOutput);
+    indiMap = null;
+    indiMap = jReader.getIndividuals();
 
     $('#gedcomModal').on('show.bs.modal',setOptions);
 
     function setOptions(e){
 
-        var gedSelect = $('#gedcomSelect')
+        var gedSelect = $('#gedcomSelect');
 
         //make alphabetized array of individuals for display
         var indiArray = []
@@ -81,14 +81,14 @@ function useData(gedOutput){
 
         //add each individual as an option to gedcomSelect element
         for(var k = 0; k < indiArray.length;k++){
-            var key = indiArray[k].pid
+            var key = indiArray[k].pid;
 
             if(indiMap[key].hasOwnProperty('pid')) {
 
-                var selectorString = String(key)
+                var selectorString = String(key);
                 var optionString = "";
-                optionString = getDisplayName(indiMap[key].name)
-                optionString = optionString + selectorString
+                optionString = getDisplayName(indiMap[key].name);
+                optionString = optionString + selectorString;
 
                 if(key == indiMap["latestIndi"]){
                     optionString = optionString + " MOST RECENT"
@@ -138,8 +138,8 @@ function useData(gedOutput){
                 aLast = a.surname.toLowerCase();
 
             }else if (a.hasOwnProperty("name")){
-                var fullname = a.name
-                var nameSplit = fullname.split(" ")
+                var fullname = a.name;
+                var nameSplit = fullname.split(" ");
                 aLast = nameSplit[(nameSplit.length-1)].toLowerCase();
 
             }else{
@@ -154,7 +154,7 @@ function useData(gedOutput){
                     finalname = finalname + aLast[j]
                 }
             }
-            aLast = finalname
+            aLast = finalname;
 
             if(aLast.length == 0){
                 aLast = "{"
@@ -170,8 +170,8 @@ function useData(gedOutput){
                 aFirst = a.given.toLowerCase();
 
             }else if (a.hasOwnProperty("name")){
-                var fullname = a.name
-                var nameSplit = fullname.split(" ")
+                var fullname = a.name;
+                var nameSplit = fullname.split(" ");
                 aFirst = nameSplit[0].toLowerCase();
 
             }else{
@@ -190,19 +190,19 @@ function useData(gedOutput){
         function getDisplayName(name){
 
             var toReturn = "";
-            var splitName = name.split("/")
-            var lastName = ""
-            var firstName = ""
+            var splitName = name.split("/");
+            var lastName = "";
+            var firstName = "";
 
             if(splitName.length >1){
                 lastName = splitName[(splitName.length-2)]
             }else{
-                splitName = name.split(" ")
+                splitName = name.split(" ");
                 lastName = splitName[(splitName.length-1)]
             }
 
-            firstName = splitName[0]
-            splitName = firstName.split(" ")
+            firstName = splitName[0];
+            splitName = firstName.split(" ");
 
             if(splitName.length > 5){
                 firstName = splitName[0] + " " + splitName[1]
@@ -219,7 +219,7 @@ function useData(gedOutput){
         keyboard: false
     })
 
-    $('#gedcomModal').show()
+    $('#gedcomModal').show();
 
     function resetOptions(){
         document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
@@ -241,7 +241,7 @@ function useData(gedOutput){
         localStorage.setItem("rootPID", rootId);
         numGenerations = generations;
 
-        var chartSVGElement = cloneRemove(document.getElementById("opg-chart"))
+        var chartSVGElement = cloneRemove(document.getElementById("opg-chart"));
         while (chartSVGElement.lastChild) {
             chartSVGElement.removeChild(chartSVGElement.lastChild);
         }
@@ -259,12 +259,12 @@ function useData(gedOutput){
             optionManager: optionManager
         });
 
-        var gedcomSelectElement = cloneRemove(document.getElementById('gedcomSelect'))
+        var gedcomSelectElement = cloneRemove(document.getElementById('gedcomSelect'));
         while (gedcomSelectElement.lastChild) {
             gedcomSelectElement.removeChild(gedcomSelectElement.lastChild);
         }
 
-        var genSelectElement = cloneRemove(document.getElementById("generationsSelect"))
+        var genSelectElement = cloneRemove(document.getElementById("generationsSelect"));
         while (genSelectElement.lastChild) {
             genSelectElement.removeChild(genSelectElement.lastChild);
         }
@@ -273,21 +273,21 @@ function useData(gedOutput){
         document.getElementById("generationsRadio").checked = true;
 
         //cloneRemove(document.getElementById("generationsRadio"))
-        cloneRemove(document.getElementById("gedcomSave"))
-        cloneRemove(document.getElementById("gedcomModal"))
-        cloneRemove(document.getElementById("myInput"))
+        cloneRemove(document.getElementById("gedcomSave"));
+        cloneRemove(document.getElementById("gedcomModal"));
+        cloneRemove(document.getElementById("myInput"));
 
 
-        $("#myInput").change(inputChange)
+        $("#myInput").change(inputChange);
 
         //removes listeners of an element via cloning
         function cloneRemove(element){
             var new_element = element.cloneNode(true);
-            element.parentNode.replaceChild(new_element,element)
+            element.parentNode.replaceChild(new_element,element);
             return new_element
         }
 
-    })//end gedcomSave .click function
+    });//end gedcomSave .click function
 
 
 

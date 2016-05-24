@@ -6,6 +6,7 @@ var numGenerations;
 var c = null;
 var optionManager = null;
 var token;
+var type = "";
 if (window.location.href.indexOf("fstoken") > -1) {
     var url = window.location.href;
     var a = $('<a>', {href: url})[0];
@@ -57,16 +58,10 @@ $(document).ready(function () {
     });
     $("#tofsbutton-user").click(fsHideFirstModalUser);
     $("#tofsbutton").click(fsHideFirstModalOther);
-    $("#togedbutton").click(function(){
-        $('#myInput').click();
-        $('#downloadModal').hide();
-    });
+    $("#togedbutton").click(gedHideFirstModal);
     $('#myTreeCard').click(fsHideFirstModalUser);
     $('#otherTreeCard').click(fsHideFirstModalOther);
-    $('#gedcomCard').click(function(){
-        $('#myInput').click();
-        $('#downloadModal').hide();
-    });
+    $('#gedcomCard').click(gedHideFirstModal);
     //$("#logoutbutton").click(logout)
     $("#download-modal-help").click(function(){
        window.open('help.html');
@@ -116,6 +111,7 @@ $(document).ready(function () {
 });
 
 function fsHideFirstModal() {
+    type = "familysearch";
     $('#downloadModal').hide();
     $('#fsModal').modal('show');
     familySearchDownload();
@@ -130,6 +126,12 @@ function fsHideFirstModalUser() {
 function fsHideFirstModalOther(){
     $('#relative-tree-downloader').show();
     fsHideFirstModal();
+}
+
+function gedHideFirstModal(){
+    type = "gedcom";
+    $('#myInput').click();
+    $('#downloadModal').hide();
 }
 
 function isExpired(){
