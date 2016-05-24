@@ -475,19 +475,29 @@ class OptionManager implements IOptionManager {
             }
         });
 
-        opgModalFSview.click(() => {
-            var pid = box.getNode().getId().substring(0,8);
-            if(!pid.match(/@OPG.+/i)) {
-                window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
-            }
-        });
+        if(localStorage.getItem("chartType") === "FamilySearch") {
 
-        opgModalVPview.click(() => {
-            var pid:string = box.getNode().getId().substring(0,8);
-            if(!pid.match(/@OPG.+/i)) {
-                self.listener.handleOption('VP-view', {id: pid});
-            }
-        });
+            opgModalFSview.show();
+            opgModalVPview.show();
+
+            opgModalFSview.click(() => {
+                var pid = box.getNode().getId().substring(0, 8);
+                if (!pid.match(/@OPG.+/i)) {
+                    window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
+                }
+            });
+
+            opgModalVPview.click(() => {
+                var pid:string = box.getNode().getId().substring(0, 8);
+                if (!pid.match(/@OPG.+/i)) {
+                    self.listener.handleOption('VP-view', {id: pid});
+                }
+            });
+        }
+        else{
+            opgModalFSview.hide();
+            opgModalVPview.hide();
+        }
 
         // Inits the buttons on the detail modal relative to private persons.
         PrivatePersonUtils.initDetailModalButtons(box,this.listener);

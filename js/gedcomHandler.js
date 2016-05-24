@@ -228,6 +228,8 @@ function useData(gedOutput){
         $('.BSswitch').bootstrapSwitch('state', true);
         $('#country-legend').css('display', 'none');
         $('#ruler-height').val("");
+        $('#country-legend').animate({"width": "0%"}, "fast");
+        $('#opg-chart').css("width", "100%");
     }
 
     $('#gedcomSave').click(function(){
