@@ -76,57 +76,79 @@ class StylingPipeline implements IPipeline {
         switch(spacer.className){
             case("AscColorSpacer"):
                 return new AscColorSpacer();
+                break;
             case("AscBlackoutColorSpacer"):
                 return new AscBlackoutColorSpacer();
+                break;
             case("AscBoldColorSpacer"):
                 return new AscBoldColorSpacer();
+                break;
             case("AscGreyscaleColorSpacer"):
                 return new AscGreyscaleColorSpacer();
+                break;
             case("ColorSpacer"):
                 return new ColorSpacer();
+                break;
             case("GenColorSpacer"):
                 return new GenColorSpacer();
+                break;
             case("GenColorVibrantSpacer"):
                 return new GenColorVibrantSpacer();
+                break;
             case("GenWoodColorSpacer"):
                 return new GenWoodColorSpacer();
+                break;
             case("GenderColorSpacer"):
                 return new GenderColorSpacer();
+                break;
             case("GreyScaleSpacer"):
                 return new GreyScaleSpacer();
+                break;
             default:
-                console.log("Cannot load style [" + spacer.className + "]");
+                console.log("Cannot load color scheme [" + spacer.className + "]");
         }
     }
 
     getChartStylerByName(spacer: any): AbstractChartStyle{
-        switch(spacer){
+        switch(spacer.className){
             case("BubbleChartStyler"):
                 return new BubbleChartStyler();
+                break;
             case("ElevenSeventeenChartSStyler"):
                 return new ElevenSeventeenChartStyler();
+                break;
             case("ExtendedChartSStyler"):
                 return new ExtendedChartStyler();
+                break;
             case("VariableDepthChartSStyler"):
                 return new VariableDepthChartStyler();
+                break;
             case("DetailChartSStyler"):
                 return new DetailChartStyler();
+                break;
             case("EightElevenDetailSStyler"):
                 return new EightElevenDetailChartStyler();
+                break;
             case("EightElevenSStyler"):
                 return new EightElevenChartStyler();
+                break;
             case("FamilyReunionChartSStyler"):
                 return new FamilyReunionChartStyler();
+                break;
             case("FamilyReunionDescPublicSStyler"):
                 return new FamilyReunionDescChartStyler();
+                break;
             case("VertDescDetChartSStyler"):
                 return new VertDescDetChartStyler();
+                break;
             case("VertDetChartStyler"):
                 return new VertDetChartStyler();
+                break;
             case("VertDetAccentChartStyler"):
                 return new VertDetAccentChartStyler();
+                break;
             default:
-                console.log("Cannot load style [" + spacer.className + "]");
+                console.log("Cannot load chart style [" + spacer.className + "]");
         }
     }
 

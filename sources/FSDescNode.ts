@@ -34,12 +34,12 @@ class FSDescNode implements INode {
         this.isMain = isMain;
 
         if(person) {
-            this.mutableName = person.display.name;
-            this.mutableGender = person.display.gender;
-            this.mutableBirthdate = person.display.birthdate;
-            this.mutableBirthplace = person.display.birthplace;
-            this.mutableDeathdate = person.display.deathdate;
-            this.mutableDeathplace = person.display.deathplace;
+            this.mutableName = person.$getDisplayName();
+            this.mutableGender = person.$getDisplayGender();
+            this.mutableBirthdate = person.$getDisplayBirthDate();
+            this.mutableBirthplace = person.$getDisplayBirthPlace();
+            this.mutableDeathdate = person.$getDisplayDeathDate();
+            this.mutableDeathplace = person.$getDisplayDeathPlace();
         }
 
         this.urlPromise = null;

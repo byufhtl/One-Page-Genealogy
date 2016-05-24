@@ -37,12 +37,14 @@ class UploadNode implements INode {
         this.displaySpouse = displaySpouse;
         this.isMain = isMain;
 
-        this.mutableName = person.display.name;
-        this.mutableGender = person.display.gender;
-        this.mutableBirthdate = person.display.birthdate;
-        this.mutableBirthplace = person.display.birthplace;
-        this.mutableDeathdate = person.display.deathdate;
-        this.mutableDeathplace = person.display.deathplace;
+        if(person) {
+            this.mutableName = person.$getDisplayName();
+            this.mutableGender = person.$getDisplayGender();
+            this.mutableBirthdate = person.$getDisplayBirthDate();
+            this.mutableBirthplace = person.$getDisplayBirthPlace();
+            this.mutableDeathdate = person.$getDisplayDeathDate();
+            this.mutableDeathplace = person.$getDisplayDeathPlace();
+        }
 
         this.urlPromise = null;
         this.doneLoadingDefer = $.Deferred();

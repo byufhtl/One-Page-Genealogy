@@ -163,8 +163,8 @@ function familySearchDownload() {
         });
 
         $('#fsDwldBack').click(function(){
-            $('#fsModal').modal('hide');
-            $('#downloadModal').modal('show');
+            $('#fsModal').hide();
+            $('#downloadModal').show();
         });
 
         if (FamilySearch.hasAccessToken && !isExpired()) {
