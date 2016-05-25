@@ -30,8 +30,10 @@
 ///<reference path="ChartStyles/VertDetAccentChartStyler.ts"/>
 ///<reference path="ChartStyles/BubbleChartStyler.ts"/>
 ///<reference path="ChartStyles/VariableDepthChartStyler.ts"/>
+///<reference path="ChartStyles/VariableDepthDescChartStyler.ts"/>
 ///<reference path="ChartStyles/ElevenSeventeenChartStyler.ts"/>
 ///<reference path="ChartStyles/ExtendedChartStyler.ts"/>
+///<reference path="ChartStyles/VariableExtendedChartStyler.ts"/>
 
 ///<reference path="YSpacer"/>
 /**
@@ -114,38 +116,44 @@ class StylingPipeline implements IPipeline {
             case("BubbleChartStyler"):
                 return new BubbleChartStyler();
                 break;
-            case("ElevenSeventeenChartSStyler"):
-                return new ElevenSeventeenChartStyler();
-                break;
-            case("ExtendedChartSStyler"):
-                return new ExtendedChartStyler();
-                break;
-            case("VariableDepthChartSStyler"):
-                return new VariableDepthChartStyler();
-                break;
-            case("DetailChartSStyler"):
+            case("DetailChartStyler"):
                 return new DetailChartStyler();
                 break;
-            case("EightElevenDetailSStyler"):
-                return new EightElevenDetailChartStyler();
-                break;
-            case("EightElevenSStyler"):
+            case("EightElevenChartStyler"):
                 return new EightElevenChartStyler();
                 break;
-            case("FamilyReunionChartSStyler"):
+            case("EightElevenDetailChartStyler"):
+                return new EightElevenDetailChartStyler();
+                break;
+            case("ElevenSeventeenChartStyler"):
+                return new ElevenSeventeenChartStyler();
+                break;
+            case("ExtendedChartStyler"):
+                return new ExtendedChartStyler();
+                break;
+            case("FamilyReunionChartStyler"):
                 return new FamilyReunionChartStyler();
                 break;
-            case("FamilyReunionDescPublicSStyler"):
+            case("FamilyReunionDescChartStyler"):
                 return new FamilyReunionDescChartStyler();
+                break;
+            case("VariableDepthChartStyler"):
+                return new VariableDepthChartStyler();
+                break;
+            case("VariableDepthDescChartStyler"):
+                return new VariableDepthDescChartStyler();
+                break;
+            case("VariableExtendedChartStyler"):
+                return new VariableExtendedChartStyler();
                 break;
             case("VertDescDetChartStyler"):
                 return new VertDescDetChartStyler();
                 break;
-            case("VertDetChartStyler"):
-                return new VertDetChartStyler();
-                break;
             case("VertDetAccentChartStyler"):
                 return new VertDetAccentChartStyler();
+                break;
+            case("VertDetChartStyler"):
+                return new VertDetChartStyler();
                 break;
             default:
                 console.log("Cannot load chart style [" + spacer.className + "]");
