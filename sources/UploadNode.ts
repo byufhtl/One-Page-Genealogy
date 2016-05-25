@@ -38,28 +38,32 @@ class UploadNode implements INode {
         this.isMain = isMain;
 
         if(person) {
-            this.mutableName = person.$getDisplayName();
-            this.mutableGender = person.$getDisplayGender();
-            this.mutableBirthdate = person.$getDisplayBirthDate();
-            this.mutableBirthplace = person.$getDisplayBirthPlace();
-            this.mutableDeathdate = person.$getDisplayDeathDate();
-            this.mutableDeathplace = person.$getDisplayDeathPlace();
+            this.mutableName = person.display.name;
+            this.mutableGender = person.display.gender;
+            this.mutableBirthdate = person.display.birthdate;
+            this.mutableBirthplace = person.display.birthplace;
+            this.mutableDeathdate = person.display.deathdate;
+            this.mutableDeathplace = person.display.deathplace;
         }
 
         this.urlPromise = null;
         this.doneLoadingDefer = $.Deferred();
         this.marriagedate = "";
     }
-    getId(): string {
+
+    public getId(): string {
         return this.id;
     }
-    getAttr(key: string): any {
+
+    public getAttr(key: string): any {
         return this.getAndHasAttribute(true, key);
     }
-    hasAttr(key: string): boolean {
+
+    public hasAttr(key: string): boolean {
         return this.getAndHasAttribute(false, key);
     }
-    setAttr(name: string, value: any): INode {
+
+    public setAttr(name: string, value: any): INode {
         switch(name){
             case 'name':
                 this.mutableName = value;
@@ -167,28 +171,37 @@ class UploadNode implements INode {
             return null;
         return false;
     }
-    getBranchIds(): string[] {
+
+    public getBranchIds(): string[] {
         return this.branchIds;
     }
-    getSpouses(): any[] {
+
+    public getSpouses(): any[] {
         return this.spouses;
     }
-    getDisplaySpouse(): INode {
+
+    public getDisplaySpouse(): INode {
+        //console.log("spouse req: " + JSON.stringify(this.displaySpouse));
         return this.displaySpouse;
     }
-    setDisplaySpouse(node: INode){
+
+    public setDisplaySpouse(node: INode){
         this.displaySpouse = node;
     }
-    isMainPerson(): boolean{
+
+    public isMainPerson(): boolean{
         return this.isMain;
     }
-    setMarriageDate(d:string){
+
+    public setMarriageDate(d:string){
         this.marriagedate = d;
     }
-    setBranchIds(ids:string[]){
+
+    public setBranchIds(ids:string[]){
         this.branchIds = ids;
     }
-    getPerson(){
+
+    public getPerson(){
         return this.person;
     }
 }

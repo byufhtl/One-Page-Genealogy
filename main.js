@@ -51,17 +51,31 @@ $(document).ready(function () {
         $('#relative-tree-downloader').hide();
         familySearchDownload();
     });*/
+    // Hide the close options on first download, but enable them for later downloads.
     $('#download-modal-close').hide();
+    $('#fsDwldClose').hide();
     $("#redownload").click(function(){
         $('#downloadModal').show();
+        var dwnldClose = $('#fsDwldClose');
+        dwnldClose.show();
+        dwnldClose.click(function(){
+            $('#fsModal').hide();
+        });
         $('#download-modal-close').show();
     });
+    //$('#fsDwldBack').click(function(){
+    //    $('#fsModal').hide();
+    //    $('#downloadModal').show();
+    //});
+
+    // Configure the buttons for the opening modal window.
     $("#tofsbutton-user").click(fsHideFirstModalUser);
     $("#tofsbutton").click(fsHideFirstModalOther);
     $("#togedbutton").click(gedHideFirstModal);
     $('#myTreeCard').click(fsHideFirstModalUser);
     $('#otherTreeCard').click(fsHideFirstModalOther);
     $('#gedcomCard').click(gedHideFirstModal);
+
     //$("#logoutbutton").click(logout)
     $("#download-modal-help").click(function(){
        window.open('help.html');
@@ -70,10 +84,11 @@ $(document).ready(function () {
         window.open('https://fhtl.byu.edu');
     });
 
+    // Configure Color Pickers - Color-by-Country
     $("#box-color-picker").spectrum({});
     $("#box-text-color-picker").spectrum({});
 
-//Stuff for draggable sidebar
+    //Stuff for draggable sidebar
     var dragging = false;
     $('#dragbar').mousedown(function(e){
         e.preventDefault();
@@ -112,8 +127,14 @@ $(document).ready(function () {
 
 function fsHideFirstModal() {
     type = "familysearch";
+    var downloadBack = $('#fsDwldBack');
+    downloadBack.off('click');
+    downloadBack.html('Back');
+    downloadBack.click(function(){
+        $('#fsModal').hide();
+        $('#downloadModal').show();
+    });
     $('#downloadModal').hide();
-    $('#fsModal').modal('show');
     familySearchDownload();
 }
 
@@ -157,27 +178,27 @@ function familySearchDownload() {
         localStorage.removeItem("direction");
         download();
     } else {
-        $('#fsModal').modal({
+        var fsModal = $('#fsModal');
+        fsModal.modal({
             backdrop: 'static',
             keyboard: false
         });
 
-        $('#fsDwldBack').click(function(){
-            $('#fsModal').hide();
-            $('#downloadModal').show();
-        });
+        fsModal.show();
+
+        var fsSave = $('#fsSave');
 
         if (FamilySearch.hasAccessToken && !isExpired()) {
-            $('#fsSave').html("Submit");
+            fsSave.html("Submit");
         } else {
-            $('#fsSave').html("Login with FamilySearch");
+            fsSave.html("Login with FamilySearch");
         }
 
-
-        $('#fsSave').click(function () {
+        fsSave.click(function () {
             rootPID = document.getElementById("pid-search-input").value;
             numGenerations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
             direction = $('input[name=FSascOrDsc]:checked').val();
+            $('#fsModal').hide();
             download();
         });
     }
@@ -270,7 +291,7 @@ function familySearchDownload() {
                     optionManager: optionManager
                 });
                 localStorage.setItem("rootPID", rootPID);
-                $('#fsModal').modal("hide");
+                $('#fsModal').hide();
             })
         })
     }

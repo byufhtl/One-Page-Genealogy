@@ -27,8 +27,19 @@ class BoxMap {
         for(var key in map){
             if(map.hasOwnProperty(key)){
                 var box = map[key];
-                var tempBox = new AbstractBox(new UploadNode(box.node.id, box.node.person,
-                    box.node.branchIds, box.node.spouses, box.node.displaySpouse, box.node.isMain));
+
+                let spouse = box.node.displaySpouse;
+
+                var s_node :INode = null;
+
+                if(spouse){
+                    s_node = new UploadNode(spouse.id, spouse.person, spouse.display, [], null, false);
+                }
+
+                var node :INode = new UploadNode(box.node.id, box.node.person,
+                    box.node.branchIds, box.node.spouses, s_node, box.node.isMain);
+
+                var tempBox = new AbstractBox(node);
                 tempBox.setType(box.type);
                 tempBox.setColor(box.color);
                 tempBox.setHeight(box.h);

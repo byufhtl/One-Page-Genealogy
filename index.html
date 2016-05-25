@@ -183,18 +183,11 @@
                 <li id="edit-spacing-switch" style="display:none">
                     <input type="checkbox" name="edit-spacing-switch" class="BSswitch" checked data-on-color="default"  data-on-text="Branch" data-off-text="Individual" />
                 </li>
-                <li>
-                    <div>
-                        <button type="button" style="margin-top: 8px; margin-right: 0; margin-left: 8px; padding-right: 15px; border-radius: 5px 0 0 5px;" class="btn btn-footer" id="zoom-out-button">
-                            <i class="fa fa-search-minus fa-3" style="font-size: 18px;" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" style="margin-top: 8px; margin-left: 0; padding-left: 15px; margin-right: 8px; border-radius: 0 5px 5px 0;" class="btn btn-footer" id="zoom-in-button">
-                            <i class="fa fa-search-plus fa-4" style="font-size: 18px;" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </li>
+
                 <li><button style="margin-top: 8px;" type="button" class="btn btn-footer" id="redownload">Download New File</button></li>
 
+                <li><a id="zoom-out-button" title="Rotate Left" href="#"><i class="fa fa-search-minus"></i></a></li>
+                <li><a id="zoom-in-button" title="Rotate Left" href="#"><i class="fa fa-search-plus"></i></a></li>
                 <li><a id="opg-rotate-cc" title="Rotate Left" href="#"><i class="fa fa-rotate-left"></i></a></li>
                 <li><a id="opg-rotate-c" title="Rotate Right" href="#"><i class="fa fa-rotate-right"></i></a></li>
                 <li><a id="opg-download" title="Download PDF" href="#"><i class="fa fa-download"></i></a></li>
@@ -443,8 +436,11 @@
             </div>
             <div class="modal-footer opg-blue" style="border-bottom-right-radius: 5px; border-bottom-left-radius: 5px">
                 <div class="container-fluid" style="padding: 0;">
-                    <div class="col-sm-6" style="float: left; padding-left: 0;">
+                    <div class="col-sm-2" style="float: left; padding-left: 0;">
                         <button type="button" class="btn btn-footer" id="fsDwldBack" style="float: left;">Back</button>
+                    </div>
+                    <div class="col-sm-4" style="float: left; padding-left: 0;">
+                        <button type="button" class="btn btn-footer" id="fsDwldClose" style="float: left;">Close</button>
                     </div>
                     <div class="col-sm-6" style="float: right; padding-right: 0;">
                         <button type="button" class="btn btn-footer" id="fsSave"></button>
@@ -501,7 +497,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header opg-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
-                <button type="button" class="close modal-close" data-dismiss="modal" aria-hidden="true" id="download-modal-close">&times;</button>
+                <!--<button type="button" class="close modal-close" data-dismiss="modal" aria-hidden="true" id="download-modal-close"><!--&times;></button-->
+                <a id="download-modal-close"  data-dismiss="modal" href="#" style="float: right;"><i class="fa fa-close"></i></a>
                 <h1 style="margin-top: 0;" class="modal-title splash-title">One Page Genealogy</h1>
                 <h4 style="margin-top: 5px; text-align: center">All of your genealogy on one page</h4>
             </div>
@@ -544,7 +541,7 @@
             <div class="modal-footer opg-blue" style="border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-sm-3" align="left">
+                        <div class="col-sm-3" align="left" style="padding-left: 0;">
                             <button type="button" class="btn btn-footer" id="download-modal-help">Help Guide</button>
                         </div>
                         <div class="col-sm-6" style="padding-right: 0;" align="center">

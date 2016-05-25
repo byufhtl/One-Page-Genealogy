@@ -32,7 +32,17 @@ class AbstractBox implements IBox {
         this.ris = new RenderInstructionSchedule()
             .setHasPicture(node.hasAttr("profilePicturePromise"));
         if(node.getDisplaySpouse()) {
-            this.ris.setSpouseHasPicture(node.getDisplaySpouse().hasAttr("profilePicturePromise"));
+            if(!node.getDisplaySpouse().hasOwnProperty("hasAttr")){ // Upload nodes were having trouble for some reason... TODO Fix problem in Upload Nodes to enable property.
+                this.ris.setSpouseHasPicture(false);
+                //var props = [];
+                //for(var k in node.getDisplaySpouse()){
+                //    props.push(k);
+                //}
+                //console.log(node.getDisplaySpouse.hasAttr(""));
+            }
+            else {
+                this.ris.setSpouseHasPicture(node.getDisplaySpouse().hasAttr("profilePicturePromise"));
+            }
         }
 
         this.color = "#FFFFFF";

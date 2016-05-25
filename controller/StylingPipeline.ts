@@ -138,7 +138,7 @@ class StylingPipeline implements IPipeline {
             case("FamilyReunionDescPublicSStyler"):
                 return new FamilyReunionDescChartStyler();
                 break;
-            case("VertDescDetChartSStyler"):
+            case("VertDescDetChartStyler"):
                 return new VertDescDetChartStyler();
                 break;
             case("VertDetChartStyler"):
