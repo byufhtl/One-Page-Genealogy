@@ -461,13 +461,11 @@ class OptionManager implements IOptionManager {
 
             if (pid != null && pid != ""){
                 $("#opg-modal").modal('hide');
-                console.log("Setting as root: " + pid);
                 //if(pid.match(RegExp("@[^@]+@"))){
                 //    $('#myInput').click();
                 //}
                 //else
                 if(!pid.match(/@OPG.+/i)) {
-                    console.log("Real Root Set: " + pid);
                     $('#pid-search-input').val(pid);
                     $('#treeRt-other').prop('selected', true);
                     $('#relative-tree-downloader').show();

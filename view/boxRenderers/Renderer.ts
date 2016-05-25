@@ -88,11 +88,11 @@ class Renderer{
         var node = box.getNode();
         gt.setAttribute("style", "font-family: 'Roboto Slab' ");
 
-        rect.setAttribute('width', String(box.getWidth()));
+        rect.setAttribute('width', box.getWidth().toString(10));
         var h = box.getHeight() - 6 - box.getSpace();
         h = (h > 0)? h : 0;
         if(h === 0){console.log("Bad DIM: " + box.getWidth() + "," + box.getHeight() + " : " + ris.getFlavorKey());}
-        rect.setAttribute('height', String(h));
+        rect.setAttribute('height', h.toString(10));
 
         // set up the rounding on the boxes based on the RIS, defaulting to 5% of the longer of the two sides.
         var rounding = ris.getCornerRounding();
@@ -115,10 +115,24 @@ class Renderer{
         border = (border != null)? border : 4;
 
         // if there should be an automatic pastel colored border, draw the box accordingly.
-        if(ris.isColoredBorder()){ // 0 or it has a dimension
+        if(ris.isColoredBorder()){ // boolean
             rect.setAttribute('stroke-width', (border).toString());
-            rect.setAttribute('stroke', box.getColor());
-            rect.setAttribute('fill', ColorManager.lighten(box.getColor(),32));
+            rect.setAttribute('stroke', ColorManager.black());
+            rect.setAttribute('fill', ColorManager.lighten(box.getColor(), -32));//box.getColor());
+
+            let rect2: Element = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            let width = parseInt(rect.getAttribute('width'),10);
+            let height = parseInt(rect.getAttribute('height'),10);
+            let rim =(3 * border/2) - 1; // This number really deserves a place in the RIS, but we've cobbled it together here.
+            rect2.setAttribute('width', (width - rim*2).toString(10));
+            rect2.setAttribute('height', (height - rim*2).toString(10));
+            rect2.setAttribute('x',(rim).toString(10));
+            rect2.setAttribute('y',(rim).toString(10));
+            rect2.setAttribute('stroke-width', '0');
+            rect2.setAttribute('fill', box.getColor());//ColorManager.lighten(box.getColor(),32));
+            rect2.setAttribute('rx', edge_curve);
+            rect2.setAttribute('ry', edge_curve);
+            g.appendChild(rect2);
         }
         else{
             rect.setAttribute('stroke-width', border.toString());
