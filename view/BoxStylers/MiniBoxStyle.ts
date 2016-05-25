@@ -70,15 +70,15 @@ class MiniBoxStyle{
         var small_font_size = 9;
         var dateLength = 18;
         var placeLength = 16;
-        box.setHeight(60);
+        box.setHeight(53);
         box.setWidth(255);
 
         if(box.getNode().getAttr('gender') === "Male"){
             start_y = 13;
-            s_start_y = 35;
+            s_start_y = 32;
         }
         else{
-            start_y = 35;
+            start_y = 32;
             s_start_y = 13;
         }
 
@@ -87,17 +87,17 @@ class MiniBoxStyle{
             .setNodeName(new Instruction(start_x, start_y + 2, 17))
             .setNodeBDate(new Instruction(start_x + 107, start_y - 4, dateLength))
             .setNodeBPlace(new Instruction(start_x + 169, start_y - 4, placeLength))
-            .setNodeDDate(new Instruction(start_x + 107, start_y + small_font_size - 3, dateLength))
-            .setNodeDPlace(new Instruction(start_x + 169, start_y + small_font_size - 3, placeLength))
+            .setNodeDDate(new Instruction(start_x + 107, start_y + small_font_size - 4, dateLength))
+            .setNodeDPlace(new Instruction(start_x + 169, start_y + small_font_size - 4, placeLength))
 
             .setSpouseName(new Instruction(s_start_x, s_start_y + 2, 18))
             .setSpouseBDate(new Instruction(s_start_x + 107, s_start_y - 4, dateLength))
             .setSpouseBPlace(new Instruction(s_start_x + 169, s_start_y - 4, placeLength))
-            .setSpouseDDate(new Instruction(s_start_x + 107, s_start_y + small_font_size - 3, dateLength))
-            .setSpouseDPlace(new Instruction(s_start_x + 169, s_start_y + small_font_size - 3, placeLength))
+            .setSpouseDDate(new Instruction(s_start_x + 107, s_start_y + small_font_size - 4, dateLength))
+            .setSpouseDPlace(new Instruction(s_start_x + 169, s_start_y + small_font_size - 4, placeLength))
 
-            .setMarriageDate(new Instruction(75, 51, dateLength))
-            .setMarriagePlace(new Instruction(175, 51, dateLength))
+            .setMarriageDate(new Instruction(75, 45, dateLength))
+            .setMarriagePlace(new Instruction(175, 45, dateLength))
 
     }
 

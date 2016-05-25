@@ -195,7 +195,7 @@ class OptionManager implements IOptionManager {
                     });
                 }
                 else if (this.direction == "descendancy"){
-                    style_menu.append('<li><a id="opg-js-public-style" href="#">Vertical Descendancy Style</a></li>');
+                    style_menu.append('<li><a id="opg-js-public-style" href="#">Vertical Descendancy Style (Default)</a></li>');
                     style_menu.append('<li><a id="opg-js-reunion-public-style" href="#">Family Reunion Descendancy Style</a></li>');
                     style_menu.append('<li><span class="label label-warning">new</span><a id="opg-js-var-depth-style" href="#">Variable Depth Descendancy Style (13+ Generations)</a></li>');
 

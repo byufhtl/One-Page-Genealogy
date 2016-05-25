@@ -38,6 +38,10 @@ class MediumBoxStyle{
             MediumBoxStyle.applyMarriedWideFlavor(box, render_sched);
             styled = true;
         }
+        else if(render_sched.getFlavorKey() === MediumBoxStyle.MARRIED_WIDE_SQ){
+            MediumBoxStyle.applyMarriedWideSquareFlavor(box, render_sched);
+            styled = true;
+        }
 
         //~~~ Single Flavors ~~~
 
@@ -112,6 +116,63 @@ class MediumBoxStyle{
                     .setSpousePictureDim(new Instruction(75, 75, null));
             }
         }
+
+        render_sched
+            .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 10, dateLength))
+            .setNodeBPlace(new Instruction(start_x, start_y + big_font_size - 10 + small_font_size, placeLength))
+            .setNodeDDate(new Instruction(start_x, start_y + big_font_size - 10 + small_font_size*2 + 3, dateLength))
+            .setNodeDPlace(new Instruction(start_x, start_y + big_font_size - 10 + small_font_size*3 + 3, placeLength))
+
+            .setSpouseBDate(new Instruction(s_start_x, s_start_y + big_font_size - 10, dateLength))
+            .setSpouseBPlace(new Instruction(s_start_x, s_start_y + big_font_size - 10 + small_font_size, placeLength))
+            .setSpouseDDate(new Instruction(s_start_x, s_start_y + big_font_size - 10 + small_font_size*2 + 3, dateLength))
+            .setSpouseDPlace(new Instruction(s_start_x, s_start_x + big_font_size - 10 + small_font_size*3 + 3 + 8))
+
+            .setMarriageDate(new Instruction(s_start_x, 221))
+            .setMarriagePlace(new Instruction(s_start_x + 55, 221))
+
+            .setBoldID(box.getNode().getId())
+            .setRotation(true);
+
+    }
+
+    private static applyMarriedWideSquareFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
+
+        if(box.getNode().getSpouses().length == 0){
+            render_sched.setFlavorKey(MediumBoxStyle.SINGLE_LONG_FAT);
+            return;
+        }
+
+        box.setHeight(270);
+        box.setWidth(235);
+
+        var start_x = 22;
+        var s_start_x = 22;
+        var s_start_y :number;
+        var start_y :number;
+        var big_font_size = 28;
+        var small_font_size = 14;
+        var nameLength = 14;
+        var dateLength = 18;
+        var placeLength = 18;
+
+        if (box.getNode().getAttr('gender') === "Male") {
+            start_y = 29;
+            s_start_y = 140;
+        }
+        else {
+            start_y = 140;
+            s_start_y = 29;
+        }
+
+        render_sched
+            .setNodeName(new Instruction(start_x, start_y, nameLength))
+            .setSpouseName(new Instruction(s_start_x, s_start_y, nameLength))
+            .setPicturePlace(null)
+            .setPictureDim(null)
+            .setSpousePicturePlace(null)
+            .setSpousePictureDim(null);
+
 
         render_sched
             .setNodeBDate(new Instruction(start_x, start_y + big_font_size - 10, dateLength))
@@ -241,6 +302,7 @@ class MediumBoxStyle{
     }
 
     static MARRIED_WIDE     = "m_w";
+    static MARRIED_WIDE_SQ  = "m_w_sq";
     static SINGLE_WIDE      = "s_w";
     static SINGLE_LONG      = "s_l";
     static SINGLE_LONG_FAT  = "s_l_f";

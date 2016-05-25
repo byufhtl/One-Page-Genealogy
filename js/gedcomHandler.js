@@ -253,6 +253,7 @@ function useData(gedOutput){
         if(optionManager === null){
             optionManager = new OptionManager();
         }
+        optionManager.setDirection(dscOrAsc);
         c = new C({
             rootId: rootId,
             gedData: indiMap,

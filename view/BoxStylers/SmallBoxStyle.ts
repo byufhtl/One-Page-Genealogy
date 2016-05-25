@@ -39,6 +39,10 @@ class SmallBoxStyle{
             SmallBoxStyle.applyMarriedWideFlavor(box,render_sched);
             styled = true;
         }
+        else if(render_sched.getFlavorKey() === SmallBoxStyle.MARRIED_WIDE_SQ){
+            SmallBoxStyle.applyMarriedWideSquareFlavor(box,render_sched);
+            styled = true;
+        }
 
         //~~~ Single Flavors ~~~
 
@@ -111,6 +115,63 @@ class SmallBoxStyle{
                     .setSpousePictureDim(new Instruction(55, 55, null));
             }
         }
+
+        // Begin the setup
+        render_sched
+            .setNodeName(new Instruction(start_x, start_y, nameLength))
+            .setNodeBDate(new Instruction(start_x, start_y + big_font_size, dateLength))
+            .setNodeBPlace(new Instruction(start_x + 90, start_y + big_font_size, placeLength))
+            .setNodeDDate(new Instruction(start_x, start_y + big_font_size + small_font_size + 3, dateLength))
+            .setNodeDPlace(new Instruction(start_x + 90, start_y + big_font_size + small_font_size + 3, placeLength))
+
+            .setSpouseName(new Instruction(s_start_x, s_start_y, nameLength))
+            .setSpouseBDate(new Instruction(s_start_x, s_start_y + big_font_size, dateLength))
+            .setSpouseBPlace(new Instruction(s_start_x + 90, s_start_y + big_font_size, placeLength))
+            .setSpouseDDate(new Instruction(s_start_x, s_start_y + big_font_size + small_font_size + 3, dateLength))
+            .setSpouseDPlace(new Instruction(s_start_x + 90, s_start_x + big_font_size + small_font_size + 3 + 8))
+
+            .setMarriageDate(new Instruction(s_start_x, 141))
+            .setMarriagePlace(new Instruction(s_start_x + 45, 141))
+
+            .setBoldID(box.getNode().getId())
+            .setRotation(true);
+    }
+
+    private static applyMarriedWideSquareFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
+        var big_font_size = 18;
+        var small_font_size = 13;
+        var nameLength = 16;
+        var dateLength = 12;
+        var placeLength = 13;
+
+        box.setHeight(190);
+        box.setWidth(160);
+
+        if(box.getNode().getSpouses().length == 0){
+            render_sched.setFlavorKey(SmallBoxStyle.SINGLE_LONG_FAT);
+            return;
+        }
+
+        var start_x = 10;
+        var s_start_x = 10;
+        var start_y :number;
+        var s_start_y :number;
+
+        // Put the man on top for consistency (Not sexism, just because there are likely to be fewer plural men)
+        if(box.getNode().getAttr('gender') === "Male"){
+            start_y = 21;
+            s_start_y = 85;
+        }
+        else{
+            start_y = 85;
+            s_start_y = 21;
+        }
+
+        render_sched
+            .setPicturePlace(null)
+            .setPictureDim(null)
+            .setSpousePicturePlace(null)
+            .setSpousePictureDim(null);
 
         // Begin the setup
         render_sched
@@ -243,6 +304,7 @@ class SmallBoxStyle{
     }
 
     static MARRIED_WIDE     = "m_w";
+    static MARRIED_WIDE_SQ  = "m_w_sq";
     static SINGLE_WIDE      = "s_w";
     static SINGLE_LONG      = "s_l";
     static SINGLE_LONG_FAT  = "s_l_f";
