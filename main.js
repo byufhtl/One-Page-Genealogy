@@ -198,7 +198,7 @@ function familySearchDownload() {
             rootPID = document.getElementById("pid-search-input").value;
             numGenerations = $("option:selected", ('#fsGenerationsSelect'))[0].value;
             direction = $('input[name=FSascOrDsc]:checked').val();
-            $('#fsModal').hide();
+            $('#fsSave').prop('disabled', true);
             download();
         });
     }
@@ -292,6 +292,7 @@ function familySearchDownload() {
                 });
                 localStorage.setItem("rootPID", rootPID);
                 $('#fsModal').hide();
+                $('#fsSave').prop('disabled', false);
             })
         })
     }

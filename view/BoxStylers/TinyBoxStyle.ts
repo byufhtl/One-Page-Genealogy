@@ -73,9 +73,18 @@ class TinyBoxStyle{
         box.setHeight(34);
 
         var start_x = 8;
-        var start_y = 7;
         var s_start_x = 8;
-        var s_start_y = 15;
+        var start_y: number;
+        var s_start_y: number;
+
+        if(box.getNode().getAttr('gender') === "Male"){
+            start_y = 7;
+            s_start_y = 15;
+        }
+        else{
+            start_y = 15;
+            s_start_y = 7;
+        }
 
         render_sched
             .setNodeName(new Instruction(start_x, start_y, 17))

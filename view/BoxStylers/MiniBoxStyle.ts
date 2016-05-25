@@ -64,14 +64,23 @@ class MiniBoxStyle{
             return;
         }
         var start_x = 5;
-        var start_y = 13;
         var s_start_x = 5;
-        var s_start_y = 35;
+        var start_y: number;
+        var s_start_y: number;
         var small_font_size = 9;
         var dateLength = 18;
         var placeLength = 16;
         box.setHeight(60);
         box.setWidth(255);
+
+        if(box.getNode().getAttr('gender') === "Male"){
+            start_y = 13;
+            s_start_y = 35;
+        }
+        else{
+            start_y = 35;
+            s_start_y = 13;
+        }
 
         render_sched
             .setBorderWidth(2)
@@ -87,8 +96,8 @@ class MiniBoxStyle{
             .setSpouseDDate(new Instruction(s_start_x + 107, s_start_y + small_font_size - 3, dateLength))
             .setSpouseDPlace(new Instruction(s_start_x + 169, s_start_y + small_font_size - 3, placeLength))
 
-            .setMarriageDate(new Instruction(75, s_start_y + 17, dateLength))
-            .setMarriagePlace(new Instruction(175, s_start_y + 17, dateLength))
+            .setMarriageDate(new Instruction(75, 51, dateLength))
+            .setMarriagePlace(new Instruction(175, 51, dateLength))
 
     }
 

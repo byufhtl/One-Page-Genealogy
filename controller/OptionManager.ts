@@ -294,12 +294,12 @@ class OptionManager implements IOptionManager {
                 else if (!p_id || p_id == ''){
                     p_id = primaryNode.getAttr('name') + " (No ID found)";
                 }
-                var s_id = primaryNode.getId().substr(0,colonLoc);
+                var s_id = secondaryNode.getId().substr(0,colonLoc);
                 if(secondaryNode.getId().match(/@OPG.+/i)){
                     s_id = "Private Node";
                 }
                 else if (!s_id || s_id == ''){
-                    s_id = primaryNode.getAttr('name') + " (No ID found)";
+                    s_id = secondaryNode.getAttr('name') + " (No ID found)";
                 }
 
                 $('#pid').text("Personal Information for " + p_id + " and " + s_id);
@@ -457,7 +457,13 @@ class OptionManager implements IOptionManager {
 
         setAsRoot.click(() => {
             var colonLoc = box.getNode().getId().indexOf(':');
-            var pid = box.getNode().getId().substr(0, colonLoc);
+            var pid :string;
+            if(box.getNode().isMainPerson() || (!box.getSpouseNode())) {
+                pid = box.getNode().getId().substr(0, colonLoc);
+            }
+            else if(box.getSpouseNode()){
+                pid = box.getSpouseNode().getId();
+            }
 
             if (pid != null && pid != ""){
                 $("#opg-modal").modal('hide');

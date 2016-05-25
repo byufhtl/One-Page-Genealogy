@@ -116,7 +116,11 @@ class VertDescDetChartStyler extends AbstractChartStyle{
         }
         else{
             childBox.setX(0);
-            console.assert(generation === 0);
+            if(generation === 1){
+                childBox.setType(StyleManager.NULL);
+                StyleManager.stylize(childBox, NullBoxStyle.NULL);
+                return;
+            }
             //console.log(childBox.getNode().getAttr("name") + " has pseudo-generation " + generation + " and final generation " + (generation/2).toString());
         }
 
