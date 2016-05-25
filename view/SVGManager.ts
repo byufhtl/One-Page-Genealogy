@@ -122,6 +122,18 @@ class SVGManager implements IViewManager {
             var pt = getMousePos(svg, event);
             self.graphicObject.fireScale(event.deltaY, self.viewToWorld(new Point(pt.x, pt.y)));
         });
+        $('#zoom-out-button').click(() =>{
+            var rect = self.boundingRect;
+            var x = window.innerWidth/2 - rect.left;
+            var y = window.innerHeight/2 - rect.top;
+            self.graphicObject.fireScale(-1, self.viewToWorld(new Point(x,y)));
+        });
+        $('#zoom-in-button').click(() =>{
+            var rect = self.boundingRect;
+            var x = window.innerWidth/2 - rect.left;
+            var y = window.innerHeight/2 - rect.top;
+            self.graphicObject.fireScale(1, self.viewToWorld(new Point(x,y)));
+        });
         var getMousePos = function(container, evt) {
             var rect = self.boundingRect;
             return {

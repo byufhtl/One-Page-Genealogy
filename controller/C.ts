@@ -389,6 +389,12 @@ class C implements IGraphicObjectListener, IOptionListener {
             $('#rulerModal').modal('hide');
             $('#ruler').css('display', 'none');
         }
+        else if (key === 'zoom-out') {
+            //this.scale(-1, new Point(window.innerWidth/2,window.innerHeight/2));
+        }
+        else if (key === 'zoom-in') {
+            //this.scale(1, new Point(window.innerWidth/2,window.innerHeight/2));
+        }
         //~~~ Chart Styles ~~~
         else if (key === 'detail-style') {
             this.p.handle({type: key});

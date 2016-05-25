@@ -55,6 +55,12 @@ class OptionManager implements IOptionManager {
         $('#ruler-hide').click(function() {
             self.listener.handleOption('ruler-hide', null);
         });
+        //$('#zoom-out-button').click(() => {
+        //    this.listener.handleOption("zoom-out", null);
+        //});
+        //$('#zoom-in-button').click(() => {
+        //    this.listener.handleOption("zoom-in", null);
+        //});
 
         //~~~ Color Schemes ~~~
 
