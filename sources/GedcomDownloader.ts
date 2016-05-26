@@ -32,9 +32,14 @@ var GedcomDownloader = (function () {
             var person = people[i];
             var idData = this.nextUniqueId(person.getId(),person.getBranchIds());
 
-
             var newPerson = new GedcomNode(idData.id, person.person, idData.parentIds);
-            newPerson.setDisplaySpouse(person.getDisplaySpouse());
+
+            if(newPerson.isMainPerson()) {
+                newPerson.setDisplaySpouse(person.getDisplaySpouse());
+            }
+            else{
+                newPerson.setDisplaySpouse(null);
+            }
             this.listener.gotNode(newPerson);
         }
         this.listener.done();

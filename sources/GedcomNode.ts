@@ -19,7 +19,22 @@ class GedcomNode implements INode {
         this.branchIds = branchIds;
         this.urlPromise = null;
         this.displaySpouse = null;
-        this.isMain = true;
+        if(person) {
+            person.display = {};
+            if(person.hasOwnProperty("name")) { // Because there are weird gedcom nodes out there...
+                person.display.name = this.fixName(person.name);
+                person.display.gender = person.gender;
+                person.display.birthdate = person.birthdate;
+                person.display.birthplace = person.birthplace;
+                person.display.deathdate = person.deathdate;
+                person.display.deathplace = person.deathplace;
+                person.display.marriagedate = person.marriagedate;
+            }
+            this.isMain = person.isMain;
+        }
+        if(this.isMain === undefined){
+            this.isMain = false;
+        }
         //this.spouses = []
         //this.doneLoadingDefer = $.Deferred();
     }
@@ -39,25 +54,25 @@ class GedcomNode implements INode {
     setAttr(name: string, value) {
         switch(name){
             case "name":
-                this.person.name = value;
+                this.person.display.name = value;
                 break;
             case "gender":
-                this.person.gender = value;
+                this.person.display.gender = value;
                 break;
             case "birthdate":
-                this.person.birthdate = value;
+                this.person.display.birthdate = value;
                 break;
             case "birthplace":
-                this.person.birthplace = value;
+                this.person.display.birthplace = value;
                 break;
             case "deathdate":
-                this.person.deathdate = value;
+                this.person.display.deathdate = value;
                 break;
             case "deathplace":
-                this.person.deathplace = value;
+                this.person.display.deathplace = value;
                 break;
             case "marriagedate":
-                this.person.marriagedate = value;
+                this.person.display.marriagedate = value;
                 break;
         }
         return this;
@@ -69,7 +84,7 @@ class GedcomNode implements INode {
             switch (attr) {
                 case "surname":
                     if (this.person.hasOwnProperty("surname")) {
-                        val = this.person.surname;
+                        val = this.fixName(this.person.surname);
                     }
                     else {
                         val = null;
@@ -85,7 +100,7 @@ class GedcomNode implements INode {
                     break;
                 case "name":
                     if (this.person.hasOwnProperty("name")) {
-                        var aName = this.person.name;
+                        var aName = this.person.display.name;
                         var finalname = "";
                         for (var j = 0; j < aName.length; j++) {
                             if (aName[j] != "/") {
@@ -101,7 +116,7 @@ class GedcomNode implements INode {
                     break;
                 case "gender":
                     if (this.person.hasOwnProperty("gender")) {
-                        var gender = this.person.gender;
+                        var gender = this.person.display.gender;
                         if (gender == "M" || gender == "MALE") {
                             gender = "Male";
                         }
@@ -117,11 +132,11 @@ class GedcomNode implements INode {
                 case "lifespan":
                     val = "";
                     if (this.person.hasOwnProperty("birthdate")) {
-                        val = String(this.person.birthdate) + " ";
+                        val = String(this.person.display.birthdate) + " ";
                     }
                     val = val + "-";
                     if (this.person.hasOwnProperty("deathdate")) {
-                        val = val + " " + String(this.person.deathdate);
+                        val = val + " " + String(this.person.display.deathdate);
                     }
                     if (val == "-" || val == "") {
                         val = null;
@@ -129,7 +144,7 @@ class GedcomNode implements INode {
                     break;
                 case "birthdate":
                     if (this.person.hasOwnProperty("birthdate")) {
-                        val = this.person.birthdate;
+                        val = this.person.display.birthdate;
                     }
                     else {
                         val = null;
@@ -137,7 +152,7 @@ class GedcomNode implements INode {
                     break;
                 case "birthplace":
                     if (this.person.hasOwnProperty("birthplace")) {
-                        val = this.person.birthplace;
+                        val = this.person.display.birthplace;
                     }
                     else {
                         val = null;
@@ -145,7 +160,7 @@ class GedcomNode implements INode {
                     break;
                 case "deathdate":
                     if (this.person.hasOwnProperty("deathdate")) {
-                        val = this.person.deathdate;
+                        val = this.person.display.deathdate;
                     }
                     else {
                         val = null;
@@ -153,7 +168,7 @@ class GedcomNode implements INode {
                     break;
                 case "deathplace":
                     if (this.person.hasOwnProperty("deathplace")) {
-                        val = this.person.deathplace;
+                        val = this.person.display.deathplace;
                     }
                     else {
                         val = null;
@@ -245,5 +260,16 @@ class GedcomNode implements INode {
     }
 
     setMarriageDate() {
+    }
+
+    /**
+     * This really deserves to be called from a utils class somewhere that reuses the stuff in the gedcomHandler...
+     * @param name
+     */
+    private fixName(name: string): string {
+        while (name.indexOf("/") != -1){
+            name = name.replace("/", "");
+        }
+        return name;
     }
 }

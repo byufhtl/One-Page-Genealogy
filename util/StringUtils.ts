@@ -15,13 +15,11 @@ class StringUtils {
     //**************************************************************************************************************
     public static fitDatePlace(textObj,dateStr,placeStr,width){
         var date = StringUtils.standardDate(dateStr);
-        var place = StringUtils.fitPlaceJS(textObj, placeStr,width - date.length);
         textObj.textContent = date+" "+ textObj.textContent;
     }
 
     public static fitDatePlace2(textObj,dateStr,placeStr,width){
         var date = StringUtils.standardDate(dateStr);
-        var place = StringUtils.fitPlaceJS(textObj, placeStr,width - date.length);
         textObj.textContent = date+" "+ textObj.textContent;
     }
 
@@ -34,7 +32,6 @@ class StringUtils {
         }else{
             date = '('+new Date(birthDateStr).getFullYear()+"-"+new Date(deathDateStr).getFullYear()+")";
         }
-        var place = StringUtils.fitPlaceStateOnly(textObj, birthPlaceStr,width - date.length);
         textObj.textContent = date+" "+ textObj.textContent;
     }
 
@@ -42,7 +39,7 @@ class StringUtils {
     // Date formatting
     //**************************************************************************************************************
     public static fitDate(textObj, birthDateStr, deathDateStr, width) {
-        var longDate = "";
+        var longDate: string;
         //console.log(birthDateStr);
         //console.log(deathDateStr);
         if(deathDateStr == null){
@@ -72,7 +69,7 @@ class StringUtils {
             return;
         }
     }
-    private static months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    private static months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     public static standardDate(dateString): string {
         if(!dateString) {
             return '';
@@ -111,12 +108,12 @@ class StringUtils {
         'ofc','officer','msgr','monsignor','sr','sister','br','brother','supt','superintendent','rep',
         'representative','sen','senator','amb','ambassador','treas','sec','secretary','pvt','cpl','corporal','sgt',
         'sergeant','sergent','sargent','adm','administrative','maj','major','capt','captain','cmdr','commander',
-        'lt','lieutenant','lt col','ltcol','lieutenant colonel','col','colonel','gen','general']
+        'lt','lieutenant','lt col','ltcol','lieutenant colonel','col','colonel','gen','general'];
 
     private static suffixNames = ['jr','junior','sr','senior','i','first','1st','ii','second','2nd','iii','third','3rd',
         'iv','fourth','4th','v','fifth','5th','vi','sixth','6th','esq','dc','dd','dds','dmd','jd','lld','md','od',
         'phd','ret','cfre','cpa','do','dvm','edd','pc','usa','usaf','usmc','usmcr','usn','bvm','clu','csc','csj',
-        'osb','pe','rgs']
+        'osb','pe','rgs'];
 
 
     public static fitName(textObj, name, width) {
@@ -136,8 +133,7 @@ class StringUtils {
 
         //2) Set each name to have the first letter capitalized and the rest lower case
         //   This isn't to shorten the string, it's just to make it look nice
-        names = StringUtils.capitalizeFirstLetter(names);
-        name = StringUtils.toNameString(names);
+        names = StringUtils.capitalizeFirstLetter(StringUtils.removeUnwants(names));
 
         //3) Remove the prefix
         //this.intializePrefixNames();
@@ -243,11 +239,17 @@ class StringUtils {
             temp = temp.concat(temp2);
 
             // Handles Scottish/Irish names like MacGiver, McAlister, etc.
+            // If the name had the second capital letter in lower case, does not re-capitalize it.
             if(temp.match(/Mc..+/i)){ //Regex
-                temp = temp.substring(0,2) + temp.charAt(2).toUpperCase() + temp.slice(3);
+                temp = temp.substring(0,2) + names[i].charAt(2) + temp.slice(3);
             }
             if(temp.match(/Mac..+/i)){ //Regex
-                temp = temp.substring(0,3) + temp.charAt(3).toUpperCase() + temp.slice(4);
+                temp = temp.substring(0,3) + names[i].charAt(3) + temp.slice(4);
+            }
+
+            // Handles hyphenated names like Jones-McAlister.
+            if(temp.match(/.+-.+/i)){
+                temp = StringUtils.capitalizeFirstLetter(temp.split("-")).join("-");
             }
 
             names[i] = temp;
@@ -268,6 +270,7 @@ class StringUtils {
                 after = StringUtils.removeChar(after, '?');
                 after = StringUtils.removeChar(after, '(');
                 after = StringUtils.removeChar(after, ')');
+                after = StringUtils.removeChar(after, '/');
 
             } while (after.toLowerCase() != before.toLowerCase()); //fixed point algorithm
 
@@ -278,17 +281,9 @@ class StringUtils {
     //-------------------------------
     //Removes the first instance of the given character c from name
     //-------------------------------
-    private static removeChar(name,c){
-        var location = name.indexOf(c);
-        if (location != -1) {
-            var newName = "";
-            if (location != 0){
-                newName = name.substring(0, location);
-            }
-            if (location != (name.length - 1))
-                newName = newName.concat(name.substring(location + 1));
-
-            return newName;
+    private static removeChar(name:string, c:string){
+        while(name.indexOf(c) != -1){
+            name = name.replace(c,"");
         }
         return name;
     }

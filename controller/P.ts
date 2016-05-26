@@ -210,6 +210,7 @@ class P implements IControllerListener, ITreeListener {
         toSave['generations'] = numGenerations;
         toSave['stylingPipeline'] = this.stylingPipeline;
         toSave['boxes'] = this.strip(boxes);
+        console.log(toSave['boxes']);
         var output = JSON.stringify(toSave);
 
         var blob = new Blob([output], {type: "text/plain;charset=utf-8;",});
