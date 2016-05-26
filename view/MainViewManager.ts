@@ -37,4 +37,7 @@ class MainViewManager implements IViewManager {
     getRotation(): any {
         return this.svgManager.getRotation();
     }
+    destroy(){
+        this.svgManager.destroy();
+    }
 }

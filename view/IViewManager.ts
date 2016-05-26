@@ -13,4 +13,5 @@ interface IViewManager {
     getSVGString(): any;
     setRuler(): any;
     getRotation(): any;
+    destroy() :void;
 }

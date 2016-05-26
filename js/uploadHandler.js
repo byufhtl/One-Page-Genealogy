@@ -61,6 +61,11 @@ function inputChanged(data) {
         //localStorage.setItem("chartType", type);
         //localStorage.setItem("load", true);
 
+        if(c){
+            c.destroy();
+            delete c;
+        }
+
         c = new C({
             //optionManager: optionManager,
             boxes: boxes,

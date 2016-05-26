@@ -40,12 +40,15 @@ class SVGManager implements IViewManager {
     private lineManager: LineManager;
     private refreshTriggered: boolean;
 
+    private hammers: any[];
+
     constructor(svgElementId:string) {
         this.rulerSet = false;
         this.graphicObject = new SVGGraphicObject();
 
         var svg =  document.getElementById(svgElementId);
         this.mainSvg = svg;
+        this.hammers = [];
 
         //this is dangerous to just kill all listeners.
         $(svg).off();
@@ -152,8 +155,8 @@ class SVGManager implements IViewManager {
             };
         };
 
-
         var hammer = new Hammer(svg);
+        this.hammers.push(hammer);
         var pan = hammer.add( new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 0 }) );
         var pinch = new Hammer.Pinch();
 
@@ -209,6 +212,7 @@ class SVGManager implements IViewManager {
         this.triggerRefresh();
         return this.graphicObject;
     }
+
     private triggerRefresh() {
         //THIS IS GOOD FOR DEBUGGING WHEN YOU DON'T TO HAVE
         //A FRAME RATE
@@ -224,6 +228,7 @@ class SVGManager implements IViewManager {
             this.refreshTriggered = false;
         }
     }
+
     private realRefresh(): void {
         //if none exists, show the loading gif
         if(this.lastBoxes && this.lastBoxes.getRoot() !== null && this.lastBoxes.getRoot() !== undefined && this.svgLoading){
@@ -356,6 +361,7 @@ class SVGManager implements IViewManager {
 
         this.resetTransformation();
     }
+
     private toCenterPoint(box:IBox):any {
         return {
             getX: function() {
@@ -366,6 +372,7 @@ class SVGManager implements IViewManager {
             }
         }
     }
+
     private drawLine(boxes: BoxMap): void {
 
         var tx: number = this.translationX;
@@ -382,6 +389,7 @@ class SVGManager implements IViewManager {
         this.linePath.setAttribute('fill','none');
         this.linePath.setAttribute('d', d);
     }
+
     private resetTransformation() {
         var tx: number = this.translationX;
         var ty: number = this.translationY;
@@ -397,11 +405,13 @@ class SVGManager implements IViewManager {
         this.svgRoot.setAttribute("transform", transform.join(' '));
 
     }
+
     setTranslation(x:number, y:number): void {
         this.translationX += x;
         this.translationY += y;
         this.refresh(this.lastBoxes);
     }
+
     setScale(s: number, pt:Point): void {
         if(this.zoomEnabled && (!($("#opg-modal").data('bs.modal') || {}).isShown) &&
             (this.scale > .05 || s > 1) && (this.scale < 20 || s < 1)) {
@@ -419,12 +429,14 @@ class SVGManager implements IViewManager {
             this.refresh(this.lastBoxes);
         }
     }
+
     setSize(width: number, height: number): void {
         this.width = width;
         this.height = height;
         this.boundingRect = this.svgRoot.getBoundingClientRect();
         this.refresh(this.lastBoxes);
     }
+
     viewToWorld(pt: Point): Point {
 
         pt = this.rotatePt(pt, -this.rotation);
@@ -434,6 +446,7 @@ class SVGManager implements IViewManager {
 
         return pt;
     }
+
     worldToView(pt: Point): Point {
 
         pt = this.translate(pt, -this.translationX, -this.translationY);
@@ -443,17 +456,21 @@ class SVGManager implements IViewManager {
 
         return pt;
     }
+
     translate(pt: Point, dx: number, dy: number): Point {
         return new Point(pt.getX()+dx, pt.getY()+dy);
     }
+
     rotatePt(pt: Point, r:number): Point {
         var s = Math.sin(r);
         var c = Math.cos(r);
         return new Point(c*pt.getX()-s*pt.getY(), s*pt.getX()+c*pt.getY());
     }
+
     scalePt(pt: Point, s: number) {
         return new Point(pt.getX()*s, pt.getY()*s);
     }
+
     rotate(r: number): void {
         var viewBefore: Point = new Point(this.width/2, this.height/2);//this.worldToView(pt);
         var pt: Point = this.viewToWorld(viewBefore);
@@ -629,5 +646,14 @@ class SVGManager implements IViewManager {
 
     public getRotation(){
         return this.rotation;
+    }
+
+    destroy(){
+        for(var i = 0; i < this.hammers.length; ++i){
+            var hammer = this.hammers[i];
+            hammer.off('tap');
+            hammer.stop();
+            hammer.destroy();
+        }
     }
 }
