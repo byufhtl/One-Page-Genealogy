@@ -38,7 +38,7 @@ class GenColorSpacer extends AbstractStyler {
                 if(!branchBox) {
                     continue;
                 }
-                if(box.getNode().getSpouses().length>1){
+                if(!box.getNode().getSpouses() || box.getNode().getSpouses().length>1){
                     this.setBasedOnGeneration(box, branchBox, generation, true, this.flavor);
 
                     queue.push([branchIds[i], generation]);

@@ -210,7 +210,6 @@ class P implements IControllerListener, ITreeListener {
         toSave['generations'] = numGenerations;
         toSave['stylingPipeline'] = this.stylingPipeline;
         toSave['boxes'] = this.strip(boxes);
-        console.log(toSave['boxes']);
         var output = JSON.stringify(toSave);
 
         var blob = new Blob([output], {type: "text/plain;charset=utf-8;",});
@@ -252,6 +251,9 @@ class P implements IControllerListener, ITreeListener {
                         ){
                             branchIds.splice(i,1);
                         }
+                        else{
+                            console.log("EXCPTN in P.hideEmptyBoxes():", localStorage.getItem("chartType"), index);
+                        }
                     }
                     treeMap[key].setBranchIds(branchIds);
                 }
@@ -269,7 +271,7 @@ class P implements IControllerListener, ITreeListener {
                 if (treeMap[key].getBranchIds().length > 0) {
                     for (var i in treeMap[key].getBranchIds()) {
                         var index = treeMap[key].getBranchIds()[i];
-                        if (index !== null && (index.indexOf(":") === 8 || index.indexOf("@") === 0)) {
+                        if (index !== null && (index.indexOf(":") === 8 || (index.indexOf("@") === 0) && !PrivatePersonUtils.isCustomId(index))) {
                             childMap[index] = key;
                         }
                     }

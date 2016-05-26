@@ -352,7 +352,7 @@ class PrivatePersonUtils{
                 deathdate: s_ddate_data, deathplace: s_dplace_data, marriagedate: m_date,
                 marriageplace: m_place, displaySpouse: null, gender:s_gender_data, isMain: false};
 
-            var customSpouseNode = new BuildNode("@OPG-" + (this.customNodeIndex++).toString(),spouse_data);
+            var customSpouseNode = new BuildNode(this.generateCustomKey(this.customNodeIndex++),spouse_data);
             node.setDisplaySpouse(customSpouseNode);
             node.getPerson().display.displaySpouse = customSpouseNode;
             let spouses = node.getSpouses();
@@ -376,11 +376,11 @@ class PrivatePersonUtils{
      * @returns {string}
      */
     static generateCustomKey(index:number, subKey: string = ""): string{
-        return("@OPG-" + ((subKey)? subKey+"-" : "") +(index).toString());
+        return("<OPG-" + ((subKey)? subKey+"-" : "") +(index).toString());
     }
 
     static isCustomId(id: string): boolean{
-        let matches = id.match(/@OPG.+/i);
+        let matches = id.match(/<OPG.+/i);
         return((matches && matches.length > 0));
     }
 

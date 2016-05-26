@@ -221,7 +221,8 @@ function familySearchDownload() {
                 localStorage.setItem("numGenerations", $("option:selected", ('#fsGenerationsSelect'))[0].value);
                 localStorage.setItem("rootPID", rootPID);
                 localStorage.setItem("direction", $('input[name=FSascOrDsc]:checked').val());
-                window.location = 'https://fhtl.byu.edu/auth?redirect=' + encodeURIComponent(document.location.origin);
+                // This next line is what actually queues the Auth Service, contrary to what looks like is going on above (the independent way of queueing)
+                window.location = 'https://fhtl.byu.edu/auth?redirect=' + encodeURIComponent(document.location.origin); //'https://fhtl.byu.edu/auth?site=opg&redirect='
             } else {
                 continueExecution();
             }

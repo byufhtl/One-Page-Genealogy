@@ -246,7 +246,7 @@ class OptionManager implements IOptionManager {
             private_edit.empty();
             private_remove.empty();
 
-            if(box.getNode().getId().match(/@OPG.+/i)){
+            if(PrivatePersonUtils.isCustomId(box.getNode().getId())){
                 private_edit.append('<button type="button" class="btn btn-footer" id="opg-modal-edit-private" style="float: left;">Edit Node</button>');
                 if(box.getNode().getBranchIds().length === 0) {
                     private_remove.append('<button type="button" class="btn btn-footer" id="opg-modal-remove-private" style="float: left;">Remove Node</button>');
@@ -288,15 +288,15 @@ class OptionManager implements IOptionManager {
 
                 //~~~ Setup the Ids ~~~
                 var p_id = primaryNode.getId().substr(0,colonLoc);
-                if(primaryNode.getId().match(/@OPG.+/i)){
-                    p_id = "Private Node";
+                if(PrivatePersonUtils.isCustomId(primaryNode.getId())){
+                    p_id = "Private Person";
                 }
                 else if (!p_id || p_id == ''){
                     p_id = primaryNode.getAttr('name') + " (No ID found)";
                 }
                 var s_id = secondaryNode.getId().substr(0,colonLoc);
-                if(secondaryNode.getId().match(/@OPG.+/i)){
-                    s_id = "Private Node";
+                if(PrivatePersonUtils.isCustomId(secondaryNode.getId())){
+                    s_id = "Private Person";
                 }
                 else if (!s_id || s_id == ''){
                     s_id = secondaryNode.getAttr('name') + " (No ID found)";
@@ -319,8 +319,8 @@ class OptionManager implements IOptionManager {
 
                 var id = box.getNode().getId().substr(0,colonLoc);
                 if(!id || id == ""){
-                    if(box.getNode().getId().match(/@OPG.+/i)){
-                        id = "Private Node";
+                    if(PrivatePersonUtils.isCustomId(box.getNode().getId())){
+                        id = "Private Person";
                     }
                     else {
                         id = box.getNode().getAttr('name') + " (No ID found)";
@@ -471,7 +471,7 @@ class OptionManager implements IOptionManager {
                 //    $('#myInput').click();
                 //}
                 //else
-                if(!pid.match(/@OPG.+/i)) {
+                if(!PrivatePersonUtils.isCustomId(pid)) {
                     $('#pid-search-input').val(pid);
                     $('#treeRt-other').prop('selected', true);
                     $('#relative-tree-downloader').show();
@@ -493,14 +493,14 @@ class OptionManager implements IOptionManager {
 
             opgModalFSview.click(() => {
                 var pid = box.getNode().getId().substring(0, 8);
-                if (!pid.match(/@OPG.+/i)) {
+                if (!PrivatePersonUtils.isCustomId(pid)) {
                     window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
                 }
             });
 
             opgModalVPview.click(() => {
                 var pid:string = box.getNode().getId().substring(0, 8);
-                if (!pid.match(/@OPG.+/i)) {
+                if (!PrivatePersonUtils.isCustomId(pid)) {
                     self.listener.handleOption('VP-view', {id: pid});
                 }
             });

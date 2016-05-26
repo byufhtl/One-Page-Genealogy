@@ -36,7 +36,7 @@ class GenWoodColorSpacer extends AbstractStyler{
                 if(!branchBox) {
                     continue;
                 }
-                if(box.getNode().getSpouses().length>1){
+                if(!box.getNode().getSpouses() || box.getNode().getSpouses().length>1){
                     this.setBasedOnGeneration(branchBox, generation);
 
                     queue.push([branchIds[i], generation]);
