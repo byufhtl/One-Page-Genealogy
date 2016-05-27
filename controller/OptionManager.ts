@@ -233,9 +233,16 @@ class OptionManager implements IOptionManager {
 
             let private_add = $('#opg-modal-add-private');
             if(this.direction === "ascendancy"){
-                private_add.text("Add Parent");
+                if(box.getNode().getBranchIds().length < 2){
+                    private_add.show();
+                    private_add.text("Add Parent");
+                }
+                else {
+                    private_add.hide();
+                }
             }
             else{
+                private_add.show();
                 private_add.text("Add Child");
             }
 
@@ -636,5 +643,9 @@ class OptionManager implements IOptionManager {
 
     public setDirection(dir :string): void{
         this.direction = dir;
+    }
+
+    public getDirection(): string{
+        return this.direction;
     }
 }

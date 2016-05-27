@@ -78,19 +78,26 @@ class AscGreyscaleColorSpacer extends AbstractStyler {
                 }
             }
             else if (generation == 2) {
-                var gender = 'none';
-                if (parentBox.getNode().hasAttr('gender')) {
-                    gender = parentBox.getNode().getAttr('gender');
+                // A gender-independent methodology.
+                childBox.setColor( (child) ? ColorManager.white() : ColorManager.mediumgray());
+                if(child != 0 && child != 1){
+                    console.log("Warning: Third Child!");
                 }
 
-                if (child == 0 && gender === 'Male')
-                    childBox.setColor(ColorManager.mediumgray());
-                else if (child == 1 && gender === 'Male')
-                    childBox.setColor(ColorManager.white());
-                else if (child == 0 && gender === 'Female')
-                    childBox.setColor(ColorManager.mediumgray());
-                else if (child == 1 && gender === 'Female')
-                    childBox.setColor(ColorManager.white());
+                // The old, gender-dependent method
+                //var gender = 'none';
+                //if (parentBox.getNode().hasAttr('gender')) {
+                //    gender = parentBox.getNode().getAttr('gender');
+                //}
+                //
+                //if (child == 0 && gender === 'Male')
+                //    childBox.setColor(ColorManager.mediumgray());
+                //else if (child == 1 && gender === 'Male')
+                //    childBox.setColor(ColorManager.white());
+                //else if (child == 0 && gender === 'Female')
+                //    childBox.setColor(ColorManager.mediumgray());
+                //else if (child == 1 && gender === 'Female')
+                //    childBox.setColor(ColorManager.white());
             }
             else {
                 childBox.setColor(parentBox.getColor());

@@ -8,6 +8,14 @@
 
 class AscBoldColorSpacer extends AbstractStyler {
 
+    private purple = ColorManager.lighten(ColorManager.purple(), -32);
+    private blue   = ColorManager.lighten(ColorManager.blue(),   -32);
+    private yellow = ColorManager.lighten(ColorManager.yellow(), -32);
+    private green  = ColorManager.lighten(ColorManager.green(),  -32);
+    private red    = ColorManager.lighten(ColorManager.red(),    -32);
+
+
+
     constructor(){
         super("AscBoldColorSpacer");
     }
@@ -65,30 +73,45 @@ class AscBoldColorSpacer extends AbstractStyler {
                 /*if(childBox.getNode().getBranchIds().length>2)
                  childBox.setColor('#d5bde9');//blue
                  else*/
-                childBox.setColor(ColorManager.lighten(ColorManager.purple(),-32));
+                childBox.setColor(this.purple);
             }
             else if (generation == 1) {
                 if (child == 0) {
-                    childBox.setColor(ColorManager.lighten(ColorManager.blue(),-32));
+                    childBox.setColor(this.blue);
                 }
                 else {
-                    childBox.setColor(ColorManager.lighten(ColorManager.yellow(),-32));
+                    childBox.setColor(this.yellow);
                 }
             }
             else if (generation == 2) {
-                var gender = 'none';
-                if (parentBox.getNode().hasAttr('gender')) {
-                    gender = parentBox.getNode().getAttr('gender');
+                // A gender-independent methodology that just uses the parent's Color.
+                let parent_color = parentBox.getColor();
+
+                if (parent_color == this.blue){ // Right wing
+                    childBox.setColor( (child) ? this.green : this.blue); // child = 0 => false
+                }
+                else if (parent_color == this.yellow){ // Left wing
+                    childBox.setColor( (child) ? this.yellow : this.red); // child = 0 => false
+                }
+                else{
+                    console.log("Off-colored parent: " + parent_color + "/" + ColorManager.blue() + " on " + childBox.getNode().getId());
+                    childBox.setColor(parent_color);
                 }
 
-                if (child == 0 && gender === 'Male')
-                    childBox.setColor(ColorManager.lighten(ColorManager.blue(),-32));
-                else if (child == 1 && gender === 'Male')
-                    childBox.setColor(ColorManager.lighten(ColorManager.green(),-32));
-                else if (child == 0 && gender === 'Female')
-                    childBox.setColor(ColorManager.lighten(ColorManager.red(),-32));
-                else if (child == 1 && gender === 'Female')
-                    childBox.setColor(ColorManager.lighten(ColorManager.yellow(),-32));
+                // The old, gender-dependent method
+                //var gender = 'none';
+                //if (parentBox.getNode().hasAttr('gender')) {
+                //    gender = parentBox.getNode().getAttr('gender');
+                //}
+                //
+                //if (child == 0 && gender === 'Male')
+                //    childBox.setColor(ColorManager.lighten(ColorManager.blue(),-32));
+                //else if (child == 1 && gender === 'Male')
+                //    childBox.setColor(ColorManager.lighten(ColorManager.green(),-32));
+                //else if (child == 0 && gender === 'Female')
+                //    childBox.setColor(ColorManager.lighten(ColorManager.red(),-32));
+                //else if (child == 1 && gender === 'Female')
+                //    childBox.setColor(ColorManager.lighten(ColorManager.yellow(),-32));
             }
             else {
                 childBox.setColor(parentBox.getColor());

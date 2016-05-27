@@ -77,31 +77,50 @@ class AscBlackoutColorSpacer extends AbstractStyler {
                 }
             }
             else if (generation == 2) {
-                var gender = 'none';
-                if (parentBox.getNode().hasAttr('gender')) {
-                    gender = parentBox.getNode().getAttr('gender');
-                }
+                // A gender-independent methodology that just uses the parent's Color.
 
-                if (child == 0 && gender === 'Male') {
-                    childBox.setColor(ColorManager.black());
-                    childBox.setTextColor(ColorManager.blue());
-                    childBox.getRenderInstructions().setBorderColor(ColorManager.blue());
+                let parent_color = parentBox.getTextColor();
+                let color: string = parent_color;
+
+                if (parent_color == ColorManager.blue()){ // Right wing
+                    color = (child) ? ColorManager.green() : ColorManager.blue(); // child = 0 => false
                 }
-                else if (child == 1 && gender === 'Male') {
-                    childBox.setColor(ColorManager.black());
-                    childBox.setTextColor(ColorManager.green());
-                    childBox.getRenderInstructions().setBorderColor(ColorManager.green());
+                else if (parent_color == ColorManager.yellow()){ // Left wing
+                    color = (child) ? ColorManager.yellow() : ColorManager.red(); // child = 0 => false
                 }
-                else if (child == 0 && gender === 'Female') {
-                    childBox.setColor(ColorManager.black());
-                    childBox.setTextColor(ColorManager.red());
-                    childBox.getRenderInstructions().setBorderColor(ColorManager.red());
+                else{
+                    console.log("Off-colored parent: " + parent_color + " on " + childBox.getNode().getId());
                 }
-                else if (child == 1 && gender === 'Female') {
-                    childBox.setColor(ColorManager.black());
-                    childBox.setTextColor(ColorManager.yellow());
-                    childBox.getRenderInstructions().setBorderColor(ColorManager.yellow());
-                }
+                childBox.setColor(ColorManager.black());
+                childBox.setTextColor(color);
+                childBox.getRenderInstructions().setBorderColor(color);
+
+                // The old, gender-dependent method
+                //var gender = 'none';
+                //if (parentBox.getNode().hasAttr('gender')) {
+                //    gender = parentBox.getNode().getAttr('gender');
+                //}
+                //
+                //if (child == 0 && gender === 'Male') {
+                //    childBox.setColor(ColorManager.black());
+                //    childBox.setTextColor(ColorManager.blue());
+                //    childBox.getRenderInstructions().setBorderColor(ColorManager.blue());
+                //}
+                //else if (child == 1 && gender === 'Male') {
+                //    childBox.setColor(ColorManager.black());
+                //    childBox.setTextColor(ColorManager.green());
+                //    childBox.getRenderInstructions().setBorderColor(ColorManager.green());
+                //}
+                //else if (child == 0 && gender === 'Female') {
+                //    childBox.setColor(ColorManager.black());
+                //    childBox.setTextColor(ColorManager.red());
+                //    childBox.getRenderInstructions().setBorderColor(ColorManager.red());
+                //}
+                //else if (child == 1 && gender === 'Female') {
+                //    childBox.setColor(ColorManager.black());
+                //    childBox.setTextColor(ColorManager.yellow());
+                //    childBox.getRenderInstructions().setBorderColor(ColorManager.yellow());
+                //}
             }
             else {
                 childBox.setColor(ColorManager.black());

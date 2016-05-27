@@ -245,14 +245,8 @@ class P implements IControllerListener, ITreeListener {
                     //Must traverse backwards because we're deleting as we go.
                     for (var i=branchIds.length-1; i >=0; i--) {
                         var index = branchIds[i];
-                        if(
-                            ((localStorage.getItem("chartType") === "FamilySearch") && index.indexOf(":") !== 8) ||
-                            ((localStorage.getItem("chartType") === "Gedcom") && index.indexOf("@") !== 0)
-                        ){
+                        if(PrivatePersonUtils.isCustomId(index) && PrivatePersonUtils.getCustomSubKey(index) === "EMPTY_BOX"){
                             branchIds.splice(i,1);
-                        }
-                        else{
-                            console.log("EXCPTN in P.hideEmptyBoxes():", localStorage.getItem("chartType"), index);
                         }
                     }
                     treeMap[key].setBranchIds(branchIds);
@@ -271,7 +265,7 @@ class P implements IControllerListener, ITreeListener {
                 if (treeMap[key].getBranchIds().length > 0) {
                     for (var i in treeMap[key].getBranchIds()) {
                         var index = treeMap[key].getBranchIds()[i];
-                        if (index !== null && (index.indexOf(":") === 8 || (index.indexOf("@") === 0) && !PrivatePersonUtils.isCustomId(index))) {
+                        if (index !== null && (index.indexOf(":") === 8 || index.indexOf("@") === 0)) {
                             childMap[index] = key;
                         }
                     }
@@ -303,10 +297,10 @@ class P implements IControllerListener, ITreeListener {
 
     private addBlanks(recurse:boolean, boxId:string, countID:number, numGen:number, listLen:number):number {
         //Create two new empty nodes and add them to the maps:
-        var node0:INode = new BuildNode(PrivatePersonUtils.generateCustomKey(countID, "FAKE"),
+        var node0:INode = new BuildNode(PrivatePersonUtils.generateCustomKey(countID, "EMPTY_BOX"),
             {name:" ", gender:"Unknown", birthdate:"", birthplace:"", deathdate:"", deathplace:"", marriagedate:"",
             marriageplace:"", displaySpouse: null, isMain: true});
-        var node1:INode = new BuildNode(PrivatePersonUtils.generateCustomKey(countID + 1, "FAKE"),
+        var node1:INode = new BuildNode(PrivatePersonUtils.generateCustomKey(countID + 1, "EMPTY_BOX"),
             {name:" ", gender:"Unknown", birthdate:"", birthplace:"", deathdate:"", deathplace:"", marriagedate:"",
             marriageplace:"", displaySpouse: null, isMain: true});
         this.firstBoxMap.setId(node0.getId(), new AbstractBox(node0));
