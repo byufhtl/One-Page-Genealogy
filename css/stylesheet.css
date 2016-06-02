@@ -132,6 +132,11 @@ hr {
     color: #ffffff;
 }
 
+.sidebar-right{
+    float: right;
+    align-self: right;
+}
+
 .fill_wide{
     width: inherit;
 }
@@ -172,6 +177,14 @@ hr {
     color: #ffffff;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+a.opg-blue{
+    color: #ffffff;
+}
+
+a.opg-blue:link{
+    color: #ffffff;
 }
 
 .btn-footer{
@@ -232,6 +245,45 @@ hr {
     color: #1F2B38;
 }
 
-.dummyStyle{
-    color: #ED4337;
+.btn-pad{
+    border-radius: 10px;
+    background-color: #1F2B38;
+    color: white;
+    width: 35px;
+    height: 30px;
+    padding: 0;
+}
+
+.btn-pad-white{
+    border-radius: 10px;
+    background-color: white;
+    color: #1F2B38;
+    width: 35px;
+    height: 30px;
+    padding: 0;
+}
+
+.pad-top{
+    margin-top: 2px;
+}
+
+.pad-right{
+    margin-right: 2px;
+}
+
+.pad-left{
+    margin-left: 2px;
+}
+
+.pad-bottom{
+    margin-bottom: 2px;
+}
+
+.opg-left-menu{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 300px;
+    text-align: right;
+    left: -205%;
+    top: 0;
 }

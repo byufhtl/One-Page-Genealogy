@@ -184,64 +184,19 @@
                     <input type="checkbox" name="edit-spacing-switch" class="BSswitch" checked data-on-color="default"  data-on-text="Branch" data-off-text="Individual" />
                 </li>
 
-                <li><button style="margin-top: 8px;" type="button" class="btn btn-footer" id="redownload">Download New File</button></li>
+                <li><button style="margin-top: 8px;" type="button" class="btn btn-footer" id="redownload">New Chart</button></li>
 
-                <li><a id="zoom-out-button" title="Rotate Left" href="#"><i class="fa fa-search-minus"></i></a></li>
+                <!--li><a id="zoom-out-button" title="Rotate Left" href="#"><i class="fa fa-search-minus"></i></a></li>
                 <li><a id="zoom-in-button" title="Rotate Left" href="#"><i class="fa fa-search-plus"></i></a></li>
                 <li><a id="opg-rotate-cc" title="Rotate Left" href="#"><i class="fa fa-rotate-left"></i></a></li>
-                <li><a id="opg-rotate-c" title="Rotate Right" href="#"><i class="fa fa-rotate-right"></i></a></li>
-                <li><a id="opg-download" title="Download PDF" href="#"><i class="fa fa-download"></i></a></li>
+                <li><a id="opg-rotate-c" title="Rotate Right" href="#"><i class="fa fa-rotate-right"></i></a></li-->
+                <li><a id="opg-download" title="Save As PDF" href="#"><i class="fa fa-download"></i></a></li>
 
                 <li><a id="opg-save" title="Save" href="#"><i class="fa fa-floppy-o"></i></a></li>
                 <li><a id="opg-open" title="Open" href="#"><i class="fa fa-folder-open" onclick="$('#uploadFile').click();"></i></a></li>
 
                 <li><a id="opg-ruler" title="Show Ruler" href="#"><img style="width:16px;height:16px;"src="images/ruler.png"></a></li>
-                <li id="style-dropdown" class="dropdown" value="ascendancy">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="label label-warning">new</span> Styles <span class="caret"></span></a>
-                    <ul id="style-menu" class="dropdown-menu" style="max-width: 500px;" role="menu">
-                        <!--These options are written over in the OptionManager so that only the styles that you can use in that view are visible to the user.-->
-                        <li><a id="opg-detail-style" href="#">Full Detail Style</a></li>
-                        <li><a id="opg-reunion-style" href="#">Family Reunion Style</a></li>
-                        <li><a id="opg-extended-style" href="#"><span class="label label-warning">new</span> Extended Family Reunion Style (13+ Generations)</a></li>
-                        <li><a id="opg-vertical-style" href="#">Vertical Detail Style (Default)</a></li>
-                        <li><a id="opg-vertical-style-accent" href="#"><span class="label label-warning">new</span> Vertical Detail Accent Style</a></li>
-                        <li><a id="opg-bubble-style" href="#"><span class="label label-warning">new</span> Bubble Style</a></li>
-                        <li><a id="opg-var-depth-style" href="#"><span class="label label-warning">new</span> Variable Depth Style</a></li>
-                        <li><a id="opg-eight-eleven-style" href="#">8 1/2 x 11 Style</a></li>
-                        <li><a id="opg-eight-eleven-detail-style" href="#">8 1/2 x 11 Detail Style</a></li>
-                        <li><a id="opg-eleven-seventeen-style" href="#"><span class="label label-warning">new</span> 11 x 17 Style</a></li>
-                        <li class="divider">Descendency View Only</li>
-                        <li><a id="opg-js-public-style" href="#">Full Detail Style</a></li>
-                        <li><a id="opg-js-reunion-public-style" href="#">Family Reunion Style</a></li>
-                        <li><a id="opg-js-var-depth-style" href="#"><span class="label label-warning">new</span> Extended Family Reunion Style (13+ Generations)</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="label label-warning">new</span> Colors <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a id="opg-to-branch-color" href="#">Color by Branch - Pastel (Default)</a></li>
-                        <!--<li><span class="label label-warning">new</span><a id="opg-to-branch-color-blackout" href="#">Color by Branch - Blackout (For Black Paper)</a></li>-->
-                        <li><a id="opg-to-branch-color-bold" href="#"><span class="label label-warning">new</span> Color by Branch - Bold</a></li>
-                        <li><a id="opg-to-branch-color-gray" href="#"><span class="label label-warning">new</span> Color by Branch - Greyscale</a></li>
-                        <li class="divider"></li>
-                        <li><a id="opg-to-generation-color-warm" href="#"><span class="label label-warning">new</span> Color by Generation - Warm Pastel</a></li>
-                        <li><a id="opg-to-generation-color-cold" href="#"><span class="label label-warning">new</span> Color by Generation - Cold Pastel</a></li>
-                        <li><a id="opg-to-generation-color-vibrant" href="#">Color by Generation - Mixed Pastel</a></li>
-                        <li><a id="opg-to-generation-wood" href="#"><span class="label label-warning">new</span> Color by Generation - Wood</a></li>
-                        <li class="divider"></li>
-                        <li><a id="opg-to-gender-color" href="#">Color by Gender</a></li>
-                        <li><a id="opg-to-country-color" href="#">Color by Country</a></li>
-                        <li><a id="opg-to-greyscale" href="#">Greyscale</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Options <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a id="opg-show-empty" href="#">Show Empty Boxes</a></li>
-                        <li><a id="opg-show-duplicates" href="#">Highlight Duplicates</a></li>
-                        <li><a id="opg-edit-spacing" href="#">Edit Spacing</a></li>
-                    </ul>
-                </li>
+
                 <li><a id="opg-help" target="_blank" href="help.html">Help</a></li>
             </ul>
         </div>
@@ -251,8 +206,7 @@
 <div class="outer-content">
     <div id="utils"></div>
 
-    <svg id="opg-chart"></svg>
-    <div class="sidebar-wrapper sidebar" id="country-legend" style="max-width: 50%; overflow: auto;">
+    <div class="sidebar-wrapper sidebar sidebar-right" id="country-legend" style="max-width: 50%; overflow: auto;">
         <span id="position"></span>
         <div id="dragbar" style="background-color: #2c3e50; color: #2c3e50;"></div>
         <hr>
@@ -260,6 +214,122 @@
 
         </ul>
         <hr>
+    </div>
+    <div class="container-fluid" style="padding-left: 0; padding-right: 0; height: 96%">
+        <div class="col-sm-1" style="padding: 0; min-height: 100%; height: 100%;">
+            <div class="sidebar-fixed" style="min-height: 100%; height: 100%; background-color: #2c3e50"><p style="min-height: 90%; height: 90%;">Hello World</p></div>
+        </div>
+        <div class="col-sm-10"  style="padding: 0; min-height: 100%; height: 100%;">
+            <svg id="opg-chart" style="min-height: 100%; height: 100%;"></svg>
+        </div>
+        <div class="col-sm-1" style="padding: 0; min-height: 100%; height: 100%;">
+            <div class="sidebar-fixed" style="background-color: #2c3e50; min-height: 100%; height: 100%;">
+                <div class="container-fluid" style="border: 2px #ffffff solid; border-radius: 10px; margin-left: 5px; margin-right: 5px; padding: 1px; margin-bottom: 10px;" id="button-pad"> <!-- begin button-pad-->
+                    <div class="row" style="width: 110%;" align="center">
+                        <div class="col-sm-4">
+                            <button type="button" class="btn-pad pad-top pad-left" id="zoom-out-button" title="Zoom Out">
+                                <i class="fa fa-search-minus"></i>
+                            </button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn-pad pad-top" id="pan-up-button" title="Pan Up">
+                                <i class="fa fa-arrow-up"></i>
+                            </button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn-pad pad-top pad-right" id="zoom-in-button" title="Zoom In">
+                                <i class="fa fa-search-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="width: 110%;" align="center">
+                        <div class="col-sm-4">
+                            <button type="button" class="btn-pad pad-left" id="pan-left-button" title="Pan Left">
+                                <i class="fa fa-arrow-left"></i>
+                            </button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn-pad pad-left" id="pan-invert-button" title="Invert Pan Directions">
+                                <i class="fa fa-asterisk"></i>
+                            </button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn-pad pad-right" id="pan-right-button" title="Pan Right">
+                                <i class="fa fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="width: 110%;" align="center">
+                        <div class="col-sm-4">
+                            <button type="button" class="btn-pad pad-bottom pad-left" id="opg-rotate-cc" title="Rotate Left">
+                                <i class="fa fa-rotate-left"></i>
+                            </button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn-pad pad-bottom" id="pan-down-button" title="Pan Down">
+                                <i class="fa fa-arrow-down"></i>
+                            </button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn-pad pad-bottom pad-right" id="opg-rotate-c" title="Rotate Right">
+                                <i class="fa fa-rotate-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div> <!-- /#button-pad-->
+                <ul class="nav navbar-nav">
+                    <li id="style-dropdown" class="dropdown" value="ascendancy" style="width: 98%;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <i class="fa fa-caret-left"></i> Styles <span class="label label-warning">new</span></a>
+                        <ul id="style-menu" class="dropdown-menu opg-left-menu opg-blue" style="max-width: 500px;" role="menu">
+                            <!--These options are written over in the OptionManager so that only the styles that you can use in that view are visible to the user.-->
+                            <li><a id="opg-detail-style" href="#">Full Detail Style</a></li>
+                            <li><a id="opg-reunion-style" href="#">Family Reunion Style</a></li>
+                            <li><a id="opg-extended-style" href="#"><span class="label label-warning">new</span> Extended Family Reunion Style (13+ Generations)</a></li>
+                            <li><a id="opg-vertical-style" href="#">Vertical Detail Style (Default)</a></li>
+                            <li><a id="opg-vertical-style-accent" href="#"><span class="label label-warning">new</span> Vertical Detail Accent Style</a></li>
+                            <li><a id="opg-bubble-style" href="#"><span class="label label-warning">new</span> Bubble Style</a></li>
+                            <li><a id="opg-var-depth-style" href="#"><span class="label label-warning">new</span> Variable Depth Style</a></li>
+                            <li><a id="opg-eight-eleven-style" href="#">8 1/2 x 11 Style</a></li>
+                            <li><a id="opg-eight-eleven-detail-style" href="#">8 1/2 x 11 Detail Style</a></li>
+                            <li><a id="opg-eleven-seventeen-style" href="#"><span class="label label-warning">new</span> 11 x 17 Style</a></li>
+                            <li class="divider">Descendency View Only</li>
+                            <li><a id="opg-js-public-style" href="#">Full Detail Style</a></li>
+                            <li><a id="opg-js-reunion-public-style" href="#">Family Reunion Style</a></li>
+                            <li><a id="opg-js-var-depth-style" href="#"><span class="label label-warning">new</span> Extended Family Reunion Style (13+ Generations)</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" style="width: 98%;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <i class="fa fa-caret-left"></i> Colors <span class="label label-warning">new</span></a>
+                        <ul class="dropdown-menu opg-left-menu opg-blue" role="menu">
+                            <li><a id="opg-to-branch-color" href="#">Color by Branch - Pastel (Default)</a></li>
+                            <!--<li><span class="label label-warning">new</span><a id="opg-to-branch-color-blackout" href="#">Color by Branch - Blackout (For Black Paper)</a></li>-->
+                            <li><a id="opg-to-branch-color-bold" href="#"><span class="label label-warning">new</span> Color by Branch - Bold</a></li>
+                            <li><a id="opg-to-branch-color-gray" href="#"><span class="label label-warning">new</span> Color by Branch - Greyscale</a></li>
+                            <li class="divider"></li>
+                            <li><a id="opg-to-generation-color-warm" href="#"><span class="label label-warning">new</span> Color by Generation - Warm Pastel</a></li>
+                            <li><a id="opg-to-generation-color-cold" href="#"><span class="label label-warning">new</span> Color by Generation - Cold Pastel</a></li>
+                            <li><a id="opg-to-generation-color-vibrant" href="#">Color by Generation - Mixed Pastel</a></li>
+                            <li><a id="opg-to-generation-wood" href="#"><span class="label label-warning">new</span> Color by Generation - Wood</a></li>
+                            <li class="divider"></li>
+                            <li><a id="opg-to-gender-color" href="#">Color by Gender</a></li>
+                            <li><a id="opg-to-country-color" href="#">Color by Country</a></li>
+                            <li><a id="opg-to-greyscale" href="#">Greyscale</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" style="width: 98%;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <i class="fa fa-caret-left"></i> Options</a>
+                        <ul class="dropdown-menu opg-left-menu opg-blue" role="menu">
+                            <li><a id="opg-show-empty" href="#">Show Empty Boxes</a></li>
+                            <li><a id="opg-show-duplicates" href="#">Highlight Duplicates</a></li>
+                            <li><a id="opg-edit-spacing" href="#">Edit Spacing</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="footer" style="background-color: #2c3e50; height: 6%; width: 100%; text-align: center;">
         <a class="footer-text" href='https://fhtl.byu.edu'>BYU Family History Technology Lab</a><br>
@@ -729,6 +799,26 @@
 
                 </div>
                 <div style="float: right" id="create-bottom-button-plug-right">
+
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--#########################################
+#             NAVIGATION MODAL              #
+##########################################-->
+
+<div class="modal fade" id="navModal" tabindex="-1" role="dialog" aria-labelledby="navModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header opg-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
+                <button type="button" class="close btn-footer" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Something went wrong!</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
 
                 </div>
             </div>

@@ -33,6 +33,7 @@ class SVGManager implements IViewManager {
 
     private rotation: number;
     private scale: number;
+    private autopan: boolean;
 
     private zoomEnabled: boolean = true;
 
@@ -68,6 +69,7 @@ class SVGManager implements IViewManager {
         this.svgRoot = document.createElementNS("http://www.w3.org/2000/svg", "g");
         svg.appendChild(this.svgRoot);
 
+        // The Loading Spinner
         this.svgLoading = document.createElementNS("http://www.w3.org/2000/svg", "image");
         this.svgLoading.setAttribute('height','500');
         this.svgLoading.setAttribute('width','500');
@@ -76,6 +78,7 @@ class SVGManager implements IViewManager {
         this.svgLoading.setAttributeNS('http://www.w3.org/1999/xlink','href','images/loading.gif');
         this.svgRoot.appendChild(this.svgLoading);
 
+        // The loading rectangle
         this.rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         this.rect.setAttribute("width", "100");
         this.rect.setAttribute("height", "100");
@@ -86,6 +89,7 @@ class SVGManager implements IViewManager {
         this.rect.setAttribute("y", "200");
         this.svgRoot.appendChild(this.rect);
 
+        // the loading message that details progress of the loading.
         this.svgPercent = document.createElementNS("http://www.w3.org/2000/svg", "text");
         var text = document.createTextNode("");
         this.svgPercent.appendChild(text);
@@ -96,6 +100,7 @@ class SVGManager implements IViewManager {
         this.svgPercent.setAttribute('font-size', '50px');
         this.svgRoot.appendChild(this.svgPercent);
 
+        // the path used to generate the lines.
         this.linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
         this.svgRoot.appendChild(this.linePath);
 
@@ -109,6 +114,7 @@ class SVGManager implements IViewManager {
         this.translationY = 0;
         this.rotation = 0;
         this.scale = 1;
+        this.autopan = true;
         this.boundingRect = svg.getBoundingClientRect();
         this.width = this.boundingRect.right - this.boundingRect.left;
         this.height = this.boundingRect.bottom - this.boundingRect.top;
@@ -136,6 +142,54 @@ class SVGManager implements IViewManager {
             var x = window.innerWidth/2 - rect.left;
             var y = window.innerHeight/2 - rect.top;
             self.graphicObject.fireScale(1, self.viewToWorld(new Point(x,y)));
+        });
+        $('#pan-invert-button').click(() => {
+            $('#pan-invert-button').toggleClass("btn-pad btn-pad-white");
+            this.autopan = !this.autopan;
+        });
+        $('#pan-up-button').click(() => {
+            var rect = self.boundingRect;
+            var x = window.innerWidth/2 - rect.left;
+            var y = window.innerHeight/2 - rect.top;
+            if(this.autopan) {
+                self.graphicObject.fireTranslate(self.viewToWorld(new Point(x, y)), self.viewToWorld(new Point(x, y - 40)));
+            }
+            else{
+                self.graphicObject.fireTranslate(self.viewToWorld(new Point(x, y)), self.viewToWorld(new Point(x, y + 40)));
+            }
+        });
+        $('#pan-right-button').click(() => {
+            var rect = self.boundingRect;
+            var x = window.innerWidth/2 - rect.left;
+            var y = window.innerHeight/2 - rect.top;
+            if(this.autopan) {
+                self.graphicObject.fireTranslate(self.viewToWorld(new Point(x, y)), self.viewToWorld(new Point(x + 40, y)));
+            }
+            else{
+                self.graphicObject.fireTranslate(self.viewToWorld(new Point(x, y)), self.viewToWorld(new Point(x - 40, y)));
+            }
+        });
+        $('#pan-left-button').click(() => {
+            var rect = self.boundingRect;
+            var x = window.innerWidth/2 - rect.left;
+            var y = window.innerHeight/2 - rect.top;
+            if(this.autopan) {
+                self.graphicObject.fireTranslate(self.viewToWorld(new Point(x, y)), self.viewToWorld(new Point(x - 40, y)));
+            }
+            else{
+                self.graphicObject.fireTranslate(self.viewToWorld(new Point(x, y)), self.viewToWorld(new Point(x + 40, y)));
+            }
+        });
+        $('#pan-down-button').click(() => {
+            var rect = self.boundingRect;
+            var x = window.innerWidth/2 - rect.left;
+            var y = window.innerHeight/2 - rect.top;
+            if(this.autopan) {
+                self.graphicObject.fireTranslate(self.viewToWorld(new Point(x, y)), self.viewToWorld(new Point(x, y + 40)));
+            }
+            else{
+                self.graphicObject.fireTranslate(self.viewToWorld(new Point(x, y)), self.viewToWorld(new Point(x, y - 40)));
+            }
         });
         var getMousePos = function(container, evt) {
             var rect = self.boundingRect;

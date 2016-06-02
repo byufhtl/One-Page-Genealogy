@@ -294,6 +294,7 @@ function familySearchDownload() {
                 localStorage.setItem("rootPID", rootPID);
                 $('#fsModal').hide();
                 $('#fsSave').prop('disabled', false);
+                //$('#navModal').show();
             })
         })
     }
