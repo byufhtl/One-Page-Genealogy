@@ -22,6 +22,7 @@ class ElementManager implements IElementManager {
         this.newElementMap = {};
         this.elementCount = 0;
         this.elementContainer = elementContainer;
+        this.elementContainer.setAttribute("style",  "font-family: 'Roboto Slab' ");
         this.bounds = {x:0, y:0, w:0, h:0};
         this.graphicObject = graphicObject;
         this.ignoreBounds = false;

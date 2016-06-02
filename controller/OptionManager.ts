@@ -408,7 +408,9 @@ class OptionManager implements IOptionManager {
             opgModalSvg.height(box.getWidth() + OptionManager.DISPLAY_PADDING*2);
             transform.push("translate(" + box.getHeight() + ',0)');
         }
-        var g = Renderer.renderBox(box, opgModalSvg[0]);
+        var g = opgModalSvg[0];
+        g.setAttribute("style", "font-family: 'Roboto Slab' ");
+        g = Renderer.renderBox(box, g);
         transform.push("translate("+OptionManager.DISPLAY_PADDING+", "+OptionManager.DISPLAY_PADDING+")");
         transform.push('rotate('+ this.rotation +')');
 

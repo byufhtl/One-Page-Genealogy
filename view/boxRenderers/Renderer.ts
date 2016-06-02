@@ -49,8 +49,10 @@ class Renderer{
      *  6) Rotation
      *
      * @param box the box whose svg representation is being created
-     * @param rootElement the element that will ultimately need to contain that svg element set
+     * @param rootElement the element that will ultimately need to contain that svg element set.
      * @returns {Element} The element being created
+     *
+     * @pre The rootElement will have it's own font type defined.
      */
     static renderBox(box :IBox, rootElement :Element) :Element {
 
@@ -86,7 +88,6 @@ class Renderer{
 
         g.appendChild(rect);
         var node = box.getNode();
-        gt.setAttribute("style", "font-family: 'Roboto Slab' ");
 
         rect.setAttribute('width', box.getWidth().toString(10));
         var h = box.getHeight() - 6 - box.getSpace();
@@ -169,7 +170,7 @@ class Renderer{
         var pic_p = ris.getPicturePlaceInstruction();
         var pic_d = ris.getPictureDimInstruction();
         if(pic_p != null && pic_d != null) {
-            Renderer.renderPicture(box, node,g);
+            Renderer.renderPicture(box, node,gt);
         }
 
         //~~~ NAME SETUP ~~~
@@ -266,7 +267,7 @@ class Renderer{
                 var s_pic_p = ris.getSpousePicturePlaceInstruction();
                 var s_pic_d = ris.getSpousePictureDimInstruction();
                 if(s_pic_p != null && s_pic_d != null) {
-                    Renderer.renderPicture(box, node.getDisplaySpouse() ,g);
+                    Renderer.renderPicture(box, node.getDisplaySpouse(), gt);
                 }
 
                 //~~~ NAME SETUP ~~~
@@ -471,6 +472,7 @@ class Renderer{
      * the picture and passes the created svg element back. Otherwise returns null.
      * @param box the box whose picture is being sought out and rendered
      * @param node the node being rendered
+     * @param g the svg graphics element to which the clippath and svg image will be appended.
      * @returns {Element} the svg picture element (null if no picture exists or has been loaded into the PictureManager)
      */
     private static renderPicture(box : IBox, node :INode, g :Element) :Element{
@@ -554,10 +556,6 @@ class Renderer{
                     svgimg2.addEventListener('load', listener);
                     svgimg2.setAttributeNS('http://www.w3.org/1999/xlink','href',response);
                     g.appendChild(svgimg2);
-
-                    if(box.getRenderInstructions().isRotated()){
-                        svgimg2.setAttribute("transform","translate(0, "+ (box.getHeight()-2)+") rotate(-90 0,0)");
-                    }
 
                 }, function() {
                     g.removeChild(svgimg);
