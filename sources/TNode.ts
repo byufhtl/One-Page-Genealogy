@@ -12,7 +12,8 @@
  *
  * The one functionality abandoned here is the profile picture promise parameter, since it would be better to queue a
  * central PictureManager to index and respond to the promises based on the node ID. This would make things a lot more
- * streamlined and clean.
+ * streamlined and clean. Space has been left in the display object and the TNode object to store a convenient picture
+ * URL for uploading purposes.
  */
 class TNode{
     private id: string;
@@ -64,6 +65,9 @@ class TNode{
             case TNode.IS_MAIN:
                 return this.display.isMain;
                 break;
+            case TNode.PICTURE_URL:
+                return this.display.pictureURL;
+                break;
             default:
                 return null;
         }
@@ -99,6 +103,9 @@ class TNode{
                 break;
             case TNode.IS_MAIN:
                 this.display.isMain = value;
+                break;
+            case TNode.PICTURE_URL:
+                this.display.pictureURL = value;
                 break;
         }
     }
@@ -156,6 +163,7 @@ class TNode{
     static M_DATE = "mdate";
     static DISP_SPOUSE = "dispspouse";
     static IS_MAIN = "ismain";
+    static PICTURE_URL = "pictureurl"
 }
 
 /**
@@ -173,8 +181,9 @@ class Display{
     public displayMarriageDate: string;
     public displaySpouse: TNode;
     public isMain: boolean;
+    public pictureURL: string;
 
-    constructor(name: string, gender: string, bdate: string, bplace: string, ddate: string, dplace: string, mdate: string, displaySpouse: TNode, isMain: boolean){
+    constructor(name: string, gender: string, bdate: string, bplace: string, ddate: string, dplace: string, mdate: string, displaySpouse: TNode, isMain: boolean, pictureURL: string){
         this.displayName = name;
         this.displayGender = Display.processGender(gender);
         this.displayBirthDate = bdate;
@@ -184,6 +193,7 @@ class Display{
         this.displayMarriageDate = mdate;
         this.displaySpouse = displaySpouse;
         this.isMain = isMain;
+        this.pictureURL = pictureURL;
     }
 
     static processGender(gender: string): string{
