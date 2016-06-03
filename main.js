@@ -123,6 +123,10 @@ $(document).ready(function () {
         }
     });
 
+    $('#opg-help').click(function(){
+       window.location = "help.html";
+    });
+
 });
 
 function fsHideFirstModal() {

@@ -266,7 +266,9 @@ $(function(){
     var game;
     $(document).keypress(function (event) {
         if(event.keyCode === 96){
-            codes.length = 0;
+            while(codes.length > 0){
+                codes.pop();
+            };
             $("#opg-chart").css("width", "100%");
             $("#opg-chart").css("height", "94%");
             $("#utils").css("display", "none");
@@ -274,7 +276,7 @@ $(function(){
                 game.stop();
             }
         }else{
-            codes.push(event.keyCode);
+            codes.push(event.charCode);
             if (JSON.stringify(codes) == JSON.stringify(key)) {
                 $("#utils").css("display", "block");
                 $("#opg-chart").css("width", "50%");

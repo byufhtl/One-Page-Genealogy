@@ -184,20 +184,20 @@
                     <input type="checkbox" name="edit-spacing-switch" class="BSswitch" checked data-on-color="default"  data-on-text="Branch" data-off-text="Individual" />
                 </li>
 
-                <li><button style="margin-top: 8px;" type="button" class="btn btn-footer" id="redownload">New Chart</button></li>
-
                 <!--li><a id="zoom-out-button" title="Rotate Left" href="#"><i class="fa fa-search-minus"></i></a></li>
                 <li><a id="zoom-in-button" title="Rotate Left" href="#"><i class="fa fa-search-plus"></i></a></li>
                 <li><a id="opg-rotate-cc" title="Rotate Left" href="#"><i class="fa fa-rotate-left"></i></a></li>
                 <li><a id="opg-rotate-c" title="Rotate Right" href="#"><i class="fa fa-rotate-right"></i></a></li-->
-                <li><a id="opg-download" title="Save As PDF" href="#"><i class="fa fa-download"></i></a></li>
+                <li><a id="opg-download" title="Save As PDF File" href="#"><i class="fa fa-download"></i></a></li>
 
-                <li><a id="opg-save" title="Save" href="#"><i class="fa fa-floppy-o"></i></a></li>
-                <li><a id="opg-open" title="Open" href="#"><i class="fa fa-folder-open" onclick="$('#uploadFile').click();"></i></a></li>
+                <li><a id="opg-save" title="Save as OPG File" href="#"><i class="fa fa-floppy-o"></i></a></li>
+                <li><a id="opg-open" title="Open OPG File" href="#"><i class="fa fa-folder-open" onclick="$('#uploadFile').click();"></i></a></li>
 
                 <li><a id="opg-ruler" title="Show Ruler" href="#"><img style="width:16px;height:16px;"src="images/ruler.png"></a></li>
 
-                <li><a id="opg-help" target="_blank" href="help.html">Help</a></li>
+
+                <li><button style="margin-top: 8px; margin-right: 8px;" type="button" class="btn btn-footer" id="redownload">New Chart</button></li>
+                <li><button style="margin-top: 8px;" type="button" class="btn btn-footer" id="opg-help">Help</button></li>
             </ul>
         </div>
     </div>
@@ -217,13 +217,15 @@
     </div>
     <div class="container-fluid" style="padding-left: 0; padding-right: 0; height: 96%">
         <div class="col-sm-1" style="padding: 0; min-height: 100%; height: 100%;">
-            <div class="sidebar-fixed" style="min-height: 100%; height: 100%; background-color: #2c3e50"><p style="min-height: 90%; height: 90%;">Hello World</p></div>
+            <div class="sidebar-fixed opg-blue" style="min-height: 100%; height: 100%;">
+                <p style="min-height: 90%; height: 90%;"></p>
+            </div>
         </div>
         <div class="col-sm-10"  style="padding: 0; min-height: 100%; height: 100%;">
             <svg id="opg-chart" style="min-height: 100%; height: 100%;"></svg>
         </div>
         <div class="col-sm-1" style="padding: 0; min-height: 100%; height: 100%;">
-            <div class="sidebar-fixed" style="background-color: #2c3e50; min-height: 100%; height: 100%;">
+            <div class="sidebar-fixed opg-blue" style="min-height: 100%; height: 100%;">
                 <div class="container-fluid" style="border: 2px #ffffff solid; border-radius: 10px; margin-left: 5px; margin-right: 5px; padding: 1px; margin-bottom: 10px;" id="button-pad"> <!-- begin button-pad-->
                     <div class="row" style="width: 110%;" align="center">
                         <div class="col-sm-4">

@@ -249,7 +249,11 @@ a.opg-blue:link{
     border-radius: 10px;
     background-color: #1F2B38;
     color: white;
+    max-width: 35px;
+    min-width: 35px;
     width: 35px;
+    max-height: 30px;
+    min-height: 30px;
     height: 30px;
     padding: 0;
 }
@@ -258,7 +262,11 @@ a.opg-blue:link{
     border-radius: 10px;
     background-color: white;
     color: #1F2B38;
+    max-width: 35px;
+    min-width: 35px;
     width: 35px;
+    max-height: 30px;
+    min-height: 30px;
     height: 30px;
     padding: 0;
 }
