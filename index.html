@@ -22,6 +22,7 @@
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/bootstrap-switch.min.js"></script>
 
+    <script src="sources/TNode.js" type="text/javascript"></script>
     <script src="sources/BuildNode.js" type="text/javascript"></script>
     <script src="sources/FakeNode.js" type="text/javascript"></script>
     <script src="sources/FakeSource.js" type="text/javascript"></script>
@@ -176,28 +177,68 @@
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav">
                 <li style="display:none; visibility:hidden"><input id="uploadFile" type="file"/></li>
                 <li style="display:none; visibility:hidden"><input id="myInput" type="file"/></li>
 
                 <li id="edit-spacing-switch" style="display:none">
                     <input type="checkbox" name="edit-spacing-switch" class="BSswitch" checked data-on-color="default"  data-on-text="Branch" data-off-text="Individual" />
                 </li>
-
-                <!--li><a id="zoom-out-button" title="Rotate Left" href="#"><i class="fa fa-search-minus"></i></a></li>
-                <li><a id="zoom-in-button" title="Rotate Left" href="#"><i class="fa fa-search-plus"></i></a></li>
-                <li><a id="opg-rotate-cc" title="Rotate Left" href="#"><i class="fa fa-rotate-left"></i></a></li>
-                <li><a id="opg-rotate-c" title="Rotate Right" href="#"><i class="fa fa-rotate-right"></i></a></li-->
                 <li><a id="opg-download" title="Save As PDF File" href="#"><i class="fa fa-download"></i></a></li>
 
                 <li><a id="opg-save" title="Save as OPG File" href="#"><i class="fa fa-floppy-o"></i></a></li>
                 <li><a id="opg-open" title="Open OPG File" href="#"><i class="fa fa-folder-open" onclick="$('#uploadFile').click();"></i></a></li>
 
                 <li><a id="opg-ruler" title="Show Ruler" href="#"><img style="width:16px;height:16px;"src="images/ruler.png"></a></li>
-
-
-                <li><button style="margin-top: 8px; margin-right: 8px;" type="button" class="btn btn-footer" id="redownload">New Chart</button></li>
-                <li><button style="margin-top: 8px;" type="button" class="btn btn-footer" id="opg-help">Help</button></li>
+            </ul>
+            <ul class="nav navbar-nav opg-button-pad opg-blue" id="opg-button-pad-right">
+                <!--li>
+                    <button type="button" class="btn-pad" id="pan-up-button" title="Zoom Out">
+                        <i class="fa fa-arrow-up"></i>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="btn-pad" id="pan-down-button" title="Pan Down">
+                        <i class="fa fa-arrow-down"></i>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="btn-pad" id="pan-right-button" title="Pan Right">
+                        <i class="fa fa-arrow-right"></i>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="btn-pad" id="pan-left-button" title="Pan Left">
+                        <i class="fa fa-arrow-left"></i>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="btn-pad" id="pan-invert-button" title="Invert Panning">
+                        <i class="fa fa-exchange"></i>
+                    </button>
+                </li-->
+                <li class="divider"></li>
+                <li>
+                    <button type="button" class="btn-pad" id="zoom-out-button" title="Zoom Out">
+                        <i class="fa fa-search-minus"></i>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="btn-pad" id="zoom-in-button" title="Zoom In">
+                        <i class="fa fa-search-plus"></i>
+                    </button>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <button type="button" class="btn-pad" id="opg-rotate-cc" title="Rotate Left">
+                        <i class="fa fa-rotate-left"></i>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="btn-pad" id="opg-rotate-c" title="Rotate Right">
+                        <i class="fa fa-rotate-right"></i>
+                    </button>
+                </li>
             </ul>
         </div>
     </div>
@@ -215,70 +256,19 @@
         </ul>
         <hr>
     </div>
+
     <div class="container-fluid" style="padding-left: 0; padding-right: 0; height: 96%">
-        <div class="col-sm-1" style="padding: 0; min-height: 100%; height: 100%;">
-            <div class="sidebar-fixed opg-blue" style="min-height: 100%; height: 100%;">
-                <p style="min-height: 90%; height: 90%;"></p>
+        <div class="col-sm-1" style="padding: 0; min-height: 100%; height: 100%;" id="opg-left-sidebar-container">
+            <div class="sidebar-fixed sidebar-opg opg-blue" style="min-height: 100%; height: 100%;">
+
             </div>
         </div>
-        <div class="col-sm-10"  style="padding: 0; min-height: 100%; height: 100%;">
+        <div class="col-sm-10"  style="padding: 0; min-height: 100%; height: 100%;" id="opg-chart-container">
             <svg id="opg-chart" style="min-height: 100%; height: 100%;"></svg>
         </div>
-        <div class="col-sm-1" style="padding: 0; min-height: 100%; height: 100%;">
-            <div class="sidebar-fixed opg-blue" style="min-height: 100%; height: 100%;">
-                <div class="container-fluid" style="border: 2px #ffffff solid; border-radius: 10px; margin-left: 5px; margin-right: 5px; padding: 1px; margin-bottom: 10px;" id="button-pad"> <!-- begin button-pad-->
-                    <div class="row" style="width: 110%;" align="center">
-                        <div class="col-sm-4">
-                            <button type="button" class="btn-pad pad-top pad-left" id="zoom-out-button" title="Zoom Out">
-                                <i class="fa fa-search-minus"></i>
-                            </button>
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="button" class="btn-pad pad-top" id="pan-up-button" title="Pan Up">
-                                <i class="fa fa-arrow-up"></i>
-                            </button>
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="button" class="btn-pad pad-top pad-right" id="zoom-in-button" title="Zoom In">
-                                <i class="fa fa-search-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row" style="width: 110%;" align="center">
-                        <div class="col-sm-4">
-                            <button type="button" class="btn-pad pad-left" id="pan-left-button" title="Pan Left">
-                                <i class="fa fa-arrow-left"></i>
-                            </button>
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="button" class="btn-pad pad-left" id="pan-invert-button" title="Invert Pan Directions">
-                                <i class="fa fa-asterisk"></i>
-                            </button>
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="button" class="btn-pad pad-right" id="pan-right-button" title="Pan Right">
-                                <i class="fa fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row" style="width: 110%;" align="center">
-                        <div class="col-sm-4">
-                            <button type="button" class="btn-pad pad-bottom pad-left" id="opg-rotate-cc" title="Rotate Left">
-                                <i class="fa fa-rotate-left"></i>
-                            </button>
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="button" class="btn-pad pad-bottom" id="pan-down-button" title="Pan Down">
-                                <i class="fa fa-arrow-down"></i>
-                            </button>
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="button" class="btn-pad pad-bottom pad-right" id="opg-rotate-c" title="Rotate Right">
-                                <i class="fa fa-rotate-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div> <!-- /#button-pad-->
+        <div class="col-sm-1" style="padding: 0; min-height: 100%; height: 100%;" id="opg-right-sidebar-container">
+            <div class="sidebar-fixed sidebar-opg opg-blue" style="min-height: 100%; height: 100%;">
+
                 <ul class="nav navbar-nav">
                     <li id="style-dropdown" class="dropdown" value="ascendancy" style="width: 98%;">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -330,6 +320,12 @@
                         </ul>
                     </li>
                 </ul>
+                <hr>
+                <ul class="nav navbar" id="opg-button-pad-left">
+                    <li><button type="button" class="btn btn-sidebar" id="redownload">New Chart</button></li>
+                    <li><button type="button" class="btn btn-sidebar" id="opg-help">Help</button></li>
+                </ul>
+                <hr>
             </div>
         </div>
     </div>

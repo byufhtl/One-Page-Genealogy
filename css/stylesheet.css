@@ -132,6 +132,12 @@ hr {
     color: #ffffff;
 }
 
+.sidebar-opg{
+    border: solid 2px #1F2B38;
+    background-color: #2c3e50;
+    color: #ffffff;
+}
+
 .sidebar-right{
     float: right;
     align-self: right;
@@ -247,28 +253,47 @@ a.opg-blue:link{
 
 .btn-pad{
     border-radius: 10px;
+    border: solid 2px #FFFFFF;
     background-color: #1F2B38;
     color: white;
-    max-width: 35px;
-    min-width: 35px;
-    width: 35px;
-    max-height: 30px;
-    min-height: 30px;
-    height: 30px;
-    padding: 0;
+    max-width: 30px;
+    min-width: 30px;
+    width: 30px;
+    max-height: 80%;
+    min-height: 80%;
+    height: 80%;
+    padding: 1px;
+    margin: 2px;
+}
+
+.btn-sidebar{
+    border-radius: 10px;
+    border: solid 2px #FFFFFF;
+    background-color: #1F2B38;
+    color: white;
+    max-width: 90%;
+    min-width: 90%;
+    width: 90%;
+    max-height: 15%;
+    min-height: 15%;
+    height: 15%;
+    padding: 1px;
+    margin: 1px 5% 1px 5%;
 }
 
 .btn-pad-white{
     border-radius: 10px;
+    border: solid 2px #1F2B38;
     background-color: white;
     color: #1F2B38;
-    max-width: 35px;
-    min-width: 35px;
-    width: 35px;
-    max-height: 30px;
-    min-height: 30px;
-    height: 30px;
-    padding: 0;
+    max-width: 12%;
+    min-width: 12%;
+    width: 12%;
+    max-height: 60%;
+    min-height: 60%;
+    height: 60%;
+    padding: 1px;
+    margin: 1px;
 }
 
 .pad-top{
@@ -292,6 +317,14 @@ a.opg-blue:link{
     border-bottom-left-radius: 10px;
     width: 300px;
     text-align: right;
-    left: -205%;
+    left: -300px;
     top: 0;
+}
+
+.opg-button-pad{
+    padding: 5px;
+    border: solid 2px #FFFFFF;
+    border-radius: 5px;
+    margin: 5px;
+    margin-top: 8px;
 }
