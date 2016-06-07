@@ -7,6 +7,27 @@ var c = null;
 var optionManager = null;
 var token;
 var type = "";
+
+var device = (/.*(android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini).*/i.test(navigator.userAgent.toLowerCase()));
+
+if(device){
+    console.log("Mobile Device Detected: " + device);
+    $('#mobile-warning').append("<h4 style='margin: auto;' id='mobile-warning-header'></h4>");
+    var header = $('#mobile-warning-header');
+    header.append('<hr>');
+    header.append('<p class="label label-danger">One Page Genealogy has detected that you may be using a mobile device.</p>');
+    header.append('<p class="label label-danger"> Mobile devices may not be fully supported for this app.</p>');
+    header.append('<p class="label label-danger">For full support, we recommend non-mobile devices.</p>');
+    /*
+     <h4 style="margin: auto">
+     <hr>
+     <p class="label label-danger">One Page Genealogy has detected that you may be using a mobile device.</p>
+     <p class="label label-danger"> Mobile devices may not be fully supported for this app.</p>
+     <p class="label label-danger">For full support, we recommend non-mobile devices.</p>
+     </h4>
+     */
+}
+
 if (window.location.href.indexOf("fstoken") > -1) {
     var url = window.location.href;
     var a = $('<a>', {href: url})[0];
