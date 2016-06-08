@@ -11,6 +11,7 @@
 ///<reference path="OptionManager.ts"/>
 ///<reference path="../sources/FSAncestryDownloader.ts"/>
 ///<reference path="../sources/FSFullTreeDownloader.ts"/>
+///<reference path="../sources/SourceFactory.ts"/>
 ///<reference path="P.ts"/>
 ///<reference path="../sources/GedcomDownloader.ts"/>
 ///<reference path="../sources/GedcomNode.ts"/>
@@ -22,6 +23,7 @@ class C implements IGraphicObjectListener, IOptionListener {
 
     private source:ISource;
     public dscOrAsc:string;
+    private generations: number;
     private tree:ITree;
     private p:P;
     private viewManager:IViewManager;
@@ -47,59 +49,15 @@ class C implements IGraphicObjectListener, IOptionListener {
         //console.log(data);
         var rootId:string = data.rootId;
         this.dscOrAsc = data.dscOrAsc;
-        this.source = null;
-        var generations:number = data.generations;
-        if (data.hasOwnProperty("gedData")) {
-            var attemptGed = data.gedData;
-            this.source = new FSFullTreeDownloader(rootId, generations, null);
-            var gedNodes = {};
-            for (var key in attemptGed) {
-                var branchIds = [];
-                //ascendants
-                if (attemptGed[key].hasOwnProperty("ascBranchIds") && data.dscOrAsc == "ascendancy") {
-                    //var firstFam = attemptGed[key].familyChild[0];
-                    var firstFam = this.getBestAscendants(attemptGed, key);
-                    branchIds = attemptGed[key].ascBranchIds[firstFam];
-                }
-                //descendantsbr
-                if (attemptGed[key].hasOwnProperty("dscBranchIds") && data.dscOrAsc == "descendancy") {
-                    //var firstFam = attemptGed[key].familySpouse[0];
-                    if (attemptGed[key].familySpouse.length > 1) {
-                        //console.log(attemptGed[key].familySpouse);
-                        //console.log(attemptGed[key].dscBranchIds);
-                        var firstFam = this.getBestDescendants(attemptGed, key);
-                        branchIds = attemptGed[key].dscBranchIds[firstFam];
-                    }
-                    else {
-                        var firstFam = this.getBestDescendants(attemptGed, key);
-                        branchIds = attemptGed[key].dscBranchIds[firstFam];
-                    }
-                }
-                if (branchIds == null) {
-                    branchIds = [];
-                }
-                gedNodes[key] = new GedcomNode(key, attemptGed[key], branchIds);
-            }
-            //console.log(gedNodes)
-            //this.source = new GedcomDownloader(attemptGed["latestIndi"], 20, gedNodes);//"oldestIndi" for dsc, "latestIndi" for asc
-            //this.source = new GedcomDownloader("@I12154@", 20, gedNodes);//PROFESSOR BARRETT is @I12154@ do @175@ for an ascendant
-            this.source = new GedcomDownloader(data.rootId, data.generations, gedNodes, data.dscOrAsc);
-        }
-        else if (data.hasOwnProperty("file")) {
-            //this.boxes = data.boxes;
-            this.source = null;
+        this.generations = data.generations;
+
+        if(data.hasOwnProperty("optionManager")){
             this.optionManager = data.optionManager;
         }
-        else {
-            //console.log("Making non-gedcom C");
-            rootId = data.rootId;
-            generations = data.generations;
-            this.source = new FSFullTreeDownloader(rootId, generations, data.dscOrAsc);
-            //var self = this;
-            //this.source.addPercentListener(function(percent){
-            //    document.getElementById()
-            //});
-        }
+
+        var sourceFactory = new SourceFactory();
+        this.source = sourceFactory.makeSource(data, rootId);
+
         this.anchorPt = new Point(10, 10);
 
         this.tree = new Tree();
@@ -144,46 +102,6 @@ class C implements IGraphicObjectListener, IOptionListener {
             }
             this.p.handleUpdate(this.tree, []);
             this.refresh(this.boxes);
-        }
-    }
-
-    getBestDescendants(attemptGed, key) {
-        if (attemptGed[key].familySpouse.length == 1) {
-            return attemptGed[key].familySpouse[0];
-        }
-        else {
-            var bestFam = "";
-            var biggest = 0;
-            for (var i = 0; i < attemptGed[key].familySpouse.length; i++) {
-                var famAttempt = attemptGed[key].familySpouse[i];
-                if (attemptGed[key].dscBranchIds.hasOwnProperty(famAttempt)) {
-                    if (attemptGed[key].dscBranchIds[famAttempt].length > biggest) {
-                        bestFam = famAttempt;
-                        biggest = attemptGed[key].dscBranchIds[famAttempt].length;
-                    }
-                }
-            }
-            return bestFam;
-        }
-    }
-
-    getBestAscendants(attemptGed, key) {
-        if (attemptGed[key].familyChild.length == 1) {
-            return attemptGed[key].familyChild[0];
-        }
-        else {
-            var bestFam = "";
-            var biggest = 0;
-            for (var i = 0; i < attemptGed[key].familyChild.length; i++) {
-                var famAttempt = attemptGed[key].familyChild[i];
-                if (attemptGed[key].ascBranchIds.hasOwnProperty(famAttempt)) {
-                    if (attemptGed[key].ascBranchIds[famAttempt].length > biggest) {
-                        bestFam = famAttempt;
-                        biggest = attemptGed[key].ascBranchIds[famAttempt].length;
-                    }
-                }
-            }
-            return bestFam;
         }
     }
 
@@ -487,6 +405,12 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
         else if (key === 'edit-spacing-switch-changed') {
             this.grabBranch = value.state;
+        }
+        else if (key === 'show-statistics'){
+            this.p.handle({type: key, value: this.boxes, generations: this.generations, direction: this.dscOrAsc});
+        }
+        else if (key === 'hide-statistics'){
+            this.p.handle({type: key, value:null});
         }
         else if (key === 'VP-view') {
             this.p.handle({type: key, id: value['id']});

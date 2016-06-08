@@ -8,7 +8,7 @@
 
 declare function familySearchDownload(): void;
 
-class FSDescendancyGenDownloader {
+class FSDescendancyGenDownloader{
     constructor() {
 
     }

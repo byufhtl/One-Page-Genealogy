@@ -48,6 +48,7 @@
 ///<reference path="JSPublicSpacer.ts"/>
 ///<reference path="IdTest.ts"/>
 ///<reference path="StylingPipeline.ts"/>
+///<reference path="StatReport.ts"/>
 /**
  * Created by krr428 on 3/7/15.
  * Last updated 2/24/16.
@@ -178,6 +179,24 @@ class P implements IControllerListener, ITreeListener {
             }
             else if (param.type === 'save'){
                 this.save(param.value);
+            }
+            else if (param.type === 'show-statistics'){
+                var statsContainer = $('#statistics-content');
+                var statReport = new StatReport(param.value, param.generations, param.direction);
+
+                // Create and add row
+                var totalPeopleRow = statReport.createStatRow("Total People:", statReport.getNodeCount());
+                statsContainer.append(totalPeopleRow);
+                var perMaleRow = statReport.createStatRow("Percent Male:", statReport.getPercentMale(), "%");
+                statsContainer.append(perMaleRow);
+                var perFemaleRow = statReport.createStatRow("Percent Female:", statReport.getPercentFemale(), "%");
+                statsContainer.append(perFemaleRow);
+
+                // Show the modal window
+                $('#statistics-modal').show();
+            }
+            else if (param.type === 'hide-statistics'){
+                $('#statistics-modal').hide();
             }
         }
         if (refresh) {

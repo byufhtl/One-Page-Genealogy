@@ -145,6 +145,12 @@ class OptionManager implements IOptionManager {
         $('#edit-spacing-switch').on('switchChange.bootstrapSwitch', function(event, state) {
             self.listener.handleOption('edit-spacing-switch-changed', {state: state});
         });
+        $('#statistics').click(() => {
+            self.listener.handleOption('show-statistics', null);
+        });
+        $('#statistics-modal-close').click(() => {
+            self.listener.handleOption('hide-statistics', null);
+        });
         $('#style-dropdown').click(() => {
             var style_menu = $('#style-menu');
             var direction = $('input[name=FSascOrDsc]:checked').val();
