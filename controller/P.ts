@@ -71,7 +71,6 @@ class P implements IControllerListener, ITreeListener {
     private secondBoxMap:BoxMap;
 
     constructor(private c:C) {
-
         this.translateSpacer = new TranslateSpacer();
 
         this.stylingPipeline = new StylingPipeline();
@@ -181,19 +180,7 @@ class P implements IControllerListener, ITreeListener {
                 this.save(param.value);
             }
             else if (param.type === 'show-statistics'){
-                var statsContainer = $('#statistics-content');
-                var statReport = new StatReport(param.value, param.generations, param.direction);
-
-                // Create and add row
-                var totalPeopleRow = statReport.createStatRow("Total People:", statReport.getNodeCount());
-                statsContainer.append(totalPeopleRow);
-                var perMaleRow = statReport.createStatRow("Percent Male:", statReport.getPercentMale(), "%");
-                statsContainer.append(perMaleRow);
-                var perFemaleRow = statReport.createStatRow("Percent Female:", statReport.getPercentFemale(), "%");
-                statsContainer.append(perFemaleRow);
-
-                // Show the modal window
-                $('#statistics-modal').show();
+                this.showStatsReport(param);
             }
             else if (param.type === 'hide-statistics'){
                 $('#statistics-modal').hide();
@@ -345,6 +332,22 @@ class P implements IControllerListener, ITreeListener {
             newCount = countID + 2;
         }
         return newCount;
+    }
+
+    private showStatsReport(param: any){
+        var statsContainer = $('#statistics-content');
+        var statReport = new StatReport(param.value, param.generations, param.direction);
+
+        // Create and add row
+        var totalPeopleRow = statReport.createStatRow("Total People:", statReport.getNodeCount());
+        statsContainer.append(totalPeopleRow);
+        var perMaleRow = statReport.createStatRow("Percent Male:", statReport.getPercentMale(), "%");
+        statsContainer.append(perMaleRow);
+        var perFemaleRow = statReport.createStatRow("Percent Female:", statReport.getPercentFemale(), "%");
+        statsContainer.append(perFemaleRow);
+
+        // Show the modal window
+        $('#statistics-modal').show();
     }
 
     private vpView(paramId:string):any {
@@ -521,6 +524,7 @@ class P implements IControllerListener, ITreeListener {
      */
     private changeChartStyle(type:string):boolean {
         var style: AbstractChartStyle;
+        this.c.handleOption("recenter-chart", null);
         switch(type){
             case 'detail-style':
                 style = new DetailChartStyler();

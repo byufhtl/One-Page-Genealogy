@@ -9,6 +9,8 @@ interface IViewManager {
     setTranslation(x:number, y:number): void;
     setScale(s: number, pt: Point): void;
     setSize(width: number, height: number): void;
+    centerOnBox(id: string, boxMap: BoxMap): void;
+    reCenter(boxMap: BoxMap): void;
     rotate(r: number): void;
     getSVGString(): any;
     setRuler(): any;

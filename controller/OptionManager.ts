@@ -145,11 +145,25 @@ class OptionManager implements IOptionManager {
         $('#edit-spacing-switch').on('switchChange.bootstrapSwitch', function(event, state) {
             self.listener.handleOption('edit-spacing-switch-changed', {state: state});
         });
-        $('#statistics').click(() => {
+        $('#statistics-button').click(() => {
             self.listener.handleOption('show-statistics', null);
         });
         $('#statistics-modal-close').click(() => {
             self.listener.handleOption('hide-statistics', null);
+        });
+        $('#find-button').click(() => {
+            $('#box-finder-modal').show();
+        });
+        $('#box-finder-modal-close').click(() => {
+            $('#box-finder-modal').hide();
+        });
+        $('#box-finder-modal-seek').click(() => {
+            var id = $('#box-finder-search-input').val();
+            console.log(id);
+            self.listener.handleOption('find-box-by-id', id);
+        });
+        $('#recenter-button').click(() => {
+            self.listener.handleOption('recenter-chart', null);
         });
         $('#style-dropdown').click(() => {
             var style_menu = $('#style-menu');

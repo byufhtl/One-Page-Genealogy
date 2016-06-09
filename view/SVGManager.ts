@@ -56,12 +56,6 @@ class SVGManager implements IViewManager {
         $(window).off();
 
         var self = this;
-        $("#country-legend").mouseenter(function() {self.zoomEnabled = false;});
-        $("#country-legend").mouseleave(function() {self.zoomEnabled = true;});
-        $("div.modal").mouseenter(function() {self.zoomEnabled = false;});
-        $("div.modal").mouseleave(function() {self.zoomEnabled = true;});
-        $("#gedcomModal").mouseenter(function() {self.zoomEnabled = false;});
-        $("#gedcomModal").mouseleave(function() {self.zoomEnabled = true;});
 
         this.rulerTextContainer = document.createElementNS("http://www.w3.org/2000/svg", "g");
         this.rulerTextContainer.setAttribute('fill', '#d2a779');
@@ -69,6 +63,127 @@ class SVGManager implements IViewManager {
         this.svgRoot = document.createElementNS("http://www.w3.org/2000/svg", "g");
         svg.appendChild(this.svgRoot);
 
+        this.configureMouse(self, svg);
+        this.startLoadingAnimation();
+
+        // the path used to generate the lines.
+        this.linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        this.svgRoot.appendChild(this.linePath);
+
+        this.elementManager = new ElementManager(this.svgRoot, this.graphicObject);
+        this.lineManager = new LineManager();
+
+        this.boundingRect = null;
+        this.elements = {};
+
+        this.translationX = 0;
+        this.translationY = 0;
+        this.rotation = 0;
+        this.scale = 1;
+        this.autopan = true;
+        this.boundingRect = svg.getBoundingClientRect();
+        this.width = this.boundingRect.right - this.boundingRect.left;
+        this.height = this.boundingRect.bottom - this.boundingRect.top;
+        this.refreshTriggered = false;
+
+        $(window).resize(function() {
+            self.boundingRect = svg.getBoundingClientRect();
+            self.refresh(self.lastBoxes);
+
+            self.width = self.boundingRect.right - self.boundingRect.left;
+            self.height = self.boundingRect.bottom - self.boundingRect.top;
+        });
+
+        this.initChartButtons(self);
+    }
+
+    private configureMouse(self, svg){
+        var countryLegend = $("#country-legend");
+        var modals = $("div.modal");
+        var gedcomModal = $("#gedcomModal");
+
+        countryLegend.mouseenter(function() {self.zoomEnabled = false;});
+        countryLegend.mouseleave(function() {self.zoomEnabled = true;});
+        modals.mouseenter(function() {self.zoomEnabled = false;});
+        modals.mouseleave(function() {self.zoomEnabled = true;});
+        gedcomModal.mouseenter(function() {self.zoomEnabled = false;});
+        gedcomModal.mouseleave(function() {self.zoomEnabled = true;});
+
+        var getMousePos = function(container, evt) {
+            var rect = self.boundingRect;
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        };
+
+        $(window).mousewheel(function(event){
+            var pt = getMousePos(svg, event);
+            self.graphicObject.fireScale(event.deltaY, self.viewToWorld(new Point(pt.x, pt.y)));
+        });
+
+        var getHammerPosition = function(container, pt) {
+            if(!self.boundingRect) {
+                self.boundingRect = container.getBoundingClientRect();
+            }
+
+            return {
+                x: pt.x - self.boundingRect.left,
+                y: pt.y - self.boundingRect.top
+            };
+        };
+
+        var hammer = new Hammer(svg);
+        this.hammers.push(hammer);
+        var pan = hammer.add( new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 0 }) );
+        var pinch = new Hammer.Pinch();
+
+        //console.log("creating listener");
+        hammer.add([pan, pinch]);
+
+        hammer.on('panmove', function(ev) {
+            ev.preventDefault();
+            drag(getHammerPosition(svg, ev.center));
+        });
+        hammer.on('panend pancancel', function(ev) {
+            endDrag(getHammerPosition(svg, ev.center), ev.velocityX, ev.velocityY);
+        });
+        hammer.on('panstart', function(ev) {
+            startDrag(getHammerPosition(svg, ev.center))
+        });
+        hammer.on('tap', function(ev) {
+            ev.preventDefault();
+            var pt = getHammerPosition(svg, ev.center);
+            self.graphicObject.fireClickPt(self.viewToWorld(new Point(pt.x, pt.y)));
+        });
+        var pt1 = null;
+        var pt2 = null;
+        var dx = 0;
+        var dy = 0;
+
+        function startDrag(pt) {
+            pt1 = pt;
+
+            self.graphicObject.fireStartDrag(self.viewToWorld(new Point(pt.x, pt.y)));
+        }
+        function drag(pt) {
+            pt2 = pt1;
+            pt1 = pt;
+
+            var p1:Point = new Point(pt1.x, pt1.y);
+            var p2:Point = new Point(pt2.x, pt2.y);
+
+            self.graphicObject.fireTranslate(self.viewToWorld(p1), self.viewToWorld(p2));
+        }
+        function endDrag(pt, vx, vy) {
+            pt2 = null;
+            pt1 = null;
+
+            self.graphicObject.fireEndDrag(self.viewToWorld(new Point(pt.x, pt.y)));
+        }
+    }
+
+    private startLoadingAnimation(){
         // The Loading Spinner
         this.svgLoading = document.createElementNS("http://www.w3.org/2000/svg", "image");
         this.svgLoading.setAttribute('height','500');
@@ -99,38 +214,9 @@ class SVGManager implements IViewManager {
         this.svgPercent.setAttribute('y', '260');
         this.svgPercent.setAttribute('font-size', '50px');
         this.svgRoot.appendChild(this.svgPercent);
+    }
 
-        // the path used to generate the lines.
-        this.linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        this.svgRoot.appendChild(this.linePath);
-
-        this.elementManager = new ElementManager(this.svgRoot, this.graphicObject);
-        this.lineManager = new LineManager();
-
-        this.boundingRect = null;
-        this.elements = {};
-
-        this.translationX = 0;
-        this.translationY = 0;
-        this.rotation = 0;
-        this.scale = 1;
-        this.autopan = true;
-        this.boundingRect = svg.getBoundingClientRect();
-        this.width = this.boundingRect.right - this.boundingRect.left;
-        this.height = this.boundingRect.bottom - this.boundingRect.top;
-        this.refreshTriggered = false;
-
-        $(window).resize(function() {
-            self.boundingRect = svg.getBoundingClientRect();
-            self.refresh(self.lastBoxes);
-
-            self.width = self.boundingRect.right - self.boundingRect.left;
-            self.height = self.boundingRect.bottom - self.boundingRect.top;
-        });
-        $(window).mousewheel(function(event){
-            var pt = getMousePos(svg, event);
-            self.graphicObject.fireScale(event.deltaY, self.viewToWorld(new Point(pt.x, pt.y)));
-        });
+    private initChartButtons(self){
         $('#zoom-out-button').click(() =>{
             var rect = self.boundingRect;
             var x = window.innerWidth/2 - rect.left;
@@ -191,72 +277,9 @@ class SVGManager implements IViewManager {
                 self.graphicObject.fireTranslate(self.viewToWorld(new Point(x, y)), self.viewToWorld(new Point(x, y - 40)));
             }
         });
-        var getMousePos = function(container, evt) {
-            var rect = self.boundingRect;
-            return {
-                x: evt.clientX - rect.left,
-                y: evt.clientY - rect.top
-            };
-        };
-        var getHammerPosition = function(container, pt) {
-            if(!self.boundingRect) {
-                self.boundingRect = container.getBoundingClientRect();
-            }
+        $('#recenter-button').click(() => {
 
-            return {
-                x: pt.x - self.boundingRect.left,
-                y: pt.y - self.boundingRect.top
-            };
-        };
-
-        var hammer = new Hammer(svg);
-        this.hammers.push(hammer);
-        var pan = hammer.add( new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 0 }) );
-        var pinch = new Hammer.Pinch();
-
-        //console.log("creating listener");
-        hammer.add([pan, pinch]);
-
-        hammer.on('panmove', function(ev) {
-            ev.preventDefault();
-            drag(getHammerPosition(svg, ev.center));
         });
-        hammer.on('panend pancancel', function(ev) {
-            endDrag(getHammerPosition(svg, ev.center), ev.velocityX, ev.velocityY);
-        });
-        hammer.on('panstart', function(ev) {
-            startDrag(getHammerPosition(svg, ev.center))
-        });
-        hammer.on('tap', function(ev) {
-            ev.preventDefault();
-            var pt = getHammerPosition(svg, ev.center);
-            self.graphicObject.fireClickPt(self.viewToWorld(new Point(pt.x, pt.y)));
-        });
-        var pt1 = null;
-        var pt2 = null;
-        var dx = 0;
-        var dy = 0;
-
-        function startDrag(pt) {
-            pt1 = pt;
-
-            self.graphicObject.fireStartDrag(self.viewToWorld(new Point(pt.x, pt.y)));
-        }
-        function drag(pt) {
-            pt2 = pt1;
-            pt1 = pt;
-
-            var p1:Point = new Point(pt1.x, pt1.y);
-            var p2:Point = new Point(pt2.x, pt2.y);
-
-            self.graphicObject.fireTranslate(self.viewToWorld(p1), self.viewToWorld(p2));
-        }
-        function endDrag(pt, vx, vy) {
-            pt2 = null;
-            pt1 = null;
-
-            self.graphicObject.fireEndDrag(self.viewToWorld(new Point(pt.x, pt.y)));
-        }
     }
 
     refresh(boxes: BoxMap): IGraphicObject {
@@ -416,17 +439,6 @@ class SVGManager implements IViewManager {
         this.resetTransformation();
     }
 
-    private toCenterPoint(box:IBox):any {
-        return {
-            getX: function() {
-                return box.getX() + box.getWidth()/2;
-            },
-            getY: function() {
-                return box.getY() + box.getHeight()/2;
-            }
-        }
-    }
-
     private drawLine(boxes: BoxMap): void {
 
         var tx: number = this.translationX;
@@ -491,6 +503,38 @@ class SVGManager implements IViewManager {
         this.refresh(this.lastBoxes);
     }
 
+    private toCenterPoint(box:IBox):any {
+        return {
+            getX: function() {
+                return box.getX() + box.getWidth()/2;
+            },
+            getY: function() {
+                return box.getY() + box.getHeight()/2;
+            }
+        }
+    }
+
+    centerOnBox(box: IBox){
+        var boxCenter = this.toCenterPoint(box);
+
+        // Reset the translation to the box center.
+        this.translationX = boxCenter.getX();
+        this.translationY = boxCenter.getY();
+
+        var width = this.width/2;
+        var height = this.height/2;
+
+        var rotatedPt = this.rotatePt(new Point(width, height), this.rotation);
+        var rotation_index = (this.rotation * 2 / Math.PI);
+
+        var multiplier = (rotation_index % 2 == 0) ? -1 : 1;
+
+        var width = multiplier*rotatedPt.getX()/this.scale;
+        var height = multiplier*rotatedPt.getY()/this.scale;
+
+        this.setTranslation(width, height);
+    }
+
     viewToWorld(pt: Point): Point {
 
         pt = this.rotatePt(pt, -this.rotation);
@@ -528,7 +572,8 @@ class SVGManager implements IViewManager {
     rotate(r: number): void {
         var viewBefore: Point = new Point(this.width/2, this.height/2);//this.worldToView(pt);
         var pt: Point = this.viewToWorld(viewBefore);
-        this.rotation += r % (Math.PI*2);
+        this.rotation = (this.rotation + r % (Math.PI*2)) % (Math.PI * 2);
+        console.log(this.rotation);
         var worldAfter: Point = this.viewToWorld(viewBefore);
 
         var dx = worldAfter.getX() - pt.getX();

@@ -324,10 +324,15 @@
                       </li>
                   </ul>
                   <hr>
-                  <ul class="nav navbar" id="opg-button-pad-left">
-                      <li><button type="button" class="btn btn-sidebar" id="redownload">New Chart</button></li>
-                      <li><button type="button" class="btn btn-sidebar" id="statistics">Chart Stats</button></li>
-                      <li><button type="button" class="btn btn-sidebar" id="find">Find</button></li>
+                  <hr>
+                  <ul class="nav navbar" id="opg-chart-button-bar">
+                      <li><button type="button" class="btn btn-sidebar" id="redownload-button">New Chart</button></li>
+                      <li><button type="button" class="btn btn-sidebar" id="find-button">Find</button></li>
+                      <li><button type="button" class="btn btn-sidebar" id="recenter-button">Re-center</button></li>
+                  </ul>
+                  <hr>
+                  <ul class="nav navbar" id="opg-system-button-bar">
+                      <li><button type="button" class="btn btn-sidebar" id="statistics-button">Chart Stats</button></li>
                       <li><button type="button" class="btn btn-sidebar" id="opg-help">Help</button></li>
                   </ul>
                   <hr>
@@ -847,6 +852,45 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!--#########################################
+#             PERSON FINDER MODAL           #
+##########################################-->
+
+<div class="modal" id="box-finder-modal" tabindex="-1" role="dialog" aria-labelledby="downloadModal" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header opg-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
+                <h4 style="margin-top: 0;" class="modal-title">Find in Chart</h4>
+            </div>
+            <div class="modal-body" align="center" style="padding-top: 15px;">
+                <p>Input the PID for the person you are trying to locate.</p>
+                <div class="input-group input-group-sm" id="box-finder-field-holder" style="float: left;">
+                    <input type="text" class="form-control" placeholder="XXXX-XXX" id="box-finder-search-input" maxlength="8" size="13">
+                </div>
+                <p>*Only people in your current chart can be found.</p>
+            </div>
+            <div class="modal-footer opg-blue" style="border-bottom-right-radius: 5px; border-bottom-left-radius: 5px;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-3" align="left" style="padding-left: 0;">
+                            <button type="button" class="btn btn-footer" id="box-finder-modal-close">Close</button>
+                        </div>
+                        <div class="col-sm-6" style="padding-right: 0;" align="center">
+                            <h6 style="margin: 0;">BYU Family History Technology Lab</h6>
+                            <p style="font-size: 60%; margin: 0;">Copyright © Brigham Young University,</p>
+                            <p style="font-size: 60%; margin: 0;">Computer Science Department</p>
+                        </div>
+                        <div class="col-sm-3" style="padding-left: 0; padding-right: 15px;" align="right">
+                            <button type="button" class="btn btn-footer" id="box-finder-modal-seek">Find</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 </body>
 </html>

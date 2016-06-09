@@ -75,7 +75,7 @@ $(document).ready(function () {
     // Hide the close options on first download, but enable them for later downloads.
     $('#download-modal-close').hide();
     $('#fsDwldClose').hide();
-    $("#redownload").click(function(){
+    $("#redownload-button").click(function(){
         $('#downloadModal').show();
         var dwnldClose = $('#fsDwldClose');
         dwnldClose.show();

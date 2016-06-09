@@ -218,6 +218,19 @@ class C implements IGraphicObjectListener, IOptionListener {
             this.viewManager.rotate(value.value);
             this.optionManager.setRotation(this.viewManager.getRotation());
         }
+        else if (key === 'recenter-chart'){
+            this.viewManager.reCenter(this.boxes);
+        }
+        else if (key === 'find-box-by-id'){
+            var realId = value + ":0";
+            if(this.boxes.getId(realId)) {
+                this.viewManager.centerOnBox(realId, this.boxes);
+            }
+            else{
+                console.log(realId, this.boxes.getMap());
+            }
+            $('#box-finder-modal').hide();
+        }
         // DON'T GET RID OF THIS COMMENTED CODE!
 
         // else if(key === 'request-download') {
