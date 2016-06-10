@@ -535,6 +535,13 @@ class SVGManager implements IViewManager {
         this.setTranslation(width, height);
     }
 
+    reCenter(boxMap: BoxMap){
+        var box = boxMap.getId(boxMap.getRoot());
+        if(box){
+            this.centerOnBox(box);
+        }
+    }
+
     viewToWorld(pt: Point): Point {
 
         pt = this.rotatePt(pt, -this.rotation);

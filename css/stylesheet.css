@@ -282,6 +282,22 @@ a.opg-blue:link{
     margin: 1px 5% 1px 5%;
 }
 
+.btn-sidebar-large{
+    border-radius: 10px;
+    border: solid 2px #FFFFFF;
+    background-color: #1F2B38;
+    color: white;
+    max-width: 90%;
+    min-width: 90%;
+    width: 90%;
+    max-height: 25%;
+    min-height: 25%;
+    height: 25%;
+    padding: 6px;
+    padding-left: 16px;
+    margin: 1px 5% 1px 5%;
+}
+
 .btn-pad-white{
     border-radius: 10px;
     border: solid 2px #1F2B38;

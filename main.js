@@ -11,7 +11,7 @@ var type = "";
 var device = (/.*(android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini).*/i.test(navigator.userAgent.toLowerCase()));
 
 if(device){
-    console.log("Mobile Device Detected: " + device);
+    console.log("Mobile Device Detected! Type: " + device);
     $('#mobile-warning').append("<h4 style='margin: auto;' id='mobile-warning-header'></h4>");
     var header = $('#mobile-warning-header');
     header.append('<hr>');

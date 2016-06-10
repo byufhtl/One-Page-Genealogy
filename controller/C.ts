@@ -224,8 +224,9 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
         else if (key === 'find-box-by-id'){
             var realId = value + ":0";
-            if(this.boxes.getId(realId)) {
-                this.viewManager.centerOnBox(realId, this.boxes);
+            var box = this.boxes.getId(realId);
+            if(box) {
+                this.viewManager.centerOnBox(box);
             }
             else{
                 console.log(realId, this.boxes.getMap());

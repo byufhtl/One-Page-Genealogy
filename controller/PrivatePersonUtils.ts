@@ -83,7 +83,7 @@ class PrivatePersonUtils{
 
         privateNodeModalFSView.click(function(){
             var pid = box.getNode().getId().substring(0,8);
-            if(!pid.match(/@OPG.+/i)) {
+            if(!PrivatePersonUtils.isCustomId(pid)) {
                 window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
             }
         });

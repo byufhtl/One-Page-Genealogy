@@ -22,10 +22,8 @@ class MainViewManager implements IViewManager {
     setSize(width: number, height: number): void {
 
     }
-    centerOnBox(id: string, boxMap: BoxMap): void{
-        if(id && boxMap.getId(id)) {
-            this.svgManager.centerOnBox(boxMap.getId(id));
-        }
+    centerOnBox(box:IBox): void{
+        this.svgManager.centerOnBox(box);
     }
     reCenter(boxMap: BoxMap){
         var box = boxMap.getId(boxMap.getRoot());
