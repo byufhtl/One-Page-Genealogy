@@ -23,7 +23,7 @@ class PrivatePersonUtils{
         opgModalRemovePlug.empty();
         if(this.isCustomId(box.getNode().getId())){
             if(box.getNode().getBranchIds().length == 0) {
-                opgModalRemovePlug.append('<button type="button" class="btn btn-footer" id="opg-modal-remove-private" style="float: left;">Remove Node</button>');
+                opgModalRemovePlug.append('<button type="button" class="btn btn-footer" id="opg-modal-remove-private" style="float: left;">Remove Person</button>');
                 this.initRemoveButton(box, c);
             }
         }

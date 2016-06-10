@@ -13,6 +13,8 @@ class StatReport{
 
     constructor(boxMap: BoxMap, generations: number, direction: string){
         console.log("Report generating.");
+        this.maleCount = 0;
+        this.femaleCount = 0;
         this.nodeCount = 0;
         var totalSpouses = 0;
 
@@ -64,18 +66,18 @@ class StatReport{
     }
 
     getPercentMale(): number{
-        return(this.maleCount/this.nodeCount);
+        return(this.roundStat(this.maleCount*100/this.nodeCount));
     }
 
     getPercentFemale(): number{
-        return(this.femaleCount/this.nodeCount);
+        return(this.roundStat(this.femaleCount*100/this.nodeCount));
     }
 
     getPercentUnknown(): number{
-        return((this.nodeCount - this.femaleCount - this.maleCount)/this.nodeCount);
+        return(this.roundStat((this.nodeCount - this.femaleCount - this.maleCount)*100/this.nodeCount));
     }
 
-    getEstimatedPercentFull(): number{
+    getEstimatedPercentFull(direction: string): number{
         return this.percentFull;
     }
 
@@ -128,6 +130,11 @@ class StatReport{
                 ++this.femaleCount;
             }
         }
+    }
+
+    private roundStat(x: number, places: number = 2): number{
+        var factor = 10*places;
+        return Math.floor(x*factor)/factor;
     }
 
 }

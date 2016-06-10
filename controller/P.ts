@@ -336,6 +336,7 @@ class P implements IControllerListener, ITreeListener {
 
     private showStatsReport(param: any){
         var statsContainer = $('#statistics-content');
+        statsContainer.empty();
         var statReport = new StatReport(param.value, param.generations, param.direction);
 
         // Create and add row
@@ -524,7 +525,6 @@ class P implements IControllerListener, ITreeListener {
      */
     private changeChartStyle(type:string):boolean {
         var style: AbstractChartStyle;
-        this.c.handleOption("recenter-chart", null);
         switch(type){
             case 'detail-style':
                 style = new DetailChartStyler();
@@ -568,6 +568,9 @@ class P implements IControllerListener, ITreeListener {
             default:
                 return false;
         }
+
+        // Re-center before commencing style switch.
+        this.c.handleOption("recenter-chart", null);
 
         this.stylingPipeline.setChartStyleSpacer(style);
         this.stylingPipeline.clearCustomChartStyle();

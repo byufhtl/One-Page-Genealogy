@@ -573,7 +573,6 @@ class SVGManager implements IViewManager {
         var viewBefore: Point = new Point(this.width/2, this.height/2);//this.worldToView(pt);
         var pt: Point = this.viewToWorld(viewBefore);
         this.rotation = (this.rotation + r % (Math.PI*2)) % (Math.PI * 2);
-        console.log(this.rotation);
         var worldAfter: Point = this.viewToWorld(viewBefore);
 
         var dx = worldAfter.getX() - pt.getX();
