@@ -124,7 +124,7 @@ class StatReport{
             //tag.text('Poor');
         }
         else if(rank < 50){
-            tag = $('<span class="label label-warning" style="margin-left: 4px;">Fiar</span>');
+            tag = $('<span class="label label-warning" style="margin-left: 4px;">Fair</span>');
         }
         else if(rank < 75){
             tag = $('<span class="label label-primary" style="margin-left: 4px;">Good</span>');
