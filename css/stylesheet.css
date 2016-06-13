@@ -330,11 +330,13 @@ a.opg-blue:link{
 }
 
 .opg-left-menu{
+    border: 2px solid #1F2B38;
+    border-right: 0;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    width: 300px;
+    width: 310px;
     text-align: right;
-    left: -300px;
+    left: -312px; /*Give it just a bit of space.*/
     top: 0;
 }
 

@@ -340,12 +340,33 @@ class P implements IControllerListener, ITreeListener {
         var statReport = new StatReport(param.value, param.generations, param.direction);
 
         // Create and add row
-        var totalPeopleRow = statReport.createStatRow("Total People:", statReport.getNodeCount());
+        var totalPeopleRow = statReport.createStatRow("Total People:", statReport.getNodeCount(), "");
         statsContainer.append(totalPeopleRow);
         var perMaleRow = statReport.createStatRow("Percent Male:", statReport.getPercentMale(), "%");
         statsContainer.append(perMaleRow);
         var perFemaleRow = statReport.createStatRow("Percent Female:", statReport.getPercentFemale(), "%");
         statsContainer.append(perFemaleRow);
+        var perUnk = statReport.getPercentUnknown();
+        var perUnkTag = statReport.createCommentTagByPercentage(perUnk, false);
+        var perFemaleRow = statReport.createStatRow("Percent Unknown Gender:", perUnk, "%", perUnkTag);
+        statsContainer.append(perFemaleRow);
+        var full = statReport.getEstimatedPercentFull();
+        var fullTag = statReport.createCommentTagByPercentage(full, true);
+        var perFullRow = statReport.createStatRow("Estimated* Percent Full:", full , "%", fullTag);
+        statsContainer.append(perFullRow);
+        var disclaimer: string;
+        if(param.direction === 'descendancy'){
+            var avgFamilyRow = statReport.createStatRow("Average Children per Family:", statReport.getAvgFamilySize(), "");
+            statsContainer.append(avgFamilyRow);
+            var avgSpousesRow = statReport.createStatRow("Average Number of Spouses:", statReport.getAvgSpouses(), "");
+            statsContainer.append(avgSpousesRow);
+            disclaimer = "Based on 4 children per family per generation."
+        }
+        else if (param.direction === 'ascendancy'){
+            disclaimer = "Based on 2 parents per family per generation."
+        }
+        statsContainer.append('<hr style="margin-top: 12%;"><div class="col-lg-12"><p id="stats-disclaimer" style="text-align: left;"></p></div>');
+        $('#stats-disclaimer').text("Estimation based on rough averages. " + disclaimer);
 
         // Show the modal window
         $('#statistics-modal').show();

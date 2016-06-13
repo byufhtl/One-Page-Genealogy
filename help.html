@@ -141,7 +141,7 @@
 </nav>
 <div style="height: 89%; overflow: auto;" id="tabs-pane">
     <ul class="nav nav-tabs opg-blue">
-        <li class="active"><a data-toggle="tab" href="#guide">Getting Started</a></li>
+        <li class="active"><a data-toggle="tab" href="#guide" id="top">Getting Started</a></li>
         <li><a data-toggle="tab" href="#inventory">Features</a></li>
         <li><a data-toggle="tab" href="#support">FAQ's/Support</a></li>
         <li><a data-toggle="tab" href="#release">What's New</a></li>
@@ -169,6 +169,7 @@
                         <h5><a href="#save">Save/Upload</a></h5>
                         <h5><a href="#print">Print/Download</a></h5>
                         <hr>
+                        <h5><a href="#top">Back To Top</a></h5>
                     </div>
                 </div>
                 <div id="help-list">
@@ -250,14 +251,14 @@
                         <p>Now you have your chart on the page, but maybe it's a bit too big to see all of it.</p>
                         <ul>
                             <li><p>Zoom in and out: scroll middle mouse button, or use the corresponding buttons on the right side of the page ( <i class="fa fa-search-minus"></i> to zoom out, <i class="fa fa-search-plus"></i> to zoom in).</p></li>
-                            <li><p>Pan around: left click and drag the chart. Alternatively, use the arrow buttons (
+                            <li><p>Pan around: left click and drag the chart.<!-- Alternatively, use the arrow buttons (
                                 <i class="fa fa-arrow-up"></i>
                                 <i class="fa fa-arrow-right"></i>
                                 <i class="fa fa-arrow-down"></i>
                                 <i class="fa fa-arrow-left"></i> )
                                 on the right to move around. Use the center button ( <i class="fa fa-asterisk"></i> ) to
-                                switch the buttons between moving the chart in a given direction, or moving the window in that direction.</p></li>
-                            <li><p>Click the arrows on the right side of the screen. <i class="fa fa-rotate-right"></i> to rotate your chart clockwise or <i class="fa fa-rotate-left"></i> to rotate counter-clockwise.</p></li>
+                                switch the buttons between moving the chart in a given direction, or moving the window in that direction. --></p></li>
+                            <li><p>Click the arrows on the top of the screen. <i class="fa fa-rotate-right"></i> to rotate your chart clockwise or <i class="fa fa-rotate-left"></i> to rotate counter-clockwise.</p></li>
                             <li><p>Click the download button (<i class="fa fa-download"></i>) to download your chart as a PDF file.</p></li>
                             <li><p>Click the ruler button (<img style="width:16px;height:16px;"src="images/ruler.png"/>) to show a ruler along the top of your chart that can be used to help you size your chart.</p></li>
                         </ul>
@@ -369,7 +370,7 @@
                         <ul>
                             <li><p>To begin, press the ruler button (<img style="width:16px;height:16px;"src="images/ruler.png"/>). A smaller window will appear that will allow you to choose your print dimensions.</p></li>
                             <li><p>The initial dimensions are the dimensions on your chart as is. You can change those, however, to be whatever you want.</p></li>
-                            <li><p>The dimensions that you input indicate that OPG should treat your chart as if it were W x H big.</p></li>
+                            <li><p>The dimensions that you input indicate that OPG should treat your chart as if it were Width x Height big.</p></li>
                             <li><p>After entering your dimensions and pressing 'save,' the ruler will scale with your chart to show you how many inches long your chart is.</p></li>
                             <li><p>by zooming your chart in and out until the ruler's inch is roughly the same size as an actual inch, you can get a feel for how big your chart is probably going to be.</p></li>
                         </ul>
@@ -383,7 +384,7 @@
                     <hr>
                     <div id="print">
                         <h3>How to Print or save as a PDF</h3>
-                        <p>Simply press the download button (<i class="fa fa-download"></i>) at the top right to save your chart as a PDF.</p>
+                        <p>Simply press the download button (<i class="fa fa-download"></i>) on the top bar to save your chart as a PDF.</p>
                         <p>You can then take the downloaded PDF to a nearby print service center.</p>
                     </div>
                 </div>
@@ -391,7 +392,7 @@
         </div>
         <div id="inventory" class="tab-pane fade">
             <div id="page-wrap-inventory" class="page-wrap">
-                <div id="inventory-sidebar" class="sidebar opgBlue">
+                <div id="inventory-sidebar" class="sidebar opg-blue">
                     <h4>Content</h4>
                     <hr>
                     <h5><a href="#chart-styles">Chart Styles</a></h5>
@@ -406,6 +407,7 @@
                     <h6><a href="#edit-custom"><i>- Edit Person</i></a></h6>
                     <h6><a href="#remove-custom"><i>- Remove Person</i></a></h6>
                     <hr>
+                    <h5><a href="#top">Back To Top</a></h5>
                 </div>
             </div>
             <div id="inventory-list" class="list">
@@ -577,7 +579,7 @@
         </div>
         <div id="support" class="tab-pane fade">
             <div id="page-wrap-support" class="page-wrap">
-                <div id="support-sidebar" class="sidebar opgBlue">
+                <div id="support-sidebar" class="sidebar opg-blue">
                     <h4>Content</h4>
                     <hr>
                     <h5><a href="#chart-wrong">My Chart is Wrong</a></h5>
@@ -586,6 +588,7 @@
                     <h5><a href="#long-submit">Submission Lag</a></h5>
                     <h5><a href="#no-pictures">Where are my pictures?</a></h5>
                     <hr>
+                    <h5><a href="#top">Back To Top</a></h5>
                 </div>
             </div>
             <div id="support-list" class="list">
@@ -646,7 +649,7 @@
         </div>
         <div id="release" class="tab-pane fade">
             <div id="page-wrap-release" class="page-wrap">
-                <div id="release-sidebar" class="sidebar opgBlue">
+                <div id="release-sidebar" class="sidebar opg-blue">
                     <h4>Content</h4>
                     <hr>
                     <h5><h6 style="display: inline;"><span class="label label-warning">NEW</span></h6><a href="#opg_2.0"><b> One Page Genealogy 2.0</b></a></h5>
@@ -658,6 +661,7 @@
                     <h5><a href="#new-editor-mode">Editor Mode</a></h5>
                     <h5><a href="#new-creator-mode">Creator Mode</a></h5>
                     <hr>
+                    <h5><a href="#top">Back To Top</a></h5>
                 </div>
             </div>
             <div id="release-list" class="list">

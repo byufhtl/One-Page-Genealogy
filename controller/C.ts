@@ -219,7 +219,6 @@ class C implements IGraphicObjectListener, IOptionListener {
             this.optionManager.setRotation(this.viewManager.getRotation());
         }
         else if (key === 'recenter-chart'){
-            console.log("Recentering : C");
             this.viewManager.reCenter(this.boxes);
         }
         else if (key === 'find-box-by-id'){
