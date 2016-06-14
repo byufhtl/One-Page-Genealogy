@@ -291,35 +291,22 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
         else if (key === 'ruler') {
             //have user select dimensions and then display ruler
-            if ($('#ruler-height').val() === "") {
-                this.viewManager.getSVGString().then(function (s) {
-                    //console.log(s);
-                    var wIndex = s.indexOf('width="') + 7;
-                    var hIndex = s.indexOf('height="') + 8;
-                    var width = s.slice(wIndex, s.indexOf('"', wIndex));
-                    var height = s.slice(hIndex, s.indexOf('"', hIndex));
-                    $('#ruler-ratio').val(width / height);
-                    $('#ruler-original-height').val(height);
-                    $('#ruler-height').val((height / 72).toFixed(1));
-                    $('#ruler-width').val((width / 72).toFixed(1));
-                    $('#rulerModal').modal('show');
-                })
-            } else {
+
+            this.viewManager.getSVGString().then(function (s) {
+                //console.log(s);
+                var wIndex = s.indexOf('width="') + 7;
+                var hIndex = s.indexOf('height="') + 8;
+                var width = s.slice(wIndex, s.indexOf('"', wIndex));
+                var height = s.slice(hIndex, s.indexOf('"', hIndex));
+                $('#ruler-ratio').val(width / height);
+                $('#ruler-original-height').val(height);
+                $('#ruler-height').val((height / 72).toFixed(1));
+                $('#ruler-width').val((width / 72).toFixed(1));
                 $('#rulerModal').modal('show');
-            }
+            });
         }
         else if (key === 'ruler-save') {
-            if ($('#ruler-height').val() <= 0) {
-                alert("Please enter a dimension greater than zero.")
-            } else {
-                $('#rulerModal').modal('hide');
-                $('#ruler').css('display', 'block');
-                this.viewManager.setRuler();
-            }
-        }
-        else if (key === 'ruler-hide') {
-            $('#rulerModal').modal('hide');
-            $('#ruler').css('display', 'none');
+            this.viewManager.setRuler();
         }
 
         //~~~ Chart Styles ~~~
@@ -449,6 +436,10 @@ class C implements IGraphicObjectListener, IOptionListener {
                 this.p.handle({type: key, id: value['id'], color: value['color'], textcolor: value['textcolor']});
             }
         }
+    }
+
+    public getViewManager(){
+        return this.viewManager;
     }
 
     public getBoxes():BoxMap {

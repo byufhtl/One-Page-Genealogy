@@ -50,6 +50,7 @@
     <script src="controller/SimpleGenerationSpacer.js" type="text/javascript"></script>
     <script src="controller/GenerationSpacer2.js" type="text/javascript"></script>
     <script src="controller/PrivatePersonUtils.js" type="text/javascript"></script>
+    <script src="controller/ModalManager.js" type="text/javascript"></script>
     <script src="controller/OptionManager.js" type="text/javascript"></script>
 
     <script src="controller/ColorSpacers/IColorStyler.js" type="text/javascript"></script>
@@ -371,11 +372,77 @@
                         </div>
                         <div style="margin-left: 9px;">
                             <hr>
+                            <!--The information for the first person in a box will go here.-->
                             <div id="primary-node-information" class="row">
-                                <!--The information for the first person in a box will go here.-->
+                                <div class="col-lg-9">
+                                    <div class="row opg-dense">
+                                        <div class="col-lg-12 opg-dense">
+                                            <h3 class="opg-dense" id="primary-name"></h3>
+                                        </div>
+                                    </div>
+                                    <div class="row opg-dense">
+                                        <div class="col-lg-2 opg-dense" align="right">
+                                            <span class="opg-dense">Birth:</span>
+                                        </div>
+                                        <div class="col-lg-10 opg-dense" align="left">
+                                            <div class="row opg-dense">
+                                                <p class="opg-dense" id="primary-bdate"></p>
+                                                <p class="opg-dense" id="primary-bplace"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row opg-dense">
+                                        <div class="col-lg-2 opg-dense" align="right">
+                                            <span>Death:</span>
+                                        </div>
+                                        <div class="col-lg-10 opg-dense" align="left">
+                                            <div class="row opg-dense">
+                                                <p class="opg-dense" id="primary-ddate"></p>
+                                                <p class="opg-dense" id="primary-dplace"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <svg id="primary-portrait"></svg>
+                                </div>
                             </div>
+                            <!--The information for the second person in a box (if there is one) will go here.-->
                             <div id="secondary-node-information" class="row">
-                                <!--The information for the second person in a box (if there is one) will go here.-->
+                                <div class="col-lg-9">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p id="secondary-name"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-2" align="right">
+                                            <span>Birth:</span>
+                                        </div>
+                                        <div class="col-lg-10" align="left">
+                                            <div class="row">
+                                                <p id="secondary-bdate"></p>
+                                                <p id="secondary-bplace"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-2" align="right">
+                                            <span>Death:</span>
+                                        </div>
+                                        <div class="col-lg-10" align="left">
+                                            <div class="row">
+                                                <p id="secondary-ddate"></p>
+                                                <p id="secondary-dplace"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <svg id="secondary-portrait"></svg>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>

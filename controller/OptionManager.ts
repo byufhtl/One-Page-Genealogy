@@ -1,4 +1,5 @@
 ///<reference path="IOptionManager.ts"/>
+///<reference path="ModalManager.ts"/>
 ///<reference path="../model/IBox.ts"/>
 ///<reference path="../controller/BoxMap.ts"/>
 ///<reference path="../view/BoxStyleFactory.ts"/>
@@ -9,17 +10,22 @@
 
 /**
  * Created by curtis on 3/19/15.
+ * Last Updated by calvinmcm on 6/14/16.
+ *
+ * This class exists to handle button presses on the UI. The constructor calls methods to handle the various bits and
+ * pieces.
  */
 
 declare function familySearchDownload(): void;
 
 class OptionManager implements IOptionManager {
-    private static DISPLAY_PADDING:number = 5;
 
     private listener: IOptionListener;
 
     private customSize:boolean;
     private customColor:boolean;
+
+    private modalManager:ModalManager;
 
     private rotation:number = 0;
 
@@ -29,6 +35,7 @@ class OptionManager implements IOptionManager {
 
     constructor() {
         var self = this;
+        this.modalManager = new ModalManager(this.rotation);
         this.direction = "ascendancy";
         this.customSize = false;
         this.customColor = false;
@@ -46,132 +53,25 @@ class OptionManager implements IOptionManager {
         $('#opg-save').click(function() {
             self.listener.handleOption('save', null);
         });
-        $('#opg-ruler').click(function() {
-            self.listener.handleOption('ruler', null);
-        });
-        $('#ruler-save').click(function() {
-            self.listener.handleOption('ruler-save', null);
-        });
-        $('#ruler-hide').click(function() {
-            self.listener.handleOption('ruler-hide', null);
-        });
-        //~~~ Color Schemes ~~~
 
-        $('#opg-to-greyscale').click(function(){
-            self.handleStyleChange('to-greyscale',false);
-        });
-        $('#opg-to-branch-color').click(function(){
-            self.handleStyleChange('to-branch-color',false);
-        });
-        $('#opg-to-branch-color-blackout').click(function(){
-            self.handleStyleChange('to-branch-color-blackout',false);
-        });
-        $('#opg-to-branch-color-bold').click(function(){
-            self.handleStyleChange('to-branch-color-bold',false);
-        });
-        $('#opg-to-branch-color-gray').click(function(){
-            self.handleStyleChange('to-branch-color-gray',false);
-        });
-        $('#opg-to-generation-color-warm').click(function(){
-            self.handleStyleChange('to-generation-color-warm',false);
-        });
-        $('#opg-to-generation-color-cold').click(function(){
-            self.handleStyleChange('to-generation-color-cold',false);
-        });
-        $('#opg-to-generation-color-vibrant').click(function(){
-            self.handleStyleChange('to-generation-color-vibrant',false);
-        });
-        $('#opg-to-generation-wood').click(function(){
-            self.handleStyleChange('to-generation-wood',false);
-        });
-        $('#opg-to-gender-color').click(function(){
-            self.handleStyleChange('to-gender-color',false);
-        });
-        $('#opg-to-country-color').click(function(){
-            self.handleStyleChange('to-country-color', false);
-        });
+        this.initStyleDropdown();
+        this.initColorDropdown();
+        this.initOptionsDropdown();
+    }
 
-        //~~~ Other ~~~
-
-        $('#male-radio').click(() => {
-            //male_button.prop("checked",true);
-            $('#s-female-radio').prop("checked",true);
-            //female_button.prop("checked",false);
-        });
-        $('#female-radio').click(() => {
-            //female_button.prop("checked",true);
-            $('#s-male-radio').prop("checked",true);
-            //male_button.prop("checked",false);
-        });
-        $('#unknown-radio').click(() => {
-            //unknown_button.prop("checked",true);
-            $('#s-unknown-radio').prop("checked",true);
-            //male_button.prop("checked",false);
-        });
-
-        $('#modal-show-empty').click(() => {
-            $('#showEmptyModal').modal('hide');
-            self.listener.handleOption('show-empty', {recurse: true});
-        });
-        $('#modal-show-fruit').click(() => {
-            $('#showEmptyModal').modal('hide');
-            self.listener.handleOption('show-empty', {recurse: false});
-        });
-
-        $('#opg-show-empty').click(() => {
-            if (document.getElementById('opg-show-empty').innerHTML === "Show Empty Boxes") {
-                if(this.direction == "ascendancy"){
-                    $('#showEmptyModal').modal('show');
-                }
-                else{
-                    $('#modal-show-fruit').click();
-                }
-                //$('#showEmptyModal').modal('show');
-            }
-            else{
-                self.listener.handleOption('hide-empty', null);
-            }
-        });
-        $('#opg-show-duplicates').click(() => {
-            self.listener.handleOption('show-duplicates', null);
-        });
-        $('#opg-edit-spacing').click(() => {
-            if (document.getElementById("opg-edit-spacing").innerHTML === "Edit Spacing") {
-                self.listener.handleOption('edit-spacing', null);
-            }else{
-                self.listener.handleOption('done-editing-spacing', null);
-            }
-        });
-        $('#edit-spacing-switch').on('switchChange.bootstrapSwitch', function(event, state) {
-            self.listener.handleOption('edit-spacing-switch-changed', {state: state});
-        });
-        $('#statistics-button').click(() => {
-            self.listener.handleOption('show-statistics', null);
-        });
-        $('#statistics-modal-close').click(() => {
-            self.listener.handleOption('hide-statistics', null);
-        });
-        $('#find-button').click(() => {
-            $('#box-finder-modal').show();
-        });
-        $('#box-finder-modal-close').click(() => {
-            $('#box-finder-modal').hide();
-        });
-        $('#box-finder-modal-seek').click(() => {
-            var id = $('#box-finder-search-input').val();
-            console.log(id);
-            self.listener.handleOption('find-box-by-id', id);
-        });
-        $('#recenter-button').click(() => {
-            self.listener.handleOption('recenter-chart', null);
-        });
+    /**
+     * Initializes the style drop down. This dropdown menu should populate at run time with only the styles that are
+     * viable for the type of chart being used (Ascendancy/Descendancy).
+     */
+    private initStyleDropdown(): void{
+        var self = this;
         $('#style-dropdown').click(() => {
             var style_menu = $('#style-menu');
             var direction = $('input[name=FSascOrDsc]:checked').val();
             var dropdown = $('#style-dropdown');
             if(direction !== dropdown.val()) {
                 style_menu.empty();
-                if (this.direction == "ascendancy") {
+                if (self.direction == "ascendancy") {
                     style_menu.append('<li><a id="opg-detail-style" href="#">Full Detail Style</a></li>');
                     style_menu.append('<li><a id="opg-reunion-style" href="#">Family Reunion Style</a></li>');
                     style_menu.append('<li><a id="opg-extended-style" href="#"><span class="label label-warning">new</span> Extended Style (13+ Generations)</a></li>');
@@ -237,214 +137,116 @@ class OptionManager implements IOptionManager {
         });
     }
 
-    handleOptionSetting(type:String, data:any): void {
+    /**
+     * Initializes the options in the color dropdown menu.
+     */
+    private initColorDropdown(): void{
         var self = this;
-        if(type === 'selectIndividual') {
-            var box:IBox = data.box.copy();
-            var colonLoc = box.getNode().getId().indexOf(':');
-
-            var primary = $('#primary-node-information');
-            var secondary = $('#secondary-node-information');
-
-            primary.empty();
-            secondary.empty();
-
-            //~~~ Change the add button to display parent/child status
-
-            let private_add = $('#opg-modal-add-private');
-            if(this.direction === "ascendancy"){
-                if(box.getNode().getBranchIds().length < 2){
-                    private_add.show();
-                    private_add.text("Add Parent");
-                }
-                else {
-                    private_add.hide();
-                }
-            }
-            else{
-                private_add.show();
-                private_add.text("Add Child");
-            }
-
-            //~~~ Append Private Node Editing buttons as appropriate~~~
-
-            var private_edit = $('#opg-modal-private-edit-div');
-            var private_remove = $('#opg-modal-private-remove-div');
-            private_edit.empty();
-            private_remove.empty();
-
-            if(PrivatePersonUtils.isCustomId(box.getNode().getId())){
-                private_edit.append('<button type="button" class="btn btn-footer" id="opg-modal-edit-private" style="float: left;">Edit Node</button>');
-                if(box.getNode().getBranchIds().length === 0) {
-                    private_remove.append('<button type="button" class="btn btn-footer" id="opg-modal-remove-private" style="float: left;">Remove Node</button>');
-                }
-            }
-
-            //~~~ Append the place for names and information ~~~
-
-            primary.append('<div id="p-data-col" class="col-sm-9"></div>');
-
-            var prim_data = $('#p-data-col');
-
-            prim_data.append('<div class="row"><div id="name" style="font-size: 32px;"></div></div>');
-            prim_data.append('<div id="p-b-d-row" class="row"><div class="col-sm-2 right-justified">Birth:</div></div>');
-            $('#p-b-d-row').append('<div class="col-sm-10 left-justified"><div id="bdate" class="row"></div><div id="bplace" class="row"></div></div>');
-            prim_data.append('<div id="p-d-d-row" class="row"><div class="col-sm-2 right-justified">Death:</div>');
-            $('#p-d-d-row').append('<div class="col-sm-10 left-justified"><div id="ddate" class="row"></div><div id="dplace" class="row"></div></div></div>');
-
-            primary.append('<div class="col-sm-3 right"><svg id="opg-modal-portrait"></svg></div>');
-
-            // Render a bit differently for spouse boxes than for regular boxes
-            if(box.getRenderInstructions().getSpouseNameInstruction()){
-
-                //~~~ Append the spouse Elements into the modal window as necessary ~~~
-                var primaryNode   = (box.getNode().getAttr('gender') === 'Male') ? box.getNode() : box.getNode().getDisplaySpouse();
-                var secondaryNode = (box.getNode().getAttr('gender') === 'Female') ? box.getNode() : box.getNode().getDisplaySpouse();
-
-                secondary.append('<div id="s-data-col" class="col-sm-9"></div>');
-
-                var second_data = $('#s-data-col');
-
-                second_data.append('<div class="row"><div id="s-name" style="font-size: 32px;"></div></div>');
-                second_data.append('<div id="s-b-d-row" class="row"><div class="col-sm-2 right-justified">Birth:</div></div>');
-                $('#s-b-d-row').append('<div class="col-sm-10 left-justified"><div id="s-bdate" class="row"></div><div id="s-bplace" class="row"></div></div>');
-                second_data.append('<div id="s-d-d-row" class="row"><div class="col-sm-2 right-justified">Death:</div>');
-                $('#s-d-d-row').append('<div class="col-sm-10 left-justified"><div id="s-ddate" class="row"></div><div id="s-dplace" class="row"></div></div></div>');
-
-                secondary.append('<div class="col-sm-3 right"><svg id="s-opg-modal-portrait"></svg></div>');
-
-                //~~~ Setup the Ids ~~~
-                var p_id = primaryNode.getId().substr(0,colonLoc);
-                if(PrivatePersonUtils.isCustomId(primaryNode.getId())){
-                    p_id = "Private Person";
-                }
-                else if (!p_id || p_id == ''){
-                    p_id = primaryNode.getAttr('name') + " (No ID found)";
-                }
-                var s_id = secondaryNode.getId().substr(0,colonLoc);
-                if(PrivatePersonUtils.isCustomId(secondaryNode.getId())){
-                    s_id = "Private Person";
-                }
-                else if (!s_id || s_id == ''){
-                    s_id = secondaryNode.getAttr('name') + " (No ID found)";
-                }
-
-                $('#pid').text("Personal Information for " + p_id + " and " + s_id);
-                $('#name').text(primaryNode.getAttr("name"));
-                $('#bdate').text(primaryNode.getAttr("birthdate"));
-                $('#bplace').text(primaryNode.getAttr("birthplace"));
-                $('#ddate').text(primaryNode.getAttr("deathdate"));
-                $('#dplace').text(primaryNode.getAttr("deathplace"));
-
-                $('#s-name').text(secondaryNode.getAttr("name"));
-                $('#s-bdate').text(secondaryNode.getAttr("birthdate"));
-                $('#s-bplace').text(secondaryNode.getAttr("birthplace"));
-                $('#s-ddate').text(secondaryNode.getAttr("deathdate"));
-                $('#s-dplace').text(secondaryNode.getAttr("deathplace"));
-            }
-            else{
-
-                var id = box.getNode().getId().substr(0,colonLoc);
-                if(!id || id == ""){
-                    if(PrivatePersonUtils.isCustomId(box.getNode().getId())){
-                        id = "Private Person";
-                    }
-                    else {
-                        id = box.getNode().getAttr('name') + " (No ID found)";
-                    }
-                }
-                $('#pid').text("Personal Information for " + id);
-                $('#name').text(box.getNode().getAttr("name"));
-                $('#bdate').text(box.getNode().getAttr("birthdate"));
-                $('#bplace').text(box.getNode().getAttr("birthplace"));
-                $('#ddate').text(box.getNode().getAttr("deathdate"));
-                $('#dplace').text(box.getNode().getAttr("deathplace"));
-            }
-            $('#opg-modal').modal('show');
-
-            setTimeout(function(){
-                self.renderTempBox(box);
-                if(box.getRenderInstructions().getSpouseNameInstruction() && box.getRenderInstructions().getSpousePictureDimInstruction()){
-                    self.renderTempPortriat(primaryNode, $('#opg-modal-portrait')[0], 130, 130);
-                    self.renderTempPortriat(secondaryNode, $('#s-opg-modal-portrait')[0], 130, 130);
-                }
-                else {
-                    self.renderTempPortriat(box.getNode(), $('#opg-modal-portrait')[0], 130, 130);
-                }
-                var longer = (box.getHeight() > box.getWidth()) ? box.getHeight() : box.getWidth();
-                if(longer > 1000 ){
-                    $('modal-dialog-box').css('width',(longer+50).toString());
-                }
-            },0);
-
-            $('#box-color-picker').spectrum({
-                color: box.getColor(),
-                clickoutFiresChange: true,
-                change: function(color){
-                    box.setColor(color.toHexString());
-                    self.renderTempBox(box);
-                }
-            });
-
-            $('#box-text-color-picker').spectrum({
-                color: box.getTextColor(),
-                clickoutFiresChange: true,
-                change: function(color){
-                    box.setTextColor(color.toHexString());
-                    self.renderTempBox(box);
-                }
-            });
-
-            this.handleButtonInit(box);
-        }
-        if(type === 'selectStyle') {
-            $('#opg-modal').modal('show');
-            setTimeout(function(){
-                self.renderTempBox(box);
-            },400);
-
-            //var generations = data.generations;
-        }
-        return;
-    }
-
-    private renderTempBox(box: IBox) {
-        var opgModalSvg = $('#opg-modal-svg');
-        opgModalSvg.empty();
-        var transform = [];
-        if(this.rotation % 360 === 0){
-            opgModalSvg.height(box.getHeight() + OptionManager.DISPLAY_PADDING*2);
-            opgModalSvg.width(box.getWidth() + OptionManager.DISPLAY_PADDING*2);
-        }else if(this.rotation % 270 === 0){
-            opgModalSvg.width(box.getHeight() + OptionManager.DISPLAY_PADDING*2);
-            opgModalSvg.height(box.getWidth() + OptionManager.DISPLAY_PADDING*2);
-            transform.push("translate(0," + box.getWidth() +')');
-        }else if(this.rotation % 180 === 0){
-            opgModalSvg.height(box.getHeight() + OptionManager.DISPLAY_PADDING*2);
-            opgModalSvg.width(box.getWidth() + OptionManager.DISPLAY_PADDING*2);
-            transform.push("translate(" + box.getWidth() + ',' + box.getHeight() + ")");
-        }else{
-            opgModalSvg.width(box.getHeight() + OptionManager.DISPLAY_PADDING*2);
-            opgModalSvg.height(box.getWidth() + OptionManager.DISPLAY_PADDING*2);
-            transform.push("translate(" + box.getHeight() + ',0)');
-        }
-        var g = opgModalSvg[0];
-        g.setAttribute("style", "font-family: 'Roboto Slab' ");
-        g = Renderer.renderBox(box, g);
-        transform.push("translate("+OptionManager.DISPLAY_PADDING+", "+OptionManager.DISPLAY_PADDING+")");
-        transform.push('rotate('+ this.rotation +')');
-
-        g.setAttribute("transform", transform.join(' '));
+        $('#opg-to-greyscale').click(function(){
+            self.handleStyleChange('to-greyscale',false);
+        });
+        $('#opg-to-branch-color').click(function(){
+            self.handleStyleChange('to-branch-color',false);
+        });
+        $('#opg-to-branch-color-blackout').click(function(){
+            self.handleStyleChange('to-branch-color-blackout',false);
+        });
+        $('#opg-to-branch-color-bold').click(function(){
+            self.handleStyleChange('to-branch-color-bold',false);
+        });
+        $('#opg-to-branch-color-gray').click(function(){
+            self.handleStyleChange('to-branch-color-gray',false);
+        });
+        $('#opg-to-generation-color-warm').click(function(){
+            self.handleStyleChange('to-generation-color-warm',false);
+        });
+        $('#opg-to-generation-color-cold').click(function(){
+            self.handleStyleChange('to-generation-color-cold',false);
+        });
+        $('#opg-to-generation-color-vibrant').click(function(){
+            self.handleStyleChange('to-generation-color-vibrant',false);
+        });
+        $('#opg-to-generation-wood').click(function(){
+            self.handleStyleChange('to-generation-wood',false);
+        });
+        $('#opg-to-gender-color').click(function(){
+            self.handleStyleChange('to-gender-color',false);
+        });
+        $('#opg-to-country-color').click(function(){
+            self.handleStyleChange('to-country-color', false);
+        });
     }
 
     /**
-     * Clears out the g element passed in and then puts the portrait into it.
+     * Initializes the options in the options dropdown menu.
      */
-    private renderTempPortriat(node :INode, g :Element, width :number, height : number){
-        while(g.lastChild){
-            g.removeChild(g.lastChild);
+    private initOptionsDropdown(): void{
+        var self = this;
+        $('#modal-show-empty').click(() => {
+            $('#showEmptyModal').modal('hide');
+            self.listener.handleOption('show-empty', {recurse: true});
+        });
+        $('#modal-show-fruit').click(() => {
+            $('#showEmptyModal').modal('hide');
+            self.listener.handleOption('show-empty', {recurse: false});
+        });
+
+        $('#opg-show-empty').click(() => {
+            if (document.getElementById('opg-show-empty').innerHTML === "Show Empty Boxes") {
+                if(this.direction == "ascendancy"){
+                    $('#showEmptyModal').modal('show');
+                }
+                else{
+                    $('#modal-show-fruit').click();
+                }
+                //$('#showEmptyModal').modal('show');
+            }
+            else{
+                self.listener.handleOption('hide-empty', null);
+            }
+        });
+        $('#opg-show-duplicates').click(() => {
+            self.listener.handleOption('show-duplicates', null);
+        });
+        $('#opg-edit-spacing').click(() => {
+            if (document.getElementById("opg-edit-spacing").innerHTML === "Edit Spacing") {
+                self.listener.handleOption('edit-spacing', null);
+            }else{
+                self.listener.handleOption('done-editing-spacing', null);
+            }
+        });
+        $('#edit-spacing-switch').on('switchChange.bootstrapSwitch', function(event, state) {
+            self.listener.handleOption('edit-spacing-switch-changed', {state: state});
+        });
+    }
+
+    /**
+     * Initializes the buttons that generate the modal windows.
+     */
+    private initModalGenerators(): void{
+        this.modalManager.restore();
+        this.modalManager.initChartStatsModal(this.listener);
+        this.modalManager.initRulerModal(this.listener);
+        this.modalManager.initFindModal(this.listener);
+    }
+
+    /**
+     * Initializes the responses when a box is selected, configuring the corresponding modal windows.
+     *
+     * @param type The type of setting being changed.
+     * @param data Any data needed for the setting change.
+     */
+    handleOptionSetting(type:String, data:any): void {
+        if(type === 'selectIndividual') {
+            this.modalManager.initDetailViewModal(this.listener, <IBox> data.box.copy(), this.direction);
         }
-        Renderer.renderPortrait(node, width, height, g);
+        if(type === 'selectStyle') { // Obsolete?
+            $('#opg-modal').modal('show');
+            setTimeout(() => {
+                //this.renderTempBox(box); // Code Moved to ModalManager.ts
+            },400);
+        }
+        return;
     }
 
     private handleStyleChange(changeType:string, sizeChange:boolean = true){
@@ -460,101 +262,6 @@ class OptionManager implements IOptionManager {
             }else {
                 this.listener.handleOption(changeType, null);
             }
-        }
-    }
-
-    private handleButtonInit(box: IBox){
-
-        var self = this;
-
-        var opgModalSelect = $('#opg-modal-select');
-        var opgModalSizeSave = $('#opg-modal-save-size');
-        var opgModalColorSave = $('#opg-modal-save-color');
-        var opgModalCollapse = $('#opg-modal-collapse');
-        var opgModalFSview = $('#FS-view');
-        var opgModalVPview = $('#VP-view');
-        var setAsRoot = $('#set-as-root');
-
-        // Must deactivate old responses or you will get duplicates.
-        opgModalSelect.off('click');
-        opgModalSizeSave.off('click');
-        opgModalColorSave.off('click');
-        opgModalCollapse.off('click');
-        opgModalFSview.off('click');
-        opgModalVPview.off('click');
-        setAsRoot.off('click');
-
-        setAsRoot.click(() => {
-            var colonLoc = box.getNode().getId().indexOf(':');
-            var pid :string;
-            if(box.getNode().isMainPerson() || (!box.getSpouseNode())) {
-                pid = box.getNode().getId().substr(0, colonLoc);
-            }
-            else if(box.getSpouseNode()){
-                pid = box.getSpouseNode().getId();
-            }
-
-            if (pid != null && pid != ""){
-                $("#opg-modal").modal('hide');
-                //if(pid.match(RegExp("@[^@]+@"))){
-                //    $('#myInput').click();
-                //}
-                //else
-                if(!PrivatePersonUtils.isCustomId(pid)) {
-                    $('#pid-search-input').val(pid);
-                    $('#treeRt-other').prop('selected', true);
-                    $('#relative-tree-downloader').show();
-
-                    var downloadBack = $('#fsDwldBack');
-                    downloadBack.off('click');
-                    downloadBack.click(function(){
-                        $('#fsModal').hide();
-                    });
-                    familySearchDownload();
-                }
-            }
-        });
-
-        if(localStorage.getItem("chartType") === "FamilySearch") {
-
-            opgModalFSview.show();
-            opgModalVPview.show();
-
-            opgModalFSview.click(() => {
-                var pid = box.getNode().getId().substring(0, 8);
-                if (!PrivatePersonUtils.isCustomId(pid)) {
-                    window.open("https://familysearch.org/tree/#view=ancestor&person=" + pid, '_blank');
-                }
-            });
-
-            opgModalVPview.click(() => {
-                var pid:string = box.getNode().getId().substring(0, 8);
-                if (!PrivatePersonUtils.isCustomId(pid)) {
-                    self.listener.handleOption('VP-view', {id: pid});
-                }
-            });
-        }
-        else{
-            opgModalFSview.hide();
-            opgModalVPview.hide();
-        }
-
-        // Inits the buttons on the detail modal relative to private persons.
-        PrivatePersonUtils.initDetailModalButtons(box,this.listener);
-
-        if(box.isCollapsed()) {
-            opgModalCollapse.html('Expand');
-            opgModalCollapse.click(function() {
-                $('#opg-modal').modal('hide');
-                self.listener.handleOption("expand-sub-tree", {id: box.getNode().getId(), box: box})
-            });
-        }
-        else {
-            opgModalCollapse.html('Collapse');
-            opgModalCollapse.click(function() {
-                $('#opg-modal').modal('hide');
-                self.listener.handleOption("collapse-sub-tree", {id: box.getNode().getId(), box: box})
-            });
         }
     }
 
@@ -657,6 +364,8 @@ class OptionManager implements IOptionManager {
 
     setListener(listener: IOptionListener) {
         this.listener = listener;
+
+        this.initModalGenerators();
     }
 
     public setRotation(r:number){

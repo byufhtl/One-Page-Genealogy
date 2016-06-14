@@ -347,3 +347,8 @@ a.opg-blue:link{
     margin: 5px;
     margin-top: 8px;
 }
+
+.opg-dense{
+    padding: 0 3px 0 3px;
+    margin: 0;
+}

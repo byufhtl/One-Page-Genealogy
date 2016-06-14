@@ -19,6 +19,16 @@ class PrivatePersonUtils{
         this.initAddButton(box, c);
         this.initEditButton(box, c);
 
+        $('#male-radio').click(() => {
+            $('#s-female-radio').prop("checked",true);
+        });
+        $('#female-radio').click(() => {
+            $('#s-male-radio').prop("checked",true);
+        });
+        $('#unknown-radio').click(() => {
+            $('#s-unknown-radio').prop("checked",true);
+        });
+
         let opgModalRemovePlug = $('#opg-modal-private-remove-div');
         opgModalRemovePlug.empty();
         if(this.isCustomId(box.getNode().getId())){
