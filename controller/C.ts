@@ -234,7 +234,7 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
         // DON'T GET RID OF THIS COMMENTED CODE!
 
-        // else if(key === 'request-isValidRootID') {
+        // else if(key === 'request-download') {
         //     this.viewManager.getSVGString().then(function(s){
         //         /*var form = document.createElement("form");
         //         form.setAttribute("method", "POST");
@@ -259,13 +259,13 @@ class C implements IGraphicObjectListener, IOptionListener {
         //         var fileName = "opg_chart.svg";
         //         var url = "data:image/svg+xml;utf8," + encodeURIComponent(s);
         //         var link:any = document.createElement("a");
-        //         link.isValidRootID = fileName;
+        //         link.download = fileName;
         //         link.href = url;
         //         link.click();
         //     });
 
         // }
-        else if (key === 'request-isValidRootID') {
+        else if (key === 'request-download') {
             this.viewManager.getSVGString().then(function (s) {
                 $('<form>', {
                     'action': 'https://opg.fhtl.byu.edu/convert/',
@@ -284,7 +284,7 @@ class C implements IGraphicObjectListener, IOptionListener {
             //console.log(boxes.length);
             // var url = "data:text+json;utf8," + encodeURIComponent(boxes);
             // var link:any = document.createElement("a");
-            // link.isValidRootID = fileName;
+            // link.download = fileName;
             // link.href = url;
             // link.click();
             this.p.handle({type: key, value: this.boxes});

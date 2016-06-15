@@ -76,4 +76,3 @@ function handleWidth(width){
     var ratio = $('#ruler-ratio').val();
     $('#ruler-height').val((width/ratio).toFixed(1));
 }
-

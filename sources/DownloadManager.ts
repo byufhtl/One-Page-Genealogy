@@ -137,7 +137,7 @@ class DownloadManager{
                 //we need to turn off old listeners before we create a new c.
                 //---------------------------------------------------------------------------------------
                 // Why??? it seems to be throwing some things off... such as:
-                // once the opg-isValidRootID click handler is off, you can't isValidRootID a chart.
+                // once the opg-download click handler is off, you can't download a chart.
                 // Since I see no good reason to turn off this click handler, I'm commenting out the following line
                 // ~ Jared C. (March 7, 2016)
                 // ps. This code may have become obsolete since we're not creating a new options handler each time.
@@ -146,7 +146,7 @@ class DownloadManager{
                 // pps. If there actually still exists a good reason for turning it off, please correct me.
                 // ppps. Please delete this comment block after a reasonable amount of time if everything seems fine.
                 //---------------------------------------------------------------------------------------
-                //$('#opg-isValidRootID').off('click');
+                //$('#opg-download').off('click');
                 $('#fsSave').off('click');
                 $('#fsGenerationsSelect').off('click');
                 $('fsgenerationsRadio').off('click');

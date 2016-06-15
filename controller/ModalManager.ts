@@ -10,6 +10,7 @@
  */
 
 declare function familySearchDownload(): void;
+declare var type: string;
 
 class ModalManager{
     private rotation: number;
@@ -50,10 +51,11 @@ class ModalManager{
             $('#downloadModal').show();
             var dwnldClose = $('#fsDwldClose');
             dwnldClose.show();
+            dwnldClose.off('click'); // Disable old handlers.
             dwnldClose.click(function(){
                 $('#fsModal').hide();
             });
-            $('#isValidRootID-modal-close').show();
+            $('#download-modal-close').show();
         });
 
         // Card Click Event Handlers
@@ -82,7 +84,7 @@ class ModalManager{
      */
     initFSDownloadModal(): void{
 
-        //type = "familysearch";
+        type = "familysearch";
         var downloadBack = $('#fsDwldBack');
         downloadBack.off('click');
         downloadBack.html('Back');
@@ -98,7 +100,7 @@ class ModalManager{
      * Initializes the response for the GedcomModal.
      */
     initGedcomDownloadModal(): void{
-        //type = "gedcom";
+        type = "gedcom";
         $('#myInput').click();
         $('#downloadModal').hide();
     }

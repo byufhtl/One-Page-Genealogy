@@ -269,7 +269,7 @@
                    aria-label="Download the contents of hammerjs/hammer.js as a zip file"
                    title="Download the contents of hammerjs/hammer.js as a zip file"
                    rel="nofollow">
-                  <span class="octicon octicon-cloud-isValidRootID"></span>
+                  <span class="octicon octicon-cloud-download"></span>
                   Download ZIP
                 </a>
               </div>

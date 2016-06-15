@@ -57,8 +57,8 @@ class OptionManager implements IOptionManager {
         $('#opg-rotate-c').click(function(){
             self.listener.handleOption('rotate', {value: Math.PI/2});
         });
-        $('#opg-isValidRootID').click(function(){
-            self.listener.handleOption('request-isValidRootID', null);
+        $('#opg-download').click(function(){
+            self.listener.handleOption('request-download', null);
         });
         $('#opg-save').click(function() {
             self.listener.handleOption('save', null);

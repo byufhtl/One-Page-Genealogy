@@ -4,120 +4,119 @@
     <meta charset="UTF-8">
     <title>OPG Help</title>
     <link rel="shortcut icon" href="images/opg_icon.ico">
-</head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="js/jquery.mousewheel.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<style>
-    html, body {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-    }
-    .page-wrap {
-        position: relative;
-        width: 10%;
-        float: left;
-    }
-    #help-sidebar {
-        padding: 1em;
-        width: 10%;
-        margin: 0;
-        position: fixed;
-    }
-    #help-list {
-        padding: 1em;
-        margin: 0;
-        width:90%;
-        float: right;
-    }
-    .sidebar{
-        padding: 1em;
-        width: 10%;
-        margin: 0;
-        position: fixed;
-    }
-    .list{
-        padding: 1em;
-        margin: 0;
-        width:90%;
-        float: right;
-    }
-    .navbar {
-        padding-bottom: 0;
-        margin-bottom: 0;
-    }
-    .help-content {
-        width: 100%;
-        height: calc(100% - 60px);
-    }
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/jquery.mousewheel.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+        .page-wrap {
+            position: relative;
+            width: 10%;
+            float: left;
+        }
+        #help-sidebar {
+            padding: 1em;
+            width: 10%;
+            margin: 0;
+            position: fixed;
+        }
+        #help-list {
+            padding: 1em;
+            margin: 0;
+            width:90%;
+            float: right;
+        }
+        .sidebar{
+            padding: 1em;
+            width: 10%;
+            margin: 0;
+            position: fixed;
+        }
+        .list{
+            padding: 1em;
+            margin: 0;
+            width:90%;
+            float: right;
+        }
+        .navbar {
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+        .help-content {
+            width: 100%;
+            height: calc(100% - 60px);
+        }
 
-    #gedbutton,#fsbutton,#togedbutton,#tofsbutton {
-        margin-bottom: 15px;
-        margin-top: 15px;
-        margin-left: 10px;
-    }
-    #downloadModal{
-        display:block;
-    }
-    #splash-title{
-        text-align: center;
-        font-size: 400%;
-    }
-    .help-footer{
-        width: 100%;
-        padding-left: 1em;
-        padding-right: 1em;
-        text-align: right;
-        float:right;
-    }
-    .tab-content {
-        padding:10px;
-        border:1px solid #ddd;
-        border-bottom:0;
-    }
-    .nav-tabs {
-        border-bottom: 0;
-        border-top: 1px solid #ddd;
-    }
-    .nav-tabs > li {
-        margin-bottom:0;
-        margin-top:-1px;
-    }
+        #gedbutton,#fsbutton,#togedbutton,#tofsbutton {
+            margin-bottom: 15px;
+            margin-top: 15px;
+            margin-left: 10px;
+        }
+        #downloadModal{
+            display:block;
+        }
+        #splash-title{
+            text-align: center;
+            font-size: 400%;
+        }
+        .help-footer{
+            width: 100%;
+            padding-left: 1em;
+            padding-right: 1em;
+            text-align: right;
+            float:right;
+        }
+        .tab-content {
+            padding:10px;
+            border:1px solid #ddd;
+            border-bottom:0;
+        }
+        .nav-tabs {
+            border-bottom: 0;
+            border-top: 1px solid #ddd;
+        }
+        .nav-tabs > li {
+            margin-bottom:0;
+            margin-top:-1px;
+        }
 
-    .nav-tabs > li > a {
-        padding-top: 8px;
-        padding-bottom: 8px;
-        line-height: 20px;
-        border: 1px solid transparent;
-        -moz-border-radius:0;
-        -webkit-border-radius:0;
-        border-radius:0;
-        -moz-border-radius-bottomright: 5px;
-        -webkit-border-bottom-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-        -moz-border-radius-bottomleft: 5px;
-        -webkit-border-bottom-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-    }
-    .nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
-        color: #555555;
-        cursor: default;
-        background-color: #ffffff;
-        border: 1px solid #ddd;
-        border-top-color: transparent;
-    }
-    .label-as-badge {
-        border-radius: 1em;
-    }
-    .opg-blue {
-        background-color: #2c3e50;
-        color: #ffffff;
-    }
+        .nav-tabs > li > a {
+            padding-top: 8px;
+            padding-bottom: 8px;
+            line-height: 20px;
+            border: 1px solid transparent;
+            -moz-border-radius:0;
+            -webkit-border-radius:0;
+            border-radius:0;
+            -moz-border-radius-bottomright: 5px;
+            -webkit-border-bottom-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            -moz-border-radius-bottomleft: 5px;
+            -webkit-border-bottom-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        .nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
+            color: #555555;
+            cursor: default;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-top-color: transparent;
+        }
+        .label-as-badge {
+            border-radius: 1em;
+        }
+        .opg-blue {
+            background-color: #2c3e50;
+            color: #ffffff;
+        }
 
-</style>
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -258,10 +257,9 @@
                                 <i class="fa fa-arrow-left"></i> )
                                 on the right to move around. Use the center button ( <i class="fa fa-asterisk"></i> ) to
                                 switch the buttons between moving the chart in a given direction, or moving the window in that direction. --></p></li>
-                            <li><p>If you get lost, you can always use the Recenter and Find buttons on the side panel to find yourself or someone else by ID.</p></li>
                             <li><p>Click the arrows on the top of the screen. <i class="fa fa-rotate-right"></i> to rotate your chart clockwise or <i class="fa fa-rotate-left"></i> to rotate counter-clockwise.</p></li>
-                            <li><p>Click the isValidRootID button (<i class="fa fa-download"></i>) to isValidRootID your chart as a PDF file.</p></li>
-                            <li><p>Click the ruler button (<img style="width:16px;height:16px;"src="images/ruler.png"/>) to show a ruler along the top of your chart that can be used to help you size your chart.</p></li>
+                            <li><p>Click the download button (<i class="fa fa-download"></i>) to download your chart as a PDF file.</p></li>
+                            <li><p>Click the ruler button (<img style="width:16px;height:16px;" src="images/ruler.png"/>) to show a ruler along the top of your chart that can be used to help you size your chart.</p></li>
                         </ul>
                     </div>
                     <hr>
@@ -369,7 +367,7 @@
                         <h3>How to Use the Ruler</h3>
                         <p>One Page Genealogy features a ruling feature accessible by clicking the ruler icon on the top bar.</p>
                         <ul>
-                            <li><p>To begin, press the ruler button (<img style="width:16px;height:16px;"src="images/ruler.png"/>). A smaller window will appear that will allow you to choose your print dimensions.</p></li>
+                            <li><p>To begin, press the ruler button (<img style="width:16px;height:16px;" src="images/ruler.png"/>). A smaller window will appear that will allow you to choose your print dimensions.</p></li>
                             <li><p>The initial dimensions are the dimensions on your chart as is. You can change those, however, to be whatever you want.</p></li>
                             <li><p>The dimensions that you input indicate that OPG should treat your chart as if it were Width x Height big.</p></li>
                             <li><p>After entering your dimensions and pressing 'save,' the ruler will scale with your chart to show you how many inches long your chart is.</p></li>
@@ -385,7 +383,7 @@
                     <hr>
                     <div id="print">
                         <h3>How to Print or save as a PDF</h3>
-                        <p>Simply press the isValidRootID button (<i class="fa fa-download"></i>) on the top bar to save your chart as a PDF.</p>
+                        <p>Simply press the download button (<i class="fa fa-download"></i>) on the top bar to save your chart as a PDF.</p>
                         <p>You can then take the downloaded PDF to a nearby print service center.</p>
                     </div>
                 </div>
@@ -447,7 +445,7 @@
                         </li>
                         <li>
                             <h4>Variable Depth Style</h4>
-                            <p>Ever wanted a chart style that is consistent regardless of how many generations you isValidRootID? This is it. The chart style adjusts to leave early generations big and gradually shrinks as it goes, fitting itself to your chart.</p>
+                            <p>Ever wanted a chart style that is consistent regardless of how many generations you download? This is it. The chart style adjusts to leave early generations big and gradually shrinks as it goes, fitting itself to your chart.</p>
                         </li>
                         <li>
                             <h4>8 1/2 x 11 Style</h4>
@@ -607,14 +605,14 @@
                 </div>
                 <div id="long-load">
                     <h3>My Chart Takes a Long Time to Load</h3>
-                    <p>One Page Genealogy has to isValidRootID its information from FamilySearch. The larger your chart, the more we have to isValidRootID.</p>
+                    <p>One Page Genealogy has to download its information from FamilySearch. The larger your chart, the more we have to download.</p>
                     <p>To speed up your loading time, you can do one or more of the following:</p>
                     <ul>
                         <li>
                             <h5>Use Fewer Generations</h5>
                             <p>Each generation is exponentially larger than the last. If you don't need that last generation, try loading fewer generations.</p>
-                            <p>By default, we isValidRootID 8 generations, but you can adjust that number both up and down. 8 generations (255 people for a full ascendancy chart!), but should only take a couple of seconds.</p>
-                            <p>If you are trying to isValidRootID more than 11 generations, it may take some time, so be patient. A full 20 generation chart might take a few minutes.</p>
+                            <p>By default, we download 8 generations, but you can adjust that number both up and down. 8 generations (255 people for a full ascendancy chart!), but should only take a couple of seconds.</p>
+                            <p>If you are trying to download more than 11 generations, it may take some time, so be patient. A full 20 generation chart might take a few minutes.</p>
                             <p>Descendancy charts often take far longer per generation to load than Ascendancy charts since each generation includes many more people.
                             Expect a significant delay when loading more than 5 generations. A full 20 generation descendancy chart will take a while.</p>
                         </li>
@@ -644,7 +642,7 @@
                     <h3>Where Are My Pictures?</h3>
                     <p>The information for your chart may include some pictures that will render in the boxes alongside all of the other information about your
                     ancestors. Often, these pictures will take a moment or two to load while they are being downloaded into OPG. Pictures should start to be added
-                    to your chart within a few seconds of being downloaded. This time will increase as the number of pictures needing isValidRootID increases.</p>
+                    to your chart within a few seconds of being downloaded. This time will increase as the number of pictures needing download increases.</p>
                 </div>
             </div>
         </div>
@@ -696,7 +694,7 @@
                     </li>
                     <li>
                         <h4>Variable Depth Style</h4>
-                        <p>Ever wanted a chart style that is consistent regardless of how many generations you isValidRootID? This is it. The chart style adjusts to leave early generations big and gradually shrinks as it goes, fitting itself to your chart.</p>
+                        <p>Ever wanted a chart style that is consistent regardless of how many generations you download? This is it. The chart style adjusts to leave early generations big and gradually shrinks as it goes, fitting itself to your chart.</p>
                     </li>
                     <li>
                         <h4>11 x 17 Style</h4>

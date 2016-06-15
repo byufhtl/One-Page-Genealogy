@@ -624,7 +624,6 @@ class SVGManager implements IViewManager {
         var total = 0;
         var repeatCallBack = function() {
             counter++;
-            console.log(total, counter);
             if(counter >= total) {
                 $("body").css("cursor", "default");
                 var s = new XMLSerializer();
