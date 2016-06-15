@@ -235,7 +235,6 @@ class ModalManager{
         var opgModalSvg = $('#opg-modal-svg');
         opgModalSvg.empty();
         var transform = [];
-        console.log(box.getWidth(), box.getHeight());
         if(this.rotation % 360 === 0){
             opgModalSvg.css("height", box.getHeight() + ModalManager.DISPLAY_PADDING*2);
             opgModalSvg.css("width", box.getWidth() + ModalManager.DISPLAY_PADDING*2);
@@ -259,6 +258,7 @@ class ModalManager{
         transform.push('rotate('+ this.rotation +')');
 
         g.setAttribute("transform", transform.join(' '));
+        console.log(box.getWidth(), box.getHeight(), "/", opgModalSvg.width(), opgModalSvg.height());
     }
 
     /**
@@ -319,7 +319,6 @@ class ModalManager{
      * TODO: Would really benefit from refactoring. I'm 90+% sure that rendering the HTML at run time is completely unnecessary...
      */
     private initPersonData(box: IBox){
-        console.log("Rendering Data...", box.getNode());
         var colonLoc = box.getNode().getId().indexOf(':');
         var primary = $('#primary-node-information');
         var secondary = $('#secondary-node-information');
@@ -336,7 +335,8 @@ class ModalManager{
             secondary.append('<div id="s-data-col" class="col-sm-9"></div>');
 
             //~~~ Setup the Ids ~~~
-            var nodes = [primaryNode, secondaryNode];
+            let nodes = [primaryNode, secondaryNode];
+            let ids = [];
             for(var node of nodes){
                 var p_id = node.getId().substr(0,colonLoc);
                 if(PrivatePersonUtils.isCustomId(node.getId())){
@@ -345,9 +345,10 @@ class ModalManager{
                 else if (!p_id || p_id == ''){
                     p_id = node.getAttr('name') + " (No ID found)";
                 }
+                ids.push(p_id)
             }
 
-            $('#pid').text("Personal Information for " + p_id + " and " + s_id);
+            $('#pid').text("Personal Information for " + ids[0] + " and " + ids[1]);
             $('#primary-name').text(primaryNode.getAttr("name"));
             $('#primary-bdate').text(primaryNode.getAttr("birthdate"));
             $('#primary-bplace').text(primaryNode.getAttr("birthplace"));
@@ -363,7 +364,6 @@ class ModalManager{
         }
         else{
             secondary.hide();
-            console.log("Loading up the person's details:");
             var id = box.getNode().getId().substr(0,colonLoc);
             if(!id || id == ""){
                 if(PrivatePersonUtils.isCustomId(box.getNode().getId())){

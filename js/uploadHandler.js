@@ -15,28 +15,11 @@ function inputChanged(data) {
 
     var result;
 
-    function resetOptions(){
-        document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
-        document.getElementById('opg-edit-spacing').innerHTML = "Edit Spacing";
-        $('#edit-spacing-switch').css("display", "none");
-        $('.BSswitch').bootstrapSwitch('state', true);
-        $('#country-legend').css('display', 'none');
-        $('#ruler-height').val("");
-        $('#country-legend').css("width", "0%");
-        $('#opg-chart').css("width", "100%");
-    }
-
     function readFile(e){
-        resetOptions();
-        
         result = reader.result;
 
         //var boxes = JSON.parse(result);
         document.getElementById('opg-chart').innerHTML = "";
-
-        if(optionManager === null){
-            optionManager = new OptionManager();
-        }
 
         //console.log(result);
         var map = JSON.parse(result);
@@ -50,10 +33,12 @@ function inputChanged(data) {
 
         //console.log(map);
 
+        console.log("Upload Stats ------------------------");
         console.log('root: ' + root);
         console.log('gen: ' + numGenerations);
         console.log('direction: ' + direction);
         console.log('chartType: ' + type);
+        console.log("-------------------------------------");
 
         //localStorage.setItem("numGenerations", numGenerations);
         //localStorage.setItem("rootPID", root);
@@ -61,21 +46,29 @@ function inputChanged(data) {
         //localStorage.setItem("chartType", type);
         //localStorage.setItem("load", true);
 
-        if(c){
-            c.destroy();
-            delete c;
+        if(optionManager === null){
+            optionManager = new OptionManager();
+            optionManager.init();
         }
+        else{
+            if(c){
+                c.destroy();
+            }
 
-        c = new C({
-            //optionManager: optionManager,
-            boxes: boxes,
-            file: true,
-            rootId: root,
-            generations: numGenerations,
-            dscOrAsc: direction,
-            optionManager: optionManager,
-            pipeline: stylingPipeline
-        });
+            c = new C({
+                //optionManager: optionManager,
+                boxes: boxes,
+                file: true,
+                rootId: root,
+                generations: numGenerations,
+                dscOrAsc: direction,
+                optionManager: optionManager,
+                pipeline: stylingPipeline
+            });
+        }
+        optionManager.resetOptions();
+
+
         $("#uploadFile").val(null);
     }
 

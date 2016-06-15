@@ -7,6 +7,7 @@
 
 declare var token;
 declare var numGenerations;
+declare var c;
 
 class DownloadManager{
 
@@ -14,7 +15,7 @@ class DownloadManager{
     private token;
     private numGenerations: number;
     private optionManager: IOptionManager;
-    private c: C;
+    private c: C = null;
 
     static inst(){
         if(!this.SINGLETON){
@@ -153,7 +154,10 @@ class DownloadManager{
 
 
                 self.optionManager.setDirection(direction);
-                self.c = new C({
+                if(c){
+                    c.destroy();
+                }
+                c = new C({
                     rootId: rootPID,
                     generations: numGenerations,
                     dscOrAsc: direction,

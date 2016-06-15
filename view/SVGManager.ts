@@ -41,7 +41,7 @@ class SVGManager implements IViewManager {
     private lineManager: LineManager;
     private refreshTriggered: boolean;
 
-    private hammers: any[];
+    private static hammers: any[] = [];
 
     constructor(svgElementId:string) {
         this.rulerSet = false;
@@ -49,7 +49,6 @@ class SVGManager implements IViewManager {
 
         var svg =  document.getElementById(svgElementId);
         this.mainSvg = svg;
-        this.hammers = [];
 
         //this is dangerous to just kill all listeners.
         $(svg).off();
@@ -134,7 +133,7 @@ class SVGManager implements IViewManager {
         };
 
         var hammer = new Hammer(svg);
-        this.hammers.push(hammer);
+        SVGManager.hammers.push(hammer);
         var pan = hammer.add( new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 0 }) );
         var pinch = new Hammer.Pinch();
 
@@ -154,6 +153,7 @@ class SVGManager implements IViewManager {
         hammer.on('tap', function(ev) {
             ev.preventDefault();
             var pt = getHammerPosition(svg, ev.center);
+            //console.log("Hammer:", hammer, SVGManager.hammers, this.lastBoxes);
             self.graphicObject.fireClickPt(self.viewToWorld(new Point(pt.x, pt.y)));
         });
         var pt1 = null;
@@ -753,8 +753,9 @@ class SVGManager implements IViewManager {
     }
 
     destroy(){
-        for(var i = 0; i < this.hammers.length; ++i){
-            var hammer = this.hammers[i];
+        var hammers = SVGManager.hammers;
+        while(hammers.length > 0){
+            var hammer = hammers.shift();
             hammer.off('tap');
             hammer.stop();
             hammer.destroy();

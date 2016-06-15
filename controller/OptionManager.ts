@@ -50,20 +50,7 @@ class OptionManager implements IOptionManager {
         this.downloadManager = DownloadManager.inst();
         this.modalManager.initSourceModal(this.downloadManager, self);
 
-        // Lower Priority
-        $('#opg-rotate-cc').click(function(){
-            self.listener.handleOption('rotate', {value: -Math.PI/2});
-        });
-        $('#opg-rotate-c').click(function(){
-            self.listener.handleOption('rotate', {value: Math.PI/2});
-        });
-        $('#opg-download').click(function(){
-            self.listener.handleOption('request-download', null);
-        });
-        $('#opg-save').click(function() {
-            self.listener.handleOption('save', null);
-        });
-
+        this.initTopBar(this.listener);
         this.initStyleDropdown();
         this.initColorDropdown();
         this.initOptionsDropdown();
@@ -238,6 +225,32 @@ class OptionManager implements IOptionManager {
         this.modalManager.initChartStatsModal(this.listener);
         this.modalManager.initRulerModal(this.listener);
         this.modalManager.initFindModal(this.listener);
+    }
+
+    private initTopBar(obs: IOptionListener): void{
+
+        var rotCounter = $('#opg-rotate-cc');
+        var rotClockwise = $('#opg-rotate-c');
+        var DwnldButton = $('#opg-download');
+        var SaveButton = $('#opg-save');
+
+        rotCounter.off('click');
+        rotClockwise.off('click');
+        DwnldButton.off('click');
+        SaveButton.off('click');
+
+        rotCounter.click(function(){
+            obs.handleOption('rotate', {value: -Math.PI/2});
+        });
+        rotClockwise.click(function(){
+            obs.handleOption('rotate', {value: Math.PI/2});
+        });
+        DwnldButton.click(function(){
+            obs.handleOption('request-download', null);
+        });
+        SaveButton.click(function() {
+            obs.handleOption('save', null);
+        });
     }
 
     /**

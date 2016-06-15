@@ -448,5 +448,6 @@ class C implements IGraphicObjectListener, IOptionListener {
 
     public destroy(){
         this.viewManager.destroy();
+        this.boxes = new BoxMap("dummy");
     }
 }
