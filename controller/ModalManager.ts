@@ -1,5 +1,7 @@
 ///<reference path="IOptionListener.ts"/>
 ///<reference path="PrivatePersonUtils.ts"/>
+///<reference path="IOptionManager.ts"/>
+///<reference path="../sources/DownloadManager.ts"/>
 /**
  * Created by calvinmcm on 6/14/16.
  *
@@ -7,29 +9,98 @@
  * attached to the modal windows.
  */
 
-
 declare function familySearchDownload(): void;
 
 class ModalManager{
     private rotation: number;
+    private downloadManager: DownloadManager;
+    private optionManager: IOptionManager;
+
     constructor(rotation: number){
        this.rotation = rotation;
     }
 
-    initSourceModal(obs: IOptionListener): void{
+    /**
+     * Initializes the opening modal window which allows the user to select the source material for their chart.
+     * @param downloadManager The download manager for the chart.
+     * @param optionManager The option manager for the chart.
+     */
+    initSourceModal(downloadManager: DownloadManager, optionManager: IOptionManager): void{
 
+        this.downloadManager = downloadManager;
+        this.optionManager = optionManager;
+
+        $("[name='edit-spacing-switch']").bootstrapSwitch();
+
+        $('#downloadModal').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        if (localStorage.getItem("numGenerations") && FamilySearch.hasAccessToken()) {
+            this.initFSDownloadModal();
+        } else if (localStorage.getItem("numGenerations")) {
+            localStorage.removeItem("numGenerations");
+            localStorage.removeItem("rootPID");
+            localStorage.removeItem("direction");
+        }
+
+        // New Chart Button Event Handler
+        $("#redownload-button").click(function(){
+            $('#downloadModal').show();
+            var dwnldClose = $('#fsDwldClose');
+            dwnldClose.show();
+            dwnldClose.click(function(){
+                $('#fsModal').hide();
+            });
+            $('#isValidRootID-modal-close').show();
+        });
+
+        // Card Click Event Handlers
+        $("#tofsbutton-user").click(() => {
+            this.handleCardClick("myFSTree")
+        });
+        $("#tofsbutton").click(() => {
+            this.handleCardClick("otherFSTree")
+        });
+        $("#togedbutton").click(() => {
+            this.handleCardClick("gedcom")
+        });
+        $('#myTreeCard').click(() => {
+            this.handleCardClick("myFSTree")
+        });
+        $('#otherTreeCard').click(() => {
+            this.handleCardClick("otherFSTree")
+        });
+        $('#gedcomCard').click(() => {
+            this.handleCardClick("gedcom")
+        });
     }
 
-    initFSDownloadSelfModal(obs: IOptionListener): void{
+    /**
+     * Initializes the response for the FSDownloadModal.
+     */
+    initFSDownloadModal(): void{
 
+        //type = "familysearch";
+        var downloadBack = $('#fsDwldBack');
+        downloadBack.off('click');
+        downloadBack.html('Back');
+        downloadBack.click(function(){
+            $('#fsModal').hide();
+            $('#downloadModal').show();
+        });
+        $('#downloadModal').hide();
+        this.downloadManager.init(this.optionManager)
     }
 
-    initFSDownloadOtherModal(obs: IOptionListener): void{
-
-    }
-
-    initGedcomDownloadModal(obs: IOptionListener): void{
-
+    /**
+     * Initializes the response for the GedcomModal.
+     */
+    initGedcomDownloadModal(): void{
+        //type = "gedcom";
+        $('#myInput').click();
+        $('#downloadModal').hide();
     }
 
     /**
@@ -54,6 +125,11 @@ class ModalManager{
         this.initCollapseButton(box, obs);
     }
 
+    /**
+     * Initializes the child editor modal.
+     * @param obs The object with more advanced handlers for the processed event.
+     * @param box The box being acted on (either the one being appended to or the one being editted).
+     */
     initChildEditorModal(obs: IOptionListener, box: IBox): void{
         PrivatePersonUtils.initDetailModalButtons(box,obs);
     }
@@ -146,6 +222,8 @@ class ModalManager{
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
     private static DISPLAY_PADDING:number = 5;
+
+    //[][][][][][][][][][][][][][][][][][][][][] DETAIL VIEWER [][][][][][][][][][][][][][][][][][][][][][][][][][][][]>
 
     /**
      * Renders a temporary version of a box inside of the Detail View Modal.
@@ -256,19 +334,15 @@ class ModalManager{
             secondary.append('<div id="s-data-col" class="col-sm-9"></div>');
 
             //~~~ Setup the Ids ~~~
-            var p_id = primaryNode.getId().substr(0,colonLoc);
-            if(PrivatePersonUtils.isCustomId(primaryNode.getId())){
-                p_id = "Private Person";
-            }
-            else if (!p_id || p_id == ''){
-                p_id = primaryNode.getAttr('name') + " (No ID found)";
-            }
-            var s_id = secondaryNode.getId().substr(0,colonLoc);
-            if(PrivatePersonUtils.isCustomId(secondaryNode.getId())){
-                s_id = "Private Person";
-            }
-            else if (!s_id || s_id == ''){
-                s_id = secondaryNode.getAttr('name') + " (No ID found)";
+            var nodes = [primaryNode, secondaryNode];
+            for(var node of nodes){
+                var p_id = node.getId().substr(0,colonLoc);
+                if(PrivatePersonUtils.isCustomId(node.getId())){
+                    p_id = "Private Person";
+                }
+                else if (!p_id || p_id == ''){
+                    p_id = node.getAttr('name') + " (No ID found)";
+                }
             }
 
             $('#pid').text("Personal Information for " + p_id + " and " + s_id);
@@ -323,26 +397,6 @@ class ModalManager{
                 $('modal-dialog-box').css('width',(longer+50).toString());
             }
         },0);
-
-        // Color Picker capabilities have been temporarily suspended.
-
-        //$('#box-color-picker').spectrum({
-        //    color: box.getColor(),
-        //    clickoutFiresChange: true,
-        //    change: function(color){
-        //        box.setColor(color.toHexString());
-        //        self.renderTempBox(box);
-        //    }
-        //});
-        //
-        //$('#box-text-color-picker').spectrum({
-        //    color: box.getTextColor(),
-        //    clickoutFiresChange: true,
-        //    change: function(color){
-        //        box.setTextColor(color.toHexString());
-        //        self.renderTempBox(box);
-        //    }
-        //});
     }
 
     /**
@@ -460,4 +514,24 @@ class ModalManager{
         });
     }
 
+    //[][][][][][][][][][][][][][][][][][][][][] SOURCE MODAL  [][][][][][][][][][][][][][][][][][][][][][][][][][][][]>
+
+    private handleCardClick(card: string){
+        switch(card){
+            case "myFSTree":
+                $('#relative-tree-downloader').hide();
+                $('#pid-search-input').val("");
+                this.initFSDownloadModal();
+                break;
+            case "otherFSTree":
+                $('#relative-tree-downloader').show();
+                this.initFSDownloadModal();
+                break;
+            case "gedcom":
+                this.initGedcomDownloadModal();
+                break;
+            default:
+                console.log("Invalid Card click input:", card);
+        }
+    }
 }

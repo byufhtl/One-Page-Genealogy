@@ -104,7 +104,7 @@ class FSAncestryGenDownloader {
                         var fsPerson: FSPerson = new FSPerson(person.id, person, parents, [],[],false);
                         self.addParents(response, i, parentMap, fsPerson);
 
-                        if(i == 1 && childPerson != null){//if at the beginning of generation download connect to previous
+                        if(i == 1 && childPerson != null){//if at the beginning of generation isValidRootID connect to previous
                             //if(!childPerson.hasOwnProperty('helpParents')) {
                             //    childPerson.helpParents = [];
                             //}
@@ -132,8 +132,9 @@ class FSAncestryGenDownloader {
             });
         }, function(){
             //alert("Error: You don't have access to this person's tree.");
+            console.log("Error Report:", this, id);
             $('#errorModal').modal('show');
-            familySearchDownload();
+            //familySearchDownload();
             defer.reject();
         });
         return defer.promise();

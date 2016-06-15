@@ -7,6 +7,7 @@
 ///<reference path="../view/boxRenderers/Renderer.ts"/>
 ///<reference path="../sources/BuildNode.ts"/>
 ///<reference path="PrivatePersonUtils.ts"/>
+///<reference path="../sources/DownloadManager.ts"/>
 
 /**
  * Created by curtis on 3/19/15.
@@ -26,6 +27,7 @@ class OptionManager implements IOptionManager {
     private customColor:boolean;
 
     private modalManager:ModalManager;
+    private downloadManager: DownloadManager;
 
     private rotation:number = 0;
 
@@ -33,7 +35,9 @@ class OptionManager implements IOptionManager {
 
     private direction: string;
 
-    constructor() {
+    constructor() {}
+
+    init(){
         var self = this;
         this.modalManager = new ModalManager(this.rotation);
         this.direction = "ascendancy";
@@ -41,14 +45,20 @@ class OptionManager implements IOptionManager {
         this.customColor = false;
         this.customNodeIndex = 1111; // Has to be at least three digits long to create a valid PID.
 
+        this.resetOptions();
+
+        this.downloadManager = DownloadManager.inst();
+        this.modalManager.initSourceModal(this.downloadManager, self);
+
+        // Lower Priority
         $('#opg-rotate-cc').click(function(){
             self.listener.handleOption('rotate', {value: -Math.PI/2});
         });
         $('#opg-rotate-c').click(function(){
             self.listener.handleOption('rotate', {value: Math.PI/2});
         });
-        $('#opg-download').click(function(){
-            self.listener.handleOption('request-download', null);
+        $('#opg-isValidRootID').click(function(){
+            self.listener.handleOption('request-isValidRootID', null);
         });
         $('#opg-save').click(function() {
             self.listener.handleOption('save', null);
@@ -378,5 +388,16 @@ class OptionManager implements IOptionManager {
 
     public getDirection(): string{
         return this.direction;
+    }
+
+    public resetOptions(): void{
+        document.getElementById('opg-show-empty').innerHTML = "Show Empty Boxes";
+        document.getElementById('opg-edit-spacing').innerHTML = "Edit Spacing";
+        $('#edit-spacing-switch').css("display", "none");
+        $('.BSswitch').bootstrapSwitch('state', true);
+        $('#country-legend').css('display', 'none');
+        $('#ruler-height').val("");
+        $('#country-legend').animate({"width": "0%"}, "fast");
+        $('#opg-chart').css("width", "100%");
     }
 }
