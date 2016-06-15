@@ -50,7 +50,6 @@ class OptionManager implements IOptionManager {
         this.downloadManager = DownloadManager.inst();
         this.modalManager.initSourceModal(this.downloadManager, self);
 
-        this.initTopBar(this.listener);
         this.initStyleDropdown();
         this.initColorDropdown();
         this.initOptionsDropdown();
@@ -389,10 +388,12 @@ class OptionManager implements IOptionManager {
         this.listener = listener;
 
         this.initModalGenerators();
+        this.initTopBar(this.listener);
     }
 
     public setRotation(r:number){
         this.rotation = r * (180/Math.PI);
+        this.modalManager.setRotation(r);
     }
 
     public setDirection(dir :string): void{

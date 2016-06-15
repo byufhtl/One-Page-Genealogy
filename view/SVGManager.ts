@@ -478,9 +478,32 @@ class SVGManager implements IViewManager {
         this.refresh(this.lastBoxes);
     }
 
+    private isValidScale(s: number, pt: Point){
+
+        // Check for disabled zoom (open modal windows).
+        if(!this.zoomEnabled){return false;}
+
+        // Check for currently editting spacing (not valid at this time).
+        if(!(!($("#opg-modal").data('bs.modal') || {}).isShown)){return false;}
+
+        // Check for bad scale.
+        if((this.scale <= .05 && s <= 1) || (this.scale >= 20 && s >= 1)){return false;}
+
+        // Check for out-of-bounds locus on where the zoom is centered (only scrolling on the svg works).
+        var self = this;
+        pt = this.worldToView(pt);
+        var width = self.boundingRect.right - self.boundingRect.left;
+        var height = self.boundingRect.bottom - self.boundingRect.top;
+        if(pt.getX() > width || pt.getX() < 0 || pt.getY() > height || pt.getY() < 0){
+            return false;
+        }
+
+        // If none of the above conditions are met, return true.
+        return true;
+    }
+
     setScale(s: number, pt:Point): void {
-        if(this.zoomEnabled && (!($("#opg-modal").data('bs.modal') || {}).isShown) &&
-            (this.scale > .05 || s > 1) && (this.scale < 20 || s < 1)) {
+        if(this.isValidScale(s, pt)) {
 
             var viewBefore:Point = this.worldToView(pt);
             this.scale *= s;

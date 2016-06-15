@@ -233,32 +233,39 @@ class ModalManager{
      */
     private renderTempBox(box: IBox) {
         var opgModalSvg = $('#opg-modal-svg');
+        console.log(opgModalSvg[0], opgModalSvg);
         opgModalSvg.empty();
         var transform = [];
-        if(this.rotation % 360 === 0){
-            opgModalSvg.css("height", box.getHeight() + ModalManager.DISPLAY_PADDING*2);
-            opgModalSvg.css("width", box.getWidth() + ModalManager.DISPLAY_PADDING*2);
-        }else if(this.rotation % 270 === 0){
-            opgModalSvg.css("width", box.getHeight() + ModalManager.DISPLAY_PADDING*2);
-            opgModalSvg.css("height", box.getWidth() + ModalManager.DISPLAY_PADDING*2);
+        // We need to convert from radians to degrees.
+        var angle = Math.round(this.rotation * (180/Math.PI));
+        if(angle === 0){
+            opgModalSvg.height(box.getHeight() + ModalManager.DISPLAY_PADDING*2);
+            opgModalSvg.width(box.getWidth() + ModalManager.DISPLAY_PADDING*2);
+            console.log("A", box.getWidth(), box.getHeight(), "/", opgModalSvg.width(), opgModalSvg.height(), ":", opgModalSvg[0], opgModalSvg);
+        }else if(angle % 270 === 0){
+            opgModalSvg.width(box.getHeight() + ModalManager.DISPLAY_PADDING*2);
+            opgModalSvg.height(box.getWidth() + ModalManager.DISPLAY_PADDING*2);
             transform.push("translate(0," + box.getWidth() +')');
-        }else if(this.rotation % 180 === 0){
-            opgModalSvg.css("height", box.getHeight() + ModalManager.DISPLAY_PADDING*2);
-            opgModalSvg.css("width", box.getWidth() + ModalManager.DISPLAY_PADDING*2);
+            console.log("B", box.getWidth(), box.getHeight(), "/", opgModalSvg.width(), opgModalSvg.height(), ":", opgModalSvg[0], opgModalSvg);
+        }else if(angle % 180 === 0){
+            opgModalSvg.height(box.getHeight() + ModalManager.DISPLAY_PADDING*2);
+            opgModalSvg.width(box.getWidth() + ModalManager.DISPLAY_PADDING*2);
             transform.push("translate(" + box.getWidth() + ',' + box.getHeight() + ")");
+            console.log("C", box.getWidth(), box.getHeight(), "/", opgModalSvg.width(), opgModalSvg.height(), ":", opgModalSvg[0], opgModalSvg);
         }else{
-            opgModalSvg.css("width", box.getHeight() + ModalManager.DISPLAY_PADDING*2);
-            opgModalSvg.css("height", box.getWidth() + ModalManager.DISPLAY_PADDING*2);
+            opgModalSvg.width(box.getHeight() + ModalManager.DISPLAY_PADDING*2);
+            opgModalSvg.height(box.getWidth() + ModalManager.DISPLAY_PADDING*2);
             transform.push("translate(" + box.getHeight() + ',0)');
+            console.log("D", box.getWidth(), box.getHeight(), "/", opgModalSvg.width(), opgModalSvg.height(), ":", opgModalSvg[0], opgModalSvg);
         }
+        opgModalSvg.css("font-family","Roboto Slab");
         var g = opgModalSvg[0];
-        g.setAttribute("style", "font-family: 'Roboto Slab' ");
         g = Renderer.renderBox(box, g);
+        console.log("G:", g, angle);
         transform.push("translate("+ModalManager.DISPLAY_PADDING+", "+ModalManager.DISPLAY_PADDING+")");
-        transform.push('rotate('+ this.rotation +')');
+        transform.push('rotate('+ angle +')');
 
         g.setAttribute("transform", transform.join(' '));
-        console.log(box.getWidth(), box.getHeight(), "/", opgModalSvg.width(), opgModalSvg.height());
     }
 
     /**
@@ -535,5 +542,12 @@ class ModalManager{
             default:
                 console.log("Invalid Card click input:", card);
         }
+    }
+
+    //[][][][][][][][][][][][][][][][][][][][][][][] OTHER [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]>
+
+    setRotation(rotation: number): ModalManager{
+        this.rotation = rotation;
+        return this;
     }
 }
