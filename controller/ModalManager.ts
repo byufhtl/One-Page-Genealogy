@@ -48,14 +48,13 @@ class ModalManager{
 
         // New Chart Button Event Handler
         $("#redownload-button").click(function(){
-            $('#downloadModal').show();
-            var dwnldClose = $('#fsDwldClose');
+            var dwnldClose = $('#download-modal-close');
             dwnldClose.show();
-            dwnldClose.off('click'); // Disable old handlers.
-            dwnldClose.click(function(){
-                $('#fsModal').hide();
-            });
-            $('#download-modal-close').show();
+            //dwnldClose.off('click'); // Disable old handlers.
+            //dwnldClose.click(function(){
+            //    $('#fsModal').hide();
+            //});
+            $('#downloadModal').show();
         });
 
         // Card Click Event Handlers
