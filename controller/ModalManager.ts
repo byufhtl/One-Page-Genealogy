@@ -172,9 +172,12 @@ class ModalManager{
 
         $('#statistics-button').click(() => {
             obs.handleOption('show-statistics', null);
+            // Show the modal window
+            $('#statistics-modal').modal('show');
         });
         $('#statistics-modal-close').click(() => {
             obs.handleOption('hide-statistics', null);
+            $('#statistics-modal').modal('hide');
         });
         $('#recenter-button').click(() => {
             obs.handleOption('recenter-chart', null);
@@ -187,11 +190,11 @@ class ModalManager{
      */
     initFindModal(obs: IOptionListener): void{
         $('#find-button').click(() => {
-            $('#box-finder-modal').show();
+            $('#box-finder-modal').modal('show');
         });
 
         $('#box-finder-modal-close').click(() => {
-            $('#box-finder-modal').hide();
+            $('#box-finder-modal').modal('hide');
         });
 
         $('#box-finder-modal-seek').click(() => {

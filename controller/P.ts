@@ -183,7 +183,6 @@ class P implements IControllerListener, ITreeListener {
                 this.showStatsReport(param);
             }
             else if (param.type === 'hide-statistics'){
-                $('#statistics-modal').hide();
             }
         }
         if (refresh) {
@@ -368,8 +367,7 @@ class P implements IControllerListener, ITreeListener {
         statsContainer.append('<hr style="margin-top: 12%;"><div class="col-lg-12"><p id="stats-disclaimer" style="text-align: left;"></p></div>');
         $('#stats-disclaimer').text("Estimation based on rough averages. " + disclaimer);
 
-        // Show the modal window
-        $('#statistics-modal').show();
+        
     }
 
     private vpView(paramId:string):any {
