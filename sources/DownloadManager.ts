@@ -12,10 +12,8 @@ declare var c;
 class DownloadManager{
 
     private static SINGLETON: DownloadManager = null;
-    private token;
     private numGenerations: number;
     private optionManager: IOptionManager;
-    private c: C = null;
 
     static inst(){
         if(!this.SINGLETON){

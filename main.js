@@ -30,6 +30,7 @@ function checkDevice() {
          </h4>
          */
     }
+    console.log("Device Type:", navigator.userAgent.toLowerCase());
 }
 
 if (window.location.href.indexOf("fstoken") > -1) {
