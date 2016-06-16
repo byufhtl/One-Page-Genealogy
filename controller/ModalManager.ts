@@ -244,22 +244,18 @@ class ModalManager{
         if(angle === 0){
             opgModalSvg.height(box.getHeight() + ModalManager.DISPLAY_PADDING*2);
             opgModalSvg.width(box.getWidth() + ModalManager.DISPLAY_PADDING*2);
-            console.log("A", box.getWidth(), box.getHeight(), "/", opgModalSvg.width(), opgModalSvg.height(), ":", opgModalSvg[0], opgModalSvg);
         }else if(angle % 270 === 0){
             opgModalSvg.width(box.getHeight() + ModalManager.DISPLAY_PADDING*2);
             opgModalSvg.height(box.getWidth() + ModalManager.DISPLAY_PADDING*2);
             transform.push("translate(0," + box.getWidth() +')');
-            console.log("B", box.getWidth(), box.getHeight(), "/", opgModalSvg.width(), opgModalSvg.height(), ":", opgModalSvg[0], opgModalSvg);
         }else if(angle % 180 === 0){
             opgModalSvg.height(box.getHeight() + ModalManager.DISPLAY_PADDING*2);
             opgModalSvg.width(box.getWidth() + ModalManager.DISPLAY_PADDING*2);
             transform.push("translate(" + box.getWidth() + ',' + box.getHeight() + ")");
-            console.log("C", box.getWidth(), box.getHeight(), "/", opgModalSvg.width(), opgModalSvg.height(), ":", opgModalSvg[0], opgModalSvg);
         }else{
             opgModalSvg.width(box.getHeight() + ModalManager.DISPLAY_PADDING*2);
             opgModalSvg.height(box.getWidth() + ModalManager.DISPLAY_PADDING*2);
             transform.push("translate(" + box.getHeight() + ',0)');
-            console.log("D", box.getWidth(), box.getHeight(), "/", opgModalSvg.width(), opgModalSvg.height(), ":", opgModalSvg[0], opgModalSvg);
         }
         opgModalSvg.css("font-family","Roboto Slab");
         var g = opgModalSvg[0];

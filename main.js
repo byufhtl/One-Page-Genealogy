@@ -15,12 +15,12 @@ function checkDevice() {
 
     if (device) {
         console.log("Mobile Device Detected! Type: " + device);
-        $('#mobile-warning').append("<h4 style='margin: auto;' id='mobile-warning-header'></h4>");
-        var header = $('#mobile-warning-header');
+        var header = $('<div style="margin: auto;" id="mobile-warning-header"></div>');
         header.append('<hr>');
-        header.append('<p class="label label-danger">One Page Genealogy has detected that you may be using a mobile device.</p>');
-        header.append('<p class="label label-danger"> Mobile devices may not be fully supported for this app.</p>');
-        header.append('<p class="label label-danger">For full support, we recommend non-mobile devices.</p>');
+        header.append('<h4 class="label label-danger" style="display: block; padding: 0; margin:0;">One Page Genealogy has detected that you may be using a mobile device.</h4>');
+        header.append('<h4 class="label label-danger" style="display: block; padding: 0; margin:0;">Mobile devices are not fully supported for this app.</h4>');
+        header.append('<h4 class="label label-danger" style="display: block; padding: 0; margin:0;">If you continue, be warned that certain features may not work properly.</h4>');
+	$('#mobile-warning').append(header);
         /*
          <h4 style="margin: auto">
          <hr>
@@ -30,6 +30,7 @@ function checkDevice() {
          </h4>
          */
     }
+    console.log("Device Type:", navigator.userAgent.toLowerCase());
 }
 
 if (window.location.href.indexOf("fstoken") > -1) {
