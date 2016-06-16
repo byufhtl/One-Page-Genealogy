@@ -53,6 +53,8 @@ class OptionManager implements IOptionManager {
         this.initStyleDropdown();
         this.initColorDropdown();
         this.initOptionsDropdown();
+
+        this.initSideBar();
     }
 
     /**
@@ -252,6 +254,18 @@ class OptionManager implements IOptionManager {
         });
     }
 
+    private initSideBar(): void{
+        var helpButton = $('#opg-help');
+        var helpGuideButton = $('#download-modal-help');
+
+        helpButton.click(function(){
+            window.open('help.html');
+        });
+
+        helpGuideButton.click(function(){
+            window.open('help.html')
+        });
+    }
     /**
      * Initializes the responses when a box is selected, configuring the corresponding modal windows.
      *
