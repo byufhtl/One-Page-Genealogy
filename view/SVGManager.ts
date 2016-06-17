@@ -7,6 +7,7 @@
 ///<reference path="../util/Point.ts"/>
 ///<reference path="ElementManager.ts"/>
 ///<reference path="LineManager.ts"/>
+///<reference path="ColorManager.ts"/>
 /**
  * Created by curtis on 3/10/15.
  */
@@ -36,6 +37,7 @@ class SVGManager implements IViewManager {
     private autopan: boolean;
 
     private zoomEnabled: boolean = true;
+    private initialized: boolean = false;
 
     private elementManager: ElementManager;
     private lineManager: LineManager;
@@ -59,19 +61,7 @@ class SVGManager implements IViewManager {
         this.rulerTextContainer = document.createElementNS("http://www.w3.org/2000/svg", "g");
         this.rulerTextContainer.setAttribute('fill', '#d2a779');
 
-        this.svgRoot = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        svg.appendChild(this.svgRoot);
-
-        this.configureMouse(self, svg);
-        this.startLoadingAnimation();
-
-        // the path used to generate the lines.
-        this.linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        this.svgRoot.appendChild(this.linePath);
-
-        this.elementManager = new ElementManager(this.svgRoot, this.graphicObject);
-        this.lineManager = new LineManager();
-
+        //displaced
         this.boundingRect = null;
         this.elements = {};
 
@@ -84,6 +74,23 @@ class SVGManager implements IViewManager {
         this.width = this.boundingRect.right - this.boundingRect.left;
         this.height = this.boundingRect.bottom - this.boundingRect.top;
         this.refreshTriggered = false;
+
+        // end displace
+        this.svgRoot = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        this.drawBackground(svg);
+        svg.appendChild(this.svgRoot);
+
+        this.configureMouse(self, svg);
+        this.startLoadingAnimation();
+
+        // the path used to generate the lines.
+        this.linePath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        this.svgRoot.appendChild(this.linePath);
+
+        this.elementManager = new ElementManager(this.svgRoot, this.graphicObject);
+        this.lineManager = new LineManager();
+
+        // displaced original position.
 
         $(window).resize(function() {
             self.boundingRect = svg.getBoundingClientRect();
@@ -400,6 +407,23 @@ class SVGManager implements IViewManager {
         this.realRefresh();
     }
 
+    private drawBackground(svg){
+        var height = this.boundingRect.bottom - this.boundingRect.top;
+        var width = this.boundingRect.right - this.boundingRect.left;
+        
+        var thing = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        thing.setAttribute('width', '100%');
+        thing.setAttribute('height', '100%');
+        //thing.setAttribute('width', width.toString());
+        //thing.setAttribute('height', height.toString());
+        thing.setAttribute('x', '0');
+        thing.setAttribute('y', '0');
+        thing.setAttribute('fill', ColorManager.black());
+        //thing.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/test.jpg');
+
+        svg.appendChild(thing);
+    }
+    
     private drawBoxes(boxes: BoxMap): void {
         if(!boxes){return;}
         var self = this;

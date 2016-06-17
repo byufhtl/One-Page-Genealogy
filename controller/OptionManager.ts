@@ -232,12 +232,12 @@ class OptionManager implements IOptionManager {
 
         var rotCounter = $('#opg-rotate-cc');
         var rotClockwise = $('#opg-rotate-c');
-        var DwnldButton = $('#opg-download');
+        var PDFButton = $('#opg-to-pdf');
         var SaveButton = $('#opg-save');
 
         rotCounter.off('click');
         rotClockwise.off('click');
-        DwnldButton.off('click');
+        PDFButton.off('click');
         SaveButton.off('click');
 
         rotCounter.click(function(){
@@ -246,7 +246,7 @@ class OptionManager implements IOptionManager {
         rotClockwise.click(function(){
             obs.handleOption('rotate', {value: Math.PI/2});
         });
-        DwnldButton.click(function(){
+        PDFButton.click(function(){
             obs.handleOption('request-download', null);
         });
         SaveButton.click(function() {
@@ -266,6 +266,7 @@ class OptionManager implements IOptionManager {
             window.open('help.html')
         });
     }
+
     /**
      * Initializes the responses when a box is selected, configuring the corresponding modal windows.
      *
