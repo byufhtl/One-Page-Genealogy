@@ -407,6 +407,13 @@ class SVGManager implements IViewManager {
         this.realRefresh();
     }
 
+    /**
+     * May allow the user to change the background in the future. No visible change at the moment.
+     * Still used by the code to allow for opg devs to be able to hack around the html to change the background color.
+     *
+     * @pre this method must be called before any other elements are added to the container SVG to create a proper background.
+     * @param svg The SVG element whose background is being set up.
+     */
     private drawBackground(svg){
         var height = this.boundingRect.bottom - this.boundingRect.top;
         var width = this.boundingRect.right - this.boundingRect.left;
@@ -418,7 +425,7 @@ class SVGManager implements IViewManager {
         //thing.setAttribute('height', height.toString());
         thing.setAttribute('x', '0');
         thing.setAttribute('y', '0');
-        thing.setAttribute('fill', ColorManager.black());
+        thing.setAttribute('fill', ColorManager.white());
         //thing.setAttributeNS('http://www.w3.org/1999/xlink','href', 'images/test.jpg');
 
         svg.appendChild(thing);

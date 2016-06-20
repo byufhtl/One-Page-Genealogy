@@ -66,8 +66,6 @@ class P implements IControllerListener, ITreeListener {
     private translateSpacer:TranslateSpacer;
     private tree:ITree;
 
-
-    private static counter = 0;
     private beforeTransformBoxes:BoxMap;
     private firstBoxMap:BoxMap;
     private secondBoxMap:BoxMap;
@@ -523,7 +521,6 @@ class P implements IControllerListener, ITreeListener {
     }
 
     private runPipeline():void {
-        console.log("P pipeline count: ", ++P.counter);
         this.stylingPipeline.runPipeline(this.firstBoxMap);
         this.runTranslationPipeline(this.firstBoxMap);
         this.c.refresh(this.secondBoxMap);

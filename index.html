@@ -197,31 +197,31 @@
                 <li><a id="opg-ruler" title="Show Ruler" href="#"><img style="width:16px;height:16px;" src="images/ruler.png"></a></li>
             </ul>
             <ul class="nav navbar-nav opg-blue" id="opg-button-pad-right">
-                <!--li>
+                <li style="display: none;">
                     <button type="button" class="btn-pad" id="pan-up-button" title="Zoom Out">
                         <i class="fa fa-arrow-up"></i>
                     </button>
                 </li>
-                <li>
+                <li style="display: none;">
                     <button type="button" class="btn-pad" id="pan-down-button" title="Pan Down">
                         <i class="fa fa-arrow-down"></i>
                     </button>
                 </li>
-                <li>
+                <li style="display: none;">
                     <button type="button" class="btn-pad" id="pan-right-button" title="Pan Right">
                         <i class="fa fa-arrow-right"></i>
                     </button>
                 </li>
-                <li>
+                <li style="display: none;">
                     <button type="button" class="btn-pad" id="pan-left-button" title="Pan Left">
                         <i class="fa fa-arrow-left"></i>
                     </button>
                 </li>
-                <li>
+                <li style="display: none;">
                     <button type="button" class="btn-pad" id="pan-invert-button" title="Invert Panning">
                         <i class="fa fa-exchange"></i>
                     </button>
-                </li-->
+                </li>
                 <li class="divider"></li>
                 <li>
                     <button type="button" class="btn-pad" id="zoom-out-button" title="Zoom Out">
@@ -300,7 +300,7 @@
                                 <i class="fa fa-caret-left"></i> Colors</a>
                             <ul class="dropdown-menu opg-left-menu opg-blue" role="menu">
                                 <li><a id="opg-to-branch-color" href="#">Color by Branch - Pastel (Default)</a></li>
-                                <li><span class="label label-warning">new</span><a id="opg-to-branch-color-blackout" href="#">Color by Branch - Blackout (For Black Paper)</a></li>
+                                <li style="display: none;"><a id="opg-to-branch-color-blackout" href="#"><span class="label label-warning">new</span> Color by Branch - Blackout</a></li>
                                 <li><a id="opg-to-branch-color-bold" href="#"><span class="label label-warning">new</span> Color by Branch - Bold</a></li>
                                 <li><a id="opg-to-branch-color-gray" href="#"><span class="label label-warning">new</span> Color by Branch - Greyscale</a></li>
                                 <li class="divider"></li>
@@ -334,6 +334,10 @@
                     <div id="opg-system-button-bar">
                         <button type="button" class="btn btn-sidebar" id="statistics-button">Chart Stats</button>
                         <button type="button" class="btn btn-sidebar" id="opg-help">Help</button>
+                    </div>
+                    <hr>
+                    <div id="opg-order-button-bar">
+                        <button type="button" class="btn btn-sidebar" id="print-services-button">Order Chart</button>
                     </div>
                     <hr>
                 </div>
@@ -948,6 +952,50 @@
                         <div class="col-sm-3" style="padding-left: 0; padding-right: 15px;" align="right">
                             <button type="button" class="btn btn-footer" id="box-finder-modal-seek">Find</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--#########################################
+#              EMPTY BOXES MODAL            #
+##########################################-->
+
+<div class="modal fade" id="printServicesModal" tabindex="-1" role="dialog" aria-labelledby="showEmptyModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header opg-blue" style="border-top-right-radius: 5px; border-top-left-radius: 5px">
+                <button type="button" class="close btn-footer" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Order Chart</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <p>Chart ordering is managed by BYU Print Services.</p>
+                    <h4><b>Liability Statement:</b></h4>
+                    <p>By clicking 'Continue,' the user agrees to be transferred to the website for BYU Print Services, and
+                    assumes responsibility for any and all transactions entered into on the BYU Print Services site.
+                    </p>
+                    <p>One Page Genealogy is not liable for use of BYU Print Services. By entering into a transaction
+                    with BYU Print Services, the user assumes responsibility to pay all charges originating from BYU
+                    Print Services and waives the right to hold One Page Genealogy and/or FamilySearch responsible for
+                    any charges, services, or problems resulting from the transaction.
+                    </p>
+                    <p>By clicking 'Continue,' the user also authorizes One Page Genealogy to send the data for their
+                    chart to BYU Print Services for the purposes of ordering a chart. Neither FamilySearch nor One Page
+                    Genealogy may be held liable for the chart or the information it contains after it has been received
+                    by BYU Print Services.
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer opg-blue">
+                <div class="container-fluid">
+                    <div class="col-md-3" style="padding-left: 15px; padding-right: 0;" align="left">
+                        <button type="button" class="btn btn-footer" id="print-services-close">Nevermind</button>
+                    </div>
+                    <div class="col-md-3 col-md-offset-6" style="padding-left: 0; padding-right: 15px;" align="right">
+                        <button type="button" class="btn btn-footer" id="print-services-accept">Continue</button>
                     </div>
                 </div>
             </div>

@@ -226,6 +226,7 @@ class OptionManager implements IOptionManager {
         this.modalManager.initChartStatsModal(this.listener);
         this.modalManager.initRulerModal(this.listener);
         this.modalManager.initFindModal(this.listener);
+        this.modalManager.initPrintServicesModal(this.listener);
     }
 
     private initTopBar(obs: IOptionListener): void{
@@ -265,6 +266,7 @@ class OptionManager implements IOptionManager {
         helpGuideButton.click(function(){
             window.open('help.html')
         });
+
     }
 
     /**

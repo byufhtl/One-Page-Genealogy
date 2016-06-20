@@ -204,6 +204,22 @@ class ModalManager{
         });
     }
 
+    initPrintServicesModal(obs: IOptionListener): void{
+
+        $('#print-services-button').click(function(){
+            $('#printServicesModal').modal('show');
+        });
+
+        $('#print-services-close').click(function(){
+            $('#printServicesModal').modal('hide');
+        });
+
+        $('#print-services-accept').click(function(){
+            $('#printServicesModal').modal('hide');
+            obs.handleOption("request-print-services",null);
+        });
+    }
+
     /**
      * Drops all existing handlers on the options and buttons pertinent to modals.
      */
@@ -217,6 +233,9 @@ class ModalManager{
         $('#statistics-button').off('click');
         $('#statistics-modal-close').off('click');
         $('#recenter-button').off('click');
+        $('#print-services-button').off('click');
+        $('#print-services-close').off('click');
+        $('#print-services-accept').off('click');
     }
 
 

@@ -277,6 +277,18 @@ class C implements IGraphicObjectListener, IOptionListener {
                 })).appendTo('body').submit();
             });
         }
+        else if (key === 'request-print-services') {
+            this.viewManager.getSVGString().then(function (svgString){
+                var req = new XMLHttpRequest();
+                req.open('POST','https://opg.fhtl.byu.edu/convert/',true);
+                req.onload = function(ev){
+                    console.log(this.status);
+                    console.log(this.response);
+                };
+
+                req.send(svgString);
+            });
+        }
         else if (key === 'save') {
             //var boxes = JSON.stringify(this.boxes);
 
