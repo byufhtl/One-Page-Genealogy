@@ -279,14 +279,15 @@ class C implements IGraphicObjectListener, IOptionListener {
         }
         else if (key === 'request-print-services') {
             this.viewManager.getSVGString().then(function (svgString){
-                var req = new XMLHttpRequest();
-                req.open('POST','https://opg.fhtl.byu.edu/convert/',true);
-                req.onload = function(ev){
-                    console.log(this.status);
-                    console.log(this.response);
-                };
-
-                req.send(svgString);
+                $.ajax({
+                    url: 'https://opg.fhtl.byu.edu/convert/',
+                    type: 'POST',
+                    data: {
+                        'svg': svgString
+                    }
+                }).then(function(result) {
+                    console.log("Just got back an interesting pdf result of: " + result);
+                })
             });
         }
         else if (key === 'save') {
