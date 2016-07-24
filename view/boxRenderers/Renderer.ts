@@ -90,7 +90,7 @@ class Renderer{
         var node = box.getNode();
 
         rect.setAttribute('width', box.getWidth().toString(10));
-        var h = box.getHeight() - 6 - box.getSpace();
+        var h = box.getHeight() - (box.getSpace()? box.getSpace() : 0);
         h = (h > 0)? h : 0;
         if(h === 0){console.log("Bad DIM: " + box.getWidth() + "," + box.getHeight() + " : " + ris.getFlavorKey());}
         rect.setAttribute('height', h.toString(10));

@@ -698,8 +698,8 @@ class SVGManager implements IViewManager {
                 self.translationX = -100 + bbox.x;
                 self.translationY = -100 + bbox.y;
 
-                self.mainSvg.setAttribute("width", bbox.width + 200);
-                self.mainSvg.setAttribute("height", bbox.height + 200);
+                self.mainSvg.setAttribute("width", bbox.width/* + 200*/);
+                self.mainSvg.setAttribute("height", bbox.height/* + 200*/);
                 self.realRefresh();
 
                 var data = s.serializeToString(self.mainSvg);

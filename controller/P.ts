@@ -544,6 +544,7 @@ class P implements IControllerListener, ITreeListener {
      */
     private changeChartStyle(type:string):boolean {
         var style: AbstractChartStyle;
+        this.setCustomRulerDimensions(null,null);
         switch(type){
             case 'detail-style':
                 style = new DetailChartStyler();
@@ -565,12 +566,15 @@ class P implements IControllerListener, ITreeListener {
                 break;
             case 'eight-eleven-style':
                 style = new EightElevenChartStyler();
+                //this.setCustomRulerDimensions(8.5,11); // broken...
                 break;
             case 'eight-eleven-detail-style':
                 style = new EightElevenDetailChartStyler();
+                //this.setCustomRulerDimensions(8.5,11);
                 break;
             case 'eleven-seventeen-style':
                 style = new ElevenSeventeenChartStyler();
+                //this.setCustomRulerDimensions(11,17);
                 break;
             case 'extended-style':
                 style = new ExtendedChartStyler();
@@ -671,5 +675,10 @@ class P implements IControllerListener, ITreeListener {
             $('#opg-chart').css("width","100%");
         }
         return true;
+    }
+
+    private setCustomRulerDimensions(width, height){
+        $('#ruler-width').val(width || "");
+        $('#ruler-height').val(height || "");
     }
 }

@@ -81,14 +81,14 @@ class ElevenSeventeenChartStyler extends AbstractChartStyle{
                 StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
                 break;
             case 4:
-                branchBox.setX(parentBox.getX() + 2*parentBox.getWidth()/3 + 20);
-                branchBox.setType(StyleManager.MINI);
-                StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
+                branchBox.setX(parentBox.getX() + 3*parentBox.getWidth()/5 + 20);
+                branchBox.setType(StyleManager.TINY);
+                StyleManager.stylize(branchBox, TinyBoxStyle.SINGLE_FAT);
                 break;
             case 5:
-                branchBox.setX(parentBox.getX() + parentBox.getWidth()/5 + 20);
-                branchBox.setType(StyleManager.MINI);
-                StyleManager.stylize(branchBox, MiniBoxStyle.SINGLE);
+                branchBox.setX(parentBox.getX() + 3*parentBox.getWidth()/5 + 20);
+                branchBox.setType(StyleManager.TINY);
+                StyleManager.stylize(branchBox, TinyBoxStyle.SINGLE_FAT);
                 break;
             case 6:
                 branchBox.setX(parentBox.getX() + parentBox.getWidth() + 10);

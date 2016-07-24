@@ -70,8 +70,9 @@ class MiniBoxStyle{
         var small_font_size = 9;
         var dateLength = 18;
         var placeLength = 16;
-        box.setHeight(53);
+        box.setHeight(50);
         box.setWidth(255);
+        box.setSpace(3);
 
         if(box.getNode().getAttr('gender') === "Male"){
             start_y = 13;
@@ -107,8 +108,9 @@ class MiniBoxStyle{
         var small_font_size = 9;
         var dateLength = 18;
         var placeLength = 16;
-        box.setHeight(28);
+        box.setHeight(25);
         box.setWidth(255);
+        box.setSpace(3);
 
         render_sched
             .setBorderWidth(2)
@@ -120,8 +122,9 @@ class MiniBoxStyle{
     }
 
     private static applySingleBubbleFlavor(box :IBox, render_sched :RenderInstructionSchedule) :void{
-        box.setHeight(110);
+        box.setHeight(106);
         box.setWidth(105);
+        box.setSpace(1);
 
         var start_x = 17;
         var start_y = 38;

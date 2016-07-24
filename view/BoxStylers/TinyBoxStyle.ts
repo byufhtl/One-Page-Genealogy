@@ -70,7 +70,8 @@ class TinyBoxStyle{
         }
 
         box.setWidth(145);
-        box.setHeight(34);
+        box.setHeight(29);
+        box.setSpace(1);
 
         var start_x = 8;
         var s_start_x = 8;
@@ -97,7 +98,8 @@ class TinyBoxStyle{
         var start_x = 8;
         var start_y = 6;
         box.setWidth(145);
-        box.setHeight(13);
+        box.setHeight(8);
+        box.setSpace(2);
         render_sched
             .setNodeName(new Instruction(start_x,start_y,17))
             .setNodeSpan(new Instruction(start_x + 90, start_y, null));
@@ -108,7 +110,8 @@ class TinyBoxStyle{
         var start_y = 6;
         var dateLength = 14;
         box.setWidth(145);
-        box.setHeight(20);
+        box.setHeight(15);
+        box.setSpace(1);
         render_sched
             .setNodeName(new Instruction(start_x, start_y + 5, 17))
             .setNodeBDate(new Instruction(start_x + 90, start_y, dateLength))

@@ -278,15 +278,52 @@ class C implements IGraphicObjectListener, IOptionListener {
             });
         }
         else if (key === 'request-print-services') {
-            this.viewManager.getSVGString().then(function (svgString){
-                $.ajax({
+            this.viewManager.getSVGString().then(function (svgString){ // Get the SVG String
+                $.ajax({ // Make a request to the fhtl PDF converter
                     url: 'https://opg.fhtl.byu.edu/convert/',
                     type: 'POST',
                     data: {
                         'svg': svgString
                     }
-                }).then(function(result) {
+                }).then(function(result) { // response contains the converted PDF.
                     console.log("Just got back an interesting pdf result of: " + result);
+
+                    function b64EncodeUnicode(str) {
+                        return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+                            return String.fromCharCode(parseInt('0x' + p1 ,10));
+                        }));
+                    }
+
+                    // Convert PDF to preferred format (base64-encoded string)
+                    //var stringified = JSON.stringify(result);
+                    //console.log("STRG:", stringified);
+                    //var converted = atob(result);
+                    //console.log("ATOB:", converted);
+                    //var encodedFile = btoa(stringified);
+                    var encodedFile = b64EncodeUnicode(result);
+
+                    // Obtain the dimensional information
+                    var wIndex = svgString.indexOf('width="') + 7;
+                    var hIndex = svgString.indexOf('height="') + 8;
+                    var width = Math.round(svgString.slice(wIndex, svgString.indexOf('"', wIndex))/7.2)/10;
+                    var height = Math.round(svgString.slice(hIndex, svgString.indexOf('"', hIndex))/7.2)/10;
+
+                    console.log("Recommended Dimensions: " + width + " x " + height);
+                    if(false) {
+
+                        // Send the request to the Print Service Server.
+                        $.ajax({
+                            url: "https://",
+                            type: 'POST',
+                            data: {
+                                pdf: encodedFile,
+                                recommendedWidth: width,
+                                recommendedHeight: height
+                            }
+                        }).then(function (res) {
+                            console.log("Result of sending the package:", res);
+                        });
+                    }
                 })
             });
         }
@@ -313,8 +350,8 @@ class C implements IGraphicObjectListener, IOptionListener {
                 var height = s.slice(hIndex, s.indexOf('"', hIndex));
                 $('#ruler-ratio').val(width / height);
                 $('#ruler-original-height').val(height);
-                $('#ruler-height').val((height / 72).toFixed(1));
-                $('#ruler-width').val((width / 72).toFixed(1));
+                $('#ruler-height').val((height/ 72).toFixed(1));
+                $('#ruler-width').val((width/ 72).toFixed(1));
                 $('#rulerModal').modal('show');
             });
         }
