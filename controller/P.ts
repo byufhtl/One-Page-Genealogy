@@ -229,7 +229,7 @@ class P implements IControllerListener, ITreeListener {
                 count++;
                 var numDup = parseInt(box.charAt(box.length-1));
                 while(numDup >=0 ) {
-                    var id = box.replace(box.charAt(box.length-1),numDup);
+                    var id = box.replace(RegExp(box.charAt(box.length-1)),numDup);
                     this.stylingPipeline.addCustomColorStyle(id,{
                         color: ColorManager.generateRandomPastel()
                     });
