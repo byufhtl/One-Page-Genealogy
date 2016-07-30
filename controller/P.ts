@@ -353,21 +353,30 @@ class P implements IControllerListener, ITreeListener {
         var fullTag = statReport.createCommentTagByPercentage(full, true);
         var perFullRow = statReport.createStatRow("Estimated* Percent Full:", full , "%", fullTag);
         statsContainer.append(perFullRow);
+        var fullGen = statReport.getEstimatedPercentFullByGen();
+        var perFullGenRow = $("<div>");
+        for(let i = 0; i < fullGen.length; i++){
+            let fullGenTag = statReport.createCommentTagByPercentage(fullGen[i], true);
+            let perFullGenSubRow = statReport.createStatRow("Generation " + (i+1) + ":", fullGen[i] , "% Full", fullGenTag);
+            perFullGenRow.append(perFullGenSubRow);
+        }
+        statsContainer.append($("<hr>"));
+        statsContainer.append(perFullGenRow);
+        statsContainer.append($("<hr>"));
+
         var disclaimer: string;
         if(param.direction === 'descendancy'){
             var avgFamilyRow = statReport.createStatRow("Average Children per Family:", statReport.getAvgFamilySize(), "");
             statsContainer.append(avgFamilyRow);
             var avgSpousesRow = statReport.createStatRow("Average Number of Spouses:", statReport.getAvgSpouses(), "");
             statsContainer.append(avgSpousesRow);
-            disclaimer = "Based on 4 children per family per generation."
+            disclaimer = "Based on an average of 4 children per family per generation."
         }
         else if (param.direction === 'ascendancy'){
             disclaimer = "Based on 2 parents per family per generation."
         }
         statsContainer.append('<hr style="margin-top: 12%;"><div class="col-lg-12"><p id="stats-disclaimer" style="text-align: left;"></p></div>');
-        $('#stats-disclaimer').text("Estimation based on rough averages. " + disclaimer);
-
-        
+        $('#stats-disclaimer').text(disclaimer + " For more information, please visit the \"Features\" section of our help guide.");
     }
 
     private vpView(paramId:string):any {

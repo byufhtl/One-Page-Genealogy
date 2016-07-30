@@ -40,34 +40,24 @@ class TNode{
         switch(name){
             case TNode.NAME:
                 return this.display.displayName;
-                break;
             case TNode.GENDER:
                 return this.display.displayGender;
-                break;
             case TNode.B_DATE:
                 return this.display.displayBirthDate;
-                break;
             case TNode.B_PLACE:
                 return this.display.displayBirthPlace;
-                break;
             case TNode.D_DATE:
                 return this.display.displayDeathDate;
-                break;
             case TNode.D_PLACE:
                 return this.display.displayDeathPlace;
-                break;
             case TNode.M_DATE:
                 return this.display.displayMarriageDate;
-                break;
             case TNode.DISP_SPOUSE:
                 return this.display.displaySpouse;
-                break;
             case TNode.IS_MAIN:
                 return this.display.isMain;
-                break;
             case TNode.PICTURE_URL:
                 return this.display.pictureURL;
-                break;
             default:
                 return null;
         }

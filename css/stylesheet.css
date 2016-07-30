@@ -371,3 +371,7 @@ a.opg-blue:link{
     padding: 0 3px 0 3px;
     margin: 0;
 }
+
+.label-opg-perfect{
+    background-color: #5cb85c;
+}

@@ -229,7 +229,8 @@ class StringUtils {
     //Capitalizes the first letter only and the rest of the characters are lower case
     //-------------------------------
     private static capitalizeFirstLetter(names){
-        for(var i = 0; i < names.length; i++){
+        let limit = names.length;
+        for(var i = 0; i < limit; i++){
             if(names[i].match(/(I|V|X)+/i)){continue;}// Lets things like III or IV get through.
             var temp = names[i].substring(0,1); //first character
             var temp2 = names[i].substring(1); //rest of the name
@@ -240,11 +241,18 @@ class StringUtils {
 
             // Handles Scottish/Irish names like MacGiver, McAlister, etc.
             // If the name had the second capital letter in lower case, does not re-capitalize it.
-            if(temp.match(/Mc..+/i)){ //Regex
+            if(temp.match(/Mc[A-Z].+/i)){ //Regex
                 temp = temp.substring(0,2) + names[i].charAt(2) + temp.slice(3);
             }
-            if(temp.match(/Mac..+/i)){ //Regex
+            if(temp.match(/Mac[A-Z].+/i)){ //Regex
                 temp = temp.substring(0,3) + names[i].charAt(3) + temp.slice(4);
+            }
+
+            // Handles Scottish/Irish names like Mac Giver, Mc Bride, etc. by keeping the names together.
+            if(((temp.match(/Mc/i) && temp.length == 2) || (temp.match(/Mac/i) && temp.length == 3)) && i + 1 < limit){
+                temp = temp + " " + names[i+1];
+                names.splice(i + 1, 1);
+                --limit;
             }
 
             // Handles hyphenated names like Jones-McAlister.

@@ -16,6 +16,10 @@ class StatReport{
         this.maleCount = 0;
         this.femaleCount = 0;
         this.nodeCount = 0;
+        this.genNodeCount = [];
+        for(let i = 0; i < generations; i++){
+            this.genNodeCount.push(0);
+        }
 
         var root = boxMap.getRoot();
         if(root) {
@@ -30,7 +34,7 @@ class StatReport{
                     ++this.nodeCount;
                     var node = box.getNode();
                     var generation = entity[1];
-
+                    this.genNodeCount[generation]++;
                     this.evaluateGender(node);
 
                     var branchIds = node.getBranchIds();
@@ -63,6 +67,12 @@ class StatReport{
                 this.averageSpouseCount = this.roundStat(this.spouseCount/this.spouseUnitCount);
                 this.averageNumParents = this.roundStat(this.childCount/this.childUnitCount);
                 this.averageFamilySize = null;
+                this.percentFullByGen = [];
+                for(let i = 0; i < this.genNodeCount.length; i++){
+                    let per = this.roundStat((this.genNodeCount[i] * 100)/(Math.pow(2,i)), 1);
+                    per = (per > 100) ? 100 : per;
+                    this.percentFullByGen.push(per);
+                }
             }
 
             // For the descendancy-only statistics
@@ -72,6 +82,12 @@ class StatReport{
                 this.averageSpouseCount = this.roundStat(this.spouseCount/this.spouseUnitCount);
                 this.averageFamilySize = this.roundStat(this.childCount/this.childUnitCount, 2);
                 this.averageNumParents = null;
+                this.percentFullByGen = [];
+                for(let i = 0; i < this.genNodeCount.length; i++){
+                    let per = this.roundStat((this.genNodeCount[i] * 100)/(Math.pow(4,i)), 1);
+                    per = (per > 100) ? 100 : per;
+                    this.percentFullByGen.push(per);
+                }
             }
 
             this.percentFull = (this.percentFull > 100) ? 100 : this.percentFull;
@@ -100,6 +116,10 @@ class StatReport{
         return this.percentFull;
     }
 
+    getEstimatedPercentFullByGen() :number[]{
+        return this.percentFullByGen;
+    }
+
     getAvgFamilySize(): number{
         return this.averageFamilySize;
     }
@@ -120,8 +140,7 @@ class StatReport{
         var rank: number = top_down ? percent : (100-percent);
         var tag: Element = $('<span class="label label-default" style="margin-left: 4px;"></span>');
         if(rank < 10){
-            tag = $('<span class="label label-danger" style="margin-left: 4px;">Poor</span>');
-            //tag.text('Poor');
+            tag = $('<span class="label label-danger" style="margin-left: 4px;">Needs Improvement</span>');
         }
         else if(rank < 50){
             tag = $('<span class="label label-warning" style="margin-left: 4px;">Fair</span>');
@@ -134,8 +153,11 @@ class StatReport{
             tag = $('<span class="label label-info" style="margin-left: 4px;">Great</span>');
 
         }
-        else if(rank <= 100){
+        else if(rank < 100){
             tag = $('<span class="label label-success" style="margin-left: 4px;">Excellent</span>');
+        }
+        else{
+            tag = $('<span class="label label-opg-perfect" style="margin-left: 4px;">Perfect!</span>');
         }
         return tag;
     }
@@ -164,9 +186,11 @@ class StatReport{
 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 
     private nodeCount: number;
+    private genNodeCount: number[];
     private maleCount: number;
     private femaleCount: number; // These two are sufficient to calculate the percentUnknown
     private percentFull: number;
+    private percentFullByGen: number[];
     private averageFamilySize: number;
     private averageSpouseCount: number;
     private averageNumParents: number;
