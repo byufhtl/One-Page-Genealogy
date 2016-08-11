@@ -428,6 +428,12 @@ class C implements IGraphicObjectListener, IOptionListener {
         else if (key === 'to-generation-wood') {
             this.p.handle({type: key});
         }
+        else if (key === 'to-heat-red-color') {
+            this.p.handle({type: key});
+        }
+        else if (key === 'to-heat-blue-color') {
+            this.p.handle({type: key});
+        }
         else if (key === 'to-gender-color') {
             this.p.handle({type: key});
         }

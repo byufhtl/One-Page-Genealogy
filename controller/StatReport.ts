@@ -132,10 +132,6 @@ class StatReport{
         return this.averageNumParents;
     }
 
-    getMostCommonName(): string{
-        return this.mostCommonName;
-    }
-
     createCommentTagByPercentage(percent, top_down: boolean){
         var rank: number = top_down ? percent : (100-percent);
         var tag: Element = $('<span class="label label-default" style="margin-left: 4px;"></span>');
@@ -194,7 +190,6 @@ class StatReport{
     private averageFamilySize: number;
     private averageSpouseCount: number;
     private averageNumParents: number;
-    private mostCommonName: string;
 
     private evaluateGender(node: INode){
         if(node.hasAttr("gender")){

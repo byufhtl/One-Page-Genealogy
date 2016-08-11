@@ -167,6 +167,12 @@ class OptionManager implements IOptionManager {
         $('#opg-to-generation-wood').click(function(){
             self.handleStyleChange('to-generation-wood',false);
         });
+        $('#opg-to-heat-red-color').click(function(){
+            self.handleStyleChange('to-heat-red-color',false);
+        });
+        $('#opg-to-heat-blue-color').click(function(){
+            self.handleStyleChange('to-heat-blue-color',false);
+        });
         $('#opg-to-gender-color').click(function(){
             self.handleStyleChange('to-gender-color',false);
         });

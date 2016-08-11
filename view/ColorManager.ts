@@ -25,6 +25,7 @@ class ColorManager {
         ,   "#000000"   // 12) Black
         ,   "#BABABA"   // 13) Medium Gray
         ,   "#636363"   // 14) Dark Gray
+        ,   "#630000"   // 15) Dark Red
     ];
 
     /**
@@ -137,6 +138,13 @@ class ColorManager {
      */
     static darkgray() : string{
         return this.boxColors[14];
+    }
+
+    /**
+     * @returns {string} a hex-encoded color value for the standard OPG dark lightgray
+     */
+    static darkred() : string{
+        return this.boxColors[15];
     }
 
     /**
